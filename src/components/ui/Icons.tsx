@@ -76,7 +76,7 @@ export function Facebook({ className = "w-5 h-5" }: IconProps) {
 
 export function YouTube({ className = "w-5 h-5" }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
       <path d="M19.582 3.186A2.506 2.506 0 0 0 17.822 1.4C16.254 1 10 1 10 1S3.746 1 2.178 1.4A2.506 2.506 0 0 0 .418 3.186C.022 4.78.022 8.108.022 8.108s0 3.328.396 4.922a2.506 2.506 0 0 0 1.76 1.786C3.746 15.216 10 15.216 10 15.216s6.254 0 7.822-.4a2.506 2.506 0 0 0 1.76-1.786c.396-1.594.396-4.922.396-4.922s0-3.328-.396-4.922ZM7.978 11.158V5.058L13.194 8.108 7.978 11.158Z" />
     </svg>
   );

@@ -3,7 +3,7 @@ import { defineRouting } from "next-intl/routing";
 export const routing = defineRouting({
   locales: ["uk", "ru", "en"],
   defaultLocale: "uk",
-  localePrefix: "as-needed",
+  localePrefix: "always",
   pathnames: {
     "/": "/",
     "/pro-tsentr": {

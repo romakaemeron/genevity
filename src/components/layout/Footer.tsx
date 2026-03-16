@@ -79,7 +79,7 @@ export default function Footer() {
 
         <div className="border-t border-black-10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="body-s text-black-40">
-            &copy; {new Date().getFullYear()} Genevity. All rights reserved.
+            &copy; {new Date().getFullYear()} Genevity. {t("rights")}
           </p>
           <div className="flex items-center gap-6">
             <Link href="#" className="body-s text-black-40 hover:text-main transition-colors">

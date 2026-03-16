@@ -28,8 +28,10 @@ export default function Concerns() {
   ];
 
   return (
-    <section className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
-      <SectionHeader title={t("title")} linkText={t("link")} linkHref="/poslugy" />
+    <section>
+      <div className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+        <SectionHeader title={t("title")} linkText={t("link")} linkHref="/poslugy" />
+      </div>
 
       <motion.div
         className="mt-8 lg:mt-12"
@@ -40,7 +42,7 @@ export default function Concerns() {
       >
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 -mx-6 px-6 lg:mx-0 lg:px-0 snap-x snap-mandatory"
+          className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 pl-[max(1.5rem,calc((100vw-var(--container-max))/2+var(--container-padding)))] pr-6 snap-x snap-mandatory"
         >
           {items.map((item, i) => (
             <motion.div
@@ -65,7 +67,7 @@ export default function Concerns() {
         </div>
 
         {/* Carousel Controls */}
-        <div className="flex items-center justify-end gap-2 mt-4">
+        <div className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)] flex items-center justify-end gap-2 mt-4">
           <button
             onClick={() => scroll("left")}
             className="w-7 h-7 rounded-full border border-main/30 flex items-center justify-center text-main hover:bg-main hover:text-champagne transition-all cursor-pointer"
