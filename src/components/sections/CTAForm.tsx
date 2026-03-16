@@ -23,7 +23,7 @@ export default function CTAForm({ variant = "default" }: CTAFormProps) {
   return (
     <section
       id="booking"
-      className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]"
+      className="max-w-[var(--container-max)] md:mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]"
     >
       <motion.div
         variants={fadeInUp}
@@ -44,18 +44,18 @@ export default function CTAForm({ variant = "default" }: CTAFormProps) {
             {t("success")}
           </motion.p>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:max-w-md">
             <input
               type="text"
               placeholder={t("name")}
               required
-              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-main/0 hover:border-main focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
+              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-main/0 hover:border-main/50 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
             />
             <input
               type="tel"
               placeholder={t("phone")}
               required
-              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-transparent hover:border-main/30 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
+              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-main/0 hover:border-main/50 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
             />
             <div className="mt-2">
               <Button variant="secondary" type="submit">

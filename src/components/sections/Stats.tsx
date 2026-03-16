@@ -45,7 +45,7 @@ export default function Stats() {
   ];
 
   return (
-    <section className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+    <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
       <SectionHeader title={t("title")} linkText={t("link")} linkHref="/pro-tsentr" />
 
       <motion.div

@@ -23,23 +23,31 @@
     "items": [
       {
         "title": "Лицо",
-        "description": "Морщины, акне, лифтинг",
-        "image": "/images/concerns-face.jpg"
+        "description": "Морщины, акне, лифтинг"
       },
       {
         "title": "Тело",
-        "description": "Целлюлит, контуры, эпиляция",
-        "image": "/images/concerns-body.jpg"
+        "description": "Целлюлит, контуры, эпиляция"
       },
       {
         "title": "Волосы",
-        "description": "Лечение, густота",
-        "image": "/images/concerns-hair.jpg"
+        "description": "Лечение, густота"
       },
       {
         "title": "Медицинская дерматология",
-        "description": "Родинки, чекап кожи",
-        "image": "/images/concerns-derma.jpg"
+        "description": "Родинки, чекап кожи"
+      },
+      {
+        "title": "Anti-Age",
+        "description": "Омоложение, профилактика старения"
+      },
+      {
+        "title": "Longevity",
+        "description": "Программы долголетия, Check-Up"
+      },
+      {
+        "title": "Лазерная терапия",
+        "description": "Эпиляция, сосуды, пигментация"
       }
     ]
   },

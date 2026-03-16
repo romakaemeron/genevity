@@ -9,16 +9,14 @@ import { fadeInUp } from "@/lib/motion";
 export default function Concerns() {
   const t = useTranslations("concerns");
 
-  const items = [
-    { title: t("items.0.title"), description: t("items.0.description") },
-    { title: t("items.1.title"), description: t("items.1.description") },
-    { title: t("items.2.title"), description: t("items.2.description") },
-    { title: t("items.3.title"), description: t("items.3.description") },
-  ];
+  const items = Array.from({ length: 7 }, (_, i) => ({
+    title: t(`items.${i}.title`),
+    description: t(`items.${i}.description`),
+  }));
 
   return (
     <section>
-      <div className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <SectionHeader title={t("title")} linkText={t("link")} linkHref="/poslugy" />
       </div>
 

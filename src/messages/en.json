@@ -23,23 +23,31 @@
     "items": [
       {
         "title": "Face",
-        "description": "Wrinkles, acne, lifting",
-        "image": "/images/concerns-face.jpg"
+        "description": "Wrinkles, acne, lifting"
       },
       {
         "title": "Body",
-        "description": "Cellulite, contouring, hair removal",
-        "image": "/images/concerns-body.jpg"
+        "description": "Cellulite, contouring, hair removal"
       },
       {
         "title": "Hair",
-        "description": "Treatment, density",
-        "image": "/images/concerns-hair.jpg"
+        "description": "Treatment, density"
       },
       {
         "title": "Medical Dermatology",
-        "description": "Moles, skin checkup",
-        "image": "/images/concerns-derma.jpg"
+        "description": "Moles, skin checkup"
+      },
+      {
+        "title": "Anti-Age",
+        "description": "Rejuvenation, aging prevention"
+      },
+      {
+        "title": "Longevity",
+        "description": "Longevity programs, Check-Up"
+      },
+      {
+        "title": "Laser Therapy",
+        "description": "Hair removal, vessels, pigmentation"
       }
     ]
   },

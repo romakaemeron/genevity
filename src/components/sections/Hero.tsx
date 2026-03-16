@@ -10,7 +10,7 @@ export default function Hero() {
 
   return (
     <section className="relative pt-20 lg:pt-24">
-      <div className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <div className="relative bg-main rounded-[var(--radius-card)] overflow-hidden min-h-[500px] lg:min-h-[580px] flex items-end lg:items-center">
           {/* Content */}
           <div className="relative z-10 p-8 lg:p-16 pb-16 lg:pb-16 w-full lg:w-1/2">
@@ -32,7 +32,7 @@ export default function Hero() {
               {t("subtitle")}
             </motion.p>
             <motion.div
-              className="flex flex-col sm:flex-row gap-3"
+              className="flex flex-wrap gap-3"
               variants={fadeInUp}
               initial="hidden"
               animate="visible"
@@ -46,9 +46,8 @@ export default function Hero() {
                 {t("cta")}
               </Button>
               <Button
-                variant="ghost"
+                variant="outline-light"
                 href="/poslugy"
-                className="text-champagne hover:text-white"
               >
                 {t("programs")}
               </Button>

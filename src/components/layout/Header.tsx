@@ -27,16 +27,18 @@ export default function Header() {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-champagne/90 backdrop-blur-xl shadow-[0_1px_0_var(--color-black-10)]"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-999 transition-all duration-500 bg-champagne ${
+        mobileOpen
+          ? ""
+          : scrolled
+            ? "lg:bg-champagne/90 lg:backdrop-blur-xl shadow-[0_1px_0_var(--color-black-10)]"
+            : "lg:bg-transparent"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           <Link
             href="/"
@@ -91,29 +93,47 @@ export default function Header() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="lg:hidden fixed inset-0 top-16 bg-champagne/98 backdrop-blur-xl z-40"
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden fixed inset-x-0 top-16 bottom-0 z-[998]"
+            style={{ backgroundColor: "#FAF9F6" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="flex flex-col items-start gap-6 px-6 pt-10">
-              {navItems.map((item) => (
-                <Link
+            <div className="flex flex-col items-start gap-6 px-4 sm:px-6 pt-10">
+              {navItems.map((item, i) => (
+                <motion.div
                   key={item.href}
-                  href={item.href}
-                  className="heading-3 text-black hover:text-main transition-colors"
-                  onClick={() => setMobileOpen(false)}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.05 + i * 0.04, duration: 0.25 }}
                 >
-                  {item.label}
-                </Link>
+                  <Link
+                    href={item.href}
+                    className="heading-3 text-black hover:text-main transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
-              <Button variant="primary" href="#booking" className="mt-4 w-full text-center">
-                {t("cta")}
-              </Button>
-              <div className="mt-2">
+              <motion.div
+                className="w-full mt-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.25 }}
+              >
+                <Button variant="primary" href="#booking" className="w-full text-center">
+                  {t("cta")}
+                </Button>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.2 }}
+              >
                 <LocaleSelector />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         )}

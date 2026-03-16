@@ -12,6 +12,9 @@ const doctors = [
   { name: "Др. Андрій Мельник", experience: "12 років досвіду", specialties: ["Косметологія", "Ін'єкції"] },
   { name: "Др. Марина Шевченко", experience: "10 років досвіду", specialties: ["Лазерна терапія", "Естетика"] },
   { name: "Др. Ігор Петренко", experience: "18 років досвіду", specialties: ["Longevity", "Діагностика"] },
+  { name: "Др. Наталія Бойко", experience: "8 років досвіду", specialties: ["Трихологія", "PRP-терапія"] },
+  { name: "Др. Олександр Литвин", experience: "14 років досвіду", specialties: ["IV-терапія", "Check-Up"] },
+  { name: "Др. Тетяна Григоренко", experience: "11 років досвіду", specialties: ["Контурна пластика", "Біоревіталізація"] },
 ];
 
 export default function Experts() {
@@ -19,7 +22,7 @@ export default function Experts() {
 
   return (
     <section>
-      <div className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <SectionHeader
           title={t("title")}
           subtitle={t("subtitle")}

@@ -23,23 +23,31 @@
     "items": [
       {
         "title": "Обличчя",
-        "description": "Зморшки, акне, ліфтинг",
-        "image": "/images/concerns-face.jpg"
+        "description": "Зморшки, акне, ліфтинг"
       },
       {
         "title": "Тіло",
-        "description": "Целюліт, контури, епіляція",
-        "image": "/images/concerns-body.jpg"
+        "description": "Целюліт, контури, епіляція"
       },
       {
         "title": "Волосся",
-        "description": "Лікування, густота",
-        "image": "/images/concerns-hair.jpg"
+        "description": "Лікування, густота"
       },
       {
         "title": "Медична дерматологія",
-        "description": "Родимки, чекап шкіри",
-        "image": "/images/concerns-derma.jpg"
+        "description": "Родимки, чекап шкіри"
+      },
+      {
+        "title": "Anti-Age",
+        "description": "Омолодження, профілактика старіння"
+      },
+      {
+        "title": "Longevity",
+        "description": "Програми довголіття, Check-Up"
+      },
+      {
+        "title": "Лазерна терапія",
+        "description": "Епіляція, судини, пігментація"
       }
     ]
   },

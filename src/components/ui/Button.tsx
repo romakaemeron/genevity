@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+type ButtonVariant = "primary" | "secondary" | "outline" | "outline-light" | "ghost";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -19,9 +19,11 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     "bg-main text-champagne hover:bg-main-dark",
   secondary:
-    "bg-rosegold text-champagne hover:bg-rosegold-dark",
+    "bg-rosegold text-black hover:bg-rosegold-dark",
   outline:
     "border border-main text-black hover:bg-main hover:text-champagne",
+  "outline-light":
+    "border border-champagne/40 text-champagne hover:bg-champagne hover:text-black",
   ghost:
     "text-main hover:text-main-dark",
 };
@@ -36,7 +38,7 @@ export default function Button({
   disabled = false,
 }: ButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-[var(--radius-button)] font-[var(--font-body)] font-medium text-base transition-all duration-[var(--duration-normal)] ease-[var(--ease-out-expo)] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-[var(--radius-button)] font-[var(--font-body)] font-medium text-base whitespace-nowrap transition-all duration-[var(--duration-normal)] ease-[var(--ease-out-expo)] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed";
 
   const combinedClasses = `${baseClasses} ${variants[variant]} ${className}`;
 

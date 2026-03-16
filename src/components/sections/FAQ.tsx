@@ -16,7 +16,7 @@ export default function FAQ() {
   }));
 
   return (
-    <section className="max-w-[var(--container-max)] mx-auto px-6 lg:px-[var(--container-padding)]">
+    <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
       <motion.h2
         className="heading-2 text-black mb-8 lg:mb-12"
         variants={fadeInUp}
@@ -52,11 +52,11 @@ export default function FAQ() {
                 </motion.span>
               </button>
               <div
-                className="grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="grid bg-main transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
                 <div className="overflow-hidden">
-                  <div className="p-4 bg-main-dark/80 text-champagne/80 body-l">
+                  <div className="p-4 bg-main-dark text-champagne/80 body-l">
                     {item.answer}
                   </div>
                 </div>
