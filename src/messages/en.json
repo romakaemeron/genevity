@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "title": "Genevity — Medical Longevity Center in Dnipro",
+    "description": "Longevity medicine and quality of life. Swiss safety standards combined with premium service."
+  },
+  "nav": {
+    "services": "Services",
+    "about": "About",
+    "doctors": "Doctors",
+    "blog": "Blog",
+    "contacts": "Contacts",
+    "cta": "Book Now"
+  },
+  "hero": {
+    "title": "The Art of Your Perfection in Dnipro",
+    "subtitle": "Medical center of aesthetic medicine and longevity. Combining Swiss safety standards with premium service.",
+    "cta": "Book a Consultation",
+    "programs": "Our Programs"
+  },
+  "concerns": {
+    "title": "What concerns you?",
+    "link": "Learn more",
+    "items": [
+      {
+        "title": "Face",
+        "description": "Wrinkles, acne, lifting",
+        "image": "/images/concerns-face.jpg"
+      },
+      {
+        "title": "Body",
+        "description": "Cellulite, contouring, hair removal",
+        "image": "/images/concerns-body.jpg"
+      },
+      {
+        "title": "Hair",
+        "description": "Treatment, density",
+        "image": "/images/concerns-hair.jpg"
+      },
+      {
+        "title": "Medical Dermatology",
+        "description": "Moles, skin checkup",
+        "image": "/images/concerns-derma.jpg"
+      }
+    ]
+  },
+  "services": {
+    "title": "Our Services",
+    "link": "View all services",
+    "download": "Download price list",
+    "items": [
+      "Injectable Cosmetology",
+      "Hardware Lifting",
+      "Body Aesthetics",
+      "Laser Hair Removal",
+      "Anti-Age Therapy",
+      "IV Therapy",
+      "Check-Up Programs",
+      "Skin Diagnostics",
+      "Dermatology",
+      "Trichology",
+      "Longevity Programs",
+      "Hormonal Balance"
+    ]
+  },
+  "technology": {
+    "title": "Investment in your beauty:",
+    "titleAccent": "World-class technology",
+    "link": "View all technologies",
+    "items": [
+      {
+        "name": "Morpheus8",
+        "description": "The gold standard of micro-needling RF lifting. Skin tightening and facial contouring at subdermal layers."
+      },
+      {
+        "name": "Lumenis M22",
+        "description": "Multi-module platform for perfect skin tone. Pigmentation removal, vascular treatment and photorejuvenation."
+      },
+      {
+        "name": "HydraFacial",
+        "description": "Hollywood-grade care: gentle cleansing, hydration and glow without recovery time."
+      }
+    ]
+  },
+  "ctaForm": {
+    "title": "Ready to embrace your natural beauty?",
+    "titleAlt": "Get a Consultation",
+    "name": "Your name",
+    "phone": "Phone number",
+    "submit": "Book Now",
+    "success": "Thank you! We will contact you shortly."
+  },
+  "experts": {
+    "title": "Our Experts",
+    "subtitle": "Our doctors are architects of your beauty. Every specialist holds advanced medical degrees and international certifications",
+    "link": "Meet the team",
+    "cta": "Book a Consultation"
+  },
+  "stats": {
+    "title": "Experience that inspires confidence",
+    "link": "About us",
+    "items": [
+      { "value": "15+", "label": "Doctors" },
+      { "value": "50+", "label": "Years combined experience" },
+      { "value": "30+", "label": "Equipment units" },
+      { "value": "5000+", "label": "Satisfied patients" }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "How do I book an appointment?",
+        "answer": "You can book through the form on our website, by calling us, or messaging us on Instagram."
+      },
+      {
+        "question": "Is a preliminary consultation required?",
+        "answer": "Yes, before most procedures we conduct a free consultation to determine an individual treatment plan."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept cash, bank cards and contactless payment. Installment plans are also available."
+      },
+      {
+        "question": "How long is the recovery after procedures?",
+        "answer": "Recovery time depends on the procedure type. Many of our treatments require no downtime."
+      },
+      {
+        "question": "Do you have a license?",
+        "answer": "Yes, Genevity holds a license from the Ministry of Health of Ukraine for medical practice."
+      },
+      {
+        "question": "Do you work with international patients?",
+        "answer": "Yes, we provide medical tourism services with full English-language support."
+      }
+    ]
+  },
+  "beforeAfter": {
+    "title": "Transformation: Before & After",
+    "subtitle": "Real results that speak for themselves",
+    "link": "All results",
+    "before": "Before",
+    "after": "After"
+  },
+  "footer": {
+    "description": "Medical center of aesthetic medicine and longevity.",
+    "license": "Licensed by the Ministry of Health of Ukraine",
+    "useful": "Useful",
+    "usefulLinks": [
+      { "label": "Services & Prices", "href": "/poslugy" },
+      { "label": "Our Doctors", "href": "/likari" },
+      { "label": "About the Clinic", "href": "/pro-tsentr" },
+      { "label": "Blog / Articles", "href": "/blog" }
+    ],
+    "contact": "Contact",
+    "address": "Dnipro, Ukraine",
+    "phone": "+38 (0XX) XXX XX XX",
+    "hours": "Mon-Sat: 09:00 — 20:00",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  }
+}
