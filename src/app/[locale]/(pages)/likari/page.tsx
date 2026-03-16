@@ -61,7 +61,6 @@ export default function DoctorsPage() {
             <motion.div
               key={i}
               variants={fadeInUp}
-              whileHover={{ y: -4 }}
               className="flex flex-col lg:flex-row gap-6 bg-main/5 rounded-[var(--radius-card)] p-6 lg:p-8"
             >
               <div className="shrink-0 w-full lg:w-48 h-56 lg:h-auto bg-main rounded-[var(--radius-card)] flex items-center justify-center text-champagne/20 body-m">

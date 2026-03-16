@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
+import LocaleSelector from "@/components/ui/LocaleSelector";
 
 export default function Header() {
   const t = useTranslations("nav");
@@ -57,7 +58,8 @@ export default function Header() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-4">
+            <LocaleSelector />
             <Button variant="primary" href="#booking">
               {t("cta")}
             </Button>
@@ -90,12 +92,12 @@ export default function Header() {
         {mobileOpen && (
           <motion.div
             className="lg:hidden fixed inset-0 top-16 bg-champagne/98 backdrop-blur-xl z-40"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="flex flex-col items-center justify-center gap-8 pt-20">
+            <div className="flex flex-col items-start gap-6 px-6 pt-10">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -106,9 +108,12 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Button variant="primary" href="#booking" className="mt-4">
+              <Button variant="primary" href="#booking" className="mt-4 w-full text-center">
                 {t("cta")}
               </Button>
+              <div className="mt-2">
+                <LocaleSelector />
+              </div>
             </div>
           </motion.div>
         )}

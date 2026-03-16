@@ -75,7 +75,6 @@ export default function BlogPage() {
             <motion.article
               key={i}
               variants={fadeInUp}
-              whileHover={{ y: -6 }}
               className="group cursor-pointer"
             >
               <div className="bg-main rounded-[var(--radius-card)] aspect-[16/10] mb-4 overflow-hidden relative">

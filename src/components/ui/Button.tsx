@@ -42,7 +42,7 @@ export default function Button({
 
   if (href) {
     return (
-      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className={className.includes("w-full") ? "w-full" : undefined}>
         <Link href={href} className={combinedClasses}>
           {children}
         </Link>

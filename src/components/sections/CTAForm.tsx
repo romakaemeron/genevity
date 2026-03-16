@@ -49,7 +49,7 @@ export default function CTAForm({ variant = "default" }: CTAFormProps) {
               type="text"
               placeholder={t("name")}
               required
-              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-transparent hover:border-main/30 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
+              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-main/0 hover:border-main focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
             />
             <input
               type="tel"
