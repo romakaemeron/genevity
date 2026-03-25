@@ -27,6 +27,7 @@ export const routing = defineRouting({
       ru: "/kontakty",
       en: "/contacts",
     },
+    "/ui-kit": "/ui-kit",
   },
 });
 

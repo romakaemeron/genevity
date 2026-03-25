@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import LocaleSelector from "@/components/ui/LocaleSelector";
 
@@ -40,11 +41,15 @@ export default function Header() {
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
-          <Link
-            href="/"
-            className="font-[var(--font-heading)] text-2xl font-semibold text-black tracking-wide"
-          >
-            GENEVITY
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/brand/LogoFullDark.svg"
+              alt="GENEVITY"
+              width={180}
+              height={40}
+              className="h-8 lg:h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}
