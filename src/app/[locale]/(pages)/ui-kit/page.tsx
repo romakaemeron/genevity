@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronRight, Plus, Phone, MapPin, Clock } from "@/components/ui/Icons";
@@ -73,7 +74,7 @@ export default function UIKitPage() {
         <div className="absolute -top-1/2 -right-[20%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(160,136,120,.15)_0%,transparent_70%)] rounded-full" />
         <div className="absolute -bottom-[30%] -left-[10%] w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(195,216,231,.1)_0%,transparent_70%)] rounded-full" />
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] relative z-10">
-          <p className="eyebrow text-main-light mb-6">GENEVITY</p>
+          <Image src="/brand/LogoFullLight.svg" alt="GENEVITY" width={160} height={36} className="h-7 w-auto mb-6 opacity-60" />
           <h1 className="font-[var(--font-heading)] font-light text-[clamp(48px,6vw,80px)] leading-[0.9] tracking-[-0.03em] max-w-[800px] mb-6">
             Design <em className="italic text-ice">System</em>
           </h1>
@@ -86,12 +87,10 @@ export default function UIKitPage() {
       {/* Sticky nav */}
       <nav className="sticky top-16 lg:top-20 z-40 bg-champagne/85 backdrop-blur-[20px] backdrop-saturate-[180%] border-b border-black-5 py-4">
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex items-center gap-8 overflow-x-auto scrollbar-hide">
-          <span className="font-[var(--font-heading)] text-[20px] font-semibold text-main-dark tracking-[0.08em] uppercase whitespace-nowrap">
-            GENEVITY
-            <span className="block text-[11px] font-[var(--font-body)] font-medium text-black-40 tracking-[0.2em] uppercase mt-0.5">
-              Design System
-            </span>
-          </span>
+          <div className="shrink-0 flex flex-col items-start">
+            <Image src="/brand/LogoFullDark.svg" alt="GENEVITY" width={140} height={32} className="h-6 w-auto" />
+            <span className="text-[10px] font-medium text-black-40 tracking-[0.2em] uppercase mt-0.5">Design System</span>
+          </div>
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -685,7 +684,7 @@ export default function UIKitPage() {
         <div className="bg-black text-champagne p-10 lg:p-16 rounded-[var(--radius-card)]">
           <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-12">
             <div>
-              <p className="font-[var(--font-heading)] text-[28px] font-semibold tracking-[0.06em] uppercase mb-3">GENEVITY</p>
+              <Image src="/brand/LogoFullLight.svg" alt="GENEVITY" width={180} height={40} className="h-8 w-auto mb-3" />
               <p className="body-m text-white-60 max-w-[280px]">Клініка естетичної медицини та довголіття у центрі Дніпра.</p>
             </div>
             <div>

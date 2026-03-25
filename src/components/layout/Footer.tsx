@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Instagram, Facebook, YouTube, MapPin, Phone, Clock } from "@/components/ui/Icons";
 
@@ -20,11 +21,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
           {/* Brand */}
           <div className="flex flex-col gap-3">
-            <Link
-              href="/"
-              className="font-[var(--font-heading)] text-2xl font-semibold text-black"
-            >
-              GENEVITY
+            <Link href="/">
+              <Image
+                src="/brand/LogoFullDark.svg"
+                alt="GENEVITY"
+                width={160}
+                height={36}
+                className="h-8 w-auto"
+              />
             </Link>
             <p className="body-m text-black-60">{t("description")}</p>
             <p className="body-s text-black-40 mt-2">{t("license")}</p>
