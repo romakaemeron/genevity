@@ -29,7 +29,7 @@ export default function DoctorCard({ index, onClick }: DoctorCardProps) {
         {photo ? (
           <Image
             src={photo.card}
-            alt={name}
+            alt={`Лікар ${role} ${name} — GENEVITY Дніпро`}
             fill
             className="object-cover"
             style={{ objectPosition: photo.cardPosition }}

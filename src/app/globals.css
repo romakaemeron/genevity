@@ -165,7 +165,7 @@ img::selection {
   font-family: var(--font-heading);
   font-weight: 400;
   font-size: clamp(40px, 5vw, 64px);
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -0.03em;
   text-wrap: balance;
 }

@@ -29,7 +29,7 @@ export default function Hero() {
             {/* Sharp image — full coverage */}
             <Image
               src="/clinic/acupulse.webp"
-              alt="Genevity clinic interior"
+              alt="Інтер'єр преміальної клініки довголіття GENEVITY у Дніпрі"
               fill
               className="object-cover object-center"
               sizes="(max-width: 1024px) 100vw, 1200px"

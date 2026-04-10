@@ -145,6 +145,14 @@ export default function About() {
 
 /* ---- Shared sub-components ---- */
 
+const CLINIC_PHOTO_ALTS = [
+  "Зал апаратної косметології GENEVITY Дніпро",
+  "Інтер'єр медичного центру GENEVITY",
+  "Кабінет лікаря клініки довголіття GENEVITY",
+  "Апарат HydraFacial у клініці GENEVITY Дніпро",
+  "Лазерне обладнання AcuPulse у GENEVITY",
+];
+
 function SlideshowImages({ current, sizes }: { current: number; sizes: string }) {
   return (
     <>
@@ -156,7 +164,7 @@ function SlideshowImages({ current, sizes }: { current: number; sizes: string })
         >
           <Image
             src={src}
-            alt={`Genevity clinic ${i + 1}`}
+            alt={CLINIC_PHOTO_ALTS[i]}
             fill
             className="object-cover"
             sizes={sizes}

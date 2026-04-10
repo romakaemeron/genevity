@@ -6,20 +6,102 @@ import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
+import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import "../globals.css";
 
-export const metadata: Metadata = {
-  title: "Genevity — Медичний центр довголіття у Дніпрі",
-  description:
-    "Медицина довголіття та якості життя. Поєднуємо швейцарські стандарти безпеки та преміальний сервіс.",
-  metadataBase: new URL("https://genevity.ua"),
-  openGraph: {
-    title: "Genevity — Медичний центр довголіття",
-    description: "Поєднуємо швейцарські стандарти безпеки та преміальний сервіс",
-    type: "website",
-    locale: "uk_UA",
-  },
+const titles: Record<string, string> = {
+  ua: "GENEVITY — Медичний центр довголіття та естетичної медицини у Дніпрі",
+  ru: "GENEVITY — Медицинский центр долголетия и эстетической медицины в Днепре",
+  en: "GENEVITY — Luxury Longevity & Aesthetic Medicine Center in Dnipro",
 };
+
+const descriptions: Record<string, string> = {
+  ua: "Преміальний медичний центр довголіття та естетичної медицини у Дніпрі. Персоналізовані програми здоров'я та омолодження. ☎ +380 73 000 0150",
+  ru: "Премиальный медицинский центр долголетия и эстетической медицины в Днепре. Персонализированные программы здоровья и омоложения. ☎ +380 73 000 0150",
+  en: "Premium longevity and aesthetic medicine center in Dnipro, Ukraine. Personalized health and rejuvenation programs. ☎ +380 73 000 0150",
+};
+
+const ogLocales: Record<string, string> = {
+  ua: "uk_UA",
+  ru: "ru_UA",
+  en: "en_US",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lang = locale as "ua" | "ru" | "en";
+
+  return {
+    metadataBase: new URL("https://genevity.com.ua"),
+    title: {
+      default: titles[lang] || titles.ua,
+      template: "%s | GENEVITY",
+    },
+    description: descriptions[lang] || descriptions.ua,
+    keywords: [
+      "GENEVITY",
+      "медичний центр довголіття",
+      "естетична медицина",
+      "Дніпро",
+      "косметологія",
+      "апаратна косметологія",
+      "longevity medicine",
+      "anti-aging",
+      "HydraFacial",
+      "EMFACE",
+      "EMSCULPT NEO",
+    ],
+    alternates: {
+      canonical: locale === "ua" ? "/" : `/${locale}`,
+      languages: {
+        "uk": "/",
+        "ru": "/ru",
+        "en": "/en",
+        "x-default": "/",
+      },
+    },
+    openGraph: {
+      title: titles[lang] || titles.ua,
+      description: descriptions[lang] || descriptions.ua,
+      type: "website",
+      locale: ogLocales[lang] || "uk_UA",
+      siteName: "GENEVITY",
+      images: [
+        {
+          url: "/og/genevity-og.jpg",
+          width: 1200,
+          height: 630,
+          alt: "GENEVITY — медичний центр довголіття у Дніпрі",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titles[lang] || titles.ua,
+      description: descriptions[lang] || descriptions.ua,
+      images: ["/og/genevity-og.jpg"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+      },
+    },
+    other: {
+      "geo.region": "UA-12",
+      "geo.placename": "Dnipro",
+      "geo.position": "48.4647;35.0461",
+      "ICBM": "48.4647, 35.0461",
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -40,6 +122,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="antialiased">
         <ImageProtection />
+        <OrganizationSchema />
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main>{children}</main>
