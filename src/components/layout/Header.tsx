@@ -78,12 +78,14 @@ export default function Header() {
             </BookingCTA>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="lg:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
+          {/* Mobile: locale + hamburger */}
+          <div className="lg:hidden flex items-center gap-3">
+            <LocaleSelector />
+            <button
+              className="flex flex-col gap-1.5 p-2 cursor-pointer"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
             <motion.span
               className="w-6 h-0.5 bg-black block"
               animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
@@ -96,7 +98,8 @@ export default function Header() {
               className="w-6 h-0.5 bg-black block"
               animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
             />
-          </button>
+            </button>
+          </div>
         </nav>
       </div>
 
@@ -137,13 +140,6 @@ export default function Header() {
                 <BookingCTA variant="primary" className="w-full text-center">
                   {t("cta")}
                 </BookingCTA>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.2 }}
-              >
-                <LocaleSelector />
               </motion.div>
             </div>
           </motion.div>
