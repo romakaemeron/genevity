@@ -2,17 +2,25 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import DoctorCard from "@/components/doctors/DoctorCard";
 import DoctorModalContent from "@/components/doctors/DoctorModal";
-import { DOCTOR_COUNT } from "@/components/doctors/constants";
+import type { DoctorItem } from "@/sanity/types";
 
-export default function Doctors() {
-  const t = useTranslations("doctors");
+interface DoctorsProps {
+  doctors: DoctorItem[];
+  ui: {
+    title: string;
+    subtitle: string;
+    cta: string;
+    experience: string;
+  };
+}
+
+export default function Doctors({ doctors, ui }: DoctorsProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -75,11 +83,11 @@ export default function Doctors() {
         className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-10"
       >
         <motion.h2 variants={fadeInUp} className="heading-2 text-black">
-          {t("title")}
+          {ui.title}
         </motion.h2>
         <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <p className="body-l text-black-60 max-w-[600px]">
-            {t("subtitle")}
+            {ui.subtitle}
           </p>
           <div className="flex gap-2 shrink-0">
             <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
@@ -101,14 +109,14 @@ export default function Doctors() {
         whileInView="visible"
         viewport={viewportConfig}
       >
-        {Array.from({ length: DOCTOR_COUNT }, (_, i) => (
+        {doctors.map((doctor, i) => (
           <motion.div
-            key={i}
+            key={doctor._id}
             variants={fadeInUp}
             className="shrink-0"
             style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}
           >
-            <DoctorCard index={i} onClick={() => setExpandedDoctor(i)} />
+            <DoctorCard doctor={doctor} detailsLabel={ui.cta} onClick={() => setExpandedDoctor(i)} />
           </motion.div>
         ))}
       </motion.div>
@@ -117,7 +125,11 @@ export default function Doctors() {
       <AnimatePresence>
         {expandedDoctor !== null && (
           <Modal open onClose={closeModal}>
-            <DoctorModalContent index={expandedDoctor} />
+            <DoctorModalContent
+              doctor={doctors[expandedDoctor]}
+              cta={ui.cta}
+              experience={ui.experience}
+            />
           </Modal>
         )}
       </AnimatePresence>

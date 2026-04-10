@@ -1,15 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import { MapPin } from "lucide-react";
 import { fadeInUp, fadeIn } from "@/lib/motion";
+import type { HeroData } from "@/sanity/types";
 
-export default function Hero() {
-  const t = useTranslations("landingHero");
-
+export default function Hero({ data }: { data: HeroData }) {
   return (
     <section className="relative pt-20 lg:pt-24 overflow-hidden">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
@@ -76,7 +74,7 @@ export default function Hero() {
                 animate="visible"
                 transition={{ delay: 0.1 }}
               >
-                {t("title")}
+                {data.title}
               </motion.h1>
 
               <motion.p
@@ -86,7 +84,7 @@ export default function Hero() {
                 animate="visible"
                 transition={{ delay: 0.2 }}
               >
-                {t("subtitle")}
+                {data.subtitle}
               </motion.p>
 
               <motion.div
@@ -103,14 +101,14 @@ export default function Hero() {
                   className="flex items-center gap-1.5 body-l text-white-60 hover:text-champagne transition-colors duration-200 w-fit"
                 >
                   <MapPin className="w-4 h-4" />
-                  {t("location")}
+                  {data.location}
                 </a>
                 <BookingCTA
                   variant="secondary"
                   size="lg"
                   className="bg-champagne text-black hover:bg-champagne-dark self-start"
                 >
-                  {t("cta")}
+                  {data.cta}
                 </BookingCTA>
               </motion.div>
             </div>

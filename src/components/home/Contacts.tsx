@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { MapPin, Phone, Instagram } from "@/components/ui/Icons";
+import type { SiteSettingsData } from "@/sanity/types";
 
-export default function Contacts() {
-  const t = useTranslations("contacts");
+export default function Contacts({ data }: { data: { settings: SiteSettingsData; ui: { title: string; instagramLabel: string } } }) {
+  const { settings, ui } = data;
 
   return (
     <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
@@ -18,7 +18,7 @@ export default function Contacts() {
         className="flex flex-col gap-8"
       >
         <motion.h2 variants={fadeInUp} className="heading-2 text-black">
-          {t("title")}
+          {ui.title}
         </motion.h2>
 
         <motion.div
@@ -35,7 +35,7 @@ export default function Contacts() {
               rel="noopener noreferrer"
               className="body-l text-black hover:text-main transition-colors"
             >
-              {t("address")}
+              {settings.address}
             </a>
           </div>
 
@@ -44,11 +44,11 @@ export default function Contacts() {
               <Phone className="w-5 h-5" />
             </div>
             <div className="flex flex-col gap-1">
-              <a href={`tel:${t("phone1").replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">
-                {t("phone1")}
+              <a href={`tel:${settings.phone1.replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">
+                {settings.phone1}
               </a>
-              <a href={`tel:${t("phone2").replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">
-                {t("phone2")}
+              <a href={`tel:${settings.phone2.replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">
+                {settings.phone2}
               </a>
             </div>
           </div>
@@ -58,14 +58,14 @@ export default function Contacts() {
               <Instagram className="w-5 h-5" />
             </div>
             <div className="flex flex-col gap-1">
-              <p className="body-s text-black-40">{t("instagramLabel")}</p>
+              <p className="body-s text-black-40">{ui.instagramLabel}</p>
               <a
-                href={`https://instagram.com/${t("instagram")}`}
+                href={`https://instagram.com/${settings.instagram}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="body-l text-black hover:text-main transition-colors"
               >
-                @{t("instagram")}
+                @{settings.instagram}
               </a>
             </div>
           </div>

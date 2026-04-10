@@ -2,29 +2,27 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { useDirectionalReveal } from "@/lib/useReveal";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import EquipmentCard from "@/components/equipment/EquipmentCard";
 import EquipmentModalContent from "@/components/equipment/EquipmentModal";
+import type { EquipmentItem, HomepageData } from "@/sanity/types";
 
 type Category = "all" | "face" | "body" | "skin" | "intimate" | "laser";
 
 const CATEGORIES: Category[] = ["all", "face", "body", "skin", "intimate", "laser"];
 
-export default function Equipment() {
-  const t = useTranslations("equipment");
-  const [activeTab, setActiveTab] = useState<Category>("all");
-  const [expandedItem, setExpandedItem] = useState<number | null>(null);
-  const [visibleCount, setVisibleCount] = useState(6);
+interface EquipmentProps {
+  items: EquipmentItem[];
+  ui: HomepageData["ui"]["equipment"];
+}
 
-  const itemCount = 15;
-  const items = Array.from({ length: itemCount }, (_, i) => ({
-    index: i,
-    category: t(`items.${i}.category`) as Category,
-  }));
+export default function Equipment({ items, ui }: EquipmentProps) {
+  const [activeTab, setActiveTab] = useState<Category>("all");
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const filtered =
     activeTab === "all"
@@ -43,6 +41,8 @@ export default function Equipment() {
   const tabIndex = CATEGORIES.indexOf(activeTab);
   const revealRef = useDirectionalReveal(tabIndex);
 
+  const selectedItem = items.find((item) => item._id === expandedItem) ?? null;
+
   return (
     <motion.section
       className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-6"
@@ -53,7 +53,7 @@ export default function Equipment() {
     >
       {/* Heading */}
       <motion.h2 variants={fadeInUp} className="heading-2 text-black">
-        {t("title")}
+        {ui.title}
       </motion.h2>
 
       {/* Tabs */}
@@ -68,7 +68,7 @@ export default function Equipment() {
                 : "bg-champagne-dark text-black-60 hover:bg-champagne-darker hover:text-black"
             }`}
           >
-            {t(`tabs.${cat}`)}
+            {ui.tabs[cat]}
           </button>
         ))}
       </motion.div>
@@ -81,9 +81,10 @@ export default function Equipment() {
         >
           {filtered.slice(0, visibleCount).map((item) => (
             <EquipmentCard
-              key={item.index}
-              index={item.index}
-              onClick={() => setExpandedItem(item.index)}
+              key={item._id}
+              item={item}
+              detailsLabel={ui.details}
+              onClick={() => setExpandedItem(item._id)}
             />
           ))}
         </div>
@@ -98,7 +99,7 @@ export default function Equipment() {
               size="sm"
               onClick={() => setVisibleCount((c) => c + 6)}
             >
-              {t("showMore")}
+              {ui.showMore}
             </Button>
           )}
           {hasLess && (
@@ -107,7 +108,7 @@ export default function Equipment() {
               variant="secondary"
               onClick={() => setVisibleCount(6)}
             >
-              {t("showLess")}
+              {ui.showLess}
             </Button>
           )}
         </div>
@@ -115,9 +116,13 @@ export default function Equipment() {
 
       {/* Modal */}
       <AnimatePresence>
-        {expandedItem !== null && (
+        {selectedItem !== null && (
           <Modal open onClose={closeModal}>
-            <EquipmentModalContent index={expandedItem} />
+            <EquipmentModalContent
+              item={selectedItem}
+              suitsTitle={ui.suitsTitle}
+              resultsTitle={ui.resultsTitle}
+            />
           </Modal>
         )}
       </AnimatePresence>

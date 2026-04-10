@@ -2,18 +2,17 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { Plus } from "@/components/ui/Icons";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import type { FaqItem } from "@/sanity/types";
 
-export default function FAQ() {
-  const t = useTranslations("faq");
+interface FAQProps {
+  items: FaqItem[];
+  title: string;
+}
+
+export default function FAQ({ items, title }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const items = Array.from({ length: 6 }, (_, i) => ({
-    question: t(`items.${i}.question`),
-    answer: t(`items.${i}.answer`),
-  }));
 
   return (
     <section className="max-w-(--container-max) mx-auto px-4 sm:px-6 lg:px-(--container-padding)">
@@ -24,7 +23,7 @@ export default function FAQ() {
         whileInView="visible"
         viewport={viewportConfig}
       >
-        {t("title")}
+        {title}
       </motion.h2>
 
       <motion.div
@@ -37,7 +36,7 @@ export default function FAQ() {
         {items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
-            <motion.div key={i} variants={fadeInUp} layout="position">
+            <motion.div key={item._id} variants={fadeInUp} layout="position">
               <button
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 className="w-full flex items-center justify-between p-4 bg-main text-champagne border-b border-rosegold/30 cursor-pointer hover:bg-main-dark transition-colors"

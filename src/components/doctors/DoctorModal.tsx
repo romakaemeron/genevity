@@ -1,43 +1,31 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { DOCTOR_PHOTOS } from "./constants";
+import type { DoctorItem } from "@/sanity/types";
 
 interface DoctorModalProps {
-  index: number;
+  doctor: DoctorItem;
+  cta: string;
+  experience: string;
 }
 
-export default function DoctorModal({ index }: DoctorModalProps) {
-  const t = useTranslations("doctors");
+export default function DoctorModal({ doctor, cta, experience }: DoctorModalProps) {
+  const { name, role, experience: years, specialties, photoModal, modalPosition } = doctor;
 
-  const name = t(`items.${index}.name`);
-  const role = t(`items.${index}.role`);
-  const experience = t(`items.${index}.experience`);
-  const photo = DOCTOR_PHOTOS[index];
-
-  const specialties = (() => {
-    const result = [];
-    for (let i = 0; i < 8; i++) {
-      const key = `items.${index}.specialties.${i}`;
-      if (!t.has(key)) break;
-      result.push(t(key));
-    }
-    return result;
-  })();
+  const experienceLabel = years ? experience.replace("{years}", years) : null;
 
   return (
     <div className="flex flex-col">
       {/* Photo — uses modal (high-quality) version */}
-      {photo && (
+      {photoModal && (
         <div className="w-full aspect-[16/10] relative skeleton">
           <Image
-            src={photo.modal}
+            src={photoModal}
             alt={name}
             fill
             className="object-cover"
-            style={{ objectPosition: photo.modalPosition }}
+            style={{ objectPosition: modalPosition }}
             sizes="(max-width: 640px) 100vw, 512px"
             priority
           />
@@ -48,9 +36,9 @@ export default function DoctorModal({ index }: DoctorModalProps) {
         <div>
           <h3 className="heading-3 text-black mb-1">{name}</h3>
           <p className="body-l text-main">{role}</p>
-          {experience && (
+          {experienceLabel && (
             <p className="body-m text-black-40 mt-1">
-              {t("experience", { years: experience })}
+              {experienceLabel}
             </p>
           )}
         </div>
@@ -67,7 +55,7 @@ export default function DoctorModal({ index }: DoctorModalProps) {
         )}
 
         <Button variant="primary" href="#booking" className="self-start mt-2">
-          {t("cta")}
+          {cta}
         </Button>
       </div>
     </div>

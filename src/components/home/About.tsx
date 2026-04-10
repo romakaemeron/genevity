@@ -2,11 +2,11 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import type { AboutData } from "@/sanity/types";
 
 const CLINIC_PHOTOS = [
   "/clinic/semi1737-hdr.webp",
@@ -63,8 +63,7 @@ function useSlideshow(total: number, autoPlay = true, interval = 5000) {
   return { current, progress, isAuto, next, prev, goTo, stopAuto: () => setIsAuto(false), startAuto: () => setIsAuto(true) };
 }
 
-export default function About() {
-  const t = useTranslations("about");
+export default function About({ data }: { data: AboutData }) {
   const slideshow = useSlideshow(CLINIC_PHOTOS.length);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -89,8 +88,8 @@ export default function About() {
       >
         {/* Heading + accent phrase */}
         <motion.div variants={fadeInUp} className="flex flex-col gap-4 max-w-2xl">
-          <h2 className="heading-2 text-black">{t("title")}</h2>
-          <p className="heading-3 text-main">{t("text2")}</p>
+          <h2 className="heading-2 text-black">{data.title}</h2>
+          <p className="heading-3 text-main">{data.text2}</p>
         </motion.div>
 
         {/* Image + text side by side */}
@@ -118,10 +117,10 @@ export default function About() {
             variants={fadeInUp}
             className="flex flex-col gap-8 justify-center"
           >
-            <p className="body-l text-black-80 leading-relaxed text-balance">{t("text1")}</p>
+            <p className="body-l text-black-80 leading-relaxed text-balance">{data.text1}</p>
 
             <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6">
-              <p className="body-m text-black-60 text-balance">{t("diagnostics")}</p>
+              <p className="body-m text-black-60 text-balance">{data.diagnostics}</p>
             </div>
           </motion.div>
         </div>

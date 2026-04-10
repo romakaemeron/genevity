@@ -1,38 +1,32 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import { DOCTOR_PHOTOS } from "./constants";
+import type { DoctorItem } from "@/sanity/types";
 
 interface DoctorCardProps {
-  index: number;
+  doctor: DoctorItem;
+  detailsLabel: string;
   onClick: () => void;
 }
 
-export default function DoctorCard({ index, onClick }: DoctorCardProps) {
-  const t = useTranslations("doctors");
-  const tEquip = useTranslations("equipment");
-
-  const name = t(`items.${index}.name`);
-  const role = t(`items.${index}.role`);
-  const experience = t(`items.${index}.experience`);
-  const photo = DOCTOR_PHOTOS[index];
+export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCardProps) {
+  const { name, role, experience, photoCard, cardPosition } = doctor;
 
   return (
     <div
       className="group bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer"
       onClick={onClick}
     >
-      <div className={`w-full aspect-square relative ${photo ? "skeleton" : "bg-champagne-darker"}`}>
-        {photo ? (
+      <div className={`w-full aspect-square relative ${photoCard ? "skeleton" : "bg-champagne-darker"}`}>
+        {photoCard ? (
           <Image
-            src={photo.card}
+            src={photoCard}
             alt={`Лікар ${role} ${name} — GENEVITY Дніпро`}
             fill
             className="object-cover"
-            style={{ objectPosition: photo.cardPosition }}
+            style={{ objectPosition: cardPosition }}
             sizes="300px"
           />
         ) : (
@@ -46,7 +40,7 @@ export default function DoctorCard({ index, onClick }: DoctorCardProps) {
         <p className="body-m text-main">{role}</p>
         {experience && (
           <p className="body-s text-black-40">
-            {t("experience", { years: experience })}
+            {experience}
           </p>
         )}
         <Button
@@ -54,7 +48,7 @@ export default function DoctorCard({ index, onClick }: DoctorCardProps) {
           size="sm"
           className="self-start mt-auto gap-1.5 group-hover:gap-2.5 transition-all duration-300 px-0"
         >
-          {tEquip("details")}
+          {detailsLabel}
           <ArrowUpRight className="w-3.5 h-3.5" />
         </Button>
       </div>
