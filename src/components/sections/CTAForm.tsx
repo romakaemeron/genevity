@@ -23,7 +23,7 @@ export default function CTAForm({ variant = "default" }: CTAFormProps) {
   return (
     <section
       id="booking"
-      className="max-w-[var(--container-max)] md:mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]"
+      className="max-w-(--container-max) md:mx-auto px-4 sm:px-6 lg:px-(--container-padding)"
     >
       <motion.div
         variants={fadeInUp}
@@ -49,13 +49,13 @@ export default function CTAForm({ variant = "default" }: CTAFormProps) {
               type="text"
               placeholder={t("name")}
               required
-              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-main/0 hover:border-main/50 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
+              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-(--radius-input) body-m outline-none border border-main/0 hover:border-main/50 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
             />
             <input
               type="tel"
               placeholder={t("phone")}
               required
-              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-[var(--radius-input)] body-m outline-none border border-main/0 hover:border-main/50 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
+              className="bg-main/10 text-black placeholder:text-black-40 px-4 py-3 rounded-(--radius-input) body-m outline-none border border-main/0 hover:border-main/50 focus:border-main focus:bg-white focus:shadow-[0_0_0_3px_rgba(139,123,107,0.1)] transition-all duration-200"
             />
             <div className="mt-2">
               <Button variant="secondary" type="submit">

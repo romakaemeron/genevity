@@ -22,7 +22,7 @@ const variants: Record<ButtonVariant, string> = {
   primary:
     "bg-main text-champagne hover:bg-main-dark",
   secondary:
-    "bg-ice text-black hover:bg-ice-dark",
+    "bg-champagne-dark text-black hover:bg-champagne-darker",
   outline:
     "border border-main text-black hover:bg-main hover:text-champagne",
   "outline-light":

@@ -1,6 +1,47 @@
 @import "tailwindcss";
 
-@theme inline {
+/* === Brand Fonts === */
+@font-face {
+  font-family: "Tenor Sans";
+  src: url("/fonts/TenorSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mulish";
+  src: url("/fonts/Mulish-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mulish";
+  src: url("/fonts/Mulish-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mulish";
+  src: url("/fonts/Mulish-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Mulish";
+  src: url("/fonts/Mulish-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
   /* === Color Tokens (original brand) === */
   --color-main: #8B7B6B;
   --color-main-dark: #6B5E51;
@@ -48,8 +89,8 @@
   --color-surface-dark-elevated: #3A3A3A;
 
   /* === Typography === */
-  --font-heading: "Cormorant Garamond", Georgia, serif;
-  --font-body: "Montserrat", system-ui, sans-serif;
+  --font-heading: "Tenor Sans", Georgia, serif;
+  --font-body: "Mulish", system-ui, sans-serif;
 
   /* === Spacing Scale === */
   --spacing-section: 120px;
@@ -104,6 +145,16 @@ body {
   font-family: var(--font-body);
 }
 
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+img::selection {
+  background: transparent;
+}
+
 ::selection {
   background-color: var(--color-main);
   color: var(--color-champagne);
@@ -112,25 +163,26 @@ body {
 /* === Typography Presets === */
 .heading-1 {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(40px, 5vw, 64px);
-  line-height: 0.85;
-  letter-spacing: -0.02em;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
 }
 
 .heading-2 {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(32px, 4vw, 48px);
-  line-height: 0.85;
-  letter-spacing: -0.01em;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
 }
 
 .heading-3 {
   font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: clamp(24px, 3vw, 36px);
-  line-height: 0.9;
+  font-weight: 400;
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .body-l {
@@ -189,7 +241,7 @@ body {
 
 /* === Button press === */
 .btn-press {
-  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, color 150ms ease;
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, color 150ms ease, gap 300ms cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform;
 }
 .btn-press:active {
@@ -197,6 +249,71 @@ body {
 }
 .btn-press-icon:active {
   transform: scale3d(0.92, 0.92, 1);
+}
+
+/* === Scroll Anchor Offset (navbar height + breathing room) === */
+#about,
+#equipment,
+#doctors,
+#contacts,
+#booking {
+  scroll-margin-top: 100px;
+}
+
+/* === Doctors Horizontal Scroller === */
+.doctors-scroller {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-left: 16px;
+  padding-right: 16px;
+  scroll-padding-left: 16px;
+}
+
+@media (min-width: 640px) {
+  .doctors-scroller {
+    padding-left: 24px;
+    padding-right: 24px;
+    scroll-padding-left: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .doctors-scroller {
+    padding-left: 48px;
+    padding-right: 48px;
+    scroll-padding-left: 48px;
+  }
+}
+
+@media (min-width: 1296px) {
+  .doctors-scroller {
+    padding-left: calc((100vw - 1200px) / 2 + 48px);
+    padding-right: calc((100vw - 1200px) / 2 + 48px);
+    scroll-padding-left: calc((100vw - 1200px) / 2 + 48px);
+  }
+}
+
+/* === Tab Content Reveal === */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-reveal {
+  animation: revealUp 0.45s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 /* === Smooth Scroll Reveal === */

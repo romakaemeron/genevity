@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Genevity — Medical Longevity Center in Dnipro",
-    "description": "Longevity medicine and quality of life. Swiss safety standards combined with premium service."
+    "title": "Genevity — Longevity & Quality of Life Center in Dnipro",
+    "description": "Personalized health, recovery, and rejuvenation programs based on modern diagnostics and innovative technologies."
   },
   "nav": {
     "services": "Services",
@@ -11,107 +11,481 @@
     "contacts": "Contacts",
     "cta": "Book Now"
   },
-  "hero": {
-    "title": "The Art of Your Perfection in Dnipro",
-    "subtitle": "Medical center of aesthetic medicine and longevity. Combining Swiss safety standards with premium service.",
+  "landingHero": {
+    "title": "Genevity — Longevity & Quality of Life Center",
+    "subtitle": "Personalized health, recovery, and rejuvenation programs based on modern diagnostics and innovative technologies.",
     "cta": "Book a Consultation",
-    "programs": "Our Programs"
+    "location": "Dnipro, 12 Oles Honchar St."
   },
-  "concerns": {
-    "title": "What concerns you?",
-    "link": "Learn more",
+  "about": {
+    "title": "About the Center",
+    "text1": "Genevity is a longevity and quality of life center that creates personalized health, recovery, and rejuvenation programs based on modern diagnostics and advanced technologies. The center combines aesthetic medicine and longevity, providing a comprehensive approach — from in-depth diagnostics to individual recovery programs, age-related change prevention, and aesthetics.",
+    "text2": "We unite medicine, innovation, and an individualized approach to support your energy, appearance, and high quality of life for years to come.",
+    "diagnostics": "Genevity offers a full range of diagnostics and recovery services: an in-house laboratory, expert-level ultrasound (GE LOGIQ E10), dermatological diagnostics, InBody analysis, hardware cosmetology, IV therapy, and plastic surgery. Consultations are provided by specialists across multiple disciplines — from gynecologists and dermatologists to cardiologists and urologist-andrologists — ensuring a comprehensive approach to your health."
+  },
+  "equipment": {
+    "title": "Genevity Hardware Solutions",
+    "tabs": {
+      "all": "All",
+      "face": "Face",
+      "body": "Body",
+      "skin": "Skin",
+      "intimate": "Intimate Zone",
+      "laser": "Laser Hair Removal"
+    },
+    "suitsTitle": "Suitable if:",
+    "resultsTitle": "Results:",
+    "details": "Learn More",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "close": "Close",
     "items": [
       {
-        "title": "Face",
-        "description": "Wrinkles, acne, lifting"
+        "category": "face",
+        "name": "EMFACE",
+        "shortDescription": "A non-injection procedure that restores facial tone and freshness.",
+        "description": "The device simultaneously activates muscles and rejuvenates the skin — without injections or changes to facial expressions.",
+        "suits": [
+          "your face looks tired",
+          "sagging has appeared in the cheeks, jawline, or eyelids",
+          "your skin has lost its firmness"
+        ],
+        "results": [
+          "more defined facial contours",
+          "fewer wrinkles",
+          "a well-rested appearance"
+        ],
+        "note": "The procedure is comfortable, with no downtime — you can return to your daily activities immediately."
       },
       {
-        "title": "Body",
-        "description": "Cellulite, contouring, hair removal"
+        "category": "face",
+        "name": "VOLNEWMER",
+        "shortDescription": "A deep skin heating procedure that lifts the face and increases skin density.",
+        "description": "The device heats deep layers and stimulates collagen production — without pain or downtime.",
+        "suits": [
+          "your skin has become lax",
+          "your facial contours are losing definition",
+          "you want more defined contours"
+        ],
+        "results": [
+          "defined facial contours",
+          "denser and firmer skin",
+          "a lifted and fresh appearance"
+        ],
+        "note": "The procedure is comfortable and requires no downtime."
       },
       {
-        "title": "Hair",
-        "description": "Treatment, density"
+        "category": "face",
+        "name": "EXION",
+        "shortDescription": "Monopolar radiofrequency lifting and fractional micro-needling for skin renewal.",
+        "description": "The procedure evens out skin tone, improves texture, and refreshes the face.",
+        "suits": [
+          "your skin looks dull",
+          "you have fine wrinkles",
+          "uneven tone or dryness"
+        ],
+        "results": [
+          "smooth and even skin",
+          "healthy complexion",
+          "a fresh appearance"
+        ],
+        "note": "No downtime required and easily tolerated."
       },
       {
-        "title": "Medical Dermatology",
-        "description": "Moles, skin checkup"
+        "category": "face",
+        "name": "ULTRAFORMER MPT",
+        "shortDescription": "A non-surgical facelift procedure that works on deep skin layers.",
+        "description": "Stimulates collagen production and tightens facial contours without surgical intervention.",
+        "suits": [
+          "your facial contours are losing definition",
+          "sagging or wrinkles are appearing",
+          "you want more defined contours"
+        ],
+        "results": [
+          "more defined facial contours",
+          "tightened contours",
+          "fewer wrinkles and less sagging"
+        ],
+        "note": "The effect builds gradually over several months."
       },
       {
-        "title": "Anti-Age",
-        "description": "Rejuvenation, aging prevention"
+        "category": "body",
+        "name": "EMSCULPT NEO",
+        "shortDescription": "A body contouring procedure that simultaneously strengthens muscles and reduces fat deposits.",
+        "description": "The device combines electromagnetic muscle stimulation and radiofrequency for maximum effect.",
+        "suits": [
+          "you want to tone your body",
+          "there are excess volumes in problem areas",
+          "your muscles have lost tone"
+        ],
+        "results": [
+          "more defined muscle tone",
+          "volume reduction",
+          "a toned, sculpted body"
+        ],
+        "note": ""
       },
       {
-        "title": "Longevity",
-        "description": "Longevity programs, Check-Up"
+        "category": "body",
+        "name": "ULTRAFORMER MPT Body",
+        "shortDescription": "A non-surgical body lifting and contouring procedure.",
+        "description": "Reduces volumes and improves body contours using ultrasound technology.",
+        "suits": [
+          "you want to tighten your skin",
+          "there are excess volumes",
+          "your contours have become less defined"
+        ],
+        "results": [
+          "a tighter silhouette",
+          "more defined body contours",
+          "volume reduction"
+        ],
+        "note": ""
       },
       {
-        "title": "Laser Therapy",
-        "description": "Hair removal, vessels, pigmentation"
+        "category": "body",
+        "name": "EXION Body",
+        "shortDescription": "A procedure for improving skin quality and body contouring.",
+        "description": "Increases firmness and makes the body more toned.",
+        "suits": [
+          "your skin has lost firmness",
+          "there are irregularities or lax areas",
+          "you want to tone your body"
+        ],
+        "results": [
+          "smoother and denser skin",
+          "reduced laxity",
+          "a more toned body appearance"
+        ],
+        "note": "No downtime required and easily tolerated."
+      },
+      {
+        "category": "body",
+        "name": "VOLNEWMER Body",
+        "shortDescription": "A procedure for body skin lifting and firming.",
+        "description": "Increases skin density and firmness through deep heating.",
+        "suits": [
+          "your skin has lost firmness",
+          "there is laxity or irregularities",
+          "you want to tone your body"
+        ],
+        "results": [
+          "denser and firmer skin",
+          "a more toned body appearance",
+          "improved skin texture"
+        ],
+        "note": ""
+      },
+      {
+        "category": "skin",
+        "name": "M22 STELLAR BLACK",
+        "shortDescription": "A skin improvement procedure that evens out tone and reduces pigmentation.",
+        "description": "Eliminates pigmentation, redness, and evens out skin tone.",
+        "suits": [
+          "you have pigmentation",
+          "visible blood vessels or redness",
+          "uneven tone or post-acne marks"
+        ],
+        "results": [
+          "a more even and clearer complexion",
+          "less pigmentation and redness",
+          "healthier-looking skin"
+        ],
+        "note": "The procedure is suitable for various skin types."
+      },
+      {
+        "category": "skin",
+        "name": "SPLENDOR X",
+        "shortDescription": "A laser procedure for hair removal and skin improvement.",
+        "description": "The device adapts to your skin type, ensuring effectiveness and comfort.",
+        "suits": [
+          "you want to get rid of unwanted hair",
+          "you have visible blood vessels or redness",
+          "smooth skin is important to you"
+        ],
+        "results": [
+          "smooth, hair-free skin",
+          "reduced vascular appearance",
+          "long-lasting results"
+        ],
+        "note": "A gentle and comfortable procedure with no downtime."
+      },
+      {
+        "category": "skin",
+        "name": "HYDRAFACIAL SYNDEO",
+        "shortDescription": "A procedure for deep cleansing and hydration of the skin.",
+        "description": "Instantly makes the face look fresh and well-groomed through deep cleansing and skin nourishment.",
+        "suits": [
+          "you have clogged pores or blackheads",
+          "your skin looks dull",
+          "your skin lacks hydration"
+        ],
+        "results": [
+          "clean and smooth skin",
+          "a more even complexion",
+          "hydrated, radiant appearance"
+        ],
+        "note": "A gentle and comfortable procedure with no downtime."
+      },
+      {
+        "category": "skin",
+        "name": "Zemits Verstand Pro",
+        "shortDescription": "A skincare procedure that cleanses, soothes, and improves appearance.",
+        "description": "Gentle care for sensitive or irritated skin.",
+        "suits": [
+          "your skin is sensitive or irritated",
+          "you have redness",
+          "you want gentle care and restoration"
+        ],
+        "results": [
+          "a more even and calm complexion",
+          "reduced redness",
+          "fresh and well-groomed skin"
+        ],
+        "note": ""
+      },
+      {
+        "category": "intimate",
+        "name": "EXION Intimate",
+        "shortDescription": "RF lifting to restore tone and comfort in the intimate zone without surgery.",
+        "description": "The procedure restores tissue tone and improves comfort delicately and safely.",
+        "suits": [
+          "tissue tone has decreased",
+          "there is dryness or discomfort",
+          "postpartum recovery is needed"
+        ],
+        "results": [
+          "firmer tissues",
+          "improved comfort",
+          "a sense of restoration"
+        ],
+        "note": ""
+      },
+      {
+        "category": "intimate",
+        "name": "CO2 laser (AcuPulse)",
+        "shortDescription": "A laser procedure for intimate health restoration and tissue quality improvement.",
+        "description": "Delicately stimulates renewal and improves tissue condition.",
+        "suits": [
+          "there is dryness or discomfort",
+          "sensitivity has decreased",
+          "postpartum recovery is needed"
+        ],
+        "results": [
+          "improved comfort",
+          "tissue restoration",
+          "long-lasting results"
+        ],
+        "note": "Performed under physician supervision."
+      },
+      {
+        "category": "laser",
+        "name": "SPLENDOR X",
+        "shortDescription": "Laser hair removal for eliminating unwanted hair on the face and body with long-lasting results.",
+        "description": "The laser targets the hair follicle and gradually reduces hair growth. The procedure is performed in a course, with the number of sessions selected individually.",
+        "suits": [
+          "you want to get rid of hair for a long time",
+          "you experience irritation after shaving or waxing",
+          "ingrown hairs appear",
+          "you want smooth skin without daily grooming"
+        ],
+        "results": [
+          "smooth skin",
+          "less hair and it grows slower",
+          "less irritation and ingrown hairs",
+          "well-groomed skin appearance"
+        ],
+        "note": "Zones: for women — face, underarms, arms, legs, bikini area, abdomen. For men — face, neck, shoulders, back, chest, abdomen."
       }
     ]
   },
-  "services": {
-    "title": "Our Services",
-    "link": "View all services",
-    "download": "Download price list",
-    "items": [
-      "Injectable Cosmetology",
-      "Hardware Lifting",
-      "Body Aesthetics",
-      "Laser Hair Removal",
-      "Anti-Age Therapy",
-      "IV Therapy",
-      "Check-Up Programs",
-      "Skin Diagnostics",
-      "Dermatology",
-      "Trichology",
-      "Longevity Programs",
-      "Hormonal Balance"
-    ]
+  "laserHairRemoval": {
+    "title": "Laser Hair Removal",
+    "subtitle": "Women's and men's laser hair removal (SPLENDOR X)",
+    "description": "A procedure for removing unwanted hair on the face and body with long-lasting results.",
+    "suitsTitle": "Suitable when:",
+    "suits": [
+      "you want to get rid of hair for a long time",
+      "you experience irritation after shaving or waxing",
+      "ingrown hairs appear",
+      "you want smooth skin without daily maintenance"
+    ],
+    "howItWorksTitle": "How it works:",
+    "howItWorks": "The laser targets the hair follicle and gradually reduces hair growth.",
+    "resultsTitle": "Results:",
+    "results": [
+      "smooth skin",
+      "less hair that grows back slower",
+      "less irritation and fewer ingrown hairs",
+      "well-groomed skin appearance"
+    ],
+    "note": "The procedure is performed in a course; the number of sessions is selected individually.",
+    "zonesTitle": "Treatment areas:",
+    "zonesWomenTitle": "For women:",
+    "zonesWomen": "face (upper lip, chin), underarms, arms, legs, bikini area, abdomen",
+    "zonesMenTitle": "For men:",
+    "zonesMen": "face (beard, contour), neck, shoulders, back, chest, abdomen"
   },
-  "technology": {
-    "title": "Investment in your beauty:",
-    "titleAccent": "World-class technology",
-    "link": "View all technologies",
+  "doctors": {
+    "title": "Our Medical Team",
+    "subtitle": "Consultations are provided by specialists across multiple disciplines, ensuring a comprehensive approach to your health",
+    "cta": "Book a consultation",
+    "experience": "Experience: {years}",
     "items": [
       {
-        "name": "Morpheus8",
-        "description": "The gold standard of micro-needling RF lifting. Skin tightening and facial contouring at subdermal layers."
+        "name": "Бєлянушкін Віктор Ігорович",
+        "experience": "20 years",
+        "role": "Branch Director, Dermatologist / Cosmetologist",
+        "specialties": [
+          "Manages branch operations, ensures quality of medical services",
+          "Provides consultations in dermatology and aesthetic medicine",
+          "Treats acne, pigmentation, and age-related skin changes",
+          "Develops individualized rejuvenation programs"
+        ]
       },
       {
-        "name": "Lumenis M22",
-        "description": "Multi-module platform for perfect skin tone. Pigmentation removal, vascular treatment and photorejuvenation."
+        "name": "Сепкіна Ганна Сергіївна",
+        "experience": "10 years",
+        "role": "Dermatologist / Cosmetologist",
+        "specialties": [
+          "Diagnosis and treatment of skin conditions",
+          "Cosmetic procedures (peels, facials, skincare)",
+          "Treatment of problematic skin (acne, post-acne)",
+          "Professional at-home skincare selection"
+        ]
       },
       {
-        "name": "HydraFacial",
-        "description": "Hollywood-grade care: gentle cleansing, hydration and glow without recovery time."
+        "name": "Макаренко Олександра Сергіївна",
+        "experience": "8 years",
+        "role": "Endocrinologist",
+        "specialties": [
+          "Diagnosis of hormonal disorders",
+          "Treatment of thyroid conditions",
+          "Management of metabolic disorders",
+          "Consultations on weight and metabolism"
+        ]
+      },
+      {
+        "name": "Полешко Катерина Володимирівна",
+        "experience": "13 years",
+        "role": "Endocrinologist",
+        "specialties": [
+          "Comprehensive hormonal status assessment",
+          "Treatment of diabetes and insulin resistance",
+          "Hormonal balance correction",
+          "Management of patients with chronic endocrine conditions",
+          "Weight loss support"
+        ]
+      },
+      {
+        "name": "Лисенко Максим Ігорович",
+        "experience": "4 years",
+        "role": "Ultrasound Physician",
+        "specialties": [
+          "Ultrasound diagnostics of organs",
+          "Thyroid and abdominal organ examination",
+          "Vascular studies",
+          "Early pathology detection"
+        ]
+      },
+      {
+        "name": "Федоренко Світлана Олексіївна",
+        "experience": "10 years",
+        "role": "Ultrasound Physician",
+        "specialties": [
+          "Ultrasound examinations",
+          "Women's and men's health diagnostics",
+          "Treatment progress monitoring",
+          "Recommendations based on examination results"
+        ]
+      },
+      {
+        "name": "Єсаянц Анна Олександрівна",
+        "experience": "12 years",
+        "role": "Gynecologist",
+        "specialties": [
+          "Women's health consultations",
+          "Diagnosis and treatment of gynecological conditions",
+          "Preventive examinations",
+          "Aesthetic gynecology procedures and surgeries",
+          "Hormonal disorder management"
+        ]
+      },
+      {
+        "name": "Кириленко Анжела В'ячеславівна",
+        "experience": "",
+        "role": "Podiatrist",
+        "specialties": [
+          "Foot and nail care",
+          "Ingrown toenail treatment",
+          "Treatment of fungal infections",
+          "Prevention and care for diabetic foot"
+        ]
+      },
+      {
+        "name": "Мінчук Євгенія Анатоліївна",
+        "experience": "28 years",
+        "role": "Gastroenterologist, Dietitian",
+        "specialties": [
+          "Diagnosis of gastrointestinal conditions",
+          "Pre- and post-bariatric surgery consultations",
+          "Development of individual nutrition plans",
+          "Treatment of digestive issues",
+          "Management of eating disorders",
+          "Weight loss support"
+        ]
+      },
+      {
+        "name": "Толстикова Тетяна Миколаївна",
+        "experience": "25 years",
+        "role": "Gastroenterologist, Dietitian",
+        "specialties": [
+          "Treatment of gastrointestinal conditions",
+          "Diet therapy for various conditions",
+          "Dietary habit correction",
+          "Weight loss support"
+        ]
+      },
+      {
+        "name": "Бузоверя Влада Олександрівна",
+        "experience": "5 years",
+        "role": "Cardiologist",
+        "specialties": [
+          "Diagnosis of cardiovascular diseases",
+          "Blood pressure management",
+          "Heart disease prevention",
+          "Development of individual treatment plans"
+        ]
+      },
+      {
+        "name": "Петренко Світлана Андріївна",
+        "experience": "4 years",
+        "role": "Urologist, Andrologist",
+        "specialties": [
+          "Diagnosis and treatment of andrological conditions",
+          "Diagnosis and treatment of urological conditions",
+          "Men's health and hormonal balance",
+          "Reproductive health consultations",
+          "Treatment of genitourinary infections"
+        ]
       }
     ]
+  },
+  "contacts": {
+    "title": "Contacts",
+    "address": "Dnipro, 12 Oles Honchar St.",
+    "phone1": "+380 73 000 0150",
+    "phone2": "+380 93 000 0150",
+    "instagram": "genevity.center",
+    "instagramLabel": "Instagram"
   },
   "ctaForm": {
-    "title": "Ready to embrace your natural beauty?",
+    "title": "Ready to enhance your natural beauty?",
     "titleAlt": "Get a Consultation",
     "name": "Your name",
     "phone": "Phone number",
     "submit": "Book Now",
     "success": "Thank you! We will contact you shortly."
-  },
-  "experts": {
-    "title": "Our Experts",
-    "subtitle": "Our doctors are architects of your beauty. Every specialist holds advanced medical degrees and international certifications",
-    "link": "Meet the team",
-    "cta": "Book a Consultation"
-  },
-  "stats": {
-    "title": "Experience that inspires confidence",
-    "link": "About us",
-    "items": [
-      { "value": "15+", "label": "Doctors" },
-      { "value": "50+", "label": "Years combined experience" },
-      { "value": "30+", "label": "Equipment units" },
-      { "value": "5000+", "label": "Satisfied patients" }
-    ]
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -126,7 +500,7 @@
       },
       {
         "question": "What payment methods do you accept?",
-        "answer": "We accept cash, bank cards and contactless payment. Installment plans are also available."
+        "answer": "We accept cash, bank cards, and contactless payment. Installment plans are also available."
       },
       {
         "question": "How long is the recovery after procedures?",
@@ -142,26 +516,19 @@
       }
     ]
   },
-  "beforeAfter": {
-    "title": "Transformation: Before & After",
-    "subtitle": "Real results that speak for themselves",
-    "link": "All results",
-    "before": "Before",
-    "after": "After"
-  },
   "footer": {
-    "description": "Medical center of aesthetic medicine and longevity.",
+    "description": "Longevity and quality of life center.",
     "license": "Licensed by the Ministry of Health of Ukraine",
     "useful": "Useful",
     "usefulLinks": [
-      { "label": "Services & Prices", "href": "/poslugy" },
-      { "label": "Our Doctors", "href": "/likari" },
-      { "label": "About the Clinic", "href": "/pro-tsentr" },
-      { "label": "Blog / Articles", "href": "/blog" }
+      { "label": "About", "href": "#about" },
+      { "label": "Services", "href": "#equipment" },
+      { "label": "Our Doctors", "href": "#doctors" },
+      { "label": "Contacts", "href": "#contacts" }
     ],
     "contact": "Contact",
-    "address": "Dnipro, Ukraine",
-    "phone": "+38 (0XX) XXX XX XX",
+    "address": "Dnipro, 12 Oles Honchar St.",
+    "phone": "+380 73 000 0150",
     "hours": "Mon-Sat: 09:00 — 20:00",
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",

@@ -16,7 +16,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="border-t border-black-10 mt-[var(--spacing-section)]">
+    <footer className="border-t border-black-10 mt-[var(--spacing-block)]">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
           {/* Brand */}
@@ -66,7 +66,7 @@ export default function Footer() {
                 <Clock className="w-4 h-4 text-main shrink-0" />
                 {t("hours")}
               </div>
-              <div className="flex items-center gap-3 mt-2">
+              {/* <div className="flex items-center gap-3 mt-2">
                 <a href="#" className="text-main hover:text-main-dark transition-colors" aria-label="Instagram">
                   <Instagram />
                 </a>
@@ -76,7 +76,7 @@ export default function Footer() {
                 <a href="#" className="text-main hover:text-main-dark transition-colors" aria-label="YouTube">
                   <YouTube />
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -85,14 +85,14 @@ export default function Footer() {
           <p className="body-s text-black-40">
             &copy; {new Date().getFullYear()} Genevity. {t("rights")}
           </p>
-          <div className="flex items-center gap-6">
+          {/* <div className="flex items-center gap-6">
             <Link href="#" className="body-s text-black-40 hover:text-main transition-colors">
               {t("privacy")}
             </Link>
             <Link href="#" className="body-s text-black-40 hover:text-main transition-colors">
               {t("terms")}
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

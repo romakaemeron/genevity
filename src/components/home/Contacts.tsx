@@ -1,0 +1,69 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { MapPin, Phone, Instagram } from "@/components/ui/Icons";
+
+export default function Contacts() {
+  const t = useTranslations("contacts");
+
+  return (
+    <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+        className="flex flex-col gap-8"
+      >
+        <motion.h2 variants={fadeInUp} className="heading-2 text-black">
+          {t("title")}
+        </motion.h2>
+
+        <motion.div
+          variants={fadeInUp}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-center gap-4">
+            <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
+              <MapPin className="w-5 h-5" />
+            </div>
+            <p className="body-l text-black">{t("address")}</p>
+          </div>
+
+          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
+              <Phone className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <a href={`tel:${t("phone1").replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">
+                {t("phone1")}
+              </a>
+              <a href={`tel:${t("phone2").replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">
+                {t("phone2")}
+              </a>
+            </div>
+          </div>
+
+          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
+              <Instagram className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="body-s text-black-40">{t("instagramLabel")}</p>
+              <a
+                href={`https://instagram.com/${t("instagram")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="body-l text-black hover:text-main transition-colors"
+              >
+                @{t("instagram")}
+              </a>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}

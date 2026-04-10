@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
+import BookingCTA from "@/components/ui/BookingCTA";
 import LocaleSelector from "@/components/ui/LocaleSelector";
 
 export default function Header() {
@@ -14,26 +15,32 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      // Skip if body is fixed (modal open) — keep current scrolled state
+      if (document.body.style.position === "fixed") return;
+      setScrolled(window.scrollY > 1);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const navItems = [
-    { label: t("services"), href: "/poslugy" },
-    { label: t("about"), href: "/pro-tsentr" },
-    { label: t("doctors"), href: "/likari" },
-    { label: t("contacts"), href: "/kontakty" },
+    { label: t("about"), href: "#about" },
+    { label: t("services"), href: "#equipment" },
+    { label: t("doctors"), href: "#doctors" },
+    { label: t("contacts"), href: "#contacts" },
   ];
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-999 transition-all duration-500 bg-champagne ${
+      className={`fixed top-0 left-0 right-0 z-999 transition-shadow duration-200 ${
         mobileOpen
-          ? ""
-          : scrolled
-            ? "lg:bg-champagne/90 lg:backdrop-blur-xl shadow-[0_1px_0_var(--color-black-10)]"
-            : "lg:bg-transparent"
+          ? "bg-champagne"
+          : "bg-champagne/90 backdrop-blur-xl"
+      } ${
+        scrolled
+          ? "shadow-[0_1px_0_var(--color-black-10)]"
+          : "shadow-[0_1px_0_transparent]"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -67,9 +74,9 @@ export default function Header() {
 
           <div className="hidden lg:flex items-center gap-4">
             <LocaleSelector />
-            <Button variant="primary" href="#booking">
+            <BookingCTA variant="primary">
               {t("cta")}
-            </Button>
+            </BookingCTA>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -128,9 +135,9 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25, duration: 0.25 }}
               >
-                <Button variant="primary" href="#booking" className="w-full text-center">
+                <BookingCTA variant="primary" className="w-full text-center">
                   {t("cta")}
-                </Button>
+                </BookingCTA>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}

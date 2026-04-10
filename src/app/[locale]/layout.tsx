@@ -1,26 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ImageProtection from "@/components/ui/ImageProtection";
 import "../globals.css";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "600", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Genevity — Медичний центр довголіття у Дніпрі",
@@ -51,8 +37,9 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${cormorant.variable} ${montserrat.variable}`}>
+    <html lang={locale}>
       <body className="antialiased">
+        <ImageProtection />
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main>{children}</main>
