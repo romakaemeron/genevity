@@ -77,7 +77,7 @@ export default function Doctors() {
         <motion.h2 variants={fadeInUp} className="heading-2 text-black">
           {t("title")}
         </motion.h2>
-        <motion.div variants={fadeInUp} className="flex items-end justify-between gap-4">
+        <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <p className="body-l text-black-60 max-w-[600px]">
             {t("subtitle")}
           </p>

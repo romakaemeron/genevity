@@ -29,10 +29,13 @@ export default function LocaleSelector() {
   }, []);
 
   const switchLocale = (newLocale: string) => {
-    // Replace the current locale prefix in pathname
     const segments = pathname.split("/");
-    segments[1] = newLocale;
-    router.push(segments.join("/"));
+    if (routing.locales.includes(segments[1] as typeof routing.locales[number])) {
+      segments[1] = newLocale;
+    } else {
+      segments.splice(1, 0, newLocale);
+    }
+    router.replace(segments.join("/") || "/", { scroll: false });
     setOpen(false);
   };
 
@@ -57,7 +60,7 @@ export default function LocaleSelector() {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-1 bg-white rounded-xl shadow-lg border border-black-10 overflow-hidden min-w-[56px] z-50">
+        <div className="absolute top-full right-0 mt-1 bg-white rounded-xl shadow-lg border border-black-10 overflow-hidden min-w-[56px] z-[999]">
           {otherLocales.map((l) => (
             <button
               key={l}

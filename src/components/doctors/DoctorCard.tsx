@@ -25,7 +25,7 @@ export default function DoctorCard({ index, onClick }: DoctorCardProps) {
       className="group bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer"
       onClick={onClick}
     >
-      <div className="w-full aspect-square bg-gradient-to-b from-main-subtle to-champagne-darker relative">
+      <div className={`w-full aspect-square relative ${photo ? "skeleton" : "bg-champagne-darker"}`}>
         {photo ? (
           <Image
             src={photo.card}

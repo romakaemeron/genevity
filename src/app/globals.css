@@ -167,6 +167,7 @@ img::selection {
   font-size: clamp(40px, 5vw, 64px);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .heading-2 {
@@ -175,6 +176,7 @@ img::selection {
   font-size: clamp(32px, 4vw, 48px);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .heading-3 {
@@ -183,6 +185,7 @@ img::selection {
   font-size: clamp(20px, 3vw, 30px);
   line-height: 1;
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .body-l {
@@ -190,6 +193,7 @@ img::selection {
   font-weight: 500;
   font-size: 16px;
   line-height: 1.6;
+  text-wrap: balance;
 }
 
 .body-strong {
@@ -197,6 +201,7 @@ img::selection {
   font-weight: 600;
   font-size: 16px;
   line-height: 1.6;
+  text-wrap: balance;
 }
 
 .body-m {
@@ -204,6 +209,7 @@ img::selection {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.5;
+  text-wrap: balance;
 }
 
 .body-s {
@@ -211,6 +217,7 @@ img::selection {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.4;
+  text-wrap: balance;
 }
 
 .eyebrow {
@@ -298,6 +305,23 @@ img::selection {
     padding-right: calc((100vw - 1200px) / 2 + 48px);
     scroll-padding-left: calc((100vw - 1200px) / 2 + 48px);
   }
+}
+
+/* === Shimmer Skeleton === */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    240deg,
+    var(--color-champagne-dark) 25%,
+    var(--color-champagne-darker) 37%,
+    var(--color-champagne-dark) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
 }
 
 /* === Tab Content Reveal === */

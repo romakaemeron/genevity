@@ -25,19 +25,21 @@ export default function Contacts() {
           variants={fadeInUp}
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          <a
-            href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-center gap-4 hover:shadow-md transition-shadow duration-200"
-          >
+          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
               <MapPin className="w-5 h-5" />
             </div>
-            <span className="body-l text-black">{t("address")}</span>
-          </a>
+            <a
+              href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="body-l text-black hover:text-main transition-colors"
+            >
+              {t("address")}
+            </a>
+          </div>
 
-          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-start gap-4">
+          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
               <Phone className="w-5 h-5" />
             </div>
@@ -51,7 +53,7 @@ export default function Contacts() {
             </div>
           </div>
 
-          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-start gap-4">
+          <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
               <Instagram className="w-5 h-5" />
             </div>

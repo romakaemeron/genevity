@@ -31,7 +31,7 @@ export default function DoctorModal({ index }: DoctorModalProps) {
     <div className="flex flex-col">
       {/* Photo — uses modal (high-quality) version */}
       {photo && (
-        <div className="w-full aspect-[16/10] relative">
+        <div className="w-full aspect-[16/10] relative skeleton">
           <Image
             src={photo.modal}
             alt={name}

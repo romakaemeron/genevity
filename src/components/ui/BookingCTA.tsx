@@ -60,7 +60,7 @@ export default function BookingCTA({
                 href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full aspect-[16/9] rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark relative group"
+                className="block w-full aspect-[16/9] rounded-[var(--radius-card)] overflow-hidden skeleton relative group"
               >
                 <iframe
                   src="https://maps.google.com/maps?q=вул.+Олеся+Гончара+12,+Дніпро,+Україна&t=&z=16&ie=UTF8&iwloc=&output=embed"
