@@ -40,58 +40,56 @@ export default function Equipment() {
   };
 
   const closeModal = useCallback(() => setExpandedItem(null), []);
-  const revealRef = useReveal(activeTab);
+  const tabRevealRef = useReveal(activeTab, "slide-x-blur");
+  const expandRevealRef = useReveal(visibleCount, "scale");
 
   return (
-    <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-6">
-      {/* Header + Tabs */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="flex flex-col gap-8"
-      >
-        <motion.h2 variants={fadeInUp} className="heading-2 text-black">
-          {t("title")}
-        </motion.h2>
+    <motion.section
+      className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-6"
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportConfig}
+    >
+      {/* Heading */}
+      <motion.h2 variants={fadeInUp} className="heading-2 text-black">
+        {t("title")}
+      </motion.h2>
 
-        <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleTabChange(cat)}
-              className={`px-5 py-2 rounded-[var(--radius-pill)] body-m font-medium transition-all duration-200 cursor-pointer ${
-                activeTab === cat
-                  ? "bg-main text-champagne"
-                  : "bg-champagne-dark text-black-60 hover:bg-champagne-darker hover:text-black"
-              }`}
-            >
-              {t(`tabs.${cat}`)}
-            </button>
-          ))}
-        </motion.div>
+      {/* Tabs */}
+      <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => handleTabChange(cat)}
+            className={`px-5 py-2 rounded-[var(--radius-pill)] body-m font-medium transition-all duration-200 cursor-pointer ${
+              activeTab === cat
+                ? "bg-main text-champagne"
+                : "bg-champagne-dark text-black-60 hover:bg-champagne-darker hover:text-black"
+            }`}
+          >
+            {t(`tabs.${cat}`)}
+          </button>
+        ))}
       </motion.div>
 
       {/* Cards Grid */}
-      <motion.div
-        key={`${activeTab}-${visibleCount}`}
-        ref={revealRef}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-      >
-        {filtered.slice(0, visibleCount).map((item) => (
-          <motion.div key={item.index} variants={fadeInUp}>
+      <motion.div variants={fadeInUp}>
+        <div
+          ref={(el) => {
+            tabRevealRef.current = el;
+            expandRevealRef.current = el;
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {filtered.slice(0, visibleCount).map((item) => (
             <EquipmentCard
-            key={item.index}
-            index={item.index}
-            onClick={() => setExpandedItem(item.index)}
-          />
-          </motion.div>
-        ))}
+              key={item.index}
+              index={item.index}
+              onClick={() => setExpandedItem(item.index)}
+            />
+          ))}
+        </div>
       </motion.div>
 
       {/* Pagination */}
@@ -126,6 +124,6 @@ export default function Equipment() {
           </Modal>
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }
