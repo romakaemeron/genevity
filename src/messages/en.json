@@ -519,14 +519,14 @@
   "footer": {
     "description": "Longevity and quality of life center.",
     "license": "Licensed by the Ministry of Health of Ukraine",
-    "useful": "Useful",
+    "useful": "Navigation",
     "usefulLinks": [
       { "label": "About", "href": "#about" },
       { "label": "Services", "href": "#equipment" },
       { "label": "Our Doctors", "href": "#doctors" },
       { "label": "Contacts", "href": "#contacts" }
     ],
-    "contact": "Contact",
+    "contact": "Contacts",
     "address": "Dnipro, 12 Oles Honchar St.",
     "phone": "+380 73 000 0150",
     "hours": "Mon-Sat: 09:00 — 20:00",

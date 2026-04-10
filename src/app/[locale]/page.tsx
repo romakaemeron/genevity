@@ -1,7 +1,6 @@
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
 import Equipment from "@/components/home/Equipment";
-import CTAForm from "@/components/sections/CTAForm";
 import Doctors from "@/components/home/Doctors";
 import Contacts from "@/components/home/Contacts";
 

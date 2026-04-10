@@ -519,14 +519,14 @@
   "footer": {
     "description": "Центр довголіття та якості життя.",
     "license": "Ліцензія МОЗ України",
-    "useful": "Корисно",
+    "useful": "Навігація",
     "usefulLinks": [
       { "label": "Про центр", "href": "#about" },
       { "label": "Послуги", "href": "#equipment" },
       { "label": "Наші лікарі", "href": "#doctors" },
       { "label": "Контакти", "href": "#contacts" }
     ],
-    "contact": "Зв'язок",
+    "contact": "Контакти",
     "address": "м. Дніпро, вул. Олеся Гончара, 12",
     "phone": "+380 73 000 0150",
     "hours": "Пн-Сб: 09:00 — 20:00",

@@ -519,14 +519,14 @@
   "footer": {
     "description": "Центр долголетия и качества жизни.",
     "license": "Лицензия МОЗ Украины",
-    "useful": "Полезно",
+    "useful": "Навигация",
     "usefulLinks": [
       { "label": "О центре", "href": "#about" },
       { "label": "Услуги", "href": "#equipment" },
       { "label": "Наши врачи", "href": "#doctors" },
       { "label": "Контакты", "href": "#contacts" }
     ],
-    "contact": "Связь",
+    "contact": "Контакты",
     "address": "г. Днепр, ул. Олеся Гончара, 12",
     "phone": "+380 73 000 0150",
     "hours": "Пн-Сб: 09:00 — 20:00",

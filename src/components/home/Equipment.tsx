@@ -74,10 +74,18 @@ export default function Equipment() {
       </motion.div>
 
       {/* Cards Grid */}
-      <div ref={revealRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6">
+      <motion.div
+        ref={revealRef}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
         {filtered.map((item, i) => (
-          <div
+          <motion.div
             key={item.index}
+            variants={fadeInUp}
             className="grid transition-[grid-template-rows,opacity,padding] duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
             style={{
               gridTemplateRows: i < visibleCount ? "1fr" : "0fr",
@@ -91,9 +99,9 @@ export default function Equipment() {
                 onClick={() => setExpandedItem(item.index)}
               />
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Pagination */}
       {(hasMore || hasLess) && (

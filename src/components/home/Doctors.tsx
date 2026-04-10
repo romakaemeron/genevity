@@ -93,17 +93,25 @@ export default function Doctors() {
       </motion.div>
 
       {/* Scrollable cards */}
-      <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
+      <motion.div
+        ref={scrollerRef}
+        className="doctors-scroller scrollbar-hide"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+      >
         {Array.from({ length: DOCTOR_COUNT }, (_, i) => (
-          <div
+          <motion.div
             key={i}
+            variants={fadeInUp}
             className="shrink-0"
             style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}
           >
             <DoctorCard index={i} onClick={() => setExpandedDoctor(i)} />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Doctor Modal */}
       <AnimatePresence>
