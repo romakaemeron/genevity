@@ -74,18 +74,25 @@ export default function Equipment() {
       </motion.div>
 
       {/* Cards Grid */}
-      <div
+      <motion.div
+        key={activeTab}
         ref={revealRef}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 tab-reveal"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
       >
         {filtered.slice(0, visibleCount).map((item) => (
-          <EquipmentCard
+          <motion.div key={item.index} variants={fadeInUp}>
+            <EquipmentCard
             key={item.index}
             index={item.index}
             onClick={() => setExpandedItem(item.index)}
           />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Pagination */}
       {(hasMore || hasLess) && (
