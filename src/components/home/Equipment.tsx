@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import { useReveal } from "@/lib/useReveal";
+import { useDirectionalReveal } from "@/lib/useReveal";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import EquipmentCard from "@/components/equipment/EquipmentCard";
@@ -40,8 +40,8 @@ export default function Equipment() {
   };
 
   const closeModal = useCallback(() => setExpandedItem(null), []);
-  const tabRevealRef = useReveal(activeTab, "slide-x-blur");
-  const expandRevealRef = useReveal(visibleCount, "scale");
+  const tabIndex = CATEGORIES.indexOf(activeTab);
+  const revealRef = useDirectionalReveal(tabIndex);
 
   return (
     <motion.section
@@ -76,10 +76,7 @@ export default function Equipment() {
       {/* Cards Grid */}
       <motion.div variants={fadeInUp}>
         <div
-          ref={(el) => {
-            tabRevealRef.current = el;
-            expandRevealRef.current = el;
-          }}
+          ref={revealRef}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {filtered.slice(0, visibleCount).map((item) => (
