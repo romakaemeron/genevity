@@ -75,7 +75,7 @@ export default function Equipment() {
 
       {/* Cards Grid */}
       <motion.div
-        key={activeTab}
+        key={`${activeTab}-${visibleCount}`}
         ref={revealRef}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         variants={staggerContainer}
