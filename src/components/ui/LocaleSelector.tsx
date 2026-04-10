@@ -45,7 +45,7 @@ export default function LocaleSelector() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-2 py-1 rounded-lg body-m font-medium text-black hover:text-main transition-colors cursor-pointer"
+        className="flex items-center gap-1 px-2 py-1 rounded-lg body-m font-medium text-current hover:opacity-70 transition-opacity cursor-pointer"
       >
         {localeLabels[locale] || locale.toUpperCase()}
         <svg className="w-3 h-3" viewBox="0 0 12 12" fill="none">

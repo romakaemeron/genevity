@@ -70,7 +70,7 @@ export default function Modal({
         className="fixed inset-0 z-[1000] overflow-y-auto"
       >
         {/* Backdrop — click to close */}
-        <div className="fixed inset-0 bg-black/50 z-[1000]" onClick={onClose} />
+        <div className="fixed inset-0 bg-black/80 z-[1000]" onClick={onClose} />
 
         {/* Centering wrapper — click outside panel to close */}
         <div
