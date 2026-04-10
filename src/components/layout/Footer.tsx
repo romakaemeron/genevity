@@ -54,14 +54,22 @@ export default function Footer() {
           <div className="flex flex-col gap-3">
             <p className="body-strong text-black-60">{t("contact")}</p>
             <div className="flex flex-col gap-2.5">
-              <div className="flex items-center gap-2 body-m text-black">
+              <a
+                href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
+              >
                 <MapPin className="w-4 h-4 text-main shrink-0" />
                 {t("address")}
-              </div>
-              <div className="flex items-center gap-2 body-m text-black">
+              </a>
+              <a
+                href={`tel:${t("phone").replace(/\s/g, "")}`}
+                className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
+              >
                 <Phone className="w-4 h-4 text-main shrink-0" />
                 {t("phone")}
-              </div>
+              </a>
               <div className="flex items-center gap-2 body-m text-black">
                 <Clock className="w-4 h-4 text-main shrink-0" />
                 {t("hours")}
