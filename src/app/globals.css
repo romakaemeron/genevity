@@ -1,46 +1,5 @@
 @import "tailwindcss";
 
-/* === Brand Fonts === */
-@font-face {
-  font-family: "Tenor Sans";
-  src: url("/fonts/TenorSans-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Mulish";
-  src: url("/fonts/Mulish-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Mulish";
-  src: url("/fonts/Mulish-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Mulish";
-  src: url("/fonts/Mulish-SemiBold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Mulish";
-  src: url("/fonts/Mulish-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
   /* === Color Tokens (original brand) === */
   --color-main: #8B7B6B;

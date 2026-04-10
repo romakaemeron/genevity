@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -8,6 +9,23 @@ import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import "../globals.css";
+
+const tenorSans = localFont({
+  src: "../../../public/fonts/TenorSans-Regular.ttf",
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const mulish = localFont({
+  src: [
+    { path: "../../../public/fonts/Mulish-Regular.ttf", weight: "400" },
+    { path: "../../../public/fonts/Mulish-Medium.ttf", weight: "500" },
+    { path: "../../../public/fonts/Mulish-SemiBold.ttf", weight: "600" },
+    { path: "../../../public/fonts/Mulish-Bold.ttf", weight: "700" },
+  ],
+  variable: "--font-body",
+  display: "swap",
+});
 
 const titles: Record<string, string> = {
   ua: "GENEVITY — Медичний центр довголіття та естетичної медицини у Дніпрі",
@@ -119,7 +137,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${tenorSans.variable} ${mulish.variable}`}>
       <body className="antialiased">
         <ImageProtection />
         <OrganizationSchema />
