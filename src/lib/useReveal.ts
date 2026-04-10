@@ -76,14 +76,14 @@ export function useDirectionalReveal(tabIndex: number) {
     prevIndex.current = tabIndex;
 
     el.style.transition = "none";
-    el.style.opacity = "0";
-    el.style.transform = `translateX(${direction * 30}px)`;
-    el.style.filter = "blur(4px)";
+    el.style.opacity = "0.6";
+    el.style.transform = `translateX(${direction * 16}px)`;
+    el.style.filter = "blur(3px)";
 
     void el.getBoundingClientRect();
 
     const timer = setTimeout(() => {
-      el.style.transition = `opacity 0.4s ${ease}, transform 0.4s ${ease}, filter 0.4s ${ease}`;
+      el.style.transition = `opacity 0.45s ${ease}, transform 0.45s ${ease}, filter 0.45s ${ease}`;
       el.style.opacity = "1";
       el.style.transform = "none";
       el.style.filter = "none";
