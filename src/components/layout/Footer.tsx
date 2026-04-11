@@ -37,7 +37,12 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
               />
             </Link>
             <p className="body-m text-black-60">{t("description")}</p>
-            <p className="body-s text-black-40 mt-2">{t("license")}</p>
+            <Link
+              href="/legal/license"
+              className="body-s text-black-40 mt-2 hover:text-main transition-colors"
+            >
+              {t("license")}
+            </Link>
           </div>
 
           {/* Useful Links */}

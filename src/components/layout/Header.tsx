@@ -24,10 +24,10 @@ export default function Header() {
   }, []);
 
   const navItems = [
-    { label: t("about"), href: "#about" },
-    { label: t("services"), href: "#equipment" },
-    { label: t("doctors"), href: "#doctors" },
-    { label: t("contacts"), href: "#contacts" },
+    { label: t("about"), href: "/#about" },
+    { label: t("services"), href: "/#equipment" },
+    { label: t("doctors"), href: "/#doctors" },
+    { label: t("contacts"), href: "/#contacts" },
   ];
 
   return (

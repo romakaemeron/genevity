@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import BookingCTA from "@/components/ui/BookingCTA";
 import type { DoctorItem } from "@/sanity/types";
 
 interface DoctorModalProps {
@@ -54,9 +54,9 @@ export default function DoctorModal({ doctor, cta, experience }: DoctorModalProp
           </ul>
         )}
 
-        <Button variant="primary" href="#booking" className="self-start mt-2">
+        <BookingCTA variant="primary" className="self-start mt-2">
           {cta}
-        </Button>
+        </BookingCTA>
       </div>
     </div>
   );

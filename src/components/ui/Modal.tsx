@@ -20,31 +20,42 @@ export default function Modal({
   children,
   maxWidth = "sm:max-w-lg",
 }: ModalProps) {
-  // Lock page scroll when open
+  // Lock page scroll — reference-counted so nested modals share the lock
   useEffect(() => {
-    if (open) {
+    if (!open) return;
+
+    type WindowWithLock = typeof window & { __modalLock?: { count: number; scrollY: number } };
+    const w = window as WindowWithLock;
+
+    if (!w.__modalLock) {
       const scrollY = window.scrollY;
+      w.__modalLock = { count: 0, scrollY };
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
       document.body.style.right = "0";
       document.body.style.overflow = "hidden";
-      return () => {
-        const savedY = scrollY;
+    }
+    w.__modalLock.count++;
+
+    return () => {
+      if (!w.__modalLock) return;
+      w.__modalLock.count--;
+      if (w.__modalLock.count <= 0) {
+        const savedY = w.__modalLock.scrollY;
+        delete w.__modalLock;
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";
         document.body.style.right = "";
         document.body.style.overflow = "";
-        // Restore scroll instantly — bypass smooth scroll behavior
         document.documentElement.style.scrollBehavior = "auto";
         window.scrollTo(0, savedY);
-        // Re-enable smooth scroll on next frame
         requestAnimationFrame(() => {
           document.documentElement.style.scrollBehavior = "";
         });
-      };
-    }
+      }
+    };
   }, [open]);
 
   // Close on Escape

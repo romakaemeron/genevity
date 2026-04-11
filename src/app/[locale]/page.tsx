@@ -24,7 +24,7 @@ export default async function HomePage({
         <Equipment items={data.equipment} ui={data.ui.equipment} />
       </div>
       <div id="doctors">
-        <Doctors doctors={data.doctors} ui={data.ui.doctors} />
+        <Doctors doctors={data.doctors} ui={data.ui.doctors} detailsLabel={data.ui.equipment.details} />
       </div>
       <div id="contacts">
         <Contacts data={{ settings: data.settings, ui: data.ui.contacts }} />

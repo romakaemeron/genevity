@@ -518,13 +518,13 @@
   },
   "footer": {
     "description": "Центр довголіття та якості життя.",
-    "license": "Ліцензія МОЗ України",
+    "license": "Ліцензія МОЗ України № 1296 від 14.08.2025",
     "useful": "Навігація",
     "usefulLinks": [
-      { "label": "Про центр", "href": "#about" },
-      { "label": "Послуги", "href": "#equipment" },
-      { "label": "Наші лікарі", "href": "#doctors" },
-      { "label": "Контакти", "href": "#contacts" }
+      { "label": "Про центр", "href": "/#about" },
+      { "label": "Послуги", "href": "/#equipment" },
+      { "label": "Наші лікарі", "href": "/#doctors" },
+      { "label": "Контакти", "href": "/#contacts" }
     ],
     "contact": "Контакти",
     "address": "м. Дніпро, вул. Олеся Гончара, 12",

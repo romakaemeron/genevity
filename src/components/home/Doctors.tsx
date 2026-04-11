@@ -18,9 +18,10 @@ interface DoctorsProps {
     cta: string;
     experience: string;
   };
+  detailsLabel: string;
 }
 
-export default function Doctors({ doctors, ui }: DoctorsProps) {
+export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -116,7 +117,7 @@ export default function Doctors({ doctors, ui }: DoctorsProps) {
             className="shrink-0"
             style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}
           >
-            <DoctorCard doctor={doctor} detailsLabel={ui.cta} onClick={() => setExpandedDoctor(i)} />
+            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => setExpandedDoctor(i)} />
           </motion.div>
         ))}
       </motion.div>
