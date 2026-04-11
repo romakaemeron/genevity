@@ -5,6 +5,7 @@ import { faq } from "./faq";
 import { siteSettings } from "./siteSettings";
 import { hero } from "./hero";
 import { about } from "./about";
+import { legalDoc } from "./legalDoc";
 
 export const schemaTypes = [
   // Locale types
@@ -18,4 +19,5 @@ export const schemaTypes = [
   hero,
   about,
   siteSettings,
+  legalDoc,
 ];

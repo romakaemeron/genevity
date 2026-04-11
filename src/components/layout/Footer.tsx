@@ -3,9 +3,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Instagram, Facebook, YouTube, MapPin, Phone, Clock } from "@/components/ui/Icons";
+import { MapPin, Phone, Clock } from "@/components/ui/Icons";
 
-export default function Footer() {
+interface LegalLink {
+  _id: string;
+  slug: string;
+  label: string;
+}
+
+export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) {
   const t = useTranslations("footer");
 
   const usefulLinks = [
@@ -93,14 +99,19 @@ export default function Footer() {
           <p className="body-s text-black-40">
             &copy; {new Date().getFullYear()} Genevity. {t("rights")}
           </p>
-          {/* <div className="flex items-center gap-6">
-            <Link href="#" className="body-s text-black-40 hover:text-main transition-colors">
-              {t("privacy")}
-            </Link>
-            <Link href="#" className="body-s text-black-40 hover:text-main transition-colors">
-              {t("terms")}
-            </Link>
-          </div> */}
+          {legalDocs.length > 0 && (
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center">
+              {legalDocs.map((doc) => (
+                <Link
+                  key={doc._id}
+                  href={`/legal/${doc.slug}`}
+                  className="body-s text-black-40 hover:text-main transition-colors"
+                >
+                  {doc.label}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </footer>

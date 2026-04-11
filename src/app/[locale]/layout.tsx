@@ -8,6 +8,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
+import { getLegalDocs } from "@/sanity/queries";
 import "../globals.css";
 
 const tenorSans = localFont({
@@ -134,7 +135,10 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const messages = await getMessages();
+  const [messages, legalDocs] = await Promise.all([
+    getMessages(),
+    getLegalDocs(locale),
+  ]);
 
   return (
     <html lang={locale} className={`${tenorSans.variable} ${mulish.variable}`}>
@@ -144,7 +148,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main>{children}</main>
-          <Footer />
+          <Footer legalDocs={legalDocs} />
         </NextIntlClientProvider>
       </body>
     </html>

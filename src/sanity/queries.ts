@@ -6,6 +6,23 @@ function lang(locale: string) {
   return locale === "ua" ? "uk" : locale;
 }
 
+export interface LegalDocLink {
+  _id: string;
+  slug: string;
+  label: string;
+}
+
+export async function getLegalDocs(locale: string): Promise<LegalDocLink[]> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "legalDoc"] | order(order asc) {
+      _id,
+      "slug": slug.current,
+      "label": coalesce(shortLabel.${l}, shortLabel.uk, title.${l}, title.uk),
+    }
+  `);
+}
+
 export async function getHomepageData(locale: string): Promise<HomepageData> {
   const l = lang(locale);
 
