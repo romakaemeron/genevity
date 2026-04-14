@@ -24,8 +24,10 @@ const client = createClient({
 
 const DOCTOR_PHOTOS: { id: string; card: string; modal: string; cardPos: string; modalPos: string }[] = [
   { id: "doctor-0", card: "belyanushkin.webp", modal: "belyanushkin-hq.webp", cardPos: "center 10%", modalPos: "center 20%" },
+  { id: "doctor-1", card: "sepkina.webp", modal: "sepkina-hq.webp", cardPos: "center 15%", modalPos: "center 20%" },
   { id: "doctor-2", card: "makarenko.webp", modal: "makarenko-hq.webp", cardPos: "center 15%", modalPos: "center 15%" },
   { id: "doctor-7", card: "kirilenko.webp", modal: "kirilenko-hq.webp", cardPos: "center 25%", modalPos: "center 15%" },
+  { id: "doctor-9", card: "tolstikova.webp", modal: "tolstikova-hq.webp", cardPos: "center 15%", modalPos: "center 20%" },
 ];
 
 async function uploadImage(filePath: string): Promise<string> {
