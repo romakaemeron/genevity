@@ -1,7 +1,6 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { MapPin, Phone, Clock } from "@/components/ui/Icons";
 import {
@@ -112,14 +111,11 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
           {/* Col 1: Brand + contacts */}
           <div className="flex flex-col gap-5">
             <Link href="/" className="inline-block">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/brand/LogoFullDark.svg"
                 alt="GENEVITY"
-                width={2691}
-                height={597}
-                className="h-20 w-auto block"
-                style={{ height: "5rem", width: "auto" }}
-                priority={false}
+                style={{ height: "80px", width: "auto", display: "block" }}
               />
             </Link>
             <p className="body-m text-black-60 max-w-[32ch]">{t("description")}</p>
@@ -141,7 +137,7 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
                 <Phone className="w-4 h-4 text-main shrink-0" />
                 <span>{t("phone")}</span>
               </a>
-              <div className="flex items-start gap-2 body-m text-black-60">
+              <div className="flex items-start gap-2 body-m text-black">
                 <Clock className="w-4 h-4 text-main shrink-0 mt-1" />
                 <span>{t("hours")}</span>
               </div>
