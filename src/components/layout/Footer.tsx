@@ -115,9 +115,9 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
               <Image
                 src="/brand/LogoFullDark.svg"
                 alt="GENEVITY"
-                width={220}
-                height={48}
-                className="h-11 lg:h-12 w-auto"
+                width={360}
+                height={80}
+                className="h-20 w-auto"
               />
             </Link>
             <p className="body-m text-black-60 max-w-[32ch]">{t("description")}</p>
