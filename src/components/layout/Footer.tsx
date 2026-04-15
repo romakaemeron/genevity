@@ -2,8 +2,9 @@
 
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { MapPin, Phone, Clock } from "@/components/ui/Icons";
+import { serviceCategoriesForFooter, infoLinksForFooter, t as navT } from "./navConfig";
 
 interface LegalLink {
   _id: string;
@@ -11,20 +12,26 @@ interface LegalLink {
   label: string;
 }
 
+const servicesHeading = {
+  ua: "Послуги",
+  ru: "Услуги",
+  en: "Services",
+};
+
+const infoHeading = {
+  ua: "Інформація",
+  ru: "Информация",
+  en: "Information",
+};
+
 export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) {
   const t = useTranslations("footer");
-
-  const usefulLinks = [
-    { label: t("usefulLinks.0.label"), href: t("usefulLinks.0.href") },
-    { label: t("usefulLinks.1.label"), href: t("usefulLinks.1.href") },
-    { label: t("usefulLinks.2.label"), href: t("usefulLinks.2.href") },
-    { label: t("usefulLinks.3.label"), href: t("usefulLinks.3.href") },
-  ];
+  const locale = useLocale();
 
   return (
     <footer className="border-t border-black-10 mt-[var(--spacing-block)]">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="flex flex-col gap-3">
             <Link href="/">
@@ -45,17 +52,33 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
             </Link>
           </div>
 
-          {/* Useful Links */}
+          {/* Services */}
           <div className="flex flex-col gap-3">
-            <p className="body-strong text-black-60">{t("useful")}</p>
+            <p className="body-strong text-black-60">{navT(servicesHeading, locale)}</p>
             <div className="flex flex-col gap-2.5">
-              {usefulLinks.map((link) => (
+              {serviceCategoriesForFooter.map((cat) => (
                 <Link
-                  key={link.href}
+                  key={cat.key}
+                  href={cat.href}
+                  className="body-m text-black hover:text-main transition-colors"
+                >
+                  {navT(cat.label, locale)}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Info */}
+          <div className="flex flex-col gap-3">
+            <p className="body-strong text-black-60">{navT(infoHeading, locale)}</p>
+            <div className="flex flex-col gap-2.5">
+              {infoLinksForFooter.map((link) => (
+                <Link
+                  key={link.key}
                   href={link.href}
                   className="body-m text-black hover:text-main transition-colors"
                 >
-                  {link.label}
+                  {navT(link.label, locale)}
                 </Link>
               ))}
             </div>
