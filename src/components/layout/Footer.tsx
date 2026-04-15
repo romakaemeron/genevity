@@ -108,16 +108,16 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
     <footer className="border-t border-black-10 mt-[var(--spacing-block)]">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-14 lg:py-20">
         {/* Main grid: brand + contacts on the left, service columns on the right */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-12">
           {/* Col 1: Brand + contacts */}
           <div className="flex flex-col gap-5">
             <Link href="/" className="inline-block">
               <Image
                 src="/brand/LogoFullDark.svg"
                 alt="GENEVITY"
-                width={180}
-                height={40}
-                className="h-9 w-auto"
+                width={220}
+                height={48}
+                className="h-11 lg:h-12 w-auto"
               />
             </Link>
             <p className="body-m text-black-60 max-w-[32ch]">{t("description")}</p>
