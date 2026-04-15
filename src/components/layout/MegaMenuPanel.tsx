@@ -120,30 +120,14 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
       className="fixed left-0 right-0 top-16 lg:top-20 z-[998] bg-champagne border-t border-black-10 shadow-[0_12px_36px_-16px_rgba(42,37,32,0.18)]"
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-12 lg:py-14">
-        {/* All services — prominent hub link */}
+        {/* All services — compact hub link */}
         <Link
           href={item.href}
           onClick={onNavigate}
-          className="group mb-10 flex items-center justify-between gap-4 px-6 py-5 rounded-[16px] bg-white/60 hover:bg-white border border-black-10 hover:border-main transition-all duration-300 shadow-[0_4px_20px_-8px_rgba(42,37,32,0.06)] hover:shadow-[0_12px_36px_-16px_rgba(42,37,32,0.15)]"
+          className="group mb-8 inline-flex items-center gap-2 body-strong text-black-60 hover:text-main transition-colors"
         >
-          <div className="flex flex-col gap-0.5">
-            <span className="heading-3 text-black group-hover:text-main transition-colors">
-              {t({ ua: "Всі послуги", ru: "Все услуги", en: "All services" }, locale)}
-            </span>
-            <span className="body-s text-black-60">
-              {t(
-                {
-                  ua: "Повний перелік напрямків медичного центру Genevity",
-                  ru: "Полный перечень направлений медицинского центра Genevity",
-                  en: "Complete list of services at the Genevity medical centre",
-                },
-                locale,
-              )}
-            </span>
-          </div>
-          <span className="shrink-0 w-10 h-10 rounded-full bg-main/10 group-hover:bg-main/20 flex items-center justify-center text-main transition-all duration-300 group-hover:translate-x-1">
-            <ArrowRight className="w-4 h-4" />
-          </span>
+          <span>{t({ ua: "Всі послуги", ru: "Все услуги", en: "All services" }, locale)}</span>
+          <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 xl:gap-x-16 gap-y-10">
