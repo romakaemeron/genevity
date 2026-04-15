@@ -290,10 +290,26 @@ export default function MegaMenuHeader() {
                     <Link
                       href={currentSubItem.href}
                       onClick={closeMobile}
-                      className="inline-flex items-center gap-2 mt-2 heading-2 text-black"
+                      className="group mt-3 flex items-center justify-between gap-4 px-5 py-4 rounded-[16px] bg-white border border-black-10 shadow-[0_4px_20px_-8px_rgba(42,37,32,0.06)] active:bg-main/5 transition-all"
                     >
-                      <span>{t(currentSubItem.label, locale)}</span>
-                      <ChevronRight className="text-black-40" />
+                      <div className="flex flex-col gap-0.5 text-left">
+                        <span className="heading-3 text-black">
+                          {t({ ua: "Всі послуги", ru: "Все услуги", en: "All services" }, locale)}
+                        </span>
+                        <span className="body-s text-black-60">
+                          {t(
+                            {
+                              ua: "Повний перелік напрямків",
+                              ru: "Полный перечень направлений",
+                              en: "Complete list of services",
+                            },
+                            locale,
+                          )}
+                        </span>
+                      </div>
+                      <span className="shrink-0 w-9 h-9 rounded-full bg-main/10 flex items-center justify-center text-main">
+                        <ChevronRight />
+                      </span>
                     </Link>
 
                     <div className="flex flex-col gap-8 mt-8">
