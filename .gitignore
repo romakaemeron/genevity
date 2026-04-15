@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+/technical_task
+/docs
+
 # next.js
 /.next/
 /out/
