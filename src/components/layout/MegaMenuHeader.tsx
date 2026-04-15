@@ -215,13 +215,13 @@ export default function MegaMenuHeader({
             })}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4 shrink-0">
+          <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
             <BookingCTA variant="primary">{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}
-          <div className="lg:hidden flex items-center gap-3">
+          <div className={`lg:hidden flex items-center gap-3 ${navTextClass}`}>
             <LocaleSelector />
             <button
               className="flex flex-col gap-1.5 p-2 cursor-pointer"

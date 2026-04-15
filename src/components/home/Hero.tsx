@@ -11,7 +11,7 @@ import type { HeroData } from "@/sanity/types";
 export default function Hero({ data }: { data: HeroData }) {
   return (
     <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
-      {/* Background image — full bleed */}
+      {/* Base sharp image — full bleed */}
       <motion.div
         className="absolute inset-0"
         variants={fadeIn}
@@ -29,21 +29,42 @@ export default function Hero({ data }: { data: HeroData }) {
         />
       </motion.div>
 
-      {/* Top dim — keeps the transparent header readable */}
+      {/* Progressive blur layer — masked so it fades out toward the right */}
       <div
-        className="absolute inset-x-0 top-0 h-40 lg:h-56 z-[1] pointer-events-none"
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          maskImage:
+            "linear-gradient(to right, black 0%, black 28%, transparent 62%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, black 0%, black 28%, transparent 62%)",
+        }}
+      >
+        <Image
+          src="/clinic/acupulse.webp"
+          alt=""
+          fill
+          className="object-cover object-center scale-[1.02]"
+          style={{ filter: "blur(14px)" }}
+          sizes="100vw"
+          aria-hidden
+        />
+      </div>
+
+      {/* Darken gradient — strongest where the text lives, fades out to the right */}
+      <div
+        className="absolute inset-0 z-[2] pointer-events-none"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.18) 60%, transparent 100%)",
+            "linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.2) 48%, transparent 70%)",
         }}
       />
 
-      {/* Bottom dim — softens horizon for footer of section */}
+      {/* Top dim — keeps the transparent header readable */}
       <div
-        className="absolute inset-x-0 bottom-0 h-40 lg:h-64 z-[1] pointer-events-none"
+        className="absolute inset-x-0 top-0 h-40 lg:h-56 z-[3] pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
         }}
       />
 
@@ -52,46 +73,39 @@ export default function Hero({ data }: { data: HeroData }) {
         <MegaMenuHeader variant="transparent" position="absolute" />
       </div>
 
-      {/* Content */}
+      {/* Content — text sits directly over the masked image */}
       <div className="relative z-[5] h-full flex items-center">
         <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)]">
-          <div className="max-w-[42ch] lg:max-w-[52ch]">
-            {/* Glass panel behind text — slight blur + dim for legibility */}
-            <motion.div
-              className="rounded-[var(--radius-card)] backdrop-blur-md p-6 sm:p-8 lg:p-10"
-              style={{
-                backgroundColor: "rgba(20, 16, 12, 0.18)",
-                boxShadow: "0 24px 64px -24px rgba(0,0,0,0.35)",
-              }}
-              variants={fadeInUp}
-              initial="hidden"
-              animate="visible"
-              transition={{ delay: 0.2, duration: 0.7 }}
-            >
-              <h1 className="heading-1 text-champagne">{data.title}</h1>
+          <motion.div
+            className="max-w-[42ch] lg:max-w-[52ch]"
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.2, duration: 0.7 }}
+          >
+            <h1 className="heading-1 text-champagne">{data.title}</h1>
 
-              <p className="body-l text-white-60 mt-5 max-w-[44ch]">{data.subtitle}</p>
+            <p className="body-l text-white-60 mt-5 max-w-[44ch]">{data.subtitle}</p>
 
-              <div className="flex flex-col gap-4 mt-8">
-                <a
-                  href="https://maps.google.com/?q=Дніпро,+вул.+Олеся+Гончара,+12"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 body-l text-white-60 hover:text-champagne transition-colors duration-200 w-fit"
-                >
-                  <MapPin className="w-4 h-4" />
-                  {data.location}
-                </a>
-                <BookingCTA
-                  variant="secondary"
-                  size="lg"
-                  className="bg-champagne text-black hover:bg-champagne-dark self-start"
-                >
-                  {data.cta}
-                </BookingCTA>
-              </div>
-            </motion.div>
-          </div>
+            <div className="flex flex-col gap-4 mt-8">
+              <a
+                href="https://maps.google.com/?q=Дніпро,+вул.+Олеся+Гончара,+12"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 body-l text-white-60 hover:text-champagne transition-colors duration-200 w-fit"
+              >
+                <MapPin className="w-4 h-4" />
+                {data.location}
+              </a>
+              <BookingCTA
+                variant="secondary"
+                size="lg"
+                className="bg-champagne text-black hover:bg-champagne-dark self-start"
+              >
+                {data.cta}
+              </BookingCTA>
+            </div>
+          </motion.div>
         </div>
       </div>
 
