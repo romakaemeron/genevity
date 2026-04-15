@@ -221,6 +221,8 @@ export default function MegaMenuHeader() {
                   <div className="flex flex-col items-start gap-1 px-4 sm:px-6 pt-6 pb-24">
                     {navTop.map((item, i) => {
                       const hasMega = !!item.mega;
+                      const rowClass =
+                        "w-full flex items-center justify-between py-4 heading-3 text-black cursor-pointer text-left";
                       return (
                         <motion.div
                           key={item.key}
@@ -229,24 +231,25 @@ export default function MegaMenuHeader() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.06 + i * 0.035, duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                         >
-                          <div className="flex items-center justify-between py-4">
+                          {hasMega ? (
+                            <button
+                              type="button"
+                              onClick={() => pushSub(item.key)}
+                              aria-label={`Open ${t(item.label, locale)} submenu`}
+                              className={rowClass}
+                            >
+                              <span>{t(item.label, locale)}</span>
+                              <ChevronRight className="text-black-40" />
+                            </button>
+                          ) : (
                             <Link
                               href={item.href}
-                              className="heading-3 text-black"
                               onClick={closeMobile}
+                              className={rowClass}
                             >
-                              {t(item.label, locale)}
+                              <span>{t(item.label, locale)}</span>
                             </Link>
-                            {hasMega && (
-                              <button
-                                onClick={() => pushSub(item.key)}
-                                aria-label={`Open ${t(item.label, locale)} submenu`}
-                                className="p-3 -mr-3 cursor-pointer text-black-40 hover:text-main transition-colors"
-                              >
-                                <ChevronRight />
-                              </button>
-                            )}
-                          </div>
+                          )}
                         </motion.div>
                       );
                     })}
