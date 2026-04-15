@@ -111,13 +111,12 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-12">
           {/* Col 1: Brand + contacts */}
           <div className="flex flex-col gap-5">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="block" style={{ width: "fit-content" }}>   
               <Image
                 src="/brand/LogoFullDark.svg"
                 alt="GENEVITY"
-                width={289}
-                height={64}
-                style={{ height: "64px", width: "auto" }}
+                width={180}
+                height={48}
                 className="block"
               />
             </Link>

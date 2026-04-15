@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { sanityClient } from "@/sanity/client";
+import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
 export const revalidate = 60;
 
@@ -149,6 +150,8 @@ export default async function LegalPage({
   const blocks = parseContent(doc.content);
 
   return (
+    <>
+      <MegaMenuHeader variant="solid" position="fixed" />
     <div className="pt-32 pb-24 bg-champagne">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <Link
@@ -235,5 +238,6 @@ export default async function LegalPage({
         </article>
       </div>
     </div>
+    </>
   );
 }

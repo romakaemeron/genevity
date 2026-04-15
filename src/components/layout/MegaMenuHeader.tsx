@@ -12,6 +12,15 @@ import { navTop, t, type NavTop } from "./navConfig";
 
 type MobileView = { type: "top" } | { type: "sub"; itemKey: string };
 
+type Props = {
+  /** "transparent" sits over a hero image (light text, transparent bg). "solid" is the default champagne bg + dark text. */
+  variant?: "transparent" | "solid";
+  /** "absolute" anchors to the top of its parent (e.g. inside a hero); "fixed" sticks to viewport top. */
+  position?: "absolute" | "fixed";
+  /** When set with position="fixed", the header stays hidden until the element with this id has been scrolled past, then slides in from the top. */
+  hideUntilScrollPastId?: string;
+};
+
 function ChevronRight({ className = "" }: { className?: string }) {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" className={className}>
@@ -36,7 +45,11 @@ const viewVariants: Variants = {
   exit: (d: number) => ({ x: d === 1 ? "-40%" : "40%", opacity: 0, filter: "blur(8px)" }),
 };
 
-export default function MegaMenuHeader() {
+export default function MegaMenuHeader({
+  variant = "solid",
+  position = "fixed",
+  hideUntilScrollPastId,
+}: Props = {}) {
   const locale = useLocale();
   const tNav = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
@@ -44,6 +57,8 @@ export default function MegaMenuHeader() {
   const [mobileView, setMobileView] = useState<MobileView>({ type: "top" });
   const [direction, setDirection] = useState<1 | -1>(1);
   const [activeMega, setActiveMega] = useState<string | null>(null);
+  // For position="fixed" with hideUntilScrollPastId: track whether sentinel is in view
+  const [revealed, setRevealed] = useState(!hideUntilScrollPastId);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -54,6 +69,23 @@ export default function MegaMenuHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Sentinel observer for the "appear after hero" sticky header.
+  useEffect(() => {
+    if (!hideUntilScrollPastId) return;
+    const el = document.getElementById(hideUntilScrollPastId);
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Reveal once the sentinel has scrolled out of view (above the viewport).
+        const past = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        setRevealed(past);
+      },
+      { threshold: 0, rootMargin: "0px 0px 0px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hideUntilScrollPastId]);
 
   const scheduleClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -70,7 +102,6 @@ export default function MegaMenuHeader() {
 
   const closeMobile = () => {
     setMobileOpen(false);
-    // Reset after exit animation
     setTimeout(() => {
       setMobileView({ type: "top" });
       setDirection(1);
@@ -90,25 +121,51 @@ export default function MegaMenuHeader() {
   const currentSubItem: NavTop | undefined =
     mobileView.type === "sub" ? navTop.find((i) => i.key === mobileView.itemKey) : undefined;
 
+  // Effective visual variant: any open menu forces "solid".
+  const menuOpen = !!activeMega || mobileOpen;
+  const effectiveVariant: "transparent" | "solid" = menuOpen ? "solid" : variant;
+  const isTransparent = effectiveVariant === "transparent";
+
+  const headerBgClass = mobileOpen
+    ? "bg-champagne"
+    : isTransparent
+      ? "bg-transparent"
+      : "bg-champagne/90 backdrop-blur-xl";
+
+  const navTextClass = isTransparent ? "text-champagne" : "text-black";
+  const navHoverClass = isTransparent ? "hover:text-white" : "hover:text-main";
+  const underlineClass = isTransparent ? "after:bg-champagne" : "after:bg-main";
+  const activeTextClass = isTransparent ? "text-white" : "text-main";
+  const hamburgerColorClass = isTransparent ? "bg-champagne" : "bg-black";
+  const logoSrc = isTransparent ? "/brand/LogoFullLight.svg" : "/brand/LogoFullDark.svg";
+
+  const positionClass = position === "absolute" ? "absolute" : "fixed";
+  const shadowClass = isTransparent
+    ? "shadow-[0_1px_0_transparent]"
+    : scrolled || activeMega
+      ? "shadow-[0_1px_0_var(--color-black-10)]"
+      : "shadow-[0_1px_0_transparent]";
+
+  // Slide-in animation only for fixed reveal-on-scroll variant.
+  const initialAnim = hideUntilScrollPastId
+    ? { y: -100, opacity: 0 }
+    : { y: position === "fixed" ? -100 : 0, opacity: position === "fixed" ? 0 : 1 };
+  const animateAnim = revealed ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 };
+
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-[999] transition-shadow duration-200 ${
-        mobileOpen ? "bg-champagne" : "bg-champagne/90 backdrop-blur-xl"
-      } ${
-        scrolled || activeMega
-          ? "shadow-[0_1px_0_var(--color-black-10)]"
-          : "shadow-[0_1px_0_transparent]"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className={`${positionClass} top-0 left-0 right-0 z-[999] transition-[background,box-shadow] duration-300 ${headerBgClass} ${shadowClass}`}
+      initial={initialAnim}
+      animate={animateAnim}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       onMouseLeave={scheduleClose}
+      style={{ pointerEvents: hideUntilScrollPastId && !revealed ? "none" : "auto" }}
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           <Link href="/" className="flex items-center shrink-0" onClick={closeMobile}>
             <Image
-              src="/brand/LogoFullDark.svg"
+              src={logoSrc}
               alt="GENEVITY"
               width={180}
               height={40}
@@ -135,8 +192,8 @@ export default function MegaMenuHeader() {
                   <Link
                     href={item.href}
                     className={`relative body-l transition-colors duration-300 flex items-center gap-1 ${
-                      isActive ? "text-main" : "text-black hover:text-main"
-                    } after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] after:bg-main after:transition-all after:duration-300 ${
+                      isActive ? activeTextClass : `${navTextClass} ${navHoverClass}`
+                    } after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] ${underlineClass} after:transition-all after:duration-300 ${
                       isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
                     }`}
                   >
@@ -173,15 +230,15 @@ export default function MegaMenuHeader() {
               aria-expanded={mobileOpen}
             >
               <motion.span
-                className="w-6 h-0.5 bg-black block"
+                className={`w-6 h-0.5 ${hamburgerColorClass} block`}
                 animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
               />
               <motion.span
-                className="w-6 h-0.5 bg-black block"
+                className={`w-6 h-0.5 ${hamburgerColorClass} block`}
                 animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
               />
               <motion.span
-                className="w-6 h-0.5 bg-black block"
+                className={`w-6 h-0.5 ${hamburgerColorClass} block`}
                 animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
               />
             </button>
@@ -300,7 +357,6 @@ export default function MegaMenuHeader() {
                   className="absolute inset-0 overflow-y-auto"
                 >
                   <div className="px-4 sm:px-6 pt-4 pb-24">
-                    {/* Back bar */}
                     <button
                       onClick={popToTop}
                       className="flex items-center gap-1.5 py-2 -ml-1 body-m text-black-60 hover:text-main transition-colors cursor-pointer"

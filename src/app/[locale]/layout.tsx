@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
@@ -153,7 +152,6 @@ export default async function LocaleLayout({
         <ImageProtection />
         <OrganizationSchema />
         <NextIntlClientProvider messages={messages}>
-          <MegaMenuHeader />
           <main>{children}</main>
           <Footer legalDocs={legalDocs} />
         </NextIntlClientProvider>
