@@ -189,7 +189,21 @@ export default function MegaMenuHeader() {
         </nav>
       </div>
 
-      {/* Desktop Mega Panel */}
+      {/* Desktop Mega Panel + backdrop */}
+      <AnimatePresence>
+        {activeItem?.mega && (
+          <motion.div
+            key="mega-backdrop"
+            className="hidden lg:block fixed left-0 right-0 bottom-0 top-16 lg:top-20 z-[997] bg-black/30 backdrop-blur-[2px]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.24, ease: [0.32, 0.72, 0, 1] }}
+            onMouseEnter={() => setActiveMega(null)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {activeItem?.mega && (
           <div
