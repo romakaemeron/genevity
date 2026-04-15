@@ -4,7 +4,13 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { MapPin, Phone, Clock } from "@/components/ui/Icons";
-import { serviceCategoriesForFooter, infoLinksForFooter, t as navT } from "./navConfig";
+import {
+  serviceCategoriesForFooter,
+  infoLinksForFooter,
+  t as navT,
+  type NavCategory,
+  type NavLeaf,
+} from "./navConfig";
 
 interface LegalLink {
   _id: string;
@@ -12,118 +18,165 @@ interface LegalLink {
   label: string;
 }
 
-const servicesHeading = {
-  ua: "Послуги",
-  ru: "Услуги",
-  en: "Services",
+const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
+
+const headings = {
+  injectable: L("Ін'єкційна косметологія", "Инъекционная косметология", "Injectable cosmetology"),
+  apparatus: L("Апаратна косметологія", "Аппаратная косметология", "Apparatus cosmetology"),
+  intimate: L("Інтимне відновлення", "Интимное восстановление", "Intimate rejuvenation"),
+  laser: L("Лазерна епіляція", "Лазерная эпиляция", "Laser hair removal"),
+  longevity: L("Longevity & Anti-Age", "Longevity & Anti-Age", "Longevity & Anti-Age"),
+  more: L("Інші послуги", "Другие услуги", "More services"),
+  info: L("Інформація", "Информация", "Information"),
 };
 
-const infoHeading = {
-  ua: "Інформація",
-  ru: "Информация",
-  en: "Information",
-};
+function CategoryColumn({
+  cat,
+  locale,
+}: {
+  cat: NavCategory;
+  locale: string;
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      <Link
+        href={cat.href}
+        className="body-strong text-black-60 hover:text-main transition-colors"
+      >
+        {navT(cat.label, locale)}
+      </Link>
+      <ul className="flex flex-col gap-2">
+        {cat.items.map((leaf) => (
+          <li key={leaf.key}>
+            <Link
+              href={leaf.href}
+              className="body-m text-black hover:text-main transition-colors"
+            >
+              {navT(leaf.label, locale)}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function LinkListColumn({
+  heading,
+  items,
+  locale,
+}: {
+  heading: { ua: string; ru: string; en: string };
+  items: NavLeaf[];
+  locale: string;
+}) {
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="body-strong text-black-60">{navT(heading, locale)}</p>
+      <ul className="flex flex-col gap-2">
+        {items.map((leaf) => (
+          <li key={leaf.key}>
+            <Link
+              href={leaf.href}
+              className="body-m text-black hover:text-main transition-colors"
+            >
+              {navT(leaf.label, locale)}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) {
   const t = useTranslations("footer");
   const locale = useLocale();
 
+  const [injectable, apparatus, intimate, laser, longevity] = serviceCategoriesForFooter;
+  const extraServices = (serviceCategoriesForFooter[0] ? [] : []) as NavLeaf[]; // placeholder, extras live in mega.extra
+  // Pull extras directly from the mega menu definition for consistency
+  const moreServicesItems: NavLeaf[] = [
+    { key: "skincare", label: L("Доглядові процедури", "Уходовые процедуры", "Skincare treatments"), href: "/services/skincare" },
+    { key: "podology", label: L("Подологія", "Подология", "Podology"), href: "/services/podology" },
+    { key: "diagnostics", label: L("Діагностичні послуги", "Диагностические услуги", "Diagnostic services"), href: "/services/diagnostics" },
+    { key: "plastic", label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: "/services/plastic-surgery" },
+  ];
+  void extraServices;
+
   return (
     <footer className="border-t border-black-10 mt-[var(--spacing-block)]">
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-          {/* Brand */}
-          <div className="flex flex-col gap-3">
-            <Link href="/">
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-14 lg:py-20">
+        {/* Main grid: brand + contacts on the left, service columns on the right */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-12">
+          {/* Col 1: Brand + contacts */}
+          <div className="flex flex-col gap-5">
+            <Link href="/" className="inline-block">
               <Image
                 src="/brand/LogoFullDark.svg"
                 alt="GENEVITY"
-                width={160}
-                height={36}
-                className="h-8 w-auto"
+                width={180}
+                height={40}
+                className="h-9 w-auto"
               />
             </Link>
-            <p className="body-m text-black-60">{t("description")}</p>
-            <Link
-              href="/legal/license"
-              className="body-s text-black-40 mt-2 hover:text-main transition-colors"
-            >
-              {t("license")}
-            </Link>
-          </div>
+            <p className="body-m text-black-60 max-w-[32ch]">{t("description")}</p>
 
-          {/* Services */}
-          <div className="flex flex-col gap-3">
-            <p className="body-strong text-black-60">{navT(servicesHeading, locale)}</p>
-            <div className="flex flex-col gap-2.5">
-              {serviceCategoriesForFooter.map((cat) => (
-                <Link
-                  key={cat.key}
-                  href={cat.href}
-                  className="body-m text-black hover:text-main transition-colors"
-                >
-                  {navT(cat.label, locale)}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Info */}
-          <div className="flex flex-col gap-3">
-            <p className="body-strong text-black-60">{navT(infoHeading, locale)}</p>
-            <div className="flex flex-col gap-2.5">
-              {infoLinksForFooter.map((link) => (
-                <Link
-                  key={link.key}
-                  href={link.href}
-                  className="body-m text-black hover:text-main transition-colors"
-                >
-                  {navT(link.label, locale)}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div className="flex flex-col gap-3">
-            <p className="body-strong text-black-60">{t("contact")}</p>
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-2.5 mt-1">
               <a
                 href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
+                className="flex items-start gap-2 body-m text-black hover:text-main transition-colors"
               >
-                <MapPin className="w-4 h-4 text-main shrink-0" />
-                {t("address")}
+                <MapPin className="w-4 h-4 text-main shrink-0 mt-1" />
+                <span>{t("address")}</span>
               </a>
               <a
                 href={`tel:${t("phone").replace(/\s/g, "")}`}
                 className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
               >
                 <Phone className="w-4 h-4 text-main shrink-0" />
-                {t("phone")}
+                <span>{t("phone")}</span>
               </a>
-              <div className="flex items-center gap-2 body-m text-black">
-                <Clock className="w-4 h-4 text-main shrink-0" />
-                {t("hours")}
+              <div className="flex items-start gap-2 body-m text-black-60">
+                <Clock className="w-4 h-4 text-main shrink-0 mt-1" />
+                <span>{t("hours")}</span>
               </div>
-              {/* <div className="flex items-center gap-3 mt-2">
-                <a href="#" className="text-main hover:text-main-dark transition-colors" aria-label="Instagram">
-                  <Instagram />
-                </a>
-                <a href="#" className="text-main hover:text-main-dark transition-colors" aria-label="Facebook">
-                  <Facebook />
-                </a>
-                <a href="#" className="text-main hover:text-main-dark transition-colors" aria-label="YouTube">
-                  <YouTube />
-                </a>
-              </div> */}
             </div>
+
+            <Link
+              href="/legal/license"
+              className="body-s text-black-40 mt-1 hover:text-main transition-colors"
+            >
+              {t("license")}
+            </Link>
+          </div>
+
+          {/* Col 2: Ін'єкційна (full list) */}
+          {injectable && <CategoryColumn cat={injectable} locale={locale} />}
+
+          {/* Col 3: Апаратна + Лазерна (stacked) */}
+          <div className="flex flex-col gap-8">
+            {apparatus && <CategoryColumn cat={apparatus} locale={locale} />}
+            {laser && <CategoryColumn cat={laser} locale={locale} />}
+          </div>
+
+          {/* Col 4: Longevity + Інтимне (stacked) */}
+          <div className="flex flex-col gap-8">
+            {longevity && <CategoryColumn cat={longevity} locale={locale} />}
+            {intimate && <CategoryColumn cat={intimate} locale={locale} />}
+          </div>
+
+          {/* Col 5: More services + Info (stacked) */}
+          <div className="flex flex-col gap-8">
+            <LinkListColumn heading={headings.more} items={moreServicesItems} locale={locale} />
+            <LinkListColumn heading={headings.info} items={infoLinksForFooter} locale={locale} />
           </div>
         </div>
 
-        <div className="border-t border-black-10 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Bottom bar */}
+        <div className="border-t border-black-10 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="body-s text-black-40">
             &copy; {new Date().getFullYear()} Genevity. {t("rights")}
           </p>
