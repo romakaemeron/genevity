@@ -8,14 +8,35 @@ import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import LocaleSelector from "@/components/ui/LocaleSelector";
 import MegaMenuPanel from "./MegaMenuPanel";
-import { navTop, t } from "./navConfig";
+import { navTop, t, type NavTop } from "./navConfig";
+
+type MobileView = { type: "top" } | { type: "sub"; itemKey: string };
+
+function ChevronRight({ className = "" }: { className?: string }) {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" className={className}>
+      <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ChevronLeft({ className = "" }: { className?: string }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className={className}>
+      <path d="M10 4L6 8L10 12" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const viewTransition = { duration: 0.36, ease: [0.32, 0.72, 0, 1] as const };
 
 export default function MegaMenuHeader() {
   const locale = useLocale();
   const tNav = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [mobileView, setMobileView] = useState<MobileView>({ type: "top" });
+  const [direction, setDirection] = useState<1 | -1>(1);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -41,6 +62,28 @@ export default function MegaMenuHeader() {
 
   const activeItem = navTop.find((i) => i.key === activeMega);
 
+  const closeMobile = () => {
+    setMobileOpen(false);
+    // Reset after exit animation
+    setTimeout(() => {
+      setMobileView({ type: "top" });
+      setDirection(1);
+    }, 300);
+  };
+
+  const pushSub = (itemKey: string) => {
+    setDirection(1);
+    setMobileView({ type: "sub", itemKey });
+  };
+
+  const popToTop = () => {
+    setDirection(-1);
+    setMobileView({ type: "top" });
+  };
+
+  const currentSubItem: NavTop | undefined =
+    mobileView.type === "sub" ? navTop.find((i) => i.key === mobileView.itemKey) : undefined;
+
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-[999] transition-shadow duration-200 ${
@@ -57,7 +100,7 @@ export default function MegaMenuHeader() {
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center shrink-0">
+          <Link href="/" className="flex items-center shrink-0" onClick={closeMobile}>
             <Image
               src="/brand/LogoFullDark.svg"
               alt="GENEVITY"
@@ -119,7 +162,7 @@ export default function MegaMenuHeader() {
             <LocaleSelector />
             <button
               className="flex flex-col gap-1.5 p-2 cursor-pointer"
-              onClick={() => setMobileOpen(!mobileOpen)}
+              onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
             >
@@ -153,123 +196,165 @@ export default function MegaMenuHeader() {
         )}
       </AnimatePresence>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — iOS-style page stack */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="lg:hidden fixed inset-x-0 top-16 bottom-0 z-[998] overflow-y-auto"
+            className="lg:hidden fixed inset-x-0 top-16 bottom-0 z-[998] overflow-hidden"
             style={{ backgroundColor: "#FAF9F6" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.22 }}
           >
-            <div className="flex flex-col items-start gap-1 px-4 sm:px-6 pt-6 pb-20">
-              {navTop.map((item, i) => {
-                const hasMega = !!item.mega;
-                const isExpanded = mobileExpanded === item.key;
-                return (
-                  <motion.div
-                    key={item.key}
-                    className="w-full border-b border-black-10"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.04 + i * 0.03, duration: 0.25 }}
-                  >
-                    <div className="flex items-center justify-between py-4">
-                      <Link
-                        href={item.href}
-                        className="heading-3 text-black"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {t(item.label, locale)}
-                      </Link>
-                      {hasMega && (
-                        <button
-                          onClick={() => setMobileExpanded(isExpanded ? null : item.key)}
-                          aria-label="Toggle submenu"
-                          aria-expanded={isExpanded}
-                          className="p-2 -mr-2 cursor-pointer"
-                        >
-                          <svg
-                            width="14"
-                            height="14"
-                            viewBox="0 0 14 14"
-                            className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
-                          >
-                            <path d="M3 5L7 9L11 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-                    <AnimatePresence initial={false}>
-                      {hasMega && isExpanded && item.mega && (
+            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+              {mobileView.type === "top" && (
+                <motion.div
+                  key="top"
+                  custom={direction}
+                  initial={(d: 1 | -1) => ({ x: d === 1 ? "40%" : "-40%", opacity: 0, filter: "blur(8px)" })}
+                  animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={(d: 1 | -1) => ({ x: d === 1 ? "-40%" : "40%", opacity: 0, filter: "blur(8px)" })}
+                  transition={viewTransition}
+                  className="absolute inset-0 overflow-y-auto"
+                >
+                  <div className="flex flex-col items-start gap-1 px-4 sm:px-6 pt-6 pb-24">
+                    {navTop.map((item, i) => {
+                      const hasMega = !!item.mega;
+                      return (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                          className="overflow-hidden"
+                          key={item.key}
+                          className="w-full border-b border-black-10"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.06 + i * 0.035, duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                         >
-                          <div className="pb-4 pl-1 flex flex-col gap-5">
-                            {item.mega.categories.map((cat) => (
-                              <div key={cat.key} className="flex flex-col gap-2">
-                                <Link
-                                  href={cat.href}
-                                  onClick={() => setMobileOpen(false)}
-                                  className="inline-flex items-center gap-1.5 body-strong text-black"
-                                >
-                                  <span>{t(cat.label, locale)}</span>
-                                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" className="text-black-40">
-                                    <path d="M3.5 2.5L7 6L3.5 9.5" stroke="currentColor" strokeWidth="1.25" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                                  </svg>
-                                </Link>
-                                <ul className="flex flex-col gap-1.5 pl-3 border-l border-black-10">
-                                  {cat.items.map((leaf) => (
-                                    <li key={leaf.key}>
-                                      <Link
-                                        href={leaf.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        className="body-m text-black-60"
-                                      >
-                                        {t(leaf.label, locale)}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ))}
-                            {item.mega.extra && (
-                              <div className="flex flex-col gap-2">
-                                <p className="body-strong text-black">{t(item.mega.extra.label, locale)}</p>
-                                <ul className="flex flex-col gap-1.5 pl-3 border-l border-black-10">
-                                  {item.mega.extra.items.map((leaf) => (
-                                    <li key={leaf.key}>
-                                      <Link
-                                        href={leaf.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        className="body-m text-black-60"
-                                      >
-                                        {t(leaf.label, locale)}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
+                          <div className="flex items-center justify-between py-4">
+                            <Link
+                              href={item.href}
+                              className="heading-3 text-black"
+                              onClick={closeMobile}
+                            >
+                              {t(item.label, locale)}
+                            </Link>
+                            {hasMega && (
+                              <button
+                                onClick={() => pushSub(item.key)}
+                                aria-label={`Open ${t(item.label, locale)} submenu`}
+                                className="p-3 -mr-3 cursor-pointer text-black-40 hover:text-main transition-colors"
+                              >
+                                <ChevronRight />
+                              </button>
                             )}
                           </div>
                         </motion.div>
+                      );
+                    })}
+                    <motion.div
+                      className="w-full mt-6"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.28 }}
+                    >
+                      <BookingCTA variant="primary" className="w-full text-center">
+                        {tNav("cta")}
+                      </BookingCTA>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              )}
+
+              {mobileView.type === "sub" && currentSubItem?.mega && (
+                <motion.div
+                  key={`sub-${mobileView.itemKey}`}
+                  custom={direction}
+                  initial={(d: 1 | -1) => ({ x: d === 1 ? "40%" : "-40%", opacity: 0, filter: "blur(8px)" })}
+                  animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={(d: 1 | -1) => ({ x: d === 1 ? "-40%" : "40%", opacity: 0, filter: "blur(8px)" })}
+                  transition={viewTransition}
+                  className="absolute inset-0 overflow-y-auto"
+                >
+                  <div className="px-4 sm:px-6 pt-4 pb-24">
+                    {/* Back bar */}
+                    <button
+                      onClick={popToTop}
+                      className="flex items-center gap-1.5 py-2 -ml-1 body-m text-black-60 hover:text-main transition-colors cursor-pointer"
+                    >
+                      <ChevronLeft />
+                      <span>{t({ ua: "Назад", ru: "Назад", en: "Back" }, locale)}</span>
+                    </button>
+
+                    <Link
+                      href={currentSubItem.href}
+                      onClick={closeMobile}
+                      className="inline-flex items-center gap-2 mt-2 heading-2 text-black"
+                    >
+                      <span>{t(currentSubItem.label, locale)}</span>
+                      <ChevronRight className="text-black-40" />
+                    </Link>
+
+                    <div className="flex flex-col gap-8 mt-8">
+                      {currentSubItem.mega.categories.map((cat, ci) => (
+                        <motion.div
+                          key={cat.key}
+                          className="flex flex-col gap-3"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.08 + ci * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        >
+                          <Link
+                            href={cat.href}
+                            onClick={closeMobile}
+                            className="inline-flex items-center gap-1.5 body-strong text-black"
+                          >
+                            <span>{t(cat.label, locale)}</span>
+                            <ChevronRight className="text-black-40 w-3 h-3" />
+                          </Link>
+                          <ul className="flex flex-col gap-2 pl-3 border-l border-black-10">
+                            {cat.items.map((leaf) => (
+                              <li key={leaf.key}>
+                                <Link
+                                  href={leaf.href}
+                                  onClick={closeMobile}
+                                  className="body-m text-black-60 hover:text-main transition-colors"
+                                >
+                                  {t(leaf.label, locale)}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      ))}
+                      {currentSubItem.mega.extra && (
+                        <motion.div
+                          className="flex flex-col gap-3"
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.08 + currentSubItem.mega.categories.length * 0.04, duration: 0.3 }}
+                        >
+                          <p className="body-strong text-black">
+                            {t(currentSubItem.mega.extra.label, locale)}
+                          </p>
+                          <ul className="flex flex-col gap-2 pl-3 border-l border-black-10">
+                            {currentSubItem.mega.extra.items.map((leaf) => (
+                              <li key={leaf.key}>
+                                <Link
+                                  href={leaf.href}
+                                  onClick={closeMobile}
+                                  className="body-m text-black-60 hover:text-main transition-colors"
+                                >
+                                  {t(leaf.label, locale)}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
                       )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
-              <div className="w-full mt-6">
-                <BookingCTA variant="primary" className="w-full text-center">
-                  {tNav("cta")}
-                </BookingCTA>
-              </div>
-            </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
