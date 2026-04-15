@@ -217,9 +217,12 @@ export default function MegaMenuHeader() {
                                 <Link
                                   href={cat.href}
                                   onClick={() => setMobileOpen(false)}
-                                  className="body-strong text-black"
+                                  className="inline-flex items-center gap-1.5 body-strong text-black"
                                 >
-                                  {t(cat.label, locale)}
+                                  <span>{t(cat.label, locale)}</span>
+                                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" className="text-black-40">
+                                    <path d="M3.5 2.5L7 6L3.5 9.5" stroke="currentColor" strokeWidth="1.25" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                                  </svg>
                                 </Link>
                                 <ul className="flex flex-col gap-1.5 pl-3 border-l border-black-10">
                                   {cat.items.map((leaf) => (
