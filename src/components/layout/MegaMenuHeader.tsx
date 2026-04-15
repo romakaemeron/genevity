@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
@@ -29,6 +29,12 @@ function ChevronLeft({ className = "" }: { className?: string }) {
 }
 
 const viewTransition = { duration: 0.36, ease: [0.32, 0.72, 0, 1] as const };
+
+const viewVariants: Variants = {
+  initial: (d: number) => ({ x: d === 1 ? "40%" : "-40%", opacity: 0, filter: "blur(8px)" }),
+  animate: { x: 0, opacity: 1, filter: "blur(0px)" },
+  exit: (d: number) => ({ x: d === 1 ? "-40%" : "40%", opacity: 0, filter: "blur(8px)" }),
+};
 
 export default function MegaMenuHeader() {
   const locale = useLocale();
@@ -112,7 +118,7 @@ export default function MegaMenuHeader() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+          <div className="hidden lg:flex items-center gap-6">
             {navTop.map((item) => {
               const hasMega = !!item.mega;
               const isActive = activeMega === item.key;
@@ -212,9 +218,10 @@ export default function MegaMenuHeader() {
                 <motion.div
                   key="top"
                   custom={direction}
-                  initial={(d: 1 | -1) => ({ x: d === 1 ? "40%" : "-40%", opacity: 0, filter: "blur(8px)" })}
-                  animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-                  exit={(d: 1 | -1) => ({ x: d === 1 ? "-40%" : "40%", opacity: 0, filter: "blur(8px)" })}
+                  variants={viewVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                   transition={viewTransition}
                   className="absolute inset-0 overflow-y-auto"
                 >
@@ -271,9 +278,10 @@ export default function MegaMenuHeader() {
                 <motion.div
                   key={`sub-${mobileView.itemKey}`}
                   custom={direction}
-                  initial={(d: 1 | -1) => ({ x: d === 1 ? "40%" : "-40%", opacity: 0, filter: "blur(8px)" })}
-                  animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
-                  exit={(d: 1 | -1) => ({ x: d === 1 ? "-40%" : "40%", opacity: 0, filter: "blur(8px)" })}
+                  variants={viewVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
                   transition={viewTransition}
                   className="absolute inset-0 overflow-y-auto"
                 >
