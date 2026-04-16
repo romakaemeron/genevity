@@ -1,5 +1,8 @@
 import { sanityClient } from "./client";
-import type { HomepageData, EquipmentItem, DoctorItem, FaqItem, HeroData, AboutData, SiteSettingsData, UiStringsData } from "./types";
+import type {
+  HomepageData, EquipmentItem, DoctorItem, FaqItem, HeroData, AboutData, SiteSettingsData, UiStringsData,
+  ServiceCategoryData, ServiceData, ServiceCardData, StaticPageData, NavigationData,
+} from "./types";
 
 // Map internal locale code to Sanity field name
 function lang(locale: string) {
@@ -168,6 +171,247 @@ async function getUiStrings(l: string): Promise<UiStringsData> {
       "meta": {
         "title": coalesce(meta.title.${l}, meta.title.uk),
         "description": coalesce(meta.description.${l}, meta.description.uk),
+      },
+    }
+  `);
+}
+
+// ---- v2 queries: services, categories, static pages, navigation ----
+
+/** Shared GROQ fragment for projecting content sections with locale fallback */
+function sectionsProjection(l: string) {
+  return `
+    sections[] {
+      _type,
+      _key,
+      _type == "section.richText" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "body": coalesce(body.${l}, body.uk),
+      },
+      _type == "section.bullets" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "items": coalesce(items.${l}, items.uk),
+      },
+      _type == "section.steps" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "steps": steps[] {
+          "title": coalesce(title.${l}, title.uk),
+          "description": coalesce(description.${l}, description.uk),
+        },
+      },
+      _type == "section.compareTable" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "columns": columns[] { "value": coalesce(@.${l}, @.uk) }.value,
+        "rows": rows[] {
+          "label": coalesce(label.${l}, label.uk),
+          "values": coalesce(values.${l}, values.uk),
+        },
+      },
+      _type == "section.indicationsContraindications" => {
+        "indicationsHeading": coalesce(indicationsHeading.${l}, indicationsHeading.uk),
+        "indications": coalesce(indications.${l}, indications.uk),
+        "contraindicationsHeading": coalesce(contraindicationsHeading.${l}, contraindicationsHeading.uk),
+        "contraindications": coalesce(contraindications.${l}, contraindications.uk),
+      },
+      _type == "section.priceTeaser" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "intro": coalesce(intro.${l}, intro.uk),
+        "ctaLabel": coalesce(ctaLabel.${l}, ctaLabel.uk),
+      },
+      _type == "section.callout" => {
+        tone,
+        "body": coalesce(body.${l}, body.uk),
+      },
+      _type == "section.imageGallery" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "images": images[] { "url": asset->url, "alt": asset->altText },
+      },
+      _type == "section.relatedDoctors" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "doctors": doctors[]-> {
+          _id,
+          "name": coalesce(name.${l}, name.uk),
+          "role": coalesce(role.${l}, role.uk),
+          "experience": coalesce(experience.${l}, experience.uk),
+          "specialties": coalesce(specialties.${l}, specialties.uk),
+          "photoCard": photoCard.asset->url,
+        },
+      },
+      _type == "section.cta" => {
+        "heading": coalesce(heading.${l}, heading.uk),
+        "body": coalesce(body.${l}, body.uk),
+        "ctaLabel": coalesce(ctaLabel.${l}, ctaLabel.uk),
+        ctaHref,
+      },
+    }
+  `;
+}
+
+function faqProjection(l: string) {
+  return `
+    faq[] {
+      "question": coalesce(question.${l}, question.uk),
+      "answer": coalesce(answer.${l}, answer.uk),
+    }
+  `;
+}
+
+// --- Service Category ---
+
+export async function getCategoryBySlug(locale: string, slug: string): Promise<ServiceCategoryData | null> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "serviceCategory" && slug.current == $slug][0] {
+      _id,
+      "title": coalesce(title.${l}, title.uk),
+      "slug": slug.current,
+      "summary": coalesce(summary.${l}, summary.uk),
+      "heroImage": heroImage.asset->url,
+      "parent": parent-> {
+        _id,
+        "slug": slug.current,
+        "title": coalesce(title.${l}, title.uk),
+      },
+      order,
+      "clickable": coalesce(clickable, true),
+      iconKey,
+    }
+  `, { slug });
+}
+
+export async function getAllCategories(locale: string): Promise<ServiceCategoryData[]> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "serviceCategory"] | order(order asc) {
+      _id,
+      "title": coalesce(title.${l}, title.uk),
+      "slug": slug.current,
+      "summary": coalesce(summary.${l}, summary.uk),
+      "heroImage": heroImage.asset->url,
+      "parent": parent-> {
+        _id,
+        "slug": slug.current,
+        "title": coalesce(title.${l}, title.uk),
+      },
+      order,
+      "clickable": coalesce(clickable, true),
+      iconKey,
+    }
+  `);
+}
+
+export async function getAllCategorySlugs(): Promise<{ slug: string }[]> {
+  return sanityClient.fetch(`
+    *[_type == "serviceCategory"] { "slug": slug.current }
+  `);
+}
+
+// --- Service ---
+
+export async function getServiceBySlug(locale: string, categorySlug: string, serviceSlug: string): Promise<ServiceData | null> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "service" && slug.current == $serviceSlug && category->slug.current == $categorySlug][0] {
+      _id,
+      "title": coalesce(title.${l}, title.uk),
+      "h1": coalesce(h1.${l}, h1.uk, title.${l}, title.uk),
+      "slug": slug.current,
+      "category": category-> {
+        _id,
+        "slug": slug.current,
+        "title": coalesce(title.${l}, title.uk),
+      },
+      "summary": coalesce(summary.${l}, summary.uk),
+      "heroImage": heroImage.asset->url,
+      "procedureLength": coalesce(procedureLength.${l}, procedureLength.uk),
+      "effectDuration": coalesce(effectDuration.${l}, effectDuration.uk),
+      "sessionsRecommended": coalesce(sessionsRecommended.${l}, sessionsRecommended.uk),
+      "priceFrom": coalesce(priceFrom.${l}, priceFrom.uk),
+      "priceUnit": coalesce(priceUnit.${l}, priceUnit.uk),
+      ${sectionsProjection(l)},
+      ${faqProjection(l)},
+      "relatedDoctors": relatedDoctors[]-> {
+        _id,
+        "name": coalesce(name.${l}, name.uk),
+        "role": coalesce(role.${l}, role.uk),
+        "experience": coalesce(experience.${l}, experience.uk),
+        "specialties": coalesce(specialties.${l}, specialties.uk),
+        "photoCard": photoCard.asset->url,
+        "photoModal": photoModal.asset->url,
+        cardPosition,
+        modalPosition,
+      },
+      "relatedServices": relatedServices[]-> {
+        _id,
+        "title": coalesce(title.${l}, title.uk),
+        "slug": slug.current,
+        "summary": coalesce(summary.${l}, summary.uk),
+        "heroImage": heroImage.asset->url,
+      },
+      "relatedEquipment": relatedEquipment[]-> {
+        _id,
+        name,
+      },
+    }
+  `, { serviceSlug, categorySlug });
+}
+
+export async function getServicesByCategory(locale: string, categorySlug: string): Promise<ServiceCardData[]> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "service" && category->slug.current == $categorySlug] | order(order asc) {
+      _id,
+      "title": coalesce(title.${l}, title.uk),
+      "slug": slug.current,
+      "summary": coalesce(summary.${l}, summary.uk),
+      "heroImage": heroImage.asset->url,
+      "categorySlug": category->slug.current,
+    }
+  `, { categorySlug });
+}
+
+export async function getAllServiceSlugs(): Promise<{ slug: string; categorySlug: string }[]> {
+  return sanityClient.fetch(`
+    *[_type == "service"] {
+      "slug": slug.current,
+      "categorySlug": category->slug.current,
+    }
+  `);
+}
+
+// --- Static Page ---
+
+export async function getStaticPage(locale: string, slug: string): Promise<StaticPageData | null> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "staticPage" && slug == $slug][0] {
+      _id,
+      slug,
+      "title": coalesce(title.${l}, title.uk),
+      "h1": coalesce(h1.${l}, h1.uk, title.${l}, title.uk),
+      "summary": coalesce(summary.${l}, summary.uk),
+      ${sectionsProjection(l)},
+      ${faqProjection(l)},
+    }
+  `, { slug });
+}
+
+// --- Navigation ---
+
+export async function getNavigation(locale: string): Promise<NavigationData> {
+  const l = lang(locale);
+  return sanityClient.fetch(`
+    *[_type == "navigation"][0] {
+      "items": items[] {
+        "label": coalesce(label.${l}, label.uk),
+        "href": coalesce(href.${l}, href.uk),
+        "isMegaMenu": coalesce(isMegaMenu, false),
+        "categorySlug": category->slug.current,
+        "order": coalesce(order, 0),
+      } | order(order asc),
+      "cta": {
+        "label": coalesce(cta.label.${l}, cta.label.uk),
+        "href": cta.href,
       },
     }
   `);

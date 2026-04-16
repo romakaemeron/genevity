@@ -130,7 +130,7 @@ export default function MegaMenuHeader({
     ? "bg-champagne"
     : isTransparent
       ? "bg-transparent"
-      : "bg-champagne/90 backdrop-blur-xl";
+      : "bg-champagne";
 
   const navTextClass = isTransparent ? "text-champagne" : "text-black";
   const navHoverClass = isTransparent ? "hover:text-white" : "hover:text-main";
@@ -159,7 +159,10 @@ export default function MegaMenuHeader({
       animate={animateAnim}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       onMouseLeave={scheduleClose}
-      style={{ pointerEvents: hideUntilScrollPastId && !revealed ? "none" : "auto" }}
+      style={{
+        pointerEvents: hideUntilScrollPastId && !revealed ? "none" : "auto",
+        visibility: hideUntilScrollPastId && !revealed ? "hidden" : "visible",
+      }}
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
@@ -217,7 +220,7 @@ export default function MegaMenuHeader({
 
           <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
-            <BookingCTA variant="primary">{tNav("cta")}</BookingCTA>
+            <BookingCTA variant={isTransparent ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}
@@ -359,7 +362,7 @@ export default function MegaMenuHeader({
                   <div className="px-4 sm:px-6 pt-4 pb-24">
                     <button
                       onClick={popToTop}
-                      className="flex items-center gap-1.5 py-2 -ml-1 body-m text-black-60 hover:text-main transition-colors cursor-pointer"
+                      className="flex items-center gap-1.5 py-2 -ml-1 body-l text-black-60 hover:text-main transition-colors cursor-pointer"
                     >
                       <ChevronLeft />
                       <span>{t({ ua: "Назад", ru: "Назад", en: "Back" }, locale)}</span>
@@ -368,7 +371,7 @@ export default function MegaMenuHeader({
                     <Link
                       href={currentSubItem.href}
                       onClick={closeMobile}
-                      className="group mt-3 inline-flex items-center gap-1.5 body-strong text-black-60 active:text-main transition-colors"
+                      className="group mt-3 inline-flex items-center gap-1.5 heading-3 text-black-60 active:text-main transition-colors"
                     >
                       <span>{t({ ua: "Всі послуги", ru: "Все услуги", en: "All services" }, locale)}</span>
                       <ChevronRight className="text-black-40 w-3 h-3" />
@@ -378,7 +381,7 @@ export default function MegaMenuHeader({
                       {currentSubItem.mega.categories.map((cat, ci) => (
                         <motion.div
                           key={cat.key}
-                          className="flex flex-col gap-3"
+                          className="flex flex-col gap-4"
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.08 + ci * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -386,18 +389,18 @@ export default function MegaMenuHeader({
                           <Link
                             href={cat.href}
                             onClick={closeMobile}
-                            className="inline-flex items-center gap-1.5 body-strong text-black"
+                            className="inline-flex items-center gap-1.5 heading-3 text-black"
                           >
                             <span>{t(cat.label, locale)}</span>
                             <ChevronRight className="text-black-40 w-3 h-3" />
                           </Link>
-                          <ul className="flex flex-col gap-2 pl-3 border-l border-black-10">
+                          <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
                             {cat.items.map((leaf) => (
                               <li key={leaf.key}>
                                 <Link
                                   href={leaf.href}
                                   onClick={closeMobile}
-                                  className="body-m text-black-60 hover:text-main transition-colors"
+                                  className="body-l text-black-60 hover:text-main transition-colors"
                                 >
                                   {t(leaf.label, locale)}
                                 </Link>

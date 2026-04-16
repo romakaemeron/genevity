@@ -1,0 +1,10 @@
+export { sectionRichText } from "./richText";
+export { sectionBullets } from "./bullets";
+export { sectionSteps } from "./steps";
+export { sectionCompareTable } from "./compareTable";
+export { sectionIndicationsContraindications } from "./indicationsContraindications";
+export { sectionPriceTeaser } from "./priceTeaser";
+export { sectionCallout } from "./callout";
+export { sectionImageGallery } from "./imageGallery";
+export { sectionRelatedDoctors } from "./relatedDoctors";
+export { sectionCta } from "./cta";

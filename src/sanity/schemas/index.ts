@@ -6,13 +6,45 @@ import { siteSettings } from "./siteSettings";
 import { hero } from "./hero";
 import { about } from "./about";
 import { legalDoc } from "./legalDoc";
+import { faqItem } from "./faqItem";
+import { navItem } from "./navItem";
+import {
+  sectionRichText,
+  sectionBullets,
+  sectionSteps,
+  sectionCompareTable,
+  sectionIndicationsContraindications,
+  sectionPriceTeaser,
+  sectionCallout,
+  sectionImageGallery,
+  sectionRelatedDoctors,
+  sectionCta,
+} from "./sections";
+import { serviceCategory } from "./serviceCategory";
+import { service } from "./service";
+import { staticPage } from "./staticPage";
+import { navigation } from "./navigation";
 
 export const schemaTypes = [
   // Locale types
   localeString,
   localeText,
   localeStringArray,
-  // Documents
+  // Reusable objects
+  faqItem,
+  navItem,
+  // Content section variants
+  sectionRichText,
+  sectionBullets,
+  sectionSteps,
+  sectionCompareTable,
+  sectionIndicationsContraindications,
+  sectionPriceTeaser,
+  sectionCallout,
+  sectionImageGallery,
+  sectionRelatedDoctors,
+  sectionCta,
+  // Existing documents
   equipment,
   doctor,
   faq,
@@ -20,4 +52,9 @@ export const schemaTypes = [
   about,
   siteSettings,
   legalDoc,
+  // New documents
+  serviceCategory,
+  service,
+  staticPage,
+  navigation,
 ];

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import { MapPin } from "lucide-react";
@@ -9,64 +10,91 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import type { HeroData } from "@/sanity/types";
 
 export default function Hero({ data }: { data: HeroData }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Progressive border radius: 0 → 24px as you scroll down
+  const borderRadius = useTransform(scrollYProgress, [0, 0.4], [0, 24]);
+  // Parallax: image moves slower than scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  // Darken overlay: becomes more opaque as you scroll
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.35]);
+
   return (
-    <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
-      {/* Base sharp image — full bleed */}
+    <section ref={sectionRef} className="relative h-screen min-h-[640px] w-full overflow-hidden">
+      {/* Scroll-driven rounded container */}
       <motion.div
-        className="absolute inset-0"
-        variants={fadeIn}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: 0.05, duration: 1.2 }}
+        className="absolute inset-0 overflow-hidden"
+        style={{ borderRadius }}
       >
-        <Image
-          src="/clinic/acupulse.webp"
-          alt="Інтер'єр преміальної клініки довголіття GENEVITY у Дніпрі"
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          priority
+        {/* Base sharp image — full bleed with parallax */}
+        <motion.div
+          className="absolute inset-0"
+          variants={fadeIn}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.05, duration: 1.2 }}
+          style={{ y: imageY }}
+        >
+          <Image
+            src="/clinic/acupulse.webp"
+            alt="Інтер'єр преміальної клініки довголіття GENEVITY у Дніпрі"
+            fill
+            className="object-cover object-center scale-[1.1]"
+            sizes="100vw"
+            priority
+          />
+        </motion.div>
+
+        {/* Progressive blur layer — masked so it fades out toward the right */}
+        <motion.div
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            y: imageY,
+            maskImage:
+              "linear-gradient(to right, black 0%, black 35%, transparent 68%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, black 0%, black 35%, transparent 68%)",
+          }}
+        >
+          <Image
+            src="/clinic/acupulse.webp"
+            alt=""
+            fill
+            className="object-cover object-center scale-[1.12]"
+            style={{ filter: "blur(14px)" }}
+            sizes="100vw"
+            aria-hidden
+          />
+        </motion.div>
+
+        {/* Darken gradient — strongest where the text lives, fades out to the right */}
+        <div
+          className="absolute inset-0 z-[2] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.2) 55%, transparent 75%)",
+          }}
+        />
+
+        {/* Scroll-driven darkening overlay */}
+        <motion.div
+          className="absolute inset-0 z-[2] pointer-events-none bg-black"
+          style={{ opacity: overlayOpacity }}
+        />
+
+        {/* Top dim — keeps the transparent header readable */}
+        <div
+          className="absolute inset-x-0 top-0 h-40 lg:h-56 z-[3] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
+          }}
         />
       </motion.div>
-
-      {/* Progressive blur layer — masked so it fades out toward the right */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          maskImage:
-            "linear-gradient(to right, black 0%, black 28%, transparent 62%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, black 0%, black 28%, transparent 62%)",
-        }}
-      >
-        <Image
-          src="/clinic/acupulse.webp"
-          alt=""
-          fill
-          className="object-cover object-center scale-[1.02]"
-          style={{ filter: "blur(14px)" }}
-          sizes="100vw"
-          aria-hidden
-        />
-      </div>
-
-      {/* Darken gradient — strongest where the text lives, fades out to the right */}
-      <div
-        className="absolute inset-0 z-[2] pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.45) 25%, rgba(0,0,0,0.2) 48%, transparent 70%)",
-        }}
-      />
-
-      {/* Top dim — keeps the transparent header readable */}
-      <div
-        className="absolute inset-x-0 top-0 h-40 lg:h-56 z-[3] pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
-        }}
-      />
 
       {/* Hero header — transparent, anchored at top of hero, scrolls with it */}
       <div className="absolute inset-x-0 top-0 z-[10]">
@@ -77,7 +105,7 @@ export default function Hero({ data }: { data: HeroData }) {
       <div className="relative z-[5] h-full flex items-center">
         <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)]">
           <motion.div
-            className="max-w-[42ch] lg:max-w-[52ch]"
+            className="max-w-200"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
@@ -85,7 +113,7 @@ export default function Hero({ data }: { data: HeroData }) {
           >
             <h1 className="heading-1 text-champagne">{data.title}</h1>
 
-            <p className="body-l text-white-60 mt-5 max-w-[44ch]">{data.subtitle}</p>
+            <p className="body-l text-white-60 mt-5 max-w-[54ch]">{data.subtitle}</p>
 
             <div className="flex flex-col gap-4 mt-8">
               <a
