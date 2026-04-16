@@ -227,7 +227,9 @@ img::selection {
 /* === Scroll Anchor Offset (navbar height + breathing room) === */
 #about,
 #equipment,
+#advantages,
 #doctors,
+#faq,
 #contacts,
 #booking {
   scroll-margin-top: 100px;
