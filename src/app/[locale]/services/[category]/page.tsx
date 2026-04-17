@@ -46,11 +46,6 @@ const categoryImages: Record<string, string[]> = {
 
 export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const categories = await getAllCategorySlugs();
-  return categories.map((c) => ({ category: c.slug }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string }> }) {
   const { locale, category: slug } = await params;
   const cat = await getCategoryBySlug(locale, slug);

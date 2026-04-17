@@ -27,11 +27,6 @@ const serviceImages: Record<string, string[]> = {
 
 export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const services = await getAllServiceSlugs();
-  return services.map((s) => ({ category: s.categorySlug, slug: s.slug }));
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string; slug: string }> }) {
   const { locale, category, slug } = await params;
   const data = await getServiceBySlug(locale, category, slug);
