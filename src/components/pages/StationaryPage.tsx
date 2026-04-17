@@ -18,6 +18,7 @@ import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { ui } from "@/lib/ui-strings";
+import StripeGallery from "@/components/ui/StripeGallery";
 
 interface Props {
   data: StaticPageData;
@@ -86,7 +87,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}>
             <Breadcrumbs items={[{ label: ui("home", locale), href: "/" }, { label: data.title, href: "/stationary" }]} locale={locale} variant="light" />
             <h1 className="heading-1 text-champagne mt-6 max-w-2xl">{data.h1 || data.title}</h1>
-            {data.summary && <p className="body-l text-white-60 mt-5 max-w-xl">{data.summary}</p>}
+            {data.summary && <p className="body-l text-white-60 mt-5">{data.summary}</p>}
             <div className="mt-8">
               <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
                 {ui("bookConsultation", locale)}
@@ -146,7 +147,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== SERVICES — icon cards ===== */}
-      <section className="bg-champagne-dark py-16 lg:py-24">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
             <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-10">
@@ -158,7 +159,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
                 <motion.div
                   key={i}
                   variants={fadeInUp}
-                  className="flex flex-col gap-3 p-6 rounded-[var(--radius-card)] bg-white border border-line"
+                  className="flex flex-col gap-3 p-6 rounded-[var(--radius-card)] bg-champagne-dark"
                 >
                   <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center">
                     <svc.icon className="w-5 h-5 text-main" />
@@ -172,21 +173,25 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
         </div>
       </section>
 
-      {/* ===== CLINIC PHOTOS — immersive strip ===== */}
-      <motion.section
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3"
-      >
-        <div className="relative aspect-[16/9] lg:aspect-[4/3]">
-          <Image src="/clinic/semi1737-hdr.webp" alt="Інтер'єр клініки GENEVITY" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-        </div>
-        <div className="relative aspect-[16/9] lg:aspect-[4/3]">
-          <Image src="/clinic/semi1256-hdr.webp" alt="Палата стаціонару GENEVITY" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-        </div>
-      </motion.section>
+      {/* ===== CLINIC PHOTOS — interactive stripe gallery ===== */}
+      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-8">
+        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+          <StripeGallery
+            title={t(L("Наш простір", "Наше пространство", "Our Space"), locale)}
+            subtitle={t(L("Познайомтеся з клінікою GENEVITY зсередини", "Познакомьтесь с клиникой GENEVITY изнутри", "Explore GENEVITY clinic from the inside"), locale)}
+            items={[
+              { src: "/clinic/semi1737-hdr.webp", alt: t(L("Зал апаратної косметології", "Зал аппаратной косметологии", "Apparatus Cosmetology Room"), locale), label: t(L("Зал апаратної косметології", "Зал аппаратной косметологии", "Apparatus Cosmetology Room"), locale), sublabel: t(L("Сучасне обладнання преміум-класу", "Современное оборудование премиум-класса", "Premium modern equipment"), locale), description: t(L("Простір обладнано апаратами BTL, Lumenis та InMode для ліфтингу, контурування тіла та омолодження шкіри. Деяке обладнання — єдине в Україні.", "Пространство оборудовано аппаратами BTL, Lumenis и InMode для лифтинга, контурирования тела и омоложения кожи. Некоторое оборудование — единственное в Украине.", "Space equipped with BTL, Lumenis and InMode devices for lifting, body contouring and skin rejuvenation. Some equipment is the only one in Ukraine."), locale) },
+              { src: "/clinic/semi1256-hdr.webp", alt: t(L("Палата стаціонару", "Палата стационара", "Stationary Room"), locale), label: t(L("Палати стаціонару", "Палаты стационара", "Stationary Rooms"), locale), sublabel: t(L("Комфорт та приватність", "Комфорт и приватность", "Comfort & privacy"), locale), description: t(L("Індивідуальні палати з усім необхідним: зручне ліжко, система моніторингу, кондиціонування, Wi-Fi та кнопка виклику медперсоналу.", "Индивидуальные палаты со всем необходимым: удобная кровать, система мониторинга, кондиционирование, Wi-Fi и кнопка вызова медперсонала.", "Private rooms with everything needed: comfortable bed, monitoring system, air conditioning, Wi-Fi and staff call button."), locale) },
+              { src: "/clinic/semi1287-hdr.webp", alt: t(L("Кабінет лікаря", "Кабинет врача", "Physician Office"), locale), label: t(L("Кабінет лікаря", "Кабинет врача", "Physician Office"), locale), sublabel: t(L("Індивідуальні консультації", "Индивидуальные консультации", "Individual consultations"), locale), description: t(L("Затишний простір для детальних консультацій, діагностики стану шкіри та складання індивідуальних програм лікування.", "Уютное пространство для детальных консультаций, диагностики состояния кожи и составления индивидуальных программ лечения.", "Cozy space for detailed consultations, skin diagnostics and individual treatment program planning."), locale) },
+              { src: "/clinic/hydrafacial.webp", alt: t(L("HydraFacial", "HydraFacial", "HydraFacial"), locale), label: t(L("HydraFacial Syndeo", "HydraFacial Syndeo", "HydraFacial Syndeo"), locale), sublabel: t(L("Апаратний догляд за шкірою", "Аппаратный уход за кожей", "Apparatus skincare"), locale), description: t(L("Багатоетапна процедура глибокого очищення, ексфоліації, зволоження та захисту шкіри обличчя на апараті останнього покоління.", "Многоэтапная процедура глубокого очищения, эксфолиации, увлажнения и защиты кожи лица на аппарате последнего поколения.", "Multi-step deep cleansing, exfoliation, hydration and facial skin protection on a latest-generation device."), locale) },
+              { src: "/clinic/acupulse.webp", alt: t(L("AcuPulse CO₂", "AcuPulse CO₂", "AcuPulse CO₂"), locale), label: t(L("AcuPulse CO₂ лазер", "AcuPulse CO₂ лазер", "AcuPulse CO₂ Laser"), locale), sublabel: t(L("Фракційне лазерне шліфування", "Фракционная лазерная шлифовка", "Fractional laser resurfacing"), locale), description: t(L("Ізраїльський фракційний CO₂ лазер від Lumenis для шліфування шкіри, видалення рубців, пігментації та глибокого омолодження.", "Израильский фракционный CO₂ лазер от Lumenis для шлифовки кожи, удаления рубцов, пигментации и глубокого омоложения.", "Israeli fractional CO₂ laser by Lumenis for skin resurfacing, scar removal, pigmentation and deep rejuvenation."), locale) },
+              { src: "/services/injectable-cosmetology-hero.webp", alt: t(L("Процедурний кабінет", "Процедурный кабинет", "Procedure Room"), locale), label: t(L("Процедурний кабінет", "Процедурный кабинет", "Procedure Room"), locale), sublabel: t(L("Ін'єкційна косметологія", "Инъекционная косметология", "Injectable cosmetology"), locale), description: t(L("Кабінет для проведення ін'єкційних процедур: ботулінотерапія, контурна пластика, біоревіталізація та мезотерапія.", "Кабинет для проведения инъекционных процедур: ботулинотерапия, контурная пластика, биоревитализация и мезотерапия.", "Room for injectable procedures: botulinum therapy, contour plasty, biorevitalization and mesotherapy."), locale) },
+              { src: "/clinic/semi1737-hdr.webp", alt: t(L("Зона відпочинку", "Зона отдыха", "Rest Area"), locale), label: t(L("Зона відпочинку", "Зона отдыха", "Rest Area"), locale), sublabel: t(L("Затишок після процедур", "Уют после процедур", "Comfort after procedures"), locale), description: t(L("Комфортна зона для відпочинку та відновлення після процедур з напоями та увагою медичного персоналу.", "Комфортная зона для отдыха и восстановления после процедур с напитками и вниманием медицинского персонала.", "Comfortable area for rest and recovery after procedures with beverages and medical staff attention."), locale) },
+            ]}
+            height="420px"
+          />
+        </motion.div>
+      </section>
 
       {/* ===== INDICATIONS ===== */}
       <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-24">
@@ -206,16 +211,12 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
               </motion.div>
             ))}
           </div>
-        </motion.div>
-      </section>
 
-      {/* ===== RELATED LINKS ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-8">
-        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
-          className="flex flex-wrap gap-3">
-          <Link href="/laboratory"><Button variant="outline" size="sm">{t(L("Лабораторія", "Лаборатория", "Laboratory"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-          <Link href="/services/longevity/iv-therapy"><Button variant="outline" size="sm">{t(L("IV-терапія", "IV-терапия", "IV Therapy"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-          <Link href="/services/plastic-surgery"><Button variant="outline" size="sm">{t(L("Пластична хірургія", "Пластическая хирургия", "Plastic Surgery"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+          <motion.div variants={fadeInUp} className="flex flex-wrap gap-3 mt-8">
+            <Link href="/laboratory"><Button variant="outline" size="sm">{t(L("Лабораторія", "Лаборатория", "Laboratory"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/services/longevity/iv-therapy"><Button variant="outline" size="sm">{t(L("IV-терапія", "IV-терапия", "IV Therapy"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/services/plastic-surgery"><Button variant="outline" size="sm">{t(L("Пластична хірургія", "Пластическая хирургия", "Plastic Surgery"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -229,8 +230,8 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {steps.map((step, i) => (
               <motion.div key={i} variants={fadeInUp} className="relative">
-                <span className="heading-1 text-main/10 absolute -top-4 -left-2 select-none">{step.num}</span>
-                <div className="pt-8">
+                <span className="heading-1 text-main/10 select-none">{step.num}</span>
+                <div className="pt-4">
                   <h3 className="heading-3 text-black mb-3">{t(step.label, locale)}</h3>
                   <p className="body-l text-muted">{t(step.desc, locale)}</p>
                 </div>
@@ -252,13 +253,13 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
           initial="hidden"
           whileInView="visible"
           viewport={viewportConfig}
-          className="bg-champagne-dark rounded-[var(--radius-card)] p-8 lg:p-12 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8"
+          className="bg-champagne-dark rounded-[var(--radius-card)] p-8 lg:p-12 flex flex-col gap-6"
         >
           <div>
             <h2 className="heading-3 text-black mb-3">
               {t(L("Вартість перебування", "Стоимость пребывания", "Stay Pricing"), locale)}
             </h2>
-            <p className="body-l text-muted max-w-xl">
+            <p className="body-l text-muted">
               {t(L(
                 "Вартість перебування у денному стаціонарі GENEVITY залежить від типу, тривалості та складності процедур. Базова вартість перебування — від 950 грн на день, що включає палату, медичний нагляд та харчування. IV-терапія (вітамінні крапельниці) — від 20 000 грн за курс. Комплексні діагностичні програми Check-Up — за індивідуальним розрахунком. Точну вартість визначить лікар на безкоштовній консультації.",
                 "Стоимость пребывания в дневном стационаре GENEVITY зависит от типа, продолжительности и сложности процедур. Базовая стоимость пребывания — от 950 грн в день, включая палату, медицинское наблюдение и питание. IV-терапия (витаминные капельницы) — от 20 000 грн за курс. Комплексные диагностические программы Check-Up — по индивидуальному расчёту. Точную стоимость определит врач на бесплатной консультации.",
@@ -274,7 +275,8 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
 
       {/* ===== FAQ ===== */}
       {faq.length > 0 && (
-        <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
+          className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
           <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
           <div className="border-t border-line">
             {faq.map((item, i) => (
@@ -293,17 +295,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
               </div>
             ))}
           </div>
-        </section>
-      )}
-
-      {/* ===== DOCTORS ===== */}
-      {doctors && doctors.length > 0 && doctorsUi && (
-        <div className="mt-4">
-          <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
-          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
-            <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-          </div>
-        </div>
+        </motion.section>
       )}
 
       {/* ===== FINAL CTA ===== */}
