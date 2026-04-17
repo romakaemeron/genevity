@@ -11,6 +11,7 @@ import DoctorCard from "@/components/doctors/DoctorCard";
 import DoctorModalContent from "@/components/doctors/DoctorModal";
 import Modal from "@/components/ui/Modal";
 import { ui } from "@/lib/ui-strings";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 interface Props {
   doctors: DoctorItem[];
@@ -47,6 +48,18 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
 
   return (
     <>
+      {/* Physician schema for each doctor */}
+      {doctors.map((doc) => (
+        <JsonLd key={doc._id} data={{
+          "@context": "https://schema.org",
+          "@type": "Physician",
+          name: doc.name,
+          jobTitle: doc.role,
+          ...(doc.photoCard ? { image: doc.photoCard } : {}),
+          worksFor: { "@type": "MedicalBusiness", name: "GENEVITY", url: "https://genevity.com.ua" },
+        }} />
+      ))}
+
       {/* Hero */}
       <section className="bg-champagne">
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-12 lg:pb-16">

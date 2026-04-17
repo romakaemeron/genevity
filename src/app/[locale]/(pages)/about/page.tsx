@@ -27,7 +27,7 @@ async function getAbout(locale: string): Promise<AboutData> {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return generatePageMetadata({
-    title: locale === "ru" ? "О центре" : locale === "en" ? "About" : "Про центр",
+    title: locale === "ru" ? "О центре — эстетическая медицина в Днепре" : locale === "en" ? "About — Aesthetic Medicine in Dnipro" : "Про центр — естетична медицина у Дніпрі",
     description: locale === "ru" ? "Центр эстетической медицины и долголетия GENEVITY в Днепре. Команда экспертов, передовое оборудование, доказательная медицина." : locale === "en" ? "GENEVITY aesthetic medicine and longevity center in Dnipro. Expert team, advanced equipment, evidence-based medicine." : "Центр естетичної медицини та довголіття GENEVITY у Дніпрі. Команда експертів, передове обладнання, доказова медицина.",
     locale: locale as Locale,
     path: "/about",

@@ -25,7 +25,7 @@ async function getSettings(locale: string): Promise<SiteSettingsData> {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return generatePageMetadata({
-    title: locale === "ru" ? "Контакты" : locale === "en" ? "Contacts" : "Контакти",
+    title: locale === "ru" ? "Контакты — адрес, телефон, график" : locale === "en" ? "Contacts — Address, Phone, Hours" : "Контакти — адреса, телефон, графік",
     description: locale === "ru" ? "Контакты клиники GENEVITY в Днепре: адрес, телефон, график работы. ☎ +380 73 000 0150" : locale === "en" ? "GENEVITY clinic contacts in Dnipro: address, phone, working hours. ☎ +380 73 000 0150" : "Контакти клініки GENEVITY у Дніпрі: адреса, телефон, графік роботи. ☎ +380 73 000 0150",
     locale: locale as Locale,
     path: "/contacts",

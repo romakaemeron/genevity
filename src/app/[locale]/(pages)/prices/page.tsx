@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   return generatePageMetadata({
     title: locale === "ru" ? "Цены на услуги" : locale === "en" ? "Prices" : "Ціни на послуги",
-    description: locale === "ru" ? "Цены на все услуги центра GENEVITY в Днепре. Консультации, аппаратная и инъекционная косметология, лазерная эпиляция, диагностика." : locale === "en" ? "Prices for all GENEVITY services in Dnipro. Consultations, apparatus and injectable cosmetology, laser hair removal, diagnostics." : "Ціни на всі послуги центру GENEVITY у Дніпрі. Консультації, апаратна та ін'єкційна косметологія, лазерна епіляція, діагностика.",
+    description: locale === "ru" ? "Цены на услуги GENEVITY в Днепре: косметология, аппаратные процедуры, лазерная эпиляция, диагностика. ☎ +380 73 000 0150" : locale === "en" ? "GENEVITY prices in Dnipro: cosmetology, apparatus procedures, laser hair removal, diagnostics. ☎ +380 73 000 0150" : "Ціни на послуги GENEVITY у Дніпрі: косметологія, апаратні процедури, лазерна епіляція, діагностика. ☎ +380 73 000 0150",
     locale: locale as Locale,
     path: "/prices",
   });

@@ -14,7 +14,7 @@ export const revalidate = 60;
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return generatePageMetadata({
-    title: ui("services", locale as string),
+    title: locale === "ru" ? "Услуги — косметология и longevity в Днепре" : locale === "en" ? "Services — Cosmetology & Longevity in Dnipro" : "Послуги — косметологія та longevity у Дніпрі",
     description: locale === "ru" ? "Полный спектр услуг центра эстетической медицины и долголетия GENEVITY в Днепре" : locale === "en" ? "Full range of aesthetic medicine and longevity services at GENEVITY center in Dnipro" : "Повний спектр послуг центру естетичної медицини та довголіття GENEVITY у Дніпрі",
     locale: locale as Locale,
     path: "/services",
