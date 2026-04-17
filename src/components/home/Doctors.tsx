@@ -25,6 +25,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [hasOverflow, setHasOverflow] = useState(false);
   const [expandedDoctor, setExpandedDoctor] = useState<number | null>(null);
 
   const closeModal = useCallback(() => setExpandedDoctor(null), []);
@@ -34,6 +35,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+    setHasOverflow(el.scrollWidth > el.clientWidth + 4);
   }, []);
 
   useEffect(() => {
@@ -90,7 +92,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
           <p className="body-l text-black-60 max-w-[600px]">
             {ui.subtitle}
           </p>
-          <div className="flex gap-2 shrink-0">
+          <div className={`flex gap-2 shrink-0 ${hasOverflow ? "" : "hidden"}`}>
             <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
               <ChevronLeft size={18} />
             </Button>

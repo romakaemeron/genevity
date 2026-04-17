@@ -46,14 +46,14 @@ export default function Header() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
-        <nav className="flex items-center justify-between h-16 lg:h-20">
+        <nav className="flex items-center justify-between h-16 lg:h-16">
           <Link href="/" className="flex items-center">
             <Image
               src="/brand/LogoFullDark.svg"
               alt="GENEVITY"
-              width={180}
-              height={40}
-              className="h-8 lg:h-10 w-auto"
+              width={130}
+              height={30}
+              className="h-8 lg:h-7 w-auto"
               priority
             />
           </Link>

@@ -21,18 +21,18 @@ export default function RichTextSection({ heading, body, index = 0 }: Props) {
       whileInView="visible"
       viewport={viewportConfig}
       className={`rounded-[var(--radius-card)] p-8 lg:p-12 ${
-        isEven ? "bg-champagne-dark" : "bg-white border border-line"
+        isEven ? "bg-champagne-dark" : "bg-champagne-dark"
       }`}
     >
       <div className="max-w-3xl">
         {heading && (
           <div className="flex items-center gap-4 mb-6">                                                                       
-              <div className="w-1 h-8 rounded-full bg-main" />                                                                   
+              <div className="w-1 h-8 rounded-full bg-main hidden lg:block" />                                                                   
           <h2 className="heading-2 text-black">{heading}</h2>                                                                
          </div>                                                   
         )}
         {body && (
-          <p className="body-l text-muted leading-relaxed whitespace-pre-line pl-5 border-l-0">
+          <p className="body-l text-muted leading-relaxed whitespace-pre-line rich-text-body">
             {body}
           </p>
         )}

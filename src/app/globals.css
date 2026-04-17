@@ -154,6 +154,15 @@ img::selection {
   text-wrap: balance;
 }
 
+.heading-4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
 .body-l {
   font-family: var(--font-body);
   font-weight: 500;
@@ -231,7 +240,8 @@ img::selection {
 #doctors,
 #faq,
 #contacts,
-#booking {
+#booking,
+#procedures {
   scroll-margin-top: 100px;
 }
 
@@ -273,6 +283,39 @@ img::selection {
     padding-right: calc((100vw - 1200px) / 2 + 48px);
     scroll-padding-left: calc((100vw - 1200px) / 2 + 48px);
   }
+}
+
+/* === Rich Text Body Padding === */
+@media (min-width: 1024px) {
+  .rich-text-body {
+    padding-left: 20px;
+  }
+}
+
+/* === SVG Draw Animation === */
+.illustration-draw path,
+.illustration-draw line,
+.illustration-draw rect,
+.illustration-draw circle,
+.illustration-draw ellipse {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 0;
+}
+.group:hover .illustration-draw path,
+.group:hover .illustration-draw line,
+.group:hover .illustration-draw rect,
+.group:hover .illustration-draw circle,
+.group:hover .illustration-draw ellipse {
+  animation: draw-cycle 2s ease forwards;
+}
+@keyframes draw-cycle {
+  /* Draw out: 0% → 40% (1s) */
+  0% { stroke-dashoffset: 0; }
+  40% { stroke-dashoffset: 300; }
+  /* Hold empty briefly */
+  42% { stroke-dashoffset: 300; }
+  /* Draw in: 42% → 100% (1.45s) */
+  100% { stroke-dashoffset: 0; }
 }
 
 /* === Shimmer Skeleton === */

@@ -34,9 +34,6 @@ export default function IndicationsContraindicationsSection({
       >
         {indicationsHeading && (
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-full bg-success/15 flex items-center justify-center">
-              <Check className="w-4 h-4 text-success" />
-            </div>
             <h2 className="heading-3 text-black">{indicationsHeading}</h2>
           </div>
         )}
@@ -44,7 +41,11 @@ export default function IndicationsContraindicationsSection({
           <ul className="flex flex-col gap-3">
             {indications.map((item, i) => (
               <li key={i} className="flex items-start gap-3 body-l text-ink">
-                <Check className="w-4 h-4 text-success mt-1 shrink-0" />
+                <div className="shrink-0 mt-0.5" style={{ width: 24, height: 24 }}>
+                  <div className="w-full h-full rounded-full bg-success/20 border border-success/30 flex items-center justify-center">
+                    <Check className="w-3.5 h-3.5 text-success" />
+                  </div>
+                </div>
                 {item}
               </li>
             ))}
@@ -59,9 +60,6 @@ export default function IndicationsContraindicationsSection({
       >
         {contraindicationsHeading && (
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 rounded-full bg-warning/15 flex items-center justify-center">
-              <X className="w-4 h-4 text-warning" />
-            </div>
             <h2 className="heading-3 text-black">{contraindicationsHeading}</h2>
           </div>
         )}
@@ -69,7 +67,11 @@ export default function IndicationsContraindicationsSection({
           <ul className="flex flex-col gap-3">
             {contraindications.map((item, i) => (
               <li key={i} className="flex items-start gap-3 body-l text-ink">
-                <X className="w-4 h-4 text-warning mt-1 shrink-0" />
+                <div className="shrink-0 mt-0.5" style={{ width: 24, height: 24 }}>
+                  <div className="w-full h-full rounded-full bg-warning/20 border border-warning/30 flex items-center justify-center">
+                    <X className="w-3.5 h-3.5 text-warning" />
+                  </div>
+                </div>
                 {item}
               </li>
             ))}

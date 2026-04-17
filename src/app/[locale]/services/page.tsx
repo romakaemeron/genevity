@@ -6,14 +6,16 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { ChevronRight } from "lucide-react";
 import { ui } from "@/lib/ui-strings";
+import Button from "@/components/ui/Button";
+import { categoryIllustrations } from "@/components/ui/illustrations";
 
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return generatePageMetadata({
-    title: "Послуги — GENEVITY",
-    description: "Повний спектр послуг центру естетичної медицини та довголіття GENEVITY у Дніпрі",
+    title: ui("services", locale as string),
+    description: locale === "ru" ? "Полный спектр услуг центра эстетической медицины и долголетия GENEVITY в Днепре" : locale === "en" ? "Full range of aesthetic medicine and longevity services at GENEVITY center in Dnipro" : "Повний спектр послуг центру естетичної медицини та довголіття GENEVITY у Дніпрі",
     locale: locale as Locale,
     path: "/services",
   });
@@ -39,24 +41,36 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
         <h1 className="heading-1 text-black mt-8 mb-12">{ui("services", locale as string)}</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {topLevel.map((cat) => (
-            <Link
-              key={cat._id}
-              href={`/services/${cat.slug}`}
-              className="group flex flex-col gap-4 p-6 rounded-[var(--radius-card)] border border-line hover:border-main/30 hover:shadow-[var(--shadow-md)] transition-all duration-150"
-            >
-              <h2 className="heading-3 text-black group-hover:text-main transition-colors">
-                {cat.title}
-              </h2>
-              {cat.summary && (
-                <p className="body-m text-muted line-clamp-3">{cat.summary}</p>
-              )}
-              <span className="inline-flex items-center gap-1 body-m text-main mt-auto">
-                {ui("learnMore", locale as string)}
-                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </span>
-            </Link>
-          ))}
+          {topLevel.map((cat) => {
+            const Illustration = categoryIllustrations[cat.slug];
+            return (
+              <Link
+                key={cat._id}
+                href={`/services/${cat.slug}`}
+                className="group flex flex-col rounded-[var(--radius-card)] bg-champagne-dark hover:border-main/30 hover:shadow-[var(--shadow-md)] transition-all duration-300 overflow-hidden"
+              >
+                {Illustration && (
+                  <div className="flex items-center justify-center h-56 p-4 opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                    <Illustration className="w-full h-full text-black-60 group-hover:text-main illustration-draw transition-colors duration-500" />
+                  </div>
+                )}
+                <div className="flex flex-col gap-3 p-6 flex-1">
+                  <h2 className="heading-3 text-black group-hover:text-main transition-colors">
+                    {cat.title}
+                  </h2>
+                  {cat.summary && (
+                    <p className="body-m text-muted line-clamp-3">{cat.summary}</p>
+                  )}
+                  <div className="mt-auto pt-2">
+                    <Button variant="outline" size="sm">
+                      {ui("learnMore", locale as string)}
+                      <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </>

@@ -30,7 +30,7 @@ export default function BulletsSection({ heading, items }: Props) {
             <motion.div
               key={i}
               variants={fadeInUp}
-              className="flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-colors"
+              className="flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark"
             >
               <div className="w-8 h-8 rounded-full bg-main/10 flex items-center justify-center shrink-0 mt-0.5">
                 <Check className="w-4 h-4 text-main" />

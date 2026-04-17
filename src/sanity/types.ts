@@ -215,6 +215,8 @@ export interface ServiceCategoryData {
   order: number;
   clickable: boolean;
   iconKey: string | null;
+  seoTitle?: string;
+  seoDescription?: string;
   sections?: ContentSection[];
   faq?: FaqItemData[];
 }
@@ -246,6 +248,7 @@ export interface ServiceCardData {
   summary: string;
   heroImage: string | null;
   categorySlug: string;
+  priceFrom: string | null;
 }
 
 export interface StaticPageData {

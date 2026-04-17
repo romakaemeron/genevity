@@ -15,6 +15,11 @@ const strings = {
   alsoInteresting: { ua: "Вас також може зацікавити", ru: "Вас также может заинтересовать", en: "You may also be interested in" },
   learnMore: { ua: "Детальніше", ru: "Подробнее", en: "Learn more" },
   toc: { ua: "Зміст", ru: "Содержание", en: "Contents" },
+  meetDoctors: { ua: "Познайомтеся з нашими лікарями", ru: "Познакомьтесь с нашими врачами", en: "Meet our doctors" },
+  allDoctors: { ua: "Всі лікарі", ru: "Все врачи", en: "All doctors" },
+  viewAllProcedures: { ua: "Всі процедури", ru: "Все процедуры", en: "All procedures" },
+  typesOfProcedures: { ua: "Види процедур", ru: "Виды процедур", en: "Types of Procedures" },
+  viewProcedures: { ua: "Дивитися процедури", ru: "Смотреть процедуры", en: "View procedures" },
 } satisfies Record<string, L>;
 
 export type UiStringKey = keyof typeof strings;

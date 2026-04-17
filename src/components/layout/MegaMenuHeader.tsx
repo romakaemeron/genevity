@@ -173,7 +173,7 @@ export default function MegaMenuHeader({
               alt="GENEVITY"
               width={180}
               height={40}
-              className="h-8 lg:h-10 w-auto"
+              className="h-8 lg:h-9 w-auto"
               priority
             />
           </Link>

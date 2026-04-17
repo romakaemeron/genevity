@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const data = await getServiceBySlug(locale, category, slug);
   if (!data) return {};
   return generatePageMetadata({
-    title: `${data.h1 || data.title} — GENEVITY`,
+    title: data.h1 || data.title,
     description: data.summary || `${data.title} у центрі GENEVITY, Дніпро`,
     locale: locale as Locale,
     path: `/services/${category}/${slug}`,

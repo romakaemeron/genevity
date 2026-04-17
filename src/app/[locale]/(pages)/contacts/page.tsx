@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const data = await getStaticPage(locale, "contacts");
   if (!data) return {};
   return generatePageMetadata({
-    title: `${data.title} — GENEVITY`,
+    title: data.title,
     description: data.summary || "Контакти GENEVITY",
     locale: locale as Locale,
     path: "/contacts",

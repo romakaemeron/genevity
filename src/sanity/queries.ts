@@ -57,6 +57,10 @@ async function getEquipment(l: string): Promise<EquipmentItem[]> {
   `);
 }
 
+export async function getAllDoctors(locale: string): Promise<DoctorItem[]> {
+  return getDoctors(lang(locale));
+}
+
 async function getDoctors(l: string): Promise<DoctorItem[]> {
   return sanityClient.fetch(`
     *[_type == "doctor"] | order(order asc) {
@@ -115,6 +119,10 @@ async function getSiteSettings(l: string): Promise<SiteSettingsData> {
       "hours": coalesce(hours.${l}, hours.uk),
     }
   `);
+}
+
+export async function getUiStringsData(locale: string): Promise<UiStringsData> {
+  return getUiStrings(lang(locale));
 }
 
 async function getUiStrings(l: string): Promise<UiStringsData> {
@@ -275,6 +283,8 @@ export async function getCategoryBySlug(locale: string, slug: string): Promise<S
       order,
       "clickable": coalesce(clickable, true),
       iconKey,
+      "seoTitle": coalesce(seo.title.${l}, seo.title.uk),
+      "seoDescription": coalesce(seo.description.${l}, seo.description.uk),
       ${sectionsProjection(l)},
       ${faqProjection(l)},
     }
@@ -368,6 +378,7 @@ export async function getServicesByCategory(locale: string, categorySlug: string
       "summary": coalesce(summary.${l}, summary.uk),
       "heroImage": heroImage.asset->url,
       "categorySlug": category->slug.current,
+      "priceFrom": coalesce(priceFrom.${l}, priceFrom.uk),
     }
   `, { categorySlug });
 }

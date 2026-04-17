@@ -12,7 +12,7 @@ export default function PriceTeaserSection({ heading, intro, ctaLabel }: Section
       initial="hidden"
       whileInView="visible"
       viewport={viewportConfig}
-      className="rounded-[var(--radius-card)] bg-gradient-to-br from-champagne-dark to-champagne-darker p-8 lg:p-12 border border-line"
+      className="rounded-[var(--radius-card)] bg-gradient-to-br from-champagne-dark to-champagne-darker p-8 lg:p-12 "
     >
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
         <div className="max-w-xl">
