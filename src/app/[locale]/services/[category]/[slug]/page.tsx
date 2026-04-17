@@ -59,8 +59,8 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
       <ServiceDetailTemplate
         data={data}
         locale={locale as Locale}
-        doctorsUi={uiStrings.doctors}
-        detailsLabel={uiStrings.equipment.details}
+        doctorsUi={uiStrings?.doctors}
+        detailsLabel={uiStrings?.equipment?.details}
         images={serviceImages[slug] || defaultServiceImages[category] || DEFAULT_SERVICE_PHOTOS}
       />
     </>

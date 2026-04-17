@@ -151,7 +151,12 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                               );
                             })()}
                           </div>
-                          <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark lg:order-2 order-1">
+                          <motion.div
+                            className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark lg:order-2 order-1"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                          >
                             <Image
                               src={photos[0]}
                               alt={data.title}
@@ -159,7 +164,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                               className="object-cover"
                               sizes="(max-width: 1024px) 100vw, 50vw"
                             />
-                          </div>
+                          </motion.div>
                         </div>
                       </motion.div>
                     ) : (

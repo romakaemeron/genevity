@@ -90,8 +90,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
             ? doctors.filter((d) => categoryDoctorIds[slug].includes(d._id))
             : doctors.slice(0, 4)
         }
-        doctorsUi={uiStrings.doctors}
-        detailsLabel={uiStrings.equipment.details}
+        doctorsUi={uiStrings?.doctors}
+        detailsLabel={uiStrings?.equipment?.details}
       />
     </>
   );
