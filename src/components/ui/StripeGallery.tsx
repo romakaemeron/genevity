@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -25,7 +25,6 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredPos, setHoveredPos] = useState<number | null>(null);
 
-  // Reorder: active first, then the rest wrapping around
   const visibleOrder: number[] = [];
   for (let j = 0; j < items.length; j++) {
     visibleOrder.push((activeIndex + j) % items.length);
@@ -45,7 +44,6 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
   };
 
   const active = items[activeIndex];
-
   const goPrev = () => setActiveIndex((activeIndex - 1 + items.length) % items.length);
   const goNext = () => setActiveIndex((activeIndex + 1) % items.length);
 
@@ -69,8 +67,8 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
         </div>
       )}
 
-      {/* Gallery */}
-      <div className="flex overflow-hidden" style={{ height }}>
+      {/* Desktop: stripe gallery */}
+      <div className="hidden md:flex overflow-hidden" style={{ height }}>
         {visibleOrder.map((origIdx, pos) => {
           const item = items[origIdx];
           const isActive = pos === 0;
@@ -80,7 +78,7 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
           return (
             <motion.div
               key={origIdx}
-              className={`relative cursor-pointer ${pos > 0 ? "pl-2 lg:pl-2.5" : ""}`}
+              className={`relative cursor-pointer ${pos > 0 ? "pl-2.5" : ""}`}
               style={{ minWidth: 0 }}
               animate={{ flex }}
               transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
@@ -105,6 +103,43 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
             </motion.div>
           );
         })}
+      </div>
+
+      {/* Mobile: simple slideshow */}
+      <div className="md:hidden">
+        <div className="relative aspect-[4/3] rounded-[var(--radius-card)] overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={active.src}
+                alt={active.alt}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-1.5 mt-4">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`rounded-full cursor-pointer transition-all ${
+                i === activeIndex ? "w-6 h-2 bg-main" : "w-2 h-2 bg-black-20"
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Active item info */}

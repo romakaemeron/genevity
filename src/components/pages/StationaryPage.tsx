@@ -17,6 +17,7 @@ import Button from "@/components/ui/Button";
 import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { FaqSchema } from "@/components/seo/FaqSchema";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ui } from "@/lib/ui-strings";
 import StripeGallery from "@/components/ui/StripeGallery";
 
@@ -69,6 +70,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
   return (
     <>
       {faq.length > 0 && <FaqSchema items={faq.map((f) => ({ question: f.question, answer: f.answer }))} />}
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "MedicalClinic", name: "GENEVITY — Денний стаціонар", url: "https://genevity.com.ua/stationary", parentOrganization: { "@type": "MedicalBusiness", name: "GENEVITY", url: "https://genevity.com.ua" }, address: { "@type": "PostalAddress", streetAddress: "вул. Олеся Гончара, 12", addressLocality: "Дніпро", addressCountry: "UA" }, telephone: "+380730000150" }} />
 
       {/* ===== HERO — dark, immersive ===== */}
       <section className="relative overflow-hidden bg-ink min-h-[70vh] lg:min-h-[75vh] flex items-center">
