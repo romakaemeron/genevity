@@ -140,7 +140,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                   variants={fadeIn}
                   initial="hidden"
                   animate="visible"
-                  transition={{ duration: 1, delay: 0.1 }}
+                  transition={{ duration: 1, delay: 0.5 }}
                 >
                   <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[70vh] rounded-[var(--radius-card)] overflow-hidden">
                     <Image

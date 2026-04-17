@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import type { ServiceData } from "@/sanity/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -29,6 +31,7 @@ interface Props {
 }
 
 export default function ServiceDetailTemplate({ data, locale, doctorsUi, detailsLabel, images }: Props) {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const tocItems = (data.sections || [])
     .filter((s) => "heading" in s && s.heading)
     .map((s) => ({
@@ -55,30 +58,52 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
       )}
 
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-20">
-        <Breadcrumbs items={breadcrumbs} locale={locale} />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Breadcrumbs items={breadcrumbs} locale={locale} />
+        </motion.div>
 
         {/* Hero area */}
-        <div className="mt-8 mb-6">
+        <motion.div
+          className="mt-8 mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
           <h1 className="heading-1 text-black">{data.h1 || data.title}</h1>
           {data.summary && (
             <p className="body-l text-muted mt-4 max-w-3xl">{data.summary}</p>
           )}
-        </div>
+        </motion.div>
 
-        <KeyFactsBar
-          procedureLength={data.procedureLength}
-          effectDuration={data.effectDuration}
-          sessionsRecommended={data.sessionsRecommended}
-          priceFrom={data.priceFrom}
-          priceUnit={data.priceUnit}
-          locale={locale}
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <KeyFactsBar
+            procedureLength={data.procedureLength}
+            effectDuration={data.effectDuration}
+            sessionsRecommended={data.sessionsRecommended}
+            priceFrom={data.priceFrom}
+            priceUnit={data.priceUnit}
+            locale={locale}
+          />
+        </motion.div>
 
-        <div className="mt-4 mb-10">
+        <motion.div
+          className="mt-4 mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
           <BookingCTA variant="primary" size="lg">
             {ui("book", locale)}
           </BookingCTA>
-        </div>
+        </motion.div>
 
         {/* Sticky section title bar */}
         <TocStickyBar items={tocItems} />
@@ -169,6 +194,47 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         </div>
 
       </div>
+
+      {/* FAQ */}
+      {data.faq?.length > 0 && (
+        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-16 lg:mt-20">
+          <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
+          <div className="border-t border-line">
+            {data.faq.map((item, i) => (
+              <div key={i} className="border-b border-line">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between py-5 lg:py-6 text-left cursor-pointer group"
+                >
+                  <span className="body-strong text-black group-hover:text-main transition-colors pr-4 text-lg">
+                    {item.question}
+                  </span>
+                  <motion.span
+                    className="text-muted text-2xl leading-none shrink-0"
+                    animate={{ rotate: openFaq === i ? 45 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    +
+                  </motion.span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {openFaq === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="body-l text-muted pb-6 pr-8">{item.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Doctors — full bleed */}
       {data.relatedDoctors?.length > 0 && doctorsUi && (
