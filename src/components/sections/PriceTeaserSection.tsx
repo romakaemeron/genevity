@@ -14,15 +14,13 @@ export default function PriceTeaserSection({ heading, intro, ctaLabel }: Section
       viewport={viewportConfig}
       className="rounded-[var(--radius-card)] bg-gradient-to-br from-champagne-dark to-champagne-darker p-8 lg:p-12 "
     >
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        <div className="max-w-xl">
-          {heading && (
-            <h2 className="heading-3 text-black mb-3">{heading}</h2>
-          )}
-          {intro && <p className="body-l text-muted">{intro}</p>}
-        </div>
+      <div className="flex flex-col gap-6">
+        {heading && (
+          <h2 className="heading-3 text-black">{heading}</h2>
+        )}
+        {intro && <p className="body-l text-muted max-w-2xl">{intro}</p>}
         {ctaLabel && (
-          <BookingCTA variant="primary" size="lg">
+          <BookingCTA variant="primary" size="lg" className="self-start">
             {ctaLabel}
           </BookingCTA>
         )}

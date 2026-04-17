@@ -1,4 +1,5 @@
 import { Clock, Sparkles, Repeat, Banknote } from "lucide-react";
+import { ui } from "@/lib/ui-strings";
 
 interface Props {
   procedureLength?: string | null;
@@ -6,16 +7,17 @@ interface Props {
   sessionsRecommended?: string | null;
   priceFrom?: string | null;
   priceUnit?: string | null;
+  locale?: string;
 }
 
 const facts = [
-  { key: "procedureLength", icon: Clock, fallbackLabel: "Тривалість" },
-  { key: "effectDuration", icon: Sparkles, fallbackLabel: "Ефект" },
-  { key: "sessionsRecommended", icon: Repeat, fallbackLabel: "Сеанси" },
-  { key: "priceFrom", icon: Banknote, fallbackLabel: "Вартість" },
+  { key: "procedureLength", icon: Clock, labelKey: "duration" },
+  { key: "effectDuration", icon: Sparkles, labelKey: "effect" },
+  { key: "priceFrom", icon: Banknote, labelKey: "price" },
 ] as const;
 
 export default function KeyFactsBar(props: Props) {
+  const locale = props.locale || "ua";
   const items = facts
     .map((f) => ({
       ...f,
@@ -33,7 +35,7 @@ export default function KeyFactsBar(props: Props) {
             <item.icon className="w-5 h-5" />
           </div>
           <div>
-            <p className="body-s text-muted">{item.fallbackLabel}</p>
+            <p className="body-s text-muted">{ui(item.labelKey, locale)}</p>
             <p className="body-strong text-black">
               {item.value}
               {item.key === "priceFrom" && props.priceUnit && (

@@ -245,6 +245,11 @@ img::selection {
   scroll-margin-top: 100px;
 }
 
+/* Service page sections need extra offset for navbar + sticky TOC bar */
+[id^="section-"] {
+  scroll-margin-top: 140px;
+}
+
 /* === Doctors Horizontal Scroller === */
 .doctors-scroller {
   display: flex;

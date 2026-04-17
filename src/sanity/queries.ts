@@ -340,6 +340,8 @@ export async function getServiceBySlug(locale: string, categorySlug: string, ser
       "sessionsRecommended": coalesce(sessionsRecommended.${l}, sessionsRecommended.uk),
       "priceFrom": coalesce(priceFrom.${l}, priceFrom.uk),
       "priceUnit": coalesce(priceUnit.${l}, priceUnit.uk),
+      "seoTitle": coalesce(seo.title.${l}, seo.title.uk),
+      "seoDescription": coalesce(seo.description.${l}, seo.description.uk),
       ${sectionsProjection(l)},
       ${faqProjection(l)},
       "relatedDoctors": relatedDoctors[]-> {
@@ -359,6 +361,8 @@ export async function getServiceBySlug(locale: string, categorySlug: string, ser
         "slug": slug.current,
         "summary": coalesce(summary.${l}, summary.uk),
         "heroImage": heroImage.asset->url,
+        "priceFrom": coalesce(priceFrom.${l}, priceFrom.uk),
+        "categorySlug": category->slug.current,
       },
       "relatedEquipment": relatedEquipment[]-> {
         _id,

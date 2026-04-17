@@ -4,11 +4,15 @@ import type { ServiceData } from "@/sanity/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import KeyFactsBar from "@/components/ui/KeyFactsBar";
-import TocRail from "@/components/ui/TocRail";
-import TocDropdown from "@/components/ui/TocDropdown";
+import TocStickyBar from "@/components/ui/TocStickyBar";
 import SectionRenderer from "@/components/sections/SectionRenderer";
-import RelatedDoctorsStrip from "@/components/ui/RelatedDoctorsStrip";
-import RelatedServicesGrid from "@/components/ui/RelatedServicesGrid";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { fadeInUp, fadeIn, viewportConfig } from "@/lib/motion";
+import { Link } from "@/i18n/navigation";
+import { ChevronRight } from "lucide-react";
+import Doctors from "@/components/home/Doctors";
+import Button from "@/components/ui/Button";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLdMedicalProcedure } from "@/components/seo/JsonLdMedicalProcedure";
 import BookingCTA from "@/components/ui/BookingCTA";
@@ -18,9 +22,13 @@ import { ui } from "@/lib/ui-strings";
 interface Props {
   data: ServiceData;
   locale: Locale;
+  doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
+  detailsLabel?: string;
+  /** Clinic/procedure photos for visual breaks */
+  images?: string[];
 }
 
-export default function ServiceDetailTemplate({ data, locale }: Props) {
+export default function ServiceDetailTemplate({ data, locale, doctorsUi, detailsLabel, images }: Props) {
   const tocItems = (data.sections || [])
     .filter((s) => "heading" in s && s.heading)
     .map((s) => ({
@@ -63,6 +71,7 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
           sessionsRecommended={data.sessionsRecommended}
           priceFrom={data.priceFrom}
           priceUnit={data.priceUnit}
+          locale={locale}
         />
 
         <div className="mt-4 mb-10">
@@ -71,37 +80,154 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
           </BookingCTA>
         </div>
 
-        {/* TOC dropdown (mobile) */}
-        <TocDropdown items={tocItems} />
+        {/* Sticky section title bar */}
+        <TocStickyBar items={tocItems} />
 
-        {/* Content + TOC rail */}
-        <div className="flex gap-12 mt-10">
-          <TocRail items={tocItems} />
-          <div className="flex-1 min-w-0">
-            <SectionRenderer sections={data.sections || []} />
-          </div>
+        {/* Content with integrated visuals */}
+        <div className="mt-10">
+          {(data.sections || []).length > 0 && (
+            <div className="flex flex-col gap-12 lg:gap-16">
+              {(data.sections || []).map((section, i) => {
+                const photos = images || [];
+                const isFirstRichText = i === 0 && section._type === "section.richText";
+                const isMidpoint = i === Math.floor((data.sections || []).length / 2);
+
+                return (
+                  <div key={section._key}>
+                    {/* First section: side-by-side with image */}
+                    {isFirstRichText && photos.length > 0 ? (
+                      <motion.div
+                        id={`section-${section._key}`}
+                        variants={fadeInUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={viewportConfig}
+                        className="flex flex-col gap-8"
+                      >
+                        {"heading" in section && section.heading && (
+                          <h2 className="heading-2 text-black max-w-2xl">{section.heading as string}</h2>
+                        )}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+                          <div className="flex flex-col gap-6 justify-center lg:order-1 order-2">
+                            {"body" in section && section.body && (() => {
+                              const text = section.body as string;
+                              const paragraphs = text.split("\n\n").filter(Boolean);
+                              const mainText = paragraphs[0] || "";
+                              const infoText = paragraphs.slice(1).join("\n\n");
+                              return (
+                                <>
+                                  <p className="body-l text-black-80 leading-relaxed">{mainText}</p>
+                                  {infoText && (
+                                    <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6">
+                                      <p className="body-m text-black-60 leading-relaxed">{infoText}</p>
+                                    </div>
+                                  )}
+                                </>
+                              );
+                            })()}
+                          </div>
+                          <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark lg:order-2 order-1">
+                            <Image
+                              src={photos[0]}
+                              alt={data.title}
+                              fill
+                              className="object-cover"
+                              sizes="(max-width: 1024px) 100vw, 50vw"
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <div id={`section-${section._key}`}>
+                        <SectionRenderer sections={[section]} />
+                      </div>
+                    )}
+
+                    {/* Visual break at midpoint */}
+                    {isMidpoint && photos.length > 1 && (
+                      <motion.div
+                        variants={fadeInUp}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={viewportConfig}
+                        className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden hidden lg:block"
+                      >
+                        <Image
+                          src={photos[1]}
+                          alt={`${data.title} — GENEVITY`}
+                          fill
+                          className="object-cover"
+                          sizes="100vw"
+                        />
+                      </motion.div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {/* Related doctors */}
-        {data.relatedDoctors?.length > 0 && (
-          <div className="mt-16">
-            <RelatedDoctorsStrip title={ui("ourSpecialists", locale)} doctors={data.relatedDoctors} />
-          </div>
-        )}
+      </div>
 
-        {/* Related services */}
-        {data.relatedServices?.length > 0 && (
-          <div className="mt-16">
-            <RelatedServicesGrid
-              title={ui("alsoInteresting", locale)}
-              services={data.relatedServices}
-              categorySlug={data.category.slug}
-            />
+      {/* Doctors — full bleed */}
+      {data.relatedDoctors?.length > 0 && doctorsUi && (
+        <div className="mt-16 lg:mt-20">
+          <Doctors doctors={data.relatedDoctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
+          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+            <Link href="/doctors">
+              <Button variant="outline" size="sm">
+                {ui("allDoctors", locale)}
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Final CTA */}
-        <div className="mt-20 bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
+      {/* Related services */}
+      {data.relatedServices?.length > 0 && (
+        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-16 lg:mt-20">
+          <h2 className="heading-2 text-black mb-8">{ui("alsoInteresting", locale)}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {data.relatedServices.map((svc) => (
+              <Link
+                key={svc._id}
+                href={`/services/${(svc as { categorySlug?: string }).categorySlug || data.category.slug}/${svc.slug}`}
+                className="group flex flex-col h-full rounded-[var(--radius-card)] border border-line hover:border-main/30 hover:shadow-[var(--shadow-card)] transition-all duration-300 p-6"
+              >
+                <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">
+                  {svc.title}
+                </h3>
+                {svc.summary && (
+                  <p className="body-m text-muted line-clamp-2 mt-2">{svc.summary}</p>
+                )}
+                {(svc as { priceFrom?: string }).priceFrom && (
+                  <p className="body-strong text-main mt-3">{(svc as { priceFrom?: string }).priceFrom}</p>
+                )}
+                <div className="mt-auto pt-4">
+                  <Button variant="outline" size="sm">
+                    {ui("learnMore", locale)}
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Link href="/services">
+              <Button variant="outline" size="sm">
+                {ui("viewAllProcedures", locale)}
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Final CTA */}
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-20">
+        <div className="mt-16 lg:mt-20 bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">
             {ui("ctaSubtitle", locale)}

@@ -234,6 +234,8 @@ export interface ServiceData {
   sessionsRecommended: string | null;
   priceFrom: string | null;
   priceUnit: string | null;
+  seoTitle?: string;
+  seoDescription?: string;
   sections: ContentSection[];
   faq: FaqItemData[];
   relatedDoctors: DoctorItem[];

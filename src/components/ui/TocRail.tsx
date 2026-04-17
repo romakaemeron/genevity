@@ -46,13 +46,13 @@ export default function TocRail({ items }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <nav className="hidden lg:block sticky top-28 self-start">
-      <ul className="flex flex-col gap-1 border-l border-line pl-4">
+    <nav className="hidden lg:block sticky top-28 self-start w-48 shrink-0">
+      <ul className="flex flex-col gap-0.5 border-l border-line pl-3">
         {items.map((item) => (
           <li key={item.key}>
             <a
               href={`#section-${item.key}`}
-              className={`block body-m py-1.5 transition-colors duration-200 ${
+              className={`block body-s py-1 transition-colors duration-200 ${
                 activeKey === item.key
                   ? "text-main font-semibold"
                   : "text-muted hover:text-black"
