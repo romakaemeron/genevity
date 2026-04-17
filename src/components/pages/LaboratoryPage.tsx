@@ -97,7 +97,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       {/* ===== HERO — light, clinical ===== */}
       <section className="relative overflow-hidden bg-champagne">
         <div className="absolute inset-x-0 top-0 z-[10]">
-          <MegaMenuHeader variant="transparent-dark" position="absolute" />
+          <MegaMenuHeader variant="solid" position="fixed" />
         </div>
         <div className="relative z-[5]">
           <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-10 lg:pb-16">
@@ -124,10 +124,10 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       {/* ===== STATS — numbers strip ===== */}
       <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-10 lg:py-12">
         <div className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-8 lg:py-10">
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig} className="grid grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {stats.map((stat, i) => (
               <motion.div key={i} variants={fadeInUp} className="text-center lg:text-left">
-                <p className="heading-3 text-black">{stat.value}</p>
+                <p className="heading-2 text-black">{stat.value}</p>
                 <p className="body-m text-black-60 mt-1">{t(stat.label, locale)}</p>
               </motion.div>
             ))}

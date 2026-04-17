@@ -1,19 +1,17 @@
-import { notFound } from "next/navigation";
-import { getStaticPage } from "@/sanity/queries";
+import { getAllDoctors, getUiStringsData } from "@/sanity/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
-import StaticPageTemplate from "@/components/templates/StaticPageTemplate";
+import DoctorsPageComponent from "@/components/pages/DoctorsPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const data = await getStaticPage(locale, "doctors");
-  if (!data) return {};
+  const uiStrings = await getUiStringsData(locale);
   return generatePageMetadata({
-    title: data.title,
-    description: data.summary || "Лікарі GENEVITY",
+    title: uiStrings?.doctors?.title || "Лікарі",
+    description: locale === "ru" ? "Команда врачей центра GENEVITY в Днепре. Опытные специалисты в эстетической медицине и longevity." : locale === "en" ? "GENEVITY physician team in Dnipro. Experienced specialists in aesthetic medicine and longevity." : "Команда лікарів центру GENEVITY у Дніпрі. Досвідчені спеціалісти в естетичній медицині та longevity.",
     locale: locale as Locale,
     path: "/doctors",
   });
@@ -21,12 +19,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function DoctorsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const data = await getStaticPage(locale, "doctors");
-  if (!data) notFound();
+  const [doctors, uiStrings] = await Promise.all([
+    getAllDoctors(locale),
+    getUiStringsData(locale),
+  ]);
+
   return (
     <>
       <MegaMenuHeader variant="solid" position="fixed" />
-      <StaticPageTemplate data={data} locale={locale as Locale} />
+      <DoctorsPageComponent
+        doctors={doctors}
+        locale={locale as Locale}
+        doctorsUi={uiStrings.doctors}
+        detailsLabel={uiStrings.equipment.details}
+      />
     </>
   );
 }
