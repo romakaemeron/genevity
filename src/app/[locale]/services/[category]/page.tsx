@@ -5,6 +5,27 @@ import type { Locale } from "@/i18n/routing";
 import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
+/** Category-specific hero images. Vertical images get special treatment in the template. */
+const categoryHeroImages: Record<string, { src: string; position?: string; flip?: boolean; scale?: number }> = {
+  "injectable-cosmetology": { src: "/services/injectable-cosmetology-hero.webp", position: "center", flip: true },
+};
+
+/** Hero variant per category: "light" = light photo/dark text, "dark" = dark photo/light text */
+const categoryHeroVariants: Record<string, "light" | "dark"> = {
+  "injectable-cosmetology": "light",
+};
+
+/** Category-specific clinic/procedure gallery images */
+const categoryImages: Record<string, string[]> = {
+  "injectable-cosmetology": [
+    "/services/injectable-cosmetology-hero.webp",
+    "/clinic/semi1737-hdr.webp",
+    "/clinic/semi1287-hdr.webp",
+    "/clinic/hydrafacial.webp",
+    "/clinic/acupulse.webp",
+  ],
+};
+
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -35,11 +56,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <MegaMenuHeader variant="solid" position="fixed" />
+      {/* Sticky solid header — slides in after hero scrolls past */}
+      <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="category-hero-sentinel" />
       <CategoryHubTemplate
         category={category}
         services={services}
         locale={locale as Locale}
+        heroImage={categoryHeroImages[slug] || undefined}
+        heroVariant={categoryHeroVariants[slug] || "dark"}
+        images={categoryImages[slug] || undefined}
       />
     </>
   );

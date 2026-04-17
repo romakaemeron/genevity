@@ -13,8 +13,8 @@ import { navTop, t, type NavTop } from "./navConfig";
 type MobileView = { type: "top" } | { type: "sub"; itemKey: string };
 
 type Props = {
-  /** "transparent" sits over a hero image (light text, transparent bg). "solid" is the default champagne bg + dark text. */
-  variant?: "transparent" | "solid";
+  /** "transparent" = light text on dark hero. "transparent-dark" = dark text on light hero. "solid" = champagne bg + dark text. */
+  variant?: "transparent" | "transparent-dark" | "solid";
   /** "absolute" anchors to the top of its parent (e.g. inside a hero); "fixed" sticks to viewport top. */
   position?: "absolute" | "fixed";
   /** When set with position="fixed", the header stays hidden until the element with this id has been scrolled past, then slides in from the top. */
@@ -123,8 +123,9 @@ export default function MegaMenuHeader({
 
   // Effective visual variant: any open menu forces "solid".
   const menuOpen = !!activeMega || mobileOpen;
-  const effectiveVariant: "transparent" | "solid" = menuOpen ? "solid" : variant;
-  const isTransparent = effectiveVariant === "transparent";
+  const effectiveVariant = menuOpen ? "solid" : variant;
+  const isTransparent = effectiveVariant === "transparent" || effectiveVariant === "transparent-dark";
+  const isLightText = effectiveVariant === "transparent"; // only original transparent gets light text
 
   const headerBgClass = mobileOpen
     ? "bg-champagne"
@@ -132,12 +133,12 @@ export default function MegaMenuHeader({
       ? "bg-transparent"
       : "bg-champagne";
 
-  const navTextClass = isTransparent ? "text-champagne" : "text-black";
-  const navHoverClass = isTransparent ? "hover:text-white" : "hover:text-main";
-  const underlineClass = isTransparent ? "after:bg-champagne" : "after:bg-main";
-  const activeTextClass = isTransparent ? "text-white" : "text-main";
-  const hamburgerColorClass = isTransparent ? "bg-champagne" : "bg-black";
-  const logoSrc = isTransparent ? "/brand/LogoFullLight.svg" : "/brand/LogoFullDark.svg";
+  const navTextClass = isLightText ? "text-champagne" : "text-black";
+  const navHoverClass = isLightText ? "hover:text-white" : "hover:text-main";
+  const underlineClass = isLightText ? "after:bg-champagne" : "after:bg-main";
+  const activeTextClass = isLightText ? "text-white" : "text-main";
+  const hamburgerColorClass = isLightText ? "bg-champagne" : "bg-black";
+  const logoSrc = isLightText ? "/brand/LogoFullLight.svg" : "/brand/LogoFullDark.svg";
 
   const positionClass = position === "absolute" ? "absolute" : "fixed";
   const shadowClass = isTransparent
@@ -220,7 +221,7 @@ export default function MegaMenuHeader({
 
           <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
-            <BookingCTA variant={isTransparent ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
+            <BookingCTA variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}

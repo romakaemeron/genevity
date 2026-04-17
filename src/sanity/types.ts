@@ -215,6 +215,8 @@ export interface ServiceCategoryData {
   order: number;
   clickable: boolean;
   iconKey: string | null;
+  sections?: ContentSection[];
+  faq?: FaqItemData[];
 }
 
 export interface ServiceData {

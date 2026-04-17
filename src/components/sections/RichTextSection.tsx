@@ -1,14 +1,42 @@
-import type { SectionRichText } from "@/sanity/types";
+"use client";
 
-export default function RichTextSection({ heading, body }: SectionRichText) {
+import { motion } from "framer-motion";
+import { fadeInUp, viewportConfig } from "@/lib/motion";
+
+interface Props {
+  _type: string;
+  _key: string;
+  heading: string;
+  body: string;
+  index?: number;
+}
+
+export default function RichTextSection({ heading, body, index = 0 }: Props) {
+  const isEven = index % 2 === 0;
+
   return (
-    <section>
-      {heading && <h2 className="heading-2 text-black mb-6">{heading}</h2>}
-      {body && (
-        <div className="body-l text-muted whitespace-pre-line leading-relaxed">
-          {body}
-        </div>
-      )}
-    </section>
+    <motion.section
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportConfig}
+      className={`rounded-[var(--radius-card)] p-8 lg:p-12 ${
+        isEven ? "bg-champagne-dark" : "bg-white border border-line"
+      }`}
+    >
+      <div className="max-w-3xl">
+        {heading && (
+          <div className="flex items-center gap-4 mb-6">                                                                       
+              <div className="w-1 h-8 rounded-full bg-main" />                                                                   
+          <h2 className="heading-2 text-black">{heading}</h2>                                                                
+         </div>                                                   
+        )}
+        {body && (
+          <p className="body-l text-muted leading-relaxed whitespace-pre-line pl-5 border-l-0">
+            {body}
+          </p>
+        )}
+      </div>
+    </motion.section>
   );
 }

@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
+import { ui } from "@/lib/ui-strings";
 
 interface ServiceCard {
   _id: string;
@@ -14,9 +15,10 @@ interface Props {
   title: string;
   services: ServiceCard[];
   categorySlug: string;
+  locale?: string;
 }
 
-export default function RelatedServicesGrid({ title, services, categorySlug }: Props) {
+export default function RelatedServicesGrid({ title, services, categorySlug, locale = "ua" }: Props) {
   if (!services?.length) return null;
 
   return (
@@ -48,7 +50,7 @@ export default function RelatedServicesGrid({ title, services, categorySlug }: P
                 <p className="body-m text-muted line-clamp-2">{svc.summary}</p>
               )}
               <span className="inline-flex items-center gap-1 body-m text-main mt-1">
-                Детальніше
+                {ui("learnMore", locale)}
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </span>
             </div>

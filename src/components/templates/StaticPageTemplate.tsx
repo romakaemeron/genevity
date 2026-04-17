@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionRenderer from "@/components/sections/SectionRenderer";
 import { FaqSchema } from "@/components/seo/FaqSchema";
+import { ui } from "@/lib/ui-strings";
 
 interface Props {
   data: StaticPageData;
@@ -13,7 +14,7 @@ interface Props {
 
 export default function StaticPageTemplate({ data, locale }: Props) {
   const breadcrumbs = [
-    { label: "Головна", href: "/" },
+    { label: ui("home", locale), href: "/" },
     { label: data.title, href: `/${data.slug}` },
   ];
 
@@ -38,7 +39,7 @@ export default function StaticPageTemplate({ data, locale }: Props) {
         {/* FAQ */}
         {data.faq?.length > 0 && (
           <div className="mt-16">
-            <h2 className="heading-2 text-black mb-8">Часті запитання</h2>
+            <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
             <div className="flex flex-col gap-4">
               {data.faq.map((item, i) => (
                 <details

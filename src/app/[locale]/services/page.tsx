@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { ChevronRight } from "lucide-react";
+import { ui } from "@/lib/ui-strings";
 
 export const revalidate = 60;
 
@@ -29,20 +30,20 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-20">
         <Breadcrumbs
           items={[
-            { label: "Головна", href: "/" },
-            { label: "Послуги", href: "/services" },
+            { label: ui("home", locale as string), href: "/" },
+            { label: ui("services", locale as string), href: "/services" },
           ]}
           locale={locale as Locale}
         />
 
-        <h1 className="heading-1 text-black mt-8 mb-12">Послуги</h1>
+        <h1 className="heading-1 text-black mt-8 mb-12">{ui("services", locale as string)}</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {topLevel.map((cat) => (
             <Link
               key={cat._id}
               href={`/services/${cat.slug}`}
-              className="group flex flex-col gap-4 p-6 rounded-[var(--radius-card)] border border-line hover:border-main hover:shadow-[var(--shadow-card-hover)] transition-all"
+              className="group flex flex-col gap-4 p-6 rounded-[var(--radius-card)] border border-line hover:border-main/30 hover:shadow-[var(--shadow-md)] transition-all duration-150"
             >
               <h2 className="heading-3 text-black group-hover:text-main transition-colors">
                 {cat.title}
@@ -51,7 +52,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
                 <p className="body-m text-muted line-clamp-3">{cat.summary}</p>
               )}
               <span className="inline-flex items-center gap-1 body-m text-main mt-auto">
-                Детальніше
+                {ui("learnMore", locale as string)}
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </span>
             </Link>

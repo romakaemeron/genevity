@@ -1,46 +1,81 @@
-import type { SectionIndicationsContraindications } from "@/sanity/types";
+"use client";
+
+import { motion } from "framer-motion";
+import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { Check, X } from "lucide-react";
+
+interface Props {
+  _type: string;
+  _key: string;
+  indicationsHeading: string;
+  indications: string[];
+  contraindicationsHeading: string;
+  contraindications: string[];
+}
 
 export default function IndicationsContraindicationsSection({
   indicationsHeading,
   indications,
   contraindicationsHeading,
   contraindications,
-}: SectionIndicationsContraindications) {
+}: Props) {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+    <motion.section
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewportConfig}
+      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+    >
       {/* Indications */}
-      <div>
+      <motion.div
+        variants={fadeInUp}
+        className="rounded-[var(--radius-card)] bg-success/5 border border-success/20 p-7 lg:p-8"
+      >
         {indicationsHeading && (
-          <h2 className="heading-3 text-black mb-4">{indicationsHeading}</h2>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-8 rounded-full bg-success/15 flex items-center justify-center">
+              <Check className="w-4 h-4 text-success" />
+            </div>
+            <h2 className="heading-3 text-black">{indicationsHeading}</h2>
+          </div>
         )}
         {indications?.length > 0 && (
-          <ul className="flex flex-col gap-2.5">
+          <ul className="flex flex-col gap-3">
             {indications.map((item, i) => (
-              <li key={i} className="flex items-start gap-2.5 body-l text-muted">
-                <span className="text-success mt-0.5 shrink-0">✓</span>
+              <li key={i} className="flex items-start gap-3 body-l text-ink">
+                <Check className="w-4 h-4 text-success mt-1 shrink-0" />
                 {item}
               </li>
             ))}
           </ul>
         )}
-      </div>
+      </motion.div>
 
       {/* Contraindications */}
-      <div>
+      <motion.div
+        variants={fadeInUp}
+        className="rounded-[var(--radius-card)] bg-warning/5 border border-warning/20 p-7 lg:p-8"
+      >
         {contraindicationsHeading && (
-          <h2 className="heading-3 text-black mb-4">{contraindicationsHeading}</h2>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-8 h-8 rounded-full bg-warning/15 flex items-center justify-center">
+              <X className="w-4 h-4 text-warning" />
+            </div>
+            <h2 className="heading-3 text-black">{contraindicationsHeading}</h2>
+          </div>
         )}
         {contraindications?.length > 0 && (
-          <ul className="flex flex-col gap-2.5">
+          <ul className="flex flex-col gap-3">
             {contraindications.map((item, i) => (
-              <li key={i} className="flex items-start gap-2.5 body-l text-muted">
-                <span className="text-warning mt-0.5 shrink-0">✕</span>
+              <li key={i} className="flex items-start gap-3 body-l text-ink">
+                <X className="w-4 h-4 text-warning mt-1 shrink-0" />
                 {item}
               </li>
             ))}
           </ul>
         )}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

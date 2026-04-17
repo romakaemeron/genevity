@@ -13,6 +13,7 @@ import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLdMedicalProcedure } from "@/components/seo/JsonLdMedicalProcedure";
 import BookingCTA from "@/components/ui/BookingCTA";
 import { absoluteUrl } from "@/lib/seo";
+import { ui } from "@/lib/ui-strings";
 
 interface Props {
   data: ServiceData;
@@ -28,8 +29,8 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
     }));
 
   const breadcrumbs = [
-    { label: "Головна", href: "/" },
-    { label: "Послуги", href: "/services" },
+    { label: ui("home", locale), href: "/" },
+    { label: ui("services", locale), href: "/services" },
     { label: data.category.title, href: `/services/${data.category.slug}` },
     { label: data.title, href: `/services/${data.category.slug}/${data.slug}` },
   ];
@@ -66,7 +67,7 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
 
         <div className="mt-4 mb-10">
           <BookingCTA variant="primary" size="lg">
-            Записатися
+            {ui("book", locale)}
           </BookingCTA>
         </div>
 
@@ -84,7 +85,7 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
         {/* Related doctors */}
         {data.relatedDoctors?.length > 0 && (
           <div className="mt-16">
-            <RelatedDoctorsStrip title="Наші спеціалісти" doctors={data.relatedDoctors} />
+            <RelatedDoctorsStrip title={ui("ourSpecialists", locale)} doctors={data.relatedDoctors} />
           </div>
         )}
 
@@ -92,7 +93,7 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
         {data.relatedServices?.length > 0 && (
           <div className="mt-16">
             <RelatedServicesGrid
-              title="Вас також може зацікавити"
+              title={ui("alsoInteresting", locale)}
               services={data.relatedServices}
               categorySlug={data.category.slug}
             />
@@ -101,16 +102,16 @@ export default function ServiceDetailTemplate({ data, locale }: Props) {
 
         {/* Final CTA */}
         <div className="mt-20 bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
-          <h2 className="heading-2 text-champagne mb-4">Запишіться на консультацію</h2>
+          <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">
-            Наші спеціалісти підберуть оптимальну програму саме для вас
+            {ui("ctaSubtitle", locale)}
           </p>
           <BookingCTA
             variant="secondary"
             size="lg"
             className="bg-champagne text-black hover:bg-champagne-dark"
           >
-            Записатися на консультацію
+            {ui("bookConsultation", locale)}
           </BookingCTA>
         </div>
       </div>

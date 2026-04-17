@@ -275,6 +275,8 @@ export async function getCategoryBySlug(locale: string, slug: string): Promise<S
       order,
       "clickable": coalesce(clickable, true),
       iconKey,
+      ${sectionsProjection(l)},
+      ${faqProjection(l)},
     }
   `, { slug });
 }

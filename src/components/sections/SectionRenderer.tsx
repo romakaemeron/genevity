@@ -14,10 +14,10 @@ interface Props {
   sections: ContentSection[];
 }
 
-function renderSection(section: ContentSection) {
+function renderSection(section: ContentSection, index: number) {
   switch (section._type) {
     case "section.richText":
-      return <RichTextSection {...section} />;
+      return <RichTextSection {...section} index={index} />;
     case "section.bullets":
       return <BulletsSection {...section} />;
     case "section.steps":
@@ -46,9 +46,9 @@ export default function SectionRenderer({ sections }: Props) {
 
   return (
     <div className="flex flex-col gap-12 lg:gap-16">
-      {sections.map((section) => (
+      {sections.map((section, i) => (
         <div key={section._key} id={`section-${section._key}`}>
-          {renderSection(section)}
+          {renderSection(section, i)}
         </div>
       ))}
     </div>

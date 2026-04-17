@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { ui } from "@/lib/ui-strings";
 
 interface TocItem {
   key: string;
@@ -10,9 +11,10 @@ interface TocItem {
 
 interface Props {
   items: TocItem[];
+  locale?: string;
 }
 
-export default function TocDropdown({ items }: Props) {
+export default function TocDropdown({ items, locale = "ua" }: Props) {
   const [open, setOpen] = useState(false);
 
   if (items.length === 0) return null;
@@ -23,7 +25,7 @@ export default function TocDropdown({ items }: Props) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-4 py-3 body-strong text-black cursor-pointer"
       >
-        <span>Зміст</span>
+        <span>{ui("toc", locale)}</span>
         <ChevronDown className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
 
