@@ -15,45 +15,34 @@ export default function Hero({ data }: { data: HeroData }) {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-
-  // Progressive border radius: 0 → 24px as you scroll down
   const borderRadius = useTransform(scrollYProgress, [0, 0.4], [0, 24]);
-  // Parallax: image moves slower than scroll
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  // Darken overlay: becomes more opaque as you scroll
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.35]);
 
   return (
     <section ref={sectionRef} className="relative h-screen min-h-[640px] w-full overflow-hidden">
-      {/* Scroll-driven rounded container */}
-      <motion.div
-        className="absolute inset-0 overflow-hidden"
-        style={{ borderRadius }}
-      >
-        {/* Base sharp image — full bleed with parallax */}
+      {/* Image container with progressive border radius */}
+      <motion.div className="absolute inset-0 overflow-hidden" style={{ borderRadius }}>
+        {/* Base sharp image */}
         <motion.div
           className="absolute inset-0"
           variants={fadeIn}
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.05, duration: 1.2 }}
-          style={{ y: imageY }}
         >
           <Image
             src="/clinic/acupulse.webp"
             alt="Інтер'єр преміальної клініки довголіття GENEVITY у Дніпрі"
             fill
-            className="object-cover object-center scale-[1.1]"
+            className="object-cover object-center"
             sizes="100vw"
             priority
           />
         </motion.div>
 
         {/* Progressive blur layer — masked so it fades out toward the right */}
-        <motion.div
+        <div
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
-            y: imageY,
             maskImage:
               "linear-gradient(to right, black 0%, black 35%, transparent 68%)",
             WebkitMaskImage:
@@ -64,12 +53,12 @@ export default function Hero({ data }: { data: HeroData }) {
             src="/clinic/acupulse.webp"
             alt=""
             fill
-            className="object-cover object-center scale-[1.12]"
+            className="object-cover object-center scale-[1.02]"
             style={{ filter: "blur(14px)" }}
             sizes="100vw"
             aria-hidden
           />
-        </motion.div>
+        </div>
 
         {/* Darken gradient — strongest where the text lives, fades out to the right */}
         <div
@@ -78,12 +67,6 @@ export default function Hero({ data }: { data: HeroData }) {
             background:
               "linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.2) 55%, transparent 75%)",
           }}
-        />
-
-        {/* Scroll-driven darkening overlay */}
-        <motion.div
-          className="absolute inset-0 z-[2] pointer-events-none bg-black"
-          style={{ opacity: overlayOpacity }}
         />
 
         {/* Top dim — keeps the transparent header readable */}
