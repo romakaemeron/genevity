@@ -35,7 +35,7 @@ export function OrganizationSchema() {
           closes: "20:00",
         },
         sameAs: ["https://www.instagram.com/genevity.center/"],
-        hasMap: "https://maps.app.goo.gl/hYEmiH3qR6wBtW526",
+        hasMap: "https://www.google.com/maps/place/Genevity+Longevity+Medical+Center/@48.4541478,35.0584843,17z",
         medicalSpecialty: [
           "Aesthetic Medicine",
           "Cosmetology",
