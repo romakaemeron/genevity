@@ -9,7 +9,7 @@ import Modal from "@/components/ui/Modal";
 
 const PHONE = "+380730000150";
 const PHONE_DISPLAY = "+380 73 000 0150";
-const MAPS_URL = "https://www.google.com/maps/place/Genevity/@48.4647,35.0461,17z";
+const MAPS_URL = "https://www.google.com/maps?q=48.4647,35.0461";
 
 interface BookingCTAProps {
   variant?: "primary" | "secondary";

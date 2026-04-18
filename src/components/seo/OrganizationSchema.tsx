@@ -28,21 +28,25 @@ export function OrganizationSchema() {
         openingHoursSpecification: {
           "@type": "OpeningHoursSpecification",
           dayOfWeek: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
+            "Monday", "Tuesday", "Wednesday", "Thursday",
+            "Friday", "Saturday", "Sunday",
           ],
           opens: "08:00",
           closes: "20:00",
         },
         sameAs: ["https://www.instagram.com/genevity.center/"],
-        hasMap:
-          "https://www.google.com/maps/place/Genevity/@48.4647,35.0461,17z",
-        medicalSpecialty: ["Dermatology", "PlasticSurgery"],
+        hasMap: "https://www.google.com/maps?q=48.4647,35.0461",
+        medicalSpecialty: [
+          "Aesthetic Medicine",
+          "Cosmetology",
+          "Longevity Medicine",
+          "Endocrinology",
+          "Gastroenterology",
+          "Gynecology",
+          "Urology",
+          "Podiatry",
+          "Diagnostic Imaging",
+        ],
         availableLanguage: [
           { "@type": "Language", name: "Ukrainian" },
           { "@type": "Language", name: "Russian" },
@@ -54,130 +58,56 @@ export function OrganizationSchema() {
           itemListElement: [
             {
               "@type": "OfferCatalog",
-              name: "Face",
+              name: "Ін'єкційна косметологія",
               itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EMFACE",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "VOLNEWMER",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EXION",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "ULTRAFORMER MPT",
-                  },
-                },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Ботулінотерапія" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Контурна пластика" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Біоревіталізація" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Мезотерапія" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "PRP-терапія" } },
               ],
             },
             {
               "@type": "OfferCatalog",
-              name: "Body",
+              name: "Апаратна косметологія",
               itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EMSCULPT NEO",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "ULTRAFORMER MPT Body",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EXION Body",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "VOLNEWMER Body",
-                  },
-                },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMFACE" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Ultraformer MPT" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMSCULPT NEO" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "HydraFacial" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "AcuPulse CO₂" } },
               ],
             },
             {
               "@type": "OfferCatalog",
-              name: "Skin",
+              name: "Лазерна епіляція",
               itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "M22 STELLAR BLACK",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "SPLENDOR X",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "HYDRAFACIAL SYNDEO",
-                  },
-                },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Лазерна епіляція Splendor X" } },
               ],
             },
             {
               "@type": "OfferCatalog",
-              name: "Intimate",
+              name: "Longevity & Anti-Age",
               itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EXION Intimate",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "CO2 AcuPulse",
-                  },
-                },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Check-Up 40+" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "IV-терапія" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Гормональний баланс" } },
               ],
             },
             {
               "@type": "OfferCatalog",
-              name: "Laser",
+              name: "Діагностика",
               itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "SPLENDOR X",
-                  },
-                },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "УЗД-діагностика" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Еластографія" } },
+              ],
+            },
+            {
+              "@type": "OfferCatalog",
+              name: "Подологія",
+              itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Медичний педикюр" } },
+                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Лікування врослого нігтя" } },
               ],
             },
           ],
