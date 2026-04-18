@@ -162,7 +162,6 @@ export default function MegaMenuHeader({
       onMouseLeave={scheduleClose}
       style={{
         pointerEvents: hideUntilScrollPastId && !revealed ? "none" : "auto",
-        visibility: hideUntilScrollPastId && !revealed ? "hidden" : "visible",
       }}
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
@@ -179,7 +178,7 @@ export default function MegaMenuHeader({
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-6 lg:gap-4 xl:gap-6">
+          <div className="hidden lg:flex items-center gap-6 lg:gap-4 xl:gap-8">
             {navTop.map((item) => {
               const hasMega = !!item.mega;
               const isActive = activeMega === item.key;
@@ -253,26 +252,24 @@ export default function MegaMenuHeader({
       {/* Desktop Mega Panel + backdrop */}
       <AnimatePresence>
         {activeItem?.mega && (
-          <motion.div
-            key="mega-backdrop"
-            className="hidden lg:block fixed left-0 right-0 bottom-0 top-16 lg:top-20 z-[997] bg-black/30 backdrop-blur-[2px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.24, ease: [0.32, 0.72, 0, 1] }}
-            onMouseEnter={() => setActiveMega(null)}
-            aria-hidden="true"
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {activeItem?.mega && (
           <div
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
-            className="hidden lg:block"
+            className="hidden lg:block absolute left-0 right-0 top-full z-[998]"
           >
             <MegaMenuPanel item={activeItem} onNavigate={() => setActiveMega(null)} />
+            {/* Backdrop — starts below panel, covers rest of page */}
+            <motion.div
+              key="mega-backdrop"
+              className="absolute left-0 right-0 top-full h-screen bg-black/30 backdrop-blur-[2px] z-[-1]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.24, ease: [0.32, 0.72, 0, 1] }}
+              onClick={() => setActiveMega(null)}
+              onMouseEnter={() => setActiveMega(null)}
+              aria-hidden="true"
+            />
           </div>
         )}
       </AnimatePresence>

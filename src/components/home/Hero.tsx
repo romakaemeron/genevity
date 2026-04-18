@@ -18,9 +18,14 @@ export default function Hero({ data }: { data: HeroData }) {
   const borderRadius = useTransform(scrollYProgress, [0, 0.4], [0, 24]);
 
   return (
-    <section ref={sectionRef} className="relative h-screen min-h-[640px] w-full overflow-hidden">
+    <section ref={sectionRef} className="relative h-screen min-h-[640px] w-full">
+      {/* Hero header — outside rounded container so dropdown doesn't gap */}
+      <div className="absolute inset-x-0 top-0 z-[10]">
+        <MegaMenuHeader variant="transparent" position="absolute" />
+      </div>
+
       {/* Image container with progressive border radius */}
-      <motion.div className="absolute inset-0 overflow-hidden" style={{ borderRadius }}>
+      <motion.div className="absolute inset-0 overflow-hidden bg-black" style={{ borderRadius }}>
         {/* Base sharp image */}
         <motion.div
           className="absolute inset-0"
@@ -77,15 +82,9 @@ export default function Hero({ data }: { data: HeroData }) {
               "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
           }}
         />
-      </motion.div>
 
-      {/* Hero header — transparent, anchored at top of hero, scrolls with it */}
-      <div className="absolute inset-x-0 top-0 z-[10]">
-        <MegaMenuHeader variant="transparent" position="absolute" />
-      </div>
-
-      {/* Content — text sits directly over the masked image */}
-      <div className="relative z-[5] h-full flex items-center">
+        {/* Content — text sits directly over the masked image */}
+        <div className="relative z-[5] h-full flex items-center">
         <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)]">
           <motion.div
             className="max-w-200"
@@ -120,12 +119,13 @@ export default function Hero({ data }: { data: HeroData }) {
         </div>
       </div>
 
-      {/* Sentinel: when this scrolls out of view, the sticky header fades in */}
-      <div
-        id="hero-end-sentinel"
-        aria-hidden="true"
-        className="absolute bottom-0 left-0 w-px h-px pointer-events-none"
-      />
+        {/* Sentinel: when this scrolls out of view, the sticky header fades in */}
+        <div
+          id="hero-end-sentinel"
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 w-px h-px pointer-events-none"
+        />
+      </motion.div>
     </section>
   );
 }

@@ -142,7 +142,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed left-0 right-0 top-16 lg:top-20 z-[998] bg-champagne border-t border-black-10 shadow-[0_12px_36px_-16px_rgba(42,37,32,0.18)]"
+      className="relative z-[998] bg-champagne border-t border-black-10 shadow-[0_12px_36px_-16px_rgba(42,37,32,0.18)]"
     >
       <motion.div
         className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-6 pb-12 lg:pt-7 lg:pb-14"
