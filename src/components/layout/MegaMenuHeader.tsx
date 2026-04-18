@@ -195,7 +195,7 @@ export default function MegaMenuHeader({
                 >
                   <Link
                     href={item.href}
-                    className={`relative body-l transition-colors duration-300 flex items-center gap-1 ${
+                    className={`relative body-m transition-colors duration-300 flex items-center gap-1 ${
                       isActive ? activeTextClass : `${navTextClass} ${navHoverClass}`
                     } after:absolute after:bottom-[-4px] after:left-0 after:h-[1.5px] ${underlineClass} after:transition-all after:duration-300 ${
                       isActive ? "after:w-full" : "after:w-0 hover:after:w-full"

@@ -124,7 +124,7 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
 
             <div className="flex flex-col gap-2.5 mt-1">
               <a
-                href="https://www.google.com/maps/place/Genevity+Longevity+Medical+Center/@48.4541478,35.0584843,17z"
+                href="https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 body-m text-black hover:text-main transition-colors"
