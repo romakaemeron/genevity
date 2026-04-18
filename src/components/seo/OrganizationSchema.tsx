@@ -8,8 +8,15 @@ export function OrganizationSchema() {
         "@type": ["MedicalBusiness", "LocalBusiness"],
         name: "GENEVITY — Медичний центр довголіття",
         url: "https://genevity.com.ua",
+        logo: "https://genevity.com.ua/brand/LogoFullDark.svg",
+        image: "https://genevity.com.ua/og/genevity-og.jpg",
         telephone: "+380730000150",
         priceRange: "$$$$",
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 48.4647,
+          longitude: 35.0461,
+        },
         address: {
           "@type": "PostalAddress",
           streetAddress: "вул. Олеся Гончара, 12",

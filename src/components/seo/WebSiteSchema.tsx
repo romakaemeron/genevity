@@ -14,6 +14,14 @@ export function WebSiteSchema() {
           name: "GENEVITY",
           url: "https://genevity.com.ua",
         },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: "https://genevity.com.ua/services?q={search_term_string}",
+          },
+          "query-input": "required name=search_term_string",
+        },
       }}
     />
   );

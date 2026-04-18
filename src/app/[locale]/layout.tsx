@@ -148,7 +148,7 @@ export default async function LocaleLayout({
   ]);
 
   return (
-    <html lang={locale} className={`${tenorSans.variable} ${mulish.variable}`}>
+    <html lang={locale === "ua" ? "uk" : locale} className={`${tenorSans.variable} ${mulish.variable}`}>
       <body className="antialiased">
         <ImageProtection />
         <OrganizationSchema />
