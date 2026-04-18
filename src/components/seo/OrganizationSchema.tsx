@@ -35,7 +35,7 @@ export function OrganizationSchema() {
           closes: "20:00",
         },
         sameAs: ["https://www.instagram.com/genevity.center/"],
-        hasMap: "https://www.google.com/maps?q=48.4647,35.0461",
+        hasMap: "https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро",
         medicalSpecialty: [
           "Aesthetic Medicine",
           "Cosmetology",

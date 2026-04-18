@@ -139,7 +139,7 @@ export default function PricesPageComponent({ locale }: Props) {
         </div>
       </section>
 
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-20">
+      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16 lg:pb-20">
         {/* Search */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
