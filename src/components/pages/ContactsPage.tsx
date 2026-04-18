@@ -20,7 +20,7 @@ const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
 const t = (obj: { ua: string; ru: string; en: string }, locale: string) =>
   obj[locale as "ua" | "ru" | "en"] || obj.ua;
 
-const MAPS_URL = "https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро";
+const MAPS_URL = "https://maps.app.goo.gl/hYEmiH3qR6wBtW526";
 const MAPS_EMBED = "https://maps.google.com/maps?q=вул.+Олеся+Гончара+12,+Дніпро,+Україна&t=&z=16&ie=UTF8&iwloc=&output=embed";
 
 export default function ContactsPageComponent({ settings, locale, contactsUi }: Props) {

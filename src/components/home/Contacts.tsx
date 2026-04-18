@@ -30,7 +30,7 @@ export default function Contacts({ data }: { data: { settings: SiteSettingsData;
               <MapPin className="w-5 h-5" />
             </div>
             <a
-              href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
+              href="https://maps.app.goo.gl/hYEmiH3qR6wBtW526"
               target="_blank"
               rel="noopener noreferrer"
               className="body-l text-black hover:text-main transition-colors"

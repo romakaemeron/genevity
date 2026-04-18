@@ -124,7 +124,7 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
 
             <div className="flex flex-col gap-2.5 mt-1">
               <a
-                href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
+                href="https://maps.app.goo.gl/hYEmiH3qR6wBtW526"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 body-m text-black hover:text-main transition-colors"
