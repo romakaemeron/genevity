@@ -21,7 +21,7 @@ const t = (obj: { ua: string; ru: string; en: string }, locale: string) =>
   obj[locale as "ua" | "ru" | "en"] || obj.ua;
 
 const MAPS_URL = "https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро";
-const MAPS_EMBED = "https://maps.google.com/maps?q=вул.+Олеся+Гончара+12,+Дніпро,+Україна&t=&z=16&ie=UTF8&iwloc=&output=embed";
+const MAPS_EMBED = "https://maps.google.com/maps?q=Genevity+Longevity+Medical+Center+Дніпро&t=&z=16&ie=UTF8&iwloc=&output=embed";
 
 export default function ContactsPageComponent({ settings, locale, contactsUi }: Props) {
   return (

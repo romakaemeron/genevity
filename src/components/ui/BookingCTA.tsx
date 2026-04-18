@@ -63,7 +63,7 @@ export default function BookingCTA({
                 className="block w-full aspect-[16/9] rounded-[var(--radius-card)] overflow-hidden skeleton relative group"
               >
                 <iframe
-                  src="https://maps.google.com/maps?q=вул.+Олеся+Гончара+12,+Дніпро,+Україна&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  src="https://maps.google.com/maps?q=Genevity+Longevity+Medical+Center+Дніпро&t=&z=16&ie=UTF8&iwloc=&output=embed"
                   className="w-full h-full border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

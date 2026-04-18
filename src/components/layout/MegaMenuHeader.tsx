@@ -167,7 +167,7 @@ export default function MegaMenuHeader({
     >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center shrink-0" onClick={closeMobile}>
+          <Link href="/" className="flex items-center shrink-0 hover:opacity-80 transition-opacity duration-300" onClick={closeMobile}>
             <Image
               src={logoSrc}
               alt="GENEVITY"
@@ -179,7 +179,7 @@ export default function MegaMenuHeader({
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-6 lg:gap-4 xl:gap-6">
             {navTop.map((item) => {
               const hasMega = !!item.mega;
               const isActive = activeMega === item.key;
