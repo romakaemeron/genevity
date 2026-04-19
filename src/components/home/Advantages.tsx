@@ -53,26 +53,24 @@ const advantages = [
   },
   {
     icon: Clock,
-    title: { ua: "Комплексність послуг", ru: "Комплексность услуг", en: "Comprehensive Services" },
+    title: { ua: "Денний стаціонар", ru: "Дневной стационар", en: "Day Stationary" },
     description: {
-      ua: "Від діагностики до відновлення — все в одному центрі, включаючи стаціонар і лабораторію",
-      ru: "От диагностики до восстановления — всё в одном центре, включая стационар и лабораторию",
-      en: "From diagnostics to recovery — all in one center, including stationary and lab",
+      ua: "Комфортні палати, медичний нагляд, IV-терапія та відновлення після процедур",
+      ru: "Комфортные палаты, медицинский надзор, IV-терапия и восстановление после процедур",
+      en: "Comfortable rooms, medical supervision, IV therapy and post-procedure recovery",
     },
-    links: [
-      { href: "/stationary", label: { ua: "Стаціонар", ru: "Стационар", en: "Stationary" } },
-      { href: "/laboratory", label: { ua: "Лабораторія", ru: "Лаборатория", en: "Laboratory" } },
-    ],
+    href: "/stationary",
     span: "col-span-1",
   },
   {
     icon: Award,
-    title: { ua: "Доказова медицина", ru: "Доказательная медицина", en: "Evidence-Based Medicine" },
+    title: { ua: "Власна лабораторія", ru: "Собственная лаборатория", en: "Own Laboratory" },
     description: {
-      ua: "Протоколи на основі клінічних досліджень та міжнародних стандартів",
-      ru: "Протоколы на основе клинических исследований и международных стандартов",
-      en: "Protocols based on clinical research and international standards",
+      ua: "50+ видів УЗД, еластографія, діагностика InBody — результати в день звернення",
+      ru: "50+ видов УЗД, эластография, диагностика InBody — результаты в день обращения",
+      en: "50+ ultrasound types, elastography, InBody diagnostics — same-day results",
     },
+    href: "/laboratory",
     span: "col-span-1",
   },
 ];
@@ -138,15 +136,11 @@ export default function Advantages({ locale }: { locale: string }) {
                     </div>
                     <h3 className="body-strong text-black mb-1.5">{item.title[l]}</h3>
                     <p className="body-m text-muted">{item.description[l]}</p>
-                    {"links" in item && item.links && (
-                      <div className="flex flex-wrap gap-2 mt-3">
-                        {(item.links as { href: string; label: Record<string, string> }[]).map((link, li) => (
-                          <Link key={li} href={link.href} className="inline-flex items-center gap-1 body-s text-main hover:text-main-dark transition-colors">
-                            {link.label[l]}
-                            <ChevronRight className="w-3 h-3" />
-                          </Link>
-                        ))}
-                      </div>
+                    {"href" in item && item.href && (
+                      <Link href={item.href as string} className="inline-flex items-center gap-1 body-s text-main hover:text-main-dark transition-colors mt-3">
+                        {item.title[l]}
+                        <ChevronRight className="w-3 h-3" />
+                      </Link>
                     )}
                   </div>
                 </>
