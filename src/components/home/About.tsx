@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import type { AboutData } from "@/sanity/types";
 
@@ -122,6 +123,13 @@ export default function About({ data }: { data: AboutData }) {
             <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6">
               <p className="body-m text-black-60 text-balance">{data.diagnostics}</p>
             </div>
+
+            <Link href="/about">
+              <Button variant="outline" size="sm">
+                Детальніше про центр
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </motion.div>

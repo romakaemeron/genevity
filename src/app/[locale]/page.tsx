@@ -9,6 +9,9 @@ import Doctors from "@/components/home/Doctors";
 import HomeFaq from "@/components/home/HomeFaq";
 import Contacts from "@/components/home/Contacts";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { Link } from "@/i18n/navigation";
+import Button from "@/components/ui/Button";
+import { ChevronRight } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -55,6 +58,14 @@ export default async function HomePage({
       </div>
       <div id="doctors">
         <Doctors doctors={data.doctors} ui={data.ui.doctors} detailsLabel={data.ui.equipment.details} />
+        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+          <Link href="/doctors">
+            <Button variant="outline" size="sm">
+              Всі лікарі
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Button>
+          </Link>
+        </div>
       </div>
       <div id="faq">
         <HomeFaq locale={locale} />

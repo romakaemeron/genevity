@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import { Shield, Users, Microscope, Heart, Clock, Award } from "lucide-react";
+import { Shield, Users, Microscope, Heart, Clock, Award, ChevronRight } from "lucide-react";
 
 const advantages = [
   {
@@ -58,6 +59,10 @@ const advantages = [
       ru: "От диагностики до восстановления — всё в одном центре, включая стационар и лабораторию",
       en: "From diagnostics to recovery — all in one center, including stationary and lab",
     },
+    links: [
+      { href: "/stationary", label: { ua: "Стаціонар", ru: "Стационар", en: "Stationary" } },
+      { href: "/laboratory", label: { ua: "Лабораторія", ru: "Лаборатория", en: "Laboratory" } },
+    ],
     span: "col-span-1",
   },
   {
@@ -133,6 +138,16 @@ export default function Advantages({ locale }: { locale: string }) {
                     </div>
                     <h3 className="body-strong text-black mb-1.5">{item.title[l]}</h3>
                     <p className="body-m text-muted">{item.description[l]}</p>
+                    {"links" in item && item.links && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {(item.links as { href: string; label: Record<string, string> }[]).map((link, li) => (
+                          <Link key={li} href={link.href} className="inline-flex items-center gap-1 body-s text-main hover:text-main-dark transition-colors">
+                            {link.label[l]}
+                            <ChevronRight className="w-3 h-3" />
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </>
               )}
