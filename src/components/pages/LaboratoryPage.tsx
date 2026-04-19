@@ -164,13 +164,14 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
           </motion.div>
 
           {/* Active category content */}
+          <motion.div layout transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               className="bg-champagne-dark rounded-[var(--radius-card)] p-6 lg:p-8"
             >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
