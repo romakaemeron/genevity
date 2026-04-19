@@ -305,9 +305,9 @@ img::selection {
 .animate-enter-5 { animation-delay: 0.45s; }
 .animate-enter-6 { animation-delay: 0.55s; }
 
-/* === Container max-width === */
+/* === Container max-width — !important to override any Tailwind conflicts === */
 .max-w-container {
-  max-width: 1200px;
+  max-width: 1200px !important;
 }
 
 /* === Safari Fixes === */
