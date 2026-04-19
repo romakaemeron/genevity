@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
@@ -86,6 +86,77 @@ const prepSteps = [
   { icon: CheckCircle, label: L("Отримайте результати", "Получите результаты", "Get results"), desc: L("Результати УЗД — одразу. Лабораторні аналізи — протягом 1–3 днів на email.", "Результаты УЗД — сразу. Лабораторные анализы — в течение 1–3 дней на email.", "Ultrasound results — immediately. Lab tests — within 1–3 days by email.") },
 ];
 
+/* ── Smooth-height tab panel ── */
+function TabContent({
+  activeCategory,
+  serviceCategories,
+  locale,
+  t,
+  L,
+}: {
+  activeCategory: number;
+  serviceCategories: typeof _serviceCategories;
+  locale: string;
+  t: (obj: { ua: string; ru: string; en: string }, l: string) => string;
+  L: (ua: string, ru: string, en: string) => { ua: string; ru: string; en: string };
+}) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [measuredH, setMeasuredH] = useState<number | undefined>(undefined);
+
+  /* Measure new content on every tab switch (and on mount) */
+  useEffect(() => {
+    if (contentRef.current) {
+      setMeasuredH(contentRef.current.scrollHeight);
+    }
+  }, [activeCategory]);
+
+  const cat = serviceCategories[activeCategory];
+
+  return (
+    <motion.div
+      animate={{ height: measuredH ?? "auto" }}
+      transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
+      className="overflow-hidden rounded-[var(--radius-card)]"
+    >
+      <div ref={contentRef} className="bg-champagne-dark p-6 lg:p-8">
+        <motion.div
+          key={activeCategory}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+        >
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+            <div className="flex-1">
+              <h3 className="heading-3 text-black mb-4">{t(cat.label, locale)}</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {cat.items.map((item, i) => (
+                  <div key={i} className="flex items-center gap-2.5 py-1.5">
+                    <div className="shrink-0" style={{ width: 20, height: 20 }}>
+                      <div className="w-full h-full rounded-full bg-success/20 flex items-center justify-center">
+                        <CheckCircle className="w-3 h-3 text-success" />
+                      </div>
+                    </div>
+                    <span className="body-m text-ink">{t(item, locale)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="lg:text-right shrink-0">
+              <p className="body-s text-muted">{t(L("Вартість", "Стоимость", "Price"), locale)}</p>
+              <p className="heading-3 text-main">{t(cat.price, locale)}</p>
+              <div className="mt-4">
+                <BookingCTA variant="primary" size="sm">{ui("book", locale)}</BookingCTA>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+const _serviceCategories = serviceCategories;
+
 export default function LaboratoryPageComponent({ data, locale, doctors, doctorsUi, detailsLabel }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState(0);
@@ -146,6 +217,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
           <motion.p variants={fadeInUp} className="body-l text-muted mb-10 max-w-2xl">
             {t(L("Широкий спектр діагностичних досліджень на сучасному обладнанні з результатами в день звернення", "Широкий спектр диагностических исследований на современном оборудовании с результатами в день обращения", "Wide range of diagnostic examinations on modern equipment with same-day results"), locale)}
           </motion.p>
+        </motion.div>
 
           {/* Category tabs */}
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-2 mb-8">
@@ -163,44 +235,8 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
             ))}
           </motion.div>
 
-          {/* Active category content */}
-          <motion.div layout transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="bg-champagne-dark rounded-[var(--radius-card)] p-6 lg:p-8"
-            >
-              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-                <div className="flex-1">
-                  <h3 className="heading-3 text-black mb-4">{t(serviceCategories[activeCategory].label, locale)}</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {serviceCategories[activeCategory].items.map((item, i) => (
-                      <div key={i} className="flex items-center gap-2.5 py-1.5">
-                        <div className="shrink-0" style={{ width: 20, height: 20 }}>
-                          <div className="w-full h-full rounded-full bg-success/20 flex items-center justify-center">
-                            <CheckCircle className="w-3 h-3 text-success" />
-                          </div>
-                        </div>
-                        <span className="body-m text-ink">{t(item, locale)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="lg:text-right shrink-0">
-                  <p className="body-s text-muted">{t(L("Вартість", "Стоимость", "Price"), locale)}</p>
-                  <p className="heading-3 text-main">{t(serviceCategories[activeCategory].price, locale)}</p>
-                  <div className="mt-4">
-                    <BookingCTA variant="primary" size="sm">{ui("book", locale)}</BookingCTA>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
+          {/* Active category content — smooth height transition */}
+          <TabContent activeCategory={activeCategory} serviceCategories={serviceCategories} locale={locale} t={t} L={L} />
       </section>
 
       {/* ===== PREPARATION — checklist cards ===== */}
