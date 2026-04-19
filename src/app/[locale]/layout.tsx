@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -149,7 +150,26 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale === "ua" ? "uk" : locale} className={`${tenorSans.variable} ${mulish.variable}`}>
+      <head>
+        <Script
+          id="gtm-head"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-PGGK275D"
+        />
+        <Script
+          id="gtm-init"
+          strategy="afterInteractive"
+        >{`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}</Script>
+      </head>
       <body className="antialiased">
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PGGK275D"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <ImageProtection />
         <OrganizationSchema />
         <WebSiteSchema />
