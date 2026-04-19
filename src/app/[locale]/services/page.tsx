@@ -29,7 +29,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
   return (
     <>
       <MegaMenuHeader variant="solid" position="fixed" />
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-20">
         <div className="animate-enter animate-enter-1">
           <Breadcrumbs
             items={[

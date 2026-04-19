@@ -102,7 +102,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
           <MegaMenuHeader variant="solid" position="fixed" />
         </div>
         <div className="relative z-[5]">
-          <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-10 lg:pb-16">
+          <div className="max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:gap-10">
               <motion.div className="flex-1 max-w-lg lg:py-8" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
                 <Breadcrumbs items={[{ label: ui("home", locale), href: "/" }, { label: data.title, href: "/laboratory" }]} locale={locale} />
@@ -124,7 +124,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== STATS — numbers strip ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-10 lg:py-12">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-12">
         <div className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-8 lg:py-10">
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig} className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {stats.map((stat, i) => (
@@ -138,7 +138,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== SERVICES — tabbed categories ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-24">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-4">
             {t(L("Послуги лабораторії", "Услуги лаборатории", "Laboratory Services"), locale)}
@@ -203,7 +203,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== PREPARATION — checklist cards ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16 lg:pb-24">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-10">
             {t(L("Як підготуватися", "Как подготовиться", "How to Prepare"), locale)}
@@ -223,7 +223,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== GALLERY ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <StripeGallery
             title={t(L("Діагностичний центр", "Диагностический центр", "Diagnostic Center"), locale)}
@@ -241,7 +241,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== RELATED LINKS ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-8">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-8">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig} className="flex flex-wrap gap-3">
           <Link href="/services/longevity/check-up-40"><Button variant="outline" size="sm">Check-Up 40+<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           <Link href="/services/longevity/hormonal-balance"><Button variant="outline" size="sm">{t(L("Гормональний баланс", "Гормональный баланс", "Hormonal Balance"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
@@ -252,7 +252,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       {/* ===== FAQ ===== */}
       {faq.length > 0 && (
         <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
-          className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16">
+          className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16">
           <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
           <div className="border-t border-line">
             {faq.map((item, i) => (
@@ -278,14 +278,14 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       {doctors && doctors.length > 0 && doctorsUi && (
         <div className="mt-4">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
-          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </div>
       )}
 
       {/* ===== FINAL CTA ===== */}
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>

@@ -58,7 +58,7 @@ export default async function HomePage({
       </div>
       <div id="doctors">
         <Doctors doctors={data.doctors} ui={data.ui.doctors} detailsLabel={data.ui.equipment.details} />
-        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-6">
           <Link href="/doctors">
             <Button variant="outline" size="sm">
               Всі лікарі

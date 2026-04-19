@@ -52,7 +52,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
     <>
       {/* ===== HERO — split with clinic photo ===== */}
       <section className="bg-champagne">
-        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-10 lg:pb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
             <motion.div
               className="flex-1 max-w-lg lg:py-8"
@@ -90,7 +90,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* ===== ABOUT TEXT — side by side with image ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-24">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
             <div className="flex flex-col gap-6 justify-center">
@@ -107,7 +107,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* ===== STATS STRIP ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
@@ -120,7 +120,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* ===== VALUES GRID ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-24">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-4">
             {t(L("Наші цінності", "Наши ценности", "Our Values"), locale)}
@@ -148,7 +148,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* ===== GALLERY ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <StripeGallery
             title={t(L("Наш простір", "Наше пространство", "Our Space"), locale)}
@@ -166,7 +166,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* ===== SERVICES LINKS ===== */}
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <h2 className="heading-2 text-black mb-6">{t(L("Напрямки", "Направления", "Directions"), locale)}</h2>
           <div className="flex flex-wrap gap-3">
@@ -183,14 +183,14 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       {doctors && doctors.length > 0 && doctorsUi && (
         <div className="mt-4">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
-          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </div>
       )}
 
       {/* ===== FINAL CTA ===== */}
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-16 lg:py-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
           <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />

@@ -114,7 +114,7 @@ export default function PricesPageComponent({ locale }: Props) {
   return (
     <>
       <section className="bg-champagne">
-        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-12 lg:pb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-12 lg:pb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -139,7 +139,7 @@ export default function PricesPageComponent({ locale }: Props) {
         </div>
       </section>
 
-      <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16 lg:pb-20">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-20">
         {/* Search */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -252,7 +252,7 @@ export default function PricesPageComponent({ locale }: Props) {
       </section>
 
       {/* CTA */}
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>

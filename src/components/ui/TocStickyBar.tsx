@@ -85,7 +85,7 @@ export default function TocStickyBar({ items, showAfter = 400 }: Props) {
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="fixed top-16 lg:top-20 left-0 right-0 z-[900] bg-champagne border-b border-line shadow-sm"
         >
-          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex justify-start lg:justify-end">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 flex justify-start lg:justify-end">
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}

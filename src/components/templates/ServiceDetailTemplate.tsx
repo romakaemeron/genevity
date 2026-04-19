@@ -57,7 +57,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />
       )}
 
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-28 pb-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -202,7 +202,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
       {/* FAQ */}
       {data.faq?.length > 0 && (
-        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-16 lg:mt-20">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
           <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
           <div className="border-t border-line">
             {data.faq.map((item, i) => (
@@ -245,7 +245,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
       {data.relatedDoctors?.length > 0 && doctorsUi && (
         <div className="mt-16 lg:mt-20">
           <Doctors doctors={data.relatedDoctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
-          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors">
               <Button variant="outline" size="sm">
                 {ui("allDoctors", locale)}
@@ -258,7 +258,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
       {/* Related services */}
       {data.relatedServices?.length > 0 && (
-        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-16 lg:mt-20">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
           <h2 className="heading-2 text-black mb-8">{ui("alsoInteresting", locale)}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {data.relatedServices.map((svc) => (
@@ -297,7 +297,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
       )}
 
       {/* Final CTA */}
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <div className="mt-16 lg:mt-20 bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">

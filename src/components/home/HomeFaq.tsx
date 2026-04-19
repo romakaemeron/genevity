@@ -129,7 +129,7 @@ export default function HomeFaq({ locale }: { locale: string }) {
   }));
 
   return (
-    <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
+    <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12">
       <FaqSchema items={localizedItems} />
       <motion.div
         variants={staggerContainer}

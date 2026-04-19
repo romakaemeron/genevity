@@ -9,7 +9,7 @@ export default function Contacts({ data }: { data: { settings: SiteSettingsData;
   const { settings, ui } = data;
 
   return (
-    <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
+    <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
