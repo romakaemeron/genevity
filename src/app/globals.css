@@ -305,6 +305,13 @@ img::selection {
 .animate-enter-5 { animation-delay: 0.45s; }
 .animate-enter-6 { animation-delay: 0.55s; }
 
+/* === Safari Fixes === */
+input[type="text"],
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* === Rich Text Body Padding === */
 @media (min-width: 1024px) {
   .rich-text-body {

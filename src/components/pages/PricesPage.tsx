@@ -153,7 +153,7 @@ export default function PricesPageComponent({ locale }: Props) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t(L("Пошук послуги...", "Поиск услуги...", "Search service..."), locale)}
-            className="w-full pl-12 pr-4 py-3 rounded-[var(--radius-input)] bg-champagne-dark border border-line body-m text-black placeholder:text-muted focus:outline-none focus:border-main transition-colors"
+            className="w-full pl-12 pr-4 py-3 rounded-2xl bg-champagne-dark border border-line body-m text-black placeholder:text-muted focus:outline-none focus:border-main transition-colors appearance-none"
           />
         </motion.div>
 

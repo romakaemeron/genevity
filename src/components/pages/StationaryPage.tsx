@@ -236,7 +236,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
                   <p className="body-l text-muted">{t(step.desc, locale)}</p>
                 </div>
                 {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 -right-6 w-12 text-line">
+                  <div className="hidden lg:block absolute top-12 -right-6 w-12 text-main/30">
                     <ChevronRight className="w-6 h-6" />
                   </div>
                 )}

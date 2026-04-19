@@ -109,11 +109,11 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       {/* ===== STATS STRIP ===== */}
       <section className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pb-16">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}
-          className="bg-main rounded-[var(--radius-card)] px-8 lg:px-12 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
+          className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
             <motion.div key={i} variants={fadeInUp} className="text-center lg:text-left">
-              <p className="heading-2 text-champagne">{stat.value}</p>
-              <p className="body-m text-white-60 mt-1">{t(stat.label, locale)}</p>
+              <p className="heading-2 text-black">{stat.value}</p>
+              <p className="body-m text-muted mt-1">{t(stat.label, locale)}</p>
             </motion.div>
           ))}
         </motion.div>

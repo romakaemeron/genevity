@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { Shield, Users, Microscope, Heart, Clock, Award, ChevronRight } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 const advantages = [
   {
@@ -137,10 +138,14 @@ export default function Advantages({ locale }: { locale: string }) {
                     <h3 className="body-strong text-black mb-1.5">{item.title[l]}</h3>
                     <p className="body-m text-muted">{item.description[l]}</p>
                     {"href" in item && item.href && (
-                      <Link href={item.href as string} className="inline-flex items-center gap-1 body-s text-main hover:text-main-dark transition-colors mt-3">
-                        {item.title[l]}
-                        <ChevronRight className="w-3 h-3" />
-                      </Link>
+                      <div className="mt-3">
+                        <Link href={item.href as string}>
+                          <Button variant="outline" size="sm">
+                            {item.title[l]}
+                            <ChevronRight className="w-3.5 h-3.5" />
+                          </Button>
+                        </Link>
+                      </div>
                     )}
                   </div>
                 </>
