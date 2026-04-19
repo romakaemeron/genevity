@@ -83,7 +83,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
           <MegaMenuHeader variant="transparent" position="absolute" />
         </div>
 
-        <div className="relative z-[5] w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-14 lg:pb-20 pt-28">
+        <div className="relative z-[5] w-full max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-14 lg:pb-20 pt-28">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}>
             <Breadcrumbs items={[{ label: ui("home", locale), href: "/" }, { label: data.title, href: "/stationary" }]} locale={locale} variant="light" />
             <h1 className="heading-1 text-champagne mt-6 max-w-2xl">{data.h1 || data.title}</h1>
@@ -99,7 +99,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== COMFORT FEATURES — bento grid ===== */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-4">
             {t(L("Комфорт та безпека", "Комфорт и безопасность", "Comfort & Safety"), locale)}
@@ -148,7 +148,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
 
       {/* ===== SERVICES — icon cards ===== */}
       <section className="py-16 lg:py-24">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
             <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-10">
               {t(L("Послуги стаціонару", "Услуги стационара", "Stationary Services"), locale)}
@@ -174,7 +174,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== CLINIC PHOTOS — interactive stripe gallery ===== */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-8">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <StripeGallery
             title={t(L("Наш простір", "Наше пространство", "Our Space"), locale)}
@@ -194,7 +194,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== INDICATIONS ===== */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-8">
             {t(L("Показання для лікування в стаціонарі", "Показания для лечения в стационаре", "Indications for Stationary Treatment"), locale)}
@@ -221,7 +221,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== HOW IT WORKS — visual timeline ===== */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-12">
             {t(L("Як це працює", "Как это работает", "How It Works"), locale)}
@@ -247,7 +247,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* ===== PRICING — clean card ===== */}
-      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -276,7 +276,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       {/* ===== FAQ ===== */}
       {faq.length > 0 && (
         <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
-          className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
           <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
           <div className="border-t border-line">
             {faq.map((item, i) => (
@@ -299,7 +299,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       )}
 
       {/* ===== FINAL CTA ===== */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
           <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />

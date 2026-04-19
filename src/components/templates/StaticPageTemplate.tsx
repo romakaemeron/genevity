@@ -68,7 +68,7 @@ export default function StaticPageTemplate({
           </div>
 
           <div className="relative z-[5] min-h-[60vh] lg:min-h-[65vh] flex items-end">
-            <div className="max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-12 pb-12 lg:pb-16 pt-28">
+            <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pb-12 lg:pb-16 pt-28">
               <motion.div className="max-w-xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}>
                 <Breadcrumbs items={breadcrumbs} locale={locale} variant="light" />
                 <h1 className="heading-1 text-champagne mt-6">{data.h1 || data.title}</h1>
@@ -94,7 +94,7 @@ export default function StaticPageTemplate({
           )}
 
           <div className={`relative z-[5] ${heroImage ? "" : ""}`}>
-            <div className="max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+            <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
               <div className={`flex flex-col ${heroImage ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
                 <motion.div className={heroImage ? "flex-1 max-w-lg lg:py-8" : "max-w-3xl"} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
                   <Breadcrumbs items={breadcrumbs} locale={locale} />
@@ -122,7 +122,7 @@ export default function StaticPageTemplate({
       )}
 
       {/* ===== CONTENT ===== */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         {sections.length > 0 && (
           <div className="flex flex-col gap-12 lg:gap-16">
             {sections.map((section, i) => {
@@ -181,7 +181,7 @@ export default function StaticPageTemplate({
 
       {/* ===== FAQ ===== */}
       {data.faq?.length > 0 && (
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
           <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
           <div className="border-t border-line">
             {data.faq.map((item, i) => (
@@ -207,14 +207,14 @@ export default function StaticPageTemplate({
       {doctors && doctors.length > 0 && doctorsUi && (
         <div className="mt-4 lg:mt-8">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
-          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-6">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </div>
       )}
 
       {/* ===== FINAL CTA ===== */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>

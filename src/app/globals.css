@@ -305,6 +305,11 @@ img::selection {
 .animate-enter-5 { animation-delay: 0.45s; }
 .animate-enter-6 { animation-delay: 0.55s; }
 
+/* === Container max-width === */
+.max-w-container {
+  max-width: 1200px;
+}
+
 /* === Safari Fixes === */
 input[type="text"],
 input[type="search"] {

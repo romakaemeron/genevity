@@ -79,7 +79,7 @@ export default function About({ data }: { data: AboutData }) {
   };
 
   return (
-    <section className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12">
+    <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
       <motion.div
         variants={staggerContainer}
         initial="hidden"

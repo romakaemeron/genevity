@@ -28,7 +28,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
     <>
       {/* Hero — map + info split */}
       <section className="bg-champagne">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-0">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-0">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -153,7 +153,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
         initial="hidden"
         whileInView="visible"
         viewport={viewportConfig}
-        className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16"
+        className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16"
       >
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
           {["/clinic/semi1737-hdr.webp", "/clinic/semi1256-hdr.webp", "/clinic/semi1287-hdr.webp"].map((src, i) => (
@@ -165,7 +165,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
       </motion.section>
 
       {/* CTA */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="relative rounded-[var(--radius-card)] overflow-hidden min-h-[280px] flex items-center">
           <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />

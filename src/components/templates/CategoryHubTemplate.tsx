@@ -94,7 +94,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
 
         {/* Content */}
         <div className={`relative z-[5] ${heroVariant === "dark" ? "min-h-[80vh] lg:min-h-[85vh] flex items-center" : ""}`}>
-          <div className="max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+          <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
             <div className={`flex flex-col ${heroVariant === "light" ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
               {/* Text */}
               <motion.div
@@ -167,7 +167,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
       </section>
 
       {/* ===== CONTENT ===== */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
 
         {/* Content sections with integrated visuals */}
         {sections.length > 0 && (
@@ -355,7 +355,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
       {doctors && doctors.length > 0 && doctorsUi && (
         <div className="mt-16 lg:mt-20">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
-          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 mt-6">
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors">
               <Button variant="outline" size="sm">
                 {ui("allDoctors", locale)}
@@ -367,7 +367,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
       )}
 
       {/* ===== FINAL CTA ===== */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 pb-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <motion.section
           variants={fadeInUp}
           initial="hidden"
