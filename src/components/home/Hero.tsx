@@ -11,12 +11,12 @@ import type { HeroData } from "@/sanity/types";
 
 /* ── Slides with per-image focal points ── */
 const SLIDES: { src: string; objectPosition: string }[] = [
-  { src: "/images/hero/SEMI7515.webp", objectPosition: "center 5%" },
-  { src: "/images/hero/AcuPulse.webp", objectPosition: "center center" },
-  { src: "/images/hero/SEMI7511.webp", objectPosition: "center 25%" },
-  { src: "/images/hero/SEMI1657-HDR.webp", objectPosition: "center 75%" },
   { src: "/images/hero/SEMI7475.webp", objectPosition: "center 80%" },
   { src: "/images/hero/SEMI7120.webp", objectPosition: "center center" },
+  { src: "/images/hero/SEMI7515.webp", objectPosition: "center 5%" },
+  { src: "/images/hero/SEMI1657-HDR.webp", objectPosition: "center 75%" },
+  { src: "/images/hero/AcuPulse.webp", objectPosition: "center center" },
+  { src: "/images/hero/SEMI7511.webp", objectPosition: "center 25%" },
 ];
 
 const AUTOPLAY_MS = 6000;

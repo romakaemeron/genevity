@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { EquipmentItem } from "@/sanity/types";
 
 interface EquipmentModalProps {
@@ -8,16 +9,12 @@ interface EquipmentModalProps {
   resultsTitle: string;
 }
 
-export default function EquipmentModal({ item, suitsTitle, resultsTitle }: EquipmentModalProps) {
+function ModalText({ item, suitsTitle, resultsTitle }: EquipmentModalProps) {
   return (
-    <div className="p-6 sm:p-8 pt-12 flex flex-col gap-6">
+    <div className="flex flex-col gap-6">
       <div>
-        <h3 className="heading-3 text-black mb-2">
-          {item.name}
-        </h3>
-        <p className="body-l text-black-80">
-          {item.description}
-        </p>
+        <h3 className="heading-3 text-black mb-2">{item.name}</h3>
+        <p className="body-l text-black-80">{item.description}</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -49,6 +46,38 @@ export default function EquipmentModal({ item, suitsTitle, resultsTitle }: Equip
           {item.note}
         </p>
       )}
+    </div>
+  );
+}
+
+export default function EquipmentModal({ item, suitsTitle, resultsTitle }: EquipmentModalProps) {
+  if (!item.photo) {
+    return (
+      <div className="p-6 sm:p-8 pt-12">
+        <ModalText item={item} suitsTitle={suitsTitle} resultsTitle={resultsTitle} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col lg:flex-row">
+      {/* Photo — left on desktop, top on mobile */}
+      <div className="relative lg:w-[45%] shrink-0 bg-champagne-dark overflow-hidden">
+        <div className="relative w-full h-64 lg:h-full lg:min-h-[480px]">
+          <Image
+            src={item.photo}
+            alt={item.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 400px"
+          />
+        </div>
+      </div>
+
+      {/* Text — right on desktop, below on mobile */}
+      <div className="flex-1 p-6 sm:p-8 pt-12 lg:pt-8 overflow-y-auto lg:max-h-[80vh]">
+        <ModalText item={item} suitsTitle={suitsTitle} resultsTitle={resultsTitle} />
+      </div>
     </div>
   );
 }

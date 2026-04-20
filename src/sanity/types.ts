@@ -9,6 +9,7 @@ export interface EquipmentItem {
   suits: string[];
   results: string[];
   note: string;
+  photo: string | null;
 }
 
 export interface DoctorItem {

@@ -53,6 +53,7 @@ async function getEquipment(l: string): Promise<EquipmentItem[]> {
       "suits": coalesce(suits.${l}, suits.uk),
       "results": coalesce(results.${l}, results.uk),
       "note": coalesce(note.${l}, note.uk),
+      "photo": photo.asset->url,
     }
   `);
 }

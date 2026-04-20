@@ -117,7 +117,7 @@ export default function Equipment({ items, ui }: EquipmentProps) {
       {/* Modal */}
       <AnimatePresence>
         {selectedItem !== null && (
-          <Modal open onClose={closeModal}>
+          <Modal open onClose={closeModal} maxWidth={selectedItem.photo ? "sm:max-w-3xl" : "sm:max-w-lg"}>
             <EquipmentModalContent
               item={selectedItem}
               suitsTitle={ui.suitsTitle}
