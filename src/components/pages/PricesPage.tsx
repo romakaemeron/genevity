@@ -130,9 +130,9 @@ export default function PricesPageComponent({ locale }: Props) {
             <h1 className="heading-1 text-black mt-6">{t(L("Ціни", "Цены", "Prices"), locale)}</h1>
             <p className="body-l text-muted mt-4 max-w-2xl">
               {t(L(
-                "Прозорі ціни на всі послуги центру GENEVITY. Точну вартість визначить лікар на безкоштовній консультації.",
-                "Прозрачные цены на все услуги центра GENEVITY. Точную стоимость определит врач на бесплатной консультации.",
-                "Transparent pricing for all GENEVITY services. Exact cost determined by physician at a free consultation.",
+                "Прозорі ціни на всі послуги центру GENEVITY.",
+                "Прозрачные цены на все услуги центра GENEVITY.",
+                "Transparent pricing for all GENEVITY services.",
               ), locale)}
             </p>
           </motion.div>

@@ -88,7 +88,7 @@ export default function About({ data }: { data: AboutData }) {
         className="flex flex-col gap-12"
       >
         {/* Heading + accent phrase */}
-        <motion.div variants={fadeInUp} className="flex flex-col gap-4 max-w-2xl">
+        <motion.div variants={fadeInUp} className="flex flex-col gap-4 max-w-3xl">
           <h2 className="heading-2 text-black">{data.title}</h2>
           <p className="heading-3 text-main">{data.text2}</p>
         </motion.div>
