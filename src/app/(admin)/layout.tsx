@@ -1,7 +1,11 @@
+import { Mulish, Tenor_Sans } from "next/font/google";
 import { getSession } from "./_actions/auth";
-import { redirect } from "next/navigation";
 import { sql } from "@/lib/db/client";
 import Sidebar from "./_components/sidebar";
+import "@/app/globals.css";
+
+const mulish = Mulish({ subsets: ["cyrillic", "latin"], variable: "--font-body", display: "swap" });
+const tenor = Tenor_Sans({ weight: "400", subsets: ["cyrillic", "latin"], variable: "--font-heading", display: "swap" });
 
 export const metadata = {
   title: "GENEVITY CMS",
@@ -32,19 +36,27 @@ async function getCounts() {
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
 
-  // Not authenticated — render children without sidebar (login page)
+  // Not authenticated — login page, no sidebar
   if (!session) {
-    return <div className="min-h-screen bg-champagne">{children}</div>;
+    return (
+      <html lang="uk">
+        <body className={`${mulish.variable} ${tenor.variable} font-body`}>
+          {children}
+        </body>
+      </html>
+    );
   }
 
   const counts = await getCounts();
 
   return (
-    <div className="min-h-screen bg-champagne">
-      <Sidebar userName={session.name} counts={counts} />
-      <main className="ml-60 min-h-screen">
-        {children}
-      </main>
-    </div>
+    <html lang="uk">
+      <body className={`${mulish.variable} ${tenor.variable} font-body min-h-screen bg-champagne`}>
+        <Sidebar userName={session.name} counts={counts} />
+        <main className="ml-60 min-h-screen">
+          {children}
+        </main>
+      </body>
+    </html>
   );
 }
