@@ -9,7 +9,7 @@ import {
   Scan, TestTube, HeartPulse, Brain, Baby, Stethoscope,
   Clock, CheckCircle, FileText, ChevronRight,
 } from "lucide-react";
-import type { StaticPageData, DoctorItem } from "@/sanity/types";
+import type { StaticPageData, DoctorItem } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";

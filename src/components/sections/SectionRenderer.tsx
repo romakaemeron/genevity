@@ -1,4 +1,4 @@
-import type { ContentSection } from "@/sanity/types";
+import type { ContentSection } from "@/lib/db/types";
 import RichTextSection from "./RichTextSection";
 import BulletsSection from "./BulletsSection";
 import StepsSection from "./StepsSection";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Plus } from "@/components/ui/Icons";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import type { FaqItem } from "@/sanity/types";
+import type { FaqItem } from "@/lib/db/types";
 
 interface FAQProps {
   items: FaqItem[];

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp, viewportConfig } from "@/lib/motion";
 import BookingCTA from "@/components/ui/BookingCTA";
-import type { SectionCta } from "@/sanity/types";
+import type { SectionCta } from "@/lib/db/types";
 
 export default function CtaSection({ heading, body, ctaLabel }: SectionCta) {
   return (

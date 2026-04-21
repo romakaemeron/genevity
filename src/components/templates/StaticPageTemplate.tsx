@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, fadeIn, viewportConfig } from "@/lib/motion";
 import { ChevronRight } from "lucide-react";
-import type { StaticPageData, DoctorItem } from "@/sanity/types";
+import type { StaticPageData, DoctorItem } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionRenderer from "@/components/sections/SectionRenderer";

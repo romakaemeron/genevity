@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import DoctorCard from "@/components/doctors/DoctorCard";
 import DoctorModalContent from "@/components/doctors/DoctorModal";
-import type { DoctorItem } from "@/sanity/types";
+import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorsProps {
   doctors: DoctorItem[];

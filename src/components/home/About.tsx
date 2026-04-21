@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
-import type { AboutData } from "@/sanity/types";
+import type { AboutData } from "@/lib/db/types";
 
 const CLINIC_PHOTOS = [
   "/clinic/semi1737-hdr.webp",

@@ -1,4 +1,4 @@
-import { getHomepageData } from "@/sanity/queries";
+import { getHomepageData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import Hero from "@/components/home/Hero";

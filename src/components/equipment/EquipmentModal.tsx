@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import type { EquipmentItem } from "@/sanity/types";
+import type { EquipmentItem } from "@/lib/db/types";
 
 interface EquipmentModalProps {
   item: EquipmentItem;

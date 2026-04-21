@@ -1,4 +1,4 @@
-import { getAllCategories } from "@/sanity/queries";
+import { getAllCategories } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";

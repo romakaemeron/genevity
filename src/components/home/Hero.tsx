@@ -7,7 +7,7 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import { MapPin, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { fadeInUp } from "@/lib/motion";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
-import type { HeroData } from "@/sanity/types";
+import type { HeroData } from "@/lib/db/types";
 
 /* ── Slides with per-image focal points ── */
 const SLIDES: { src: string; objectPosition: string }[] = [

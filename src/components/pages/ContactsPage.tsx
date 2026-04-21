@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { fadeInUp, fadeIn, staggerContainer, viewportConfig } from "@/lib/motion";
 import { MapPin, Phone, Clock, AtSign } from "lucide-react";
-import type { SiteSettingsData } from "@/sanity/types";
+import type { SiteSettingsData } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";

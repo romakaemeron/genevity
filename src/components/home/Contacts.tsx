@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { MapPin, Phone, Instagram } from "@/components/ui/Icons";
-import type { SiteSettingsData } from "@/sanity/types";
+import type { SiteSettingsData } from "@/lib/db/types";
 
 export default function Contacts({ data }: { data: { settings: SiteSettingsData; ui: { title: string; instagramLabel: string } } }) {
   const { settings, ui } = data;

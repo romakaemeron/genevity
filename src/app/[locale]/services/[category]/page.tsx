@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getCategoryBySlug, getServicesByCategory, getAllCategorySlugs, getAllDoctors, getUiStringsData } from "@/sanity/queries";
+import { getCategoryBySlug, getServicesByCategory, getAllCategorySlugs, getAllDoctors, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";

@@ -3,7 +3,7 @@
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
-import type { DoctorItem } from "@/sanity/types";
+import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorCardProps {
   doctor: DoctorItem;

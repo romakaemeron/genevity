@@ -3,7 +3,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fadeInUp, viewportConfig } from "@/lib/motion";
-import type { DoctorItem } from "@/sanity/types";
+import type { DoctorItem } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";

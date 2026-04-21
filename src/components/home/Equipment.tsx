@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import EquipmentCard from "@/components/equipment/EquipmentCard";
 import EquipmentModalContent from "@/components/equipment/EquipmentModal";
-import type { EquipmentItem, HomepageData } from "@/sanity/types";
+import type { EquipmentItem, HomepageData } from "@/lib/db/types";
 
 type Category = "all" | "face" | "body" | "skin" | "intimate" | "laser";
 

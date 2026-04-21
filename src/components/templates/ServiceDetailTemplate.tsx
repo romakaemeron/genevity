@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import type { ServiceData } from "@/sanity/types";
+import type { ServiceData } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import KeyFactsBar from "@/components/ui/KeyFactsBar";

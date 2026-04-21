@@ -1,26 +1,10 @@
-import { sanityClient } from "@/sanity/client";
-import { getUiStringsData } from "@/sanity/queries";
+import { getUiStringsData, getSiteSettingsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
-import type { SiteSettingsData } from "@/sanity/types";
 import ContactsPageComponent from "@/components/pages/ContactsPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
 export const revalidate = 60;
-
-function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
-
-async function getSettings(locale: string): Promise<SiteSettingsData> {
-  const l = lang(locale);
-  return sanityClient.fetch(`
-    *[_type == "siteSettings"][0] {
-      phone1, phone2,
-      "address": coalesce(address.${l}, address.uk),
-      instagram,
-      "hours": coalesce(hours.${l}, hours.uk),
-    }
-  `);
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -35,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function ContactsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const [settings, uiStrings] = await Promise.all([
-    getSettings(locale),
+    getSiteSettingsData(locale),
     getUiStringsData(locale),
   ]);
 

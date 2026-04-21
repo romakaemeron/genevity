@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getStaticPage, getUiStringsData, getAllDoctors } from "@/sanity/queries";
+import { getStaticPage, getUiStringsData, getAllDoctors } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import LaboratoryPageComponent from "@/components/pages/LaboratoryPage";

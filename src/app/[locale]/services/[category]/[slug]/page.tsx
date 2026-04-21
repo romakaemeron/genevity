@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getServiceBySlug, getAllServiceSlugs, getUiStringsData } from "@/sanity/queries";
+import { getServiceBySlug, getAllServiceSlugs, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import ServiceDetailTemplate from "@/components/templates/ServiceDetailTemplate";

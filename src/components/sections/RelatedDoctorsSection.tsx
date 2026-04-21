@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { SectionRelatedDoctors } from "@/sanity/types";
+import type { SectionRelatedDoctors } from "@/lib/db/types";
 
 export default function RelatedDoctorsSection({ heading, doctors }: SectionRelatedDoctors) {
   return (

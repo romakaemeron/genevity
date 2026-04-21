@@ -1,32 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { sanityClient } from "@/sanity/client";
+import { getLegalDocBySlug } from "@/lib/db/queries";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
 export const revalidate = 60;
-
-interface LegalDoc {
-  title: string;
-  content: string;
-}
-
-async function getLegalDoc(slug: string, locale: string): Promise<LegalDoc | null> {
-  const l = locale === "ua" ? "uk" : locale;
-  return sanityClient.fetch(
-    `*[_type == "legalDoc" && slug.current == $slug][0] {
-      "title": coalesce(
-        select(length(title.${l}) > 0 => title.${l}),
-        title.uk
-      ),
-      "content": coalesce(
-        select(length(content.${l}) > 0 => content.${l}),
-        content.uk
-      ),
-    }`,
-    { slug }
-  );
-}
 
 /* ---------- Content parser ---------- */
 
@@ -137,9 +115,11 @@ export default async function LegalPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const doc = await getLegalDoc(slug, locale);
+  const doc = await getLegalDocBySlug(locale, slug);
 
-  if (!doc || !doc.content) notFound();
+  if (!doc || !doc.body) notFound();
+  // Alias for compatibility with content parser below
+  const content = doc.body;
 
   const backLabel: Record<string, string> = {
     ua: "Повернутися на головну",
@@ -147,7 +127,7 @@ export default async function LegalPage({
     en: "Back to home",
   };
 
-  const blocks = parseContent(doc.content);
+  const blocks = parseContent(content);
 
   return (
     <>

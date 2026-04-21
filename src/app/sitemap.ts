@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { sanityClient } from "@/sanity/client";
+import { getAllCategorySlugs, getAllServiceSlugs, getLegalDocs } from "@/lib/db/queries";
+import { sql } from "@/lib/db/client";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -19,10 +20,10 @@ function localeUrls(path: string, priority: number, changeFrequency: MetadataRou
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, services, staticPages, legalDocs] = await Promise.all([
-    sanityClient.fetch<{ slug: string }[]>(`*[_type == "serviceCategory"]{ "slug": slug.current }`),
-    sanityClient.fetch<{ slug: string; categorySlug: string }[]>(`*[_type == "service"]{ "slug": slug.current, "categorySlug": category->slug.current }`),
-    sanityClient.fetch<{ slug: string }[]>(`*[_type == "staticPage"]{ slug }`),
-    sanityClient.fetch<{ slug: string }[]>(`*[_type == "legalDoc"]{ "slug": slug.current }`),
+    getAllCategorySlugs(),
+    getAllServiceSlugs(),
+    sql`SELECT slug FROM static_pages`,
+    getLegalDocs("ua"),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];

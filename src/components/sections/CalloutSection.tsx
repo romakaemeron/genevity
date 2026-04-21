@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp, viewportConfig } from "@/lib/motion";
 import { Info, AlertTriangle, CheckCircle } from "lucide-react";
-import type { SectionCallout } from "@/sanity/types";
+import type { SectionCallout } from "@/lib/db/types";
 
 const toneConfig = {
   info: { bg: "bg-ice-subtle", border: "border-ice/30", icon: Info, iconBg: "bg-ice/15", iconColor: "text-ice-dark" },

@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
-import { getLegalDocs } from "@/sanity/queries";
+import { getLegalDocs } from "@/lib/db/queries";
 import "../globals.css";
 
 const tenorSans = localFont({

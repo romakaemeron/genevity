@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
-import type { DoctorItem } from "@/sanity/types";
+import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorModalProps {
   doctor: DoctorItem;

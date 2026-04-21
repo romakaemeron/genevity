@@ -1,4 +1,4 @@
-import type { SectionCompareTable } from "@/sanity/types";
+import type { SectionCompareTable } from "@/lib/db/types";
 
 export default function CompareTableSection({ heading, columns, rows }: SectionCompareTable) {
   return (

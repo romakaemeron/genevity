@@ -2,7 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import Button from "@/components/ui/Button";
-import type { EquipmentItem } from "@/sanity/types";
+import type { EquipmentItem } from "@/lib/db/types";
 
 interface EquipmentCardProps {
   item: EquipmentItem;

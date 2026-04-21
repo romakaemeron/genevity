@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { SectionImageGallery } from "@/sanity/types";
+import type { SectionImageGallery } from "@/lib/db/types";
 
 export default function ImageGallerySection({ heading, images }: SectionImageGallery) {
   return (

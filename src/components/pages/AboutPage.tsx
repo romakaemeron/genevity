@@ -9,7 +9,7 @@ import {
   Award, Heart, Microscope, Users, Shield, Globe,
   ChevronRight,
 } from "lucide-react";
-import type { DoctorItem, AboutData } from "@/sanity/types";
+import type { DoctorItem, AboutData } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";

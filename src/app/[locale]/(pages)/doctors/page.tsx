@@ -1,4 +1,4 @@
-import { getAllDoctors, getUiStringsData } from "@/sanity/queries";
+import { getAllDoctors, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import DoctorsPageComponent from "@/components/pages/DoctorsPage";

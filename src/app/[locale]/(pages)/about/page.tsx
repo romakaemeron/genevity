@@ -1,28 +1,10 @@
-import { getUiStringsData, getAllDoctors } from "@/sanity/queries";
-import { sanityClient } from "@/sanity/client";
+import { getUiStringsData, getAllDoctors, getAboutData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
-import type { AboutData } from "@/sanity/types";
 import AboutPageComponent from "@/components/pages/AboutPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
 export const revalidate = 60;
-
-function lang(locale: string) {
-  return locale === "ua" ? "uk" : locale;
-}
-
-async function getAbout(locale: string): Promise<AboutData> {
-  const l = lang(locale);
-  return sanityClient.fetch(`
-    *[_type == "about"][0] {
-      "title": coalesce(title.${l}, title.uk),
-      "text1": coalesce(text1.${l}, text1.uk),
-      "text2": coalesce(text2.${l}, text2.uk),
-      "diagnostics": coalesce(diagnostics.${l}, diagnostics.uk),
-    }
-  `);
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -37,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const [about, uiStrings, doctors] = await Promise.all([
-    getAbout(locale),
+    getAboutData(locale),
     getUiStringsData(locale),
     getAllDoctors(locale),
   ]);
