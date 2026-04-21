@@ -107,8 +107,8 @@ async function getUiStrings(l: string): Promise<UiStringsData> {
   if (!raw) throw new Error("UI strings not found in database");
   const d = typeof raw === "string" ? JSON.parse(raw) : raw;
 
-  const pick2 = (obj: any, ...path: string[]) => {
-    let cur = d;
+  const pick2 = (...path: string[]) => {
+    let cur: any = d;
     for (const p of path) cur = cur?.[p];
     if (!cur) return "";
     return cur[l] ?? cur.uk ?? cur ?? "";
