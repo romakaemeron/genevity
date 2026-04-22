@@ -9,6 +9,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import { logout } from "../_actions/auth";
+import Button from "@/components/ui/Button";
 
 type NavLink = { href: string; label: string; icon: any; countKey?: string };
 type NavDivider = { divider: true; label: string };
@@ -94,7 +95,7 @@ export default function Sidebar({ userName, counts = {} }: SidebarProps) {
       </nav>
 
       {/* Settings + User */}
-      <div className="border-t border-black/10 px-3 py-2">
+      <div className="border-t border-white/10 px-3 py-2">
         {(() => {
           const isActive = pathname?.startsWith("/admin/settings") ?? false;
           return (
@@ -113,18 +114,18 @@ export default function Sidebar({ userName, counts = {} }: SidebarProps) {
         })()}
       </div>
 
-      <div className="border-t border-black/10 px-3 py-3">
-        <div className="flex items-center justify-between px-3">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-main/30 flex items-center justify-center text-black text-xs font-medium">
-              {userName.charAt(0).toUpperCase()}
+      <div className="border-t border-white/10 px-3 py-3">
+        <div className="flex items-center justify-between gap-2 px-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-7 h-7 rounded-full bg-main/30 flex items-center justify-center text-champagne text-xs font-medium shrink-0">
+              A
             </div>
-            <span className="text-sm text-black/80 truncate max-w-[120px]">{userName}</span>
+            <span className="text-sm text-champagne/80 truncate">Admin</span>
           </div>
           <form action={logout}>
-            <button type="submit" className="text-black-60 hover:text-black transition-colors cursor-pointer" title="Вийти">
-              <LogOut size={16} />
-            </button>
+            <Button variant="secondary" icon size="sm" type="submit" title="Log out" ariaLabel="Log out">
+              <LogOut size={14} />
+            </Button>
           </form>
         </div>
       </div>
