@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Trash2, Plus, Upload } from "lucide-react";
+import { Trash2, Plus, Upload, Image as ImageIcon } from "lucide-react";
 import { LocaleText, LocaleStringList, MiniTabs, emptyLocaleString, emptyLocaleArray, type LocaleString, type LocaleArray } from "./locale-inputs";
 import { uploadSectionImage } from "../_actions/sections";
 import type { LocaleKey } from "./translation-tabs";
+import MediaPicker from "./media-picker";
 
 /** Registry: each section type has a label, a default data factory, and an editor component */
 
@@ -90,6 +91,7 @@ function RichTextEditor({
   heroImage?: string;
 }>) {
   const [uploading, setUploading] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   const handleImageUpload = async (files: FileList | null) => {
     if (!files || !files.length) return;
@@ -144,16 +146,33 @@ function RichTextEditor({
             </button>
           </div>
         ) : (
-          <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-line bg-white text-sm text-muted hover:border-main/40 hover:text-ink cursor-pointer self-start transition-colors">
-            <Upload size={14} />
-            {uploading ? "Uploading..." : "Upload hero image"}
-            <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e.target.files)} />
-          </label>
+          <div className="flex items-center gap-3">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-line bg-white text-sm text-muted hover:border-main/40 hover:text-ink cursor-pointer self-start transition-colors">
+              <Upload size={14} />
+              {uploading ? "Uploading..." : "Upload hero image"}
+              <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e.target.files)} />
+            </label>
+            <button
+              type="button"
+              onClick={() => setPickerOpen(true)}
+              className="inline-flex items-center gap-1.5 text-xs text-main hover:text-main-dark transition-colors cursor-pointer"
+            >
+              <ImageIcon size={12} />
+              Pick from library
+            </button>
+          </div>
         )}
         <p className="text-[11px] text-muted">
           When present, the section renders as a 2-column hero: heading + body + callout on one side, this image on the other.
         </p>
       </div>
+
+      <MediaPicker
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onPick={(url) => onChange({ ...data, heroImage: url })}
+        preferredFolder="sections"
+      />
     </div>
   );
 }

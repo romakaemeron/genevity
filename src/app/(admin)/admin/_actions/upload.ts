@@ -20,6 +20,31 @@
 import { put } from "@vercel/blob";
 import { randomUUID } from "crypto";
 import sharp from "sharp";
+import { sql } from "@/lib/db/client";
+
+/**
+ * Register an uploaded asset in the central media_assets library so it shows
+ * up in /admin/media and can be reused in other sections. Called automatically
+ * after every successful admin upload — failures here shouldn't break the
+ * upload itself (the blob already landed), so we swallow errors.
+ */
+async function registerInMediaLibrary(
+  url: string,
+  folder: string,
+  mimeType: string,
+  sizeBytes: number,
+) {
+  try {
+    const filename = decodeURIComponent(url.split("/").pop() || "image");
+    await sql`
+      INSERT INTO media_assets (url, filename, folder, source, title, mime_type, size_bytes)
+      VALUES (${url}, ${filename}, ${folder}, 'blob', ${filename}, ${mimeType}, ${sizeBytes})
+      ON CONFLICT (url) DO NOTHING
+    `;
+  } catch {
+    // Silent — library registration is best-effort, the blob already uploaded
+  }
+}
 
 export interface ProcessOptions {
   /** Longest side cap in pixels. Default 2400 — plenty for retina hero images. */
@@ -58,6 +83,7 @@ export async function processAndUploadImage(
       addRandomSuffix: false,
       contentType: file.type || undefined,
     });
+    await registerInMediaLibrary(result.url, folder, file.type || "application/octet-stream", buffer.length);
     return result.url;
   }
 
@@ -72,6 +98,7 @@ export async function processAndUploadImage(
     addRandomSuffix: false,
     contentType: "image/webp",
   });
+  await registerInMediaLibrary(result.url, folder, "image/webp", processed.length);
   return result.url;
 }
 
@@ -111,6 +138,7 @@ export async function uploadRawImage(
     addRandomSuffix: false,
     contentType: file.type || undefined,
   });
+  await registerInMediaLibrary(result.url, folder, file.type || "image/jpeg", buffer.length);
   return result.url;
 }
 

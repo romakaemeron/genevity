@@ -2,11 +2,12 @@
 
 import { useState, useTransition, useRef } from "react";
 import Image from "next/image";
-import { Trash2, Plus, Check, Upload } from "lucide-react";
+import { Trash2, Plus, Check, Upload, Image as ImageIcon } from "lucide-react";
 import { saveGallery, uploadPhase2Image } from "../_actions/phase2";
 import { MiniTabs } from "./locale-inputs";
 import type { LocaleKey } from "./translation-tabs";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
+import MediaPicker from "./media-picker";
 
 export interface GalleryItemInput {
   id?: string;
@@ -37,6 +38,7 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
   const [pending, startTransition] = useTransition();
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
+  const [pickerForIdx, setPickerForIdx] = useState<number | null>(null);
   const fileInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const update = (i: number, patch: Partial<GalleryItemInput>) => {
@@ -120,6 +122,15 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
               <span className="text-xs text-muted mr-2">#{i + 1}</span>
               {item[field("label")] || <span className="text-muted italic">No label ({locale})</span>}
             </button>
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setPickerForIdx(i); }}
+              className="inline-flex items-center gap-1 text-[11px] text-main hover:text-main-dark transition-colors cursor-pointer shrink-0"
+              title="Pick from library"
+            >
+              <ImageIcon size={12} />
+              Library
+            </button>
             <button type="button" onClick={() => remove(i)} className="text-muted hover:text-error cursor-pointer">
               <Trash2 size={14} />
             </button>
@@ -163,6 +174,15 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
           {pending ? "Saving..." : "Save gallery"}
         </button>
       </div>
+
+      <MediaPicker
+        open={pickerForIdx !== null}
+        onClose={() => setPickerForIdx(null)}
+        onPick={(url) => {
+          if (pickerForIdx !== null) update(pickerForIdx, { image_url: url });
+        }}
+        preferredFolder={ownerKey}
+      />
     </div>
   );
 }

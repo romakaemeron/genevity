@@ -2,13 +2,14 @@
 
 import { useState, useTransition, useRef, useMemo } from "react";
 import Image from "next/image";
-import { Trash2, Plus, Check, Upload } from "lucide-react";
+import { Trash2, Plus, Check, Upload, Image as ImageIcon } from "lucide-react";
 import { saveHeroSlides, uploadPhase2Image } from "../_actions/phase2";
 import { MiniTabs } from "./locale-inputs";
 import type { LocaleKey } from "./translation-tabs";
 import { useUnsavedTracker } from "./unsaved-changes";
 import Button from "@/components/ui/Button";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
+import MediaPicker from "./media-picker";
 
 interface Slide {
   id?: string;
@@ -29,6 +30,7 @@ export default function HeroSlidesEditor({ initial }: Props) {
   const [pending, startTransition] = useTransition();
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
+  const [pickerForIdx, setPickerForIdx] = useState<number | null>(null);
   const fileInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const update = (i: number, patch: Partial<Slide>) => {
@@ -119,6 +121,14 @@ export default function HeroSlidesEditor({ initial }: Props) {
           </div>
 
           <div className="flex-1 flex flex-col gap-2">
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setPickerForIdx(i); }}
+              className="inline-flex items-center gap-1.5 text-[11px] text-main hover:text-main-dark transition-colors cursor-pointer self-start"
+            >
+              <ImageIcon size={11} />
+              Pick from library
+            </button>
             <div className="flex flex-col gap-1">
               <label className="text-[10px] font-medium text-muted uppercase tracking-wider">Object position</label>
               <input
@@ -165,6 +175,15 @@ export default function HeroSlidesEditor({ initial }: Props) {
           {pending ? "Saving..." : "Save slides"}
         </Button>
       </div>
+
+      <MediaPicker
+        open={pickerForIdx !== null}
+        onClose={() => setPickerForIdx(null)}
+        onPick={(url) => {
+          if (pickerForIdx !== null) update(pickerForIdx, { image_url: url });
+        }}
+        preferredFolder="hero"
+      />
     </div>
   );
 }

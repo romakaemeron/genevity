@@ -2,19 +2,22 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { Upload, X } from "lucide-react";
+import { Upload, X, ImageIcon } from "lucide-react";
+import MediaPicker from "./media-picker";
 
 interface Props {
   name: string;
   label: string;
   currentUrl?: string | null;
   aspect?: string;
-  /** Called with the new object-URL (or null on clear) so siblings can live-preview the uploaded file before save. */
+  /** Called with the new object-URL / picked URL (or null on clear) so siblings can live-preview. */
   onUrlChange?: (url: string | null) => void;
   /** CSS object-position (e.g. "50% 30%") — lets the thumbnail mirror a paired PhotoPositionEditor's live crop. */
   objectPosition?: string;
   /** Client-side max longest side in pixels before submit. Downsamples huge originals via canvas. Default 2400. */
   clientMaxDim?: number;
+  /** Folder to preselect in the library picker (e.g. "services", "doctors") */
+  pickerFolder?: string;
 }
 
 /**
@@ -54,10 +57,16 @@ async function shrinkIfNeeded(file: File, maxDim: number): Promise<File> {
 }
 
 export default function ImageUpload({
-  name, label, currentUrl, aspect = "aspect-[3/4]", onUrlChange, objectPosition, clientMaxDim = 2400,
+  name, label, currentUrl, aspect = "aspect-[3/4]", onUrlChange, objectPosition, clientMaxDim = 2400, pickerFolder,
 }: Props) {
   const [preview, setPreview] = useState<string | null>(currentUrl || null);
+  // When the admin picks from the library, we round-trip the URL through the
+  // form's `${name}_current` hidden input — the server treats this as "no new
+  // file, keep current URL". Tracked separately from `preview` (which may be
+  // a blob: URL for pending uploads).
+  const [libraryUrl, setLibraryUrl] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +75,6 @@ export default function ImageUpload({
     setProcessing(true);
     try {
       const file = await shrinkIfNeeded(picked, clientMaxDim);
-      // Replace the native input's files with the (possibly compressed) file
-      // so form submit sends the smaller version.
       if (inputRef.current && file !== picked) {
         const dt = new DataTransfer();
         dt.items.add(file);
@@ -75,17 +82,52 @@ export default function ImageUpload({
       }
       const url = URL.createObjectURL(file);
       setPreview(url);
+      setLibraryUrl(null); // new file upload wins over any library selection
       onUrlChange?.(url);
     } finally {
       setProcessing(false);
     }
   };
 
+  /**
+   * SaveBar / FormDirtyTracker observe the form via native input/change events.
+   * React programmatically updating a hidden input's `value` prop does NOT
+   * fire those events, so after library-pick / clear we manually dispatch one
+   * on the enclosing form so dirty-detection picks up the change. Timeout 0
+   * lets React commit the new DOM value first.
+   */
+  const notifyFormDirty = () => {
+    setTimeout(() => {
+      inputRef.current?.form?.dispatchEvent(new Event("input", { bubbles: true }));
+    }, 0);
+  };
+
+  const handlePickFromLibrary = (url: string) => {
+    // Library URL is a real URL — round-trip through `_current` and clear any
+    // pending file upload so the server uses the library URL directly.
+    setPreview(url);
+    setLibraryUrl(url);
+    if (inputRef.current) inputRef.current.value = "";
+    onUrlChange?.(url);
+    notifyFormDirty();
+  };
+
   const handleClear = () => {
     setPreview(null);
-    onUrlChange?.(null);
+    setLibraryUrl(null);
     if (inputRef.current) inputRef.current.value = "";
+    onUrlChange?.(null);
+    notifyFormDirty();
   };
+
+  // Source of truth for the hidden `_current` input:
+  //   - if admin picked a library asset → that URL
+  //   - else if the prop URL is still the preview → prop value
+  //   - else empty (admin cleared the slot)
+  const currentValue =
+    libraryUrl ||
+    (preview === currentUrl ? currentUrl : "") ||
+    "";
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -103,6 +145,7 @@ export default function ImageUpload({
               className="object-cover"
               sizes="200px"
               style={objectPosition ? { objectPosition } : undefined}
+              unoptimized={preview.startsWith("blob:") || preview.endsWith(".svg")}
             />
             <button
               type="button"
@@ -124,6 +167,17 @@ export default function ImageUpload({
           </div>
         )}
       </div>
+
+      {/* Picker affordance — opens the shared media library modal */}
+      <button
+        type="button"
+        onClick={() => setPickerOpen(true)}
+        className="inline-flex items-center gap-1.5 text-xs text-main hover:text-main-dark transition-colors cursor-pointer self-start"
+      >
+        <ImageIcon size={12} />
+        Pick from library
+      </button>
+
       <input
         ref={inputRef}
         type="file"
@@ -132,8 +186,17 @@ export default function ImageUpload({
         onChange={handleChange}
         className="hidden"
       />
-      {/* Hidden field to preserve current URL if no new file uploaded */}
-      <input type="hidden" name={`${name}_current`} value={currentUrl || ""} />
+      {/* Hidden field to preserve current URL when no new file is uploaded. When
+          the admin picked from the library, `currentValue` is that library URL
+          so the server-side save treats it as "keep current" and skips upload. */}
+      <input type="hidden" name={`${name}_current`} value={currentValue} />
+
+      <MediaPicker
+        open={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onPick={(url) => handlePickFromLibrary(url)}
+        preferredFolder={pickerFolder}
+      />
     </div>
   );
 }
