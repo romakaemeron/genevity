@@ -1,7 +1,8 @@
 import { Mulish, Tenor_Sans } from "next/font/google";
-import { getSession } from "./_actions/auth";
+import { getSession } from "./admin/_actions/auth";
 import { sql } from "@/lib/db/client";
-import Sidebar from "./_components/sidebar";
+import Sidebar from "./admin/_components/sidebar";
+import { UnsavedChangesProvider } from "./admin/_components/unsaved-changes";
 import "@/app/globals.css";
 
 const mulish = Mulish({ subsets: ["cyrillic", "latin"], variable: "--font-body", display: "swap" });
@@ -52,10 +53,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <html lang="uk">
       <body className={`${mulish.variable} ${tenor.variable} font-body min-h-screen bg-champagne`}>
-        <Sidebar userName={session.name} counts={counts} />
-        <main className="ml-60 min-h-screen">
-          {children}
-        </main>
+        <UnsavedChangesProvider>
+          <Sidebar userName={session.name} counts={counts} />
+          <main className="ml-60 min-h-screen">
+            {children}
+          </main>
+        </UnsavedChangesProvider>
       </body>
     </html>
   );

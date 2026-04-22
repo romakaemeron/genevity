@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { fadeInUp, viewportConfig } from "@/lib/motion";
 import type { DoctorItem } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
@@ -10,7 +11,6 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import DoctorCard from "@/components/doctors/DoctorCard";
 import DoctorModalContent from "@/components/doctors/DoctorModal";
 import Modal from "@/components/ui/Modal";
-import { ui } from "@/lib/ui-strings";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 interface Props {
@@ -20,24 +20,22 @@ interface Props {
   detailsLabel: string;
 }
 
-const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
-const t = (obj: { ua: string; ru: string; en: string }, locale: string) =>
-  obj[locale as "ua" | "ru" | "en"] || obj.ua;
-
 const categories = [
-  { key: "all", label: L("Всі", "Все", "All"), ids: [] as string[] },
-  { key: "cosmetology", label: L("Косметологія", "Косметология", "Cosmetology"), ids: ["doctor-0", "doctor-1"] },
-  { key: "endocrinology", label: L("Ендокринологія", "Эндокринология", "Endocrinology"), ids: ["doctor-2", "doctor-3"] },
-  { key: "diagnostics", label: L("Діагностика", "Диагностика", "Diagnostics"), ids: ["doctor-4", "doctor-5"] },
-  { key: "gynecology", label: L("Гінекологія", "Гинекология", "Gynecology"), ids: ["doctor-6"] },
-  { key: "gastro", label: L("Гастроентерологія", "Гастроэнтерология", "Gastroenterology"), ids: ["doctor-8", "doctor-9"] },
-  { key: "other", label: L("Інші спеціалісти", "Другие специалисты", "Other Specialists"), ids: ["doctor-7", "doctor-11"] },
+  { key: "all", ids: [] as string[] },
+  { key: "cosmetology", ids: ["doctor-0", "doctor-1"] },
+  { key: "endocrinology", ids: ["doctor-2", "doctor-3"] },
+  { key: "diagnostics", ids: ["doctor-4", "doctor-5"] },
+  { key: "gynecology", ids: ["doctor-6"] },
+  { key: "gastro", ids: ["doctor-8", "doctor-9"] },
+  { key: "other", ids: ["doctor-7", "doctor-11"] },
 ];
 
 export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detailsLabel }: Props) {
   const [expandedDoctor, setExpandedDoctor] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState("all");
   const closeModal = useCallback(() => setExpandedDoctor(null), []);
+  const tLabels = useTranslations("labels");
+  const tDocPage = useTranslations("doctorsPage");
 
   const filteredDoctors = useMemo(() => {
     if (activeFilter === "all") return doctors;
@@ -70,7 +68,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
           >
             <Breadcrumbs
               items={[
-                { label: ui("home", locale), href: "/" },
+                { label: tLabels("home"), href: "/" },
                 { label: doctorsUi.title, href: "/doctors" },
               ]}
               locale={locale}
@@ -100,7 +98,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
                   : "bg-champagne-dark text-black hover:bg-champagne-darker"
               }`}
             >
-              {t(cat.label, locale)}
+              {tDocPage(`filter_${cat.key}`)}
             </button>
           ))}
         </motion.div>
@@ -131,10 +129,10 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
       {/* CTA */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
-          <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
-          <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>
+          <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
+          <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
           <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
-            {ui("book", locale)}
+            {tLabels("book")}
           </BookingCTA>
         </div>
       </div>

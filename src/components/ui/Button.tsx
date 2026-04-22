@@ -2,8 +2,18 @@
 
 import Link from "next/link";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "outline-light" | "ghost" | "dark";
-type ButtonSize = "sm" | "md" | "lg" | "xl";
+type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "outline-light"
+  | "ghost"
+  | "dark"
+  | "destructive"
+  | "destructive-outline"
+  | "destructive-ghost"
+  | "neutral";
+type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -12,10 +22,12 @@ interface ButtonProps {
   pill?: boolean;
   icon?: boolean;
   href?: string;
-  onClick?: () => void;
-  type?: "button" | "submit";
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: "button" | "submit" | "reset";
   className?: string;
   disabled?: boolean;
+  title?: string;
+  ariaLabel?: string;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -31,6 +43,18 @@ const variants: Record<ButtonVariant, string> = {
     "text-main hover:bg-champagne-dark hover:text-main-dark",
   dark:
     "bg-black text-champagne hover:bg-surface-dark-elevated",
+  // Filled red — dangerous confirmations ("Delete permanently", "Revoke access")
+  destructive:
+    "bg-error text-champagne hover:bg-error/90",
+  // Outlined red — less-severe destructive actions ("Discard changes", "Remove row")
+  "destructive-outline":
+    "border border-error/30 text-error hover:bg-error/5",
+  // Neutral/white, bordered — secondary choice alongside a primary CTA ("Cancel", "Stay on page")
+  neutral:
+    "bg-white border border-line text-ink hover:bg-champagne-dark hover:border-line-dark",
+  // Subtle text-link red — inline delete actions next to page titles
+  "destructive-ghost":
+    "text-error hover:text-error/80 hover:bg-error/5",
 };
 
 export default function Button({
@@ -44,12 +68,16 @@ export default function Button({
   type = "button",
   className = "",
   disabled = false,
+  title,
+  ariaLabel,
 }: ButtonProps) {
   const sizeClass = icon
-    ? size === "sm" ? "w-9 h-9 p-0"
+    ? size === "xs" ? "w-7 h-7 p-0"
+    : size === "sm" ? "w-9 h-9 p-0"
     : size === "lg" ? "w-13 h-13 p-0"
     : size === "xl" ? "w-15 h-15 p-0"
     : "w-11 h-11 p-0"
+    : size === "xs" ? "px-3 py-1.5 text-xs"
     : size === "sm" ? "px-5 py-2 text-[13px]"
     : size === "lg" ? "px-9 py-4 text-base"
     : size === "xl" ? "px-12 py-5 text-base tracking-[0.05em]"
@@ -67,7 +95,7 @@ export default function Button({
 
   if (href) {
     return (
-      <Link href={href} className={combinedClasses}>
+      <Link href={href} className={combinedClasses} title={title} aria-label={ariaLabel}>
         {children}
       </Link>
     );
@@ -79,6 +107,8 @@ export default function Button({
       onClick={onClick}
       type={type}
       disabled={disabled}
+      title={title}
+      aria-label={ariaLabel}
     >
       {children}
     </button>

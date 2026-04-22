@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
-import { ui } from "@/lib/ui-strings";
+import { getTranslations } from "next-intl/server";
 
 interface ServiceCard {
   _id: string;
@@ -18,8 +18,9 @@ interface Props {
   locale?: string;
 }
 
-export default function RelatedServicesGrid({ title, services, categorySlug, locale = "ua" }: Props) {
+export default async function RelatedServicesGrid({ title, services, categorySlug }: Props) {
   if (!services?.length) return null;
+  const t = await getTranslations("labels");
 
   return (
     <section>
@@ -29,7 +30,7 @@ export default function RelatedServicesGrid({ title, services, categorySlug, loc
           <Link
             key={svc._id}
             href={`/services/${categorySlug}/${svc.slug}`}
-            className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-white shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-shadow"
+            className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-shadow"
           >
             {svc.heroImage && (
               <div className="relative aspect-[16/10] bg-champagne-dark">
@@ -50,7 +51,7 @@ export default function RelatedServicesGrid({ title, services, categorySlug, loc
                 <p className="body-m text-muted line-clamp-2">{svc.summary}</p>
               )}
               <span className="inline-flex items-center gap-1 body-m text-main mt-1">
-                {ui("learnMore", locale)}
+                {t("learnMore")}
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
               </span>
             </div>

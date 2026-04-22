@@ -1,4 +1,4 @@
-import { getUiStringsData, getSiteSettingsData } from "@/lib/db/queries";
+import { getUiStringsData, getSiteSettingsData, getStaticPageSeo } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import ContactsPageComponent from "@/components/pages/ContactsPage";
@@ -8,9 +8,13 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const seo = await getStaticPageSeo(locale, "contacts");
   return generatePageMetadata({
-    title: locale === "ru" ? "Контакты — адрес, телефон, график" : locale === "en" ? "Contacts — Address, Phone, Hours" : "Контакти — адреса, телефон, графік",
-    description: locale === "ru" ? "Контакты клиники GENEVITY в Днепре: адрес, телефон, график работы. ☎ +380 73 000 0150" : locale === "en" ? "GENEVITY clinic contacts in Dnipro: address, phone, working hours. ☎ +380 73 000 0150" : "Контакти клініки GENEVITY у Дніпрі: адреса, телефон, графік роботи. ☎ +380 73 000 0150",
+    title: seo?.title || "",
+    description: seo?.description || "",
+    keywords: seo?.keywords,
+    ogImage: seo?.ogImage,
+    noindex: seo?.noindex,
     locale: locale as Locale,
     path: "/contacts",
   });

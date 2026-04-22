@@ -1,29 +1,9 @@
 import { notFound } from "next/navigation";
-import { getServiceBySlug, getAllServiceSlugs, getUiStringsData } from "@/lib/db/queries";
+import { getServiceBySlug, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import ServiceDetailTemplate from "@/components/templates/ServiceDetailTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
-
-/** Default photos for service pages when no specific images exist */
-const DEFAULT_SERVICE_PHOTOS = [
-  "/clinic/semi1287-hdr.webp",
-  "/clinic/semi1256-hdr.webp",
-  "/clinic/semi1737-hdr.webp",
-];
-
-/** Category-level default images for services */
-const defaultServiceImages: Record<string, string[]> = {
-  "injectable-cosmetology": ["/services/injectable-cosmetology-hero.webp", "/clinic/semi1287-hdr.webp", "/clinic/semi1256-hdr.webp"],
-  "apparatus-cosmetology": ["/clinic/semi1737-hdr.webp", "/clinic/acupulse.webp", "/clinic/hydrafacial.webp"],
-  "laser-hair-removal": ["/clinic/semi1256-hdr.webp", "/clinic/semi1737-hdr.webp"],
-  "longevity": ["/clinic/hydrafacial.webp", "/clinic/semi1287-hdr.webp"],
-};
-
-/** Service-specific images (override category defaults) */
-const serviceImages: Record<string, string[]> = {
-  "botulinum-therapy": ["/services/injectable-cosmetology-hero.webp", "/clinic/semi1287-hdr.webp"],
-};
 
 export const revalidate = 60;
 
@@ -56,7 +36,12 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
         locale={locale as Locale}
         doctorsUi={uiStrings?.doctors}
         detailsLabel={uiStrings?.equipment?.details}
-        images={serviceImages[slug] || defaultServiceImages[category] || DEFAULT_SERVICE_PHOTOS}
+        equipmentUi={uiStrings?.equipment ? {
+          title: uiStrings.equipment.title,
+          details: uiStrings.equipment.details,
+          suitsTitle: uiStrings.equipment.suitsTitle,
+          resultsTitle: uiStrings.equipment.resultsTitle,
+        } : undefined}
       />
     </>
   );

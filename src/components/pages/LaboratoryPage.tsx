@@ -2,14 +2,16 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, fadeIn, staggerContainer, viewportConfig } from "@/lib/motion";
 import {
-  Scan, TestTube, HeartPulse, Brain, Baby, Stethoscope,
-  Clock, CheckCircle, FileText, ChevronRight,
+  Scan, TestTube, HeartPulse, Brain, Baby, Stethoscope, Heart,
+  Clock, CheckCircle, FileText, ChevronRight, Activity, FlaskConical,
 } from "lucide-react";
 import type { StaticPageData, DoctorItem } from "@/lib/db/types";
+import type { LabService, LabPrepStep, GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
@@ -18,8 +20,13 @@ import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ui } from "@/lib/ui-strings";
 import StripeGallery from "@/components/ui/StripeGallery";
+
+/** Map icon_key string → lucide component. Unknowns fall back to Scan. */
+const ICONS: Record<string, typeof Scan> = {
+  Scan, TestTube, HeartPulse, Brain, Baby, Stethoscope, Heart,
+  Clock, CheckCircle, FileText, Activity, FlaskConical,
+};
 
 interface Props {
   data: StaticPageData;
@@ -27,90 +34,20 @@ interface Props {
   doctors?: DoctorItem[];
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
+  services: LabService[];
+  prepSteps: LabPrepStep[];
+  gallery?: GalleryItem[];
 }
 
-const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
-const t = (obj: { ua: string; ru: string; en: string }, locale: string) =>
-  obj[locale as "ua" | "ru" | "en"] || obj.ua;
-
-const stats = [
-  { value: "50+", label: L("видів УЗД", "видов УЗД", "ultrasound types") },
-  { value: "10+", label: L("видів еластографії", "видов эластографии", "elastography types") },
-  { value: "8:00–20:00", label: L("щодня без вихідних", "ежедневно без выходных", "daily including weekends") }
-];
-
-const serviceCategories = [
-  {
-    icon: Scan,
-    label: L("УЗД-діагностика", "УЗД-диагностика", "Ultrasound Diagnostics"),
-    items: [
-      L("Органи черевної порожнини", "Органы брюшной полости", "Abdominal organs"),
-      L("Щитоподібна залоза", "Щитовидная железа", "Thyroid"),
-      L("Молочні залози", "Молочные железы", "Breast"),
-      L("Органи малого тазу", "Органы малого таза", "Pelvic organs"),
-      L("Серце (ехокардіографія)", "Сердце (эхокардиография)", "Heart (echocardiography)"),
-      L("Судини (доплерографія)", "Сосуды (допплерография)", "Vessels (Doppler)"),
-      L("Суглоби та м'язи", "Суставы и мышцы", "Joints & muscles"),
-      L("Нирки та сечовий міхур", "Почки и мочевой пузырь", "Kidneys & bladder"),
-    ],
-    price: L("від 500 грн", "от 500 грн", "from 500 UAH"),
-  },
-  {
-    icon: HeartPulse,
-    label: L("Еластографія", "Эластография", "Elastography"),
-    items: [
-      L("Печінки", "Печени", "Liver"),
-      L("Щитоподібної залози", "Щитовидной железы", "Thyroid"),
-      L("Молочної залози", "Молочной железы", "Breast"),
-      L("М'яких тканин", "Мягких тканей", "Soft tissue"),
-      L("Нирок", "Почек", "Kidneys"),
-      L("Підшлункової залози", "Поджелудочной железы", "Pancreas"),
-    ],
-    price: L("від 500 грн", "от 500 грн", "from 500 UAH"),
-  },
-  {
-    icon: Brain,
-    label: L("Апаратна діагностика", "Аппаратная диагностика", "Apparatus Diagnostics"),
-    items: [
-      L("InBody — аналіз складу тіла", "InBody — анализ состава тела", "InBody — body composition analysis"),
-      L("Zemits VeraFace — діагностика шкіри", "Zemits VeraFace — диагностика кожи", "Zemits VeraFace — skin diagnostics"),
-    ],
-    price: L("500 грн", "500 грн", "500 UAH"),
-  },
-];
-
-const prepSteps = [
-  { icon: Clock, label: L("Запишіться заздалегідь", "Запишитесь заранее", "Book in advance"), desc: L("За телефоном або онлайн. Для УЗД бажаний попередній запис.", "По телефону или онлайн. Для УЗД желательна предварительная запись.", "By phone or online. Pre-booking preferred for ultrasound.") },
-  { icon: FileText, label: L("Візьміть документи", "Возьмите документы", "Bring documents"), desc: L("Паспорт та результати попередніх обстежень для порівняння.", "Паспорт и результаты предыдущих обследований для сравнения.", "Passport and previous examination results for comparison.") },
-  { icon: TestTube, label: L("Підготовка до аналізів", "Подготовка к анализам", "Test preparation"), desc: L("УЗД черевної порожнини — натще. Інші дослідження — без спеціальної підготовки.", "УЗД брюшной полости — натощак. Другие исследования — без специальной подготовки.", "Abdominal ultrasound — fasting. Other examinations — no special preparation.") },
-  { icon: CheckCircle, label: L("Отримайте результати", "Получите результаты", "Get results"), desc: L("Результати УЗД — одразу. Лабораторні аналізи — протягом 1–3 днів на email.", "Результаты УЗД — сразу. Лабораторные анализы — в течение 1–3 дней на email.", "Ultrasound results — immediately. Lab tests — within 1–3 days by email.") },
-];
-
 /* ── Smooth-height tab panel ── */
-function TabContent({
-  activeCategory,
-  serviceCategories,
-  locale,
-  t,
-  L,
-}: {
-  activeCategory: number;
-  serviceCategories: typeof _serviceCategories;
-  locale: string;
-  t: (obj: { ua: string; ru: string; en: string }, l: string) => string;
-  L: (ua: string, ru: string, en: string) => { ua: string; ru: string; en: string };
-}) {
+function TabContent({ service }: { service: LabService }) {
   const contentRef = useRef<HTMLDivElement>(null);
   const [measuredH, setMeasuredH] = useState<number | undefined>(undefined);
+  const tLabels = useTranslations("labels");
 
-  /* Measure new content on every tab switch (and on mount) */
   useEffect(() => {
-    if (contentRef.current) {
-      setMeasuredH(contentRef.current.scrollHeight);
-    }
-  }, [activeCategory]);
-
-  const cat = serviceCategories[activeCategory];
+    if (contentRef.current) setMeasuredH(contentRef.current.scrollHeight);
+  }, [service.id]);
 
   return (
     <motion.div
@@ -120,32 +57,32 @@ function TabContent({
     >
       <div ref={contentRef} className="bg-champagne-dark p-6 lg:p-8">
         <motion.div
-          key={activeCategory}
+          key={service.id}
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
         >
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
             <div className="flex-1">
-              <h3 className="heading-3 text-black mb-4">{t(cat.label, locale)}</h3>
+              <h3 className="heading-3 text-black mb-4">{service.label}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {cat.items.map((item, i) => (
+                {service.items.map((item, i) => (
                   <div key={i} className="flex items-center gap-2.5 py-1.5">
                     <div className="shrink-0" style={{ width: 20, height: 20 }}>
                       <div className="w-full h-full rounded-full bg-success/20 flex items-center justify-center">
                         <CheckCircle className="w-3 h-3 text-success" />
                       </div>
                     </div>
-                    <span className="body-m text-ink">{t(item, locale)}</span>
+                    <span className="body-m text-ink">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="lg:text-right shrink-0">
-              <p className="body-s text-muted">{t(L("Вартість", "Стоимость", "Price"), locale)}</p>
-              <p className="heading-3 text-main">{t(cat.price, locale)}</p>
+              <p className="body-s text-muted">{tLabels("price")}</p>
+              <p className="heading-3 text-main">{service.price}</p>
               <div className="mt-4">
-                <BookingCTA variant="primary" size="sm">{ui("book", locale)}</BookingCTA>
+                <BookingCTA variant="primary" size="sm">{tLabels("book")}</BookingCTA>
               </div>
             </div>
           </div>
@@ -155,19 +92,23 @@ function TabContent({
   );
 }
 
-const _serviceCategories = serviceCategories;
-
-export default function LaboratoryPageComponent({ data, locale, doctors, doctorsUi, detailsLabel }: Props) {
+export default function LaboratoryPageComponent({
+  data, locale, doctors, doctorsUi, detailsLabel, services, prepSteps, gallery = [],
+}: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [activeCategory, setActiveCategory] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(0);
   const faq = data.faq || [];
+  const tLabels = useTranslations("labels");
+  const tPage = useTranslations("laboratoryPage");
+
+  const activeService = services[activeIdx];
 
   return (
     <>
       {faq.length > 0 && <FaqSchema items={faq.map((f) => ({ question: f.question, answer: f.answer }))} />}
       <JsonLd data={{ "@context": "https://schema.org", "@type": "MedicalClinic", name: "GENEVITY — Лабораторія", url: "https://genevity.com.ua/laboratory", parentOrganization: { "@type": "MedicalBusiness", name: "GENEVITY", url: "https://genevity.com.ua" }, address: { "@type": "PostalAddress", streetAddress: "вул. Олеся Гончара, 12", addressLocality: "Дніпро", addressCountry: "UA" }, telephone: "+380730000150", medicalSpecialty: "Diagnostic" }} />
 
-      {/* ===== HERO — light, clinical ===== */}
+      {/* ===== HERO ===== */}
       <section className="relative overflow-hidden bg-champagne">
         <div className="absolute inset-x-0 top-0 z-[10]">
           <MegaMenuHeader variant="solid" position="fixed" />
@@ -176,11 +117,11 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
           <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:gap-10">
               <motion.div className="flex-1 max-w-lg lg:py-8" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
-                <Breadcrumbs items={[{ label: ui("home", locale), href: "/" }, { label: data.title, href: "/laboratory" }]} locale={locale} />
+                <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: data.title, href: "/laboratory" }]} locale={locale} />
                 <h1 className="heading-1 text-black mt-6">{data.h1 || data.title}</h1>
                 {data.summary && <p className="body-l text-muted mt-5">{data.summary}</p>}
                 <div className="mt-8">
-                  <BookingCTA variant="primary" size="lg">{ui("bookConsultation", locale)}</BookingCTA>
+                  <BookingCTA variant="primary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
                 </div>
               </motion.div>
               <motion.div className="flex-1 mt-8 lg:mt-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1, delay: 0.5 }}>
@@ -194,103 +135,79 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
         <div id="static-hero-sentinel" aria-hidden="true" className="absolute bottom-0 left-0 w-px h-px" />
       </section>
 
-      {/* ===== STATS — numbers strip ===== */}
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-12">
-        <div className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-8 lg:py-10">
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {stats.map((stat, i) => (
-              <motion.div key={i} variants={fadeInUp} className="text-center lg:text-left">
-                <p className="heading-2 text-black">{stat.value}</p>
-                <p className="body-m text-black-60 mt-1">{t(stat.label, locale)}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* ===== SERVICES — tabbed categories ===== */}
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-          <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-4">
-            {t(L("Послуги лабораторії", "Услуги лаборатории", "Laboratory Services"), locale)}
-          </motion.h2>
-          <motion.p variants={fadeInUp} className="body-l text-muted mb-10 max-w-2xl">
-            {t(L("Широкий спектр діагностичних досліджень на сучасному обладнанні з результатами в день звернення", "Широкий спектр диагностических исследований на современном оборудовании с результатами в день обращения", "Wide range of diagnostic examinations on modern equipment with same-day results"), locale)}
-          </motion.p>
-        </motion.div>
+      {services.length > 0 && activeService && (
+        <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+            <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-4">{tPage("servicesTitle")}</motion.h2>
+            <motion.p variants={fadeInUp} className="body-l text-muted mb-10 max-w-2xl">{tPage("introSubtitle")}</motion.p>
+          </motion.div>
 
           {/* Category tabs */}
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-2 mb-8">
-            {serviceCategories.map((cat, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveCategory(i)}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-[var(--radius-pill)] body-m cursor-pointer transition-colors ${
-                  activeCategory === i ? "bg-main text-champagne" : "bg-champagne-dark text-black hover:bg-champagne-darker"
-                }`}
-              >
-                <cat.icon className="w-4 h-4" />
-                {t(cat.label, locale)}
-              </button>
-            ))}
+            {services.map((svc, i) => {
+              const Icon = ICONS[svc.iconKey] || Scan;
+              return (
+                <button
+                  key={svc.id}
+                  onClick={() => setActiveIdx(i)}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-[var(--radius-pill)] body-m cursor-pointer transition-colors ${
+                    activeIdx === i ? "bg-main text-champagne" : "bg-champagne-dark text-black hover:bg-champagne-darker"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {svc.label}
+                </button>
+              );
+            })}
           </motion.div>
 
-          {/* Active category content — smooth height transition */}
-          <TabContent activeCategory={activeCategory} serviceCategories={serviceCategories} locale={locale} t={t} L={L} />
-      </section>
+          <TabContent service={activeService} />
+        </section>
+      )}
 
-      {/* ===== PREPARATION — checklist cards ===== */}
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-24">
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-          <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-10">
-            {t(L("Як підготуватися", "Как подготовиться", "How to Prepare"), locale)}
-          </motion.h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {prepSteps.map((step, i) => (
-              <motion.div key={i} variants={fadeInUp} className="flex flex-col gap-3 p-6 rounded-[var(--radius-card)] bg-champagne-dark">
-                <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center">
-                  <step.icon className="w-5 h-5 text-main" />
-                </div>
-                <h3 className="body-strong text-black">{t(step.label, locale)}</h3>
-                <p className="body-m text-muted">{t(step.desc, locale)}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+      {/* ===== PREPARATION ===== */}
+      {prepSteps.length > 0 && (
+        <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-24">
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+            <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-10">{tPage("stepsTitle")}</motion.h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {prepSteps.map((step) => {
+                const Icon = ICONS[step.iconKey] || Clock;
+                return (
+                  <motion.div key={step.id} variants={fadeInUp} className="flex flex-col gap-3 p-6 rounded-[var(--radius-card)] bg-champagne-dark">
+                    <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-main" />
+                    </div>
+                    <h3 className="body-strong text-black">{step.label}</h3>
+                    <p className="body-m text-muted">{step.desc}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </section>
+      )}
 
       {/* ===== GALLERY ===== */}
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
-        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-          <StripeGallery
-            title={t(L("Діагностичний центр", "Диагностический центр", "Diagnostic Center"), locale)}
-            subtitle={t(L("Сучасне обладнання для точної діагностики", "Современное оборудование для точной диагностики", "Modern equipment for precise diagnostics"), locale)}
-            items={[
-              { src: "/images/interior/SEMI1276-HDR.webp", alt: "УЗД кабінет", label: t(L("Кабінет УЗД-діагностики", "Кабинет УЗД-диагностики", "Ultrasound Diagnostics Room"), locale), description: t(L("Обладнаний апаратами експертного класу для проведення всіх видів ультразвукових досліджень, еластографії та доплерографії.", "Оборудован аппаратами экспертного класса для проведения всех видов ультразвуковых исследований, эластографии и допплерографии.", "Equipped with expert-class devices for all types of ultrasound examinations, elastography and Doppler studies."), locale) },
-              { src: "/images/interior/SEMI1737-HDR.webp", alt: "Лабораторія", label: t(L("Лабораторний простір", "Лабораторное пространство", "Laboratory Space"), locale), description: t(L("Сучасна лабораторія для проведення аналізів у комфортних умовах приватного медичного центру.", "Современная лаборатория для проведения анализов в комфортных условиях частного медицинского центра.", "Modern laboratory for tests in comfortable private medical center conditions."), locale) },
-              { src: "/images/interior/SEMI1281-HDR.webp", alt: "Консультаційний кабінет", label: t(L("Консультаційний кабінет", "Консультационный кабинет", "Consultation Room"), locale), description: t(L("Простір для обговорення результатів діагностики та складання плану лікування з лікарем.", "Пространство для обсуждения результатов диагностики и составления плана лечения с врачом.", "Space for discussing diagnostic results and creating treatment plans with a physician."), locale) },
-              { src: "/images/interior/SEMI1662-HDR.webp", alt: "Діагностика шкіри", label: t(L("Zemits VeraFace", "Zemits VeraFace", "Zemits VeraFace"), locale), description: t(L("Апаратна діагностика стану шкіри обличчя для підбору індивідуальної програми догляду.", "Аппаратная диагностика состояния кожи лица для подбора индивидуальной программы ухода.", "Apparatus facial skin diagnostics for individual skincare program selection."), locale) },
-              { src: "/images/interior/SEMI7509.webp", alt: "Обладнання", label: t(L("Обладнання центру", "Оборудование центра", "Center Equipment"), locale), description: t(L("Весь парк обладнання сертифікований та проходить регулярне технічне обслуговування.", "Весь парк оборудования сертифицирован и проходит регулярное техническое обслуживание.", "All equipment is certified and undergoes regular technical maintenance."), locale) },
-            ]}
-            height="380px"
-          />
-        </motion.div>
-      </section>
-
-      {/* ===== RELATED LINKS ===== */}
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-8">
-        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig} className="flex flex-wrap gap-3">
-          <Link href="/services/longevity/check-up-40"><Button variant="outline" size="sm">Check-Up 40+<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-          <Link href="/services/longevity/hormonal-balance"><Button variant="outline" size="sm">{t(L("Гормональний баланс", "Гормональный баланс", "Hormonal Balance"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-          <Link href="/stationary"><Button variant="outline" size="sm">{t(L("Стаціонар", "Стационар", "Stationary"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-        </motion.div>
-      </section>
+      {gallery.length > 0 && (
+        <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+            <StripeGallery
+              title={tPage("galleryTitle")}
+              subtitle={tPage("gallerySubtitle")}
+              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
+              height="380px"
+            />
+          </motion.div>
+        </section>
+      )}
 
       {/* ===== FAQ ===== */}
       {faq.length > 0 && (
         <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16">
-          <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
+          <h2 className="heading-2 text-black mb-8">{tLabels("faq")}</h2>
           <div className="border-t border-line">
             {faq.map((item, i) => (
               <div key={i} className="border-b border-line">
@@ -316,7 +233,7 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
         <div className="mt-4">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
-            <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/doctors"><Button variant="outline" size="sm">{tLabels("allDoctors")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </div>
       )}
@@ -324,9 +241,9 @@ export default function LaboratoryPageComponent({ data, locale, doctors, doctors
       {/* ===== FINAL CTA ===== */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
-          <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
-          <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>
-          <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{ui("book", locale)}</BookingCTA>
+          <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
+          <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
+          <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
         </div>
       </div>
     </>

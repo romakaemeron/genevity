@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, fadeIn, staggerContainer, viewportConfig } from "@/lib/motion";
@@ -10,14 +10,13 @@ import {
   ChevronRight,
 } from "lucide-react";
 import type { DoctorItem, AboutData } from "@/lib/db/types";
+import type { GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import Doctors from "@/components/home/Doctors";
-import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import StripeGallery from "@/components/ui/StripeGallery";
-import { ui } from "@/lib/ui-strings";
 
 interface Props {
   about: AboutData;
@@ -25,29 +24,30 @@ interface Props {
   doctors?: DoctorItem[];
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
+  gallery?: GalleryItem[];
+  /** Breadcrumb label — comes from `static_pages.about.title` so admin edits to the
+   *  page Title field in /admin/pages/about flow straight into the breadcrumb. */
+  breadcrumbLabel?: string;
 }
 
-const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
-const t = (obj: { ua: string; ru: string; en: string }, locale: string) =>
-  obj[locale as "ua" | "ru" | "en"] || obj.ua;
-
-const values = [
-  { icon: Microscope, label: L("Доказова медицина", "Доказательная медицина", "Evidence-Based Medicine"), desc: L("Протоколи на основі клінічних досліджень та міжнародних стандартів якості. Жодних необґрунтованих призначень.", "Протоколы на основе клинических исследований и международных стандартов качества. Никаких необоснованных назначений.", "Protocols based on clinical research and international quality standards. No unfounded prescriptions.") },
-  { icon: Heart, label: L("Персоналізований підхід", "Персонализированный подход", "Personalized Approach"), desc: L("Кожен пацієнт — індивідуальна програма. Від діагностики до результату — план, складений саме для вас.", "Каждый пациент — индивидуальная программа. От диагностики до результата — план, составленный именно для вас.", "Every patient — an individual program. From diagnostics to results — a plan created specifically for you.") },
-  { icon: Shield, label: L("Безпека та прозорість", "Безопасность и прозрачность", "Safety & Transparency"), desc: L("Тільки сертифіковані препарати FDA та CE. Повна інформація про процедури, чесні ціни без прихованих доплат.", "Только сертифицированные препараты FDA и CE. Полная информация о процедурах, честные цены без скрытых доплат.", "Only FDA and CE certified products. Full procedure information, honest pricing without hidden charges.") },
-  { icon: Award, label: L("Передове обладнання", "Передовое оборудование", "Advanced Equipment"), desc: L("Апарати преміум-класу від BTL, Lumenis, InMode — деякі з них єдині в Україні. Регулярне технічне обслуговування.", "Аппараты премиум-класса от BTL, Lumenis, InMode — некоторые из них единственные в Украине. Регулярное техобслуживание.", "Premium devices from BTL, Lumenis, InMode — some are the only ones in Ukraine. Regular technical maintenance.") },
-  { icon: Users, label: L("Команда експертів", "Команда экспертов", "Expert Team"), desc: L("Лікарі з 10+ років досвіду в естетичній медицині, дерматології, ендокринології та longevity-медицині.", "Врачи с 10+ лет опыта в эстетической медицине, дерматологии, эндокринологии и longevity-медицине.", "Physicians with 10+ years of experience in aesthetic medicine, dermatology, endocrinology and longevity medicine.") },
-  { icon: Globe, label: L("Комплексність послуг", "Комплексность услуг", "Comprehensive Services"), desc: L("Від діагностики до відновлення — все в одному центрі: лабораторія, стаціонар, косметологія, хірургія.", "От диагностики до восстановления — всё в одном центре: лаборатория, стационар, косметология, хирургия.", "From diagnostics to recovery — all in one center: laboratory, stationary, cosmetology, surgery.") },
+const VALUE_KEYS = [
+  { key: "value_evidence", icon: Microscope },
+  { key: "value_personal", icon: Heart },
+  { key: "value_tech", icon: Award },
+  { key: "value_confidentiality", icon: Shield },
 ];
 
-const stats = [
-  { value: "10+", label: L("років досвіду", "лет опыта", "years of experience") },
-  { value: "15+", label: L("лікарів-спеціалістів", "врачей-специалистов", "specialist physicians") },
-  { value: "50+", label: L("видів діагностики", "видов диагностики", "diagnostic types") },
-  { value: "FDA+CE", label: L("сертифіковане обладнання", "сертифицированное оборудование", "certified equipment") },
+const STAT_KEYS = [
+  { valueKey: "stat_experience_value", labelKey: "stat_experience" },
+  { valueKey: "stat_doctors_value", labelKey: "stat_doctors" },
+  { valueKey: "stat_equipment_value", labelKey: "stat_equipment" },
+  { valueKey: "stat_patients_value", labelKey: "stat_patients" },
 ];
 
-export default function AboutPageComponent({ about, locale, doctors, doctorsUi, detailsLabel }: Props) {
+export default function AboutPageComponent({ about, locale, doctors, doctorsUi, detailsLabel, gallery = [], breadcrumbLabel }: Props) {
+  const tLabels = useTranslations("labels");
+  const tPage = useTranslations("aboutPage");
+
   return (
     <>
       {/* ===== HERO — split with clinic photo ===== */}
@@ -62,15 +62,15 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
             >
               <Breadcrumbs
                 items={[
-                  { label: ui("home", locale), href: "/" },
-                  { label: t(L("Про центр", "О центре", "About"), locale), href: "/about" },
+                  { label: tLabels("home"), href: "/" },
+                  { label: breadcrumbLabel || tPage("heroTitle"), href: "/about" },
                 ]}
                 locale={locale}
               />
               <h1 className="heading-1 text-black mt-6">{about.title}</h1>
               <p className="heading-3 text-main mt-4">{about.text2}</p>
               <div className="mt-8">
-                <BookingCTA variant="primary" size="lg">{ui("bookConsultation", locale)}</BookingCTA>
+                <BookingCTA variant="primary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
               </div>
             </motion.div>
 
@@ -100,7 +100,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
               </div>
             </div>
             <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden">
-              <Image src="/clinic/semi1287-hdr.webp" alt="GENEVITY інтер'єр" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <Image src="/clinic/semi1287-hdr.webp" alt={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             </div>
           </div>
         </motion.div>
@@ -110,10 +110,10 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, i) => (
+          {STAT_KEYS.map((stat, i) => (
             <motion.div key={i} variants={fadeInUp} className="text-center lg:text-left">
-              <p className="heading-2 text-black">{stat.value}</p>
-              <p className="body-m text-muted mt-1">{t(stat.label, locale)}</p>
+              <p className="heading-2 text-black">{tPage(stat.valueKey)}</p>
+              <p className="body-m text-muted mt-1">{tPage(stat.labelKey)}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -123,24 +123,20 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={viewportConfig}>
           <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-4">
-            {t(L("Наші цінності", "Наши ценности", "Our Values"), locale)}
+            {tPage("valuesTitle")}
           </motion.h2>
           <motion.p variants={fadeInUp} className="body-l text-muted mb-10 max-w-2xl">
-            {t(L(
-              "GENEVITY — це не просто клініка. Це філософія поєднання науки, естетики та індивідуального підходу для довготривалого результату.",
-              "GENEVITY — это не просто клиника. Это философия сочетания науки, эстетики и индивидуального подхода для долгосрочного результата.",
-              "GENEVITY is not just a clinic. It is a philosophy of combining science, aesthetics and individual approach for lasting results.",
-            ), locale)}
+            {tPage("philosophyText")}
           </motion.p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {values.map((val, i) => (
+            {VALUE_KEYS.map((val, i) => (
               <motion.div key={i} variants={fadeInUp}
                 className="flex flex-col gap-4 p-6 rounded-[var(--radius-card)] bg-champagne-dark">
                 <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center">
                   <val.icon className="w-5 h-5 text-main" />
                 </div>
-                <h3 className="body-strong text-black">{t(val.label, locale)}</h3>
-                <p className="body-m text-muted">{t(val.desc, locale)}</p>
+                <h3 className="body-strong text-black">{tPage(`${val.key}.title`)}</h3>
+                <p className="body-m text-muted">{tPage(`${val.key}.desc`)}</p>
               </motion.div>
             ))}
           </div>
@@ -148,33 +144,25 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* ===== GALLERY ===== */}
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
-        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-          <StripeGallery
-            title={t(L("Наш простір", "Наше пространство", "Our Space"), locale)}
-            subtitle={t(L("Познайомтеся з клінікою зсередини", "Познакомьтесь с клиникой изнутри", "Explore the clinic from inside"), locale)}
-            items={[
-              { src: "/images/interior/SEMI1737-HDR.webp", alt: "GENEVITY", label: t(L("Зал апаратної косметології", "Зал аппаратной косметологии", "Apparatus Cosmetology Room"), locale), description: t(L("Простір обладнано апаратами BTL, Lumenis та InMode для ліфтингу, контурування тіла та омолодження шкіри.", "Пространство оборудовано аппаратами BTL, Lumenis и InMode для лифтинга, контурирования тела и омоложения кожи.", "Space equipped with BTL, Lumenis and InMode devices for lifting, body contouring and skin rejuvenation."), locale) },
-              { src: "/images/interior/SEMI1276-HDR.webp", alt: "GENEVITY", label: t(L("Кабінет консультацій", "Кабинет консультаций", "Consultation Room"), locale), description: t(L("Затишний простір для детальних консультацій та діагностики стану шкіри.", "Уютное пространство для детальных консультаций и диагностики состояния кожи.", "Cozy space for detailed consultations and skin diagnostics."), locale) },
-              { src: "/images/interior/SEMI1281-HDR.webp", alt: "GENEVITY", label: t(L("Кабінет лікаря", "Кабинет врача", "Physician Office"), locale), description: t(L("Індивідуальні консультації та складання плану лікування.", "Индивидуальные консультации и составление плана лечения.", "Individual consultations and treatment planning."), locale) },
-              { src: "/images/interior/EMFACE и EMSculpt.webp", alt: "EMFACE & EMSculpt", label: t(L("EMFACE та EMSculpt Neo", "EMFACE и EMSculpt Neo", "EMFACE & EMSculpt Neo"), locale), description: t(L("Апарати для одночасної підтяжки обличчя та корекції контурів тіла.", "Аппараты для одновременной подтяжки лица и коррекции контуров тела.", "Devices for simultaneous facial lifting and body contouring."), locale) },
-              { src: "/images/interior/SEMI7509.webp", alt: "GENEVITY", label: t(L("Рецепція клініки", "Рецепция клиники", "Clinic Reception"), locale), description: t(L("Простір, де починається ваш візит — привітна атмосфера та професійний прийом.", "Пространство, где начинается ваш визит — приветливая атмосфера и профессиональный приём.", "Where your visit begins — welcoming atmosphere and professional service."), locale) },
-            ]}
-            height="420px"
-          />
-        </motion.div>
-      </section>
+      {gallery.length > 0 && (
+        <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
+            <StripeGallery
+              title={tPage("galleryTitle")}
+              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
+              height="420px"
+            />
+          </motion.div>
+        </section>
+      )}
 
       {/* ===== SERVICES LINKS ===== */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}>
-          <h2 className="heading-2 text-black mb-6">{t(L("Напрямки", "Направления", "Directions"), locale)}</h2>
+          <h2 className="heading-2 text-black mb-6">{tLabels("typesOfProcedures")}</h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/services/injectable-cosmetology"><Button variant="outline" size="sm">{t(L("Ін'єкційна косметологія", "Инъекционная косметология", "Injectable Cosmetology"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-            <Link href="/services/apparatus-cosmetology"><Button variant="outline" size="sm">{t(L("Апаратна косметологія", "Аппаратная косметология", "Apparatus Cosmetology"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-            <Link href="/services/longevity"><Button variant="outline" size="sm">Longevity & Anti-Age<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-            <Link href="/laboratory"><Button variant="outline" size="sm">{t(L("Лабораторія", "Лаборатория", "Laboratory"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-            <Link href="/stationary"><Button variant="outline" size="sm">{t(L("Стаціонар", "Стационар", "Stationary"), locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/services"><Button variant="outline" size="sm">{tLabels("services")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/laboratory"><Button variant="outline" size="sm">{tLabels("viewProcedures")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </motion.div>
       </section>
@@ -184,7 +172,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
         <div className="mt-4">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
-            <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/doctors"><Button variant="outline" size="sm">{tLabels("allDoctors")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </div>
       )}
@@ -196,9 +184,9 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
           <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
-            <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
-            <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>
-            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{ui("book", locale)}</BookingCTA>
+            <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
+            <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
+            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
           </div>
         </motion.div>
       </div>

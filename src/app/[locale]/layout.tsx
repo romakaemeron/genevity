@@ -9,7 +9,8 @@ import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
-import { getLegalDocs } from "@/lib/db/queries";
+import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
+import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
 import "../globals.css";
 
 const tenorSans = localFont({
@@ -143,9 +144,10 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const [messages, legalDocs] = await Promise.all([
+  const [messages, legalDocs, settings] = await Promise.all([
     getMessages(),
     getLegalDocs(locale),
+    getSiteSettingsData(locale),
   ]);
 
   return (
@@ -174,8 +176,10 @@ export default async function LocaleLayout({
         <OrganizationSchema />
         <WebSiteSchema />
         <NextIntlClientProvider messages={messages}>
-          <main>{children}</main>
-          <Footer legalDocs={legalDocs} />
+          <SiteSettingsProvider settings={settings}>
+            <main>{children}</main>
+            <Footer legalDocs={legalDocs} settings={settings} />
+          </SiteSettingsProvider>
         </NextIntlClientProvider>
       </body>
     </html>

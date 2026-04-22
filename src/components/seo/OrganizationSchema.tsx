@@ -1,6 +1,9 @@
 import { JsonLd } from "./JsonLd";
+import { getSiteSettingsData } from "@/lib/db/queries";
 
-export function OrganizationSchema() {
+export async function OrganizationSchema() {
+  // Single source of truth — same row that drives Footer, Contacts page, etc.
+  const s = await getSiteSettingsData("ua");
   return (
     <JsonLd
       data={{
@@ -10,7 +13,7 @@ export function OrganizationSchema() {
         url: "https://genevity.com.ua",
         logo: "https://genevity.com.ua/brand/LogoFullDark.svg",
         image: "https://genevity.com.ua/og/genevity-og.jpg",
-        telephone: "+380730000150",
+        telephone: (s.phone1 || "+380730000150").replace(/\s/g, ""),
         priceRange: "$$$$",
         geo: {
           "@type": "GeoCoordinates",
@@ -19,7 +22,7 @@ export function OrganizationSchema() {
         },
         address: {
           "@type": "PostalAddress",
-          streetAddress: "вул. Олеся Гончара, 12",
+          streetAddress: s.address || "вул. Олеся Гончара, 12",
           addressLocality: "Дніпро",
           addressRegion: "Дніпропетровська область",
           postalCode: "49000",
@@ -34,8 +37,8 @@ export function OrganizationSchema() {
           opens: "08:00",
           closes: "20:00",
         },
-        sameAs: ["https://www.instagram.com/genevity.center/"],
-        hasMap: "https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро",
+        sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram.replace(/^@/, "")}/`] : [],
+        hasMap: s.mapsUrl || "https://www.google.com/maps/search/GENEVITY+Дніпро",
         medicalSpecialty: [
           "Aesthetic Medicine",
           "Cosmetology",

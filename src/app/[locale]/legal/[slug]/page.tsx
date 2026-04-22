@@ -133,7 +133,7 @@ export default async function LegalPage({
     <>
       <MegaMenuHeader variant="solid" position="fixed" />
     <div className="pt-32 pb-24 bg-champagne">
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
+      <div className="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <Link
           href="/"
           className="inline-flex items-center gap-2 body-s text-black-40 hover:text-main transition-colors mb-16"
@@ -142,7 +142,7 @@ export default async function LegalPage({
           {backLabel[locale] || backLabel.ua}
         </Link>
 
-        <article className="max-w-[720px]">
+        <article>
           {/* Title */}
           <h1 className="heading-2 text-black mb-10 text-balance">{doc.title}</h1>
 
@@ -153,7 +153,7 @@ export default async function LegalPage({
                 return (
                   <h2
                     key={i}
-                    className="heading-3 text-black mt-14 mb-4 first:mt-0 flex items-baseline gap-4"
+                    className="heading-3 text-black mt-4 mb-4 first:mt-0 flex items-baseline gap-4"
                   >
                     {block.number && (
                       <span className="body-s text-main font-semibold tabular-nums shrink-0">

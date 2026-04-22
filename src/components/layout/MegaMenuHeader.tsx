@@ -8,7 +8,7 @@ import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import LocaleSelector from "@/components/ui/LocaleSelector";
 import MegaMenuPanel from "./MegaMenuPanel";
-import { navTop, t, type NavTop } from "./navConfig";
+import { navTop, type NavTop } from "./navConfig";
 
 type MobileView = { type: "top" } | { type: "sub"; itemKey: string };
 
@@ -50,8 +50,8 @@ export default function MegaMenuHeader({
   position = "fixed",
   hideUntilScrollPastId,
 }: Props = {}) {
-  const locale = useLocale();
-  const tNav = useTranslations("nav");
+  const tNav = useTranslations("nav_mega");
+  const tLabels = useTranslations("labels");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>({ type: "top" });
@@ -200,7 +200,7 @@ export default function MegaMenuHeader({
                       isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
                     }`}
                   >
-                    {t(item.label, locale)}
+                    {tNav(item.key)}
                     {hasMega && (
                       <svg
                         width="10"
@@ -314,10 +314,10 @@ export default function MegaMenuHeader({
                             <button
                               type="button"
                               onClick={() => pushSub(item.key)}
-                              aria-label={`Open ${t(item.label, locale)} submenu`}
+                              aria-label={`Open submenu`}
                               className={rowClass}
                             >
-                              <span>{t(item.label, locale)}</span>
+                              <span>{tNav(item.key)}</span>
                               <ChevronRight className="text-black-40" />
                             </button>
                           ) : (
@@ -326,7 +326,7 @@ export default function MegaMenuHeader({
                               onClick={closeMobile}
                               className={rowClass}
                             >
-                              <span>{t(item.label, locale)}</span>
+                              <span>{tNav(item.key)}</span>
                             </Link>
                           )}
                         </motion.div>
@@ -363,7 +363,7 @@ export default function MegaMenuHeader({
                       className="flex items-center gap-1.5 py-2 -ml-1 body-l text-black-60 hover:text-main transition-colors cursor-pointer"
                     >
                       <ChevronLeft />
-                      <span>{t({ ua: "Назад", ru: "Назад", en: "Back" }, locale)}</span>
+                      <span>{tLabels("prev")}</span>
                     </button>
 
                     <Link
@@ -371,7 +371,7 @@ export default function MegaMenuHeader({
                       onClick={closeMobile}
                       className="group mt-3 inline-flex items-center gap-1.5 heading-3 text-black-60 active:text-main transition-colors"
                     >
-                      <span>{t({ ua: "Всі послуги", ru: "Все услуги", en: "All services" }, locale)}</span>
+                      <span>{tNav("allServices")}</span>
                       <ChevronRight className="text-black-40 w-3 h-3" />
                     </Link>
 
@@ -389,7 +389,7 @@ export default function MegaMenuHeader({
                             onClick={closeMobile}
                             className="inline-flex items-center gap-1.5 heading-3 text-black"
                           >
-                            <span>{t(cat.label, locale)}</span>
+                            <span>{tNav(cat.key)}</span>
                             <ChevronRight className="text-black-40 w-3 h-3" />
                           </Link>
                           <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
@@ -400,7 +400,7 @@ export default function MegaMenuHeader({
                                   onClick={closeMobile}
                                   className="body-l text-black-60 hover:text-main transition-colors"
                                 >
-                                  {t(leaf.label, locale)}
+                                  {tNav(leaf.key)}
                                 </Link>
                               </li>
                             ))}
@@ -415,7 +415,7 @@ export default function MegaMenuHeader({
                           transition={{ delay: 0.08 + currentSubItem.mega.categories.length * 0.04, duration: 0.3 }}
                         >
                           <p className="body-strong text-black">
-                            {t(currentSubItem.mega.extra.label, locale)}
+                            {tNav("more")}
                           </p>
                           <ul className="flex flex-col gap-2 pl-3 border-l border-black-10">
                             {currentSubItem.mega.extra.items.map((leaf) => (
@@ -425,7 +425,7 @@ export default function MegaMenuHeader({
                                   onClick={closeMobile}
                                   className="body-m text-black-60 hover:text-main transition-colors"
                                 >
-                                  {t(leaf.label, locale)}
+                                  {tNav(leaf.key)}
                                 </Link>
                               </li>
                             ))}

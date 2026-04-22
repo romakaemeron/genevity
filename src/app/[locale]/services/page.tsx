@@ -1,11 +1,11 @@
 import { getAllCategories } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { ChevronRight } from "lucide-react";
-import { ui } from "@/lib/ui-strings";
 import Button from "@/components/ui/Button";
 import { categoryIllustrations } from "@/components/ui/illustrations";
 
@@ -23,7 +23,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ServicesIndexPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const categories = await getAllCategories(locale);
+  const [categories, t] = await Promise.all([
+    getAllCategories(locale),
+    getTranslations("labels"),
+  ]);
   const topLevel = categories.filter((c) => !c.parent);
 
   return (
@@ -33,14 +36,14 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
         <div className="animate-enter animate-enter-1">
           <Breadcrumbs
             items={[
-              { label: ui("home", locale as string), href: "/" },
-              { label: ui("services", locale as string), href: "/services" },
+              { label: t("home"), href: "/" },
+              { label: t("services"), href: "/services" },
             ]}
             locale={locale as Locale}
           />
         </div>
 
-        <h1 className="heading-1 text-black mt-8 mb-12 animate-enter animate-enter-2">{ui("services", locale as string)}</h1>
+        <h1 className="heading-1 text-black mt-8 mb-12 animate-enter animate-enter-2">{t("services")}</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {topLevel.map((cat, i) => {
@@ -65,7 +68,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
                   )}
                   <div className="mt-auto pt-2">
                     <Button variant="outline" size="sm">
-                      {ui("learnMore", locale as string)}
+                      {t("learnMore")}
                       <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </div>

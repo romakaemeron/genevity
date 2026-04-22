@@ -1,57 +1,68 @@
+/**
+ * Server-only SEO helpers: builds `next/metadata` objects and resolves the
+ * cascading OG image from DB settings. This module imports the DB client, so
+ * it must NOT be pulled into any client bundle. If a client component only
+ * needs to build URLs, import from `@/lib/url` instead.
+ */
 import type { Metadata } from "next";
 import { routing, type Locale } from "@/i18n/routing";
+import { getSiteSettingsData } from "@/lib/db/queries";
+import { BASE_URL, absoluteUrl, buildAlternates } from "@/lib/url";
 
-const BASE_URL = "https://genevity.com.ua";
+// Re-export URL helpers so existing imports from "@/lib/seo" keep working on
+// server components. Client components should import them from "@/lib/url".
+export { BASE_URL, absoluteUrl, localizedPath } from "@/lib/url";
 
-/** Build a locale-prefixed path. Default locale (ua) has no prefix. */
-export function localizedPath(path: string, locale: Locale): string {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  if (locale === routing.defaultLocale) return normalized;
-  return `/${locale}${normalized}`;
-}
-
-/** Build full URL for a locale-prefixed path. */
-export function absoluteUrl(path: string, locale: Locale): string {
-  return `${BASE_URL}${localizedPath(path, locale)}`;
-}
-
-/** Generate hreflang alternates for all locales. */
-function buildAlternates(path: string) {
-  const languages: Record<string, string> = {};
-  for (const locale of routing.locales) {
-    languages[locale === "ua" ? "uk" : locale] = absoluteUrl(path, locale);
-  }
-  languages["x-default"] = absoluteUrl(path, routing.defaultLocale);
-  return {
-    canonical: absoluteUrl(path, routing.defaultLocale),
-    languages,
-  };
-}
+const HARDCODED_FALLBACK_OG = `${BASE_URL}/og/genevity-og.jpg`;
 
 interface PageMetadataInput {
   title: string;
   description: string;
   locale: Locale;
   path: string;
-  ogImage?: string;
+  ogImage?: string | null;
   noindex?: boolean;
+  /** Comma-separated or array. Google ignores this; Bing / Yandex still use it. */
+  keywords?: string | string[] | null;
+}
+
+/**
+ * Absolute URL for the OG image. Cascade:
+ *   1. Page-specific `ogImage` passed in by the caller
+ *   2. Site-wide default from `site_settings.og_image` (admin-editable)
+ *   3. Hardcoded fallback to /og/genevity-og.jpg (ships with the repo)
+ */
+async function resolveOgImage(pageOgImage: string | null | undefined): Promise<string> {
+  const toAbs = (v: string) => (v.startsWith("http") ? v : `${BASE_URL}${v.startsWith("/") ? "" : "/"}${v}`);
+  if (pageOgImage) return toAbs(pageOgImage);
+  try {
+    const settings = await getSiteSettingsData(routing.defaultLocale);
+    if (settings.ogImage) return toAbs(settings.ogImage);
+  } catch { /* ignore — fall through to hardcoded */ }
+  return HARDCODED_FALLBACK_OG;
 }
 
 /** Centralized metadata generator for all pages. Handles hreflang, OG, Twitter, canonical. */
-export function generatePageMetadata({
+export async function generatePageMetadata({
   title,
   description,
   locale,
   path,
   ogImage,
   noindex = false,
-}: PageMetadataInput): Metadata {
+  keywords,
+}: PageMetadataInput): Promise<Metadata> {
   const url = absoluteUrl(path, locale);
-  const image = ogImage || `${BASE_URL}/og/genevity-og.jpg`;
+  const image = await resolveOgImage(ogImage);
+  const normalizedKeywords =
+    keywords == null ? undefined :
+    Array.isArray(keywords) ? keywords.filter(Boolean) :
+    keywords.split(",").map((k) => k.trim()).filter(Boolean);
 
   return {
     title,
     description,
+    keywords: normalizedKeywords,
     alternates: buildAlternates(path),
     openGraph: {
       title,

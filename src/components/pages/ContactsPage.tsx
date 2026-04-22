@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { fadeInUp, fadeIn, staggerContainer, viewportConfig } from "@/lib/motion";
+import { fadeInUp, fadeIn, viewportConfig } from "@/lib/motion";
 import { MapPin, Phone, Clock, AtSign } from "lucide-react";
 import type { SiteSettingsData } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
-import { ui } from "@/lib/ui-strings";
 
 interface Props {
   settings: SiteSettingsData;
@@ -16,14 +16,14 @@ interface Props {
   contactsUi: { title: string; instagramLabel: string };
 }
 
-const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
-const t = (obj: { ua: string; ru: string; en: string }, locale: string) =>
-  obj[locale as "ua" | "ru" | "en"] || obj.ua;
-
-const MAPS_URL = "https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро";
-const MAPS_EMBED = "https://maps.google.com/maps?q=Genevity+Longevity+Medical+Center+Дніпро&t=&z=16&ie=UTF8&iwloc=&output=embed";
-
 export default function ContactsPageComponent({ settings, locale, contactsUi }: Props) {
+  const tLabels = useTranslations("labels");
+  const tPage = useTranslations("contactsPage");
+  // Site settings are the single source of truth for address / phones / etc.
+  // Fall back to a search-by-address URL if the admin hasn't set an explicit link.
+  const mapsUrl = settings.mapsUrl || `https://www.google.com/maps/search/${encodeURIComponent(settings.address || "GENEVITY")}`;
+  const mapsEmbed = settings.mapsEmbedUrl;
+
   return (
     <>
       {/* Hero — map + info split */}
@@ -36,7 +36,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
           >
             <Breadcrumbs
               items={[
-                { label: ui("home", locale), href: "/" },
+                { label: tLabels("home"), href: "/" },
                 { label: contactsUi.title, href: "/contacts" },
               ]}
               locale={locale}
@@ -52,18 +52,12 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
-              <p className="body-l text-muted max-w-md">
-                {t(L(
-                  "Ми раді вітати вас у центрі GENEVITY. Запишіться на консультацію або завітайте до нас — ми працюємо щодня.",
-                  "Мы рады приветствовать вас в центре GENEVITY. Запишитесь на консультацию или приходите к нам — мы работаем ежедневно.",
-                  "We are glad to welcome you at GENEVITY center. Book a consultation or visit us — we are open daily.",
-                ), locale)}
-              </p>
+              <p className="body-l text-muted max-w-md">{tPage("heroSubtitle")}</p>
 
               <div className="flex flex-col gap-5">
                 {/* Address */}
                 <a
-                  href={MAPS_URL}
+                  href={mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-colors group"
@@ -73,7 +67,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
                   </div>
                   <div>
                     <p className="body-strong text-black group-hover:text-main transition-colors">{settings.address}</p>
-                    <p className="body-s text-muted mt-1">{t(L("Відкрити на карті", "Открыть на карте", "Open on map"), locale)}</p>
+                    <p className="body-s text-muted mt-1">{tPage("mapTitle")}</p>
                   </div>
                 </a>
 
@@ -101,7 +95,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
                   </div>
                   <div>
                     <p className="body-strong text-black">{settings.hours}</p>
-                    <p className="body-s text-muted mt-0.5">{t(L("Без вихідних", "Без выходных", "No days off"), locale)}</p>
+                    <p className="body-s text-muted mt-0.5">{tPage("hoursTitle")}</p>
                   </div>
                 </div>
 
@@ -123,7 +117,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
               </div>
 
               <BookingCTA variant="primary" size="lg" className="self-start">
-                {ui("bookConsultation", locale)}
+                {tLabels("bookConsultation")}
               </BookingCTA>
             </motion.div>
 
@@ -136,7 +130,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <iframe
-                src={MAPS_EMBED}
+                src={mapsEmbed}
                 className="w-full h-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -171,9 +165,9 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
           <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
-            <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
-            <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>
-            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{ui("book", locale)}</BookingCTA>
+            <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
+            <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
+            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
           </div>
         </motion.div>
       </div>

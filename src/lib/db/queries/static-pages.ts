@@ -28,3 +28,32 @@ export async function getStaticPage(locale: string, slug: string): Promise<Stati
     faq,
   };
 }
+
+export interface StaticPageSeo {
+  title: string;
+  description: string;
+  keywords: string | null;
+  ogImage: string | null;
+  noindex: boolean;
+}
+
+/**
+ * Read per-locale SEO values for a static page, with sensible fallbacks:
+ *   - seo_title falls back to title (content H1)
+ *   - seo_desc falls back to summary
+ *   - noindex and ogImage are global (not localized)
+ * Use this from public-route `generateMetadata`.
+ */
+export async function getStaticPageSeo(locale: string, slug: string): Promise<StaticPageSeo | null> {
+  const l = lang(locale);
+  const rows = await sql`SELECT * FROM static_pages WHERE slug = ${slug} LIMIT 1`;
+  if (!rows.length) return null;
+  const r = rows[0];
+  return {
+    title: pick(r, "seo_title", l) || pick(r, "title", l) || "",
+    description: pick(r, "seo_desc", l) || pick(r, "summary", l) || "",
+    keywords: pick(r, "seo_keywords", l),
+    ogImage: (r.seo_og_image as string) || null,
+    noindex: Boolean(r.seo_noindex),
+  };
+}

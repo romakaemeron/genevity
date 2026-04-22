@@ -30,7 +30,7 @@ export default function Contacts({ data }: { data: { settings: SiteSettingsData;
               <MapPin className="w-5 h-5" />
             </div>
             <a
-              href="https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро"
+              href={settings.mapsUrl || `https://www.google.com/maps/search/${encodeURIComponent(settings.address || "GENEVITY")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="body-l text-black hover:text-main transition-colors"

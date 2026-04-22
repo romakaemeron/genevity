@@ -1,5 +1,7 @@
-import { Clock, Sparkles, Repeat, Banknote } from "lucide-react";
-import { ui } from "@/lib/ui-strings";
+"use client";
+
+import { Clock, Sparkles, Banknote } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   procedureLength?: string | null;
@@ -16,8 +18,11 @@ const facts = [
   { key: "priceFrom", icon: Banknote, labelKey: "price" },
 ] as const;
 
+// Used inside ServiceDetailTemplate (a "use client" component), so the
+// hook-based translator is the only option — async server translators can't
+// be awaited inside client components.
 export default function KeyFactsBar(props: Props) {
-  const locale = props.locale || "ua";
+  const t = useTranslations("labels");
   const items = facts
     .map((f) => ({
       ...f,
@@ -35,7 +40,7 @@ export default function KeyFactsBar(props: Props) {
             <item.icon className="w-5 h-5" />
           </div>
           <div>
-            <p className="body-s text-muted">{ui(item.labelKey, locale)}</p>
+            <p className="body-s text-muted">{t(item.labelKey)}</p>
             <p className="body-strong text-black">
               {item.value}
               {item.key === "priceFrom" && props.priceUnit && (

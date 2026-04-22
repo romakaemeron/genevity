@@ -1,4 +1,5 @@
 import { generatePageMetadata } from "@/lib/seo";
+import { getPriceCategoriesWithItems, getStaticPageSeo } from "@/lib/db/queries";
 import type { Locale } from "@/i18n/routing";
 import PricesPageComponent from "@/components/pages/PricesPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
@@ -7,9 +8,13 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const seo = await getStaticPageSeo(locale, "prices");
   return generatePageMetadata({
-    title: locale === "ru" ? "Цены на услуги" : locale === "en" ? "Prices" : "Ціни на послуги",
-    description: locale === "ru" ? "Цены на услуги GENEVITY в Днепре: косметология, аппаратные процедуры, лазерная эпиляция, диагностика. ☎ +380 73 000 0150" : locale === "en" ? "GENEVITY prices in Dnipro: cosmetology, apparatus procedures, laser hair removal, diagnostics. ☎ +380 73 000 0150" : "Ціни на послуги GENEVITY у Дніпрі: косметологія, апаратні процедури, лазерна епіляція, діагностика. ☎ +380 73 000 0150",
+    title: seo?.title || "",
+    description: seo?.description || "",
+    keywords: seo?.keywords,
+    ogImage: seo?.ogImage,
+    noindex: seo?.noindex,
     locale: locale as Locale,
     path: "/prices",
   });
@@ -17,11 +22,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function PricesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const categories = await getPriceCategoriesWithItems(locale);
 
   return (
     <>
       <MegaMenuHeader variant="solid" position="fixed" />
-      <PricesPageComponent locale={locale as Locale} />
+      <PricesPageComponent locale={locale as Locale} categories={categories} />
     </>
   );
 }

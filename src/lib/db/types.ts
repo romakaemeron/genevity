@@ -50,6 +50,15 @@ export interface SiteSettingsData {
   address: string;
   instagram: string;
   hours: string;
+  /** Shareable Google Maps link — opens the listing in a new tab when the user
+   *  clicks the address card. Used across ContactsPage and the Footer. */
+  mapsUrl: string;
+  /** Embed URL for the <iframe> on the contacts page. Derived from mapsUrl
+   *  when possible so admins only have to configure one field. */
+  mapsEmbedUrl: string;
+  /** Site-wide default Open Graph image. Used whenever a page doesn't have
+   *  its own seo_og_image set. 1200×630 recommended. */
+  ogImage: string;
 }
 
 export interface UiStringsData {
@@ -123,6 +132,11 @@ export interface SectionRichText {
   _key: string;
   heading: string;
   body: string;
+  /** Optional secondary paragraph rendered inside a highlighted card. */
+  calloutBody?: string;
+  /** When present (and this is the first rich-text section), triggers the
+   *  hero-image side-by-side layout; otherwise the section renders normally. */
+  heroImage?: string;
 }
 
 export interface SectionBullets {
@@ -241,7 +255,11 @@ export interface ServiceData {
   faq: FaqItemData[];
   relatedDoctors: DoctorItem[];
   relatedServices: { _id: string; title: string; slug: string; summary: string; heroImage: string | null }[];
-  relatedEquipment: { _id: string; name: string }[];
+  relatedEquipment: EquipmentItem[];
+  /** Ordered list of block keys that controls what renders below the hero and
+   *  in what order. Empty / null = use the template's default order. See
+   *  SERVICE_BLOCKS in ServiceDetailTemplate for valid keys. */
+  blockOrder: string[] | null;
 }
 
 export interface ServiceCardData {

@@ -47,7 +47,7 @@ async function getDoctors(l: string): Promise<DoctorItem[]> {
     photoCard: r.photo_card,
     photoModal: r.photo_full,
     cardPosition: r.card_position || "center center",
-    modalPosition: r.card_position || "center center",
+    modalPosition: r.modal_position || r.card_position || "center center",
   }));
 }
 
@@ -88,16 +88,62 @@ async function getAbout(l: string): Promise<AboutData> {
   };
 }
 
+/**
+ * Build an embeddable Google Maps iframe URL from the single `maps_url` field
+ * the admin configures. Supports the three shapes we see in practice:
+ *
+ *   1. `https://www.google.com/maps/place/<NAME>/@<LAT>,<LNG>,<ZOOM>z/...`
+ *      → drops us at that exact pin by using the place name + coordinates.
+ *   2. `https://www.google.com/maps/embed?pb=...` (the iframe URL copied
+ *      directly from Google's "Embed a map" share dialog) → returned as-is.
+ *   3. Anything else (short links, plain strings) → fall back to a textual
+ *      search using the address, so the map is at least in the right city.
+ *
+ * Google's no-API-key embed only supports `q=<query>&output=embed`, so we
+ * build that form whenever we need to synthesise a URL.
+ */
+function deriveMapsEmbed(mapsUrl: string, fallbackQuery: string): string {
+  const trimmed = mapsUrl.trim();
+
+  // Shape 2 — admin pasted the official embed URL
+  if (/^https?:\/\/(www\.)?google\.com\/maps\/embed\?/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  // Shape 1 — extract place name + optional coordinates from a /maps/place/ URL
+  const placeMatch = trimmed.match(/\/maps\/place\/([^/?#]+)/i);
+  if (placeMatch) {
+    const place = decodeURIComponent(placeMatch[1]).replace(/\+/g, " ");
+    const coordMatch = trimmed.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+    // Combining "name @lat,lng" lets Google's embed zoom to the exact pin
+    const q = coordMatch ? `${place}@${coordMatch[1]},${coordMatch[2]}` : place;
+    return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&t=&z=17&ie=UTF8&iwloc=&output=embed`;
+  }
+
+  // Shape 3 — fall back to address-based search
+  const query = (fallbackQuery || trimmed).trim();
+  if (!query) return "";
+  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+}
+
 async function getSiteSettings(l: string): Promise<SiteSettingsData> {
   const rows = await sql`SELECT * FROM site_settings WHERE id = 1`;
   const r = rows[0];
-  if (!r) return { phone1: "", phone2: "", address: "", instagram: "", hours: "" };
+  if (!r) return {
+    phone1: "", phone2: "", address: "", instagram: "", hours: "",
+    mapsUrl: "", mapsEmbedUrl: "", ogImage: "/og/genevity-og.jpg",
+  };
+  const address = (pick(r, "address", l) as string) || "";
+  const mapsUrl = (r.maps_url as string) || "";
   return {
     phone1: r.phone1 || "",
     phone2: r.phone2 || "",
-    address: pick(r, "address", l),
+    address,
     instagram: r.instagram || "",
     hours: pick(r, "hours", l),
+    mapsUrl,
+    mapsEmbedUrl: deriveMapsEmbed(mapsUrl, address),
+    ogImage: (r.og_image as string) || "/og/genevity-og.jpg",
   };
 }
 

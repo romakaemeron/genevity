@@ -6,10 +6,7 @@ import { MapPin, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
-
-const PHONE = "+380730000150";
-const PHONE_DISPLAY = "+380 73 000 0150";
-const MAPS_URL = "https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро";
+import { useSiteSettings } from "@/components/providers/SiteSettingsProvider";
 
 interface BookingCTAProps {
   variant?: "primary" | "secondary";
@@ -27,6 +24,17 @@ export default function BookingCTA({
   const [isMobile, setIsMobile] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const t = useTranslations("contacts");
+  const settings = useSiteSettings();
+
+  // All "clinic contact" values flow through context so they stay in sync with
+  // the admin's Contact Info tab. Fallbacks exist only as a safety net.
+  const phone1 = settings?.phone1 || "+380 73 000 0150";
+  const phone2 = settings?.phone2 || "+380 93 000 0150";
+  const phone1Tel = `tel:${phone1.replace(/\s/g, "")}`;
+  const phone2Tel = `tel:${phone2.replace(/\s/g, "")}`;
+  const mapsUrl = settings?.mapsUrl || `https://www.google.com/maps/search/${encodeURIComponent(settings?.address || "GENEVITY")}`;
+  const mapsEmbed = settings?.mapsEmbedUrl || `https://maps.google.com/maps?q=${encodeURIComponent(settings?.address || "GENEVITY")}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+  const address = settings?.address || t("address");
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -37,7 +45,7 @@ export default function BookingCTA({
 
   if (isMobile) {
     return (
-      <Button variant={variant} size={size} href={`tel:${PHONE}`} className={className}>
+      <Button variant={variant} size={size} href={phone1Tel} className={className}>
         {children}
       </Button>
     );
@@ -57,13 +65,13 @@ export default function BookingCTA({
 
               {/* Map */}
               <a
-                href={MAPS_URL}
+                href={mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full aspect-[16/9] rounded-[var(--radius-card)] overflow-hidden skeleton relative group"
               >
                 <iframe
-                  src="https://maps.google.com/maps?q=Genevity+Longevity+Medical+Center+Дніпро&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  src={mapsEmbed}
                   className="w-full h-full border-0"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -74,7 +82,7 @@ export default function BookingCTA({
 
               {/* Address */}
               <a
-                href={MAPS_URL}
+                href={mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 body-l text-black hover:text-main transition-colors"
@@ -82,30 +90,30 @@ export default function BookingCTA({
                 <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
-                {t("address")}
+                {address}
               </a>
 
               {/* Phones */}
               <div className="flex flex-col gap-2">
                 <a
-                  href={`tel:${PHONE}`}
+                  href={phone1Tel}
                   className="flex items-center gap-3 body-l text-black hover:text-main transition-colors"
                 >
                   <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main shrink-0">
                     <Phone className="w-5 h-5" />
                   </div>
-                  {PHONE_DISPLAY}
+                  {phone1}
                 </a>
                 <a
-                  href="tel:+380930000150"
+                  href={phone2Tel}
                   className="flex items-center gap-3 body-l text-black hover:text-main transition-colors pl-[52px]"
                 >
-                  {t("phone2")}
+                  {phone2}
                 </a>
               </div>
 
               {/* Direct call CTA */}
-              <Button variant="primary" href={`tel:${PHONE}`} className="w-full text-center">
+              <Button variant="primary" href={phone1Tel} className="w-full text-center">
                 {children}
               </Button>
             </div>

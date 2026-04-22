@@ -2,12 +2,11 @@
 
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { MapPin, Phone, Clock } from "@/components/ui/Icons";
 import {
   serviceCategoriesForFooter,
   infoLinksForFooter,
-  t as navT,
   type NavCategory,
   type NavLeaf,
 } from "./navConfig";
@@ -18,32 +17,24 @@ interface LegalLink {
   label: string;
 }
 
-const L = (ua: string, ru: string, en: string) => ({ ua, ru, en });
+interface FooterSettings {
+  phone1: string;
+  phone2: string;
+  address: string;
+  hours: string;
+  instagram: string;
+  mapsUrl?: string;
+}
 
-const headings = {
-  injectable: L("Ін'єкційна косметологія", "Инъекционная косметология", "Injectable cosmetology"),
-  apparatus: L("Апаратна косметологія", "Аппаратная косметология", "Apparatus cosmetology"),
-  intimate: L("Інтимне відновлення", "Интимное восстановление", "Intimate rejuvenation"),
-  laser: L("Лазерна епіляція", "Лазерная эпиляция", "Laser hair removal"),
-  longevity: L("Longevity & Anti-Age", "Longevity & Anti-Age", "Longevity & Anti-Age"),
-  more: L("Інші послуги", "Другие услуги", "More services"),
-  info: L("Інформація", "Информация", "Information"),
-};
-
-function CategoryColumn({
-  cat,
-  locale,
-}: {
-  cat: NavCategory;
-  locale: string;
-}) {
+function CategoryColumn({ cat }: { cat: NavCategory }) {
+  const tNav = useTranslations("nav_mega");
   return (
     <div className="flex flex-col gap-3">
       <Link
         href={cat.href}
         className="body-strong text-black-60 hover:text-main transition-colors"
       >
-        {navT(cat.label, locale)}
+        {tNav(cat.key)}
       </Link>
       <ul className="flex flex-col gap-2">
         {cat.items.map((leaf) => (
@@ -52,7 +43,7 @@ function CategoryColumn({
               href={leaf.href}
               className="body-m text-black hover:text-main transition-colors"
             >
-              {navT(leaf.label, locale)}
+              {tNav(leaf.key)}
             </Link>
           </li>
         ))}
@@ -61,18 +52,11 @@ function CategoryColumn({
   );
 }
 
-function LinkListColumn({
-  heading,
-  items,
-  locale,
-}: {
-  heading: { ua: string; ru: string; en: string };
-  items: NavLeaf[];
-  locale: string;
-}) {
+function LinkListColumn({ headingKey, items }: { headingKey: string; items: NavLeaf[] }) {
+  const tNav = useTranslations("nav_mega");
   return (
     <div className="flex flex-col gap-3">
-      <p className="body-strong text-black-60">{navT(heading, locale)}</p>
+      <p className="body-strong text-black-60">{tNav(headingKey)}</p>
       <ul className="flex flex-col gap-2">
         {items.map((leaf) => (
           <li key={leaf.key}>
@@ -80,7 +64,7 @@ function LinkListColumn({
               href={leaf.href}
               className="body-m text-black hover:text-main transition-colors"
             >
-              {navT(leaf.label, locale)}
+              {tNav(leaf.key)}
             </Link>
           </li>
         ))}
@@ -89,20 +73,16 @@ function LinkListColumn({
   );
 }
 
-export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) {
+export default function Footer({ legalDocs = [], settings }: { legalDocs?: LegalLink[]; settings?: FooterSettings }) {
   const t = useTranslations("footer");
-  const locale = useLocale();
 
   const [injectable, apparatus, intimate, laser, longevity] = serviceCategoriesForFooter;
-  const extraServices = (serviceCategoriesForFooter[0] ? [] : []) as NavLeaf[]; // placeholder, extras live in mega.extra
-  // Pull extras directly from the mega menu definition for consistency
   const moreServicesItems: NavLeaf[] = [
-    { key: "skincare", label: L("Доглядові процедури", "Уходовые процедуры", "Skincare treatments"), href: "/services/skincare" },
-    { key: "podology", label: L("Подологія", "Подология", "Podology"), href: "/services/podology" },
-    { key: "diagnostics", label: L("Діагностичні послуги", "Диагностические услуги", "Diagnostic services"), href: "/services/diagnostics" },
-    { key: "plastic", label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: "/services/plastic-surgery" },
+    { key: "care", label: { ua: "", ru: "", en: "" }, href: "/services/skincare" },
+    { key: "podology", label: { ua: "", ru: "", en: "" }, href: "/services/podology" },
+    { key: "diagnostics", label: { ua: "", ru: "", en: "" }, href: "/services/diagnostics" },
+    { key: "plastic", label: { ua: "", ru: "", en: "" }, href: "/services/plastic-surgery" },
   ];
-  void extraServices;
 
   return (
     <footer className="border-t border-black-10 mt-[var(--spacing-block)]">
@@ -124,24 +104,26 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
 
             <div className="flex flex-col gap-2.5 mt-1">
               <a
-                href="https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Дніпро"
+                href={settings?.mapsUrl || `https://www.google.com/maps/search/${encodeURIComponent(settings?.address || "GENEVITY")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-start gap-2 body-m text-black hover:text-main transition-colors"
               >
                 <MapPin className="w-4 h-4 text-main shrink-0 mt-1" />
-                <span>{t("address")}</span>
+                <span>{settings?.address || ""}</span>
               </a>
-              <a
-                href={`tel:${t("phone").replace(/\s/g, "")}`}
-                className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
-              >
-                <Phone className="w-4 h-4 text-main shrink-0" />
-                <span>{t("phone")}</span>
-              </a>
+              {settings?.phone1 && (
+                <a
+                  href={`tel:${settings.phone1.replace(/\s/g, "")}`}
+                  className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-main shrink-0" />
+                  <span>{settings.phone1}</span>
+                </a>
+              )}
               <div className="flex items-start gap-2 body-m text-black">
                 <Clock className="w-4 h-4 text-main shrink-0 mt-1" />
-                <span>{t("hours")}</span>
+                <span>{settings?.hours || ""}</span>
               </div>
             </div>
 
@@ -154,24 +136,24 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
           </div>
 
           {/* Col 2: Ін'єкційна (full list) */}
-          {injectable && <CategoryColumn cat={injectable} locale={locale} />}
+          {injectable && <CategoryColumn cat={injectable} />}
 
           {/* Col 3: Апаратна + Лазерна (stacked) */}
           <div className="flex flex-col gap-8">
-            {apparatus && <CategoryColumn cat={apparatus} locale={locale} />}
-            {laser && <CategoryColumn cat={laser} locale={locale} />}
+            {apparatus && <CategoryColumn cat={apparatus} />}
+            {laser && <CategoryColumn cat={laser} />}
           </div>
 
           {/* Col 4: Longevity + Інтимне (stacked) */}
           <div className="flex flex-col gap-8">
-            {longevity && <CategoryColumn cat={longevity} locale={locale} />}
-            {intimate && <CategoryColumn cat={intimate} locale={locale} />}
+            {longevity && <CategoryColumn cat={longevity} />}
+            {intimate && <CategoryColumn cat={intimate} />}
           </div>
 
           {/* Col 5: More services + Info (stacked) */}
           <div className="flex flex-col gap-8">
-            <LinkListColumn heading={headings.more} items={moreServicesItems} locale={locale} />
-            <LinkListColumn heading={headings.info} items={infoLinksForFooter} locale={locale} />
+            <LinkListColumn headingKey="more" items={moreServicesItems} />
+            <LinkListColumn headingKey="info" items={infoLinksForFooter} />
           </div>
         </div>
 

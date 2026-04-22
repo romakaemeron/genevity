@@ -1,4 +1,4 @@
-import { getUiStringsData, getAllDoctors, getAboutData } from "@/lib/db/queries";
+import { getUiStringsData, getAllDoctors, getAboutData, getGalleryItems, getStaticPageSeo, getStaticPage } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import AboutPageComponent from "@/components/pages/AboutPage";
@@ -8,9 +8,13 @@ export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const seo = await getStaticPageSeo(locale, "about");
   return generatePageMetadata({
-    title: locale === "ru" ? "О центре — эстетическая медицина в Днепре" : locale === "en" ? "About — Aesthetic Medicine in Dnipro" : "Про центр — естетична медицина у Дніпрі",
-    description: locale === "ru" ? "Центр эстетической медицины и долголетия GENEVITY в Днепре. Команда экспертов, передовое оборудование, доказательная медицина." : locale === "en" ? "GENEVITY aesthetic medicine and longevity center in Dnipro. Expert team, advanced equipment, evidence-based medicine." : "Центр естетичної медицини та довголіття GENEVITY у Дніпрі. Команда експертів, передове обладнання, доказова медицина.",
+    title: seo?.title || "",
+    description: seo?.description || "",
+    keywords: seo?.keywords,
+    ogImage: seo?.ogImage,
+    noindex: seo?.noindex,
     locale: locale as Locale,
     path: "/about",
   });
@@ -18,10 +22,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const [about, uiStrings, doctors] = await Promise.all([
+  const [about, uiStrings, doctors, gallery, staticPage] = await Promise.all([
     getAboutData(locale),
     getUiStringsData(locale),
     getAllDoctors(locale),
+    getGalleryItems("about", locale),
+    getStaticPage(locale, "about"),
   ]);
 
   return (
@@ -33,6 +39,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         doctors={doctors}
         doctorsUi={uiStrings?.doctors}
         detailsLabel={uiStrings?.equipment?.details}
+        gallery={gallery}
+        breadcrumbLabel={staticPage?.title || about.title}
       />
     </>
   );

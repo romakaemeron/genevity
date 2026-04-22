@@ -12,11 +12,11 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionRenderer from "@/components/sections/SectionRenderer";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLdMedicalProcedure } from "@/components/seo/JsonLdMedicalProcedure";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/url";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
-import { ui } from "@/lib/ui-strings";
+import { useTranslations } from "next-intl";
 import Doctors from "@/components/home/Doctors";
 
 interface Props {
@@ -47,12 +47,13 @@ const DEFAULT_IMAGES = [
 
 export default function CategoryHubTemplate({ category, services, locale, heroImage, heroVariant = "dark", images, doctors, doctorsUi, detailsLabel }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const t = useTranslations("labels");
   const faq = category.faq || [];
   const photos = images || DEFAULT_IMAGES;
 
   const breadcrumbs = [
-    { label: ui("home", locale), href: "/" },
-    { label: ui("services", locale), href: "/services" },
+    { label: t("home"), href: "/" },
+    { label: t("services"), href: "/services" },
     { label: category.title, href: `/services/${category.slug}` },
   ];
 
@@ -118,7 +119,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                     size="lg"
                     className={`${heroVariant === "light" ? "" : "bg-champagne text-black hover:bg-champagne-dark"} text-center`}
                   >
-                    {ui("bookConsultation", locale)}
+                    {t("bookConsultation")}
                   </BookingCTA>
                   <Button variant="secondary" size="lg" onClick={() => {
                     const el = document.getElementById("procedures");
@@ -127,7 +128,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                       window.scrollTo({ top: y, behavior: "smooth" });
                     }
                   }}>
-                    {ui("viewProcedures", locale)}
+                    {t("viewProcedures")}
                     <ChevronRight className="w-4 h-4" />
                   </Button>
                 </div>
@@ -267,7 +268,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
             className="mt-20"
           >
             <motion.div variants={fadeInUp} className="mb-10">
-              <h2 className="heading-2 text-black">{ui("typesOfProcedures", locale)}</h2>
+              <h2 className="heading-2 text-black">{t("typesOfProcedures")}</h2>
             </motion.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -288,7 +289,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                     )}
                     <div className="mt-auto pt-4">
                       <Button variant="outline" size="sm">
-                        {ui("learnMore", locale)}
+                        {t("learnMore")}
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
@@ -309,7 +310,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
             className="mt-20"
           >
             <motion.div variants={fadeInUp} className="mb-8">
-              <h2 className="heading-2 text-black">{ui("faq", locale)}</h2>
+              <h2 className="heading-2 text-black">{t("faq")}</h2>
             </motion.div>
 
             <motion.div variants={fadeInUp} className="border-t border-line">
@@ -358,7 +359,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors">
               <Button variant="outline" size="sm">
-                {ui("allDoctors", locale)}
+                {t("allDoctors")}
                 <ChevronRight className="w-3.5 h-3.5" />
               </Button>
             </Link>
@@ -384,16 +385,16 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
           />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
-            <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
+            <h2 className="heading-2 text-champagne mb-4">{t("bookCta")}</h2>
             <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">
-              {ui("ctaSubtitle", locale)}
+              {t("ctaSubtitle")}
             </p>
             <BookingCTA
               variant="secondary"
               size="lg"
               className="bg-champagne text-black hover:bg-champagne-dark"
             >
-              {ui("book", locale)}
+              {t("book")}
             </BookingCTA>
           </div>
         </motion.section>

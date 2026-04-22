@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
@@ -67,6 +68,9 @@ function useSlideshow(total: number, autoPlay = true, interval = 5000) {
 export default function About({ data }: { data: AboutData }) {
   const slideshow = useSlideshow(CLINIC_PHOTOS.length);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const tLabels = useTranslations("labels");
+  const tSlides = useTranslations("aboutSlideshow");
+  const slideAlts = [tSlides("slide0"), tSlides("slide1"), tSlides("slide2"), tSlides("slide3"), tSlides("slide4")];
 
   const openLightbox = () => {
     setLightboxOpen(true);
@@ -101,7 +105,7 @@ export default function About({ data }: { data: AboutData }) {
             className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark cursor-pointer"
             onClick={openLightbox}
           >
-            <SlideshowImages current={slideshow.current} sizes="(max-width: 1024px) 100vw, 600px" />
+            <SlideshowImages current={slideshow.current} sizes="(max-width: 1024px) 100vw, 600px" alts={slideAlts} />
 
             {/* Controls overlay */}
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10">
@@ -126,7 +130,7 @@ export default function About({ data }: { data: AboutData }) {
 
             <Link href="/about">
               <Button variant="outline" size="sm">
-                Детальніше про центр
+                {tLabels("learnMore")}
                 <ChevronRight className="w-3.5 h-3.5" />
               </Button>
             </Link>
@@ -143,6 +147,7 @@ export default function About({ data }: { data: AboutData }) {
             next={slideshow.next}
             prev={slideshow.prev}
             onClose={closeLightbox}
+            alts={slideAlts}
           />
         )}
       </AnimatePresence>
@@ -152,15 +157,7 @@ export default function About({ data }: { data: AboutData }) {
 
 /* ---- Shared sub-components ---- */
 
-const CLINIC_PHOTO_ALTS = [
-  "Зал апаратної косметології GENEVITY Дніпро",
-  "Інтер'єр медичного центру GENEVITY",
-  "Кабінет лікаря клініки довголіття GENEVITY",
-  "Апарат HydraFacial у клініці GENEVITY Дніпро",
-  "Лазерне обладнання AcuPulse у GENEVITY",
-];
-
-function SlideshowImages({ current, sizes }: { current: number; sizes: string }) {
+function SlideshowImages({ current, sizes, alts }: { current: number; sizes: string; alts: string[] }) {
   return (
     <>
       {CLINIC_PHOTOS.map((src, i) => (
@@ -171,7 +168,7 @@ function SlideshowImages({ current, sizes }: { current: number; sizes: string })
         >
           <Image
             src={src}
-            alt={CLINIC_PHOTO_ALTS[i]}
+            alt={alts[i] || ""}
             fill
             className="object-cover"
             sizes={sizes}
@@ -241,12 +238,14 @@ function Lightbox({
   next,
   prev,
   onClose,
+  alts,
 }: {
   current: number;
   goTo: (i: number) => void;
   next: () => void;
   prev: () => void;
   onClose: () => void;
+  alts: string[];
 }) {
   // Lock scroll
   useEffect(() => {
@@ -313,7 +312,7 @@ function Lightbox({
           className="relative w-full max-w-4xl aspect-[3/2] rounded-[var(--radius-card)] overflow-hidden pointer-events-auto"
           onClick={(e) => e.stopPropagation()}
         >
-          <SlideshowImages current={current} sizes="100vw" />
+          <SlideshowImages current={current} sizes="100vw" alts={alts} />
         </div>
 
         {/* Bottom controls */}

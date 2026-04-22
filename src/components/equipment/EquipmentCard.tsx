@@ -13,7 +13,7 @@ interface EquipmentCardProps {
 export default function EquipmentCard({ item, detailsLabel, onClick }: EquipmentCardProps) {
   return (
     <div
-      className="group bg-champagne-dark rounded-[var(--radius-card)] p-8 flex flex-col gap-4 cursor-pointer hover:shadow-md transition-shadow duration-300 h-full"
+      className="group bg-champagne-dark rounded-[var(--radius-card)] p-8 flex flex-col gap-4 cursor-pointer hover:bg-champagne-darker transition-all duration-300 h-full"
       onClick={onClick}
     >
       <h3 className="heading-3 text-black">{item.name}</h3>

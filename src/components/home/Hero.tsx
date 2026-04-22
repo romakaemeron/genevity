@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
@@ -8,16 +8,7 @@ import { MapPin, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { fadeInUp } from "@/lib/motion";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import type { HeroData } from "@/lib/db/types";
-
-/* ── Slides with per-image focal points ── */
-const SLIDES: { src: string; objectPosition: string }[] = [
-  { src: "/images/hero/SEMI7475.webp", objectPosition: "center 80%" },
-  { src: "/images/hero/SEMI7120.webp", objectPosition: "center center" },
-  { src: "/images/hero/SEMI7515.webp", objectPosition: "center 5%" },
-  { src: "/images/hero/SEMI1657-HDR.webp", objectPosition: "center 75%" },
-  { src: "/images/hero/AcuPulse.webp", objectPosition: "center center" },
-  { src: "/images/hero/SEMI7511.webp", objectPosition: "center 25%" },
-];
+import type { HeroSlide } from "@/lib/db/queries/phase2";
 
 const AUTOPLAY_MS = 6000;
 
@@ -44,8 +35,9 @@ function ProgressFill({ playing, duration }: { playing: boolean; duration: numbe
   return <div ref={ref} className="h-full bg-champagne/80 rounded-full" style={{ width: "0%" }} />;
 }
 
-export default function Hero({ data }: { data: HeroData }) {
+export default function Hero({ data, slides }: { data: HeroData; slides: HeroSlide[] }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const SLIDES = useMemo(() => slides.map((s) => ({ src: s.imageUrl, objectPosition: s.objectPosition, alt: s.alt })), [slides]);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -60,10 +52,11 @@ export default function Hero({ data }: { data: HeroData }) {
 
   const goto = useCallback(
     (i: number) => {
+      if (SLIDES.length === 0) return;
       setCurrent((i + SLIDES.length) % SLIDES.length);
       setProgressKey((k) => k + 1); // restart progress bar animation
     },
-    [],
+    [SLIDES.length],
   );
 
   const next = useCallback(() => goto(current + 1), [current, goto]);
@@ -91,7 +84,8 @@ export default function Hero({ data }: { data: HeroData }) {
     return () => io.disconnect();
   }, []);
 
-  const slide = SLIDES[current];
+  const slide = SLIDES[current] || { src: "", objectPosition: "center", alt: "" };
+  if (SLIDES.length === 0) return null;
 
   return (
     <section ref={sectionRef} className="relative h-screen min-h-[640px] w-full">
@@ -118,7 +112,7 @@ export default function Hero({ data }: { data: HeroData }) {
             {/* Sharp image */}
             <Image
               src={slide.src}
-              alt="Інтер'єр преміальної клініки довголіття GENEVITY у Дніпрі"
+              alt={slide.alt || ""}
               fill
               className="object-cover"
               style={{ objectPosition: slide.objectPosition }}

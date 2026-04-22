@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { fadeInUp, fadeIn, viewportConfig } from "@/lib/motion";
@@ -15,7 +16,6 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
-import { ui } from "@/lib/ui-strings";
 
 interface Props {
   data: StaticPageData;
@@ -40,9 +40,10 @@ export default function StaticPageTemplate({
 }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const photos = images || [];
+  const t = useTranslations("labels");
 
   const breadcrumbs = [
-    { label: ui("home", locale), href: "/" },
+    { label: t("home"), href: "/" },
     { label: data.title, href: `/${data.slug}` },
   ];
 
@@ -76,7 +77,7 @@ export default function StaticPageTemplate({
                 {heroCta && (
                   <div className="mt-8">
                     <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
-                      {ui("bookConsultation", locale)}
+                      {t("bookConsultation")}
                     </BookingCTA>
                   </div>
                 )}
@@ -102,7 +103,7 @@ export default function StaticPageTemplate({
                   {data.summary && <p className="body-l text-muted mt-5">{data.summary}</p>}
                   {heroCta && (
                     <div className="mt-8">
-                      <BookingCTA variant="primary" size="lg">{ui("bookConsultation", locale)}</BookingCTA>
+                      <BookingCTA variant="primary" size="lg">{t("bookConsultation")}</BookingCTA>
                     </div>
                   )}
                 </motion.div>
@@ -182,7 +183,7 @@ export default function StaticPageTemplate({
       {/* ===== FAQ ===== */}
       {data.faq?.length > 0 && (
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
-          <h2 className="heading-2 text-black mb-8">{ui("faq", locale)}</h2>
+          <h2 className="heading-2 text-black mb-8">{t("faq")}</h2>
           <div className="border-t border-line">
             {data.faq.map((item, i) => (
               <div key={i} className="border-b border-line">
@@ -208,7 +209,7 @@ export default function StaticPageTemplate({
         <div className="mt-4 lg:mt-8">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
-            <Link href="/doctors"><Button variant="outline" size="sm">{ui("allDoctors", locale)}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+            <Link href="/doctors"><Button variant="outline" size="sm">{t("allDoctors")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
         </div>
       )}
@@ -216,9 +217,9 @@ export default function StaticPageTemplate({
       {/* ===== FINAL CTA ===== */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
-          <h2 className="heading-2 text-champagne mb-4">{ui("bookCta", locale)}</h2>
-          <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{ui("ctaSubtitle", locale)}</p>
-          <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{ui("book", locale)}</BookingCTA>
+          <h2 className="heading-2 text-champagne mb-4">{t("bookCta")}</h2>
+          <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{t("ctaSubtitle")}</p>
+          <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{t("book")}</BookingCTA>
         </div>
       </div>
     </>

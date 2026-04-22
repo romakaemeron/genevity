@@ -1,5 +1,5 @@
 import { sql } from "../client";
-import type { ServiceData, ServiceCardData, DoctorItem } from "../types";
+import type { ServiceData, ServiceCardData, DoctorItem, EquipmentItem } from "../types";
 import { getSections, getFaqItems } from "./sections";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
@@ -30,7 +30,7 @@ export async function getServiceBySlug(
     getFaqItems("service", r.id, l),
     getRelatedDoctors(r.id, l),
     getRelatedServices(r.id, l),
-    getRelatedEquipment(r.id),
+    getRelatedEquipment(r.id, l),
   ]);
 
   return {
@@ -57,6 +57,7 @@ export async function getServiceBySlug(
     relatedDoctors,
     relatedServices,
     relatedEquipment,
+    blockOrder: (r.block_order as string[] | null) || null,
   };
 }
 
@@ -77,7 +78,7 @@ async function getRelatedDoctors(serviceId: string, l: string): Promise<DoctorIt
     photoCard: r.photo_card,
     photoModal: r.photo_full,
     cardPosition: r.card_position || "center center",
-    modalPosition: r.card_position || "center center",
+    modalPosition: r.modal_position || r.card_position || "center center",
   }));
 }
 
@@ -105,15 +106,29 @@ async function getRelatedServices(serviceId: string, l: string): Promise<Service
   }));
 }
 
-async function getRelatedEquipment(serviceId: string): Promise<{ _id: string; name: string }[]> {
+/**
+ * Fetch equipment linked to a service. Returns full `EquipmentItem` data so
+ * the service detail page can render the same card + modal UI as the homepage.
+ */
+async function getRelatedEquipment(serviceId: string, l: string): Promise<EquipmentItem[]> {
   const rows = await sql`
-    SELECT e.id, e.name
+    SELECT e.*
     FROM equipment e
     JOIN service_equipment se ON e.id = se.equipment_id
     WHERE se.service_id = ${serviceId}
     ORDER BY se.sort_order
   `;
-  return rows.map((r) => ({ _id: r.id, name: r.name }));
+  return rows.map((r) => ({
+    _id: r.id,
+    category: r.category,
+    name: r.name,
+    shortDescription: pick(r, "short_description", l) || "",
+    description: pick(r, "description", l) || "",
+    suits: (r as any)[`suits_${l}`] || r.suits_uk || [],
+    results: (r as any)[`results_${l}`] || r.results_uk || [],
+    note: pick(r, "note", l) || "",
+    photo: r.photo,
+  }));
 }
 
 export async function getServicesByCategory(locale: string, categorySlug: string): Promise<ServiceCardData[]> {

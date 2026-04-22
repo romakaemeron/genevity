@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
-import { absoluteUrl } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/url";
 import type { Locale } from "@/i18n/routing";
 
 interface BreadcrumbItem {

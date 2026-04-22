@@ -16,7 +16,7 @@ export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCard
 
   return (
     <div
-      className="group bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+      className="group bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:bg-champagne-darker transition-all duration-300 cursor-pointer"
       onClick={onClick}
     >
       <div className={`w-full aspect-square relative ${photoCard ? "skeleton" : "bg-champagne-darker"}`}>
