@@ -54,6 +54,7 @@ export default function SearchSelect({
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(0);
+  const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -61,8 +62,12 @@ export default function SearchSelect({
   const dropdownRef = useRef<HTMLDivElement>(null);
   // Viewport-space anchor for the portaled dropdown. `flip` is true when the
   // trigger sits too close to the bottom of the window — we render the
-  // dropdown above instead so it doesn't clip off-screen.
-  const [anchor, setAnchor] = useState<{ top: number; left: number; width: number; flip: boolean } | null>(null);
+  // dropdown above instead so it doesn't clip off-screen. `maxHeight` is
+  // the vertical budget we have in that direction so the list scrolls
+  // internally rather than running off the edge of the screen.
+  const [anchor, setAnchor] = useState<
+    { top: number; left: number; width: number; flip: boolean; maxHeight: number } | null
+  >(null);
 
   const selected = options.find((o) => o.value === value);
 
@@ -79,20 +84,51 @@ export default function SearchSelect({
     });
   }, [options]);
 
+  // Count options per registered group — used both to pick a sensible
+  // default active tab and to render the per-tab badge.
+  const groupCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const g of groupHeadings || []) counts[g.key] = 0;
+    for (const o of deduped) {
+      if (o.group && o.group in counts) counts[o.group] += 1;
+    }
+    return counts;
+  }, [deduped, groupHeadings]);
+
+  // Tab mode is on whenever the caller provides ≥ 2 group headings.
+  const tabbed = (groupHeadings?.length || 0) >= 2;
+
+  // Default active tab once options arrive — prefer the first group that
+  // has any options so we don't open to an empty list.
+  useEffect(() => {
+    if (!tabbed || activeGroup) return;
+    const first = (groupHeadings || []).find((g) => (groupCounts[g.key] || 0) > 0);
+    if (first) setActiveGroup(first.key);
+    else if (groupHeadings && groupHeadings.length) setActiveGroup(groupHeadings[0].key);
+  }, [tabbed, activeGroup, groupHeadings, groupCounts]);
+
+  // Reset cursor + scroll to top every time the active tab changes.
+  useEffect(() => {
+    setCursor(0);
+    listRef.current?.scrollTo({ top: 0 });
+  }, [activeGroup]);
+
+  // Filter: restrict to the active tab (tabbed mode), then apply search.
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return deduped;
-    return deduped.filter((o) => {
-      return (
-        o.label.toLowerCase().includes(q) ||
-        (o.sub?.toLowerCase().includes(q) ?? false)
-      );
-    });
-  }, [deduped, query]);
+    let pool = deduped;
+    if (tabbed && activeGroup) pool = pool.filter((o) => o.group === activeGroup);
+    if (!q) return pool;
+    return pool.filter((o) => (
+      o.label.toLowerCase().includes(q) ||
+      (o.sub?.toLowerCase().includes(q) ?? false)
+    ));
+  }, [deduped, query, tabbed, activeGroup]);
 
+  // In tab mode, no group headings — the tab already gives context. In
+  // non-tab mode, we keep the original grouped rendering with headings.
   const grouped = useMemo(() => {
-    // Preserve group ordering from props; options without a recognised
-    // group land in an "other" bucket appended at the end.
+    if (tabbed) return [{ key: activeGroup || "_all", heading: "", options: filtered }];
     const map = new Map<string, SearchOption[]>();
     const orderedKeys: string[] = [];
     const known = new Set((groupHeadings || []).map((g) => g.key));
@@ -112,10 +148,9 @@ export default function SearchSelect({
         options: map.get(k) || [],
       }))
       .filter((g) => g.options.length > 0);
-  }, [filtered, groupHeadings]);
+  }, [filtered, groupHeadings, tabbed, activeGroup]);
 
-  // Flattened list is the navigation source of truth — the keyboard cursor
-  // indexes into it directly so Up/Down cross group headings seamlessly.
+  // Keyboard cursor indexes into the currently-visible list.
   const flat = useMemo(() => grouped.flatMap((g) => g.options), [grouped]);
 
   // Keep the cursor in range when the filter narrows the list.
@@ -138,23 +173,29 @@ export default function SearchSelect({
   }, [open]);
 
   // Position the dropdown in viewport coordinates whenever the trigger
-  // moves — on open, on resize, on scroll (inside overflow ancestors or
-  // the window). Opens upward instead of down when the trigger is too
-  // close to the bottom edge (common inside centered modals).
+  // moves — on open, on resize, and on scroll (capture phase so overflow
+  // ancestors also fire). Opens downward when there's space, flips up
+  // when the bottom is constrained; either way the panel's max-height is
+  // clamped to the remaining viewport so it never runs off-screen.
   useEffect(() => {
     if (!open) { setAnchor(null); return; }
-    const DROPDOWN_EST_HEIGHT = 320; // matches max-h-64 + search + padding
     const GAP = 6;
+    const EDGE_PAD = 12;
+    const MIN_HEIGHT = 180;
+    const PREFERRED_HEIGHT = 400;
     const update = () => {
       const el = triggerRef.current;
       if (!el) return;
       const r = el.getBoundingClientRect();
-      const spaceBelow = window.innerHeight - r.bottom;
-      const flip = spaceBelow < DROPDOWN_EST_HEIGHT && r.top > spaceBelow;
-      const top = flip
-        ? Math.max(8, r.top - GAP - DROPDOWN_EST_HEIGHT)
-        : r.bottom + GAP;
-      setAnchor({ top, left: r.left, width: r.width, flip });
+      const spaceBelow = window.innerHeight - r.bottom - GAP - EDGE_PAD;
+      const spaceAbove = r.top - GAP - EDGE_PAD;
+      // Open in whichever direction gives more room, unless there's
+      // enough below to comfortably fit the preferred height.
+      const openDown = spaceBelow >= PREFERRED_HEIGHT || spaceBelow >= spaceAbove;
+      const available = Math.max(MIN_HEIGHT, openDown ? spaceBelow : spaceAbove);
+      const maxHeight = Math.min(PREFERRED_HEIGHT, available);
+      const top = openDown ? r.bottom + GAP : Math.max(EDGE_PAD, r.top - GAP - maxHeight);
+      setAnchor({ top, left: r.left, width: r.width, flip: !openDown, maxHeight });
     };
     update();
     window.addEventListener("resize", update);
@@ -243,15 +284,16 @@ export default function SearchSelect({
               top: anchor.top,
               left: anchor.left,
               width: anchor.width,
+              maxHeight: anchor.maxHeight,
               // z-index via inline style — Tailwind's arbitrary z-index value
               // can lose to the modal's compiled styles under Turbopack, so
               // we force a number that sits above any real overlay.
               zIndex: 9999,
             }}
-            className="rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
+            className="flex flex-col rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
             role="listbox"
           >
-            <div className="flex items-center gap-2 px-3 py-2.5 border-b border-line">
+            <div className="flex items-center gap-2 px-3 py-2.5 border-b border-line shrink-0">
               <Search size={14} className="text-stone shrink-0" />
               <input
                 ref={searchRef}
@@ -263,13 +305,42 @@ export default function SearchSelect({
               />
             </div>
 
-            <div ref={listRef} className="max-h-64 overflow-y-auto py-1">
-              {grouped.length === 0 && (
+            {tabbed && groupHeadings && (
+              <div className="flex items-center gap-1 px-2 py-2 border-b border-line shrink-0">
+                {groupHeadings.map((g) => {
+                  const isActive = activeGroup === g.key;
+                  const n = groupCounts[g.key] || 0;
+                  return (
+                    <button
+                      key={g.key}
+                      type="button"
+                      onClick={() => setActiveGroup(g.key)}
+                      className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-[var(--radius-button)] text-xs font-medium transition-colors cursor-pointer ${
+                        isActive
+                          ? "bg-main text-champagne"
+                          : "text-stone hover:text-ink hover:bg-champagne-dark"
+                      }`}
+                    >
+                      {g.label}
+                      <span
+                        className={`text-[10px] tabular-nums ${
+                          isActive ? "text-champagne/70" : "text-stone/70"
+                        }`}
+                      >
+                        {n}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            <div ref={listRef} className="flex-1 overflow-y-auto py-1 min-h-0">
+              {grouped.length === 0 || flat.length === 0 ? (
                 <p className="px-4 py-6 text-center text-sm text-stone">{emptyLabel}</p>
-              )}
-              {grouped.map((g) => (
+              ) : grouped.map((g) => (
                 <div key={g.key}>
-                  {g.heading && (
+                  {g.heading && !tabbed && (
                     <p className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-stone">
                       {g.heading}
                     </p>
