@@ -108,17 +108,25 @@ export default function HeroSlidesEditor({ initial, heroContent }: Props) {
     }
   };
 
-  const initialSnapshot = useMemo(() => JSON.stringify(hydrated), [hydrated]);
-  const dirty = JSON.stringify(slides) !== initialSnapshot;
+  // Dirty-detection baseline lives in state (not a memo off the prop) so the
+  // save handler can advance it after a successful write. Without this,
+  // `slides` would keep diverging from the stale initialSnapshot → the
+  // unsaved-tracker would re-fire within a tick of "Saved" appearing.
+  const [baseline, setBaseline] = useState<string>(() => JSON.stringify(hydrated));
+  const dirty = JSON.stringify(slides) !== baseline;
 
   const doSave = async () => {
+    const snapshot = JSON.stringify(slides);
     await saveHeroSlides(slides);
+    setBaseline(snapshot);
     setSavedAt(Date.now());
     setTimeout(() => setSavedAt(null), 2000);
   };
   const save = () => { startTransition(() => { void doSave(); }); };
 
-  const cancel = () => setSlides(hydrated);
+  // Revert to the last-saved state (not all the way back to the prop), so
+  // once the admin has saved, "Cancel" only undoes edits made since that save.
+  const cancel = () => setSlides(JSON.parse(baseline));
 
   useUnsavedTracker({
     id: "hero-slides",
