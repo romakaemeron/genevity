@@ -174,7 +174,9 @@ export default function BookingForm({
 
       <Field label={t("phone")} htmlFor="booking-phone">
         <div className="group flex rounded-[var(--radius-button)] bg-champagne-dark border border-line transition-colors duration-150 ease-out hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15">
-          <span className="flex items-center pl-4 pr-3 border-r border-line text-ink text-[15px] select-none">
+          {/* +380 chip lines up with the other fields' 16px inner gutter
+              so the column of left edges reads as one vertical axis. */}
+          <span className="flex items-center pl-4 pr-2 text-ink text-[15px] select-none">
             +380
           </span>
           <input
@@ -186,7 +188,7 @@ export default function BookingForm({
             inputMode="tel"
             placeholder="67 123 45 67"
             required
-            className="flex-1 min-w-0 px-3 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone-light"
+            className="flex-1 min-w-0 pl-0 pr-4 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone-light"
           />
         </div>
       </Field>
