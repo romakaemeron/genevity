@@ -115,7 +115,7 @@ export default function Sidebar({ userName, counts = {} }: SidebarProps) {
       </div>
 
       <div className="border-t border-white/10 px-3 py-3">
-        <div className="flex items-center justify-between gap-2 px-3">
+        <div className="flex items-center justify-between gap-2 pl-3">
           <div className="flex items-center gap-2 min-w-0">
             <div className="w-7 h-7 rounded-full bg-main/30 flex items-center justify-center text-champagne text-xs font-medium shrink-0">
               A
@@ -123,7 +123,7 @@ export default function Sidebar({ userName, counts = {} }: SidebarProps) {
             <span className="text-sm text-champagne/80 truncate">Admin</span>
           </div>
           <form action={logout}>
-            <Button variant="secondary" icon size="sm" type="submit" title="Log out" ariaLabel="Log out">
+            <Button variant="outline-light" icon size="sm" type="submit" title="Log out" ariaLabel="Log out">
               <LogOut size={14} />
             </Button>
           </form>

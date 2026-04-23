@@ -11,8 +11,10 @@ import FaqEditor from "../../_components/faq-editor";
 import RelationsEditor from "../../_components/relations-editor";
 import SeoFormTab from "../../_components/seo-form-tab";
 import BlockOrderEditor, { type BlockDef } from "../../_components/block-order-editor";
+import ServiceOverridesEditor from "../../_components/service-overrides-editor";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import Button from "@/components/ui/Button";
+import type { ServiceBlockHeadingsInput, ServiceFinalCtaInput } from "../../_actions/services";
 
 interface Props {
   service?: any;
@@ -23,6 +25,15 @@ interface Props {
   doctors?: { id: string; name_uk: string; role_uk: string | null }[];
   allServices?: { id: string; title_uk: string; slug: string; cat_title: string }[];
   equipment?: { id: string; name: string; category: string }[];
+  /** Global ui_strings labels (Ukrainian) used as placeholders on the Layout tab's
+   *  heading-override inputs so admins see the default they'll fall back to. */
+  uiDefaults?: {
+    faq?: string;
+    doctors?: string;
+    equipment?: string;
+    relatedServices?: string;
+    finalCTA?: string;
+  };
 }
 
 type Tab = "meta" | "seo" | "sections" | "faq" | "relations" | "layout";
@@ -30,7 +41,7 @@ type Tab = "meta" | "seo" | "sections" | "faq" | "relations" | "layout";
 export default function ServiceForm({
   service: svc, categories,
   sections = [], faq = [], relations = { doctorIds: [], relatedServiceIds: [], equipmentIds: [] },
-  doctors = [], allServices = [], equipment = [],
+  doctors = [], allServices = [], equipment = [], uiDefaults = {},
 }: Props) {
   const [state, formAction] = useActionState(saveService, null as any);
   const [tab, setTab] = useState<Tab>("meta");
@@ -282,7 +293,7 @@ export default function ServiceForm({
       )}
 
       {tab === "layout" && !isNew && (
-        <div className="p-8 flex flex-col gap-4">
+        <div className="p-8 flex flex-col gap-10">
           <div>
             <h3 className="font-heading text-lg text-ink mb-1">Page layout</h3>
             <p className="body-m text-muted max-w-2xl">
@@ -298,6 +309,22 @@ export default function ServiceForm({
             blocks={buildServiceBlocks(svc, sections, faq, relations)}
             initialOrder={(svc.block_order as string[] | null) || null}
             onSave={(order) => saveServiceBlockOrder(svc.id, order)}
+          />
+
+          <div className="border-t border-line" />
+
+          <ServiceOverridesEditor
+            serviceId={svc.id}
+            serviceLabel={svc.title_uk || svc.slug}
+            blocks={[
+              { key: "faq",             label: "FAQ",              globalDefault: uiDefaults.faq },
+              { key: "doctors",         label: "Doctors",          globalDefault: uiDefaults.doctors },
+              { key: "equipment",       label: "Equipment",        globalDefault: uiDefaults.equipment },
+              { key: "relatedServices", label: "Related services", globalDefault: uiDefaults.relatedServices },
+              { key: "finalCTA",        label: "Final CTA",        globalDefault: uiDefaults.finalCTA },
+            ]}
+            initialHeadings={(svc.block_headings as ServiceBlockHeadingsInput | null) || {}}
+            initialFinalCta={(svc.final_cta as ServiceFinalCtaInput | null) || {}}
           />
         </div>
       )}

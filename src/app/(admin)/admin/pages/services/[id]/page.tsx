@@ -2,6 +2,7 @@ import { sql } from "@/lib/db/client";
 import { requireSession } from "../../../_actions/auth";
 import { notFound } from "next/navigation";
 import ServiceForm from "../../../services/_components/service-form";
+import { getUiStringsTree } from "@/lib/db/queries/ui-strings";
 
 /**
  * Canonical editor URL for service detail pages — /admin/pages/services/<id>.
@@ -14,7 +15,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
   const rows = await sql`SELECT * FROM services WHERE id = ${id}`;
   if (!rows.length) notFound();
 
-  const [categories, sectionRows, faqRows, doctorRows, serviceRows, equipmentRows, sdRows, srRows, seRows] = await Promise.all([
+  const [categories, sectionRows, faqRows, doctorRows, serviceRows, equipmentRows, sdRows, srRows, seRows, uiTree] = await Promise.all([
     sql`SELECT id, title_uk, slug FROM service_categories ORDER BY sort_order`,
     sql`SELECT id, section_type, data, sort_order FROM content_sections WHERE owner_type = 'service' AND owner_id = ${id} ORDER BY sort_order`,
     sql`SELECT * FROM faq_items WHERE owner_type = 'service' AND owner_id = ${id} ORDER BY sort_order`,
@@ -24,7 +25,25 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
     sql`SELECT doctor_id FROM service_doctors WHERE service_id = ${id} ORDER BY sort_order`,
     sql`SELECT related_service_id FROM service_related WHERE service_id = ${id} ORDER BY sort_order`,
     sql`SELECT equipment_id FROM service_equipment WHERE service_id = ${id} ORDER BY sort_order`,
+    getUiStringsTree(),
   ]);
+
+  // Pull the UK global labels that ServiceDetailTemplate falls back to when
+  // the per-service override is blank — surfaced as placeholders on the
+  // Layout tab's heading-override inputs so the admin sees "what you'd get".
+  const leaf = (path: string[]): string | undefined => {
+    let cur: any = uiTree;
+    for (const p of path) { if (!cur || typeof cur !== "object") return undefined; cur = cur[p]; }
+    if (cur && typeof cur === "object" && "uk" in cur && typeof cur.uk === "string") return cur.uk;
+    return undefined;
+  };
+  const uiDefaults = {
+    faq: leaf(["labels", "faq"]),
+    doctors: leaf(["doctors", "title"]),
+    equipment: leaf(["equipment", "title"]) || leaf(["labels", "equipment"]),
+    relatedServices: leaf(["labels", "alsoInteresting"]),
+    finalCTA: leaf(["labels", "bookCta"]),
+  };
 
   const sections = sectionRows.map((r) => ({
     id: r.id as string,
@@ -57,6 +76,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
       doctors={doctorRows as any}
       allServices={serviceRows as any}
       equipment={equipmentRows as any}
+      uiDefaults={uiDefaults}
     />
   );
 }

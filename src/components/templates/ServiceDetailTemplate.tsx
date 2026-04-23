@@ -52,6 +52,12 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
   const t = useTranslations("labels");
   const selectedEquipment = (data.relatedEquipment || []).find((e) => e._id === openEquipmentId) ?? null;
 
+  // Per-service heading with global ui_strings fallback. `override` wins when
+  // it's a non-empty string — that's what the admin typed into the block
+  // overrides editor on the Layout tab.
+  const heading = (override: string | undefined, fallback: string) =>
+    override && override.trim().length > 0 ? override : fallback;
+
   // Every block the page CAN render right now — one per individual section
   // plus the fixed blocks. Used as the default order when no admin layout is set.
   const sectionBlockKeys: ServiceBlockKey[] = (data.sections || []).map(
@@ -234,7 +240,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           case "faq":
             return data.faq?.length > 0 ? (
               <div key="faq" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
-                <h2 className="heading-2 text-black mb-8">{t("faq")}</h2>
+                <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.faq, t("faq"))}</h2>
                 <div className="border-t border-line">
                   {data.faq.map((item, i) => (
                     <div key={i} className="border-b border-line">
@@ -275,7 +281,11 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           case "doctors":
             return data.relatedDoctors?.length > 0 && doctorsUi ? (
               <div key="doctors" className="mt-16 lg:mt-20">
-                <Doctors doctors={data.relatedDoctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
+                <Doctors
+                  doctors={data.relatedDoctors}
+                  ui={{ ...doctorsUi, title: heading(data.blockHeadings.doctors, doctorsUi.title) }}
+                  detailsLabel={detailsLabel || ""}
+                />
                 <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
                   <Link href="/doctors">
                     <Button variant="outline" size="sm">
@@ -290,7 +300,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           case "equipment":
             return data.relatedEquipment?.length > 0 ? (
               <div key="equipment" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
-                <h2 className="heading-2 text-black mb-8">{equipmentUi?.title || t("equipment")}</h2>
+                <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.equipment, equipmentUi?.title || t("equipment"))}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {data.relatedEquipment.map((item) => (
                     <EquipmentCard
@@ -322,7 +332,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           case "relatedServices":
             return data.relatedServices?.length > 0 ? (
               <div key="relatedServices" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
-                <h2 className="heading-2 text-black mb-8">{t("alsoInteresting")}</h2>
+                <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.relatedServices, t("alsoInteresting"))}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {data.relatedServices.map((svc) => (
                     <Link
@@ -357,22 +367,52 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
               </div>
             ) : null;
 
-          case "finalCTA":
+          case "finalCTA": {
+            const cta = data.finalCta;
+            const hasCustomImage = cta.bgType === "image" && cta.bgImage;
+            // Default (no override): taupe (bg-main). Color override: inline
+            // style via CSS var. Image override: absolute-positioned <Image>.
+            const cardStyle: React.CSSProperties = {};
+            if (cta.bgType === "color" && cta.bgColor) {
+              cardStyle.backgroundColor = `var(--${cta.bgColor})`;
+            }
             return (
               <div key="finalCTA" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
-                <div className="mt-16 lg:mt-20 bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
-                  <h2 className="heading-2 text-champagne mb-4">{t("bookCta")}</h2>
-                  <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{t("ctaSubtitle")}</p>
-                  <BookingCTA
-                    variant="secondary"
-                    size="lg"
-                    className="bg-champagne text-black hover:bg-champagne-dark"
-                  >
-                    {t("bookConsultation")}
-                  </BookingCTA>
+                <div
+                  className={`mt-16 lg:mt-20 rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${
+                    hasCustomImage || cta.bgType === "color" ? "" : "bg-main"
+                  }`}
+                  style={cardStyle}
+                >
+                  {hasCustomImage && (
+                    <>
+                      <Image
+                        src={cta.bgImage!}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="100vw"
+                        style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined}
+                      />
+                      {/* Scrim so the light text stays legible on any photo. */}
+                      <div className="absolute inset-0 bg-black/40" />
+                    </>
+                  )}
+                  <div className="relative">
+                    <h2 className="heading-2 text-champagne mb-4">{heading(data.blockHeadings.finalCTA, t("bookCta"))}</h2>
+                    <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{t("ctaSubtitle")}</p>
+                    <BookingCTA
+                      variant="secondary"
+                      size="lg"
+                      className="bg-champagne text-black hover:bg-champagne-dark"
+                    >
+                      {t("bookConsultation")}
+                    </BookingCTA>
+                  </div>
                 </div>
               </div>
             );
+          }
 
           default:
             return null;

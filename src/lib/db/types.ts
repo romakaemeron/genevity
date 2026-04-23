@@ -236,6 +236,30 @@ export interface ServiceCategoryData {
   faq?: FaqItemData[];
 }
 
+/** Per-service heading overrides for each reorderable block. Resolved to the
+ *  request locale by the loader — empty / undefined means "use the global
+ *  ui_strings label". */
+export interface ServiceBlockHeadings {
+  faq?: string;
+  doctors?: string;
+  equipment?: string;
+  relatedServices?: string;
+  finalCTA?: string;
+}
+
+/** Final CTA background configuration. `bgType` picks between a global CSS
+ *  token color or an uploaded image; the other fields are mutually exclusive
+ *  depending on which type is selected. Null = use template default (bg-main). */
+export interface ServiceFinalCta {
+  bgType: "color" | "image" | null;
+  /** CSS custom-property name (without `var(--…)`), e.g. "color-main",
+   *  "color-champagne-dark", "color-ink". Template wraps it in `var(--…)`. */
+  bgColor: string | null;
+  bgImage: string | null;
+  /** object-position string (e.g. "50% 30%") for the bg image crop. */
+  bgFocalPoint: string | null;
+}
+
 export interface ServiceData {
   _id: string;
   title: string;
@@ -260,6 +284,10 @@ export interface ServiceData {
    *  in what order. Empty / null = use the template's default order. See
    *  SERVICE_BLOCKS in ServiceDetailTemplate for valid keys. */
   blockOrder: string[] | null;
+  /** Per-service heading overrides (already resolved to the request locale). */
+  blockHeadings: ServiceBlockHeadings;
+  /** Per-service Final CTA background config. */
+  finalCta: ServiceFinalCta;
 }
 
 export interface ServiceCardData {

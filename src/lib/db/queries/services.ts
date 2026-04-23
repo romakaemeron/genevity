@@ -1,10 +1,56 @@
 import { sql } from "../client";
-import type { ServiceData, ServiceCardData, DoctorItem, EquipmentItem } from "../types";
+import type {
+  ServiceData,
+  ServiceCardData,
+  DoctorItem,
+  EquipmentItem,
+  ServiceBlockHeadings,
+  ServiceFinalCta,
+} from "../types";
 import { getSections, getFaqItems } from "./sections";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
   return row[`${field}_${l}`] ?? row[`${field}_uk`] ?? null;
+}
+
+/** Resolve a `{uk, ru, en}` localized value to the request locale with UA
+ *  fallback. Returns undefined when the entry is missing or blank so the
+ *  template can cleanly fall back to the global ui_strings label. */
+function pickLocalized(v: unknown, l: string): string | undefined {
+  if (!v || typeof v !== "object") return undefined;
+  const obj = v as Record<string, unknown>;
+  const raw = obj[l] ?? obj.uk;
+  if (typeof raw !== "string") return undefined;
+  const trimmed = raw.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+
+function resolveBlockHeadings(raw: unknown, l: string): ServiceBlockHeadings {
+  if (!raw || typeof raw !== "object") return {};
+  const src = raw as Record<string, unknown>;
+  return {
+    faq: pickLocalized(src.faq, l),
+    doctors: pickLocalized(src.doctors, l),
+    equipment: pickLocalized(src.equipment, l),
+    relatedServices: pickLocalized(src.relatedServices, l),
+    finalCTA: pickLocalized(src.finalCTA, l),
+  };
+}
+
+function resolveFinalCta(raw: unknown): ServiceFinalCta {
+  if (!raw || typeof raw !== "object") {
+    return { bgType: null, bgColor: null, bgImage: null, bgFocalPoint: null };
+  }
+  const src = raw as Record<string, unknown>;
+  const bgType = src.bgType === "color" || src.bgType === "image" ? src.bgType : null;
+  return {
+    bgType,
+    bgColor: typeof src.bgColor === "string" && src.bgColor.trim() ? src.bgColor.trim() : null,
+    bgImage: typeof src.bgImage === "string" && src.bgImage.trim() ? src.bgImage.trim() : null,
+    bgFocalPoint:
+      typeof src.bgFocalPoint === "string" && src.bgFocalPoint.trim() ? src.bgFocalPoint.trim() : null,
+  };
 }
 
 export async function getServiceBySlug(
@@ -58,6 +104,8 @@ export async function getServiceBySlug(
     relatedServices,
     relatedEquipment,
     blockOrder: (r.block_order as string[] | null) || null,
+    blockHeadings: resolveBlockHeadings(r.block_headings, l),
+    finalCta: resolveFinalCta(r.final_cta),
   };
 }
 

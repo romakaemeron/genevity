@@ -4,7 +4,7 @@ import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { randomUUID } from "crypto";
-import { processUploadOrKeep, uploadRawOrKeep } from "./upload";
+import { processAndUploadImage, processUploadOrKeep, uploadRawOrKeep } from "./upload";
 
 /**
  * Slugify a Ukrainian/Latin string into a URL-safe lowercase slug.
@@ -150,6 +150,81 @@ export async function saveServiceBlockOrder(serviceId: string, order: string[]) 
   const FIXED = new Set(["faq", "doctors", "equipment", "relatedServices", "finalCTA"]);
   const cleaned = order.filter((k) => FIXED.has(k) || k.startsWith("section:"));
   await sql`UPDATE services SET block_order = ${cleaned} WHERE id = ${serviceId}`;
+  revalidatePath("/");
+  return { ok: true };
+}
+
+/** Upload a service asset (e.g. Final CTA background) to Vercel Blob and
+ *  return its URL. Processed through the standard WebP pipeline. */
+export async function uploadServiceImage(formData: FormData): Promise<{ url: string }> {
+  const file = formData.get("file") as File;
+  const url = await processAndUploadImage(file, "services");
+  if (!url) throw new Error("No file");
+  return { url };
+}
+
+export type LocaleString = { uk?: string; ru?: string; en?: string };
+export type ServiceBlockHeadingsInput = {
+  faq?: LocaleString;
+  doctors?: LocaleString;
+  equipment?: LocaleString;
+  relatedServices?: LocaleString;
+  finalCTA?: LocaleString;
+};
+export type ServiceFinalCtaInput = {
+  bgType?: "color" | "image" | null;
+  bgColor?: string | null;
+  bgImage?: string | null;
+  bgFocalPoint?: string | null;
+};
+
+/** Strip empty-string values from a LocaleString so the JSONB stays compact
+ *  and `pickLocalized` on read reliably returns undefined for "no override". */
+function cleanLocaleString(v: LocaleString | undefined): LocaleString | undefined {
+  if (!v) return undefined;
+  const out: LocaleString = {};
+  for (const l of ["uk", "ru", "en"] as const) {
+    const val = v[l];
+    if (typeof val === "string" && val.trim().length > 0) out[l] = val.trim();
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
+}
+
+/**
+ * Persist per-service heading overrides (all 5 reorderable blocks) + Final
+ * CTA background config in one shot. Both live on the Layout tab so they
+ * share a save button.
+ */
+export async function saveServiceOverrides(
+  serviceId: string,
+  headings: ServiceBlockHeadingsInput,
+  finalCta: ServiceFinalCtaInput,
+) {
+  const cleanedHeadings: ServiceBlockHeadingsInput = {};
+  for (const k of ["faq", "doctors", "equipment", "relatedServices", "finalCTA"] as const) {
+    const cleaned = cleanLocaleString(headings[k]);
+    if (cleaned) cleanedHeadings[k] = cleaned;
+  }
+
+  const bgType = finalCta.bgType === "color" || finalCta.bgType === "image" ? finalCta.bgType : null;
+  const cleanedCta = {
+    bgType,
+    bgColor: bgType === "color" && finalCta.bgColor ? finalCta.bgColor.trim() : null,
+    bgImage: bgType === "image" && finalCta.bgImage ? finalCta.bgImage.trim() : null,
+    bgFocalPoint:
+      bgType === "image" && finalCta.bgFocalPoint ? finalCta.bgFocalPoint.trim() : null,
+  };
+
+  const headingsJson = Object.keys(cleanedHeadings).length > 0 ? JSON.stringify(cleanedHeadings) : null;
+  const ctaJson =
+    cleanedCta.bgType || cleanedCta.bgColor || cleanedCta.bgImage ? JSON.stringify(cleanedCta) : null;
+
+  await sql`
+    UPDATE services
+    SET block_headings = ${headingsJson}::jsonb,
+        final_cta      = ${ctaJson}::jsonb
+    WHERE id = ${serviceId}
+  `;
   revalidatePath("/");
   return { ok: true };
 }
