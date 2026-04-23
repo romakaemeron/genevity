@@ -147,7 +147,7 @@ export default function BookingForm({
           // Inline size + aspect-ratio belt-and-braces — Tailwind's
           // w-*/h-* were being overridden somewhere in the cascade and
           // the flex parent flattened the disc into an ellipse.
-          style={{ width: 80, height: 80, aspectRatio: "1 / 1" }}
+          style={{ width: 64, height: 64, aspectRatio: "1 / 1" }}
           className="shrink-0 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
         >
           <svg

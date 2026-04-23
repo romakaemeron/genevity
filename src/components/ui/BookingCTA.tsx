@@ -60,6 +60,10 @@ export default function BookingCTA({
   initialInterest,
 }: BookingCTAProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  // Hide the modal header (title + subtitle) once the form has been
+  // submitted — the success animation should own the whole panel, no
+  // competing copy above it.
+  const [submitted, setSubmitted] = useState(false);
   const t = useTranslations("ctaForm");
   const messages = useMessages() as Record<string, unknown>;
 
@@ -69,6 +73,13 @@ export default function BookingCTA({
   const modalSubtitle = override("modalSubtitle") || t("modalSubtitle");
   const submitLabel = override("submitLabel") || t("submit");
 
+  const handleClose = () => {
+    setModalOpen(false);
+    // Reset on close so the next open starts fresh (header visible,
+    // form inputs blank through BookingForm's own internal state).
+    setSubmitted(false);
+  };
+
   return (
     <>
       <Button variant={variant} size={size} onClick={() => setModalOpen(true)} className={className}>
@@ -77,13 +88,19 @@ export default function BookingCTA({
 
       <AnimatePresence>
         {modalOpen && (
-          <Modal open onClose={() => setModalOpen(false)} maxWidth="sm:max-w-md">
+          <Modal open onClose={handleClose} maxWidth="sm:max-w-md">
             <div className="p-6 sm:p-8 pt-10 flex flex-col gap-5">
-              <div className="flex flex-col gap-1">
-                <h3 className="heading-3 text-ink">{modalTitle}</h3>
-                <p className="body-m text-stone">{modalSubtitle}</p>
-              </div>
-              <BookingForm initialInterest={initialInterest} submitLabel={submitLabel} />
+              {!submitted && (
+                <div className="flex flex-col gap-1">
+                  <h3 className="heading-3 text-ink">{modalTitle}</h3>
+                  <p className="body-m text-stone">{modalSubtitle}</p>
+                </div>
+              )}
+              <BookingForm
+                initialInterest={initialInterest}
+                submitLabel={submitLabel}
+                onSubmitted={() => setSubmitted(true)}
+              />
             </div>
           </Modal>
         )}
