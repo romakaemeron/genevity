@@ -54,7 +54,12 @@ export default function DoctorModal({ doctor, cta, experience }: DoctorModalProp
           </ul>
         )}
 
-        <BookingCTA ctaKey="doctorModal" variant="primary" className="self-start mt-2">
+        <BookingCTA
+          ctaKey="doctorModal"
+          variant="primary"
+          className="self-start mt-2"
+          initialInterest={`doctor:${doctor._id}`}
+        >
           {cta}
         </BookingCTA>
       </div>
