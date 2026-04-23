@@ -66,16 +66,29 @@ export default function SearchSelect({
 
   const selected = options.find((o) => o.value === value);
 
+  // Defensive dedup by value — downstream lists use `key={o.value}`, so
+  // duplicate values crash React. The server action should already return
+  // unique values; this is insurance against stale bundles or future
+  // callers that forget.
+  const deduped = useMemo(() => {
+    const seen = new Set<string>();
+    return options.filter((o) => {
+      if (seen.has(o.value)) return false;
+      seen.add(o.value);
+      return true;
+    });
+  }, [options]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return options;
-    return options.filter((o) => {
+    if (!q) return deduped;
+    return deduped.filter((o) => {
       return (
         o.label.toLowerCase().includes(q) ||
         (o.sub?.toLowerCase().includes(q) ?? false)
       );
     });
-  }, [options, query]);
+  }, [deduped, query]);
 
   const grouped = useMemo(() => {
     // Preserve group ordering from props; options without a recognised
