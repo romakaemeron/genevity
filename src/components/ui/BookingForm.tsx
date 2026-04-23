@@ -217,7 +217,7 @@ export default function BookingForm({
       noValidate
       className={`flex flex-col gap-4 ${className || ""}`}
     >
-      <Field label={t("name")} htmlFor="booking-name" error={errors.name}>
+      <Field label={t("name")} htmlFor="booking-name" error={errors.name} required>
         <input
           id="booking-name"
           type="text"
@@ -235,7 +235,7 @@ export default function BookingForm({
         />
       </Field>
 
-      <Field label={t("phone")} htmlFor="booking-phone" error={errors.phone}>
+      <Field label={t("phone")} htmlFor="booking-phone" error={errors.phone} required>
         <div
           className={`group flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border transition-colors duration-150 ease-out ${
             errors.phone
@@ -315,7 +315,7 @@ export default function BookingForm({
 
 /* ─── Stacked label + field helper ───────────────────────────────── */
 function Field({
-  label, htmlFor, isLabelId, children, error,
+  label, htmlFor, isLabelId, children, error, required,
 }: {
   label: string;
   htmlFor?: string;
@@ -325,12 +325,18 @@ function Field({
   children: React.ReactNode;
   /** Optional inline error — rendered in red below the field when set. */
   error?: string;
+  /** Append a red asterisk to the label so required fields are clear
+   *  at a glance (aria-hidden — `required` on the input carries the a11y). */
+  required?: boolean;
 }) {
   const labelProps = isLabelId ? { id: htmlFor } : { htmlFor };
   return (
     <div className="flex flex-col gap-1.5">
       <label {...labelProps} className="text-[13px] font-medium text-stone">
         {label}
+        {required && (
+          <span aria-hidden className="text-error ml-1">*</span>
+        )}
       </label>
       {children}
       {error && (
