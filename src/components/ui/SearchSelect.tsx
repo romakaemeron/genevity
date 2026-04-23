@@ -302,9 +302,9 @@ export default function SearchSelect(props: Props) {
               {selectedOptions.map((o) => (
                 <span
                   key={o.value}
-                  className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 rounded-[var(--radius-pill)] bg-main/10 border border-main/20 text-[12px] text-ink"
+                  className="inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-[var(--radius-pill)] bg-main/10 border border-main/20 text-[12px] text-ink"
                 >
-                  <span className="truncate max-w-[160px]">{o.label}</span>
+                  <span className="truncate max-w-[180px]">{o.label}</span>
                   <span
                     role="button"
                     tabIndex={0}
@@ -312,7 +312,7 @@ export default function SearchSelect(props: Props) {
                     onKeyDown={(ev) => {
                       if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); removeOne(o.value); }
                     }}
-                    className="inline-flex w-4 h-4 items-center justify-center rounded-full text-stone hover:text-ink hover:bg-main/15 cursor-pointer"
+                    className="inline-flex w-4 h-4 items-center justify-center rounded-full text-stone hover:text-ink hover:bg-main/20 cursor-pointer"
                     title={clearLabel}
                   >
                     <X size={10} />
