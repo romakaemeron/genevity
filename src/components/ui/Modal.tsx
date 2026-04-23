@@ -98,7 +98,7 @@ export default function Modal({
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
-            <div className="absolute top-4 right-4 z-10">
+            <div className="sticky top-4 right-4 z-10">
               <Button variant="ghost" icon size="sm" onClick={onClose}>
                 <X className="w-4 h-4" />
               </Button>
