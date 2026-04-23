@@ -299,25 +299,34 @@ async function notifyAdmin(s: {
   const to = process.env.BOOKING_NOTIFY_EMAIL;
   if (!to) return;
 
-  const subject = `New booking request — ${s.name}`;
-  // Mirrors the production-analytics lead format the client requested:
-  // client name + phone, speciality, clinic, page (title + URL), which
-  // form the visitor submitted, and the full UTM block for attribution.
-  // Every row is rendered regardless of value so ops can tell a missing
-  // UTM ("—") apart from a genuinely-empty lead.
-  const rows: Array<{ label: string; value: string; mono?: boolean }> = [
-    { label: "Ім'я клієнта", value: s.name },
-    { label: "Телефон клієнта", value: s.phone, mono: true },
-    { label: "Спеціальність", value: s.interestLabel || "— (не обрано)" },
-    { label: "Клініка", value: "GENEVITY" },
-    { label: "Сторінка", value: s.pageTitle ? `${s.pageTitle}\n${s.pageUrl}` : s.pageUrl || "—" },
-    { label: "Форма", value: s.formLabel || "—" },
-    { label: "Referrer", value: s.referrer || "—" },
-    { label: "utm_source", value: s.utmSource || "—", mono: true },
-    { label: "utm_medium", value: s.utmMedium || "—", mono: true },
-    { label: "utm_campaign", value: s.utmCampaign || "—", mono: true },
-    { label: "utm_term", value: s.utmTerm || "—", mono: true },
-    { label: "utm_content", value: s.utmContent || "—", mono: true },
+  const subject = `Нова заявка — ${s.name}`;
+  const dateKyiv = new Date().toLocaleString("uk-UA", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Europe/Kyiv",
+  });
+  const missing = "— не вказано";
+
+  // Every field is rendered regardless of value so ops can tell a
+  // missing UTM apart from a genuinely-empty one — the visual
+  // distinction is the italic "— не вказано" placeholder.
+  const rows: Array<{ label: string; value: string; mono?: boolean; dim?: boolean }> = [
+    { label: "Дата",             value: dateKyiv },
+    { label: "Ім'я клієнта",     value: s.name },
+    { label: "Телефон клієнта",  value: s.phone, mono: true },
+    { label: "Спеціальність",    value: s.interestLabel || missing, dim: !s.interestLabel },
+    { label: "Клініка",          value: "GENEVITY" },
+    { label: "Сторінка",         value: s.pageTitle ? `${s.pageTitle}\n${s.pageUrl}` : (s.pageUrl || missing), dim: !s.pageUrl },
+    { label: "Форма",            value: s.formLabel || missing, dim: !s.formLabel },
+    { label: "Джерело переходу", value: s.referrer || missing, dim: !s.referrer },
+    { label: "utm_source",       value: s.utmSource || missing, mono: true, dim: !s.utmSource },
+    { label: "utm_medium",       value: s.utmMedium || missing, mono: true, dim: !s.utmMedium },
+    { label: "utm_campaign",     value: s.utmCampaign || missing, mono: true, dim: !s.utmCampaign },
+    { label: "utm_term",         value: s.utmTerm || missing, mono: true, dim: !s.utmTerm },
+    { label: "utm_content",      value: s.utmContent || missing, mono: true, dim: !s.utmContent },
   ];
   const text = rows.map((r) => `${r.label}: ${r.value}`).join("\n\n");
   const html = `
@@ -326,13 +335,13 @@ async function notifyAdmin(s: {
       <table style="width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5;">
         ${rows.map((r) => `
           <tr>
-            <td style="padding: 10px 12px; background: #F0EDE7; width: 160px; color: #6b6b6b; vertical-align: top; border-top: 1px solid #E5E0D8;">${escapeHtml(r.label)}</td>
-            <td style="padding: 10px 12px; background: #FAF9F6; color: #2A2520; vertical-align: top; border-top: 1px solid #E5E0D8; ${r.mono ? "font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;" : ""} white-space: pre-wrap; word-break: break-word;">${escapeHtml(r.value)}</td>
+            <td style="padding: 10px 12px; background: #F0EDE7; width: 170px; color: #6b6b6b; vertical-align: top; border-top: 1px solid #E5E0D8;">${escapeHtml(r.label)}</td>
+            <td style="padding: 10px 12px; background: #FAF9F6; color: ${r.dim ? "#9A9A9A; font-style: italic;" : "#2A2520;"} vertical-align: top; border-top: 1px solid #E5E0D8; ${r.mono ? "font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;" : ""} white-space: pre-wrap; word-break: break-word;">${escapeHtml(r.value)}</td>
           </tr>
         `).join("")}
       </table>
       <p style="margin-top: 20px; font-size: 12px; color: #888;">
-        GENEVITY · submitted via the site booking form${s.locale ? ` · locale: ${escapeHtml(s.locale)}` : ""}
+        GENEVITY · надіслано з сайту${s.locale ? ` · мова: ${escapeHtml(s.locale)}` : ""}
       </p>
     </div>
   `;
