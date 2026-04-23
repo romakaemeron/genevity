@@ -175,16 +175,22 @@ export default function SearchSelect(props: Props) {
 
   // Close on outside click — the dropdown portals to <body>, so accept
   // clicks inside either the root (trigger area) or the portaled panel.
+  //
+  // We listen in the *capture* phase so we can swallow the event before
+  // it bubbles up to the parent modal's backdrop click handler — otherwise
+  // clicking outside the dropdown (but inside the modal panel or its
+  // padding) would close BOTH the dropdown and the modal in one gesture.
   useEffect(() => {
     if (!open) return;
     const onDoc = (e: MouseEvent) => {
       const target = e.target as Node;
       if (rootRef.current?.contains(target)) return;
       if (dropdownRef.current?.contains(target)) return;
+      e.stopPropagation();
       setOpen(false);
     };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener("click", onDoc, true);
+    return () => document.removeEventListener("click", onDoc, true);
   }, [open]);
 
   // Position the dropdown in viewport coordinates whenever the trigger

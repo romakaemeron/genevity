@@ -256,7 +256,7 @@ function Field({
   const labelProps = isLabelId ? { id: htmlFor } : { htmlFor };
   return (
     <div className="flex flex-col gap-1.5">
-      <label {...labelProps} className="text-[11px] font-semibold text-stone uppercase tracking-wider">
+      <label {...labelProps} className="text-[13px] font-medium text-stone">
         {label}
       </label>
       {children}
