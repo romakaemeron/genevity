@@ -277,7 +277,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                 <motion.div key={svc._id} variants={fadeInUp}>
                   <Link
                     href={`/services/${svc.categorySlug || category.slug}/${svc.slug}`}
-                    className="group flex flex-col h-full rounded-[var(--radius-card)] border border-line hover:border-main/30 hover:shadow-[var(--shadow-card)] transition-all duration-300 p-6"
+                    className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6"
                   >
                     <h3 className="heading-4 text-black group-hover:text-main transition-colors text-lg">
                       {svc.title}

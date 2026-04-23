@@ -236,7 +236,11 @@ export default function BookingForm({
           }}
           autoComplete="tel"
           inputMode="tel"
-          maxLength={PHONE_MASK_LENGTH}
+          // No maxLength — the displayed value is always PHONE_MASK_LENGTH
+          // chars long (the mask), so a typed digit would make it
+          // 1 char longer and the browser would reject the input before
+          // onChange could replace it back. Our controlled state already
+          // clamps to 9 subscriber digits.
           required
           className={fieldCls}
         />
