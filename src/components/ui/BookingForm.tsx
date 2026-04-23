@@ -73,7 +73,10 @@ export default function BookingForm({
   const [phoneLocal, setPhoneLocal] = useState("");
   const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
   const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
-  const [error, setError] = useState<string | null>(null);
+  // Per-field error messages — rendered inline under the offending input
+  // so the visitor sees the nudge exactly where they need to act. `generic`
+  // is reserved for the "something broke, retry" case from the server.
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; generic?: string }>({});
   const [success, setSuccess] = useState(false);
   const [pending, startTransition] = useTransition();
   const firstLoadFired = useRef(false);
@@ -104,26 +107,36 @@ export default function BookingForm({
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    // Client-side validation first — we know what the server is about
+    // to check, no reason to force a round-trip for the obvious cases.
+    const next: typeof errors = {};
+    const cleanedName = name.trim();
+    const phoneDigits = phoneLocal.replace(/\D+/g, "");
+    if (cleanedName.length < 2) next.name = t("errorNameRequired");
+    if (phoneDigits.length < 9) next.phone = t("errorPhoneRequired");
+    if (next.name || next.phone) {
+      setErrors(next);
+      return;
+    }
+    setErrors({});
+
     startTransition(async () => {
       const labels = interests.map((v) => interestLabels[v] || v);
       const res = await submitBookingForm({
-        name: name.trim(),
+        name: cleanedName,
         // Ship the digits only — server sanitizer will rebuild the
         // canonical "+380 (XX) XXX XX XX" mask for storage.
-        phone: "+380" + phoneLocal.replace(/\D+/g, ""),
+        phone: "+380" + phoneDigits,
         interestValues: interests,
         interestLabels: labels,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
         locale,
       });
       if (!res.ok) {
-        const key = res.errorKey === "name"
-          ? "errorNameRequired"
-          : res.errorKey === "phone"
-            ? "errorPhoneRequired"
-            : "errorGeneric";
-        setError(t(key));
+        // Server rejected — map the error key back to the matching field.
+        if (res.errorKey === "name") setErrors({ name: t("errorNameRequired") });
+        else if (res.errorKey === "phone") setErrors({ phone: t("errorPhoneRequired") });
+        else setErrors({ generic: t("errorGeneric") });
         return;
       }
       setSuccess(true);
@@ -200,26 +213,32 @@ export default function BookingForm({
 
   return (
     <form onSubmit={onSubmit} className={`flex flex-col gap-4 ${className || ""}`}>
-      <Field label={t("name")} htmlFor="booking-name">
+      <Field label={t("name")} htmlFor="booking-name" error={errors.name}>
         <input
           id="booking-name"
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value.slice(0, 100))}
+          onChange={(e) => {
+            setName(e.target.value.slice(0, 100));
+            if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+          }}
           autoComplete="name"
           maxLength={100}
           minLength={2}
           required
-          className={fieldCls}
+          aria-invalid={errors.name ? true : undefined}
+          className={`${fieldCls} ${errors.name ? "border-error focus:border-error focus:ring-error/20" : ""}`}
         />
       </Field>
 
-      <Field label={t("phone")} htmlFor="booking-phone">
-        <div className="group flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border border-line transition-colors duration-150 ease-out hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15">
-          {/* +380 chip — inline styles so padding can't get lost to any
-              arbitrary-value CSS purge or flex shrink surprises. Aligned
-              at 16 px from the field's left edge, with an 8 px air gap
-              to the right before the typed digits / placeholder begin. */}
+      <Field label={t("phone")} htmlFor="booking-phone" error={errors.phone}>
+        <div
+          className={`group flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border transition-colors duration-150 ease-out ${
+            errors.phone
+              ? "border-error focus-within:border-error focus-within:ring-2 focus-within:ring-error/20"
+              : "border-line hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15"
+          }`}
+        >
           <span
             className="inline-flex items-center text-ink text-[15px] select-none shrink-0"
             style={{ paddingLeft: 16, paddingRight: 3 }}
@@ -230,11 +249,15 @@ export default function BookingForm({
             id="booking-phone"
             type="tel"
             value={phoneLocal}
-            onChange={(e) => setPhoneLocal(formatPhoneLocal(e.target.value))}
+            onChange={(e) => {
+              setPhoneLocal(formatPhoneLocal(e.target.value));
+              if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
+            }}
             autoComplete="tel-national"
             inputMode="tel"
             placeholder="67 123 45 67"
             required
+            aria-invalid={errors.phone ? true : undefined}
             style={{ paddingLeft: 4, paddingRight: 16 }}
             className="flex-1 min-w-0 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone-light"
           />
@@ -260,8 +283,10 @@ export default function BookingForm({
         />
       </Field>
 
-      {error && (
-        <p className="text-xs text-error bg-error-light rounded-[var(--radius-button)] px-3 py-2">{error}</p>
+      {/* Generic error falls back to a banner when the server returns
+          a non-field-specific failure (network flake, timeout, etc.). */}
+      {errors.generic && (
+        <p className="text-xs text-error bg-error-light rounded-[var(--radius-button)] px-3 py-2">{errors.generic}</p>
       )}
 
       <Button
@@ -286,7 +311,7 @@ export default function BookingForm({
 
 /* ─── Stacked label + field helper ───────────────────────────────── */
 function Field({
-  label, htmlFor, isLabelId, children,
+  label, htmlFor, isLabelId, children, error,
 }: {
   label: string;
   htmlFor?: string;
@@ -294,6 +319,8 @@ function Field({
    *  used by the combobox which points to the label via aria-labelledby. */
   isLabelId?: boolean;
   children: React.ReactNode;
+  /** Optional inline error — rendered in red below the field when set. */
+  error?: string;
 }) {
   const labelProps = isLabelId ? { id: htmlFor } : { htmlFor };
   return (
@@ -302,6 +329,9 @@ function Field({
         {label}
       </label>
       {children}
+      {error && (
+        <p role="alert" className="text-[12px] text-error leading-snug">{error}</p>
+      )}
     </div>
   );
 }
