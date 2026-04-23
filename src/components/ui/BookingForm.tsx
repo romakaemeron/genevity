@@ -144,7 +144,11 @@ export default function BookingForm({
           initial={{ y: 40, scale: 0.96 }}
           animate={{ y: 0, scale: 1 }}
           transition={{ delay: 0.55, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="w-20 h-20 shrink-0 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
+          // Inline size + aspect-ratio belt-and-braces — Tailwind's
+          // w-*/h-* were being overridden somewhere in the cascade and
+          // the flex parent flattened the disc into an ellipse.
+          style={{ width: 80, height: 80, aspectRatio: "1 / 1" }}
+          className="shrink-0 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
         >
           <svg
             width="38"
