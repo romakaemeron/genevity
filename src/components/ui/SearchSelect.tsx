@@ -12,6 +12,7 @@
  */
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { Check, ChevronDown, Search, X } from "lucide-react";
 
 export interface SearchOption {
@@ -54,8 +55,14 @@ export default function SearchSelect({
   const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  // Viewport-space anchor for the portaled dropdown. `flip` is true when the
+  // trigger sits too close to the bottom of the window — we render the
+  // dropdown above instead so it doesn't clip off-screen.
+  const [anchor, setAnchor] = useState<{ top: number; left: number; width: number; flip: boolean } | null>(null);
 
   const selected = options.find((o) => o.value === value);
 
@@ -103,15 +110,46 @@ export default function SearchSelect({
     if (cursor >= flat.length) setCursor(Math.max(0, flat.length - 1));
   }, [flat.length, cursor]);
 
-  // Close on outside click.
+  // Close on outside click — the dropdown portals to <body>, so accept
+  // clicks inside either the root (trigger area) or the portaled panel.
   useEffect(() => {
     if (!open) return;
     const onDoc = (e: MouseEvent) => {
-      if (!rootRef.current) return;
-      if (!rootRef.current.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      if (rootRef.current?.contains(target)) return;
+      if (dropdownRef.current?.contains(target)) return;
+      setOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
+  }, [open]);
+
+  // Position the dropdown in viewport coordinates whenever the trigger
+  // moves — on open, on resize, on scroll (inside overflow ancestors or
+  // the window). Opens upward instead of down when the trigger is too
+  // close to the bottom edge (common inside centered modals).
+  useEffect(() => {
+    if (!open) { setAnchor(null); return; }
+    const DROPDOWN_EST_HEIGHT = 320; // matches max-h-64 + search + padding
+    const GAP = 6;
+    const update = () => {
+      const el = triggerRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - r.bottom;
+      const flip = spaceBelow < DROPDOWN_EST_HEIGHT && r.top > spaceBelow;
+      const top = flip
+        ? Math.max(8, r.top - GAP - DROPDOWN_EST_HEIGHT)
+        : r.bottom + GAP;
+      setAnchor({ top, left: r.left, width: r.width, flip });
+    };
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+    };
   }, [open]);
 
   // Focus the search input as soon as the dropdown opens.
@@ -146,6 +184,7 @@ export default function SearchSelect({
   return (
     <div ref={rootRef} className="relative">
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => !disabled && setOpen((v) => !v)}
         aria-haspopup="listbox"
@@ -182,63 +221,72 @@ export default function SearchSelect({
         />
       </button>
 
-      {open && (
-        <div
-          className="absolute z-30 left-0 right-0 top-full mt-1.5 rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
-          role="listbox"
-        >
-          <div className="flex items-center gap-2 px-3 py-2.5 border-b border-stone-lighter">
-            <Search size={14} className="text-stone shrink-0" />
-            <input
-              ref={searchRef}
-              value={query}
-              onChange={(e) => { setQuery(e.target.value); setCursor(0); }}
-              onKeyDown={onKeyDown}
-              placeholder={searchPlaceholder}
-              className="flex-1 bg-transparent outline-none text-sm text-ink placeholder:text-stone"
-            />
-          </div>
+      {open && anchor && typeof document !== "undefined" &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            style={{
+              position: "fixed",
+              top: anchor.top,
+              left: anchor.left,
+              width: anchor.width,
+            }}
+            className="z-[2000] rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
+            role="listbox"
+          >
+            <div className="flex items-center gap-2 px-3 py-2.5 border-b border-line">
+              <Search size={14} className="text-stone shrink-0" />
+              <input
+                ref={searchRef}
+                value={query}
+                onChange={(e) => { setQuery(e.target.value); setCursor(0); }}
+                onKeyDown={onKeyDown}
+                placeholder={searchPlaceholder}
+                className="flex-1 bg-transparent outline-none text-sm text-ink placeholder:text-stone"
+              />
+            </div>
 
-          <div ref={listRef} className="max-h-64 overflow-y-auto py-1">
-            {grouped.length === 0 && (
-              <p className="px-4 py-6 text-center text-sm text-stone">{emptyLabel}</p>
-            )}
-            {grouped.map((g) => (
-              <div key={g.key}>
-                {g.heading && (
-                  <p className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-stone">
-                    {g.heading}
-                  </p>
-                )}
-                {g.options.map((o) => {
-                  const flatIdx = flat.indexOf(o);
-                  const active = flatIdx === cursor;
-                  const isSelected = o.value === value;
-                  return (
-                    <button
-                      key={o.value}
-                      type="button"
-                      role="option"
-                      aria-selected={isSelected}
-                      onMouseEnter={() => setCursor(flatIdx)}
-                      onClick={() => pick(o)}
-                      className={`w-full flex items-center gap-2 px-4 py-2 text-left text-sm cursor-pointer transition-colors ${
-                        active ? "bg-champagne-dark" : "bg-transparent hover:bg-champagne-dark/50"
-                      }`}
-                    >
-                      <span className="flex-1 min-w-0">
-                        <span className="text-ink block truncate">{o.label}</span>
-                        {o.sub && <span className="text-[11px] text-stone block truncate">{o.sub}</span>}
-                      </span>
-                      {isSelected && <Check size={14} className="text-main shrink-0" />}
-                    </button>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+            <div ref={listRef} className="max-h-64 overflow-y-auto py-1">
+              {grouped.length === 0 && (
+                <p className="px-4 py-6 text-center text-sm text-stone">{emptyLabel}</p>
+              )}
+              {grouped.map((g) => (
+                <div key={g.key}>
+                  {g.heading && (
+                    <p className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-stone">
+                      {g.heading}
+                    </p>
+                  )}
+                  {g.options.map((o) => {
+                    const flatIdx = flat.indexOf(o);
+                    const active = flatIdx === cursor;
+                    const isSelected = o.value === value;
+                    return (
+                      <button
+                        key={o.value}
+                        type="button"
+                        role="option"
+                        aria-selected={isSelected}
+                        onMouseEnter={() => setCursor(flatIdx)}
+                        onClick={() => pick(o)}
+                        className={`w-full flex items-center gap-2 px-4 py-2 text-left text-sm cursor-pointer transition-colors ${
+                          active ? "bg-champagne-dark" : "bg-transparent hover:bg-champagne-dark/50"
+                        }`}
+                      >
+                        <span className="flex-1 min-w-0">
+                          <span className="text-ink block truncate">{o.label}</span>
+                          {o.sub && <span className="text-[11px] text-stone block truncate">{o.sub}</span>}
+                        </span>
+                        {isSelected && <Check size={14} className="text-main shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
