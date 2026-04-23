@@ -222,14 +222,18 @@ export default function BookingForm({
           id="booking-name"
           type="text"
           value={name}
+          // Strip digits as the visitor types — names don't have them
+          // and the inline rule is less confusing than a post-submit
+          // complaint. Cap stays at 100 chars.
           onChange={(e) => {
-            setName(e.target.value.slice(0, 100));
+            setName(e.target.value.replace(/\d+/g, "").slice(0, 100));
             if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
           }}
           autoComplete="name"
           maxLength={100}
           minLength={2}
           required
+          placeholder={t("name")}
           aria-invalid={errors.name ? true : undefined}
           className={`${fieldCls} ${errors.name ? "border-error focus:border-error focus:ring-error/20" : ""}`}
         />

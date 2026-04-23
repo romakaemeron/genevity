@@ -368,7 +368,7 @@ export default function SearchSelect(props: Props) {
               // we force a number that sits above any real overlay.
               zIndex: 9999,
             }}
-            className="flex flex-col rounded-[var(--radius-card)] bg-champagne border border-line shadow-lg overflow-hidden"
+            className="flex flex-col rounded-[var(--radius-card)] bg-champagne-dark border border-line shadow-lg overflow-hidden"
             role="listbox"
           >
             <div className="flex items-center gap-2 px-3 py-2.5 border-b border-line shrink-0">
