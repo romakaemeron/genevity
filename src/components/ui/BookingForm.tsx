@@ -141,18 +141,18 @@ export default function BookingForm({
               4) copy blur-reveals in from below
            The delays chain so each step finishes before the next begins. */}
         <motion.div
-          initial={{ y: 36, scale: 0.96 }}
+          initial={{ y: 40, scale: 0.96 }}
           animate={{ y: 0, scale: 1 }}
           transition={{ delay: 0.55, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="w-14 h-14 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
+          className="w-20 h-20 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
         >
           <svg
-            width="28"
-            height="28"
+            width="38"
+            height="38"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth={2.6}
+            strokeWidth={2.4}
             strokeLinecap="round"
             strokeLinejoin="round"
           >
@@ -161,7 +161,7 @@ export default function BookingForm({
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
               transition={{
-                pathLength: { delay: 0.1, duration: 0.45, ease: [0.65, 0, 0.35, 1] },
+                pathLength: { delay: 0.1, duration: 0.5, ease: [0.65, 0, 0.35, 1] },
                 opacity: { delay: 0.1, duration: 0.1 },
               }}
             />
@@ -171,7 +171,7 @@ export default function BookingForm({
           initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ delay: 1.0, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="body-l text-ink max-w-xs"
+          className="body-l text-ink"
         >
           {t("success")}
         </motion.p>
