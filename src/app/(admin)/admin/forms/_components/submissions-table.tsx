@@ -2,7 +2,7 @@
 
 /**
  * Admin lead list. Native <table> for rock-solid column alignment,
- * with sortable headers and a search box filtering by name / phone.
+ * with sortable headers, search, and live polling.
  *
  *   • Search — case-insensitive substring match against name + phone.
  *   • Sort   — click any sortable column header to toggle asc/desc.
@@ -10,13 +10,20 @@
  *   • Rows   — click anywhere on a row to open the detail page.
  *              The status dropdown inside the first cell stops
  *              propagation so its own click doesn't navigate away.
+ *   • Live   — polls the server every POLL_MS for new submissions.
+ *              Rows that arrive between polls get a soft highlight
+ *              so the admin sees "something new just showed up".
+ *              Toggle pauses the poller if it gets distracting.
  */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUp, ArrowDown, ArrowUpDown, Pause, Play } from "lucide-react";
 import FormStatusDropdown from "../../_components/form-status-dropdown";
-import type { FormStatus } from "../../_actions/forms";
+import { listRecentSubmissions, type FormStatus } from "../../_actions/forms";
+
+const POLL_MS = 20_000;    // 20 s — balances freshness against DB load
+const FLASH_MS = 4_000;    // how long a newly-arrived row stays highlighted
 
 export interface SubmissionRow {
   id: string;
@@ -63,11 +70,68 @@ export default function SubmissionsTable({ submissions }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>("date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
+  // Live poll state: local copy of the rows (so the table can update
+  // without re-rendering the server page), plus a set of IDs that are
+  // brand new relative to the last poll — used to flash-highlight them.
+  const [rows, setRows] = useState<SubmissionRow[]>(submissions);
+  const [paused, setPaused] = useState(false);
+  const [lastPoll, setLastPoll] = useState<number>(Date.now());
+  const [freshIds, setFreshIds] = useState<Set<string>>(new Set());
+  const knownIds = useRef<Set<string>>(new Set(submissions.map((s) => s.id)));
+
+  // Resync when the server page passes in a fresh snapshot (e.g. user
+  // navigated back to /admin/forms) so the client state doesn't go stale.
+  useEffect(() => {
+    setRows(submissions);
+    knownIds.current = new Set(submissions.map((s) => s.id));
+  }, [submissions]);
+
+  // Poll for new submissions. Fires every POLL_MS while unpaused; the
+  // effect re-subscribes whenever paused flips so there's no stray
+  // timer hanging around.
+  useEffect(() => {
+    if (paused) return;
+    let cancelled = false;
+    const tick = async () => {
+      try {
+        const latest = await listRecentSubmissions(200);
+        if (cancelled) return;
+        const latestIds = new Set(latest.map((r) => r.id));
+        const newlySeen = latest
+          .filter((r) => !knownIds.current.has(r.id))
+          .map((r) => r.id);
+        if (newlySeen.length > 0) {
+          setFreshIds((prev) => {
+            const next = new Set(prev);
+            for (const id of newlySeen) next.add(id);
+            return next;
+          });
+          // Clear the highlight after the flash window so it doesn't
+          // permanently accumulate on every row.
+          setTimeout(() => {
+            setFreshIds((prev) => {
+              const next = new Set(prev);
+              for (const id of newlySeen) next.delete(id);
+              return next;
+            });
+          }, FLASH_MS);
+        }
+        knownIds.current = latestIds;
+        setRows(latest as SubmissionRow[]);
+        setLastPoll(Date.now());
+      } catch {
+        // Swallow — next tick will try again. Don't spam console.
+      }
+    };
+    const interval = setInterval(tick, POLL_MS);
+    return () => { cancelled = true; clearInterval(interval); };
+  }, [paused]);
+
   const displayed = useMemo(() => {
-    let rows = submissions;
+    let pool = rows;
     const q = query.trim().toLowerCase();
     if (q) {
-      rows = rows.filter((r) => {
+      pool = pool.filter((r) => {
         const nameMatch = r.name?.toLowerCase().includes(q) ?? false;
         const phoneMatch = r.phone?.toLowerCase().includes(q) ?? false;
         const phoneDigitsMatch = q.replace(/\D+/g, "").length > 0
@@ -77,7 +141,7 @@ export default function SubmissionsTable({ submissions }: Props) {
     }
 
     const dir = sortDir === "asc" ? 1 : -1;
-    const sorted = [...rows].sort((a, b) => {
+    const sorted = [...pool].sort((a, b) => {
       switch (sortKey) {
         case "name":
           return ((a.name || "").localeCompare(b.name || "", "uk")) * dir;
@@ -95,7 +159,7 @@ export default function SubmissionsTable({ submissions }: Props) {
       }
     });
     return sorted;
-  }, [submissions, query, sortKey, sortDir]);
+  }, [rows, query, sortKey, sortDir]);
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -135,8 +199,32 @@ export default function SubmissionsTable({ submissions }: Props) {
           </button>
         )}
         <span className="text-[11px] text-muted whitespace-nowrap">
-          {displayed.length} з {submissions.length}
+          {displayed.length} з {rows.length}
         </span>
+        <span className="w-px h-4 bg-line" />
+        {/* Live-poll indicator — a pulsing green dot when active, a
+             muted dot when paused. Click toggles the poller. */}
+        <button
+          type="button"
+          onClick={() => setPaused((v) => !v)}
+          className="inline-flex items-center gap-1.5 text-[11px] text-muted hover:text-ink transition-colors cursor-pointer"
+          title={paused ? "Відновити автооновлення" : "Призупинити автооновлення"}
+        >
+          {paused ? (
+            <Play size={11} />
+          ) : (
+            <span className="relative inline-flex" aria-hidden>
+              <span className="w-2 h-2 rounded-full bg-success" />
+              <span className="absolute inset-0 w-2 h-2 rounded-full bg-success/50 animate-ping" />
+            </span>
+          )}
+          <span>{paused ? "Пауза" : "Живе"}</span>
+          {!paused && (
+            <span className="text-stone/70 tabular-nums">
+              · {new Date(lastPoll).toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+            </span>
+          )}
+        </button>
       </div>
 
       {displayed.length === 0 ? (
@@ -175,7 +263,9 @@ export default function SubmissionsTable({ submissions }: Props) {
                 <tr
                   key={s.id}
                   onClick={() => router.push(`/admin/forms/${s.id}`)}
-                  className="hover:bg-champagne-dark/40 cursor-pointer transition-colors"
+                  className={`hover:bg-champagne-dark/40 cursor-pointer transition-colors ${
+                    freshIds.has(s.id) ? "bg-main/5 animate-[pulse_1.2s_ease-in-out_2]" : ""
+                  }`}
                 >
                   <td className="px-4 py-3">
                     <FormStatusDropdown id={s.id} current={s.status} stopRowNavigation />
