@@ -25,6 +25,11 @@ export interface BookingOption {
   /** Optional thumbnail shown on the right side of the dropdown row.
    *  Used for doctor photos so admins can match faces, not just names. */
   rightImage?: string | null;
+  /** Focal point (object-position) applied to `rightImage`. */
+  rightImageFocalPoint?: string;
+  /** Zoom factor applied to `rightImage` — ≥ 1 crops tighter on the
+   *  focal point, useful for faces inside a 36 px circle. */
+  rightImageScale?: number;
   /** Optional short text on the right side of a row (currency, etc.). */
   rightText?: string;
 }
@@ -54,7 +59,9 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
       ORDER BY c.sort_order, s.sort_order
     `,
     sql`
-      SELECT id, slug, photo_card, name_uk, name_ru, name_en, role_uk, role_ru, role_en
+      SELECT id, slug,
+             photo_card, photo_circle, card_position, circle_focal_point, circle_scale,
+             name_uk, name_ru, name_en, role_uk, role_ru, role_en
       FROM doctors
       ORDER BY sort_order
     `,
@@ -68,16 +75,28 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
     serviceId: r.id as string,
     rightText: pick(r, "price_from", l) || undefined,
   }));
-  const doctors: BookingOption[] = doctorRows.map((r) => ({
-    // Prefer slug for a human-readable `direction` string on the admin
-    // portal, but fall back to the DB id so doctors without a slug still
-    // produce unique combobox keys (React crashes on duplicate keys).
-    value: `doctor:${r.slug || r.id}`,
-    label: pick(r, "name", l),
-    sub: pick(r, "role", l) || undefined,
-    group: "doctor",
-    rightImage: (r.photo_card as string | null) || null,
-  }));
+  const doctors: BookingOption[] = doctorRows.map((r) => {
+    // Circle photo takes precedence; fall back to the main card photo
+    // if the admin hasn't uploaded a dedicated circle crop yet.
+    const circleUrl = (r.photo_circle as string | null) || (r.photo_card as string | null) || null;
+    const focal = (r.circle_focal_point as string | null) || (r.card_position as string | null) || "50% 50%";
+    const rawScale = r.circle_scale;
+    const scale = typeof rawScale === "number"
+      ? rawScale
+      : typeof rawScale === "string" ? parseFloat(rawScale) : NaN;
+    return {
+      // Prefer slug for a human-readable `direction` string on the admin
+      // portal, but fall back to the DB id so doctors without a slug still
+      // produce unique combobox keys (React crashes on duplicate keys).
+      value: `doctor:${r.slug || r.id}`,
+      label: pick(r, "name", l),
+      sub: pick(r, "role", l) || undefined,
+      group: "doctor" as const,
+      rightImage: circleUrl,
+      rightImageFocalPoint: focal,
+      rightImageScale: Number.isFinite(scale) && scale > 0 ? scale : 1,
+    };
+  });
 
   return { services, doctors };
 }

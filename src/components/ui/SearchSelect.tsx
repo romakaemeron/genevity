@@ -24,6 +24,10 @@ export interface SearchOption {
   group?: string;
   /** Optional thumbnail shown on the right side of a row (e.g. doctor photo). */
   rightImage?: string | null;
+  /** CSS object-position applied to the rightImage. */
+  rightImageFocalPoint?: string;
+  /** Transform-scale applied to the rightImage — > 1 zooms in on the focal point. */
+  rightImageScale?: number;
   /** Optional short text shown on the right side of a row (e.g. "from 4000 ₴"). */
   rightText?: string;
 }
@@ -453,16 +457,28 @@ export default function SearchSelect(props: Props) {
                             {o.rightText}
                           </span>
                         )}
-                        {/* Thumbnail — mostly used for doctors */}
+                        {/* Thumbnail — mostly used for doctors. Focal
+                             point + zoom are applied via a transform
+                             wrapper with transform-origin at the focal
+                             point, so zooming keeps the subject anchored. */}
                         {o.rightImage && (
                           <span className="relative w-9 h-9 rounded-full overflow-hidden bg-champagne-dark shrink-0 border border-line">
-                            <Image
-                              src={o.rightImage}
-                              alt=""
-                              fill
-                              sizes="36px"
-                              className="object-cover"
-                            />
+                            <span
+                              className="absolute inset-0"
+                              style={{
+                                transform: `scale(${o.rightImageScale || 1})`,
+                                transformOrigin: o.rightImageFocalPoint || "50% 50%",
+                              }}
+                            >
+                              <Image
+                                src={o.rightImage}
+                                alt=""
+                                fill
+                                sizes="36px"
+                                className="object-cover"
+                                style={{ objectPosition: o.rightImageFocalPoint || "50% 50%" }}
+                              />
+                            </span>
                           </span>
                         )}
                         {/* Single-select selected indicator */}

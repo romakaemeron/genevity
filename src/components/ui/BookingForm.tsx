@@ -139,6 +139,8 @@ export default function BookingForm({
         ...options.doctors.map((d) => ({
           value: d.value, label: d.label, sub: d.sub, group: "doctor",
           rightImage: d.rightImage,
+          rightImageFocalPoint: d.rightImageFocalPoint,
+          rightImageScale: d.rightImageScale,
         })),
       ]
     : [];

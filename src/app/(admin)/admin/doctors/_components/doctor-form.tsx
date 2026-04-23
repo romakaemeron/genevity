@@ -7,6 +7,7 @@ import FormField from "../../_components/form-field";
 import ImageUpload from "../../_components/image-upload";
 import SaveBar from "../../_components/save-bar";
 import PhotoPositionEditor from "../../_components/photo-position-editor";
+import CirclePhotoEditor from "../../_components/circle-photo-editor";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import Button from "@/components/ui/Button";
 
@@ -17,8 +18,11 @@ interface Doctor {
   experience_uk: string; experience_ru: string; experience_en: string;
   photo_card: string | null;
   photo_full: string | null;
+  photo_circle: string | null;
   card_position?: string | null;
   modal_position?: string | null;
+  circle_focal_point?: string | null;
+  circle_scale?: number | string | null;
   sort_order: number;
 }
 
@@ -33,9 +37,19 @@ export default function DoctorForm({ doctor }: Props) {
   // Mirror uploaded-image URLs so the position previews update immediately after upload
   const [cardUrl, setCardUrl] = useState<string | null>(doctor?.photo_card ?? null);
   const [fullUrl, setFullUrl] = useState<string | null>(doctor?.photo_full ?? null);
+  const [circleUrl, setCircleUrl] = useState<string | null>(doctor?.photo_circle ?? null);
   // Mirror focal-point positions so the small thumbnail reflects live edits
   const [cardPos, setCardPos] = useState(doctor?.card_position || "center center");
   const [modalPos, setModalPos] = useState(doctor?.modal_position || doctor?.card_position || "center center");
+  const initialCirclePos = doctor?.circle_focal_point || doctor?.card_position || "center center";
+  const initialCircleScaleRaw = doctor?.circle_scale;
+  const initialCircleScale = typeof initialCircleScaleRaw === "string"
+    ? parseFloat(initialCircleScaleRaw)
+    : typeof initialCircleScaleRaw === "number" ? initialCircleScaleRaw : 1;
+  const [circlePos, setCirclePos] = useState(initialCirclePos);
+  const [circleScale, setCircleScale] = useState(
+    Number.isFinite(initialCircleScale) && initialCircleScale > 0 ? initialCircleScale : 1,
+  );
 
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -46,8 +60,11 @@ export default function DoctorForm({ doctor }: Props) {
   const controlledDirty =
     cardPos !== initialCardPos ||
     modalPos !== initialModalPos ||
+    circlePos !== initialCirclePos ||
+    Math.abs(circleScale - (Number.isFinite(initialCircleScale) ? initialCircleScale : 1)) > 1e-3 ||
     cardUrl !== (doctor?.photo_card ?? null) ||
-    fullUrl !== (doctor?.photo_full ?? null);
+    fullUrl !== (doctor?.photo_full ?? null) ||
+    circleUrl !== (doctor?.photo_circle ?? null);
 
   return (
     <form action={formAction} ref={formRef}>
@@ -126,6 +143,41 @@ export default function DoctorForm({ doctor }: Props) {
               aspect="modal"
               alt={doctor?.name_uk}
               onPositionChange={setModalPos}
+            />
+          </div>
+        </div>
+
+        {/* ── Booking-modal circle thumbnail ── */}
+        <div className="mb-10 p-5 rounded-2xl bg-champagne-dark flex flex-col gap-3">
+          <div>
+            <h3 className="font-heading text-base text-ink">Booking modal thumbnail (circle)</h3>
+            <p className="text-xs text-muted mt-0.5 max-w-xl">
+              The small round avatar rendered next to the doctor in the <strong>Book consultation</strong>
+              form&apos;s dropdown. Uploading here is optional — if you skip it, the Card photo is used
+              with its own crop. Use the zoom + focal point to isolate the face so a 36&nbsp;px circle
+              still reads clearly.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-5 items-start">
+            <ImageUpload
+              name="photo_circle"
+              label="Source photo (optional)"
+              currentUrl={circleUrl}
+              onUrlChange={setCircleUrl}
+              aspect="aspect-square"
+              objectPosition={circlePos}
+              pickerFolder="doctors"
+            />
+            <CirclePhotoEditor
+              name="circle"
+              label="Circle crop (focal point + zoom)"
+              photoUrl={circleUrl || cardUrl}
+              defaultFocalPoint={initialCirclePos}
+              defaultScale={Number.isFinite(initialCircleScale) ? initialCircleScale : 1}
+              focalFieldName="circle_focal_point"
+              scaleFieldName="circle_scale"
+              alt={doctor?.name_uk}
+              onChange={(pos, scale) => { setCirclePos(pos); setCircleScale(scale); }}
             />
           </div>
         </div>

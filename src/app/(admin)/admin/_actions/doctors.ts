@@ -105,11 +105,21 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   const sort_order = parseInt(formData.get("sort_order") as string) || 0;
   const card_position = (formData.get("card_position") as string) || "center center";
   const modal_position = (formData.get("modal_position") as string) || card_position;
+  // Booking-form circle thumbnail — own image + focal + zoom so a tight
+  // face crop can differ from the main card photo's framing. Falls back
+  // to photo_card at render time when photo_circle is null.
+  const circle_focal_point = (formData.get("circle_focal_point") as string) || card_position;
+  const circleScaleRaw = parseFloat((formData.get("circle_scale") as string) || "1");
+  const circle_scale = Number.isFinite(circleScaleRaw) && circleScaleRaw > 0
+    ? Math.min(5, Math.max(0.5, circleScaleRaw))
+    : 1;
 
   const photoCardFile = formData.get("photo_card") as File | null;
   const photoFullFile = formData.get("photo_full") as File | null;
+  const photoCircleFile = formData.get("photo_circle") as File | null;
   const currentCard = (formData.get("photo_card_current") as string) || undefined;
   const currentFull = (formData.get("photo_full_current") as string) || undefined;
+  const currentCircle = (formData.get("photo_circle_current") as string) || undefined;
 
   const { card: photo_card, modal: photo_full } = await processPair(
     photoCardFile,
@@ -119,10 +129,16 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
     currentFull,
   );
 
+  // Circle photo — optional independent slot; we resize aggressively
+  // because it renders at 36 px in the booking combobox. When the field
+  // is empty (`_current` hidden input holds the old URL), processAndUpload
+  // returns the existing URL so clearing / keeping works naturally.
+  const photo_circle = await processAndUpload(photoCircleFile, "doctors", 600, currentCircle);
+
   if (isNew) {
     await sql`
-      INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en, photo_card, photo_full, card_position, modal_position, sort_order)
-      VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en}, ${photo_card}, ${photo_full}, ${card_position}, ${modal_position}, ${sort_order})
+      INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en, photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale, sort_order)
+      VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en}, ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale}, ${sort_order})
     `;
   } else {
     await sql`
@@ -130,8 +146,9 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         name_uk = ${name_uk}, name_ru = ${name_ru}, name_en = ${name_en},
         role_uk = ${role_uk}, role_ru = ${role_ru}, role_en = ${role_en},
         experience_uk = ${experience_uk}, experience_ru = ${experience_ru}, experience_en = ${experience_en},
-        photo_card = ${photo_card}, photo_full = ${photo_full},
+        photo_card = ${photo_card}, photo_full = ${photo_full}, photo_circle = ${photo_circle},
         card_position = ${card_position}, modal_position = ${modal_position},
+        circle_focal_point = ${circle_focal_point}, circle_scale = ${circle_scale},
         sort_order = ${sort_order}
       WHERE id = ${id}
     `;
