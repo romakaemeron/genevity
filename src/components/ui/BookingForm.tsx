@@ -32,19 +32,38 @@ interface Props {
 }
 
 /* ── Phone display formatting ─────────────────────────────────────────
- *  Show digits as "+380 XX XXX XX XX" while the user types so the
- *  field self-documents Ukrainian formatting; non-UA numbers keep the
- *  user's raw digits with a leading + when they included one.          */
-function formatPhone(raw: string): string {
-  const digits = raw.replace(/\D+/g, "");
-  if (!digits) return "";
-  if (digits.startsWith("380")) {
-    const d = digits.slice(3);
-    const parts = ["+380", d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean);
-    return parts.join(" ");
+ *  Lays typed digits into the Ukrainian mobile mask
+ *  `+380 (XX) XXX XX XX`. The `+380 (` prefix is immutable — the
+ *  visitor only types the 9 subscriber digits and the formatter fills
+ *  in the closing paren / spaces between groups.
+ *
+ *  `oldRaw` lets us detect backspace-over-literal: when the value
+ *  shrinks but the digit count is unchanged, the user just deleted a
+ *  mask character (`)` or a space) — we strip one more digit so the
+ *  next backspace feels natural instead of getting stuck on punctuation. */
+const PHONE_PREFIX = "+380 (";
+
+function formatPhone(newRaw: string, oldRaw?: string): string {
+  const oldDigits = (oldRaw || "").replace(/\D+/g, "");
+  let newDigits = newRaw.replace(/\D+/g, "");
+  if (oldRaw && newRaw.length < oldRaw.length && newDigits === oldDigits) {
+    newDigits = newDigits.slice(0, -1);
   }
-  if (raw.trim().startsWith("+") || digits.length > 10) return `+${digits}`;
-  return digits;
+
+  // Normalise the digit stream so anything the user pastes or types
+  // (international "+380 67…", local "067…", or just "67…") ends up as
+  // the 9 subscriber digits we format into the mask.
+  let rest = newDigits.startsWith("380") ? newDigits.slice(3) : newDigits;
+  if (rest.startsWith("0")) rest = rest.slice(1);
+  rest = rest.slice(0, 9);
+
+  if (rest.length === 0) return PHONE_PREFIX;
+  let out = PHONE_PREFIX + rest.slice(0, 2);
+  if (rest.length >= 2) out += ")";
+  if (rest.length > 2) out += " " + rest.slice(2, 5);
+  if (rest.length > 5) out += " " + rest.slice(5, 7);
+  if (rest.length > 7) out += " " + rest.slice(7, 9);
+  return out;
 }
 
 // Shared input class — champagne-dark surface, line border, taupe main
@@ -60,9 +79,11 @@ export default function BookingForm({
   const locale = useLocale();
   const [options, setOptions] = useState<BookingOptions | null>(null);
   const [name, setName] = useState("");
-  // Pre-fill with the Ukrainian prefix so visitors only type the number
-  // part, with the formatter already primed to group the next digits.
-  const [phone, setPhone] = useState("+380 ");
+  // Pre-fill with the Ukrainian mask prefix. The formatter guarantees
+  // PHONE_PREFIX is always the leading substring (on paste, cut, or
+  // select-all+delete), and the keydown guard below blocks backspace
+  // from stepping left of the prefix boundary.
+  const [phone, setPhone] = useState(PHONE_PREFIX);
   const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
   const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -168,16 +189,44 @@ export default function BookingForm({
           id="booking-phone"
           type="tel"
           value={phone}
-          onChange={(e) => setPhone(formatPhone(e.target.value))}
-          onBlur={() => { if (!phone.replace(/\D+/g, "")) setPhone("+380 "); }}
+          onChange={(e) => setPhone(formatPhone(e.target.value, phone))}
+          onBlur={() => { if (phone.length < PHONE_PREFIX.length) setPhone(PHONE_PREFIX); }}
+          onFocus={(e) => {
+            // Dropping caret inside the prefix is confusing — snap it to
+            // the end so the next keystroke always hits the first empty
+            // digit slot.
+            const el = e.currentTarget;
+            requestAnimationFrame(() => {
+              const pos = el.selectionStart ?? 0;
+              if (pos < PHONE_PREFIX.length) el.setSelectionRange(el.value.length, el.value.length);
+            });
+          }}
+          onKeyDown={(e) => {
+            const el = e.currentTarget;
+            const start = el.selectionStart ?? 0;
+            const end = el.selectionEnd ?? 0;
+            // Block backspace when the caret (with no selection) is at
+            // or inside the prefix — otherwise the user could chip the
+            // "+380 (" literal off one character at a time.
+            if (e.key === "Backspace" && start === end && start <= PHONE_PREFIX.length) {
+              e.preventDefault();
+              return;
+            }
+            // Block Delete if it would eat the opening "(" — same idea
+            // from the right-hand side of the prefix.
+            if (e.key === "Delete" && start === end && start < PHONE_PREFIX.length) {
+              e.preventDefault();
+              return;
+            }
+          }}
           autoComplete="tel"
           // Require at least 9 digits total — matches the server-side
-          // sanitizer. inputmode="tel" pops the numeric keypad on iOS.
+          // sanitizer. inputMode="tel" pops the numeric keypad on iOS.
           pattern="[\+\d\s()-]{9,}"
           inputMode="tel"
           maxLength={24}
           required
-          placeholder="+380 __ ___ __ __"
+          placeholder={`${PHONE_PREFIX}__) ___ __ __`}
           className={fieldCls}
         />
       </Field>
@@ -221,8 +270,6 @@ export default function BookingForm({
           submitLabel || t("submit")
         )}
       </Button>
-
-      <p className="text-[11px] text-stone leading-relaxed">{t("privacyNote")}</p>
     </form>
   );
 }

@@ -81,7 +81,7 @@ export default function BookingCTA({
             <div className="p-6 sm:p-8 pt-10 flex flex-col gap-5">
               <div className="flex flex-col gap-1">
                 <h3 className="heading-3 text-ink">{modalTitle}</h3>
-                <p className="body-s text-stone">{modalSubtitle}</p>
+                <p className="body-m text-stone">{modalSubtitle}</p>
               </div>
               <BookingForm initialInterest={initialInterest} submitLabel={submitLabel} />
             </div>

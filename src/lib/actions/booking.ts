@@ -149,11 +149,15 @@ function sanitizeName(raw: string): string | null {
 function sanitizePhone(raw: string): string | null {
   const digits = (raw || "").replace(/\D+/g, "");
   if (digits.length < PHONE_MIN_DIGITS || digits.length > PHONE_MAX_DIGITS) return null;
-  // Re-emit in a canonical display form so admin list reads cleanly.
+  // Ukrainian path: strip +380 country prefix and a single leading "0"
+  // (the trunk-dialing digit) so we arrive at the 9 subscriber digits
+  // and can re-emit them in the canonical mask. Non-UA numbers fall
+  // through to the generic `+digits` form.
   if (digits.startsWith("380")) {
-    const d = digits.slice(3);
-    const parts = ["+380", d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean);
-    return parts.join(" ");
+    let d = digits.slice(3);
+    if (d.startsWith("0") && d.length === 10) d = d.slice(1);
+    if (d.length !== 9) return null;
+    return `+380 (${d.slice(0, 2)}) ${d.slice(2, 5)} ${d.slice(5, 7)} ${d.slice(7, 9)}`;
   }
   return `+${digits}`;
 }
