@@ -212,7 +212,11 @@ export default function BookingForm({
     : [];
 
   return (
-    <form onSubmit={onSubmit} className={`flex flex-col gap-4 ${className || ""}`}>
+    <form
+      onSubmit={onSubmit}
+      noValidate
+      className={`flex flex-col gap-4 ${className || ""}`}
+    >
       <Field label={t("name")} htmlFor="booking-name" error={errors.name}>
         <input
           id="booking-name"
