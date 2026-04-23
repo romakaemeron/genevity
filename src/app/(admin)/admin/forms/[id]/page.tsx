@@ -109,7 +109,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
           ) : <Value />}
         </Row>
         {r.email && <Row label="Email"><Value>{r.email}</Value></Row>}
-        <Row label="Спеціальність">
+        <Row label="Цікавиться">
           <Value>{r.direction}</Value>
           {linkedService && (
             <Link

@@ -252,7 +252,7 @@ export default function SubmissionsTable({ submissions }: Props) {
                 <ColumnHeader label="Ім'я"    sortable onSort={() => handleSort("name")}   icon={<SortIcon k="name" />} />
                 <ColumnHeader label="Телефон" sortable onSort={() => handleSort("phone")}  icon={<SortIcon k="phone" />} />
                 <ColumnHeader label="Форма" />
-                <ColumnHeader label="Спеціальність" />
+                <ColumnHeader label="Цікавиться" />
                 <ColumnHeader label="Сторінка" />
                 <ColumnHeader label="Джерело" />
                 <ColumnHeader label="Дата" sortable onSort={() => handleSort("date")} icon={<SortIcon k="date" />} align="right" />

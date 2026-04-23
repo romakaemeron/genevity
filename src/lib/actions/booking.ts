@@ -317,7 +317,7 @@ async function notifyAdmin(s: {
     { label: "Дата",             value: dateKyiv },
     { label: "Ім'я клієнта",     value: s.name },
     { label: "Телефон клієнта",  value: s.phone, mono: true },
-    { label: "Спеціальність",    value: s.interestLabel || missing, dim: !s.interestLabel },
+    { label: "Цікавиться",       value: s.interestLabel || missing, dim: !s.interestLabel },
     { label: "Клініка",          value: "GENEVITY" },
     { label: "Сторінка",         value: s.pageTitle ? `${s.pageTitle}\n${s.pageUrl}` : (s.pageUrl || missing), dim: !s.pageUrl },
     { label: "Форма",            value: s.formLabel || missing, dim: !s.formLabel },
