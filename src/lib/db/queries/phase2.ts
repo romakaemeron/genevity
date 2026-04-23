@@ -5,11 +5,45 @@ function pick(row: any, field: string, l: string) {
   return row[`${field}_${l}`] ?? row[`${field}_uk`] ?? null;
 }
 
+/** Per-breakpoint focal point for a hero slide. Each value is a CSS
+ *  `object-position` string (e.g. "50% 30%"). All three keys are always
+ *  populated by the loader (fall back to "50% 50%") so consumers never have
+ *  to handle partial data. */
+export interface HeroFocalPoint {
+  desktop: string;
+  tablet: string;
+  mobile: string;
+}
+
 export interface HeroSlide {
   id: string;
   imageUrl: string;
-  objectPosition: string;
+  /** Responsive focal point — maps to different `object-position` values at
+   *  the mobile / tablet / desktop breakpoints (< 768, 768–1023, ≥ 1024). */
+  objectPosition: HeroFocalPoint;
   alt: string;
+}
+
+function resolveHeroFocal(raw: unknown): HeroFocalPoint {
+  const fallback = "50% 50%";
+  if (!raw) return { desktop: fallback, tablet: fallback, mobile: fallback };
+  // Post-migration the column is JSONB, but the driver may still hand it to
+  // us as a string (escaped JSON) depending on transport. Accept either.
+  const obj = typeof raw === "string" ? safeParse(raw) : raw;
+  if (typeof obj === "string") {
+    // Legacy: flat position string applied to every breakpoint.
+    return { desktop: obj, tablet: obj, mobile: obj };
+  }
+  if (obj && typeof obj === "object") {
+    const src = obj as Record<string, unknown>;
+    const take = (k: string) => (typeof src[k] === "string" && (src[k] as string).trim()) ? (src[k] as string) : fallback;
+    return { desktop: take("desktop"), tablet: take("tablet"), mobile: take("mobile") };
+  }
+  return { desktop: fallback, tablet: fallback, mobile: fallback };
+}
+
+function safeParse(s: string): unknown {
+  try { return JSON.parse(s); } catch { return s; }
 }
 
 export async function getHeroSlides(locale: string): Promise<HeroSlide[]> {
@@ -18,7 +52,7 @@ export async function getHeroSlides(locale: string): Promise<HeroSlide[]> {
   return rows.map((r) => ({
     id: r.id,
     imageUrl: r.image_url,
-    objectPosition: r.object_position || "center center",
+    objectPosition: resolveHeroFocal(r.object_position),
     alt: pick(r, "alt", l) || "",
   }));
 }

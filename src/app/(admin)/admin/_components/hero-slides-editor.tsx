@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useRef, useMemo } from "react";
 import Image from "next/image";
-import { Trash2, Plus, Check, Upload, Image as ImageIcon } from "lucide-react";
+import { Trash2, Plus, Check, Upload, Image as ImageIcon, Crop } from "lucide-react";
 import { saveHeroSlides, uploadPhase2Image } from "../_actions/phase2";
 import { MiniTabs } from "./locale-inputs";
 import type { LocaleKey } from "./translation-tabs";
@@ -10,11 +10,14 @@ import { useUnsavedTracker } from "./unsaved-changes";
 import Button from "@/components/ui/Button";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
 import MediaPicker from "./media-picker";
+import HeroFocalResponsiveEditor, { type HeroFocalValue } from "./hero-focal-responsive-editor";
 
 interface Slide {
   id?: string;
   image_url: string;
-  object_position: string;
+  /** Per-breakpoint focal points. Accepts the legacy flat string so DB rows
+   *  that weren't yet touched by the migration still round-trip cleanly. */
+  object_position: HeroFocalValue | string;
   alt_uk: string;
   alt_ru: string;
   alt_en: string;
@@ -22,15 +25,34 @@ interface Slide {
 
 interface Props {
   initial: Slide[];
+  /** Live homepage hero copy — used as the preview overlay inside the
+   *  responsive focal-point editor so admins see where text will sit. */
+  heroContent?: { title: string; subtitle: string; cta: string; location: string };
 }
 
-export default function HeroSlidesEditor({ initial }: Props) {
-  const [slides, setSlides] = useState<Slide[]>(initial);
+function normalizeFocal(v: HeroFocalValue | string | undefined | null): HeroFocalValue {
+  const fallback = "50% 50%";
+  if (!v) return { desktop: fallback, tablet: fallback, mobile: fallback };
+  if (typeof v === "string") return { desktop: v, tablet: v, mobile: v };
+  return {
+    desktop: v.desktop || fallback,
+    tablet: v.tablet || fallback,
+    mobile: v.mobile || fallback,
+  };
+}
+
+export default function HeroSlidesEditor({ initial, heroContent }: Props) {
+  const hydrated = useMemo<Slide[]>(
+    () => initial.map((s) => ({ ...s, object_position: normalizeFocal(s.object_position) })),
+    [initial],
+  );
+  const [slides, setSlides] = useState<Slide[]>(hydrated);
   const [activeLocale, setActiveLocale] = useState<LocaleKey>("uk");
   const [pending, startTransition] = useTransition();
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
   const [pickerForIdx, setPickerForIdx] = useState<number | null>(null);
+  const [focalForIdx, setFocalForIdx] = useState<number | null>(null);
   const fileInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const update = (i: number, patch: Partial<Slide>) => {
@@ -43,7 +65,14 @@ export default function HeroSlidesEditor({ initial }: Props) {
     setSlides(slides.filter((_, idx) => idx !== i));
   };
   const add = () => {
-    setSlides([...slides, { image_url: "", object_position: "center center", alt_uk: "", alt_ru: "", alt_en: "" }]);
+    setSlides([
+      ...slides,
+      {
+        image_url: "",
+        object_position: { desktop: "50% 50%", tablet: "50% 50%", mobile: "50% 50%" },
+        alt_uk: "", alt_ru: "", alt_en: "",
+      },
+    ]);
   };
 
   const handleUpload = async (i: number, file: File) => {
@@ -58,7 +87,7 @@ export default function HeroSlidesEditor({ initial }: Props) {
     }
   };
 
-  const initialSnapshot = useMemo(() => JSON.stringify(initial), [initial]);
+  const initialSnapshot = useMemo(() => JSON.stringify(hydrated), [hydrated]);
   const dirty = JSON.stringify(slides) !== initialSnapshot;
 
   const doSave = async () => {
@@ -68,7 +97,7 @@ export default function HeroSlidesEditor({ initial }: Props) {
   };
   const save = () => { startTransition(() => { void doSave(); }); };
 
-  const cancel = () => setSlides(initial);
+  const cancel = () => setSlides(hydrated);
 
   useUnsavedTracker({
     id: "hero-slides",
@@ -130,13 +159,25 @@ export default function HeroSlidesEditor({ initial }: Props) {
               Pick from library
             </button>
             <div className="flex flex-col gap-1">
-              <label className="text-[10px] font-medium text-muted uppercase tracking-wider">Object position</label>
-              <input
-                value={slide.object_position}
-                onChange={(e) => update(i, { object_position: e.target.value })}
-                placeholder="center center"
-                className="px-2 py-1.5 rounded-lg bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main"
-              />
+              <label className="text-[10px] font-medium text-muted uppercase tracking-wider">Focal points</label>
+              {(() => {
+                const fp = normalizeFocal(slide.object_position);
+                const allSame = fp.desktop === fp.tablet && fp.tablet === fp.mobile;
+                return (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setFocalForIdx(i); }}
+                    disabled={!slide.image_url}
+                    className="inline-flex items-center gap-1.5 px-2 py-1.5 rounded-lg bg-white border border-line text-ink text-xs hover:border-main transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed self-start"
+                    title={slide.image_url ? "Open responsive focal-point editor" : "Upload an image first"}
+                  >
+                    <Crop size={12} />
+                    {allSame
+                      ? `All: ${fp.desktop}`
+                      : `D ${fp.desktop} · T ${fp.tablet} · M ${fp.mobile}`}
+                  </button>
+                );
+              })()}
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-[10px] font-medium text-muted uppercase tracking-wider">Alt text ({activeLocale.toUpperCase()})</label>
@@ -184,6 +225,17 @@ export default function HeroSlidesEditor({ initial }: Props) {
         }}
         preferredFolder="hero"
       />
+
+      {focalForIdx !== null && slides[focalForIdx]?.image_url && (
+        <HeroFocalResponsiveEditor
+          open
+          onClose={() => setFocalForIdx(null)}
+          imageUrl={slides[focalForIdx].image_url}
+          initial={normalizeFocal(slides[focalForIdx].object_position)}
+          heroContent={heroContent || { title: "", subtitle: "", cta: "", location: "" }}
+          onSave={(next) => update(focalForIdx, { object_position: next })}
+        />
+      )}
     </div>
   );
 }

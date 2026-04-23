@@ -13,23 +13,47 @@ export async function uploadPhase2Image(formData: FormData): Promise<{ url: stri
 }
 
 /* ==========  HERO SLIDES  ========== */
+/** Per-breakpoint focal points, stored as JSONB on hero_slides. */
+export type HeroFocalInput = {
+  desktop?: string;
+  tablet?: string;
+  mobile?: string;
+};
+
 type HeroSlideInput = {
   id?: string;
   image_url: string;
-  object_position: string;
+  /** Either the new per-breakpoint object, or a plain string (legacy inputs
+   *  from UIs that haven't been updated yet — we fan it out to all three). */
+  object_position: HeroFocalInput | string;
   alt_uk: string;
   alt_ru: string;
   alt_en: string;
 };
+
+function normalizeFocal(v: HeroFocalInput | string | undefined | null): HeroFocalInput {
+  const fallback = "50% 50%";
+  if (!v) return { desktop: fallback, tablet: fallback, mobile: fallback };
+  if (typeof v === "string") {
+    const s = v.trim() || fallback;
+    return { desktop: s, tablet: s, mobile: s };
+  }
+  return {
+    desktop: v.desktop?.trim() || fallback,
+    tablet: v.tablet?.trim() || fallback,
+    mobile: v.mobile?.trim() || fallback,
+  };
+}
 
 export async function saveHeroSlides(slides: HeroSlideInput[]) {
   await sql`DELETE FROM hero_slides`;
   for (let i = 0; i < slides.length; i++) {
     const s = slides[i];
     if (!s.image_url) continue;
+    const focal = JSON.stringify(normalizeFocal(s.object_position));
     await sql`
       INSERT INTO hero_slides (image_url, object_position, alt_uk, alt_ru, alt_en, sort_order)
-      VALUES (${s.image_url}, ${s.object_position || "center center"}, ${s.alt_uk || null}, ${s.alt_ru || null}, ${s.alt_en || null}, ${i})
+      VALUES (${s.image_url}, ${focal}::jsonb, ${s.alt_uk || null}, ${s.alt_ru || null}, ${s.alt_en || null}, ${i})
     `;
   }
   revalidatePath("/");

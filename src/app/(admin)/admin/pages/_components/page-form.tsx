@@ -23,7 +23,9 @@ import SeoTab from "./seo-tab";
 interface HeroSlideInput {
   id?: string;
   image_url: string;
-  object_position: string;
+  /** Per-breakpoint focal point (post-migration), or legacy flat string that
+   *  HeroSlidesEditor normalises into all three. */
+  object_position: { desktop: string; tablet: string; mobile: string } | string;
   alt_uk: string;
   alt_ru: string;
   alt_en: string;
@@ -177,7 +179,19 @@ export default function PageForm({
               Background images rotating behind the hero text above. Drag to reorder, upload to replace, tune alt text per locale.
             </p>
           </div>
-          <HeroSlidesEditor initial={heroSlides || []} />
+          <HeroSlidesEditor
+            initial={heroSlides || []}
+            heroContent={
+              heroSingleton
+                ? {
+                    title: heroSingleton.title_uk || "",
+                    subtitle: heroSingleton.subtitle_uk || "",
+                    cta: heroSingleton.cta_uk || "",
+                    location: heroSingleton.location_uk || "",
+                  }
+                : undefined
+            }
+          />
 
           <div className="border-t border-line" />
 

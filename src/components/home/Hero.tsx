@@ -37,7 +37,36 @@ function ProgressFill({ playing, duration }: { playing: boolean; duration: numbe
 
 export default function Hero({ data, slides }: { data: HeroData; slides: HeroSlide[] }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const SLIDES = useMemo(() => slides.map((s) => ({ src: s.imageUrl, objectPosition: s.objectPosition, alt: s.alt })), [slides]);
+  const SLIDES = useMemo(() => slides.map((s) => ({ id: s.id, src: s.imageUrl, objectPosition: s.objectPosition, alt: s.alt })), [slides]);
+
+  // Emit one scoped stylesheet that maps each slide's id → --focal at the
+  // three breakpoints. Using a shared --focal CSS var inside the scoped
+  // selector keeps the Image rendering simple (just reads var(--focal)) while
+  // still letting CSS media queries pick the right value per viewport.
+  // Breakpoints match Tailwind: md=768, lg=1024.
+  const focalCss = useMemo(() => {
+    // Sanitize both halves of the selector+value: UUIDs are a fixed charset,
+    // object-position values are restricted to percentage numbers / the six
+    // CSS keywords. Anything else is dropped on the floor — prevents CSS
+    // injection even if someone manages to poke bad data into the column.
+    const safeId = (id: string) => id.replace(/[^a-zA-Z0-9-]/g, "");
+    const safePos = (v: string) => {
+      const cleaned = v.replace(/[^a-zA-Z0-9%.\s-]/g, "").trim();
+      return cleaned || "center center";
+    };
+    return slides
+      .map((s) => {
+        const id = safeId(s.id);
+        const m = safePos(s.objectPosition.mobile);
+        const t = safePos(s.objectPosition.tablet);
+        const d = safePos(s.objectPosition.desktop);
+        return `
+[data-hero-slide="${id}"]{--focal:${m};}
+@media(min-width:768px){[data-hero-slide="${id}"]{--focal:${t};}}
+@media(min-width:1024px){[data-hero-slide="${id}"]{--focal:${d};}}`;
+      })
+      .join("");
+  }, [slides]);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
@@ -84,11 +113,13 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
     return () => io.disconnect();
   }, []);
 
-  const slide = SLIDES[current] || { src: "", objectPosition: "center", alt: "" };
-  if (SLIDES.length === 0) return null;
+  const slide = SLIDES[current];
+  if (SLIDES.length === 0 || !slide) return null;
 
   return (
     <section ref={sectionRef} className="relative h-screen min-h-[640px] w-full">
+      <style dangerouslySetInnerHTML={{ __html: focalCss }} />
+
       {/* Hero header */}
       <div className="absolute inset-x-0 top-0 z-[10]">
         <MegaMenuHeader variant="transparent" position="absolute" />
@@ -101,6 +132,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
         <AnimatePresence mode="sync" initial={false}>
           <motion.div
             key={current}
+            data-hero-slide={slide.id}
             className="absolute inset-0 hero-slide-enter"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -115,7 +147,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
               alt={slide.alt || ""}
               fill
               className="object-cover"
-              style={{ objectPosition: slide.objectPosition }}
+              style={{ objectPosition: "var(--focal)" }}
               sizes="100vw"
               priority={current === 0}
             />
@@ -135,7 +167,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                 alt=""
                 fill
                 className="object-cover"
-                style={{ objectPosition: slide.objectPosition, filter: "blur(2px)" }}
+                style={{ objectPosition: "var(--focal)", filter: "blur(2px)" }}
                 sizes="100vw"
                 aria-hidden
               />
