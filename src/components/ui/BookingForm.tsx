@@ -173,10 +173,15 @@ export default function BookingForm({
       </Field>
 
       <Field label={t("phone")} htmlFor="booking-phone">
-        <div className="group flex rounded-[var(--radius-button)] bg-champagne-dark border border-line transition-colors duration-150 ease-out hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15">
-          {/* +380 chip lines up with the other fields' 16px inner gutter
-              so the column of left edges reads as one vertical axis. */}
-          <span className="flex items-center pl-4 pr-2 text-ink text-[15px] select-none">
+        <div className="group flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border border-line transition-colors duration-150 ease-out hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15">
+          {/* +380 chip — inline styles so padding can't get lost to any
+              arbitrary-value CSS purge or flex shrink surprises. Aligned
+              at 16 px from the field's left edge, with an 8 px air gap
+              to the right before the typed digits / placeholder begin. */}
+          <span
+            className="inline-flex items-center text-ink text-[15px] select-none shrink-0"
+            style={{ paddingLeft: 16, paddingRight: 8 }}
+          >
             +380
           </span>
           <input
@@ -188,7 +193,8 @@ export default function BookingForm({
             inputMode="tel"
             placeholder="67 123 45 67"
             required
-            className="flex-1 min-w-0 pl-0 pr-4 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone-light"
+            style={{ paddingLeft: 4, paddingRight: 16 }}
+            className="flex-1 min-w-0 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone-light"
           />
         </div>
       </Field>
