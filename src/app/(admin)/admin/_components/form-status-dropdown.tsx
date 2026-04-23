@@ -71,7 +71,7 @@ export default function FormStatusDropdown({ id, current, stopRowNavigation }: P
           setOpen((v) => !v);
         }}
         disabled={pending}
-        className={`inline-flex items-center gap-2 pl-2.5 pr-2 py-1.5 rounded-[var(--radius-pill)] text-[12px] font-medium transition-colors cursor-pointer disabled:opacity-70 ${active.bg} ${active.text}`}
+        className={`inline-flex items-center gap-2 pl-3.5 pr-3 py-1.5 rounded-[var(--radius-pill)] text-[12px] font-medium transition-colors cursor-pointer disabled:opacity-70 ${active.bg} ${active.text}`}
       >
         <span className={`inline-block w-1.5 h-1.5 rounded-full ${active.dot}`} />
         <span>{active.label}</span>
