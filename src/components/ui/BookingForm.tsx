@@ -31,39 +31,44 @@ interface Props {
   onSubmitted?: () => void;
 }
 
-/* ── Phone display formatting ─────────────────────────────────────────
- *  Lays typed digits into the Ukrainian mobile mask
- *  `+380 (XX) XXX XX XX`. The `+380 (` prefix is immutable — the
- *  visitor only types the 9 subscriber digits and the formatter fills
- *  in the closing paren / spaces between groups.
+/* ── Phone masked input ────────────────────────────────────────────────
+ *  Visitor-facing input always renders the Ukrainian mobile mask
+ *  `+380 (XX) XXX XX XX` with `_` placeholders for every slot that
+ *  hasn't been typed yet. As digits come in they replace the left-
+ *  most `_`; backspace goes in reverse.
  *
- *  `oldRaw` lets us detect backspace-over-literal: when the value
- *  shrinks but the digit count is unchanged, the user just deleted a
- *  mask character (`)` or a space) — we strip one more digit so the
- *  next backspace feels natural instead of getting stuck on punctuation. */
+ *  Internal state is the 0–9 subscriber digit string (`phoneDigits`).
+ *  `buildPhoneDisplay` derives the masked string from that — so the
+ *  value is always well-formed and we don't have to parse the mask
+ *  back out each keystroke.
+ */
 const PHONE_PREFIX = "+380 (";
+const PHONE_MASK_LENGTH = 19; // "+380 (XX) XXX XX XX"
 
-function formatPhone(newRaw: string, oldRaw?: string): string {
-  const oldDigits = (oldRaw || "").replace(/\D+/g, "");
-  let newDigits = newRaw.replace(/\D+/g, "");
-  if (oldRaw && newRaw.length < oldRaw.length && newDigits === oldDigits) {
-    newDigits = newDigits.slice(0, -1);
-  }
+/** Caret positions of each digit slot inside the mask. Given N digits
+ *  already typed, we want the caret at DIGIT_SLOTS[N] so the next
+ *  keystroke lands in the first empty slot — even across parens and
+ *  spaces between groups. */
+const DIGIT_SLOTS = [6, 7, 10, 11, 12, 14, 15, 17, 18];
 
-  // Normalise the digit stream so anything the user pastes or types
-  // (international "+380 67…", local "067…", or just "67…") ends up as
-  // the 9 subscriber digits we format into the mask.
-  let rest = newDigits.startsWith("380") ? newDigits.slice(3) : newDigits;
-  if (rest.startsWith("0")) rest = rest.slice(1);
-  rest = rest.slice(0, 9);
+function buildPhoneDisplay(d: string): string {
+  const p = d.padEnd(9, "_");
+  return `+380 (${p[0]}${p[1]}) ${p[2]}${p[3]}${p[4]} ${p[5]}${p[6]} ${p[7]}${p[8]}`;
+}
 
-  if (rest.length === 0) return PHONE_PREFIX;
-  let out = PHONE_PREFIX + rest.slice(0, 2);
-  if (rest.length >= 2) out += ")";
-  if (rest.length > 2) out += " " + rest.slice(2, 5);
-  if (rest.length > 5) out += " " + rest.slice(5, 7);
-  if (rest.length > 7) out += " " + rest.slice(7, 9);
-  return out;
+/** Extract the subscriber digits from whatever the visitor typed /
+ *  pasted — handles "+380 67…", "067…", or just "67…" uniformly. */
+function extractPhoneDigits(raw: string): string {
+  let d = (raw || "").replace(/\D+/g, "");
+  if (d.startsWith("380")) d = d.slice(3);
+  if (d.startsWith("0") && d.length === 10) d = d.slice(1);
+  return d.slice(0, 9);
+}
+
+function caretForDigits(n: number): number {
+  if (n <= 0) return DIGIT_SLOTS[0];
+  if (n >= 9) return PHONE_MASK_LENGTH;
+  return DIGIT_SLOTS[n];
 }
 
 // Shared input class — champagne-dark surface, line border, taupe main
@@ -79,11 +84,12 @@ export default function BookingForm({
   const locale = useLocale();
   const [options, setOptions] = useState<BookingOptions | null>(null);
   const [name, setName] = useState("");
-  // Pre-fill with the Ukrainian mask prefix. The formatter guarantees
-  // PHONE_PREFIX is always the leading substring (on paste, cut, or
-  // select-all+delete), and the keydown guard below blocks backspace
-  // from stepping left of the prefix boundary.
-  const [phone, setPhone] = useState(PHONE_PREFIX);
+  // Only the 9 subscriber digits live in state — the mask itself is
+  // derived at render time via buildPhoneDisplay so the input always
+  // has a well-formed "+380 (XX) XXX XX XX" template visible, with
+  // `_` placeholders for empty slots.
+  const [phoneDigits, setPhoneDigits] = useState("");
+  const phoneInputRef = useRef<HTMLInputElement>(null);
   const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
   const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -96,6 +102,16 @@ export default function BookingForm({
     firstLoadFired.current = true;
     listBookingOptions(locale).then(setOptions).catch(() => setOptions({ services: [], doctors: [] }));
   }, [locale]);
+
+  // After every digit change, park the caret at the first empty slot
+  // (or the end when all 9 are filled) so consecutive keystrokes feel
+  // continuous across mask literals.
+  useEffect(() => {
+    const el = phoneInputRef.current;
+    if (!el || document.activeElement !== el) return;
+    const pos = caretForDigits(phoneDigits.length);
+    el.setSelectionRange(pos, pos);
+  }, [phoneDigits]);
 
   const allOptions: BookingOption[] = useMemo(
     () => (options ? [...options.services, ...options.doctors] : []),
@@ -122,7 +138,9 @@ export default function BookingForm({
       const labels = interests.map((v) => interestLabels[v] || v);
       const res = await submitBookingForm({
         name: name.trim(),
-        phone: phone.trim(),
+        // Send the digits only — server sanitizer will rebuild the
+        // canonical "+380 (XX) XXX XX XX" mask for storage.
+        phone: phoneDigits,
         interestValues: interests,
         interestLabels: labels,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
@@ -186,47 +204,40 @@ export default function BookingForm({
 
       <Field label={t("phone")} htmlFor="booking-phone">
         <input
+          ref={phoneInputRef}
           id="booking-phone"
           type="tel"
-          value={phone}
-          onChange={(e) => setPhone(formatPhone(e.target.value, phone))}
-          onBlur={() => { if (phone.length < PHONE_PREFIX.length) setPhone(PHONE_PREFIX); }}
+          value={buildPhoneDisplay(phoneDigits)}
+          onChange={(e) => setPhoneDigits(extractPhoneDigits(e.target.value))}
           onFocus={(e) => {
-            // Dropping caret inside the prefix is confusing — snap it to
-            // the end so the next keystroke always hits the first empty
-            // digit slot.
+            // Drop the caret in the next empty slot when focusing —
+            // clicking an already-filled digit would otherwise let the
+            // user overwrite it in place which is rarely what they want.
             const el = e.currentTarget;
             requestAnimationFrame(() => {
-              const pos = el.selectionStart ?? 0;
-              if (pos < PHONE_PREFIX.length) el.setSelectionRange(el.value.length, el.value.length);
+              const pos = caretForDigits(phoneDigits.length);
+              el.setSelectionRange(pos, pos);
             });
           }}
           onKeyDown={(e) => {
-            const el = e.currentTarget;
-            const start = el.selectionStart ?? 0;
-            const end = el.selectionEnd ?? 0;
-            // Block backspace when the caret (with no selection) is at
-            // or inside the prefix — otherwise the user could chip the
-            // "+380 (" literal off one character at a time.
-            if (e.key === "Backspace" && start === end && start <= PHONE_PREFIX.length) {
-              e.preventDefault();
-              return;
-            }
-            // Block Delete if it would eat the opening "(" — same idea
-            // from the right-hand side of the prefix.
-            if (e.key === "Delete" && start === end && start < PHONE_PREFIX.length) {
-              e.preventDefault();
-              return;
+            if (e.key === "Backspace") {
+              // Remove the last entered digit — bypasses the default
+              // mask-literal deletion which would otherwise leave a
+              // weird value that the formatter has to untangle.
+              if (phoneDigits.length > 0) {
+                e.preventDefault();
+                setPhoneDigits(phoneDigits.slice(0, -1));
+              } else {
+                // Nothing to remove — block default so the input's
+                // value doesn't lose mask characters.
+                e.preventDefault();
+              }
             }
           }}
           autoComplete="tel"
-          // Require at least 9 digits total — matches the server-side
-          // sanitizer. inputMode="tel" pops the numeric keypad on iOS.
-          pattern="[\+\d\s()-]{9,}"
           inputMode="tel"
-          maxLength={24}
+          maxLength={PHONE_MASK_LENGTH}
           required
-          placeholder={`${PHONE_PREFIX}__) ___ __ __`}
           className={fieldCls}
         />
       </Field>
