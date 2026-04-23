@@ -462,7 +462,7 @@ export default function SearchSelect(props: Props) {
                              wrapper with transform-origin at the focal
                              point, so zooming keeps the subject anchored. */}
                         {o.rightImage && (
-                          <span className="relative w-9 h-9 rounded-full overflow-hidden bg-champagne-dark shrink-0 border border-line">
+                          <span className="relative w-12 h-12 rounded-full overflow-hidden bg-champagne-dark shrink-0 border border-line">
                             <span
                               className="absolute inset-0"
                               style={{
@@ -474,7 +474,7 @@ export default function SearchSelect(props: Props) {
                                 src={o.rightImage}
                                 alt=""
                                 fill
-                                sizes="36px"
+                                sizes="48px"
                                 className="object-cover"
                                 style={{ objectPosition: o.rightImageFocalPoint || "50% 50%" }}
                               />

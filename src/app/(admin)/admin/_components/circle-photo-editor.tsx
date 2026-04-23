@@ -136,15 +136,15 @@ export default function CirclePhotoEditor({
         </button>
       </div>
 
-      {/* Collapsed: tiny 36 px preview so the admin sees the render result */}
+      {/* Collapsed: 48 px live preview so the admin sees the real render */}
       {!editing && (
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden bg-champagne-dark border border-line shrink-0">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden bg-champagne-dark border border-line shrink-0">
             <div
               className="absolute inset-0"
               style={{ transform: `scale(${scale})`, transformOrigin: posString }}
             >
-              <Image src={photoUrl} alt={alt} fill sizes="36px" className="object-cover" style={{ objectPosition: posString }} />
+              <Image src={photoUrl} alt={alt} fill sizes="48px" className="object-cover" style={{ objectPosition: posString }} />
             </div>
           </div>
           <p className="text-[11px] text-muted font-mono">
