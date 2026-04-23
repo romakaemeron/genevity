@@ -48,3 +48,7 @@ next-env.d.ts
 *.docx.md
 ~$*
 *.md.md
+
+# Source semantics data — private, not part of the public repo
+/semantics
+
