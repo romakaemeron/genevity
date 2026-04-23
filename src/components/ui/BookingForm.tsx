@@ -31,44 +31,27 @@ interface Props {
   onSubmitted?: () => void;
 }
 
-/* ── Phone masked input ────────────────────────────────────────────────
- *  Visitor-facing input always renders the Ukrainian mobile mask
- *  `+380 (XX) XXX XX XX` with `_` placeholders for every slot that
- *  hasn't been typed yet. As digits come in they replace the left-
- *  most `_`; backspace goes in reverse.
+/* ── Phone input ───────────────────────────────────────────────────────
+ *  Country-code chip (`+380`) sits to the left of the field — it's
+ *  not editable, visually separated by a border, and the actual
+ *  input only holds the 9 subscriber digits grouped as `XX XXX XX XX`
+ *  while the user types. Native placeholder handles the "empty state"
+ *  colouring (stone-on-champagne via `placeholder:text-stone`).
  *
- *  Internal state is the 0–9 subscriber digit string (`phoneDigits`).
- *  `buildPhoneDisplay` derives the masked string from that — so the
- *  value is always well-formed and we don't have to parse the mask
- *  back out each keystroke.
- */
-const PHONE_PREFIX = "+380 (";
-const PHONE_MASK_LENGTH = 19; // "+380 (XX) XXX XX XX"
+ *  This is the pattern used by Stripe, Google Pay checkout, Revolut,
+ *  etc. — clear separation between country code and local part, easy
+ *  to validate, easy to paste into, no overlay tricks required.       */
 
-/** Caret positions of each digit slot inside the mask. Given N digits
- *  already typed, we want the caret at DIGIT_SLOTS[N] so the next
- *  keystroke lands in the first empty slot — even across parens and
- *  spaces between groups. */
-const DIGIT_SLOTS = [6, 7, 10, 11, 12, 14, 15, 17, 18];
-
-function buildPhoneDisplay(d: string): string {
-  const p = d.padEnd(9, "_");
-  return `+380 (${p[0]}${p[1]}) ${p[2]}${p[3]}${p[4]} ${p[5]}${p[6]} ${p[7]}${p[8]}`;
-}
-
-/** Extract the subscriber digits from whatever the visitor typed /
- *  pasted — handles "+380 67…", "067…", or just "67…" uniformly. */
-function extractPhoneDigits(raw: string): string {
+/** Group typed digits into the Ukrainian local format `XX XXX XX XX`,
+ *  stripping any country code / trunk-zero the visitor happens to
+ *  paste so everything lands in the same shape. */
+function formatPhoneLocal(raw: string): string {
   let d = (raw || "").replace(/\D+/g, "");
   if (d.startsWith("380")) d = d.slice(3);
   if (d.startsWith("0") && d.length === 10) d = d.slice(1);
-  return d.slice(0, 9);
-}
-
-function caretForDigits(n: number): number {
-  if (n <= 0) return DIGIT_SLOTS[0];
-  if (n >= 9) return PHONE_MASK_LENGTH;
-  return DIGIT_SLOTS[n];
+  d = d.slice(0, 9);
+  const parts = [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean);
+  return parts.join(" ");
 }
 
 // Shared input class — champagne-dark surface, line border, taupe main
@@ -84,12 +67,9 @@ export default function BookingForm({
   const locale = useLocale();
   const [options, setOptions] = useState<BookingOptions | null>(null);
   const [name, setName] = useState("");
-  // Only the 9 subscriber digits live in state — the mask itself is
-  // derived at render time via buildPhoneDisplay so the input always
-  // has a well-formed "+380 (XX) XXX XX XX" template visible, with
-  // `_` placeholders for empty slots.
-  const [phoneDigits, setPhoneDigits] = useState("");
-  const phoneInputRef = useRef<HTMLInputElement>(null);
+  // Only the local part (post-+380) lives in state, grouped as
+  // `XX XXX XX XX`. The +380 chip is rendered separately in the JSX.
+  const [phoneLocal, setPhoneLocal] = useState("");
   const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
   const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -102,16 +82,6 @@ export default function BookingForm({
     firstLoadFired.current = true;
     listBookingOptions(locale).then(setOptions).catch(() => setOptions({ services: [], doctors: [] }));
   }, [locale]);
-
-  // After every digit change, park the caret at the first empty slot
-  // (or the end when all 9 are filled) so consecutive keystrokes feel
-  // continuous across mask literals.
-  useEffect(() => {
-    const el = phoneInputRef.current;
-    if (!el || document.activeElement !== el) return;
-    const pos = caretForDigits(phoneDigits.length);
-    el.setSelectionRange(pos, pos);
-  }, [phoneDigits]);
 
   const allOptions: BookingOption[] = useMemo(
     () => (options ? [...options.services, ...options.doctors] : []),
@@ -138,9 +108,9 @@ export default function BookingForm({
       const labels = interests.map((v) => interestLabels[v] || v);
       const res = await submitBookingForm({
         name: name.trim(),
-        // Send the digits only — server sanitizer will rebuild the
+        // Ship the digits only — server sanitizer will rebuild the
         // canonical "+380 (XX) XXX XX XX" mask for storage.
-        phone: phoneDigits,
+        phone: "+380" + phoneLocal.replace(/\D+/g, ""),
         interestValues: interests,
         interestLabels: labels,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
@@ -203,47 +173,21 @@ export default function BookingForm({
       </Field>
 
       <Field label={t("phone")} htmlFor="booking-phone">
-        <div className="relative">
+        <div className="group flex rounded-[var(--radius-button)] bg-champagne-dark border border-line transition-colors duration-150 ease-out hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15">
+          <span className="flex items-center pl-4 pr-3 border-r border-line text-ink text-[15px] select-none">
+            +380
+          </span>
           <input
-            ref={phoneInputRef}
             id="booking-phone"
             type="tel"
-            value={buildPhoneDisplay(phoneDigits)}
-            onChange={(e) => setPhoneDigits(extractPhoneDigits(e.target.value))}
-            onFocus={(e) => {
-              const el = e.currentTarget;
-              requestAnimationFrame(() => {
-                const pos = caretForDigits(phoneDigits.length);
-                el.setSelectionRange(pos, pos);
-              });
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Backspace") {
-                e.preventDefault();
-                if (phoneDigits.length > 0) setPhoneDigits(phoneDigits.slice(0, -1));
-              }
-            }}
-            autoComplete="tel"
+            value={phoneLocal}
+            onChange={(e) => setPhoneLocal(formatPhoneLocal(e.target.value))}
+            autoComplete="tel-national"
             inputMode="tel"
+            placeholder="67 123 45 67"
             required
-            // Text is hidden ([Webkit]TextFillColor handles Safari) so the
-            // colored overlay below can tint underscores differently. The
-            // native caret still renders via `caret-ink`.
-            style={{ color: "transparent", WebkitTextFillColor: "transparent" }}
-            className={`${fieldCls} caret-ink selection:bg-main/15`}
+            className="flex-1 min-w-0 px-3 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone-light"
           />
-          <div
-            aria-hidden
-            className="absolute inset-0 flex items-center px-4 pointer-events-none text-[15px] font-variant-numeric-tabular"
-          >
-            <span className="whitespace-pre">
-              {buildPhoneDisplay(phoneDigits).split("").map((ch, i) => (
-                <span key={i} className={ch === "_" ? "text-stone-light" : "text-ink"}>
-                  {ch}
-                </span>
-              ))}
-            </span>
-          </div>
         </div>
       </Field>
 
