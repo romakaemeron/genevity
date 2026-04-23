@@ -11,6 +11,7 @@ import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
 import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
+import UtmCapture from "@/components/analytics/UtmCapture";
 import "../globals.css";
 
 const tenorSans = localFont({
@@ -173,6 +174,7 @@ export default async function LocaleLayout({
           />
         </noscript>
         <ImageProtection />
+        <UtmCapture />
         <OrganizationSchema />
         <WebSiteSchema />
         <NextIntlClientProvider messages={messages}>

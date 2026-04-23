@@ -24,12 +24,18 @@ import {
   type BookingOption,
   type BookingOptions,
 } from "@/lib/actions/booking";
+import { readCapturedUtms } from "@/lib/analytics/utm";
+import { CTA_REGISTRY, type CtaKey } from "@/lib/cta-registry";
 
 interface Props {
   initialInterest?: string;
   submitLabel?: React.ReactNode;
   className?: string;
   onSubmitted?: () => void;
+  /** Identifies which CTA location opened this form — carried through to
+   *  the submission so the admin email reads "Форма: Homepage hero" etc.
+   *  Labels come from CTA_REGISTRY. */
+  ctaKey?: CtaKey;
 }
 
 /* ── Phone input ───────────────────────────────────────────────────────
@@ -62,8 +68,14 @@ const fieldCls =
   "w-full px-4 py-3 rounded-[var(--radius-button)] bg-champagne-dark border border-line text-ink text-[15px] outline-none transition-colors duration-150 ease-out placeholder:text-stone hover:border-stone-light focus:border-main focus:ring-2 focus:ring-main/15";
 
 export default function BookingForm({
-  initialInterest = "", submitLabel, className, onSubmitted,
+  initialInterest = "", submitLabel, className, onSubmitted, ctaKey,
 }: Props) {
+  // Human-readable form label ("Homepage hero", "Service detail — final CTA")
+  // — surfaced on the admin email and in the DB so ops can filter by source.
+  const ctaLabel = useMemo(
+    () => CTA_REGISTRY.find((e) => e.key === ctaKey)?.label,
+    [ctaKey],
+  );
   const t = useTranslations("ctaForm");
   const locale = useLocale();
   const [options, setOptions] = useState<BookingOptions | null>(null);
@@ -122,6 +134,7 @@ export default function BookingForm({
 
     startTransition(async () => {
       const labels = interests.map((v) => interestLabels[v] || v);
+      const utms = readCapturedUtms();
       const res = await submitBookingForm({
         name: cleanedName,
         // Ship the digits only — server sanitizer will rebuild the
@@ -130,6 +143,15 @@ export default function BookingForm({
         interestValues: interests,
         interestLabels: labels,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
+        pageTitle: typeof document !== "undefined" ? document.title : undefined,
+        referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
+        ctaKey,
+        ctaLabel,
+        utmSource: utms.utm_source,
+        utmMedium: utms.utm_medium,
+        utmCampaign: utms.utm_campaign,
+        utmTerm: utms.utm_term,
+        utmContent: utms.utm_content,
         locale,
       });
       if (!res.ok) {

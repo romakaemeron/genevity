@@ -113,6 +113,16 @@ export interface BookingSubmissionInput {
    *  visitor picked even if slugs later change. */
   interestLabels: string[];
   pageUrl?: string;
+  /** Analytics context captured at submit time for lead attribution. */
+  pageTitle?: string;
+  referrer?: string;
+  ctaKey?: string;
+  ctaLabel?: string;
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmTerm?: string;
+  utmContent?: string;
   locale?: string;
 }
 
@@ -203,6 +213,16 @@ function sanitizePageUrl(raw: string | undefined): string {
   }
 }
 
+/** Generic short-string sanitizer for analytics text fields — trim,
+ *  strip control characters, cap length. Empty / missing returns null
+ *  so we never insert blank strings into the DB. */
+function sanitizeShortText(raw: string | undefined | null, max: number): string | null {
+  if (typeof raw !== "string") return null;
+  const cleaned = raw.replace(/[\x00-\x1f\x7f]/g, "").trim();
+  if (!cleaned) return null;
+  return cleaned.slice(0, max);
+}
+
 export async function submitBookingForm(input: BookingSubmissionInput): Promise<BookingSubmissionResult> {
   const name = sanitizeName(input.name || "");
   if (!name) return { ok: false, errorKey: "name" };
@@ -214,6 +234,14 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
   const interestLabels = sanitizeInterestLabels(input.interestLabels);
   const joinedLabel = interestLabels.join(" · ");
   const pageUrl = sanitizePageUrl(input.pageUrl);
+  const pageTitle = sanitizeShortText(input.pageTitle, 300);
+  const referrer = sanitizePageUrl(input.referrer) || null;
+  const formLabel = sanitizeShortText(input.ctaLabel, 120);
+  const utmSource = sanitizeShortText(input.utmSource, 200);
+  const utmMedium = sanitizeShortText(input.utmMedium, 200);
+  const utmCampaign = sanitizeShortText(input.utmCampaign, 200);
+  const utmTerm = sanitizeShortText(input.utmTerm, 200);
+  const utmContent = sanitizeShortText(input.utmContent, 200);
 
   // Map the first service:<slug> back to a services.id so the admin list
   // can link through to the related service. If the visitor picked only
@@ -228,15 +256,27 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
 
   try {
     await sql`
-      INSERT INTO form_submissions (form_type, name, phone, direction, page_url, service_id, status)
-      VALUES ('consultation', ${name}, ${phone}, ${joinedLabel || null}, ${pageUrl || null}, ${serviceId}, 'new')
+      INSERT INTO form_submissions (
+        form_type, name, phone, direction, page_url, service_id, status,
+        form_label, page_title, referrer,
+        utm_source, utm_medium, utm_campaign, utm_term, utm_content
+      )
+      VALUES (
+        'consultation', ${name}, ${phone}, ${joinedLabel || null}, ${pageUrl || null}, ${serviceId}, 'new',
+        ${formLabel}, ${pageTitle}, ${referrer},
+        ${utmSource}, ${utmMedium}, ${utmCampaign}, ${utmTerm}, ${utmContent}
+      )
     `;
   } catch (err) {
     console.error("[booking] insert failed:", err);
     return { ok: false, errorKey: "generic" };
   }
 
-  void notifyAdmin({ name, phone, interestLabel: joinedLabel, pageUrl, locale: input.locale });
+  void notifyAdmin({
+    name, phone, interestLabel: joinedLabel, pageUrl, pageTitle,
+    referrer, formLabel, locale: input.locale,
+    utmSource, utmMedium, utmCampaign, utmTerm, utmContent,
+  });
 
   return { ok: true };
 }
@@ -246,33 +286,53 @@ async function notifyAdmin(s: {
   phone: string;
   interestLabel: string;
   pageUrl: string;
+  pageTitle: string | null;
+  referrer: string | null;
+  formLabel: string | null;
   locale?: string;
+  utmSource: string | null;
+  utmMedium: string | null;
+  utmCampaign: string | null;
+  utmTerm: string | null;
+  utmContent: string | null;
 }) {
   const to = process.env.BOOKING_NOTIFY_EMAIL;
   if (!to) return;
 
   const subject = `New booking request — ${s.name}`;
-  const rows = [
-    { label: "Name", value: s.name },
-    { label: "Phone", value: s.phone },
-    { label: "Interested in", value: s.interestLabel || "— (no preference)" },
-    { label: "Page", value: s.pageUrl || "—" },
-    { label: "Locale", value: s.locale || "—" },
+  // Mirrors the production-analytics lead format the client requested:
+  // client name + phone, speciality, clinic, page (title + URL), which
+  // form the visitor submitted, and the full UTM block for attribution.
+  // Every row is rendered regardless of value so ops can tell a missing
+  // UTM ("—") apart from a genuinely-empty lead.
+  const rows: Array<{ label: string; value: string; mono?: boolean }> = [
+    { label: "Ім'я клієнта", value: s.name },
+    { label: "Телефон клієнта", value: s.phone, mono: true },
+    { label: "Спеціальність", value: s.interestLabel || "— (не обрано)" },
+    { label: "Клініка", value: "GENEVITY" },
+    { label: "Сторінка", value: s.pageTitle ? `${s.pageTitle}\n${s.pageUrl}` : s.pageUrl || "—" },
+    { label: "Форма", value: s.formLabel || "—" },
+    { label: "Referrer", value: s.referrer || "—" },
+    { label: "utm_source", value: s.utmSource || "—", mono: true },
+    { label: "utm_medium", value: s.utmMedium || "—", mono: true },
+    { label: "utm_campaign", value: s.utmCampaign || "—", mono: true },
+    { label: "utm_term", value: s.utmTerm || "—", mono: true },
+    { label: "utm_content", value: s.utmContent || "—", mono: true },
   ];
-  const text = rows.map((r) => `${r.label}: ${r.value}`).join("\n");
+  const text = rows.map((r) => `${r.label}: ${r.value}`).join("\n\n");
   const html = `
-    <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto;">
-      <h2 style="font-family: Georgia, serif; color: #2A2520; margin: 0 0 16px;">New booking request</h2>
-      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+    <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 560px; margin: 0 auto;">
+      <h2 style="font-family: Georgia, serif; color: #2A2520; margin: 0 0 16px; font-size: 22px;">Нова заявка</h2>
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5;">
         ${rows.map((r) => `
           <tr>
-            <td style="padding: 10px 12px; background: #F0EDE7; width: 140px; color: #6b6b6b; vertical-align: top;">${r.label}</td>
-            <td style="padding: 10px 12px; background: #FAF9F6; color: #2A2520;">${escapeHtml(r.value)}</td>
+            <td style="padding: 10px 12px; background: #F0EDE7; width: 160px; color: #6b6b6b; vertical-align: top; border-top: 1px solid #E5E0D8;">${escapeHtml(r.label)}</td>
+            <td style="padding: 10px 12px; background: #FAF9F6; color: #2A2520; vertical-align: top; border-top: 1px solid #E5E0D8; ${r.mono ? "font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;" : ""} white-space: pre-wrap; word-break: break-word;">${escapeHtml(r.value)}</td>
           </tr>
         `).join("")}
       </table>
       <p style="margin-top: 20px; font-size: 12px; color: #888;">
-        GENEVITY · submitted via the site booking form
+        GENEVITY · submitted via the site booking form${s.locale ? ` · locale: ${escapeHtml(s.locale)}` : ""}
       </p>
     </div>
   `;
