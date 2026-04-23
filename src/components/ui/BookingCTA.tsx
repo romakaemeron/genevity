@@ -78,7 +78,17 @@ export default function BookingCTA({
       <AnimatePresence>
         {modalOpen && (
           <Modal open onClose={() => setModalOpen(false)} maxWidth="sm:max-w-md">
-            <div className="p-6 sm:p-8 pt-10 flex flex-col gap-5">
+            {/* Soft decorative glow anchored at the top — adds depth without
+                competing with the form's content. Layered gradients feather
+                the taupe brand colour into the champagne panel. */}
+            <div
+              aria-hidden
+              className="absolute inset-x-0 -top-32 h-64 pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse at center top, rgba(139,123,107,0.22) 0%, rgba(192,207,213,0.12) 40%, transparent 70%)",
+              }}
+            />
+            <div className="relative p-6 sm:p-8 pt-10 flex flex-col gap-5">
               <div className="flex flex-col gap-1">
                 <h3 className="heading-3 text-ink">{modalTitle}</h3>
                 <p className="body-s text-stone">{modalSubtitle}</p>
