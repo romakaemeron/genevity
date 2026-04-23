@@ -13,6 +13,7 @@
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { Check, ChevronDown, Search, X } from "lucide-react";
 
 export interface SearchOption {
@@ -21,15 +22,21 @@ export interface SearchOption {
   sub?: string;
   /** Group key — options sharing a group render together under the group's heading. */
   group?: string;
+  /** Optional thumbnail shown on the right side of a row (e.g. doctor photo). */
+  rightImage?: string | null;
+  /** Optional short text shown on the right side of a row (e.g. "from 4000 ₴"). */
+  rightText?: string;
 }
 
-interface Props {
+type Props =
+  | ({ multiple?: false; value: string; onChange: (next: string, picked?: SearchOption) => void } & CommonProps)
+  | ({ multiple: true; value: string[]; onChange: (next: string[], picked?: SearchOption, action?: "add" | "remove") => void } & CommonProps);
+
+interface CommonProps {
   options: SearchOption[];
   /** Ordered list of group keys + their localized headings. Options whose
    *  `group` isn't in here fall into an "other" bucket at the bottom. */
   groupHeadings?: { key: string; label: string }[];
-  value: string;
-  onChange: (next: string, picked?: SearchOption) => void;
   placeholder?: string;
   searchPlaceholder?: string;
   emptyLabel?: string;
@@ -39,18 +46,18 @@ interface Props {
   disabled?: boolean;
 }
 
-export default function SearchSelect({
-  options,
-  groupHeadings,
-  value,
-  onChange,
-  placeholder = "Select…",
-  searchPlaceholder = "Search…",
-  emptyLabel = "No matches",
-  clearLabel = "Clear",
-  labelId,
-  disabled,
-}: Props) {
+export default function SearchSelect(props: Props) {
+  const {
+    options, groupHeadings, placeholder = "Select…", searchPlaceholder = "Search…",
+    emptyLabel = "No matches", clearLabel = "Clear", labelId, disabled,
+  } = props;
+  const multiple = props.multiple === true;
+  // Normalize value to an array internally so downstream logic is uniform.
+  const selectedValues = useMemo<string[]>(
+    () => (multiple ? (props.value as string[]) : props.value ? [props.value as string] : []),
+    [multiple, props.value],
+  );
+  const selectedSet = useMemo(() => new Set(selectedValues), [selectedValues]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(0);
@@ -69,7 +76,11 @@ export default function SearchSelect({
     { top: number; left: number; width: number; flip: boolean; maxHeight: number } | null
   >(null);
 
-  const selected = options.find((o) => o.value === value);
+  const selectedOptions = useMemo(
+    () => selectedValues.map((v) => options.find((o) => o.value === v)).filter(Boolean) as SearchOption[],
+    [selectedValues, options],
+  );
+  const selected = selectedOptions[0]; // convenience for single-select rendering
 
   // Defensive dedup by value — downstream lists use `key={o.value}`, so
   // duplicate values crash React. The server action should already return
@@ -211,16 +222,44 @@ export default function SearchSelect({
     if (open) requestAnimationFrame(() => searchRef.current?.focus());
   }, [open]);
 
+  // Toggle in multi-select mode (stay open, let the user accumulate picks);
+  // in single-select mode, set the value and close as before. Split into
+  // two branches inside the same callback so the caller contract matches
+  // the discriminated `Props` union above.
   const pick = useCallback((o: SearchOption) => {
-    onChange(o.value, o);
-    setOpen(false);
-    setQuery("");
-  }, [onChange]);
+    if (multiple) {
+      const set = new Set(selectedValues);
+      let action: "add" | "remove";
+      if (set.has(o.value)) { set.delete(o.value); action = "remove"; }
+      else { set.add(o.value); action = "add"; }
+      (props.onChange as (next: string[], picked?: SearchOption, action?: "add" | "remove") => void)(
+        Array.from(set), o, action,
+      );
+      setQuery("");
+      requestAnimationFrame(() => searchRef.current?.focus());
+    } else {
+      (props.onChange as (next: string, picked?: SearchOption) => void)(o.value, o);
+      setOpen(false);
+      setQuery("");
+    }
+  }, [multiple, props, selectedValues]);
 
   const clear = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
-    onChange("", undefined);
-  }, [onChange]);
+    if (multiple) (props.onChange as (next: string[]) => void)([]);
+    else (props.onChange as (next: string) => void)("");
+  }, [multiple, props]);
+
+  // Remove a single chip (multi-select only).
+  const removeOne = useCallback((val: string, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!multiple) return;
+    const next = selectedValues.filter((v) => v !== val);
+    const picked = options.find((o) => o.value === val);
+    (props.onChange as (next: string[], picked?: SearchOption, action?: "add" | "remove") => void)(
+      next, picked, "remove",
+    );
+  }, [multiple, props, selectedValues, options]);
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown") { e.preventDefault(); setCursor((i) => Math.min(flat.length - 1, i + 1)); }
@@ -251,13 +290,42 @@ export default function SearchSelect({
             : "cursor-pointer hover:border-stone-light focus-visible:border-main focus-visible:ring-2 focus-visible:ring-main/15"
         } ${open ? "border-main ring-2 ring-main/15" : ""}`}
       >
-        <span className={`flex-1 min-w-0 truncate ${selected ? "text-ink" : "text-stone"}`}>
-          {selected ? selected.label : placeholder}
-          {selected?.sub && (
-            <span className="text-stone text-[13px] ml-2">· {selected.sub}</span>
-          )}
-        </span>
-        {selected && !disabled && (
+        {multiple ? (
+          selectedOptions.length === 0 ? (
+            <span className="flex-1 min-w-0 truncate text-stone">{placeholder}</span>
+          ) : (
+            <span className="flex-1 min-w-0 flex flex-wrap items-center gap-1.5">
+              {selectedOptions.map((o) => (
+                <span
+                  key={o.value}
+                  className="inline-flex items-center gap-1 pl-2 pr-1 py-0.5 rounded-[var(--radius-pill)] bg-main/10 border border-main/20 text-[12px] text-ink"
+                >
+                  <span className="truncate max-w-[160px]">{o.label}</span>
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(ev) => removeOne(o.value, ev)}
+                    onKeyDown={(ev) => {
+                      if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); removeOne(o.value); }
+                    }}
+                    className="inline-flex w-4 h-4 items-center justify-center rounded-full text-stone hover:text-ink hover:bg-main/15 cursor-pointer"
+                    title={clearLabel}
+                  >
+                    <X size={10} />
+                  </span>
+                </span>
+              ))}
+            </span>
+          )
+        ) : (
+          <span className={`flex-1 min-w-0 truncate ${selected ? "text-ink" : "text-stone"}`}>
+            {selected ? selected.label : placeholder}
+            {selected?.sub && (
+              <span className="text-stone text-[13px] ml-2">· {selected.sub}</span>
+            )}
+          </span>
+        )}
+        {selectedOptions.length > 0 && !disabled && (
           <span
             role="button"
             tabIndex={0}
@@ -348,7 +416,7 @@ export default function SearchSelect({
                   {g.options.map((o) => {
                     const flatIdx = flat.indexOf(o);
                     const active = flatIdx === cursor;
-                    const isSelected = o.value === value;
+                    const isSelected = selectedSet.has(o.value);
                     return (
                       <button
                         key={o.value}
@@ -357,15 +425,50 @@ export default function SearchSelect({
                         aria-selected={isSelected}
                         onMouseEnter={() => setCursor(flatIdx)}
                         onClick={() => pick(o)}
-                        className={`w-full flex items-center gap-2 px-4 py-2 text-left text-sm cursor-pointer transition-colors ${
+                        className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm cursor-pointer transition-colors ${
                           active ? "bg-champagne-dark" : "bg-transparent hover:bg-champagne-dark/50"
-                        }`}
+                        } ${isSelected ? "ring-1 ring-main/10" : ""}`}
                       >
+                        {/* Multi-select checkbox indicator so it's obvious the
+                             row can be toggled on/off without closing. */}
+                        {multiple && (
+                          <span
+                            className={`inline-flex w-4 h-4 items-center justify-center rounded-md border shrink-0 transition-colors ${
+                              isSelected
+                                ? "bg-main border-main text-champagne"
+                                : "bg-champagne-dark border-line text-transparent"
+                            }`}
+                            aria-hidden
+                          >
+                            <Check size={10} strokeWidth={3} />
+                          </span>
+                        )}
                         <span className="flex-1 min-w-0">
                           <span className="text-ink block truncate">{o.label}</span>
                           {o.sub && <span className="text-[11px] text-stone block truncate">{o.sub}</span>}
                         </span>
-                        {isSelected && <Check size={14} className="text-main shrink-0" />}
+                        {/* Price / currency tag */}
+                        {o.rightText && (
+                          <span className="text-[12px] text-main font-medium tabular-nums shrink-0 whitespace-nowrap">
+                            {o.rightText}
+                          </span>
+                        )}
+                        {/* Thumbnail — mostly used for doctors */}
+                        {o.rightImage && (
+                          <span className="relative w-9 h-9 rounded-full overflow-hidden bg-champagne-dark shrink-0 border border-line">
+                            <Image
+                              src={o.rightImage}
+                              alt=""
+                              fill
+                              sizes="36px"
+                              className="object-cover"
+                            />
+                          </span>
+                        )}
+                        {/* Single-select selected indicator */}
+                        {!multiple && isSelected && (
+                          <Check size={14} className="text-main shrink-0" />
+                        )}
                       </button>
                     );
                   })}

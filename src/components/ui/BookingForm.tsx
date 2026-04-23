@@ -61,8 +61,8 @@ export default function BookingForm({
   const [options, setOptions] = useState<BookingOptions | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [interest, setInterest] = useState(initialInterest);
-  const [interestLabel, setInterestLabel] = useState("");
+  const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
+  const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [pending, startTransition] = useTransition();
@@ -78,21 +78,30 @@ export default function BookingForm({
     () => (options ? [...options.services, ...options.doctors] : []),
     [options],
   );
+  // Keep a map of value→label in sync so submissions carry the exact
+  // display text the visitor saw, even if a slug later changes.
   useEffect(() => {
-    if (!interest) { setInterestLabel(""); return; }
-    const match = allOptions.find((o) => o.value === interest);
-    if (match) setInterestLabel(match.label);
-  }, [interest, allOptions]);
+    if (!interests.length) { setInterestLabels({}); return; }
+    setInterestLabels((prev) => {
+      const next: Record<string, string> = {};
+      for (const v of interests) {
+        const match = allOptions.find((o) => o.value === v);
+        next[v] = match?.label ?? prev[v] ?? v;
+      }
+      return next;
+    });
+  }, [interests, allOptions]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     startTransition(async () => {
+      const labels = interests.map((v) => interestLabels[v] || v);
       const res = await submitBookingForm({
         name: name.trim(),
         phone: phone.trim(),
-        interestValue: interest,
-        interestLabel,
+        interestValues: interests,
+        interestLabels: labels,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
         locale,
       });
@@ -123,8 +132,14 @@ export default function BookingForm({
 
   const searchSelectOptions = options
     ? [
-        ...options.services.map((s) => ({ value: s.value, label: s.label, sub: s.sub, group: "service" })),
-        ...options.doctors.map((d) => ({ value: d.value, label: d.label, sub: d.sub, group: "doctor" })),
+        ...options.services.map((s) => ({
+          value: s.value, label: s.label, sub: s.sub, group: "service",
+          rightText: s.rightText,
+        })),
+        ...options.doctors.map((d) => ({
+          value: d.value, label: d.label, sub: d.sub, group: "doctor",
+          rightImage: d.rightImage,
+        })),
       ]
     : [];
 
@@ -157,16 +172,14 @@ export default function BookingForm({
 
       <Field label={t("interestLabel")} htmlFor="booking-interest-label" isLabelId>
         <SearchSelect
+          multiple
           options={searchSelectOptions}
           groupHeadings={[
             { key: "service", label: t("interestGroupServices") },
             { key: "doctor",  label: t("interestGroupDoctors") },
           ]}
-          value={interest}
-          onChange={(v, picked) => {
-            setInterest(v);
-            setInterestLabel(picked?.label ?? "");
-          }}
+          value={interests}
+          onChange={(next) => setInterests(next)}
           placeholder={t("interestPlaceholder")}
           searchPlaceholder={t("interestSearchPlaceholder")}
           emptyLabel={t("interestEmpty")}

@@ -22,6 +22,11 @@ export interface BookingOption {
   group: "service" | "doctor";
   /** Only for services — links the DB row when present. */
   serviceId?: string;
+  /** Optional thumbnail shown on the right side of the dropdown row.
+   *  Used for doctor photos so admins can match faces, not just names. */
+  rightImage?: string | null;
+  /** Optional short text on the right side of a row (currency, etc.). */
+  rightText?: string;
 }
 
 export interface BookingOptions {
@@ -41,6 +46,7 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
     sql`
       SELECT s.id, s.slug,
              s.title_uk, s.title_ru, s.title_en,
+             s.price_from_uk, s.price_from_ru, s.price_from_en,
              c.slug  AS cat_slug,
              c.title_uk AS cat_title_uk, c.title_ru AS cat_title_ru, c.title_en AS cat_title_en
       FROM services s
@@ -48,7 +54,7 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
       ORDER BY c.sort_order, s.sort_order
     `,
     sql`
-      SELECT id, slug, name_uk, name_ru, name_en, role_uk, role_ru, role_en
+      SELECT id, slug, photo_card, name_uk, name_ru, name_en, role_uk, role_ru, role_en
       FROM doctors
       ORDER BY sort_order
     `,
@@ -60,6 +66,7 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
     sub: pick(r, "cat_title", l),
     group: "service",
     serviceId: r.id as string,
+    rightText: pick(r, "price_from", l) || undefined,
   }));
   const doctors: BookingOption[] = doctorRows.map((r) => ({
     // Prefer slug for a human-readable `direction` string on the admin
@@ -69,6 +76,7 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
     label: pick(r, "name", l),
     sub: pick(r, "role", l) || undefined,
     group: "doctor",
+    rightImage: (r.photo_card as string | null) || null,
   }));
 
   return { services, doctors };
@@ -77,11 +85,14 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
 export interface BookingSubmissionInput {
   name: string;
   phone: string;
-  /** Either a value from BookingOption.value or the empty string. */
-  interestValue: string;
-  /** Visible label captured at submit time so the admin sees exactly what
-   *  the user picked even if the slug later changes. */
-  interestLabel: string;
+  /** Array of BookingOption.value entries — multi-select. Empty array is
+   *  fine (visitor didn't pick anything specific). */
+  interestValues: string[];
+  /** Visible labels captured at submit time, in the same order as
+   *  interestValues. We persist these joined with " · " into
+   *  form_submissions.direction so the admin sees exactly what the
+   *  visitor picked even if slugs later change. */
+  interestLabels: string[];
   pageUrl?: string;
   locale?: string;
 }
@@ -106,15 +117,18 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
   if (!name) return { ok: false, errorKey: "name" };
   if (!isValidPhone(phone)) return { ok: false, errorKey: "phone" };
 
-  const interestValue = (input.interestValue || "").trim();
-  const interestLabel = (input.interestLabel || "").trim();
+  const interestValues = (input.interestValues || []).map((v) => v.trim()).filter(Boolean);
+  const interestLabels = (input.interestLabels || []).map((v) => v.trim()).filter(Boolean);
+  const joinedLabel = interestLabels.join(" · ");
   const pageUrl = (input.pageUrl || "").slice(0, 500);
 
-  // Map service:<slug> back to a services.id so the admin can click through
-  // to the related service (doctors don't have an FK target on this table).
+  // Map the first service:<slug> back to a services.id so the admin list
+  // can link through to the related service. If the visitor picked only
+  // doctors, service_id stays null.
   let serviceId: string | null = null;
-  if (interestValue.startsWith("service:")) {
-    const slug = interestValue.slice("service:".length);
+  const firstService = interestValues.find((v) => v.startsWith("service:"));
+  if (firstService) {
+    const slug = firstService.slice("service:".length);
     const rows = await sql`SELECT id FROM services WHERE slug = ${slug} LIMIT 1`;
     if (rows[0]) serviceId = rows[0].id as string;
   }
@@ -122,16 +136,14 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
   try {
     await sql`
       INSERT INTO form_submissions (form_type, name, phone, direction, page_url, service_id, status)
-      VALUES ('consultation', ${name}, ${phone}, ${interestLabel || null}, ${pageUrl || null}, ${serviceId}, 'new')
+      VALUES ('consultation', ${name}, ${phone}, ${joinedLabel || null}, ${pageUrl || null}, ${serviceId}, 'new')
     `;
   } catch (err) {
     console.error("[booking] insert failed:", err);
     return { ok: false, errorKey: "generic" };
   }
 
-  // Fire-and-forget notification. Errors are swallowed (the submission is
-  // already in the DB) but surfaced to server logs for ops visibility.
-  void notifyAdmin({ name, phone, interestLabel, pageUrl, locale: input.locale });
+  void notifyAdmin({ name, phone, interestLabel: joinedLabel, pageUrl, locale: input.locale });
 
   return { ok: true };
 }
