@@ -5,41 +5,70 @@ function pick(row: any, field: string, l: string) {
   return row[`${field}_${l}`] ?? row[`${field}_uk`] ?? null;
 }
 
-/** Per-breakpoint focal point for a hero slide. Each value is a CSS
- *  `object-position` string (e.g. "50% 30%"). All three keys are always
- *  populated by the loader (fall back to "50% 50%") so consumers never have
- *  to handle partial data. */
+/** Crop settings for a single breakpoint. `pos` is a CSS object-position
+ *  string (e.g. "50% 30%"); `scale` is a transform scale applied on top so
+ *  the admin can zoom in when the default cover crop has no vertical/
+ *  horizontal slack to work with (e.g. a landscape image on a tall phone). */
+export interface HeroFocalBP {
+  pos: string;
+  scale: number;
+}
+
+/** Per-breakpoint focal configuration. All three keys are always populated
+ *  by the loader so consumers never have to handle partial data. */
 export interface HeroFocalPoint {
-  desktop: string;
-  tablet: string;
-  mobile: string;
+  desktop: HeroFocalBP;
+  tablet: HeroFocalBP;
+  mobile: HeroFocalBP;
 }
 
 export interface HeroSlide {
   id: string;
   imageUrl: string;
-  /** Responsive focal point — maps to different `object-position` values at
-   *  the mobile / tablet / desktop breakpoints (< 768, 768–1023, ≥ 1024). */
+  /** Responsive focal point — one crop per mobile / tablet / desktop
+   *  breakpoint (< 768, 768–1023, ≥ 1024). */
   objectPosition: HeroFocalPoint;
   alt: string;
 }
 
+const FALLBACK_POS = "50% 50%";
+const FALLBACK_SCALE = 1;
+
+function coerceBP(v: unknown): HeroFocalBP {
+  // Legacy flat string → assumed to be a position, scale = 1.
+  if (typeof v === "string" && v.trim()) return { pos: v.trim(), scale: FALLBACK_SCALE };
+  if (v && typeof v === "object") {
+    const src = v as Record<string, unknown>;
+    const pos = typeof src.pos === "string" && src.pos.trim() ? src.pos.trim() : FALLBACK_POS;
+    const rawScale = typeof src.scale === "number" ? src.scale : Number(src.scale);
+    const scale = Number.isFinite(rawScale) && rawScale > 0 ? rawScale : FALLBACK_SCALE;
+    return { pos, scale };
+  }
+  return { pos: FALLBACK_POS, scale: FALLBACK_SCALE };
+}
+
 function resolveHeroFocal(raw: unknown): HeroFocalPoint {
-  const fallback = "50% 50%";
-  if (!raw) return { desktop: fallback, tablet: fallback, mobile: fallback };
-  // Post-migration the column is JSONB, but the driver may still hand it to
-  // us as a string (escaped JSON) depending on transport. Accept either.
+  if (!raw) {
+    const f: HeroFocalBP = { pos: FALLBACK_POS, scale: FALLBACK_SCALE };
+    return { desktop: f, tablet: f, mobile: f };
+  }
+  // Post-migration the column is JSONB; some drivers hand back a string.
   const obj = typeof raw === "string" ? safeParse(raw) : raw;
   if (typeof obj === "string") {
-    // Legacy: flat position string applied to every breakpoint.
-    return { desktop: obj, tablet: obj, mobile: obj };
+    // Legacy column stored a single flat position string — fan out.
+    const bp = coerceBP(obj);
+    return { desktop: bp, tablet: bp, mobile: bp };
   }
   if (obj && typeof obj === "object") {
     const src = obj as Record<string, unknown>;
-    const take = (k: string) => (typeof src[k] === "string" && (src[k] as string).trim()) ? (src[k] as string) : fallback;
-    return { desktop: take("desktop"), tablet: take("tablet"), mobile: take("mobile") };
+    return {
+      desktop: coerceBP(src.desktop),
+      tablet: coerceBP(src.tablet),
+      mobile: coerceBP(src.mobile),
+    };
   }
-  return { desktop: fallback, tablet: fallback, mobile: fallback };
+  const f: HeroFocalBP = { pos: FALLBACK_POS, scale: FALLBACK_SCALE };
+  return { desktop: f, tablet: f, mobile: f };
 }
 
 function safeParse(s: string): unknown {

@@ -9,42 +9,38 @@
  * typography, gradients, content positioning and CTA styling — at the
  * emulated viewport's actual dimensions, scaled to fit the modal panel.
  *
- * The "active breakpoint" follows the emulated width (>=1024 desktop,
- * 768-1023 tablet, <768 mobile) so dragging the frame naturally switches
- * which focal point is being edited. Drag anywhere inside the preview to
- * reposition the crosshair; the stored `{x}% {y}%` value updates live for
- * the current breakpoint only.
+ * Each breakpoint carries both a focal point (object-position) AND a zoom
+ * scale so the admin can handle cases where `object-cover` leaves no
+ * vertical/horizontal slack (e.g. a landscape photo on a tall phone —
+ * zooming in gives the focal point room to move). Zoom via the slider
+ * or the scroll-wheel directly over the preview.
  */
 
 import { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import Image from "next/image";
-import { Monitor, Tablet, Smartphone, MapPin, Copy as CopyIcon } from "lucide-react";
+import { Monitor, Tablet, Smartphone, MapPin, Copy as CopyIcon, Minus, Plus } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
 
 type Breakpoint = "desktop" | "tablet" | "mobile";
-export type HeroFocalValue = Record<Breakpoint, string>;
+export type HeroFocalBP = { pos: string; scale: number };
+export type HeroFocalValue = Record<Breakpoint, HeroFocalBP>;
 
 interface Props {
   open: boolean;
   onClose: () => void;
   imageUrl: string;
   initial: HeroFocalValue;
-  /** Real H1 / subtitle / CTA copy from the homepage hero singleton — rendered
-   *  at full fidelity over the preview image. */
   heroContent: { title: string; subtitle: string; cta: string; location: string };
   onSave: (next: HeroFocalValue) => void;
 }
 
-/** Preset viewport dimensions — match common devices the client cares about.
- *  These just seed the `viewport` state; the user can freely resize from there. */
 const PRESETS: { key: Breakpoint; label: string; w: number; h: number; icon: typeof Monitor }[] = [
   { key: "desktop", label: "Desktop", w: 1440, h: 900, icon: Monitor },
   { key: "tablet",  label: "Tablet",  w: 820,  h: 1180, icon: Tablet },
   { key: "mobile",  label: "Mobile",  w: 390,  h: 844,  icon: Smartphone },
 ];
 
-/** Tailwind-matching breakpoint thresholds (md=768, lg=1024). */
 function bpForWidth(w: number): Breakpoint {
   if (w >= 1024) return "desktop";
   if (w >= 768) return "tablet";
@@ -61,10 +57,6 @@ function parsePosition(val: string | undefined | null): { x: number; y: number }
   return { x: isNaN(x) ? 50 : x, y: isNaN(y) ? 50 : y };
 }
 
-/** Resolve the site's typography clamp() values against a synthetic viewport
- *  width so the preview renders at true proportions. Mirrors globals.css:
- *    .heading-1: clamp(40, 5vw, 64)
- *    .body-l:    16px (flat) */
 function headingSize(vw: number): number {
   return Math.max(40, Math.min(64, vw * 0.05));
 }
@@ -73,6 +65,9 @@ const MIN_W = 320;
 const MAX_W = 1920;
 const MIN_H = 480;
 const MAX_H = 2400;
+const SCALE_MIN = 0.5;
+const SCALE_MAX = 3;
+const SCALE_STEP = 0.05;
 
 export default function HeroFocalResponsiveEditor({
   open, onClose, imageUrl, initial, heroContent, onSave,
@@ -86,11 +81,8 @@ export default function HeroFocalResponsiveEditor({
   const stageRef = useRef<HTMLDivElement>(null);
   const [stageMaxW, setStageMaxW] = useState(720);
 
-  // Reset per-slide state on open.
   useEffect(() => { if (open) setFocal(initial); }, [open, initial]);
 
-  // Track stage width so the preview can fill horizontally on wide screens
-  // and shrink gracefully on narrow ones (the modal grows up to sm:max-w-5xl).
   useEffect(() => {
     const el = stageRef.current;
     if (!el) return;
@@ -101,14 +93,18 @@ export default function HeroFocalResponsiveEditor({
   }, [open]);
 
   const active = bpForWidth(viewport.w);
-  const pos = useMemo(() => parsePosition(focal[active]), [focal, active]);
+  const current = focal[active];
+  const pos = useMemo(() => parsePosition(current.pos), [current.pos]);
   const posString = `${pos.x.toFixed(1)}% ${pos.y.toFixed(1)}%`;
+  const scale = current.scale;
 
-  // When the emulated viewport is wider than the available stage, scale the
-  // frame down so it fits; otherwise render 1:1 so the design reads honestly.
   const fitScale = Math.min(1, stageMaxW / viewport.w, 620 / viewport.h);
   const displayW = Math.round(viewport.w * fitScale);
   const displayH = Math.round(viewport.h * fitScale);
+
+  const patchActive = (patch: Partial<HeroFocalBP>) => {
+    setFocal((prev) => ({ ...prev, [active]: { ...prev[active], ...patch } }));
+  };
 
   const updatePos = (clientX: number, clientY: number) => {
     const rect = frameRef.current?.getBoundingClientRect();
@@ -116,8 +112,11 @@ export default function HeroFocalResponsiveEditor({
     const x = ((clientX - rect.left) / rect.width) * 100;
     const y = ((clientY - rect.top) / rect.height) * 100;
     const clamped = { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
-    setFocal((prev) => ({ ...prev, [active]: `${clamped.x.toFixed(1)}% ${clamped.y.toFixed(1)}%` }));
+    patchActive({ pos: `${clamped.x.toFixed(1)}% ${clamped.y.toFixed(1)}%` });
   };
+
+  const clampScale = (s: number) => Math.max(SCALE_MIN, Math.min(SCALE_MAX, Number(s.toFixed(3))));
+  const setScale = (s: number) => patchActive({ scale: clampScale(s) });
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (resizing) return;
@@ -135,9 +134,24 @@ export default function HeroFocalResponsiveEditor({
     setDragging(false);
   };
 
-  // Resize handles — compute new emulated viewport size based on how far the
-  // pointer moved from the initial grab, honoring scale so dragging 100px in
-  // screen space changes the emulated width by 100 / scale virtual pixels.
+  // Native (non-passive) wheel handler so we can `preventDefault` and block
+  // page-scroll while the admin zooms inside the preview. React's synthetic
+  // onWheel is attached passive by default and can't cancel the event.
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const delta = -e.deltaY;
+      setFocal((prev) => ({
+        ...prev,
+        [active]: { ...prev[active], scale: clampScale(prev[active].scale + delta * 0.0015) },
+      }));
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [active]);
+
   const startResize = useCallback((e: React.PointerEvent, mode: "right" | "bottom" | "corner") => {
     e.preventDefault();
     e.stopPropagation();
@@ -168,21 +182,19 @@ export default function HeroFocalResponsiveEditor({
   const setPreset = (p: (typeof PRESETS)[number]) => setViewport({ w: p.w, h: p.h });
 
   const copyFromActive = (target: Breakpoint) => {
-    setFocal((prev) => ({ ...prev, [target]: prev[active] }));
+    setFocal((prev) => ({ ...prev, [target]: { ...prev[active] } }));
   };
 
-  const reset = () => setFocal({ desktop: "50% 50%", tablet: "50% 50%", mobile: "50% 50%" });
+  const reset = () => {
+    const fresh: HeroFocalBP = { pos: "50% 50%", scale: 1 };
+    setFocal({ desktop: fresh, tablet: fresh, mobile: fresh });
+  };
   const handleSave = () => { onSave(focal); onClose(); };
 
-  // Typography — computed exactly as globals.css .heading-1 / .body-l would
-  // resolve at the emulated viewport width. body-l is a flat 16px.
   const h1Font = headingSize(viewport.w);
-
-  // Live container padding mirrors the real hero: px-4 sm:px-6 lg:px-12 + centered
-  // max-w-[var(--container-max)] container. We approximate with breakpoint checks.
   const containerPad = viewport.w >= 1024 ? 48 : viewport.w >= 640 ? 24 : 16;
   const containerMaxW = 1440;
-  const contentMaxW = Math.min(viewport.w - containerPad * 2, 820); // max-w-200 on the content block
+  const contentMaxW = Math.min(viewport.w - containerPad * 2, 820);
 
   return (
     <Modal open={open} onClose={onClose} maxWidth="sm:max-w-5xl">
@@ -190,12 +202,13 @@ export default function HeroFocalResponsiveEditor({
         <div className="px-6 py-4 border-b border-line">
           <h2 className="font-heading text-lg text-ink">Edit hero focal points</h2>
           <p className="text-xs text-muted mt-0.5">
-            Drag inside the preview to reposition the focal point. Drag the frame&apos;s right / bottom / corner
-            to emulate any viewport size — breakpoints follow the emulated width automatically.
+            Drag inside the preview to move the focal point. Scroll or use the slider to zoom.
+            Drag the frame&apos;s right / bottom / corner to emulate any viewport — breakpoints
+            follow the emulated width automatically.
           </p>
         </div>
 
-        {/* Controls: preset toggles, current value, copy shortcut */}
+        {/* Controls row */}
         <div className="px-6 py-3 border-b border-line flex flex-wrap items-center gap-3">
           <div className="inline-flex p-1 rounded-xl bg-champagne-dark gap-1">
             {PRESETS.map((p) => {
@@ -217,7 +230,6 @@ export default function HeroFocalResponsiveEditor({
             })}
           </div>
 
-          {/* Live w × h display (DevTools style) */}
           <div className="inline-flex items-center gap-1 text-[11px] text-ink font-mono">
             <span className="tabular-nums">{viewport.w}</span>
             <span className="text-muted">×</span>
@@ -225,7 +237,9 @@ export default function HeroFocalResponsiveEditor({
             <span className="text-muted ml-1">· {active}</span>
           </div>
 
-          <div className="text-[11px] text-muted font-mono ml-auto">{posString}</div>
+          <div className="text-[11px] text-muted font-mono ml-auto">
+            {posString} · {scale.toFixed(2)}×
+          </div>
 
           <div className="inline-flex gap-1">
             {(["desktop", "tablet", "mobile"] as Breakpoint[])
@@ -236,7 +250,7 @@ export default function HeroFocalResponsiveEditor({
                   type="button"
                   onClick={() => copyFromActive(k)}
                   className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] text-muted hover:text-ink hover:bg-champagne-dark transition-colors cursor-pointer"
-                  title={`Copy active focal point to ${k}`}
+                  title={`Copy active focal + zoom to ${k}`}
                 >
                   <CopyIcon size={10} />
                   → {k}
@@ -245,15 +259,52 @@ export default function HeroFocalResponsiveEditor({
           </div>
         </div>
 
-        {/* Stage */}
+        {/* Scale controls */}
+        <div className="px-6 py-3 border-b border-line flex items-center gap-3">
+          <label className="text-[11px] font-medium text-muted uppercase tracking-wider shrink-0">Zoom</label>
+          <button
+            type="button"
+            onClick={() => setScale(scale - SCALE_STEP * 2)}
+            className="w-7 h-7 rounded-lg border border-line text-ink inline-flex items-center justify-center hover:border-main transition-colors cursor-pointer"
+            title="Zoom out"
+          >
+            <Minus size={12} />
+          </button>
+          <input
+            type="range"
+            min={SCALE_MIN}
+            max={SCALE_MAX}
+            step={SCALE_STEP}
+            value={scale}
+            onChange={(e) => setScale(parseFloat(e.target.value))}
+            className="flex-1 accent-main"
+          />
+          <button
+            type="button"
+            onClick={() => setScale(scale + SCALE_STEP * 2)}
+            className="w-7 h-7 rounded-lg border border-line text-ink inline-flex items-center justify-center hover:border-main transition-colors cursor-pointer"
+            title="Zoom in"
+          >
+            <Plus size={12} />
+          </button>
+          <span className="text-[11px] text-ink font-mono tabular-nums min-w-[48px] text-right">
+            {scale.toFixed(2)}×
+          </span>
+          <button
+            type="button"
+            onClick={() => setScale(1)}
+            className="text-[11px] text-muted hover:text-ink transition-colors cursor-pointer"
+            title="Reset zoom to 1x"
+          >
+            reset
+          </button>
+        </div>
+
         <div
           ref={stageRef}
           className="flex-1 overflow-auto px-6 py-6 bg-champagne-dark/40 flex flex-col items-center gap-3"
         >
-          <div
-            className="relative"
-            style={{ width: displayW, height: displayH }}
-          >
+          <div className="relative" style={{ width: displayW, height: displayH }}>
             <div
               ref={frameRef}
               className={`absolute inset-0 overflow-hidden rounded-xl border border-line bg-black shadow-lg select-none ${
@@ -264,8 +315,6 @@ export default function HeroFocalResponsiveEditor({
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}
             >
-              {/* Inner scaled container renders at the real emulated viewport
-                   size; CSS transform shrinks everything proportionally. */}
               <div
                 className="absolute top-0 left-0"
                 style={{
@@ -275,17 +324,27 @@ export default function HeroFocalResponsiveEditor({
                   transformOrigin: "top left",
                 }}
               >
-                <Image
-                  src={imageUrl}
-                  alt=""
-                  fill
-                  className="object-cover pointer-events-none"
-                  style={{ objectPosition: posString }}
-                  sizes="100vw"
-                  draggable={false}
-                />
+                {/* Zoom layer — exactly matches the live Hero.tsx: a scaled
+                     wrapper with transform-origin at the focal point, so
+                     zooming pivots around the focused subject. */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    transform: `scale(${scale})`,
+                    transformOrigin: posString,
+                  }}
+                >
+                  <Image
+                    src={imageUrl}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: posString }}
+                    sizes="100vw"
+                    draggable={false}
+                  />
+                </div>
 
-                {/* Darken gradient — matches live hero exactly */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
@@ -302,10 +361,6 @@ export default function HeroFocalResponsiveEditor({
                   }}
                 />
 
-                {/* Content — uses real .heading-1 / .body-l classes so fonts
-                     and line heights match the site. Font size override for
-                     .heading-1 mimics its clamp against the emulated width
-                     (CSS `vw` is tied to the real window, not our frame). */}
                 <div className="relative h-full flex items-center">
                   <div
                     className="w-full mx-auto"
@@ -344,8 +399,6 @@ export default function HeroFocalResponsiveEditor({
                 </div>
               </div>
 
-              {/* Crosshair — positioned in frame coords, NOT scaled, so the
-                   hit target remains comfortable on tiny phone emulation. */}
               <div
                 className="absolute w-8 h-8 rounded-full border-2 border-white pointer-events-none"
                 style={{
@@ -360,8 +413,7 @@ export default function HeroFocalResponsiveEditor({
               </div>
             </div>
 
-            {/* Resize handles — positioned outside the clipped frame so the
-                 click target extends into the surrounding gutter. */}
+            {/* Resize handles */}
             <div
               role="separator"
               aria-orientation="vertical"
@@ -400,6 +452,7 @@ export default function HeroFocalResponsiveEditor({
 
           <p className="text-[11px] text-muted text-center max-w-md">
             Preview matches the live hero typography, gradients, and content position.
+            Scroll over the preview to zoom — the focal point stays anchored.
             {fitScale < 1 && <> Scaled to {Math.round(fitScale * 100)}% to fit the modal.</>}
           </p>
         </div>
@@ -410,7 +463,7 @@ export default function HeroFocalResponsiveEditor({
             onClick={reset}
             className="text-xs text-muted hover:text-ink transition-colors cursor-pointer"
           >
-            Reset all to center
+            Reset all to center · 1×
           </button>
           <div className="flex-1" />
           <Button variant="neutral" size="sm" onClick={onClose}>

@@ -39,31 +39,34 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
   const sectionRef = useRef<HTMLElement>(null);
   const SLIDES = useMemo(() => slides.map((s) => ({ id: s.id, src: s.imageUrl, objectPosition: s.objectPosition, alt: s.alt })), [slides]);
 
-  // Emit one scoped stylesheet that maps each slide's id → --focal at the
-  // three breakpoints. Using a shared --focal CSS var inside the scoped
-  // selector keeps the Image rendering simple (just reads var(--focal)) while
-  // still letting CSS media queries pick the right value per viewport.
+  // Emit one scoped stylesheet that maps each slide's id → --focal +
+  // --focal-scale at the three breakpoints. The shared CSS vars let the
+  // Image read var(--focal) for object-position while the wrapping div reads
+  // var(--focal-scale) for a zoom transform (with transform-origin tied to
+  // the same focal point so zooming keeps the chosen subject anchored).
   // Breakpoints match Tailwind: md=768, lg=1024.
   const focalCss = useMemo(() => {
     // Sanitize both halves of the selector+value: UUIDs are a fixed charset,
     // object-position values are restricted to percentage numbers / the six
     // CSS keywords. Anything else is dropped on the floor — prevents CSS
-    // injection even if someone manages to poke bad data into the column.
+    // injection even if bad data ends up in the column.
     const safeId = (id: string) => id.replace(/[^a-zA-Z0-9-]/g, "");
     const safePos = (v: string) => {
       const cleaned = v.replace(/[^a-zA-Z0-9%.\s-]/g, "").trim();
       return cleaned || "center center";
     };
+    const safeScale = (n: number) => {
+      const clamped = Math.max(0.1, Math.min(5, n || 1));
+      return clamped.toFixed(3);
+    };
     return slides
       .map((s) => {
         const id = safeId(s.id);
-        const m = safePos(s.objectPosition.mobile);
-        const t = safePos(s.objectPosition.tablet);
-        const d = safePos(s.objectPosition.desktop);
+        const op = s.objectPosition;
         return `
-[data-hero-slide="${id}"]{--focal:${m};}
-@media(min-width:768px){[data-hero-slide="${id}"]{--focal:${t};}}
-@media(min-width:1024px){[data-hero-slide="${id}"]{--focal:${d};}}`;
+[data-hero-slide="${id}"]{--focal:${safePos(op.mobile.pos)};--focal-scale:${safeScale(op.mobile.scale)};}
+@media(min-width:768px){[data-hero-slide="${id}"]{--focal:${safePos(op.tablet.pos)};--focal-scale:${safeScale(op.tablet.scale)};}}
+@media(min-width:1024px){[data-hero-slide="${id}"]{--focal:${safePos(op.desktop.pos)};--focal-scale:${safeScale(op.desktop.scale)};}}`;
       })
       .join("");
   }, [slides]);
@@ -141,36 +144,46 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
               opacity: { duration: 2, ease: [0.4, 0, 0.2, 1] },
             }}
           >
-            {/* Sharp image */}
-            <Image
-              src={slide.src}
-              alt={slide.alt || ""}
-              fill
-              className="object-cover"
-              style={{ objectPosition: "var(--focal)" }}
-              sizes="100vw"
-              priority={current === 0}
-            />
-
-            {/* Progressive blur — inside slide so it crossfades together */}
+            {/* Scaled wrapper — zoom level + origin set by CSS vars keyed on
+                 data-hero-slide, which the <style> above fills per breakpoint. */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0"
               style={{
-                maskImage:
-                  "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
-                WebkitMaskImage:
-                  "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
+                transform: "scale(var(--focal-scale, 1))",
+                transformOrigin: "var(--focal, 50% 50%)",
               }}
             >
+              {/* Sharp image */}
               <Image
                 src={slide.src}
-                alt=""
+                alt={slide.alt || ""}
                 fill
                 className="object-cover"
-                style={{ objectPosition: "var(--focal)", filter: "blur(2px)" }}
+                style={{ objectPosition: "var(--focal)" }}
                 sizes="100vw"
-                aria-hidden
+                priority={current === 0}
               />
+
+              {/* Progressive blur — inside slide so it crossfades together */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
+                }}
+              >
+                <Image
+                  src={slide.src}
+                  alt=""
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "var(--focal)", filter: "blur(2px)" }}
+                  sizes="100vw"
+                  aria-hidden
+                />
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>

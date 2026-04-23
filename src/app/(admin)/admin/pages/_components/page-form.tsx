@@ -23,9 +23,9 @@ import SeoTab from "./seo-tab";
 interface HeroSlideInput {
   id?: string;
   image_url: string;
-  /** Per-breakpoint focal point (post-migration), or legacy flat string that
-   *  HeroSlidesEditor normalises into all three. */
-  object_position: { desktop: string; tablet: string; mobile: string } | string;
+  /** Whatever JSONB the DB returned — HeroSlidesEditor normalises string,
+   *  legacy {desktop:string,...}, and current {desktop:{pos,scale},...}. */
+  object_position: unknown;
   alt_uk: string;
   alt_ru: string;
   alt_en: string;

@@ -13,35 +13,62 @@ export async function uploadPhase2Image(formData: FormData): Promise<{ url: stri
 }
 
 /* ==========  HERO SLIDES  ========== */
-/** Per-breakpoint focal points, stored as JSONB on hero_slides. */
+/** Crop settings for a single breakpoint. */
+export type HeroFocalBPInput = { pos?: string; scale?: number };
+/** Per-breakpoint focal + zoom. Callers may also send a legacy flat string
+ *  (just a position) — normalized into a full {pos, scale: 1} object. */
 export type HeroFocalInput = {
-  desktop?: string;
-  tablet?: string;
-  mobile?: string;
+  desktop?: HeroFocalBPInput | string;
+  tablet?: HeroFocalBPInput | string;
+  mobile?: HeroFocalBPInput | string;
 };
 
 type HeroSlideInput = {
   id?: string;
   image_url: string;
-  /** Either the new per-breakpoint object, or a plain string (legacy inputs
-   *  from UIs that haven't been updated yet — we fan it out to all three). */
-  object_position: HeroFocalInput | string;
+  /** Accept any shape — normalizeFocal handles string, legacy per-bp
+   *  strings, the current {pos, scale} per-bp objects, and null/undefined. */
+  object_position: unknown;
   alt_uk: string;
   alt_ru: string;
   alt_en: string;
 };
 
-function normalizeFocal(v: HeroFocalInput | string | undefined | null): HeroFocalInput {
-  const fallback = "50% 50%";
-  if (!v) return { desktop: fallback, tablet: fallback, mobile: fallback };
+const FOCAL_FALLBACK_POS = "50% 50%";
+const FOCAL_FALLBACK_SCALE = 1;
+
+function coerceBP(v: HeroFocalBPInput | string | undefined | null): { pos: string; scale: number } {
   if (typeof v === "string") {
-    const s = v.trim() || fallback;
-    return { desktop: s, tablet: s, mobile: s };
+    const trimmed = v.trim();
+    return { pos: trimmed || FOCAL_FALLBACK_POS, scale: FOCAL_FALLBACK_SCALE };
   }
+  if (v && typeof v === "object") {
+    const pos = typeof v.pos === "string" && v.pos.trim() ? v.pos.trim() : FOCAL_FALLBACK_POS;
+    const rawScale = typeof v.scale === "number" ? v.scale : Number(v.scale);
+    const scale = Number.isFinite(rawScale) && rawScale > 0 ? rawScale : FOCAL_FALLBACK_SCALE;
+    return { pos, scale };
+  }
+  return { pos: FOCAL_FALLBACK_POS, scale: FOCAL_FALLBACK_SCALE };
+}
+
+function normalizeFocal(v: unknown): {
+  desktop: { pos: string; scale: number };
+  tablet: { pos: string; scale: number };
+  mobile: { pos: string; scale: number };
+} {
+  if (!v) {
+    const f = { pos: FOCAL_FALLBACK_POS, scale: FOCAL_FALLBACK_SCALE };
+    return { desktop: f, tablet: f, mobile: f };
+  }
+  if (typeof v === "string") {
+    const bp = coerceBP(v);
+    return { desktop: bp, tablet: bp, mobile: bp };
+  }
+  const src = v as { desktop?: unknown; tablet?: unknown; mobile?: unknown };
   return {
-    desktop: v.desktop?.trim() || fallback,
-    tablet: v.tablet?.trim() || fallback,
-    mobile: v.mobile?.trim() || fallback,
+    desktop: coerceBP(src.desktop as HeroFocalBPInput | string | undefined),
+    tablet: coerceBP(src.tablet as HeroFocalBPInput | string | undefined),
+    mobile: coerceBP(src.mobile as HeroFocalBPInput | string | undefined),
   };
 }
 

@@ -10,14 +10,14 @@ import { useUnsavedTracker } from "./unsaved-changes";
 import Button from "@/components/ui/Button";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
 import MediaPicker from "./media-picker";
-import HeroFocalResponsiveEditor, { type HeroFocalValue } from "./hero-focal-responsive-editor";
+import HeroFocalResponsiveEditor, { type HeroFocalValue, type HeroFocalBP } from "./hero-focal-responsive-editor";
 
 interface Slide {
   id?: string;
   image_url: string;
-  /** Per-breakpoint focal points. Accepts the legacy flat string so DB rows
-   *  that weren't yet touched by the migration still round-trip cleanly. */
-  object_position: HeroFocalValue | string;
+  /** Whatever JSONB the DB returned — normalizeFocal handles string,
+   *  legacy per-bp strings, current {pos, scale} per-bp objects, and null. */
+  object_position: unknown;
   alt_uk: string;
   alt_ru: string;
   alt_en: string;
@@ -30,14 +30,31 @@ interface Props {
   heroContent?: { title: string; subtitle: string; cta: string; location: string };
 }
 
-function normalizeFocal(v: HeroFocalValue | string | undefined | null): HeroFocalValue {
-  const fallback = "50% 50%";
-  if (!v) return { desktop: fallback, tablet: fallback, mobile: fallback };
-  if (typeof v === "string") return { desktop: v, tablet: v, mobile: v };
+const DEFAULT_BP: HeroFocalBP = { pos: "50% 50%", scale: 1 };
+
+function coerceBP(v: unknown): HeroFocalBP {
+  if (typeof v === "string" && v.trim()) return { pos: v.trim(), scale: 1 };
+  if (v && typeof v === "object") {
+    const src = v as Record<string, unknown>;
+    const pos = typeof src.pos === "string" && src.pos.trim() ? src.pos.trim() : "50% 50%";
+    const raw = typeof src.scale === "number" ? src.scale : Number(src.scale);
+    const scale = Number.isFinite(raw) && raw > 0 ? raw : 1;
+    return { pos, scale };
+  }
+  return { ...DEFAULT_BP };
+}
+
+function normalizeFocal(v: unknown): HeroFocalValue {
+  if (!v) return { desktop: { ...DEFAULT_BP }, tablet: { ...DEFAULT_BP }, mobile: { ...DEFAULT_BP } };
+  if (typeof v === "string") {
+    const bp = coerceBP(v);
+    return { desktop: bp, tablet: { ...bp }, mobile: { ...bp } };
+  }
+  const src = v as { desktop?: unknown; tablet?: unknown; mobile?: unknown };
   return {
-    desktop: v.desktop || fallback,
-    tablet: v.tablet || fallback,
-    mobile: v.mobile || fallback,
+    desktop: coerceBP(src.desktop),
+    tablet: coerceBP(src.tablet),
+    mobile: coerceBP(src.mobile),
   };
 }
 
@@ -69,7 +86,11 @@ export default function HeroSlidesEditor({ initial, heroContent }: Props) {
       ...slides,
       {
         image_url: "",
-        object_position: { desktop: "50% 50%", tablet: "50% 50%", mobile: "50% 50%" },
+        object_position: {
+          desktop: { ...DEFAULT_BP },
+          tablet: { ...DEFAULT_BP },
+          mobile: { ...DEFAULT_BP },
+        },
         alt_uk: "", alt_ru: "", alt_en: "",
       },
     ]);
@@ -162,7 +183,9 @@ export default function HeroSlidesEditor({ initial, heroContent }: Props) {
               <label className="text-[10px] font-medium text-muted uppercase tracking-wider">Focal points</label>
               {(() => {
                 const fp = normalizeFocal(slide.object_position);
-                const allSame = fp.desktop === fp.tablet && fp.tablet === fp.mobile;
+                const eq = (a: HeroFocalBP, b: HeroFocalBP) => a.pos === b.pos && a.scale === b.scale;
+                const allSame = eq(fp.desktop, fp.tablet) && eq(fp.tablet, fp.mobile);
+                const fmt = (bp: HeroFocalBP) => `${bp.pos}${bp.scale !== 1 ? ` @${bp.scale.toFixed(2)}x` : ""}`;
                 return (
                   <button
                     type="button"
@@ -173,8 +196,8 @@ export default function HeroSlidesEditor({ initial, heroContent }: Props) {
                   >
                     <Crop size={12} />
                     {allSame
-                      ? `All: ${fp.desktop}`
-                      : `D ${fp.desktop} · T ${fp.tablet} · M ${fp.mobile}`}
+                      ? `All: ${fmt(fp.desktop)}`
+                      : `D ${fmt(fp.desktop)} · T ${fmt(fp.tablet)} · M ${fmt(fp.mobile)}`}
                   </button>
                 );
               })()}

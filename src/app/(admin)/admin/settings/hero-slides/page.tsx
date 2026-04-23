@@ -11,10 +11,10 @@ export default async function HeroSlidesPage() {
   const slides = rows.map((r) => ({
     id: r.id as string,
     image_url: r.image_url as string,
-    // object_position is JSONB post-migration — the driver returns it as an
-    // object already. Old rows that predate the migration return a plain
-    // string; HeroSlidesEditor normalises either shape.
-    object_position: r.object_position as { desktop: string; tablet: string; mobile: string } | string,
+    // object_position is JSONB — may be the new {desktop:{pos,scale},...}
+    // shape, a legacy {desktop:string,...} shape, or even a flat string from
+    // very old rows. HeroSlidesEditor normalises any of those.
+    object_position: r.object_position,
     alt_uk: (r.alt_uk as string) || "",
     alt_ru: (r.alt_ru as string) || "",
     alt_en: (r.alt_en as string) || "",
