@@ -82,7 +82,7 @@ function TabContent({ service }: { service: LabService }) {
               <p className="body-s text-muted">{tLabels("price")}</p>
               <p className="heading-3 text-main">{service.price}</p>
               <div className="mt-4">
-                <BookingCTA variant="primary" size="sm">{tLabels("book")}</BookingCTA>
+                <BookingCTA ctaKey="laboratoryHero" variant="primary" size="sm">{tLabels("book")}</BookingCTA>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@ export default function LaboratoryPageComponent({
                 <h1 className="heading-1 text-black mt-6">{data.h1 || data.title}</h1>
                 {data.summary && <p className="body-l text-muted mt-5">{data.summary}</p>}
                 <div className="mt-8">
-                  <BookingCTA variant="primary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
+                  <BookingCTA ctaKey="laboratoryMid" variant="primary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
                 </div>
               </motion.div>
               <motion.div className="flex-1 mt-8 lg:mt-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1, delay: 0.5 }}>
@@ -243,7 +243,7 @@ export default function LaboratoryPageComponent({
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-          <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+          <BookingCTA ctaKey="laboratoryFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
         </div>
       </div>
     </>

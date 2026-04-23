@@ -116,7 +116,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
                 </a>
               </div>
 
-              <BookingCTA variant="primary" size="lg" className="self-start">
+              <BookingCTA ctaKey="contactsHero" variant="primary" size="lg" className="self-start">
                 {tLabels("bookConsultation")}
               </BookingCTA>
             </motion.div>
@@ -167,7 +167,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
             <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+            <BookingCTA ctaKey="contactsFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
           </div>
         </motion.div>
       </div>

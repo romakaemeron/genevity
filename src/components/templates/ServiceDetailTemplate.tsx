@@ -145,7 +145,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
-          <BookingCTA variant="primary" size="lg">
+          <BookingCTA ctaKey="serviceDetailHero" variant="primary" size="lg" initialInterest={`service:${data.slug}`}>
             {t("book")}
           </BookingCTA>
         </motion.div>
@@ -402,9 +402,11 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                     <h2 className="heading-2 text-champagne mb-4">{heading(data.blockHeadings.finalCTA, t("bookCta"))}</h2>
                     <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{t("ctaSubtitle")}</p>
                     <BookingCTA
+                      ctaKey="serviceDetailFinal"
                       variant="secondary"
                       size="lg"
                       className="bg-champagne text-black hover:bg-champagne-dark"
+                      initialInterest={`service:${data.slug}`}
                     >
                       {t("bookConsultation")}
                     </BookingCTA>

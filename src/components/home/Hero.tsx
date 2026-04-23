@@ -230,6 +230,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                   {data.location}
                 </a>
                 <BookingCTA
+                  ctaKey="hero"
                   variant="secondary"
                   size="lg"
                   className="bg-champagne text-black hover:bg-champagne-dark self-start"

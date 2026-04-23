@@ -220,7 +220,7 @@ export default function MegaMenuHeader({
 
           <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
-            <BookingCTA variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
+            <BookingCTA ctaKey="megamenu" variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}
@@ -338,7 +338,7 @@ export default function MegaMenuHeader({
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3, duration: 0.28 }}
                     >
-                      <BookingCTA variant="primary" className="w-full text-center">
+                      <BookingCTA ctaKey="megamenuMobile" variant="primary" className="w-full text-center">
                         {tNav("cta")}
                       </BookingCTA>
                     </motion.div>

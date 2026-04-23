@@ -76,7 +76,7 @@ export default function StaticPageTemplate({
                 {data.summary && <p className="body-l text-white-60 mt-5">{data.summary}</p>}
                 {heroCta && (
                   <div className="mt-8">
-                    <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
+                    <BookingCTA ctaKey="staticPageHero" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
                       {t("bookConsultation")}
                     </BookingCTA>
                   </div>
@@ -103,7 +103,7 @@ export default function StaticPageTemplate({
                   {data.summary && <p className="body-l text-muted mt-5">{data.summary}</p>}
                   {heroCta && (
                     <div className="mt-8">
-                      <BookingCTA variant="primary" size="lg">{t("bookConsultation")}</BookingCTA>
+                      <BookingCTA ctaKey="staticPageMid" variant="primary" size="lg">{t("bookConsultation")}</BookingCTA>
                     </div>
                   )}
                 </motion.div>
@@ -219,7 +219,7 @@ export default function StaticPageTemplate({
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{t("bookCta")}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{t("ctaSubtitle")}</p>
-          <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{t("book")}</BookingCTA>
+          <BookingCTA ctaKey="staticPageFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{t("book")}</BookingCTA>
         </div>
       </div>
     </>

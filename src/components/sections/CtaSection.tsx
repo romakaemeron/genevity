@@ -22,6 +22,7 @@ export default function CtaSection({ heading, body, ctaLabel }: SectionCta) {
         {body && <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{body}</p>}
         {ctaLabel && (
           <BookingCTA
+            ctaKey="ctaSection"
             variant="secondary"
             size="lg"
             className="bg-champagne text-black hover:bg-champagne-dark"

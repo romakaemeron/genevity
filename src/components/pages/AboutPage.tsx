@@ -70,7 +70,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
               <h1 className="heading-1 text-black mt-6">{about.title}</h1>
               <p className="heading-3 text-main mt-4">{about.text2}</p>
               <div className="mt-8">
-                <BookingCTA variant="primary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
+                <BookingCTA ctaKey="aboutHero" variant="primary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
               </div>
             </motion.div>
 
@@ -186,7 +186,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
             <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+            <BookingCTA ctaKey="aboutFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
           </div>
         </motion.div>
       </div>

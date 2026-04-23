@@ -115,6 +115,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                 )}
                 <div className="mt-8 flex flex-col gap-3 w-fit">
                   <BookingCTA
+                    ctaKey="categoryHero"
                     variant={heroVariant === "light" ? "primary" : "secondary"}
                     size="lg"
                     className={`${heroVariant === "light" ? "" : "bg-champagne text-black hover:bg-champagne-dark"} text-center`}
@@ -390,6 +391,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
               {t("ctaSubtitle")}
             </p>
             <BookingCTA
+              ctaKey="categoryFinal"
               variant="secondary"
               size="lg"
               className="bg-champagne text-black hover:bg-champagne-dark"

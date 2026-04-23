@@ -20,7 +20,7 @@ export default function PriceTeaserSection({ heading, intro, ctaLabel }: Section
         )}
         {intro && <p className="body-l text-muted max-w-2xl">{intro}</p>}
         {ctaLabel && (
-          <BookingCTA variant="primary" size="lg" className="self-start">
+          <BookingCTA ctaKey="priceTeaser" variant="primary" size="lg" className="self-start">
             {ctaLabel}
           </BookingCTA>
         )}

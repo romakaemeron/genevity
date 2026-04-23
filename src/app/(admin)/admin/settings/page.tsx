@@ -33,6 +33,11 @@ export default async function SettingsPage() {
             subtitle="All labels, headings, CTAs"
           />
           <AdminListItem
+            href="/admin/settings/cta"
+            title="Booking CTAs"
+            subtitle="Per-location overrides for every booking button"
+          />
+          <AdminListItem
             href="/admin/settings/hero-slides"
             title="Hero Slides"
             subtitle="Homepage slideshow images"

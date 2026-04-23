@@ -54,7 +54,7 @@ export default function DoctorModal({ doctor, cta, experience }: DoctorModalProp
           </ul>
         )}
 
-        <BookingCTA variant="primary" className="self-start mt-2">
+        <BookingCTA ctaKey="doctorModal" variant="primary" className="self-start mt-2">
           {cta}
         </BookingCTA>
       </div>

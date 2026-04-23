@@ -86,7 +86,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
             <h1 className="heading-1 text-champagne mt-6 max-w-2xl">{data.h1 || data.title}</h1>
             {data.summary && <p className="body-l text-white-60 mt-5 max-w-xl">{data.summary}</p>}
             <div className="mt-8">
-              <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
+              <BookingCTA ctaKey="stationaryHero" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
                 {tLabels("bookConsultation")}
               </BookingCTA>
             </div>
@@ -246,7 +246,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
             <h2 className="heading-3 text-black mb-3">{tPage("pricingTitle")}</h2>
             <p className="body-l text-muted">{tPage("pricingBody")}</p>
           </div>
-          <BookingCTA variant="primary" size="lg" className="self-start shrink-0">
+          <BookingCTA ctaKey="stationaryMid" variant="primary" size="lg" className="self-start shrink-0">
             {tLabels("bookConsultation")}
           </BookingCTA>
         </motion.div>
@@ -286,7 +286,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
             <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-            <BookingCTA variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+            <BookingCTA ctaKey="stationaryFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
           </div>
         </motion.div>
       </div>
