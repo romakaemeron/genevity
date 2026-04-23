@@ -98,6 +98,7 @@ export async function getServiceBySlug(
     priceUnit: pick(r, "price_unit", l),
     seoTitle: pick(r, "seo_title", l),
     seoDescription: pick(r, "seo_desc", l),
+    seoKeywords: pick(r, "seo_keywords", l),
     sections,
     faq,
     relatedDoctors,

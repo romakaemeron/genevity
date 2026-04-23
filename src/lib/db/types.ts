@@ -232,6 +232,7 @@ export interface ServiceCategoryData {
   iconKey: string | null;
   seoTitle?: string;
   seoDescription?: string;
+  seoKeywords?: string;
   sections?: ContentSection[];
   faq?: FaqItemData[];
 }
@@ -275,6 +276,7 @@ export interface ServiceData {
   priceUnit: string | null;
   seoTitle?: string;
   seoDescription?: string;
+  seoKeywords?: string;
   sections: ContentSection[];
   faq: FaqItemData[];
   relatedDoctors: DoctorItem[];

@@ -20,6 +20,7 @@ function mapCategory(r: any, l: string, parent?: any): ServiceCategoryData {
     iconKey: r.icon_key,
     seoTitle: pick(r, "seo_title", l),
     seoDescription: pick(r, "seo_desc", l),
+    seoKeywords: pick(r, "seo_keywords", l),
   };
 }
 
