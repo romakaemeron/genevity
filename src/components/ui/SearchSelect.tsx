@@ -302,7 +302,7 @@ export default function SearchSelect(props: Props) {
               {selectedOptions.map((o) => (
                 <span
                   key={o.value}
-                  className="inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-[var(--radius-pill)] bg-main/10 border border-main/20 text-[12px] text-ink"
+                  className="inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-[var(--radius-pill)] bg-champagne-darker border border-line text-[12px] text-ink"
                 >
                   <span className="truncate max-w-[180px]">{o.label}</span>
                   <span

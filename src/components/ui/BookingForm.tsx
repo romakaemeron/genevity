@@ -60,7 +60,9 @@ export default function BookingForm({
   const locale = useLocale();
   const [options, setOptions] = useState<BookingOptions | null>(null);
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  // Pre-fill with the Ukrainian prefix so visitors only type the number
+  // part, with the formatter already primed to group the next digits.
+  const [phone, setPhone] = useState("+380 ");
   const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
   const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
   const [error, setError] = useState<string | null>(null);
@@ -152,8 +154,10 @@ export default function BookingForm({
           id="booking-name"
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setName(e.target.value.slice(0, 100))}
           autoComplete="name"
+          maxLength={100}
+          minLength={2}
           required
           className={fieldCls}
         />
@@ -165,7 +169,13 @@ export default function BookingForm({
           type="tel"
           value={phone}
           onChange={(e) => setPhone(formatPhone(e.target.value))}
+          onBlur={() => { if (!phone.replace(/\D+/g, "")) setPhone("+380 "); }}
           autoComplete="tel"
+          // Require at least 9 digits total — matches the server-side
+          // sanitizer. inputmode="tel" pops the numeric keypad on iOS.
+          pattern="[\+\d\s()-]{9,}"
+          inputMode="tel"
+          maxLength={24}
           required
           placeholder="+380 __ ___ __ __"
           className={fieldCls}

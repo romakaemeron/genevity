@@ -122,24 +122,94 @@ export interface BookingSubmissionResult {
   errorKey?: "name" | "phone" | "generic";
 }
 
-/** Bare-minimum Ukrainian / international phone sanity check — strips
- *  non-digits then requires 9+ digits. We don't reject legitimate numbers
- *  for a ~10% validation win; the clinic can always ignore junk leads. */
-function isValidPhone(raw: string): boolean {
-  const digits = raw.replace(/\D+/g, "");
-  return digits.length >= 9 && digits.length <= 15;
+/* ── Server-side sanitizers ────────────────────────────────────────
+ *  DB writes are already parameterized (postgres tagged-template `${…}`
+ *  never concatenates strings) so SQL injection isn't possible here —
+ *  these checks focus on *input shape* (lengths, formats, slug safety)
+ *  so we don't persist obvious garbage or create future XSS risk in
+ *  email/admin renders. */
+
+const NAME_MIN = 2;
+const NAME_MAX = 100;
+const PHONE_MIN_DIGITS = 9;
+const PHONE_MAX_DIGITS = 15;
+const INTEREST_VALUE_PATTERN = /^(service|doctor):[a-zA-Z0-9-]{1,100}$/;
+const INTEREST_LABEL_MAX = 200;
+const MAX_INTERESTS = 20;
+
+function sanitizeName(raw: string): string | null {
+  const collapsed = (raw || "").trim().replace(/\s+/g, " ");
+  if (collapsed.length < NAME_MIN || collapsed.length > NAME_MAX) return null;
+  if (/<[^>]*>/.test(collapsed)) return null;        // no HTML tags
+  if (/\bhttps?:\/\//i.test(collapsed)) return null;  // no URLs (spam lead smell)
+  if (/[\x00-\x1f\x7f]/.test(collapsed)) return null; // no control chars
+  return collapsed;
+}
+
+function sanitizePhone(raw: string): string | null {
+  const digits = (raw || "").replace(/\D+/g, "");
+  if (digits.length < PHONE_MIN_DIGITS || digits.length > PHONE_MAX_DIGITS) return null;
+  // Re-emit in a canonical display form so admin list reads cleanly.
+  if (digits.startsWith("380")) {
+    const d = digits.slice(3);
+    const parts = ["+380", d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean);
+    return parts.join(" ");
+  }
+  return `+${digits}`;
+}
+
+function sanitizeInterestValues(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const v of raw) {
+    if (typeof v !== "string") continue;
+    const t = v.trim();
+    if (!INTEREST_VALUE_PATTERN.test(t)) continue;
+    if (seen.has(t)) continue;
+    seen.add(t);
+    out.push(t);
+    if (out.length >= MAX_INTERESTS) break;
+  }
+  return out;
+}
+
+function sanitizeInterestLabels(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  const out: string[] = [];
+  for (const v of raw) {
+    if (typeof v !== "string") continue;
+    const trimmed = v.trim().replace(/[\x00-\x1f\x7f]/g, "");
+    if (!trimmed) continue;
+    out.push(trimmed.slice(0, INTEREST_LABEL_MAX));
+    if (out.length >= MAX_INTERESTS) break;
+  }
+  return out;
+}
+
+function sanitizePageUrl(raw: string | undefined): string {
+  const s = (raw || "").trim().slice(0, 500);
+  if (!s) return "";
+  try {
+    const u = new URL(s);
+    if (u.protocol !== "http:" && u.protocol !== "https:") return "";
+    return u.toString().slice(0, 500);
+  } catch {
+    return "";
+  }
 }
 
 export async function submitBookingForm(input: BookingSubmissionInput): Promise<BookingSubmissionResult> {
-  const name = (input.name || "").trim();
-  const phone = (input.phone || "").trim();
+  const name = sanitizeName(input.name || "");
   if (!name) return { ok: false, errorKey: "name" };
-  if (!isValidPhone(phone)) return { ok: false, errorKey: "phone" };
 
-  const interestValues = (input.interestValues || []).map((v) => v.trim()).filter(Boolean);
-  const interestLabels = (input.interestLabels || []).map((v) => v.trim()).filter(Boolean);
+  const phone = sanitizePhone(input.phone || "");
+  if (!phone) return { ok: false, errorKey: "phone" };
+
+  const interestValues = sanitizeInterestValues(input.interestValues);
+  const interestLabels = sanitizeInterestLabels(input.interestLabels);
   const joinedLabel = interestLabels.join(" · ");
-  const pageUrl = (input.pageUrl || "").slice(0, 500);
+  const pageUrl = sanitizePageUrl(input.pageUrl);
 
   // Map the first service:<slug> back to a services.id so the admin list
   // can link through to the related service. If the visitor picked only
