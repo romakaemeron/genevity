@@ -235,7 +235,11 @@ export default function BookingForm({
           required
           placeholder={t("name")}
           aria-invalid={errors.name ? true : undefined}
-          className={`${fieldCls} ${errors.name ? "border-error focus:border-error focus:ring-error/20" : ""}`}
+          // borderColor inline for the same reason as the phone field — the
+          // composite `border` utility in fieldCls would otherwise shade the
+          // error red back out to the neutral line colour.
+          style={errors.name ? { borderColor: "var(--color-error)" } : undefined}
+          className={`${fieldCls} ${errors.name ? "focus:ring-error/20" : ""}`}
         />
       </Field>
 
