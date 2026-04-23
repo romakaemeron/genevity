@@ -230,8 +230,12 @@ export default function SearchSelect({
               top: anchor.top,
               left: anchor.left,
               width: anchor.width,
+              // z-index via inline style — Tailwind's arbitrary z-index value
+              // can lose to the modal's compiled styles under Turbopack, so
+              // we force a number that sits above any real overlay.
+              zIndex: 9999,
             }}
-            className="z-[2000] rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
+            className="rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
             role="listbox"
           >
             <div className="flex items-center gap-2 px-3 py-2.5 border-b border-line">

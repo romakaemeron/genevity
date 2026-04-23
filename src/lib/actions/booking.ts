@@ -62,7 +62,10 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
     serviceId: r.id as string,
   }));
   const doctors: BookingOption[] = doctorRows.map((r) => ({
-    value: `doctor:${r.slug}`,
+    // Prefer slug for a human-readable `direction` string on the admin
+    // portal, but fall back to the DB id so doctors without a slug still
+    // produce unique combobox keys (React crashes on duplicate keys).
+    value: `doctor:${r.slug || r.id}`,
     label: pick(r, "name", l),
     sub: pick(r, "role", l) || undefined,
     group: "doctor",
