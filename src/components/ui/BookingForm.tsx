@@ -14,7 +14,8 @@
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { Check, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import SearchSelect from "@/components/ui/SearchSelect";
 import {
@@ -132,11 +133,48 @@ export default function BookingForm({
 
   if (success) {
     return (
-      <div className={`flex flex-col items-center gap-3 py-6 text-center ${className || ""}`}>
-        <div className="w-12 h-12 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center">
-          <Check className="w-6 h-6" strokeWidth={2.5} />
-        </div>
-        <p className="body-l text-ink max-w-xs">{t("success")}</p>
+      <div className={`flex flex-col items-center gap-4 py-10 text-center ${className || ""}`}>
+        {/* Sequence:
+              1) icon enters lower (where the text will eventually land)
+              2) the checkmark path is drawn via strokeDashoffset
+              3) icon translates up to its final slot
+              4) copy blur-reveals in from below
+           The delays chain so each step finishes before the next begins. */}
+        <motion.div
+          initial={{ y: 36, scale: 0.96 }}
+          animate={{ y: 0, scale: 1 }}
+          transition={{ delay: 0.55, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="w-14 h-14 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
+        >
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.6}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <motion.path
+              d="M5 12.5 L10 17.5 L19 7.5"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{
+                pathLength: { delay: 0.1, duration: 0.45, ease: [0.65, 0, 0.35, 1] },
+                opacity: { delay: 0.1, duration: 0.1 },
+              }}
+            />
+          </svg>
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: 1.0, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="body-l text-ink max-w-xs"
+        >
+          {t("success")}
+        </motion.p>
       </div>
     );
   }
