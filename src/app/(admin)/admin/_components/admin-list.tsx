@@ -16,8 +16,8 @@ export function AdminPageHeader({
   return (
     <div className="flex items-start justify-between mb-8 gap-4 flex-wrap">
       <div>
-        <h1 className="heading-2 text-ink">{title}</h1>
-        {subtitle && <p className="body-m text-muted mt-3">{subtitle}</p>}
+        <h1 className="heading-2 text-ink mb-3">{title}</h1>
+        {subtitle && <p className="body-m text-muted">{subtitle}</p>}
       </div>
       {actions && <div className="flex gap-2">{actions}</div>}
     </div>
