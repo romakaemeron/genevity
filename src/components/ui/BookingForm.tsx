@@ -203,47 +203,48 @@ export default function BookingForm({
       </Field>
 
       <Field label={t("phone")} htmlFor="booking-phone">
-        <input
-          ref={phoneInputRef}
-          id="booking-phone"
-          type="tel"
-          value={buildPhoneDisplay(phoneDigits)}
-          onChange={(e) => setPhoneDigits(extractPhoneDigits(e.target.value))}
-          onFocus={(e) => {
-            // Drop the caret in the next empty slot when focusing —
-            // clicking an already-filled digit would otherwise let the
-            // user overwrite it in place which is rarely what they want.
-            const el = e.currentTarget;
-            requestAnimationFrame(() => {
-              const pos = caretForDigits(phoneDigits.length);
-              el.setSelectionRange(pos, pos);
-            });
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Backspace") {
-              // Remove the last entered digit — bypasses the default
-              // mask-literal deletion which would otherwise leave a
-              // weird value that the formatter has to untangle.
-              if (phoneDigits.length > 0) {
+        <div className="relative">
+          <input
+            ref={phoneInputRef}
+            id="booking-phone"
+            type="tel"
+            value={buildPhoneDisplay(phoneDigits)}
+            onChange={(e) => setPhoneDigits(extractPhoneDigits(e.target.value))}
+            onFocus={(e) => {
+              const el = e.currentTarget;
+              requestAnimationFrame(() => {
+                const pos = caretForDigits(phoneDigits.length);
+                el.setSelectionRange(pos, pos);
+              });
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Backspace") {
                 e.preventDefault();
-                setPhoneDigits(phoneDigits.slice(0, -1));
-              } else {
-                // Nothing to remove — block default so the input's
-                // value doesn't lose mask characters.
-                e.preventDefault();
+                if (phoneDigits.length > 0) setPhoneDigits(phoneDigits.slice(0, -1));
               }
-            }
-          }}
-          autoComplete="tel"
-          inputMode="tel"
-          // No maxLength — the displayed value is always PHONE_MASK_LENGTH
-          // chars long (the mask), so a typed digit would make it
-          // 1 char longer and the browser would reject the input before
-          // onChange could replace it back. Our controlled state already
-          // clamps to 9 subscriber digits.
-          required
-          className={fieldCls}
-        />
+            }}
+            autoComplete="tel"
+            inputMode="tel"
+            required
+            // Text is hidden ([Webkit]TextFillColor handles Safari) so the
+            // colored overlay below can tint underscores differently. The
+            // native caret still renders via `caret-ink`.
+            style={{ color: "transparent", WebkitTextFillColor: "transparent" }}
+            className={`${fieldCls} caret-ink selection:bg-main/15`}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 flex items-center px-4 pointer-events-none text-[15px] font-variant-numeric-tabular"
+          >
+            <span className="whitespace-pre">
+              {buildPhoneDisplay(phoneDigits).split("").map((ch, i) => (
+                <span key={i} className={ch === "_" ? "text-stone-light" : "text-ink"}>
+                  {ch}
+                </span>
+              ))}
+            </span>
+          </div>
+        </div>
       </Field>
 
       <Field label={t("interestLabel")} htmlFor="booking-interest-label" isLabelId>
