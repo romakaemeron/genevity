@@ -429,18 +429,18 @@ export default function SearchSelect(props: Props) {
                           active ? "bg-champagne-dark" : "bg-transparent hover:bg-champagne-dark/50"
                         } ${isSelected ? "ring-1 ring-main/10" : ""}`}
                       >
-                        {/* Multi-select checkbox indicator so it's obvious the
-                             row can be toggled on/off without closing. */}
+                        {/* Reserved-width slot for the "selected" check —
+                             we render the icon only when the row is picked
+                             but keep the width at all times so the label
+                             column never shifts horizontally. */}
                         {multiple && (
                           <span
-                            className={`inline-flex w-4 h-4 items-center justify-center rounded-md border shrink-0 transition-colors ${
-                              isSelected
-                                ? "bg-main border-main text-champagne"
-                                : "bg-champagne-dark border-line text-transparent"
+                            className={`inline-flex w-4 items-center justify-center shrink-0 transition-opacity text-main ${
+                              isSelected ? "opacity-100" : "opacity-0"
                             }`}
                             aria-hidden
                           >
-                            <Check size={10} strokeWidth={3} />
+                            <Check size={14} strokeWidth={2.5} />
                           </span>
                         )}
                         <span className="flex-1 min-w-0">
