@@ -470,11 +470,16 @@ export default function SearchSelect(props: Props) {
                                 transformOrigin: o.rightImageFocalPoint || "50% 50%",
                               }}
                             >
+                              {/* `sizes` has to cover both the 48 px box
+                                    and the CSS zoom + retina density, or
+                                    Next fetches a tiny variant that the
+                                    browser upscales into mush. */}
                               <Image
                                 src={o.rightImage}
                                 alt=""
                                 fill
-                                sizes="48px"
+                                sizes="256px"
+                                quality={92}
                                 className="object-cover"
                                 style={{ objectPosition: o.rightImageFocalPoint || "50% 50%" }}
                               />

@@ -144,7 +144,7 @@ export default function CirclePhotoEditor({
               className="absolute inset-0"
               style={{ transform: `scale(${scale})`, transformOrigin: posString }}
             >
-              <Image src={photoUrl} alt={alt} fill sizes="48px" className="object-cover" style={{ objectPosition: posString }} />
+              <Image src={photoUrl} alt={alt} fill sizes="256px" quality={92} className="object-cover" style={{ objectPosition: posString }} />
             </div>
           </div>
           <p className="text-[11px] text-muted font-mono">

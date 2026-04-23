@@ -180,7 +180,7 @@ export default function BookingForm({
               to the right before the typed digits / placeholder begin. */}
           <span
             className="inline-flex items-center text-ink text-[15px] select-none shrink-0"
-            style={{ paddingLeft: 16, paddingRight: 8 }}
+            style={{ paddingLeft: 16, paddingRight: 3 }}
           >
             +380
           </span>
