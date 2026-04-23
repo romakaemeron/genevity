@@ -396,7 +396,7 @@ export default function SearchSelect(props: Props) {
                       className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-[var(--radius-button)] text-xs font-medium transition-colors cursor-pointer ${
                         isActive
                           ? "bg-main text-champagne"
-                          : "text-stone hover:text-ink hover:bg-champagne-dark"
+                          : "text-stone hover:text-ink hover:bg-champagne-darker"
                       }`}
                     >
                       {g.label}
@@ -435,8 +435,8 @@ export default function SearchSelect(props: Props) {
                         aria-selected={isSelected}
                         onMouseEnter={() => setCursor(flatIdx)}
                         onClick={() => pick(o)}
-                        className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm cursor-pointer transition-colors ${
-                          active ? "bg-champagne-dark" : "bg-transparent hover:bg-champagne-dark/50"
+                        className={`w-full flex items-center gap-3 px-4 py-2 text-left text-sm cursor-pointer ${
+                          active ? "bg-champagne-darker" : "bg-transparent hover:bg-champagne-darker"
                         } ${isSelected ? "ring-1 ring-main/10" : ""}`}
                       >
                         {/* Reserved-width slot for the "selected" check —

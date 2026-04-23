@@ -241,9 +241,12 @@ export default function BookingForm({
 
       <Field label={t("phone")} htmlFor="booking-phone" error={errors.phone} required>
         <div
+          // borderColor inline so the error state definitely wins over any
+          // Tailwind specificity surprises with the composite `border` class.
+          style={errors.phone ? { borderColor: "var(--color-error)" } : undefined}
           className={`group flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border transition-colors duration-150 ease-out ${
             errors.phone
-              ? "border-error focus-within:border-error focus-within:ring-2 focus-within:ring-error/20"
+              ? "focus-within:ring-2 focus-within:ring-error/20"
               : "border-line hover:border-stone-light focus-within:border-main focus-within:ring-2 focus-within:ring-main/15"
           }`}
         >
