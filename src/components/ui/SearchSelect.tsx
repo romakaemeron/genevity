@@ -12,7 +12,6 @@
  */
 
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, Search, X } from "lucide-react";
 
 export interface SearchOption {
@@ -153,11 +152,11 @@ export default function SearchSelect({
         aria-expanded={open}
         aria-labelledby={labelId}
         disabled={disabled}
-        className={`group w-full flex items-center gap-2 px-4 py-3 rounded-xl bg-champagne border border-stone-lighter text-left text-ink text-[15px] outline-none transition-colors ${
+        className={`group w-full flex items-center gap-2 px-4 py-3 rounded-[var(--radius-button)] bg-champagne-dark border border-line text-left text-ink text-[15px] outline-none transition-colors duration-150 ease-out ${
           disabled
             ? "opacity-60 cursor-not-allowed"
-            : "cursor-pointer hover:border-main focus-visible:border-main focus-visible:ring-2 focus-visible:ring-main/20"
-        } ${open ? "border-main ring-2 ring-main/20" : ""}`}
+            : "cursor-pointer hover:border-stone-light focus-visible:border-main focus-visible:ring-2 focus-visible:ring-main/15"
+        } ${open ? "border-main ring-2 ring-main/15" : ""}`}
       >
         <span className={`flex-1 min-w-0 truncate ${selected ? "text-ink" : "text-stone"}`}>
           {selected ? selected.label : placeholder}
@@ -183,14 +182,9 @@ export default function SearchSelect({
         />
       </button>
 
-      <AnimatePresence>
-        {open && (
-        <motion.div
-          initial={{ opacity: 0, y: -6, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -6, scale: 0.98 }}
-          transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute z-30 left-0 right-0 top-full mt-1.5 rounded-xl bg-white border border-stone-lighter shadow-[0_14px_40px_-10px_rgba(45,45,45,0.18)] overflow-hidden origin-top"
+      {open && (
+        <div
+          className="absolute z-30 left-0 right-0 top-full mt-1.5 rounded-[var(--radius-card)] bg-white border border-line shadow-lg overflow-hidden"
           role="listbox"
         >
           <div className="flex items-center gap-2 px-3 py-2.5 border-b border-stone-lighter">
@@ -243,9 +237,8 @@ export default function SearchSelect({
               </div>
             ))}
           </div>
-        </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 }
