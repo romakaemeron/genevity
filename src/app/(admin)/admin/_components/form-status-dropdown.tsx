@@ -71,9 +71,9 @@ export default function FormStatusDropdown({ id, current, stopRowNavigation }: P
           setOpen((v) => !v);
         }}
         disabled={pending}
-        className={`inline-flex items-center gap-2 pl-3.5 pr-3 py-1.5 rounded-[var(--radius-pill)] text-[12px] font-medium transition-colors cursor-pointer disabled:opacity-70 ${active.bg} ${active.text}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-[var(--radius-pill)] text-[12px] font-medium transition-colors cursor-pointer disabled:opacity-70 ${active.bg} ${active.text}`}
       >
-        <span className={`inline-block w-1.5 h-1.5 rounded-full ${active.dot}`} />
+        <span className={`inline-block w-[6px] h-[6px] rounded-full ${active.dot}`} />
         <span>{active.label}</span>
         <ChevronDown size={12} className={`transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
