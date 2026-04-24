@@ -117,7 +117,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
             className="shrink-0"
             style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}
           >
-            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => setExpandedDoctor(i)} />
+            <DoctorCard doctor={doctor} index={i} detailsLabel={detailsLabel} onClick={() => setExpandedDoctor(i)} />
           </motion.div>
         ))}
       </motion.div>
@@ -128,6 +128,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
           <Modal open onClose={closeModal}>
             <DoctorModalContent
               doctor={doctors[expandedDoctor]}
+              index={expandedDoctor}
               cta={ui.cta}
               experience={ui.experience}
             />

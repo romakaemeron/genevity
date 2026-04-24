@@ -3,29 +3,33 @@
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import type { DoctorItem } from "@/sanity/types";
+import { DOCTOR_PHOTOS } from "./constants";
 
 interface DoctorModalProps {
   doctor: DoctorItem;
+  index: number;
   cta: string;
   experience: string;
 }
 
-export default function DoctorModal({ doctor, cta, experience }: DoctorModalProps) {
-  const { name, role, experience: years, specialties, photoModal, modalPosition } = doctor;
+export default function DoctorModal({ doctor, index, cta, experience }: DoctorModalProps) {
+  const { name, role, experience: years, specialties } = doctor;
+  const local = DOCTOR_PHOTOS[index];
+  const photoSrc = doctor.photoModal || local?.modal || null;
+  const position = doctor.modalPosition || local?.modalPosition || "center";
 
   const experienceLabel = years ? experience.replace("{years}", years) : null;
 
   return (
     <div className="flex flex-col">
-      {/* Photo — uses modal (high-quality) version */}
-      {photoModal && (
+      {photoSrc && (
         <div className="w-full aspect-[16/10] relative skeleton">
           <Image
-            src={photoModal}
+            src={photoSrc}
             alt={name}
             fill
             className="object-cover"
-            style={{ objectPosition: modalPosition }}
+            style={{ objectPosition: position }}
             sizes="(max-width: 640px) 100vw, 512px"
             priority
           />

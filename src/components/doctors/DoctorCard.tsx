@@ -4,29 +4,34 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import type { DoctorItem } from "@/sanity/types";
+import { DOCTOR_PHOTOS } from "./constants";
 
 interface DoctorCardProps {
   doctor: DoctorItem;
+  index: number;
   detailsLabel: string;
   onClick: () => void;
 }
 
-export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCardProps) {
-  const { name, role, experience, photoCard, cardPosition } = doctor;
+export default function DoctorCard({ doctor, index, detailsLabel, onClick }: DoctorCardProps) {
+  const { name, role, experience } = doctor;
+  const local = DOCTOR_PHOTOS[index];
+  const photoSrc = doctor.photoCard || local?.card || null;
+  const position = doctor.cardPosition || local?.cardPosition || "center";
 
   return (
     <div
       className="group bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer"
       onClick={onClick}
     >
-      <div className={`w-full aspect-square relative ${photoCard ? "skeleton" : "bg-champagne-darker"}`}>
-        {photoCard ? (
+      <div className={`w-full aspect-square relative ${photoSrc ? "skeleton" : "bg-champagne-darker"}`}>
+        {photoSrc ? (
           <Image
-            src={photoCard}
+            src={photoSrc}
             alt={`Лікар ${role} ${name} — GENEVITY Дніпро`}
             fill
             className="object-cover"
-            style={{ objectPosition: cardPosition }}
+            style={{ objectPosition: position }}
             sizes="300px"
           />
         ) : (
