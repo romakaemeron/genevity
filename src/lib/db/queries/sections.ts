@@ -21,6 +21,7 @@ export async function getSections(ownerType: string, ownerId: string, l: string)
       return val.map((item: any) => {
         if (typeof item === "string") return item;
         if (typeof item === "object" && item !== null) {
+          if ("uk" in item || "ru" in item || "en" in item) return resolve(item);
           const resolved: any = {};
           for (const [k, v] of Object.entries(item)) resolved[k] = resolve(v);
           return resolved;

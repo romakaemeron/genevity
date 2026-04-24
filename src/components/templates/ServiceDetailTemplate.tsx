@@ -102,7 +102,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />
       )}
 
-      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
