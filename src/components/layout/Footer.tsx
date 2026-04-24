@@ -66,7 +66,7 @@ export default function Footer({ legalDocs = [] }: { legalDocs?: LegalLink[] }) 
             <p className="body-strong text-black-60">{t("contact")}</p>
             <div className="flex flex-col gap-2.5">
               <a
-                href="https://www.google.com/maps/search/вул.+Олеся+Гончара+12,+Дніпро"
+                href="https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Днiпро/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
