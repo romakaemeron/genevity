@@ -95,7 +95,7 @@ export default function Hero({ data }: { data: HeroData }) {
                 transition={{ delay: 0.35 }}
               >
                 <a
-                  href="https://maps.google.com/?q=Дніпро,+вул.+Олеся+Гончара,+12"
+                  href="https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Днiпро/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 body-l text-white-60 hover:text-champagne transition-colors duration-200 w-fit"
