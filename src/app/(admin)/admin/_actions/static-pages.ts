@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { randomUUID } from "crypto";
 import { uploadRawOrKeep } from "./upload";
+import { logChange } from "@/lib/audit";
 
 // These seeded slugs are structural — the routes, DB data, and admin loader
 // all assume they exist. Refuse to delete or rename them even if the UI is bypassed.
@@ -48,6 +49,8 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
   const og = await uploadRawOrKeep(ogFile, "pages", currentOg);
   const noindex = formData.get("seo_noindex") === "on";
 
+  const logAfter = { slug, title_uk: fields.title_uk };
+
   if (isNew) {
     const newId = randomUUID();
     await sql`
@@ -68,6 +71,7 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         ${fields.seo_keywords_uk}, ${fields.seo_keywords_ru}, ${fields.seo_keywords_en},
         ${og}, ${noindex})
     `;
+    await logChange({ action: "create", entityType: "static_page", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
     redirect(`/admin/pages/${slug}`);
   } else {
@@ -83,13 +87,14 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         seo_og_image = ${og}, seo_noindex = ${noindex}
       WHERE id = ${id}
     `;
+    await logChange({ action: "update", entityType: "static_page", entityId: id!, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
     return { success: true };
   }
 }
 
 export async function deleteStaticPage(id: string) {
-  const rows = await sql`SELECT slug FROM static_pages WHERE id = ${id}`;
+  const rows = await sql`SELECT slug, title_uk FROM static_pages WHERE id = ${id}`;
   const slug = rows[0]?.slug as string | undefined;
   if (slug && PROTECTED_SLUGS.has(slug)) {
     throw new Error(`"${slug}" is a core page and cannot be deleted`);
@@ -97,6 +102,7 @@ export async function deleteStaticPage(id: string) {
   await sql`DELETE FROM content_sections WHERE owner_type = 'static_page' AND owner_id = ${id}`;
   await sql`DELETE FROM faq_items WHERE owner_type = 'static_page' AND owner_id = ${id}`;
   await sql`DELETE FROM static_pages WHERE id = ${id}`;
+  await logChange({ action: "delete", entityType: "static_page", entityId: id, entityLabel: rows[0]?.title_uk ?? slug ?? id });
   revalidatePath("/");
   redirect("/admin/pages");
 }

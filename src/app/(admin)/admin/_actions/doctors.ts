@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { randomUUID } from "crypto";
 import sharp from "sharp";
+import { logChange } from "@/lib/audit";
 
 /**
  * Process and upload an image:
@@ -135,11 +136,14 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   // returns the existing URL so clearing / keeping works naturally.
   const photo_circle = await processAndUpload(photoCircleFile, "doctors", 600, currentCircle);
 
+  const after = { name_uk, name_ru, name_en, role_uk, photo_card, sort_order };
+
   if (isNew) {
     await sql`
       INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en, photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale, sort_order)
       VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en}, ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale}, ${sort_order})
     `;
+    await logChange({ action: "create", entityType: "doctor", entityId: "new", entityLabel: name_uk, after });
   } else {
     await sql`
       UPDATE doctors SET
@@ -152,6 +156,7 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         sort_order = ${sort_order}
       WHERE id = ${id}
     `;
+    await logChange({ action: "update", entityType: "doctor", entityId: id!, entityLabel: name_uk, after });
   }
 
   revalidatePath("/");
@@ -160,7 +165,9 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
 }
 
 export async function deleteDoctor(id: string) {
+  const rows = await sql`SELECT name_uk FROM doctors WHERE id = ${id}`;
   await sql`DELETE FROM doctors WHERE id = ${id}`;
+  await logChange({ action: "delete", entityType: "doctor", entityId: id, entityLabel: rows[0]?.name_uk ?? id });
   revalidatePath("/");
   revalidatePath("/doctors");
   redirect("/admin/doctors");

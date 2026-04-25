@@ -3,6 +3,7 @@
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
 import { processAndUploadImage } from "./upload";
+import { logChange } from "@/lib/audit";
 
 type SectionRow = { id?: string; type: string; data: any };
 
@@ -40,6 +41,7 @@ export async function saveSections(ownerType: string, ownerId: string, sections:
       `;
     }
   }
+  await logChange({ action: "update", entityType: "sections", entityId: ownerId, entityLabel: `${ownerType}/${ownerId} sections`, after: { count: sections.length } });
   revalidatePath("/");
   return { ok: true };
 }
@@ -62,6 +64,7 @@ export async function saveFaq(ownerType: string, ownerId: string, items: FaqRow[
       VALUES (${ownerType}, ${ownerId}, ${i}, ${f.question_uk || ""}, ${f.question_ru || null}, ${f.question_en || null}, ${f.answer_uk || ""}, ${f.answer_ru || null}, ${f.answer_en || null})
     `;
   }
+  await logChange({ action: "update", entityType: "faq", entityId: ownerId, entityLabel: `${ownerType}/${ownerId} FAQ`, after: { count: items.length } });
   revalidatePath("/");
   return { ok: true };
 }

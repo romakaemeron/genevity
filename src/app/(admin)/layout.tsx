@@ -54,7 +54,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <html lang="uk">
       <body className={`${mulish.variable} ${tenor.variable} font-body min-h-screen bg-champagne`}>
         <UnsavedChangesProvider>
-          <Sidebar userName={session.name} counts={counts} />
+          <Sidebar userName={session.name} role={session.role} counts={counts} />
           <main className="ml-60 min-h-screen">
             {children}
           </main>

@@ -14,7 +14,7 @@ export default async function SettingsPage() {
     <div className="p-8">
       <AdminPageHeader
         title="Settings"
-        subtitle="Site-wide configuration — contact info, navigation, booking, and global labels."
+        subtitle="Global site configuration — contact info, booking texts, navigation, and footer."
       />
 
       <AdminSectionHeading>General</AdminSectionHeading>
@@ -22,41 +22,14 @@ export default async function SettingsPage() {
         <SiteSettingsForm settings={settings} />
       </div>
 
-      <AdminSectionHeading>Content</AdminSectionHeading>
+      <AdminSectionHeading>Global Texts</AdminSectionHeading>
       <div className="mb-10">
         <AdminList>
-          <AdminListItem
-            href="/admin/settings/homepage"
-            title="Homepage"
-            subtitle="Hero title, subtitle, CTA button, and about section copy"
-          />
-          <AdminListItem
-            href="/admin/settings/hero-slides"
-            title="Hero slides"
-            subtitle="Homepage rotating slideshow images and alt text"
-          />
-          <AdminListItem
-            href="/admin/settings/galleries"
-            title="Galleries"
-            subtitle="Stripe galleries on the stationary, about, and homepage bento"
-          />
           <AdminListItem
             href="/admin/settings/ui-strings"
             title="Footer & Labels"
             subtitle="Footer links and booking form default labels"
           />
-          <AdminListItem
-            href="/admin/pages"
-            title="Page content"
-            subtitle="All static pages, service pages, and their section texts — edit each page directly"
-            badge={<span className="text-xs text-main font-medium">Pages →</span>}
-          />
-        </AdminList>
-      </div>
-
-      <AdminSectionHeading>Booking & Navigation</AdminSectionHeading>
-      <div className="mb-10">
-        <AdminList>
           <AdminListItem
             href="/admin/settings/cta"
             title="Booking CTAs"

@@ -3,6 +3,7 @@
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
 import { uploadRawOrKeep } from "./upload";
+import { logChange } from "@/lib/audit";
 
 export async function saveHero(_prevState: any, formData: FormData) {
   const fields: Record<string, any> = {};
@@ -21,6 +22,7 @@ export async function saveHero(_prevState: any, formData: FormData) {
     WHERE id = 1
   `;
 
+  await logChange({ action: "update", entityType: "hero", entityId: "1", entityLabel: "Homepage hero", after: fields });
   revalidatePath("/");
   return { success: true };
 }
@@ -42,6 +44,7 @@ export async function saveAbout(_prevState: any, formData: FormData) {
     WHERE id = 1
   `;
 
+  await logChange({ action: "update", entityType: "about", entityId: "1", entityLabel: "Homepage about section", after: fields });
   revalidatePath("/");
   return { success: true };
 }
@@ -72,6 +75,7 @@ export async function saveSiteSettings(_prevState: any, formData: FormData) {
     WHERE id = 1
   `;
 
+  await logChange({ action: "update", entityType: "site_settings", entityId: "1", entityLabel: "Site settings", after: { phone1, phone2, instagram } });
   revalidatePath("/");
   return { success: true };
 }

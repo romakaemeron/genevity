@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { randomUUID } from "crypto";
 import { processAndUploadImage, processUploadOrKeep, uploadRawOrKeep } from "./upload";
+import { logChange } from "@/lib/audit";
 
 /**
  * Slugify a Ukrainian/Latin string into a URL-safe lowercase slug.
@@ -86,6 +87,8 @@ export async function saveService(_prevState: any, formData: FormData) {
   const seo_og_image = await uploadRawOrKeep(ogFile, "services", currentOg);
   const seo_noindex = formData.get("seo_noindex") === "on";
 
+  const logAfter = { slug, category_id, title_uk: fields.title_uk, sort_order };
+
   if (isNew) {
     const newId = randomUUID();
     await sql`
@@ -115,6 +118,7 @@ export async function saveService(_prevState: any, formData: FormData) {
         ${fields.seo_keywords_uk}, ${fields.seo_keywords_ru}, ${fields.seo_keywords_en},
         ${seo_og_image}, ${seo_noindex})
     `;
+    await logChange({ action: "create", entityType: "service", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
     redirect(`/admin/pages/services/${newId}`);
   } else {
@@ -135,6 +139,7 @@ export async function saveService(_prevState: any, formData: FormData) {
         seo_og_image = ${seo_og_image}, seo_noindex = ${seo_noindex}
       WHERE id = ${id}
     `;
+    await logChange({ action: "update", entityType: "service", entityId: id!, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
     return { success: true };
   }
@@ -282,9 +287,11 @@ export async function deleteFinalCta(serviceId: string) {
 }
 
 export async function deleteService(id: string) {
+  const rows = await sql`SELECT title_uk FROM services WHERE id = ${id}`;
   await sql`DELETE FROM content_sections WHERE owner_type = 'service' AND owner_id = ${id}`;
   await sql`DELETE FROM faq_items WHERE owner_type = 'service' AND owner_id = ${id}`;
   await sql`DELETE FROM services WHERE id = ${id}`;
+  await logChange({ action: "delete", entityType: "service", entityId: id, entityLabel: rows[0]?.title_uk ?? id });
   revalidatePath("/");
   redirect("/admin/pages");
 }

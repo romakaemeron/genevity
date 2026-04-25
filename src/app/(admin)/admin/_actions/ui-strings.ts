@@ -2,6 +2,7 @@
 
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
+import { logChange } from "@/lib/audit";
 
 type Leaf = { uk?: string; ru?: string; en?: string };
 
@@ -56,8 +57,10 @@ export async function saveFullTree(tree: Record<string, unknown>) {
 export async function saveNamespaceTree(namespace: string, subtree: Record<string, unknown>) {
   const rows = await sql`SELECT data FROM ui_strings WHERE id = 1`;
   const tree = (rows[0]?.data ?? {}) as Record<string, unknown>;
+  const before = tree[namespace];
   tree[namespace] = subtree;
   await sql`UPDATE ui_strings SET data = ${JSON.stringify(tree)}::jsonb WHERE id = 1`;
+  await logChange({ action: "update", entityType: "ui_string", entityId: namespace, entityLabel: `UI strings: ${namespace}`, before, after: subtree });
   revalidatePath("/");
   return { ok: true };
 }
@@ -74,8 +77,10 @@ export async function saveAtPath(path: string, subtree: Record<string, unknown>)
     }
     cur = cur[parts[i]];
   }
+  const before = cur[parts[parts.length - 1]];
   cur[parts[parts.length - 1]] = subtree;
   await sql`UPDATE ui_strings SET data = ${JSON.stringify(tree)}::jsonb WHERE id = 1`;
+  await logChange({ action: "update", entityType: "ui_string", entityId: path, entityLabel: `UI strings: ${path}`, before, after: subtree });
   revalidatePath("/");
   return { ok: true };
 }
