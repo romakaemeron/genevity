@@ -66,7 +66,7 @@ export const DOCTOR_PHOTOS: Record<number, DoctorPhoto> = {
     cardPosition: "51.8% 32.2%",
     modalPosition: "52.7% 16.5%",
   },
-  11: {
+  10: {
     card: "/doctors/petrenko.webp",
     modal: "/doctors/petrenko-hq.webp",
     cardPosition: "56.3% 16.8%",

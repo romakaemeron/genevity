@@ -11,6 +11,7 @@ interface LegalDoc {
 }
 
 async function getLegalDoc(slug: string, locale: string): Promise<LegalDoc | null> {
+  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return null;
   const l = locale === "ua" ? "uk" : locale;
   return sanityClient.fetch(
     `*[_type == "legalDoc" && slug.current == $slug][0] {
