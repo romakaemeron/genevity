@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useActionState, useState, useRef } from "react";
 import { createUser, updateUserProfile, updateUserRole, resetUserPassword, deleteUser } from "../../../_actions/super";
 import { ChevronDown, Plus, Pencil, Trash2, X } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 const ROLE_LABELS: Record<string, { label: string; color: string; desc: string }> = {
   admin:     { label: "Admin",     color: "bg-error/15 text-error",     desc: "Full access — content, settings, users, logs" },
@@ -27,8 +28,6 @@ interface Props {
 }
 
 const inputClass = "w-full px-3 py-2 rounded-lg bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main focus:ring-1 focus:ring-main/20";
-const btnPrimary = "px-4 py-2 bg-main text-champagne rounded-xl text-sm font-medium hover:bg-main-dark transition-colors cursor-pointer";
-const btnGhost = "px-4 py-2 border border-line bg-champagne-dark text-ink rounded-xl text-sm font-medium hover:bg-champagne transition-colors cursor-pointer";
 
 function UserAvatar({ user, size = 36 }: { user: User; size?: number }) {
   if (user.avatar) {
@@ -109,27 +108,30 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
           )}
 
           {/* Edit profile */}
-          <button
-            type="button"
+          <Button
+            variant={editing ? "outline" : "ghost"}
+            icon
+            size="sm"
             onClick={() => { setEditing(!editing); setShowPwReset(false); }}
-            className={`p-2 rounded-lg transition-colors cursor-pointer ${editing ? "bg-main/15 text-main" : "text-muted hover:text-ink hover:bg-champagne"}`}
             title="Edit profile"
           >
             <Pencil size={15} />
-          </button>
+          </Button>
 
           {/* Delete */}
           {!isSelf && (
             <form action={delAction}>
               <input type="hidden" name="userId" value={user.id} />
-              <button
+              <Button
+                variant="destructive-ghost"
+                icon
+                size="sm"
                 type="submit"
-                onClick={(e) => { if (!confirm(`Delete ${user.name}?`)) e.preventDefault(); }}
-                className="p-2 rounded-lg text-muted hover:text-error hover:bg-error/10 transition-colors cursor-pointer"
                 title="Delete user"
+                onClick={(e) => { if (!confirm(`Delete ${user.name}?`)) e.preventDefault(); }}
               >
                 <Trash2 size={15} />
-              </button>
+              </Button>
             </form>
           )}
         </div>
@@ -186,18 +188,27 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
 
             {profileState?.error && <p className="text-error text-xs">{profileState.error}</p>}
 
-            <div className="flex gap-2">
-              <button type="submit" className={btnPrimary}>Save profile</button>
-              <button
+            <div className="flex items-center gap-2">
+              <Button variant="primary" size="sm" type="submit">Save profile</Button>
+              <Button
+                variant="neutral"
+                size="sm"
                 type="button"
                 onClick={() => setShowPwReset(!showPwReset)}
-                className={btnGhost}
               >
                 {showPwReset ? "Hide password" : "Change password"}
-              </button>
-              <button type="button" onClick={() => { setEditing(false); setShowPwReset(false); setAvatarPreview(null); }} className="ml-auto p-2 rounded-lg text-muted hover:text-ink transition-colors cursor-pointer">
+              </Button>
+              <Button
+                variant="ghost"
+                icon
+                size="sm"
+                type="button"
+                className="ml-auto"
+                onClick={() => { setEditing(false); setShowPwReset(false); setAvatarPreview(null); }}
+                title="Close"
+              >
                 <X size={15} />
-              </button>
+              </Button>
             </div>
           </form>
 
@@ -208,7 +219,7 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
               <p className="text-[11px] font-semibold text-muted uppercase tracking-wider">New password</p>
               <div className="flex gap-2">
                 <input type="password" name="password" placeholder="Min 8 characters" minLength={8} required className={`${inputClass} flex-1`} />
-                <button type="submit" className={btnPrimary}>Set</button>
+                <Button variant="primary" size="sm" type="submit">Set</Button>
               </div>
               {pwState?.error && <p className="text-error text-xs">{pwState.error}</p>}
             </form>
@@ -287,8 +298,8 @@ export default function UsersPanel({ users, currentUserId }: Props) {
               {createState?.error && <p className="text-error text-sm">{createState.error}</p>}
               {createState?.ok && <p className="text-success text-sm">User created successfully.</p>}
               <div className="flex gap-3">
-                <button type="submit" className={btnPrimary}>Create user</button>
-                <button type="button" onClick={() => setShowCreate(false)} className={btnGhost}>Cancel</button>
+                <Button variant="primary" size="sm" type="submit">Create user</Button>
+                <Button variant="neutral" size="sm" type="button" onClick={() => setShowCreate(false)}>Cancel</Button>
               </div>
             </form>
           </div>
