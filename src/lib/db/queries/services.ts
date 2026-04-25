@@ -38,9 +38,9 @@ function resolveBlockHeadings(raw: unknown, l: string): ServiceBlockHeadings {
   };
 }
 
-function resolveFinalCta(raw: unknown): ServiceFinalCta {
+function resolveFinalCta(raw: unknown, l?: string): ServiceFinalCta {
   if (!raw || typeof raw !== "object") {
-    return { bgType: null, bgColor: null, bgImage: null, bgFocalPoint: null };
+    return { bgType: null, bgColor: null, bgImage: null, bgFocalPoint: null, heading: null, subtitle: null, buttonText: null };
   }
   const src = raw as Record<string, unknown>;
   const bgType = src.bgType === "color" || src.bgType === "image" ? src.bgType : null;
@@ -48,8 +48,10 @@ function resolveFinalCta(raw: unknown): ServiceFinalCta {
     bgType,
     bgColor: typeof src.bgColor === "string" && src.bgColor.trim() ? src.bgColor.trim() : null,
     bgImage: typeof src.bgImage === "string" && src.bgImage.trim() ? src.bgImage.trim() : null,
-    bgFocalPoint:
-      typeof src.bgFocalPoint === "string" && src.bgFocalPoint.trim() ? src.bgFocalPoint.trim() : null,
+    bgFocalPoint: typeof src.bgFocalPoint === "string" && src.bgFocalPoint.trim() ? src.bgFocalPoint.trim() : null,
+    heading: l ? (pickLocalized(src.heading, l) ?? null) : null,
+    subtitle: l ? (pickLocalized(src.subtitle, l) ?? null) : null,
+    buttonText: l ? (pickLocalized(src.buttonText, l) ?? null) : null,
   };
 }
 
@@ -106,7 +108,7 @@ export async function getServiceBySlug(
     relatedEquipment,
     blockOrder: (r.block_order as string[] | null) || null,
     blockHeadings: resolveBlockHeadings(r.block_headings, l),
-    finalCta: resolveFinalCta(r.final_cta),
+    finalCta: resolveFinalCta(r.final_cta, l),
   };
 }
 

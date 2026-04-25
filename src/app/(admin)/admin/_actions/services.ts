@@ -154,6 +154,50 @@ export async function saveServiceBlockOrder(serviceId: string, order: string[]) 
   return { ok: true };
 }
 
+/**
+ * Apply the structural layout of one service to every service in the DB.
+ * Extracts the pattern (sections-as-group + static key order) from `templateOrder`,
+ * then rebuilds each service's block_order using their own section IDs (by sort_order).
+ */
+export async function applyLayoutToAllServices(templateOrder: string[], skipServiceId?: string) {
+  const FIXED = new Set(["faq", "doctors", "equipment", "relatedServices", "finalCTA"]);
+
+  // Build structural pattern: collapse all section:* into a single __S__ marker
+  const pattern: string[] = [];
+  let sectionGroupAdded = false;
+  for (const key of templateOrder) {
+    if (key.startsWith("section:")) {
+      if (!sectionGroupAdded) { pattern.push("__S__"); sectionGroupAdded = true; }
+    } else if (FIXED.has(key)) {
+      pattern.push(key);
+    }
+  }
+  if (!sectionGroupAdded) pattern.unshift("__S__");
+
+  console.log("[applyLayoutToAllServices] pattern=", pattern, "skipServiceId=", skipServiceId);
+  const services = await sql`SELECT id FROM services`;
+  console.log("[applyLayoutToAllServices] total services=", services.length);
+  let updated = 0;
+  for (const svc of services) {
+    // Skip the source service — its exact order was already saved by saveServiceBlockOrder.
+    if (skipServiceId && svc.id === skipServiceId) { console.log("[applyLayoutToAllServices] skipping", svc.id); continue; }
+    const sectionRows = await sql`
+      SELECT id FROM content_sections
+      WHERE owner_type = 'service' AND owner_id = ${svc.id}
+      ORDER BY sort_order
+    `;
+    const sectionIds = sectionRows.map((s) => `section:${s.id as string}`);
+    const newOrder = pattern.flatMap((k) => (k === "__S__" ? sectionIds : [k]));
+    console.log("[applyLayoutToAllServices] updating", svc.id, "newOrder=", newOrder);
+    await sql`UPDATE services SET block_order = ${newOrder} WHERE id = ${svc.id}`;
+    updated++;
+  }
+  console.log("[applyLayoutToAllServices] done, updated=", updated);
+
+  revalidatePath("/");
+  return { ok: true, updated };
+}
+
 /** Upload a service asset (e.g. Final CTA background) to Vercel Blob and
  *  return its URL. Processed through the standard WebP pipeline. */
 export async function uploadServiceImage(formData: FormData): Promise<{ url: string }> {
@@ -176,6 +220,9 @@ export type ServiceFinalCtaInput = {
   bgColor?: string | null;
   bgImage?: string | null;
   bgFocalPoint?: string | null;
+  heading?: LocaleString | null;
+  subtitle?: LocaleString | null;
+  buttonText?: LocaleString | null;
 };
 
 /** Strip empty-string values from a LocaleString so the JSONB stays compact
@@ -190,41 +237,46 @@ function cleanLocaleString(v: LocaleString | undefined): LocaleString | undefine
   return Object.keys(out).length > 0 ? out : undefined;
 }
 
-/**
- * Persist per-service heading overrides (all 5 reorderable blocks) + Final
- * CTA background config in one shot. Both live on the Layout tab so they
- * share a save button.
- */
+/** Persist per-service heading overrides for the four reorderable blocks
+ *  (faq, doctors, equipment, relatedServices). Lives on the Layout tab. */
 export async function saveServiceOverrides(
   serviceId: string,
   headings: ServiceBlockHeadingsInput,
-  finalCta: ServiceFinalCtaInput,
 ) {
   const cleanedHeadings: ServiceBlockHeadingsInput = {};
-  for (const k of ["faq", "doctors", "equipment", "relatedServices", "finalCTA"] as const) {
+  for (const k of ["faq", "doctors", "equipment", "relatedServices"] as const) {
     const cleaned = cleanLocaleString(headings[k]);
     if (cleaned) cleanedHeadings[k] = cleaned;
   }
+  const headingsJson = Object.keys(cleanedHeadings).length > 0 ? JSON.stringify(cleanedHeadings) : null;
+  await sql`UPDATE services SET block_headings = ${headingsJson}::jsonb WHERE id = ${serviceId}`;
+  revalidatePath("/");
+  return { ok: true };
+}
 
+/** Persist Final CTA content + background. Lives on the Sections tab. */
+export async function saveFinalCtaData(serviceId: string, finalCta: ServiceFinalCtaInput) {
   const bgType = finalCta.bgType === "color" || finalCta.bgType === "image" ? finalCta.bgType : null;
-  const cleanedCta = {
+  const cleanedCta: Record<string, unknown> = {
     bgType,
     bgColor: bgType === "color" && finalCta.bgColor ? finalCta.bgColor.trim() : null,
     bgImage: bgType === "image" && finalCta.bgImage ? finalCta.bgImage.trim() : null,
-    bgFocalPoint:
-      bgType === "image" && finalCta.bgFocalPoint ? finalCta.bgFocalPoint.trim() : null,
+    bgFocalPoint: bgType === "image" && finalCta.bgFocalPoint ? finalCta.bgFocalPoint.trim() : null,
   };
+  for (const f of ["heading", "subtitle", "buttonText"] as const) {
+    const cleaned = cleanLocaleString(finalCta[f] as LocaleString | undefined);
+    if (cleaned) cleanedCta[f] = cleaned;
+  }
+  const hasData = cleanedCta.bgType || cleanedCta.bgColor || cleanedCta.bgImage
+    || cleanedCta.heading || cleanedCta.subtitle || cleanedCta.buttonText;
+  const ctaJson = hasData ? JSON.stringify(cleanedCta) : null;
+  await sql`UPDATE services SET final_cta = ${ctaJson}::jsonb WHERE id = ${serviceId}`;
+  revalidatePath("/");
+  return { ok: true };
+}
 
-  const headingsJson = Object.keys(cleanedHeadings).length > 0 ? JSON.stringify(cleanedHeadings) : null;
-  const ctaJson =
-    cleanedCta.bgType || cleanedCta.bgColor || cleanedCta.bgImage ? JSON.stringify(cleanedCta) : null;
-
-  await sql`
-    UPDATE services
-    SET block_headings = ${headingsJson}::jsonb,
-        final_cta      = ${ctaJson}::jsonb
-    WHERE id = ${serviceId}
-  `;
+export async function deleteFinalCta(serviceId: string) {
+  await sql`UPDATE services SET final_cta = NULL, block_order = array_remove(block_order, 'finalCTA') WHERE id = ${serviceId}`;
   revalidatePath("/");
   return { ok: true };
 }

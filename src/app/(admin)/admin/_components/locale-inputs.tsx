@@ -1,13 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { LOCALES, type LocaleKey } from "./translation-tabs";
 import { Trash2, Plus } from "lucide-react";
 
 type LocaleString = { uk: string; ru: string; en: string };
 type LocaleArray = { uk: string[]; ru: string[]; en: string[] };
 
-/** Compact tab bar shared across all locale inputs inside a section */
+/** Shared locale context — active language for all inputs inside a section */
+export const SectionLocaleContext = createContext<LocaleKey>("uk");
+
+/** Wrap one section's expanded content with this to get a single locale switcher */
+export function SectionLocaleProvider({ children }: { children: React.ReactNode }) {
+  const [locale, setLocale] = useState<LocaleKey>("uk");
+  return (
+    <SectionLocaleContext.Provider value={locale}>
+      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-line bg-champagne/30">
+        <span className="text-[11px] font-medium text-muted uppercase tracking-wider">Language</span>
+        <MiniTabs active={locale} onChange={setLocale} />
+      </div>
+      {children}
+    </SectionLocaleContext.Provider>
+  );
+}
+
+/** Compact tab bar — used by SectionLocaleProvider and any standalone locale pickers */
 export function MiniTabs({ active, onChange }: { active: LocaleKey; onChange: (l: LocaleKey) => void }) {
   return (
     <div className="inline-flex gap-0.5 p-0.5 rounded-lg bg-champagne text-[11px] font-medium">
@@ -27,7 +44,7 @@ export function MiniTabs({ active, onChange }: { active: LocaleKey; onChange: (l
   );
 }
 
-/** Single-line locale-aware text input with built-in tab switcher */
+/** Single-line or multiline locale-aware text input — reads active locale from context */
 export function LocaleText({
   label, value, onChange, placeholder, multiline = false, rows = 3,
 }: {
@@ -38,17 +55,12 @@ export function LocaleText({
   multiline?: boolean;
   rows?: number;
 }) {
-  const [active, setActive] = useState<LocaleKey>("uk");
+  const active = useContext(SectionLocaleContext);
   const inputClass = "w-full px-3 py-2 rounded-lg bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main focus:ring-1 focus:ring-main/20 transition-all placeholder:text-stone-light";
 
   return (
     <div className="flex flex-col gap-1.5">
-      {label && (
-        <div className="flex items-center justify-between">
-          <label className="text-[11px] font-medium text-muted uppercase tracking-wider">{label}</label>
-          <MiniTabs active={active} onChange={setActive} />
-        </div>
-      )}
+      {label && <label className="text-[11px] font-medium text-muted uppercase tracking-wider">{label}</label>}
       {multiline ? (
         <textarea
           rows={rows}
@@ -70,37 +82,46 @@ export function LocaleText({
   );
 }
 
-/** Array of strings, per locale (each item is edited in the active locale) */
+/** Convert either LocaleArray or L[] (per-item objects from seed scripts) to LocaleArray */
+function normalizeToLocaleArray(val: any): LocaleArray {
+  if (!val) return { uk: [], ru: [], en: [] };
+  if (!Array.isArray(val) && Array.isArray(val.uk)) return val as LocaleArray;
+  if (Array.isArray(val)) {
+    const uk: string[] = [], ru: string[] = [], en: string[] = [];
+    for (const item of val) {
+      if (typeof item === "string") { uk.push(item); ru.push(item); en.push(item); }
+      else if (item && typeof item === "object") { uk.push(item.uk || ""); ru.push(item.ru || ""); en.push(item.en || ""); }
+    }
+    return { uk, ru, en };
+  }
+  return { uk: [], ru: [], en: [] };
+}
+
+/** List of strings per locale — reads active locale from context */
 export function LocaleStringList({
   label, value, onChange, itemPlaceholder = "Item",
 }: {
   label?: string;
-  value: LocaleArray;
+  value: LocaleArray | any;
   onChange: (v: LocaleArray) => void;
   itemPlaceholder?: string;
 }) {
-  const [active, setActive] = useState<LocaleKey>("uk");
-  const items = value?.[active] || [];
+  const active = useContext(SectionLocaleContext);
+  const normalized = normalizeToLocaleArray(value);
+  const items = normalized[active] || [];
 
   const updateItem = (i: number, v: string) => {
-    const next = [...items];
-    next[i] = v;
-    onChange({ ...value, [active]: next });
+    const next = [...items]; next[i] = v;
+    onChange({ ...normalized, [active]: next });
   };
-  const addItem = () => onChange({ ...value, [active]: [...items, ""] });
-  const removeItem = (i: number) => {
-    const next = items.filter((_, idx) => idx !== i);
-    onChange({ ...value, [active]: next });
-  };
+  const addItem = () => onChange({ ...normalized, [active]: [...items, ""] });
+  const removeItem = (i: number) => onChange({ ...normalized, [active]: items.filter((_, idx) => idx !== i) });
 
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between">
         {label && <label className="text-[11px] font-medium text-muted uppercase tracking-wider">{label}</label>}
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] text-muted">{items.length} items · {active.toUpperCase()}</span>
-          <MiniTabs active={active} onChange={setActive} />
-        </div>
+        <span className="text-[11px] text-muted">{items.length} items</span>
       </div>
       <div className="flex flex-col gap-1.5">
         {items.map((item, i) => (

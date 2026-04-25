@@ -28,7 +28,7 @@ export default function BulletsSection({ heading, items }: Props) {
         </motion.div>
       )}
 
-      {benefits.length > 0 && (
+      {(benefits.length > 0 || drawbacks.length > 0) && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {benefits.map((item, i) => (
             <motion.div
@@ -44,16 +44,13 @@ export default function BulletsSection({ heading, items }: Props) {
               <p className="body-l text-ink">{item}</p>
             </motion.div>
           ))}
-        </div>
-      )}
-
-      {drawbacks.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
           {drawbacks.map((item, i) => (
             <motion.div
               key={`d-${i}`}
               variants={fadeInUp}
-              className="flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-warning/5 border border-warning/20"
+              className={`flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-warning/5 border border-warning/20${
+                i === 0 && benefits.length % 2 !== 0 ? " sm:col-start-1" : ""
+              }`}
             >
               <div className="shrink-0 mt-0.5" style={{ width: 28, height: 28 }}>
                 <div className="w-full h-full rounded-full bg-warning/15 flex items-center justify-center">

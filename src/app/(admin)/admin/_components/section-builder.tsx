@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import { Trash2, Plus, Check, ArrowUpDown } from "lucide-react";
 import { SECTION_LABELS, SECTION_TYPES, SectionEditor, createDefaultData } from "./section-editors";
+import { SectionLocaleProvider } from "./locale-inputs";
 import { saveSections } from "../_actions/sections";
 
 interface Section {
@@ -17,9 +18,10 @@ interface Props {
   ownerId: string;
   initial: Section[];
   doctors?: { id: string; name_uk: string; role_uk: string | null }[];
+  bottomSlot?: React.ReactNode;
 }
 
-export default function SectionBuilder({ ownerType, ownerId, initial, doctors }: Props) {
+export default function SectionBuilder({ ownerType, ownerId, initial, doctors, bottomSlot }: Props) {
   const [sections, setSections] = useState<Section[]>(initial);
   const [expanded, setExpanded] = useState<number | null>(initial.length === 0 ? null : 0);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -51,7 +53,7 @@ export default function SectionBuilder({ ownerType, ownerId, initial, doctors }:
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-5">
       <div className="rounded-xl bg-champagne/40 border border-line px-4 py-3 flex items-start gap-3">
         <ArrowUpDown size={16} className="text-muted mt-0.5 shrink-0" />
         <p className="body-s text-muted">
@@ -86,14 +88,16 @@ export default function SectionBuilder({ ownerType, ownerId, initial, doctors }:
             </button>
           </div>
           {expanded === i && (
-            <div className="p-4">
-              <SectionEditor
-                type={section.type}
-                data={section.data}
-                onChange={(data) => update(i, { data })}
-                doctors={doctors}
-              />
-            </div>
+            <SectionLocaleProvider>
+              <div className="p-5 flex flex-col gap-5">
+                <SectionEditor
+                  type={section.type}
+                  data={section.data}
+                  onChange={(data) => update(i, { data })}
+                  doctors={doctors}
+                />
+              </div>
+            </SectionLocaleProvider>
           )}
         </div>
       ))}
@@ -103,6 +107,8 @@ export default function SectionBuilder({ ownerType, ownerId, initial, doctors }:
           No sections yet. Add one to get started.
         </div>
       )}
+
+      {bottomSlot}
 
       {/* Add + Save bar */}
       <div className="flex items-center gap-3 relative">

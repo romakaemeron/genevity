@@ -173,7 +173,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
 
         {/* Content sections with integrated visuals */}
         {sections.length > 0 && (
-          <div className="flex flex-col gap-12 lg:gap-16">
+          <div className="flex flex-col gap-16 lg:gap-20">
             {sections.map((section, i) => {
               const isFirstRichText = i === 0 && section._type === "section.richText";
               const isBeforeLastThree = i === sections.length - 3;

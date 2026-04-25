@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useRef } from "react";
-import { saveService, deleteService, saveServiceBlockOrder } from "../../_actions/services";
+import { saveService, deleteService, saveServiceBlockOrder, applyLayoutToAllServices, deleteFinalCta } from "../../_actions/services";
 import TranslationTabs, { type LocaleKey } from "../../_components/translation-tabs";
 import FormField from "../../_components/form-field";
 import ImageUpload from "../../_components/image-upload";
@@ -12,6 +12,7 @@ import RelationsEditor from "../../_components/relations-editor";
 import SeoFormTab from "../../_components/seo-form-tab";
 import BlockOrderEditor, { type BlockDef } from "../../_components/block-order-editor";
 import ServiceOverridesEditor from "../../_components/service-overrides-editor";
+import FinalCtaEditor from "../../_components/final-cta-editor";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import Button from "@/components/ui/Button";
 import type { ServiceBlockHeadingsInput, ServiceFinalCtaInput } from "../../_actions/services";
@@ -25,14 +26,13 @@ interface Props {
   doctors?: { id: string; name_uk: string; role_uk: string | null }[];
   allServices?: { id: string; title_uk: string; slug: string; cat_title: string }[];
   equipment?: { id: string; name: string; category: string }[];
-  /** Global ui_strings labels (Ukrainian) used as placeholders on the Layout tab's
-   *  heading-override inputs so admins see the default they'll fall back to. */
+  /** Global ui_strings labels for all locales — used as placeholders in per-service override inputs. */
   uiDefaults?: {
-    faq?: string;
-    doctors?: string;
-    equipment?: string;
-    relatedServices?: string;
-    finalCTA?: string;
+    faq?: { uk: string; ru: string; en: string };
+    doctors?: { uk: string; ru: string; en: string };
+    equipment?: { uk: string; ru: string; en: string };
+    relatedServices?: { uk: string; ru: string; en: string };
+    finalCTA?: { uk: string; ru: string; en: string };
   };
 }
 
@@ -265,12 +265,48 @@ export default function ServiceForm({
         />
       )}
 
-      {tab === "sections" && !isNew && (
-        <div className="p-8">
-          <p className="body-m text-muted mb-6">Build the service page by adding and arranging sections. Changes save independently.</p>
-          <SectionBuilder ownerType="service" ownerId={svc.id} initial={sections} doctors={doctors} />
+      {tab === "sections" && !isNew && (() => {
+        // Sort sections by their position in block_order so the Sections tab
+        // matches the order shown in the Layout tab.
+        const blockOrder: string[] = Array.isArray(svc.block_order) ? svc.block_order : [];
+        const orderMap = new Map<string, number>();
+        blockOrder.forEach((key, i) => { if (key.startsWith("section:")) orderMap.set(key.slice(8), i); });
+        const sortedSections = orderMap.size > 0
+          ? [...sections].sort((a, b) => (orderMap.get(a.id ?? "") ?? 9999) - (orderMap.get(b.id ?? "") ?? 9999))
+          : sections;
+        return (
+        <div className="p-8 flex flex-col gap-5">
+          <p className="body-m text-muted">Build the service page by adding and arranging sections. Changes save independently.</p>
+          <SectionBuilder
+            ownerType="service"
+            ownerId={svc.id}
+            initial={sortedSections}
+            doctors={doctors}
+            bottomSlot={
+              <>
+                <ServiceOverridesEditor
+                  serviceId={svc.id}
+                  serviceLabel={svc.title_uk || svc.slug}
+                  blocks={[
+                    { key: "faq",             label: "FAQ",              globalDefault: uiDefaults.faq },
+                    { key: "doctors",         label: "Doctors",          globalDefault: uiDefaults.doctors },
+                    { key: "equipment",       label: "Equipment",        globalDefault: uiDefaults.equipment },
+                    { key: "relatedServices", label: "Related services", globalDefault: uiDefaults.relatedServices },
+                  ]}
+                  initialHeadings={(svc.block_headings as ServiceBlockHeadingsInput | null) || {}}
+                />
+                <FinalCtaEditor
+                  serviceId={svc.id}
+                  serviceLabel={svc.title_uk || svc.slug}
+                  initial={(svc.final_cta as ServiceFinalCtaInput | null) || {}}
+                  onDelete={async () => { await deleteFinalCta(svc.id); }}
+                />
+              </>
+            }
+          />
         </div>
-      )}
+        );
+      })()}
 
       {tab === "faq" && !isNew && (
         <div className="p-8">
@@ -309,23 +345,9 @@ export default function ServiceForm({
             blocks={buildServiceBlocks(svc, sections, faq, relations)}
             initialOrder={(svc.block_order as string[] | null) || null}
             onSave={(order) => saveServiceBlockOrder(svc.id, order)}
+            onApplyToAll={(order) => applyLayoutToAllServices(order, svc.id)}
           />
 
-          <div className="border-t border-line" />
-
-          <ServiceOverridesEditor
-            serviceId={svc.id}
-            serviceLabel={svc.title_uk || svc.slug}
-            blocks={[
-              { key: "faq",             label: "FAQ",              globalDefault: uiDefaults.faq },
-              { key: "doctors",         label: "Doctors",          globalDefault: uiDefaults.doctors },
-              { key: "equipment",       label: "Equipment",        globalDefault: uiDefaults.equipment },
-              { key: "relatedServices", label: "Related services", globalDefault: uiDefaults.relatedServices },
-              { key: "finalCTA",        label: "Final CTA",        globalDefault: uiDefaults.finalCTA },
-            ]}
-            initialHeadings={(svc.block_headings as ServiceBlockHeadingsInput | null) || {}}
-            initialFinalCta={(svc.final_cta as ServiceFinalCtaInput | null) || {}}
-          />
         </div>
       )}
     </div>

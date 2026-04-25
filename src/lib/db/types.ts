@@ -137,6 +137,7 @@ export interface SectionRichText {
   /** When present (and this is the first rich-text section), triggers the
    *  hero-image side-by-side layout; otherwise the section renders normally. */
   heroImage?: string;
+  heroImageFocalPoint?: string;
 }
 
 export interface SectionBullets {
@@ -164,6 +165,7 @@ export interface SectionCompareTable {
 export interface SectionIndicationsContraindications {
   _type: "section.indicationsContraindications";
   _key: string;
+  title?: string;
   indicationsHeading: string;
   indications: string[];
   contraindicationsHeading: string;
@@ -192,6 +194,14 @@ export interface SectionImageGallery {
   images: { url: string; alt?: string }[];
 }
 
+export interface SectionShowcaseGallery {
+  _type: "section.showcaseGallery";
+  _key: string;
+  heading: string;
+  subtitle?: string;
+  images: { url: string; alt?: string; focalPoint?: string; span?: "1" | "2"; title?: string; subtitle?: string }[];
+}
+
 export interface SectionRelatedDoctors {
   _type: "section.relatedDoctors";
   _key: string;
@@ -217,6 +227,7 @@ export type ContentSection =
   | SectionPriceTeaser
   | SectionCallout
   | SectionImageGallery
+  | SectionShowcaseGallery
   | SectionRelatedDoctors
   | SectionCta;
 
@@ -259,6 +270,12 @@ export interface ServiceFinalCta {
   bgImage: string | null;
   /** object-position string (e.g. "50% 30%") for the bg image crop. */
   bgFocalPoint: string | null;
+  /** Per-service heading override (locale-resolved). Falls back to blockHeadings.finalCTA → ui_strings. */
+  heading: string | null;
+  /** Per-service subtitle override (locale-resolved). Falls back to ui_strings ctaSubtitle. */
+  subtitle: string | null;
+  /** Per-service CTA button text override (locale-resolved). Falls back to ui_strings bookConsultation. */
+  buttonText: string | null;
 }
 
 export interface ServiceData {

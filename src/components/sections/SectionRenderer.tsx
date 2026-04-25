@@ -7,6 +7,7 @@ import IndicationsContraindicationsSection from "./IndicationsContraindicationsS
 import PriceTeaserSection from "./PriceTeaserSection";
 import CalloutSection from "./CalloutSection";
 import ImageGallerySection from "./ImageGallerySection";
+import ShowcaseGallerySection from "./ShowcaseGallerySection";
 import RelatedDoctorsSection from "./RelatedDoctorsSection";
 import CtaSection from "./CtaSection";
 
@@ -32,6 +33,8 @@ function renderSection(section: ContentSection, index: number) {
       return <CalloutSection {...section} />;
     case "section.imageGallery":
       return <ImageGallerySection {...section} />;
+    case "section.showcaseGallery":
+      return <ShowcaseGallerySection {...section} />;
     case "section.relatedDoctors":
       return <RelatedDoctorsSection {...section} />;
     case "section.cta":
@@ -45,7 +48,7 @@ export default function SectionRenderer({ sections }: Props) {
   if (!sections?.length) return null;
 
   return (
-    <div className="flex flex-col gap-12 lg:gap-16">
+    <div className="flex flex-col gap-16 lg:gap-20">
       {sections.map((section, i) => (
         <div key={section._key} id={`section-${section._key}`}>
           {renderSection(section, i)}

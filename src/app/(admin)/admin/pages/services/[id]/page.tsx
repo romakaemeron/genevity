@@ -31,18 +31,20 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
   // Pull the UK global labels that ServiceDetailTemplate falls back to when
   // the per-service override is blank — surfaced as placeholders on the
   // Layout tab's heading-override inputs so the admin sees "what you'd get".
-  const leaf = (path: string[]): string | undefined => {
+  const leafAll = (path: string[]): { uk: string; ru: string; en: string } => {
     let cur: any = uiTree;
-    for (const p of path) { if (!cur || typeof cur !== "object") return undefined; cur = cur[p]; }
-    if (cur && typeof cur === "object" && "uk" in cur && typeof cur.uk === "string") return cur.uk;
-    return undefined;
+    for (const p of path) { if (!cur || typeof cur !== "object") return { uk: "", ru: "", en: "" }; cur = cur[p]; }
+    if (cur && typeof cur === "object") return { uk: cur.uk || "", ru: cur.ru || "", en: cur.en || "" };
+    return { uk: "", ru: "", en: "" };
   };
+  const mergeLeaf = (a: { uk: string; ru: string; en: string }, b: { uk: string; ru: string; en: string }) =>
+    ({ uk: a.uk || b.uk, ru: a.ru || b.ru, en: a.en || b.en });
   const uiDefaults = {
-    faq: leaf(["labels", "faq"]),
-    doctors: leaf(["doctors", "title"]),
-    equipment: leaf(["equipment", "title"]) || leaf(["labels", "equipment"]),
-    relatedServices: leaf(["labels", "alsoInteresting"]),
-    finalCTA: leaf(["labels", "bookCta"]),
+    faq: leafAll(["labels", "faq"]),
+    doctors: leafAll(["doctors", "title"]),
+    equipment: mergeLeaf(leafAll(["equipment", "title"]), leafAll(["labels", "equipment"])),
+    relatedServices: leafAll(["labels", "alsoInteresting"]),
+    finalCTA: leafAll(["labels", "bookCta"]),
   };
 
   const sections = sectionRows.map((r) => ({

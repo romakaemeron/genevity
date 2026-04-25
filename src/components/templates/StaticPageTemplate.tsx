@@ -125,7 +125,7 @@ export default function StaticPageTemplate({
       {/* ===== CONTENT ===== */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         {sections.length > 0 && (
-          <div className="flex flex-col gap-12 lg:gap-16">
+          <div className="flex flex-col gap-16 lg:gap-20">
             {sections.map((section, i) => {
               const isFirstRichText = i === 0 && section._type === "section.richText" && photos.length > 0;
               const isMidpoint = i === Math.floor(sections.length / 2) && photos.length > 1;

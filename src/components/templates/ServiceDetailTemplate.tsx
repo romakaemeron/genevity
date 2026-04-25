@@ -192,7 +192,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportConfig}
-                className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-12 lg:mt-16 flex flex-col gap-8"
+                className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20 flex flex-col gap-8"
               >
                 {section.heading && (
                   <h2 className="heading-2 text-black max-w-3xl">{section.heading}</h2>
@@ -214,7 +214,16 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <Image src={richHeroImage} alt={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                    <Image
+                      src={richHeroImage}
+                      alt={data.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      style={"heroImageFocalPoint" in section && section.heroImageFocalPoint
+                        ? { objectPosition: section.heroImageFocalPoint as string }
+                        : undefined}
+                    />
                   </motion.div>
                 </div>
               </motion.div>
@@ -229,7 +238,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
               initial="hidden"
               whileInView="visible"
               viewport={viewportConfig}
-              className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-12 lg:mt-16"
+              className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20"
             >
               <SectionRenderer sections={[section]} />
             </motion.div>
@@ -239,7 +248,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         switch (blockKey) {
           case "faq":
             return data.faq?.length > 0 ? (
-              <div key="faq" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
+              <div key="faq" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-20 lg:mt-24">
                 <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.faq, t("faq"))}</h2>
                 <div className="border-t border-line">
                   {data.faq.map((item, i) => (
@@ -280,7 +289,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
           case "doctors":
             return data.relatedDoctors?.length > 0 && doctorsUi ? (
-              <div key="doctors" className="mt-16 lg:mt-20">
+              <div key="doctors" className="mt-20 lg:mt-24">
                 <Doctors
                   doctors={data.relatedDoctors}
                   ui={{ ...doctorsUi, title: heading(data.blockHeadings.doctors, doctorsUi.title) }}
@@ -299,7 +308,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
           case "equipment":
             return data.relatedEquipment?.length > 0 ? (
-              <div key="equipment" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
+              <div key="equipment" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-20 lg:mt-24">
                 <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.equipment, equipmentUi?.title || t("equipment"))}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {data.relatedEquipment.map((item) => (
@@ -331,7 +340,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
           case "relatedServices":
             return data.relatedServices?.length > 0 ? (
-              <div key="relatedServices" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
+              <div key="relatedServices" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-20 lg:mt-24">
                 <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.relatedServices, t("alsoInteresting"))}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {data.relatedServices.map((svc) => (
@@ -379,7 +388,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
             return (
               <div key="finalCTA" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
                 <div
-                  className={`mt-16 lg:mt-20 rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${
+                  className={`mt-20 lg:mt-24 rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${
                     hasCustomImage || cta.bgType === "color" ? "" : "bg-main"
                   }`}
                   style={cardStyle}
@@ -399,8 +408,12 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                     </>
                   )}
                   <div className="relative">
-                    <h2 className="heading-2 text-champagne mb-4">{heading(data.blockHeadings.finalCTA, t("bookCta"))}</h2>
-                    <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{t("ctaSubtitle")}</p>
+                    <h2 className="heading-2 text-champagne mb-4">
+                      {data.finalCta.heading || heading(data.blockHeadings.finalCTA, t("bookCta"))}
+                    </h2>
+                    <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">
+                      {data.finalCta.subtitle || t("ctaSubtitle")}
+                    </p>
                     <BookingCTA
                       ctaKey="serviceDetailFinal"
                       variant="secondary"
@@ -408,7 +421,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                       className="bg-champagne text-black hover:bg-champagne-dark"
                       initialInterest={`service:${data.slug}`}
                     >
-                      {t("bookConsultation")}
+                      {data.finalCta.buttonText || t("bookConsultation")}
                     </BookingCTA>
                   </div>
                 </div>
