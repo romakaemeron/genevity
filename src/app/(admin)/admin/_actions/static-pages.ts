@@ -49,7 +49,13 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
   const og = await uploadRawOrKeep(ogFile, "pages", currentOg);
   const noindex = formData.get("seo_noindex") === "on";
 
-  const logAfter = { slug, title_uk: fields.title_uk };
+  const logAfter = { slug, title_uk: fields.title_uk, title_ru: fields.title_ru, title_en: fields.title_en, h1_uk: fields.h1_uk, seo_title_uk: fields.seo_title_uk };
+
+  let logBefore: Record<string, any> | null = null;
+  if (!isNew) {
+    const beforeRows = await sql`SELECT slug, title_uk, title_ru, title_en, h1_uk, seo_title_uk FROM static_pages WHERE id = ${id}`;
+    logBefore = beforeRows[0] ?? null;
+  }
 
   if (isNew) {
     const newId = randomUUID();
@@ -87,7 +93,7 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         seo_og_image = ${og}, seo_noindex = ${noindex}
       WHERE id = ${id}
     `;
-    await logChange({ action: "update", entityType: "static_page", entityId: id!, entityLabel: fields.title_uk ?? slug, after: logAfter });
+    await logChange({ action: "update", entityType: "static_page", entityId: id!, entityLabel: fields.title_uk ?? slug, before: logBefore, after: logAfter });
     revalidatePath("/");
     return { success: true };
   }

@@ -13,6 +13,9 @@ export async function saveHero(_prevState: any, formData: FormData) {
     }
   }
 
+  const beforeRows = await sql`SELECT title_uk, title_ru, title_en, subtitle_uk, subtitle_ru, subtitle_en, cta_uk, cta_ru, cta_en, location_uk, location_ru, location_en FROM hero WHERE id = 1`;
+  const before = beforeRows[0] ?? null;
+
   await sql`
     UPDATE hero SET
       title_uk = ${fields.title_uk}, title_ru = ${fields.title_ru}, title_en = ${fields.title_en},
@@ -22,7 +25,7 @@ export async function saveHero(_prevState: any, formData: FormData) {
     WHERE id = 1
   `;
 
-  await logChange({ action: "update", entityType: "hero", entityId: "1", entityLabel: "Homepage hero", after: fields });
+  await logChange({ action: "update", entityType: "hero", entityId: "1", entityLabel: "Homepage hero", before, after: fields });
   revalidatePath("/");
   return { success: true };
 }
@@ -35,6 +38,9 @@ export async function saveAbout(_prevState: any, formData: FormData) {
     }
   }
 
+  const beforeRows = await sql`SELECT title_uk, title_ru, title_en, text1_uk, text1_ru, text1_en, text2_uk, text2_ru, text2_en, diagnostics_uk, diagnostics_ru, diagnostics_en FROM about WHERE id = 1`;
+  const before = beforeRows[0] ?? null;
+
   await sql`
     UPDATE about SET
       title_uk = ${fields.title_uk}, title_ru = ${fields.title_ru}, title_en = ${fields.title_en},
@@ -44,7 +50,7 @@ export async function saveAbout(_prevState: any, formData: FormData) {
     WHERE id = 1
   `;
 
-  await logChange({ action: "update", entityType: "about", entityId: "1", entityLabel: "Homepage about section", after: fields });
+  await logChange({ action: "update", entityType: "about", entityId: "1", entityLabel: "Homepage about section", before, after: fields });
   revalidatePath("/");
   return { success: true };
 }
@@ -63,8 +69,10 @@ export async function saveSiteSettings(_prevState: any, formData: FormData) {
 
   const ogFile = formData.get("og_image") as File | null;
   const currentOg = formData.get("og_image_current") as string;
-  // OG images upload raw — social crawlers prefer JPEG/PNG over WebP
   const og_image = await uploadRawOrKeep(ogFile, "site", currentOg);
+
+  const beforeRows = await sql`SELECT phone1, phone2, instagram, maps_url, address_uk, address_ru, address_en, hours_uk, hours_ru, hours_en FROM site_settings WHERE id = 1`;
+  const before = beforeRows[0] ?? null;
 
   await sql`
     UPDATE site_settings SET
@@ -75,7 +83,7 @@ export async function saveSiteSettings(_prevState: any, formData: FormData) {
     WHERE id = 1
   `;
 
-  await logChange({ action: "update", entityType: "site_settings", entityId: "1", entityLabel: "Site settings", after: { phone1, phone2, instagram } });
+  await logChange({ action: "update", entityType: "site_settings", entityId: "1", entityLabel: "Site settings", before, after: { phone1, phone2, instagram, maps_url, address_uk, address_ru, address_en, hours_uk, hours_ru, hours_en } });
   revalidatePath("/");
   return { success: true };
 }

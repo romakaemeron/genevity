@@ -87,7 +87,13 @@ export async function saveService(_prevState: any, formData: FormData) {
   const seo_og_image = await uploadRawOrKeep(ogFile, "services", currentOg);
   const seo_noindex = formData.get("seo_noindex") === "on";
 
-  const logAfter = { slug, category_id, title_uk: fields.title_uk, sort_order };
+  const logAfter = { slug, category_id, title_uk: fields.title_uk, title_ru: fields.title_ru, title_en: fields.title_en, h1_uk: fields.h1_uk, summary_uk: fields.summary_uk, sort_order };
+
+  let logBefore: Record<string, any> | null = null;
+  if (!isNew) {
+    const beforeRows = await sql`SELECT slug, category_id, title_uk, title_ru, title_en, h1_uk, summary_uk, sort_order FROM services WHERE id = ${id}`;
+    logBefore = beforeRows[0] ?? null;
+  }
 
   if (isNew) {
     const newId = randomUUID();
@@ -139,7 +145,7 @@ export async function saveService(_prevState: any, formData: FormData) {
         seo_og_image = ${seo_og_image}, seo_noindex = ${seo_noindex}
       WHERE id = ${id}
     `;
-    await logChange({ action: "update", entityType: "service", entityId: id!, entityLabel: fields.title_uk ?? slug, after: logAfter });
+    await logChange({ action: "update", entityType: "service", entityId: id!, entityLabel: fields.title_uk ?? slug, before: logBefore, after: logAfter });
     revalidatePath("/");
     return { success: true };
   }
