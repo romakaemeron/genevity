@@ -12,46 +12,63 @@ export default async function SettingsPage() {
 
   return (
     <div className="p-8">
-      <AdminPageHeader title="Settings" />
+      <AdminPageHeader
+        title="Settings"
+        subtitle="Site-wide configuration — contact info, navigation, booking, and global labels."
+      />
 
-      <AdminSectionHeading>Configuration</AdminSectionHeading>
+      <AdminSectionHeading>General</AdminSectionHeading>
+      <div className="mb-10">
+        <SiteSettingsForm settings={settings} />
+      </div>
+
+      <AdminSectionHeading>Content</AdminSectionHeading>
       <div className="mb-10">
         <AdminList>
           <AdminListItem
             href="/admin/settings/homepage"
             title="Homepage"
-            subtitle="Hero, About section, advantages, FAQ"
-          />
-          <AdminListItem
-            href="/admin/settings/navigation"
-            title="Navigation"
-            subtitle="Menu items, CTA"
-          />
-          <AdminListItem
-            href="/admin/settings/ui-strings"
-            title="UI Strings"
-            subtitle="All labels, headings, CTAs"
-          />
-          <AdminListItem
-            href="/admin/settings/cta"
-            title="Booking CTAs"
-            subtitle="Per-location overrides for every booking button"
+            subtitle="Hero title, subtitle, CTA button, and about section copy"
           />
           <AdminListItem
             href="/admin/settings/hero-slides"
-            title="Hero Slides"
-            subtitle="Homepage slideshow images"
+            title="Hero slides"
+            subtitle="Homepage rotating slideshow images and alt text"
           />
           <AdminListItem
             href="/admin/settings/galleries"
             title="Galleries"
-            subtitle="Stripe galleries per page"
+            subtitle="Stripe galleries on the stationary, about, and homepage bento"
+          />
+          <AdminListItem
+            href="/admin/pages"
+            title="Page content"
+            subtitle="All static pages, service pages, and their section texts — edit each page directly"
+            badge={<span className="text-xs text-main font-medium">Pages →</span>}
           />
         </AdminList>
       </div>
 
-      <AdminSectionHeading>General Settings</AdminSectionHeading>
-      <SiteSettingsForm settings={settings} />
+      <AdminSectionHeading>Labels & Booking</AdminSectionHeading>
+      <div className="mb-10">
+        <AdminList>
+          <AdminListItem
+            href="/admin/settings/ui-strings"
+            title="Footer & Labels"
+            subtitle="Footer links and booking form default labels"
+          />
+          <AdminListItem
+            href="/admin/settings/cta"
+            title="Booking CTAs"
+            subtitle="Per-location button text, modal title, and submit label overrides"
+          />
+          <AdminListItem
+            href="/admin/settings/navigation"
+            title="Navigation"
+            subtitle="Menu items and navigation CTA"
+          />
+        </AdminList>
+      </div>
     </div>
   );
 }
