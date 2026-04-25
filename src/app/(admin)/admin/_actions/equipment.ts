@@ -40,11 +40,11 @@ export async function saveEquipment(_prevState: any, formData: FormData) {
   const currentPhoto = formData.get("photo_current") as string;
   const photo = await processUploadOrKeep(photoFile, "equipment", currentPhoto);
 
-  const logAfter = { name, category, short_description_uk, sort_order };
+  const logAfter = { name, category, sort_order, short_description_uk, short_description_ru, short_description_en, description_uk, description_ru, description_en, note_uk, note_ru, note_en };
 
   let logBefore: Record<string, any> | null = null;
   if (!isNew) {
-    const beforeRows = await sql`SELECT name, category, short_description_uk, sort_order FROM equipment WHERE id = ${id}`;
+    const beforeRows = await sql`SELECT name, category, sort_order, short_description_uk, short_description_ru, short_description_en, description_uk, description_ru, description_en, note_uk, note_ru, note_en FROM equipment WHERE id = ${id}`;
     logBefore = beforeRows[0] ?? null;
   }
 

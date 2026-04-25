@@ -136,11 +136,11 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   // returns the existing URL so clearing / keeping works naturally.
   const photo_circle = await processAndUpload(photoCircleFile, "doctors", 600, currentCircle);
 
-  const after = { name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, sort_order };
+  const after = { name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en, sort_order };
 
   let before: Record<string, any> | null = null;
   if (!isNew) {
-    const beforeRows = await sql`SELECT name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, sort_order FROM doctors WHERE id = ${id}`;
+    const beforeRows = await sql`SELECT name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en, sort_order FROM doctors WHERE id = ${id}`;
     before = beforeRows[0] ?? null;
   }
 

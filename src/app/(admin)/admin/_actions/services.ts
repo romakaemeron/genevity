@@ -87,11 +87,24 @@ export async function saveService(_prevState: any, formData: FormData) {
   const seo_og_image = await uploadRawOrKeep(ogFile, "services", currentOg);
   const seo_noindex = formData.get("seo_noindex") === "on";
 
-  const logAfter = { slug, category_id, title_uk: fields.title_uk, title_ru: fields.title_ru, title_en: fields.title_en, h1_uk: fields.h1_uk, summary_uk: fields.summary_uk, sort_order };
+  const logAfter = { slug, category_id, sort_order, ...fields };
 
   let logBefore: Record<string, any> | null = null;
   if (!isNew) {
-    const beforeRows = await sql`SELECT slug, category_id, title_uk, title_ru, title_en, h1_uk, summary_uk, sort_order FROM services WHERE id = ${id}`;
+    const beforeRows = await sql`
+      SELECT slug, category_id, sort_order,
+        title_uk, title_ru, title_en, h1_uk, h1_ru, h1_en,
+        summary_uk, summary_ru, summary_en,
+        procedure_length_uk, procedure_length_ru, procedure_length_en,
+        effect_duration_uk, effect_duration_ru, effect_duration_en,
+        sessions_recommended_uk, sessions_recommended_ru, sessions_recommended_en,
+        price_from_uk, price_from_ru, price_from_en,
+        price_unit_uk, price_unit_ru, price_unit_en,
+        seo_title_uk, seo_title_ru, seo_title_en,
+        seo_desc_uk, seo_desc_ru, seo_desc_en,
+        seo_keywords_uk, seo_keywords_ru, seo_keywords_en
+      FROM services WHERE id = ${id}
+    `;
     logBefore = beforeRows[0] ?? null;
   }
 

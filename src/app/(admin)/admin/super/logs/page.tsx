@@ -78,9 +78,10 @@ function DiffView({ before, after, action }: {
 
   // Update: show only fields that actually changed
   if (before && after) {
+    const normalize = (v: unknown) => (v === null || v === undefined || v === "") ? null : v;
     const allKeys = Array.from(new Set([...Object.keys(before), ...Object.keys(after)]));
     const changed = allKeys.filter(
-      (k) => JSON.stringify(before[k] ?? null) !== JSON.stringify(after[k] ?? null)
+      (k) => JSON.stringify(normalize(before[k])) !== JSON.stringify(normalize(after[k]))
     );
 
     if (changed.length === 0) {

@@ -49,11 +49,19 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
   const og = await uploadRawOrKeep(ogFile, "pages", currentOg);
   const noindex = formData.get("seo_noindex") === "on";
 
-  const logAfter = { slug, title_uk: fields.title_uk, title_ru: fields.title_ru, title_en: fields.title_en, h1_uk: fields.h1_uk, seo_title_uk: fields.seo_title_uk };
+  const logAfter = { slug, ...fields };
 
   let logBefore: Record<string, any> | null = null;
   if (!isNew) {
-    const beforeRows = await sql`SELECT slug, title_uk, title_ru, title_en, h1_uk, seo_title_uk FROM static_pages WHERE id = ${id}`;
+    const beforeRows = await sql`
+      SELECT slug,
+        title_uk, title_ru, title_en, h1_uk, h1_ru, h1_en,
+        summary_uk, summary_ru, summary_en,
+        seo_title_uk, seo_title_ru, seo_title_en,
+        seo_desc_uk, seo_desc_ru, seo_desc_en,
+        seo_keywords_uk, seo_keywords_ru, seo_keywords_en
+      FROM static_pages WHERE id = ${id}
+    `;
     logBefore = beforeRows[0] ?? null;
   }
 
