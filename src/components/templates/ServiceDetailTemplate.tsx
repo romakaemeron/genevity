@@ -195,7 +195,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                 className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-12 lg:mt-16 flex flex-col gap-8"
               >
                 {section.heading && (
-                  <h2 className="heading-2 text-black max-w-2xl">{section.heading}</h2>
+                  <h2 className="heading-2 text-black max-w-3xl">{section.heading}</h2>
                 )}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                   <div className="flex flex-col gap-6 justify-center lg:order-1 order-2">
