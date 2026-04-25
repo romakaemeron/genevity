@@ -41,6 +41,11 @@ export default async function SettingsPage() {
             subtitle="Stripe galleries on the stationary, about, and homepage bento"
           />
           <AdminListItem
+            href="/admin/settings/ui-strings"
+            title="Footer & Labels"
+            subtitle="Footer links and booking form default labels"
+          />
+          <AdminListItem
             href="/admin/pages"
             title="Page content"
             subtitle="All static pages, service pages, and their section texts — edit each page directly"
@@ -49,14 +54,9 @@ export default async function SettingsPage() {
         </AdminList>
       </div>
 
-      <AdminSectionHeading>Labels & Booking</AdminSectionHeading>
+      <AdminSectionHeading>Booking & Navigation</AdminSectionHeading>
       <div className="mb-10">
         <AdminList>
-          <AdminListItem
-            href="/admin/settings/ui-strings"
-            title="Footer & Labels"
-            subtitle="Footer links and booking form default labels"
-          />
           <AdminListItem
             href="/admin/settings/cta"
             title="Booking CTAs"

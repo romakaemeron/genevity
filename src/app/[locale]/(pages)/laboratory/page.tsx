@@ -36,7 +36,12 @@ export default async function LaboratoryPage({ params }: { params: Promise<{ loc
   ]);
   if (!data) notFound();
 
-  const diagDoctors = doctors.filter((d) => ["doctor-4", "doctor-5"].includes(d._id));
+  const diagDoctors = doctors.filter((d) =>
+    d.role?.toLowerCase().includes("узд") ||
+    d.role?.toLowerCase().includes("гастро") ||
+    d.role?.toLowerCase().includes("gastro") ||
+    d.role?.toLowerCase().includes("ultrasound")
+  );
 
   return (
     <>
