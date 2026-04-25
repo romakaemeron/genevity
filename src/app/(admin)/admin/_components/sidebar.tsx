@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
   { href: "/admin/equipment", label: "Equipment", icon: Cpu, countKey: "equipment", minRole: "marketing" },
   { href: "/admin/pricing", label: "Pricing", icon: DollarSign, minRole: "marketing" },
   { href: "/admin/blog", label: "Blog", icon: BookOpen, minRole: "marketing" },
+  { href: "/admin/settings", label: "General Content", icon: Settings, minRole: "marketing" },
   { divider: true, label: "OPERATIONS", minRole: "support" },
   { href: "/admin/forms", label: "Forms", icon: MessageSquare, countKey: "forms", minRole: "support" },
   { href: "/admin/media", label: "Media", icon: ImageIcon, minRole: "marketing" },
@@ -112,23 +113,7 @@ export default function Sidebar({ userName, role, counts = {} }: SidebarProps) {
         {navItems.map((item, i) => <NavRow key={i} item={item} />)}
         {userRole === "admin" && superItems.map((item, i) => <NavRow key={`s${i}`} item={item} />)}
       </nav>
-
-      {/* Settings */}
-      {canSee({ minRole: "marketing" }, userRole) && (
-        <div className="border-t border-white/10 px-3 py-2">
-          <Link
-            href="/admin/settings"
-            className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-              isSettingsActive
-                ? "bg-main/20 text-champagne"
-                : "text-champagne/50 hover:text-champagne/80 hover:bg-champagne/10"
-            }`}
-          >
-            <Settings size={18} className={isSettingsActive ? "text-champagne" : "text-champagne/80"} />
-            <span>Settings</span>
-          </Link>
-        </div>
-      )}
+      
 
       {/* User */}
       <div className="border-t border-white/10 px-3 py-3">

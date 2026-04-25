@@ -5,6 +5,9 @@ import { requireSession } from "./auth";
 import { logChange } from "@/lib/audit";
 import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
+import { put } from "@vercel/blob";
+import { randomUUID } from "crypto";
+import sharp from "sharp";
 
 async function requireAdmin() {
   const session = await requireSession();
@@ -14,7 +17,7 @@ async function requireAdmin() {
 
 export async function getUsers() {
   await requireAdmin();
-  return sql`SELECT id, email, name, role, last_login, created_at FROM cms_users ORDER BY created_at`;
+  return sql`SELECT id, email, name, role, avatar, last_login, created_at FROM cms_users ORDER BY created_at`;
 }
 
 export async function createUser(_: any, formData: FormData) {
@@ -39,6 +42,42 @@ export async function createUser(_: any, formData: FormData) {
   `;
 
   await logChange({ action: "create", entityType: "cms_user", entityId: rows[0].id, entityLabel: email, after: { email, name, role } });
+  revalidatePath("/admin/super/users");
+  return { ok: true };
+}
+
+export async function updateUserProfile(_: any, formData: FormData) {
+  await requireAdmin();
+  const userId = formData.get("userId") as string;
+  const name = (formData.get("name") as string)?.trim();
+
+  if (!userId) return { error: "Missing user ID" };
+  if (!name) return { error: "Name is required" };
+
+  const rows = await sql`SELECT email, name, avatar FROM cms_users WHERE id = ${userId}`;
+  if (!rows.length) return { error: "User not found" };
+  const current = rows[0];
+
+  const avatarFile = formData.get("avatar") as File | null;
+  let avatar: string | null = current.avatar ?? null;
+
+  if (avatarFile && avatarFile.size > 0) {
+    const buf = Buffer.from(await avatarFile.arrayBuffer());
+    const processed = await sharp(buf)
+      .rotate()
+      .resize({ width: 200, height: 200, fit: "cover", position: "centre" })
+      .webp({ quality: 90 })
+      .toBuffer();
+    const result = await put(`cms-avatars/${randomUUID()}.webp`, processed, {
+      access: "public",
+      addRandomSuffix: false,
+      contentType: "image/webp",
+    });
+    avatar = result.url;
+  }
+
+  await sql`UPDATE cms_users SET name = ${name}, avatar = ${avatar} WHERE id = ${userId}`;
+  await logChange({ action: "update", entityType: "cms_user", entityId: userId, entityLabel: current.email, before: { name: current.name }, after: { name, avatar } });
   revalidatePath("/admin/super/users");
   return { ok: true };
 }
