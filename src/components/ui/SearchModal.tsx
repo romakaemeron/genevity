@@ -6,18 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import type { SearchResult } from "@/app/api/search/route";
-
-const POPULAR_TAGS = [
-  "Ботулінотерапія", "EMFACE", "Лазерна епіляція",
-  "Check-Up 40+", "IV-терапія", "Hydrafacial",
-];
-
-const CATEGORY_SHORTCUTS = [
-  { label: "Ін'єкції",  path: "/services/injectable-cosmetology" },
-  { label: "Апаратна",  path: "/services/apparatus-cosmetology" },
-  { label: "Longevity", path: "/services/longevity/check-up-40" },
-  { label: "Лікарі",    path: "/doctors" },
-];
+import type { SearchConfig } from "@/app/api/search-config/route";
 
 const GROUP_LABELS: Record<SearchResult["type"], string> = {
   service:  "Процедури",
@@ -51,8 +40,17 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [config, setConfig] = useState<SearchConfig | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Fetch popular tags + categories once on mount
+  useEffect(() => {
+    fetch(`/api/search-config?locale=${locale}`)
+      .then(r => r.json())
+      .then(setConfig)
+      .catch(() => {});
+  }, [locale]);
 
   useEffect(() => {
     if (isOpen) {
@@ -218,7 +216,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     Популярні запити
                   </p>
                   <div className="flex flex-wrap gap-2 px-1 mb-5">
-                    {POPULAR_TAGS.map(tag => (
+                    {(config?.popularTags ?? []).map(tag => (
                       <button
                         key={tag}
                         type="button"
@@ -241,38 +239,40 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     ))}
                   </div>
 
-                  <p
-                    className="px-2 mb-2"
-                    style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(0,0,0,0.35)", paddingTop: 4, paddingBottom: 4 }}
-                  >
-                    Розділи
-                  </p>
-                  <div className="grid grid-cols-4 gap-2 px-1">
-                    {CATEGORY_SHORTCUTS.map(c => (
-                      <button
-                        key={c.path}
-                        type="button"
-                        onClick={() => navigate(c.path)}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          gap: 4,
-                          padding: "10px 8px",
-                          borderRadius: 12,
-                          backgroundColor: "#faf9f6",
-                          border: "1px solid #f0ede8",
-                          cursor: "pointer",
-                          textAlign: "center",
-                          transition: "background-color 0.15s",
-                        }}
-                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#f5f0eb")}
-                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#faf9f6")}
+                  {(config?.categories ?? []).length > 0 && (
+                    <>
+                      <p
+                        className="px-2 mb-2"
+                        style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(0,0,0,0.35)", paddingTop: 4, paddingBottom: 4 }}
                       >
-                        <span style={{ fontSize: 11, color: "rgba(0,0,0,0.6)", lineHeight: 1.3 }}>{c.label}</span>
-                      </button>
-                    ))}
-                  </div>
+                        Розділи
+                      </p>
+                      <div className="flex flex-wrap gap-2 px-1">
+                        {(config?.categories ?? []).map(c => (
+                          <button
+                            key={c.slug}
+                            type="button"
+                            onClick={() => navigate(`/services/${c.slug}`)}
+                            style={{
+                              fontSize: 11,
+                              backgroundColor: "#faf9f6",
+                              color: "rgba(0,0,0,0.6)",
+                              borderRadius: 8,
+                              padding: "6px 12px",
+                              border: "1px solid #f0ede8",
+                              cursor: "pointer",
+                              transition: "background-color 0.15s",
+                              whiteSpace: "nowrap",
+                            }}
+                            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#f5f0eb")}
+                            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#faf9f6")}
+                          >
+                            {c.title}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
 

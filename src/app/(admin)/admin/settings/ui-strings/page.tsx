@@ -5,9 +5,10 @@ import { AdminSectionHeading } from "../../_components/admin-list";
 
 export default async function GlobalLabelsPage() {
   await requireSession();
-  const [footer, ctaForm] = await Promise.all([
+  const [footer, ctaForm, search] = await Promise.all([
     getUiStringsNamespace("footer"),
     getUiStringsNamespace("ctaForm"),
+    getUiStringsNamespace("search"),
   ]);
 
   return (
@@ -19,6 +20,15 @@ export default async function GlobalLabelsPage() {
           Page-specific texts live on each page's editor under{" "}
           <a href="/admin/pages" className="text-main underline-offset-2 hover:underline">Pages</a>.
         </p>
+      </div>
+
+      <div>
+        <AdminSectionHeading>Search — Popular tags</AdminSectionHeading>
+        <p className="body-m text-muted mb-6">
+          Comma-separated tags shown in the search modal empty state (each locale independently).
+          Example: <code className="font-mono text-xs">Ботулінотерапія, EMFACE, IV-терапія</code>
+        </p>
+        <NamespaceTextsEditor namespace="search" initial={search} />
       </div>
 
       <div>
