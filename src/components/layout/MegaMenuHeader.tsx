@@ -223,14 +223,14 @@ export default function MegaMenuHeader({
 
           <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
-            <SearchTrigger onOpen={() => setSearchOpen(true)} />
+            <SearchTrigger onOpen={() => setSearchOpen(true)} variant={isLightText ? "outline-light" : "ghost"} />
             <BookingCTA ctaKey="megamenu" variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}
           <div className={`lg:hidden flex items-center gap-3 ${navTextClass}`}>
             <LocaleSelector />
-            <SearchTrigger onOpen={() => setSearchOpen(true)} className="text-current" />
+            <SearchTrigger onOpen={() => setSearchOpen(true)} variant={isLightText ? "outline-light" : "ghost"} />
             <button
               className="flex flex-col gap-1.5 p-2 cursor-pointer"
               onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}

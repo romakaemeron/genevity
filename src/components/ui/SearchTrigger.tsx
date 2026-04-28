@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import Button from "@/components/ui/Button";
 
 interface SearchTriggerProps {
   onOpen: () => void;
-  className?: string;
+  variant?: "ghost" | "outline-light" | "secondary" | "outline";
+  size?: "xs" | "sm" | "md";
 }
 
-export default function SearchTrigger({ onOpen, className = "" }: SearchTriggerProps) {
+export default function SearchTrigger({ onOpen, variant = "ghost", size = "sm" }: SearchTriggerProps) {
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -20,15 +22,17 @@ export default function SearchTrigger({ onOpen, className = "" }: SearchTriggerP
   }, [onOpen]);
 
   return (
-    <button
+    <Button
+      icon
+      variant={variant}
+      size={size}
       onClick={onOpen}
-      className={`flex items-center justify-center w-8 h-8 rounded-lg border border-white/15 hover:border-white/30 hover:bg-white/8 transition-colors duration-200 ${className}`}
-      aria-label="Пошук"
+      ariaLabel="Пошук"
       title="⌘K"
     >
       <svg
-        width="14"
-        height="14"
+        width="15"
+        height="15"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -40,6 +44,6 @@ export default function SearchTrigger({ onOpen, className = "" }: SearchTriggerP
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.35-4.35" />
       </svg>
-    </button>
+    </Button>
   );
 }
