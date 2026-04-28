@@ -40,7 +40,7 @@ const variants: Record<ButtonVariant, string> = {
   "outline-light":
     "border border-champagne/40 text-champagne hover:bg-champagne hover:text-black",
   ghost:
-    "text-main hover:bg-champagne-dark hover:text-main-dark",
+    "text-black hover:bg-champagne-dark hover:text-main-dark",
   dark:
     "bg-black text-champagne hover:bg-surface-dark-elevated",
   // Filled red — dangerous confirmations ("Delete permanently", "Revoke access")
