@@ -132,13 +132,17 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
+          transition={{ duration: 0.25 }}
           onClick={onClose}
         >
           {/* Backdrop */}
-          <div
+          <motion.div
             className="absolute inset-0"
-            style={{ backgroundColor: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}
+            style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
+            initial={{ backdropFilter: "blur(0px)" }}
+            animate={{ backdropFilter: "blur(4px)" }}
+            exit={{ backdropFilter: "blur(0px)" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           />
 
           {/* Card */}
