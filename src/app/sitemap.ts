@@ -18,6 +18,8 @@ function localeUrls(path: string, priority: number, changeFrequency: MetadataRou
   };
 }
 
+export const revalidate = 3600; // rebuild sitemap hourly so new DB categories appear
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, services, staticPages, legalDocs] = await Promise.all([
     getAllCategorySlugs(),
