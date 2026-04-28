@@ -33,7 +33,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark className="bg-amber-200 rounded-[2px] px-px not-italic">{text.slice(idx, idx + query.length)}</mark>
+      <mark style={{ backgroundColor: "#fde68a", borderRadius: 2, padding: "0 1px" }} className="not-italic">{text.slice(idx, idx + query.length)}</mark>
       {text.slice(idx + query.length)}
     </>
   );
@@ -148,17 +148,28 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-start justify-center pt-[12vh] px-4"
+          className="fixed inset-0 z-[200] flex items-start justify-center px-4"
+          style={{ paddingTop: "12vh" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.15 }}
           onClick={onClose}
         >
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)" }}
+          />
 
+          {/* Card */}
           <motion.div
-            className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl flex flex-col max-h-[75vh] overflow-hidden"
+            className="relative w-full max-w-xl rounded-2xl flex flex-col overflow-hidden"
+            style={{
+              backgroundColor: "#ffffff",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.1)",
+              maxHeight: "75vh",
+            }}
             initial={{ scale: 0.96, opacity: 0, y: -8 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.96, opacity: 0, y: -8 }}
@@ -166,8 +177,11 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             onClick={e => e.stopPropagation()}
           >
             {/* Input row */}
-            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#f5f0eb]">
-              <svg className="shrink-0 text-[--color-main]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <div
+              className="flex items-center gap-3 px-4"
+              style={{ paddingTop: 14, paddingBottom: 14, borderBottom: "1px solid #f0ede8" }}
+            >
+              <svg className="shrink-0" style={{ color: "#8B7B6B" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
               </svg>
               <input
@@ -175,42 +189,87 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 value={query}
                 onChange={e => setQuery(e.target.value)}
                 placeholder="Пошук послуг, лікарів..."
-                className="flex-1 text-sm text-black bg-transparent outline-none placeholder:text-black/30"
+                className="flex-1 bg-transparent outline-none"
+                style={{ fontSize: 14, color: "#2a2520" }}
                 autoComplete="off"
                 spellCheck={false}
               />
               {loading && (
-                <svg className="animate-spin text-black/20 shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                <svg className="animate-spin shrink-0" style={{ color: "rgba(0,0,0,0.2)" }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
               )}
-              <kbd className="shrink-0 text-[10px] text-black/30 bg-black/5 border border-black/10 rounded px-1.5 py-0.5">ESC</kbd>
+              <kbd
+                className="shrink-0"
+                style={{ fontSize: 10, color: "rgba(0,0,0,0.3)", backgroundColor: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 4, padding: "2px 6px" }}
+              >
+                ESC
+              </kbd>
             </div>
 
             {/* Body */}
             <div className="overflow-y-auto flex-1 px-2 py-2">
+
               {/* Empty state */}
               {query.length < 2 && (
                 <div className="px-2 py-2">
-                  <p className="px-2 py-1 text-[10px] uppercase tracking-wider text-black/30 mb-1">Популярні запити</p>
-                  <div className="flex flex-wrap gap-2 px-1 mb-4">
+                  <p
+                    className="px-2 mb-2"
+                    style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(0,0,0,0.35)", paddingTop: 4, paddingBottom: 4 }}
+                  >
+                    Популярні запити
+                  </p>
+                  <div className="flex flex-wrap gap-2 px-1 mb-5">
                     {POPULAR_TAGS.map(tag => (
                       <button
                         key={tag}
+                        type="button"
                         onClick={() => setQuery(tag)}
-                        className="text-[11px] bg-[#f5f0eb] text-[--color-main] rounded-full px-3 py-1.5 hover:bg-[#ece5dd] transition-colors"
+                        style={{
+                          fontSize: 11,
+                          backgroundColor: "#f5f0eb",
+                          color: "#8B7B6B",
+                          borderRadius: 999,
+                          padding: "6px 12px",
+                          border: "none",
+                          cursor: "pointer",
+                          transition: "background-color 0.15s",
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#ece5dd")}
+                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#f5f0eb")}
                       >
                         {tag}
                       </button>
                     ))}
                   </div>
-                  <p className="px-2 py-1 text-[10px] uppercase tracking-wider text-black/30 mb-1">Розділи</p>
+
+                  <p
+                    className="px-2 mb-2"
+                    style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(0,0,0,0.35)", paddingTop: 4, paddingBottom: 4 }}
+                  >
+                    Розділи
+                  </p>
                   <div className="grid grid-cols-4 gap-2 px-1">
                     {CATEGORY_SHORTCUTS.map(c => (
                       <button
                         key={c.path}
+                        type="button"
                         onClick={() => navigate(c.path)}
-                        className="flex flex-col items-center gap-1 p-2.5 rounded-xl bg-[#faf9f8] hover:bg-[#f5f0eb] transition-colors text-center"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: 4,
+                          padding: "10px 8px",
+                          borderRadius: 12,
+                          backgroundColor: "#faf9f6",
+                          border: "1px solid #f0ede8",
+                          cursor: "pointer",
+                          textAlign: "center",
+                          transition: "background-color 0.15s",
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#f5f0eb")}
+                        onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#faf9f6")}
                       >
-                        <span className="text-[11px] text-black/60 leading-tight">{c.label}</span>
+                        <span style={{ fontSize: 11, color: "rgba(0,0,0,0.6)", lineHeight: 1.3 }}>{c.label}</span>
                       </button>
                     ))}
                   </div>
@@ -220,9 +279,18 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* No results */}
               {query.length >= 2 && !loading && results.length === 0 && (
                 <div className="flex flex-col items-center py-10 gap-3 text-center">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-black/20"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                  <p className="text-sm text-black/40">Нічого не знайдено за запитом <span className="text-black/60 font-medium">«{query}»</span></p>
-                  <button onClick={() => navigate("/services")} className="text-xs text-[--color-main] underline underline-offset-2">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: "rgba(0,0,0,0.2)" }}>
+                    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                  </svg>
+                  <p style={{ fontSize: 14, color: "rgba(0,0,0,0.4)" }}>
+                    Нічого не знайдено за запитом{" "}
+                    <span style={{ color: "rgba(0,0,0,0.6)", fontWeight: 500 }}>«{query}»</span>
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/services")}
+                    style={{ fontSize: 12, color: "#8B7B6B", textDecoration: "underline", textUnderlineOffset: 3, background: "none", border: "none", cursor: "pointer" }}
+                  >
                     Переглянути всі послуги →
                   </button>
                 </div>
@@ -231,18 +299,42 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* Grouped results */}
               {grouped.map(group => (
                 <div key={group.type} className="mb-1">
-                  <p className="px-3 py-1 text-[10px] uppercase tracking-wider text-black/30">{GROUP_LABELS[group.type]}</p>
+                  <p
+                    className="px-3 py-1"
+                    style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(0,0,0,0.3)" }}
+                  >
+                    {GROUP_LABELS[group.type]}
+                  </p>
                   {group.items.map(result => {
                     const idx = flatIdx++;
                     const isActive = idx === activeIndex;
                     return (
                       <button
                         key={`${result.type}-${result.path}`}
+                        type="button"
                         onClick={() => navigate(result.path)}
                         onMouseEnter={() => setActiveIndex(idx)}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors duration-100 ${isActive ? "bg-[#f5f0eb]" : "hover:bg-[#faf9f8]"}`}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 12,
+                          padding: "10px 12px",
+                          borderRadius: 10,
+                          backgroundColor: isActive ? "#f5f0eb" : "transparent",
+                          border: "none",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          transition: "background-color 0.1s",
+                        }}
+                        onMouseLeave={e => {
+                          if (idx !== activeIndex) e.currentTarget.style.backgroundColor = "transparent";
+                        }}
                       >
-                        <div className="w-8 h-8 rounded-lg bg-[#f0ede8] flex items-center justify-center shrink-0">
+                        <div
+                          className="shrink-0 flex items-center justify-center"
+                          style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: "#f0ede8" }}
+                        >
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B7B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             {result.type === "service"  && <><path d="M12 2v4M12 18v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h4M18 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></>}
                             {result.type === "category" && <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>}
@@ -251,15 +343,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           </svg>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[13px] font-medium text-black truncate">
+                          <p className="truncate" style={{ fontSize: 13, fontWeight: 500, color: "#2a2520" }}>
                             <Highlight text={result.title} query={query} />
                           </p>
                           {result.subtitle && (
-                            <p className="text-[11px] text-black/40 truncate">{result.subtitle}</p>
+                            <p className="truncate" style={{ fontSize: 11, color: "rgba(0,0,0,0.4)" }}>{result.subtitle}</p>
                           )}
                         </div>
                         {isActive && (
-                          <svg className="shrink-0 text-black/20" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                          <svg className="shrink-0" style={{ color: "rgba(0,0,0,0.2)" }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         )}
                       </button>
                     );
@@ -270,10 +362,13 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
             {/* Footer hints */}
             {results.length > 0 && (
-              <div className="border-t border-[#f5f0eb] px-4 py-2 flex items-center gap-4">
-                <span className="text-[10px] text-black/25">↑↓ навігація</span>
-                <span className="text-[10px] text-black/25">↵ перейти</span>
-                <span className="text-[10px] text-black/25">ESC закрити</span>
+              <div
+                className="flex items-center gap-4 px-4"
+                style={{ borderTop: "1px solid #f0ede8", paddingTop: 8, paddingBottom: 8 }}
+              >
+                <span style={{ fontSize: 10, color: "rgba(0,0,0,0.25)" }}>↑↓ навігація</span>
+                <span style={{ fontSize: 10, color: "rgba(0,0,0,0.25)" }}>↵ перейти</span>
+                <span style={{ fontSize: 10, color: "rgba(0,0,0,0.25)" }}>ESC закрити</span>
               </div>
             )}
           </motion.div>
