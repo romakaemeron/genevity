@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/studio/"],
+        disallow: ["/admin/", "/api/", "/_next/", "/studio/"],
       },
     ],
     sitemap: "https://genevity.com.ua/sitemap.xml",

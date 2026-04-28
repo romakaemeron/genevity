@@ -244,6 +244,7 @@ export interface ServiceCategoryData {
   seoTitle?: string;
   seoDescription?: string;
   seoKeywords?: string;
+  seoNoindex?: boolean;
   sections?: ContentSection[];
   faq?: FaqItemData[];
 }

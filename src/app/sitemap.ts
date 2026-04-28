@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllCategorySlugs, getAllServiceSlugs, getLegalDocs } from "@/lib/db/queries";
+import { getAllServiceSlugs, getLegalDocs } from "@/lib/db/queries";
 import { sql } from "@/lib/db/client";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
@@ -18,11 +18,12 @@ function localeUrls(path: string, priority: number, changeFrequency: MetadataRou
   };
 }
 
-export const revalidate = 3600; // rebuild sitemap hourly so new DB categories appear
+export const revalidate = 3600; // rebuild sitemap hourly so new DB categories/services appear
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, services, staticPages, legalDocs] = await Promise.all([
-    getAllCategorySlugs(),
+    // Exclude noindex categories (e.g. longevity hub — non-clickable per structure brief)
+    sql`SELECT slug FROM service_categories WHERE seo_noindex IS NOT TRUE ORDER BY sort_order`,
     getAllServiceSlugs(),
     sql`SELECT slug FROM static_pages`,
     getLegalDocs("ua"),
