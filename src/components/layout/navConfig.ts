@@ -62,19 +62,7 @@ const R = {
 
   apparatus: "/services/apparatus-cosmetology",
   apparatusFace: "/services/apparatus-cosmetology/face",
-  apparatusFaceEmface: "/services/apparatus-cosmetology/face/emface",
-  apparatusFaceVolnewmer: "/services/apparatus-cosmetology/face/volnewmer",
-  apparatusFaceExion: "/services/apparatus-cosmetology/face/exion",
-  apparatusFaceUltraformer: "/services/apparatus-cosmetology/face/ultraformer-mpt",
   apparatusBody: "/services/apparatus-cosmetology/body",
-  apparatusBodyEmsculpt: "/services/apparatus-cosmetology/body/emsculpt-neo",
-  apparatusBodyUltraformer: "/services/apparatus-cosmetology/body/ultraformer-mpt-body",
-  apparatusBodyExion: "/services/apparatus-cosmetology/body/exion-body",
-  apparatusM22: "/services/apparatus-cosmetology/m22-stellar-black",
-  apparatusSplendor: "/services/apparatus-cosmetology/splendor-x",
-  apparatusHydrafacial: "/services/apparatus-cosmetology/hydrafacial",
-  apparatusAcupulse: "/services/apparatus-cosmetology/acupulse-co2",
-  apparatusIntimate: "/services/apparatus-cosmetology/intimate-zone",
   apparatusSkin: "/services/apparatus-cosmetology/skin",
 
   intimateRf: "/services/intimate-rejuvenation/monopolar-rf-lifting",
@@ -125,7 +113,7 @@ const apparatus: NavCategory = {
 const intimate: NavCategory = {
   key: "intimate",
   label: L("Інтимне відновлення", "Интимное восстановление", "Intimate rejuvenation"),
-  href: R.apparatusIntimate,
+  href: "/services/intimate-rejuvenation",
   items: [
     { key: "rf-lifting", label: L("Монополярний RF-ліфтинг", "Монополярный RF-лифтинг", "Monopolar RF lifting"), href: R.intimateRf },
     { key: "acupulse-co2", label: L("Інтимне омолодження AcuPulse CO₂", "Интимное омоложение AcuPulse CO₂", "Intimate AcuPulse CO₂ rejuvenation"), href: R.intimateAcupulse },
