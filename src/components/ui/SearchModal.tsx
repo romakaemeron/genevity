@@ -62,31 +62,12 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
   }, [isOpen]);
 
-  // Scroll lock
+  // Prevent background scroll while modal is open (no position change = no jump on close)
   useEffect(() => {
     if (!isOpen) return;
-    type W = typeof window & { __modalLock?: { count: number; scrollY: number } };
-    const w = window as W;
-    if (!w.__modalLock) {
-      const scrollY = window.scrollY;
-      w.__modalLock = { count: 0, scrollY };
-      document.body.style.cssText += ";position:fixed;top:-" + scrollY + "px;left:0;right:0;overflow:hidden";
-    }
-    w.__modalLock.count++;
-    return () => {
-      if (!w.__modalLock) return;
-      w.__modalLock.count--;
-      if (w.__modalLock.count <= 0) {
-        const y = w.__modalLock.scrollY;
-        delete w.__modalLock;
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.overflow = "";
-        window.scrollTo(0, y);
-      }
-    };
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
   }, [isOpen]);
 
   // Debounced fetch
