@@ -135,13 +135,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
           transition={{ duration: 0.25 }}
           onClick={onClose}
         >
-          {/* Backdrop */}
+          {/* Dark tint */}
           <motion.div
             className="absolute inset-0"
             style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
-            initial={{ backdropFilter: "blur(0px)" }}
-            animate={{ backdropFilter: "blur(4px)" }}
-            exit={{ backdropFilter: "blur(0px)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          />
+          {/* Blur layer — opacity-animated so Safari interpolates correctly */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           />
 
