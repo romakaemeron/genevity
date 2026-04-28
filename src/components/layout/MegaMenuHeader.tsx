@@ -7,6 +7,8 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import LocaleSelector from "@/components/ui/LocaleSelector";
+import SearchTrigger from "@/components/ui/SearchTrigger";
+import SearchModal from "@/components/ui/SearchModal";
 import MegaMenuPanel from "./MegaMenuPanel";
 import { navTop, type NavTop } from "./navConfig";
 
@@ -59,6 +61,7 @@ export default function MegaMenuHeader({
   const [activeMega, setActiveMega] = useState<string | null>(null);
   // For position="fixed" with hideUntilScrollPastId: track whether sentinel is in view
   const [revealed, setRevealed] = useState(!hideUntilScrollPastId);
+  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -220,12 +223,14 @@ export default function MegaMenuHeader({
 
           <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
+            <SearchTrigger onOpen={() => setSearchOpen(true)} />
             <BookingCTA ctaKey="megamenu" variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}
           <div className={`lg:hidden flex items-center gap-3 ${navTextClass}`}>
             <LocaleSelector />
+            <SearchTrigger onOpen={() => setSearchOpen(true)} className="text-current" />
             <button
               className="flex flex-col gap-1.5 p-2 cursor-pointer"
               onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}
@@ -446,6 +451,7 @@ export default function MegaMenuHeader({
           </motion.div>
         )}
       </AnimatePresence>
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </motion.header>
   );
 }
