@@ -118,7 +118,7 @@ const apparatus: NavCategory = {
   items: [
     { key: "face", label: L("Апаратна для обличчя", "Аппаратная для лица", "For the face"), href: R.apparatusFace },
     { key: "body", label: L("Апаратна для тіла", "Аппаратная для тела", "For the body"), href: R.apparatusBody },
-    { key: "skin", label: L("Шкіра (скоро)", "Кожа (скоро)", "Skin (coming soon)"), href: R.apparatusSkin },
+    { key: "skin", label: L("Корекція шкіри", "Коррекция кожи", "Skin Correction"), href: R.apparatusSkin },
   ],
 };
 
@@ -145,7 +145,7 @@ const laser: NavCategory = {
 const longevity: NavCategory = {
   key: "longevity",
   label: L("Longevity & Anti-Age", "Longevity & Anti-Age", "Longevity & Anti-Age"),
-  href: R.services + "/longevity",
+  href: "",
   items: [
     { key: "check-up-40", label: L("Check-Up 40+", "Check-Up 40+", "Check-Up 40+"), href: R.longevityCheckup },
     { key: "longevity-program", label: L("Longevity програма", "Longevity программа", "Longevity programme"), href: R.longevityProgram },

@@ -384,14 +384,20 @@ export default function MegaMenuHeader({
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.08 + ci * 0.04, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         >
-                          <Link
-                            href={cat.href}
-                            onClick={closeMobile}
-                            className="inline-flex items-center gap-1.5 heading-3 text-black"
-                          >
-                            <span>{tNav(cat.key)}</span>
-                            <ChevronRight className="text-black-40 w-3 h-3" />
-                          </Link>
+                          {cat.href ? (
+                            <Link
+                              href={cat.href}
+                              onClick={closeMobile}
+                              className="inline-flex items-center gap-1.5 heading-3 text-black"
+                            >
+                              <span>{tNav(cat.key)}</span>
+                              <ChevronRight className="text-black-40 w-3 h-3" />
+                            </Link>
+                          ) : (
+                            <span className="inline-flex items-center gap-1.5 heading-3 text-black cursor-default select-none">
+                              <span>{tNav(cat.key)}</span>
+                            </span>
+                          )}
                           <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
                             {cat.items.map((leaf) => (
                               <li key={leaf.key}>
