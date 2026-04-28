@@ -9,7 +9,7 @@ interface SearchTriggerProps {
   size?: "xs" | "sm" | "md";
 }
 
-export default function SearchTrigger({ onOpen, variant = "ghost", size = "sm" }: SearchTriggerProps) {
+export default function SearchTrigger({ onOpen, variant = "ghost", size = "md" }: SearchTriggerProps) {
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
