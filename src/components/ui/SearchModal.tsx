@@ -146,7 +146,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-start justify-center px-4"
+          className="fixed inset-0 z-[1001] flex items-start justify-center px-4"
           style={{ paddingTop: "12vh" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
