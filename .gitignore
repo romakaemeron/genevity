@@ -62,3 +62,4 @@ fix-audit-issues.mjs
 
 # playwright browser cache
 .playwright-mcp/
+.DS_Store
