@@ -52,3 +52,13 @@ next-env.d.ts
 # Source semantics data — private, not part of the public repo
 /semantics
 
+
+# audit screenshots & temp files
+*.png
+*.jpeg
+*.jpg
+!public/**
+fix-audit-issues.mjs
+
+# playwright browser cache
+.playwright-mcp/
