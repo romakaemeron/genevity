@@ -61,7 +61,6 @@ export async function generateMetadata({
     metadataBase: new URL("https://genevity.com.ua"),
     title: {
       default: titles[lang] || titles.ua,
-      template: "%s | GENEVITY",
     },
     description: descriptions[lang] || descriptions.ua,
     icons: {
