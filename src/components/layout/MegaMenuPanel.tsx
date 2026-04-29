@@ -57,7 +57,8 @@ function CategoryBlock({ cat, onNavigate, compact = false }: { cat: NavCategory;
       <Link
         href={cat.href}
         onClick={onNavigate}
-        className={`group inline-flex items-center gap-1.5 hover:text-main transition-colors ${compact ? "body-m font-semibold text-black" : "body-strong text-black"}`}
+        className={`group inline-flex items-center gap-1.5 hover:text-main transition-colors ${compact ? "body-m text-black" : "body-strong text-black"}`}
+        style={compact ? { fontWeight: 700 } : undefined}
       >
         <span>{tNav(cat.key)}</span>
         <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
