@@ -58,7 +58,7 @@ function CategoryBlock({ cat, onNavigate, compact = false }: { cat: NavCategory;
         href={cat.href}
         onClick={onNavigate}
         className={`group inline-flex items-center gap-1.5 hover:text-main transition-colors ${compact ? "body-m text-black" : "body-strong text-black"}`}
-        style={compact ? { fontWeight: 700 } : undefined}
+        style={compact ? { fontWeight: 600 } : undefined}
       >
         <span>{tNav(cat.key)}</span>
         <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
@@ -115,6 +115,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
   const intimate = byKey["intimate"];
   const laser = byKey["laser"];
   const longevity = byKey["longevity"];
+  const diagnostics = byKey["diagnosticsNav"];
 
   return (
     <motion.div
@@ -168,9 +169,12 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
             {intimate && <CategoryBlock cat={intimate} onNavigate={onNavigate} />}
             {laser && <CategoryBlock cat={laser} onNavigate={onNavigate} />}
           </div>
-          {mega.extra && (
-            <ExtraBlock headingKey="more" items={mega.extra.items} onNavigate={onNavigate} />
-          )}
+          <div className="flex flex-col gap-10">
+            {diagnostics && <CategoryBlock cat={diagnostics} onNavigate={onNavigate} compact />}
+            {mega.extra && (
+              <ExtraBlock headingKey="more" items={mega.extra.items} onNavigate={onNavigate} />
+            )}
+          </div>
         </div>
       </motion.div>
     </motion.div>

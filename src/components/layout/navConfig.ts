@@ -94,6 +94,12 @@ const R = {
   podology: "/services/podology",
   diagnostics: "/services/diagnostics",
   plastic: "/services/plastic-surgery",
+
+  diagBioimpedance:           "/services/diagnostics/bioimpedance",
+  diagUltrasound:             "/services/diagnostics/ultrasound",
+  diagEndocrinologist:        "/services/diagnostics/endocrinologist",
+  diagCosmetologist:          "/services/diagnostics/cosmetologist",
+  diagUltrasoundDiagnostician:"/services/diagnostics/ultrasound-diagnostician",
 };
 
 const injectable: NavCategory = {
@@ -171,10 +177,22 @@ const longevity: NavCategory = {
   ],
 };
 
+const diagnosticsNav: NavCategory = {
+  key: "diagnosticsNav",
+  label: L("Діагностика", "Диагностика", "Diagnostics"),
+  href: R.diagnostics,
+  items: [
+    { key: "bioimpedance",             label: L("InBody (склад тіла)",   "InBody (состав тела)",   "InBody (body composition)"), href: R.diagBioimpedance },
+    { key: "ultrasound",               label: L("УЗД",                   "УЗИ",                    "Ultrasound"),                href: R.diagUltrasound },
+    { key: "endocrinologist",          label: L("Ендокринолог",          "Эндокринолог",           "Endocrinologist"),           href: R.diagEndocrinologist },
+    { key: "cosmetologist",            label: L("Косметолог",            "Косметолог",             "Cosmetologist"),             href: R.diagCosmetologist },
+    { key: "ultrasound-diagnostician", label: L("Лікар УЗД",            "Врач УЗД",               "Ultrasound Doctor"),         href: R.diagUltrasoundDiagnostician },
+  ],
+};
+
 const extraServices: NavLeaf[] = [
   { key: "care", label: L("Доглядові процедури", "Уходовые процедуры", "Skincare treatments"), href: R.skincare },
   { key: "podology", label: L("Подологія", "Подология", "Podology"), href: R.podology },
-  { key: "diagnostics", label: L("Діагностичні послуги", "Диагностические услуги", "Diagnostic services"), href: R.diagnostics },
   { key: "plastic", label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: R.plastic },
 ];
 
@@ -194,7 +212,7 @@ export const navTop: NavTop[] = [
     label: L("Послуги", "Услуги", "Services"),
     href: R.services,
     mega: {
-      categories: [injectable, { key: "apparatus", label: L("Апаратна косметологія", "Аппаратная косметология", "Apparatus cosmetology"), href: R.apparatus, items: [] }, apparatusFaceNav, apparatusBodyNav, intimate, laser, longevity],
+      categories: [injectable, { key: "apparatus", label: L("Апаратна косметологія", "Аппаратная косметология", "Apparatus cosmetology"), href: R.apparatus, items: [] }, apparatusFaceNav, apparatusBodyNav, intimate, laser, longevity, diagnosticsNav],
       extra: {
         label: L("Інші послуги", "Другие услуги", "More services"),
         items: extraServices,
