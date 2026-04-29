@@ -65,6 +65,18 @@ const R = {
   apparatusBody: "/services/apparatus-cosmetology/body",
   apparatusSkin: "/services/apparatus-cosmetology/skin",
 
+  apparatusEmface:          "/services/apparatus-cosmetology/emface",
+  apparatusUltraformerMpt:  "/services/apparatus-cosmetology/ultraformer-mpt",
+  apparatusExionFace:       "/services/apparatus-cosmetology/exion-face",
+  apparatusVolnewmer:       "/services/apparatus-cosmetology/volnewmer",
+  apparatusEmsculptNeo:     "/services/apparatus-cosmetology/emsculpt-neo",
+  apparatusUltraformerBody: "/services/apparatus-cosmetology/ultraformer-mpt-body",
+  apparatusExionBody:       "/services/apparatus-cosmetology/exion-body",
+  apparatusM22:             "/services/apparatus-cosmetology/m22-stellar-black",
+  apparatusSplendorX:       "/services/apparatus-cosmetology/splendor-x",
+  apparatusHydrafacial:     "/services/apparatus-cosmetology/hydrafacial",
+  apparatusAcupulseCo2:     "/services/apparatus-cosmetology/acupulse-co2",
+
   intimateRf: "/services/intimate-rejuvenation/monopolar-rf-lifting",
   intimateAcupulse: "/services/intimate-rejuvenation/acupulse-co2-intimate",
 
@@ -99,14 +111,30 @@ const injectable: NavCategory = {
   ],
 };
 
-const apparatus: NavCategory = {
-  key: "apparatus",
-  label: L("Апаратна косметологія", "Аппаратная косметология", "Apparatus cosmetology"),
-  href: R.apparatus,
+const apparatusFaceNav: NavCategory = {
+  key: "apparatusFace",
+  label: L("Апаратна для обличчя", "Аппаратная для лица", "Face Treatments"),
+  href: R.apparatusFace,
   items: [
-    { key: "face", label: L("Апаратна для обличчя", "Аппаратная для лица", "For the face"), href: R.apparatusFace },
-    { key: "body", label: L("Апаратна для тіла", "Аппаратная для тела", "For the body"), href: R.apparatusBody },
-    { key: "skin", label: L("Корекція шкіри", "Коррекция кожи", "Skin Correction"), href: R.apparatusSkin },
+    { key: "emface",            label: L("EMFACE",          "EMFACE",          "EMFACE"),          href: R.apparatusEmface },
+    { key: "ultraformer-mpt",   label: L("Ultraformer MPT", "Ultraformer MPT", "Ultraformer MPT"), href: R.apparatusUltraformerMpt },
+    { key: "exion-face",        label: L("EXION Face",      "EXION Face",      "EXION Face"),      href: R.apparatusExionFace },
+    { key: "volnewmer",         label: L("VOLNEWMER",       "VOLNEWMER",       "VOLNEWMER"),       href: R.apparatusVolnewmer },
+    { key: "hydrafacial",       label: L("HydraFacial",     "HydraFacial",     "HydraFacial"),     href: R.apparatusHydrafacial },
+    { key: "acupulse-co2",      label: L("AcuPulse CO₂",   "AcuPulse CO₂",   "AcuPulse CO₂"),   href: R.apparatusAcupulseCo2 },
+  ],
+};
+
+const apparatusBodyNav: NavCategory = {
+  key: "apparatusBody",
+  label: L("Апаратна для тіла", "Аппаратная для тела", "Body Treatments"),
+  href: R.apparatusBody,
+  items: [
+    { key: "emsculpt-neo",          label: L("Emsculpt Neo",          "Emsculpt Neo",          "Emsculpt Neo"),          href: R.apparatusEmsculptNeo },
+    { key: "ultraformer-mpt-body",  label: L("Ultraformer MPT для тіла", "Ultraformer MPT для тела", "Ultraformer MPT Body"), href: R.apparatusUltraformerBody },
+    { key: "exion-body",            label: L("EXION Body",            "EXION Body",            "EXION Body"),            href: R.apparatusExionBody },
+    { key: "m22",                   label: L("M22 Stellar Black",     "M22 Stellar Black",     "M22 Stellar Black"),     href: R.apparatusM22 },
+    { key: "splendor-x",            label: L("Splendor X",            "Splendor X",            "Splendor X"),            href: R.apparatusSplendorX },
   ],
 };
 
@@ -166,7 +194,7 @@ export const navTop: NavTop[] = [
     label: L("Послуги", "Услуги", "Services"),
     href: R.services,
     mega: {
-      categories: [injectable, apparatus, intimate, laser, longevity],
+      categories: [injectable, apparatusFaceNav, apparatusBodyNav, intimate, laser, longevity],
       extra: {
         label: L("Інші послуги", "Другие услуги", "More services"),
         items: extraServices,
@@ -198,7 +226,8 @@ export const navTop: NavTop[] = [
 // Convenience for footer Послуги column — top 5 categories
 export const serviceCategoriesForFooter: NavCategory[] = [
   injectable,
-  apparatus,
+  apparatusFaceNav,
+  apparatusBodyNav,
   intimate,
   laser,
   longevity,

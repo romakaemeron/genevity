@@ -108,7 +108,8 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
 
   const byKey = Object.fromEntries(mega.categories.map((c) => [c.key, c]));
   const injectable = byKey["injectable"];
-  const apparatus = byKey["apparatus"];
+  const apparatusFace = byKey["apparatusFace"];
+  const apparatusBody = byKey["apparatusBody"];
   const intimate = byKey["intimate"];
   const laser = byKey["laser"];
   const longevity = byKey["longevity"];
@@ -140,14 +141,13 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 xl:gap-x-16 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-10 xl:gap-x-12 gap-y-10">
           {injectable && <CategoryBlock cat={injectable} onNavigate={onNavigate} />}
-          <div className="flex flex-col gap-10">
-            {apparatus && <CategoryBlock cat={apparatus} onNavigate={onNavigate} />}
-            {intimate && <CategoryBlock cat={intimate} onNavigate={onNavigate} />}
-          </div>
+          {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} />}
+          {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} />}
           <div className="flex flex-col gap-10">
             {longevity && <CategoryBlock cat={longevity} onNavigate={onNavigate} />}
+            {intimate && <CategoryBlock cat={intimate} onNavigate={onNavigate} />}
             {laser && <CategoryBlock cat={laser} onNavigate={onNavigate} />}
           </div>
           {mega.extra && (
