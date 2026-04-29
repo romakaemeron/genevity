@@ -326,6 +326,7 @@ export interface StaticPageData {
   title: string;
   h1: string;
   summary: string;
+  heroImage: string | null;
   sections: ContentSection[];
   faq: FaqItemData[];
 }

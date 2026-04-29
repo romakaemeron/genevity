@@ -45,8 +45,12 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
 
   const ogFile = formData.get("seo_og_image") as File | null;
   const currentOg = formData.get("seo_og_image_current") as string;
-  // OG images upload raw — social crawlers prefer JPEG/PNG over WebP
   const og = await uploadRawOrKeep(ogFile, "pages", currentOg);
+
+  const heroFile = formData.get("hero_image") as File | null;
+  const currentHero = formData.get("hero_image_current") as string;
+  const heroImg = await uploadRawOrKeep(heroFile, "pages", currentHero);
+
   const noindex = formData.get("seo_noindex") === "on";
 
   const logAfter = { slug, ...fields };
@@ -75,7 +79,7 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
         seo_keywords_uk, seo_keywords_ru, seo_keywords_en,
-        seo_og_image, seo_noindex)
+        seo_og_image, seo_noindex, hero_image)
       VALUES (${newId}, ${slug},
         ${fields.title_uk}, ${fields.title_ru}, ${fields.title_en},
         ${fields.h1_uk}, ${fields.h1_ru}, ${fields.h1_en},
@@ -83,7 +87,7 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         ${fields.seo_title_uk}, ${fields.seo_title_ru}, ${fields.seo_title_en},
         ${fields.seo_desc_uk}, ${fields.seo_desc_ru}, ${fields.seo_desc_en},
         ${fields.seo_keywords_uk}, ${fields.seo_keywords_ru}, ${fields.seo_keywords_en},
-        ${og}, ${noindex})
+        ${og}, ${noindex}, ${heroImg})
     `;
     await logChange({ action: "create", entityType: "static_page", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
@@ -98,7 +102,8 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         seo_title_uk = ${fields.seo_title_uk}, seo_title_ru = ${fields.seo_title_ru}, seo_title_en = ${fields.seo_title_en},
         seo_desc_uk = ${fields.seo_desc_uk}, seo_desc_ru = ${fields.seo_desc_ru}, seo_desc_en = ${fields.seo_desc_en},
         seo_keywords_uk = ${fields.seo_keywords_uk}, seo_keywords_ru = ${fields.seo_keywords_ru}, seo_keywords_en = ${fields.seo_keywords_en},
-        seo_og_image = ${og}, seo_noindex = ${noindex}
+        seo_og_image = ${og}, seo_noindex = ${noindex},
+        hero_image = ${heroImg}
       WHERE id = ${id}
     `;
     await logChange({ action: "update", entityType: "static_page", entityId: id!, entityLabel: fields.title_uk ?? slug, before: logBefore, after: logAfter });

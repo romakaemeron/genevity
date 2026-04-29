@@ -182,7 +182,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
             section._type === "section.richText" && "heroImage" in section
               ? (section.heroImage as string | undefined)
               : undefined;
-          if (isFirstSection && section._type === "section.richText" && richHeroImage) {
+          if (section._type === "section.richText" && richHeroImage) {
             const callout = "calloutBody" in section ? (section.calloutBody as string | undefined) : undefined;
             return (
               <motion.div

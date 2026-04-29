@@ -24,6 +24,7 @@ export async function getStaticPage(locale: string, slug: string): Promise<Stati
     title: pick(r, "title", l) || "",
     h1: pick(r, "h1", l) || pick(r, "title", l) || "",
     summary: pick(r, "summary", l) || "",
+    heroImage: (r.hero_image as string | null) || null,
     sections,
     faq,
   };

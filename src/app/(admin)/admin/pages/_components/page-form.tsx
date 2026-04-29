@@ -488,6 +488,27 @@ function ContentTab({ page, isNew, isCorePage, isHome, state, formAction, formRe
             </div>
           )}
         </TranslationTabs>
+
+        {/* Hero image — shown for pages that render a CMS-controlled hero photo */}
+        {showH1Summary && !isHome && (
+          <div className="mt-8 pt-8 border-t border-line">
+            <div className="mb-3">
+              <div className="inline-flex items-center gap-2 mb-1">
+                <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-rosegold text-white text-[10px] font-bold uppercase tracking-wider">Image</span>
+                <h3 className="font-heading text-base text-ink">Hero image</h3>
+              </div>
+              <p className="body-s text-muted">Photo shown alongside the page title. Displayed as a side-by-side image on desktop.</p>
+            </div>
+            <input type="hidden" name="hero_image_current" defaultValue={page?.hero_image || ""} />
+            <p className="body-s text-muted mb-3">Recommended: landscape, min 1200×800px. Leave empty to hide the image column.</p>
+            <ImageUpload
+              name="hero_image"
+              label="Hero photo"
+              currentUrl={page?.hero_image || ""}
+              aspect="aspect-[3/2]"
+            />
+          </div>
+        )}
       </div>
       <SaveBar label={isNew ? "Create Page" : "Save Changes"} />
     </form>

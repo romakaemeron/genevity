@@ -17,7 +17,6 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import Doctors from "@/components/home/Doctors";
-import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import StripeGallery from "@/components/ui/StripeGallery";
@@ -69,28 +68,41 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       {faq.length > 0 && <FaqSchema items={faq.map((f) => ({ question: f.question, answer: f.answer }))} />}
       <JsonLd data={{ "@context": "https://schema.org", "@type": "MedicalClinic", name: "GENEVITY — Денний стаціонар", url: "https://genevity.com.ua/stationary", parentOrganization: { "@type": "MedicalBusiness", name: "GENEVITY", url: "https://genevity.com.ua" }, address: { "@type": "PostalAddress", streetAddress: "вул. Олеся Гончара, 12", addressLocality: "Дніпро", addressCountry: "UA" }, telephone: "+380730000150" }} />
 
-      {/* ===== HERO — dark, immersive ===== */}
-      <section className="relative overflow-hidden bg-ink min-h-[70vh] lg:min-h-[75vh] flex items-center">
-        <motion.div className="absolute inset-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1.4 }}>
-          <Image src="/clinic/semi1287-hdr.webp" alt={data.title} fill className="object-cover" sizes="100vw" priority />
-        </motion.div>
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(42,37,32,0.9) 0%, rgba(42,37,32,0.5) 40%, rgba(42,37,32,0.3) 100%)" }} />
-        <div className="absolute inset-x-0 top-0 h-32 z-[3]" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%)" }} />
-        <div className="absolute inset-x-0 top-0 z-[10]">
-          <MegaMenuHeader variant="transparent" position="absolute" />
-        </div>
-
-        <div className="relative z-[5] w-full max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-14 lg:pb-20 pt-28">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}>
-            <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: data.title, href: "/stationary" }]} locale={locale} variant="light" />
-            <h1 className="heading-1 text-champagne mt-6 max-w-2xl">{data.h1 || data.title}</h1>
-            {data.summary && <p className="body-l text-white-60 mt-5 max-w-xl">{data.summary}</p>}
-            <div className="mt-8">
-              <BookingCTA ctaKey="stationaryHero" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
-                {tLabels("bookConsultation")}
-              </BookingCTA>
+      {/* ===== HERO — light, horizontal (mirrors laboratory layout) ===== */}
+      <section className="relative overflow-hidden bg-champagne">
+        <div className="relative z-[5]">
+          <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+            <div className={`flex flex-col ${data.heroImage ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
+              <motion.div
+                className={data.heroImage ? "flex-1 max-w-lg lg:py-8" : "max-w-3xl"}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: data.title, href: "/stationary" }]} locale={locale} />
+                <h1 className="heading-1 text-black mt-6">{data.h1 || data.title}</h1>
+                {data.summary && <p className="body-l text-muted mt-5">{data.summary}</p>}
+                <div className="mt-8">
+                  <BookingCTA ctaKey="stationaryHero" variant="primary" size="lg">
+                    {tLabels("bookConsultation")}
+                  </BookingCTA>
+                </div>
+              </motion.div>
+              {data.heroImage && (
+                <motion.div
+                  className="flex-1 mt-8 lg:mt-0"
+                  variants={fadeIn}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 1, delay: 0.5 }}
+                >
+                  <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
+                    <Image src={data.heroImage} alt={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  </div>
+                </motion.div>
+              )}
             </div>
-          </motion.div>
+          </div>
         </div>
         <div id="static-hero-sentinel" aria-hidden="true" className="absolute bottom-0 left-0 w-px h-px" />
       </section>
