@@ -50,14 +50,14 @@ function ArrowRight({ className = "" }: { className?: string }) {
   );
 }
 
-function CategoryBlock({ cat, onNavigate }: { cat: NavCategory; onNavigate?: () => void }) {
+function CategoryBlock({ cat, onNavigate, compact = false }: { cat: NavCategory; onNavigate?: () => void; compact?: boolean }) {
   const tNav = useTranslations("nav_mega");
   return (
-    <motion.div className="flex flex-col gap-3" variants={itemReveal}>
+    <motion.div className="flex flex-col gap-2" variants={itemReveal}>
       <Link
         href={cat.href}
         onClick={onNavigate}
-        className="group inline-flex items-center gap-1.5 body-strong text-black hover:text-main transition-colors"
+        className={`group inline-flex items-center gap-1.5 hover:text-main transition-colors ${compact ? "body-m font-semibold text-black" : "body-strong text-black"}`}
       >
         <span>{tNav(cat.key)}</span>
         <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
@@ -157,9 +157,9 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
                 </Link>
               </motion.div>
             )}
-            <div className="flex flex-col gap-8 pl-3 border-l border-black-10">
-              {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} />}
-              {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} />}
+            <div className="flex flex-col gap-8">
+              {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} compact />}
+              {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} compact />}
             </div>
           </div>
           <div className="flex flex-col gap-10">
