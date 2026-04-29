@@ -144,7 +144,7 @@ function RichTextEditor({
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={data.heroImage} alt="" className="w-40 h-24 object-cover rounded-lg border border-line" style={{ objectPosition: data.heroImageFocalPoint || "50% 50%" }} />
+              <img src={data.heroImage} alt="" className="w-24 h-32 object-cover rounded-lg border border-line" style={{ objectPosition: data.heroImageFocalPoint || "50% 50%" }} />
               <button
                 type="button"
                 onClick={() => onChange({ ...data, heroImage: "", heroImageFocalPoint: "50% 50%" })}
@@ -158,7 +158,7 @@ function RichTextEditor({
               label="Image focal point"
               photoUrl={data.heroImage}
               defaultValue={data.heroImageFocalPoint || "50% 50%"}
-              aspect="wide"
+              aspect="portrait"
               onPositionChange={(pos) => onChange({ ...data, heroImageFocalPoint: pos })}
             />
           </div>
