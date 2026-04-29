@@ -108,6 +108,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
 
   const byKey = Object.fromEntries(mega.categories.map((c) => [c.key, c]));
   const injectable = byKey["injectable"];
+  const apparatus = byKey["apparatus"];
   const apparatusFace = byKey["apparatusFace"];
   const apparatusBody = byKey["apparatusBody"];
   const intimate = byKey["intimate"];
@@ -143,9 +144,23 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 xl:gap-x-16 gap-y-10">
           {injectable && <CategoryBlock cat={injectable} onNavigate={onNavigate} />}
-          <div className="flex flex-col gap-10">
-            {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} />}
-            {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} />}
+          <div className="flex flex-col gap-6">
+            {apparatus && (
+              <motion.div variants={itemReveal}>
+                <Link
+                  href={apparatus.href}
+                  onClick={onNavigate}
+                  className="group inline-flex items-center gap-1.5 body-strong text-black hover:text-main transition-colors"
+                >
+                  <span>{tNav(apparatus.key)}</span>
+                  <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
+                </Link>
+              </motion.div>
+            )}
+            <div className="flex flex-col gap-8 pl-3 border-l border-black-10">
+              {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} />}
+              {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} />}
+            </div>
           </div>
           <div className="flex flex-col gap-10">
             {longevity && <CategoryBlock cat={longevity} onNavigate={onNavigate} />}

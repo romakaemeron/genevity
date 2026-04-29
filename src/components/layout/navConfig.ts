@@ -194,7 +194,7 @@ export const navTop: NavTop[] = [
     label: L("Послуги", "Услуги", "Services"),
     href: R.services,
     mega: {
-      categories: [injectable, apparatusFaceNav, apparatusBodyNav, intimate, laser, longevity],
+      categories: [injectable, { key: "apparatus", label: L("Апаратна косметологія", "Аппаратная косметология", "Apparatus cosmetology"), href: R.apparatus, items: [] }, apparatusFaceNav, apparatusBodyNav, intimate, laser, longevity],
       extra: {
         label: L("Інші послуги", "Другие услуги", "More services"),
         items: extraServices,
