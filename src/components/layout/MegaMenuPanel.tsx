@@ -141,10 +141,12 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
           </Link>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-x-10 xl:gap-x-12 gap-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 xl:gap-x-16 gap-y-10">
           {injectable && <CategoryBlock cat={injectable} onNavigate={onNavigate} />}
-          {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} />}
-          {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} />}
+          <div className="flex flex-col gap-10">
+            {apparatusFace && <CategoryBlock cat={apparatusFace} onNavigate={onNavigate} />}
+            {apparatusBody && <CategoryBlock cat={apparatusBody} onNavigate={onNavigate} />}
+          </div>
           <div className="flex flex-col gap-10">
             {longevity && <CategoryBlock cat={longevity} onNavigate={onNavigate} />}
             {intimate && <CategoryBlock cat={intimate} onNavigate={onNavigate} />}
