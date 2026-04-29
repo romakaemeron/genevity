@@ -13,7 +13,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return generatePageMetadata({
     title: seo?.title || "",
     description: seo?.description || "",
-    keywords: seo?.keywords,
     ogImage: seo?.ogImage,
     noindex: seo?.noindex,
     locale: locale as Locale,

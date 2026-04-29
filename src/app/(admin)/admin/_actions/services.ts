@@ -71,7 +71,7 @@ export async function saveService(_prevState: any, formData: FormData) {
 
   const fields: Record<string, any> = {};
   for (const suffix of ["uk", "ru", "en"]) {
-    for (const f of ["title", "h1", "summary", "procedure_length", "effect_duration", "sessions_recommended", "price_from", "price_unit", "seo_title", "seo_desc", "seo_keywords"]) {
+    for (const f of ["title", "h1", "summary", "procedure_length", "effect_duration", "sessions_recommended", "price_from", "price_unit", "seo_title", "seo_desc"]) {
       fields[`${f}_${suffix}`] = formData.get(`${f}_${suffix}`) as string || null;
     }
   }
@@ -101,8 +101,7 @@ export async function saveService(_prevState: any, formData: FormData) {
         price_from_uk, price_from_ru, price_from_en,
         price_unit_uk, price_unit_ru, price_unit_en,
         seo_title_uk, seo_title_ru, seo_title_en,
-        seo_desc_uk, seo_desc_ru, seo_desc_en,
-        seo_keywords_uk, seo_keywords_ru, seo_keywords_en
+        seo_desc_uk, seo_desc_ru, seo_desc_en
       FROM services WHERE id = ${id}
     `;
     logBefore = beforeRows[0] ?? null;
@@ -121,7 +120,6 @@ export async function saveService(_prevState: any, formData: FormData) {
         price_unit_uk, price_unit_ru, price_unit_en,
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
-        seo_keywords_uk, seo_keywords_ru, seo_keywords_en,
         seo_og_image, seo_noindex)
       VALUES (${newId}, ${slug}, ${category_id}, ${sort_order}, ${hero_image},
         ${fields.title_uk}, ${fields.title_ru}, ${fields.title_en},
@@ -134,7 +132,6 @@ export async function saveService(_prevState: any, formData: FormData) {
         ${fields.price_unit_uk}, ${fields.price_unit_ru}, ${fields.price_unit_en},
         ${fields.seo_title_uk}, ${fields.seo_title_ru}, ${fields.seo_title_en},
         ${fields.seo_desc_uk}, ${fields.seo_desc_ru}, ${fields.seo_desc_en},
-        ${fields.seo_keywords_uk}, ${fields.seo_keywords_ru}, ${fields.seo_keywords_en},
         ${seo_og_image}, ${seo_noindex})
     `;
     await logChange({ action: "create", entityType: "service", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
@@ -154,7 +151,6 @@ export async function saveService(_prevState: any, formData: FormData) {
         price_unit_uk = ${fields.price_unit_uk}, price_unit_ru = ${fields.price_unit_ru}, price_unit_en = ${fields.price_unit_en},
         seo_title_uk = ${fields.seo_title_uk}, seo_title_ru = ${fields.seo_title_ru}, seo_title_en = ${fields.seo_title_en},
         seo_desc_uk = ${fields.seo_desc_uk}, seo_desc_ru = ${fields.seo_desc_ru}, seo_desc_en = ${fields.seo_desc_en},
-        seo_keywords_uk = ${fields.seo_keywords_uk}, seo_keywords_ru = ${fields.seo_keywords_ru}, seo_keywords_en = ${fields.seo_keywords_en},
         seo_og_image = ${seo_og_image}, seo_noindex = ${seo_noindex}
       WHERE id = ${id}
     `;

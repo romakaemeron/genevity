@@ -9,7 +9,7 @@ export async function saveCategory(_prevState: any, formData: FormData) {
 
   const fields: Record<string, any> = {};
   for (const suffix of ["uk", "ru", "en"]) {
-    for (const f of ["title", "summary", "seo_title", "seo_desc", "seo_keywords"]) {
+    for (const f of ["title", "summary", "seo_title", "seo_desc"]) {
       fields[`${f}_${suffix}`] = formData.get(`${f}_${suffix}`) as string || null;
     }
   }
@@ -35,7 +35,6 @@ export async function saveCategory(_prevState: any, formData: FormData) {
       summary_uk = ${fields.summary_uk}, summary_ru = ${fields.summary_ru}, summary_en = ${fields.summary_en},
       seo_title_uk = ${fields.seo_title_uk}, seo_title_ru = ${fields.seo_title_ru}, seo_title_en = ${fields.seo_title_en},
       seo_desc_uk = ${fields.seo_desc_uk}, seo_desc_ru = ${fields.seo_desc_ru}, seo_desc_en = ${fields.seo_desc_en},
-      seo_keywords_uk = ${fields.seo_keywords_uk}, seo_keywords_ru = ${fields.seo_keywords_ru}, seo_keywords_en = ${fields.seo_keywords_en},
       seo_og_image = ${seo_og_image}, seo_noindex = ${seo_noindex}
     WHERE id = ${id}
   `;

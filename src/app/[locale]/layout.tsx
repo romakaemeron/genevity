@@ -70,19 +70,6 @@ export async function generateMetadata({
       ],
       shortcut: "/favicon.ico",
     },
-    keywords: [
-      "GENEVITY",
-      "медичний центр довголіття",
-      "естетична медицина",
-      "Дніпро",
-      "косметологія",
-      "апаратна косметологія",
-      "longevity medicine",
-      "anti-aging",
-      "HydraFacial",
-      "EMFACE",
-      "EMSCULPT NEO",
-    ],
     alternates: {
       canonical: locale === "ua" ? "/" : `/${locale}`,
       languages: {

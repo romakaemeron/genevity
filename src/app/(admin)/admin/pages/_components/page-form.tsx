@@ -404,7 +404,6 @@ function ContentTab({ page, isNew, isCorePage, isHome, state, formAction, formRe
           <div key={l} className="hidden">
             <input type="hidden" name={`seo_title_${l}`} defaultValue={page?.[`seo_title_${l}`] || ""} />
             <input type="hidden" name={`seo_desc_${l}`} defaultValue={page?.[`seo_desc_${l}`] || ""} />
-            <input type="hidden" name={`seo_keywords_${l}`} defaultValue={page?.[`seo_keywords_${l}`] || ""} />
             {!showH1Summary && (
               <>
                 <input type="hidden" name={`h1_${l}`} defaultValue={page?.[`h1_${l}`] || ""} />

@@ -22,8 +22,6 @@ interface PageMetadataInput {
   path: string;
   ogImage?: string | null;
   noindex?: boolean;
-  /** Comma-separated or array. Google ignores this; Bing / Yandex still use it. */
-  keywords?: string | string[] | null;
 }
 
 /**
@@ -50,19 +48,13 @@ export async function generatePageMetadata({
   path,
   ogImage,
   noindex = false,
-  keywords,
 }: PageMetadataInput): Promise<Metadata> {
   const url = absoluteUrl(path, locale);
   const image = await resolveOgImage(ogImage);
-  const normalizedKeywords =
-    keywords == null ? undefined :
-    Array.isArray(keywords) ? keywords.filter(Boolean) :
-    keywords.split(",").map((k) => k.trim()).filter(Boolean);
 
   return {
     title,
     description,
-    keywords: normalizedKeywords,
     alternates: buildAlternates(path),
     openGraph: {
       title,

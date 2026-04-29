@@ -114,7 +114,6 @@ export default function ServiceForm({
             <div key={l} className="hidden">
               <input type="hidden" name={`seo_title_${l}`} defaultValue={svc?.[`seo_title_${l}`] || ""} />
               <input type="hidden" name={`seo_desc_${l}`} defaultValue={svc?.[`seo_desc_${l}`] || ""} />
-              <input type="hidden" name={`seo_keywords_${l}`} defaultValue={svc?.[`seo_keywords_${l}`] || ""} />
             </div>
           ))}
           {!isNew && (

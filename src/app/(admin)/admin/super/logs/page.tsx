@@ -45,7 +45,6 @@ const FIELD_LABELS: Record<string, string> = {
   price_unit_uk: "Price unit (UA)", price_unit_ru: "Price unit (RU)", price_unit_en: "Price unit (EN)",
   seo_title_uk: "SEO title (UA)", seo_title_ru: "SEO title (RU)", seo_title_en: "SEO title (EN)",
   seo_desc_uk: "SEO desc (UA)", seo_desc_ru: "SEO desc (RU)", seo_desc_en: "SEO desc (EN)",
-  seo_keywords_uk: "SEO keywords (UA)", seo_keywords_ru: "SEO keywords (RU)", seo_keywords_en: "SEO keywords (EN)",
   slug: "Slug", category_id: "Category", sort_order: "Sort order",
   phone1: "Phone 1", phone2: "Phone 2", instagram: "Instagram", maps_url: "Maps URL",
   address_uk: "Address (UA)", address_ru: "Address (RU)", address_en: "Address (EN)",

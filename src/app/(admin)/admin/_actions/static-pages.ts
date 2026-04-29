@@ -32,7 +32,7 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
 
   const fields: Record<string, any> = {};
   for (const suffix of ["uk", "ru", "en"]) {
-    for (const f of ["title", "h1", "summary", "seo_title", "seo_desc", "seo_keywords"]) {
+    for (const f of ["title", "h1", "summary", "seo_title", "seo_desc"]) {
       fields[`${f}_${suffix}`] = formData.get(`${f}_${suffix}`) as string || null;
     }
   }
@@ -62,8 +62,7 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         title_uk, title_ru, title_en, h1_uk, h1_ru, h1_en,
         summary_uk, summary_ru, summary_en,
         seo_title_uk, seo_title_ru, seo_title_en,
-        seo_desc_uk, seo_desc_ru, seo_desc_en,
-        seo_keywords_uk, seo_keywords_ru, seo_keywords_en
+        seo_desc_uk, seo_desc_ru, seo_desc_en
       FROM static_pages WHERE id = ${id}
     `;
     logBefore = beforeRows[0] ?? null;
@@ -78,7 +77,6 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         summary_uk, summary_ru, summary_en,
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
-        seo_keywords_uk, seo_keywords_ru, seo_keywords_en,
         seo_og_image, seo_noindex, hero_image)
       VALUES (${newId}, ${slug},
         ${fields.title_uk}, ${fields.title_ru}, ${fields.title_en},
@@ -86,7 +84,6 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         ${fields.summary_uk}, ${fields.summary_ru}, ${fields.summary_en},
         ${fields.seo_title_uk}, ${fields.seo_title_ru}, ${fields.seo_title_en},
         ${fields.seo_desc_uk}, ${fields.seo_desc_ru}, ${fields.seo_desc_en},
-        ${fields.seo_keywords_uk}, ${fields.seo_keywords_ru}, ${fields.seo_keywords_en},
         ${og}, ${noindex}, ${heroImg})
     `;
     await logChange({ action: "create", entityType: "static_page", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
@@ -101,7 +98,6 @@ export async function saveStaticPage(_prevState: any, formData: FormData) {
         summary_uk = ${fields.summary_uk}, summary_ru = ${fields.summary_ru}, summary_en = ${fields.summary_en},
         seo_title_uk = ${fields.seo_title_uk}, seo_title_ru = ${fields.seo_title_ru}, seo_title_en = ${fields.seo_title_en},
         seo_desc_uk = ${fields.seo_desc_uk}, seo_desc_ru = ${fields.seo_desc_ru}, seo_desc_en = ${fields.seo_desc_en},
-        seo_keywords_uk = ${fields.seo_keywords_uk}, seo_keywords_ru = ${fields.seo_keywords_ru}, seo_keywords_en = ${fields.seo_keywords_en},
         seo_og_image = ${og}, seo_noindex = ${noindex},
         hero_image = ${heroImg}
       WHERE id = ${id}

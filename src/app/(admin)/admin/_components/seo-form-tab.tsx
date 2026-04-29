@@ -6,7 +6,7 @@
  *   - service category hubs (/admin/pages/categories/<id>)
  *   - service detail pages (/admin/pages/services/<id>)
  *
- * Reads the seo_title_*, seo_desc_*, seo_keywords_*, seo_og_image, seo_noindex
+ * Reads the seo_title_*, seo_desc_*, seo_og_image, seo_noindex
  * columns on the entity, renders per-locale inputs with character counters,
  * and includes a live Google SERP preview + OG share-card preview.
  *
@@ -33,7 +33,7 @@ const LOCALE_LABEL: Record<LocaleKey, string> = { uk: "UA", ru: "RU", en: "EN" }
 const BASE_URL = "https://genevity.com.ua";
 
 export interface SeoFormTabProps {
-  /** Row with `seo_title_*`, `seo_desc_*`, `seo_keywords_*`, `seo_og_image`, `seo_noindex`. */
+  /** Row with `seo_title_*`, `seo_desc_*`, `seo_og_image`, `seo_noindex`. */
   entity: any;
   /** Unique identifier passed through the form (usually the row's `id`). Rendered as <input type="hidden" name={idField}>. */
   entityId: string;
@@ -77,11 +77,6 @@ export default function SeoFormTab({
     uk: (entity.seo_desc_uk as string) || "",
     ru: (entity.seo_desc_ru as string) || "",
     en: (entity.seo_desc_en as string) || "",
-  });
-  const [keywords, setKeywords] = useState({
-    uk: (entity.seo_keywords_uk as string) || "",
-    ru: (entity.seo_keywords_ru as string) || "",
-    en: (entity.seo_keywords_en as string) || "",
   });
   const [ogImageUrl, setOgImageUrl] = useState<string | null>(entity.seo_og_image || null);
 
@@ -157,10 +152,9 @@ export default function SeoFormTab({
         <div className="border-t border-line" />
 
         <div>
-          <h3 className="font-heading text-lg text-ink mb-1">Meta title, description, keywords</h3>
+          <h3 className="font-heading text-lg text-ink mb-1">Meta title & description</h3>
           <p className="body-s text-muted mb-4">
             Separate per language. Google shows the title (~60 chars) and description (~155 chars) in search results.
-            Keywords are ignored by Google but still read by Bing / Yandex.
           </p>
         </div>
 
@@ -181,12 +175,6 @@ export default function SeoFormTab({
                 defaultValue={desc[locale]}
                 hint={`${desc[locale].length} / 155 characters`}
               />
-              <FormField
-                label={`Keywords (${LOCALE_LABEL[locale]})`}
-                name={`seo_keywords_${locale}`}
-                defaultValue={keywords[locale]}
-                hint="Comma-separated list (e.g. cosmetology, GENEVITY, Dnipro)"
-              />
             </div>
           )}
         </TranslationTabs>
@@ -195,7 +183,6 @@ export default function SeoFormTab({
           formRef={formRef}
           onTitleChange={(l, v) => setTitle((p) => ({ ...p, [l]: v }))}
           onDescChange={(l, v) => setDesc((p) => ({ ...p, [l]: v }))}
-          onKeywordsChange={(l, v) => setKeywords((p) => ({ ...p, [l]: v }))}
         />
 
         <div className="border-t border-line" />
@@ -322,12 +309,11 @@ export default function SeoFormTab({
 }
 
 function OnInputMirror({
-  formRef, onTitleChange, onDescChange, onKeywordsChange,
+  formRef, onTitleChange, onDescChange,
 }: {
   formRef: React.RefObject<HTMLFormElement | null>;
   onTitleChange: (l: LocaleKey, v: string) => void;
   onDescChange: (l: LocaleKey, v: string) => void;
-  onKeywordsChange: (l: LocaleKey, v: string) => void;
 }) {
   useEffect(() => {
     const form = formRef.current;
@@ -335,15 +321,14 @@ function OnInputMirror({
     const handler = (e: Event) => {
       const t = e.target as HTMLInputElement | HTMLTextAreaElement | null;
       if (!t?.name) return;
-      const m = t.name.match(/^seo_(title|desc|keywords)_(uk|ru|en)$/);
+      const m = t.name.match(/^seo_(title|desc)_(uk|ru|en)$/);
       if (!m) return;
       const [, field, loc] = m;
       if (field === "title") onTitleChange(loc as LocaleKey, t.value);
       if (field === "desc") onDescChange(loc as LocaleKey, t.value);
-      if (field === "keywords") onKeywordsChange(loc as LocaleKey, t.value);
     };
     form.addEventListener("input", handler);
     return () => form.removeEventListener("input", handler);
-  }, [formRef, onTitleChange, onDescChange, onKeywordsChange]);
+  }, [formRef, onTitleChange, onDescChange]);
   return null;
 }

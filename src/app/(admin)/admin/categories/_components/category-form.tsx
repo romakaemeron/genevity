@@ -68,7 +68,6 @@ export default function CategoryForm({ category: cat, sections = [], faq = [], d
             <div key={l} className="hidden">
               <input type="hidden" name={`seo_title_${l}`} defaultValue={cat[`seo_title_${l}`] || ""} />
               <input type="hidden" name={`seo_desc_${l}`} defaultValue={cat[`seo_desc_${l}`] || ""} />
-              <input type="hidden" name={`seo_keywords_${l}`} defaultValue={cat[`seo_keywords_${l}`] || ""} />
             </div>
           ))}
           <input type="hidden" name="seo_og_image_current" defaultValue={cat.seo_og_image || ""} />

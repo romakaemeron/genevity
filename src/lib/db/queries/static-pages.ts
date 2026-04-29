@@ -53,7 +53,6 @@ export async function getStaticPageSeo(locale: string, slug: string): Promise<St
   return {
     title: pick(r, "seo_title", l) || pick(r, "title", l) || "",
     description: pick(r, "seo_desc", l) || pick(r, "summary", l) || "",
-    keywords: pick(r, "seo_keywords", l),
     ogImage: (r.seo_og_image as string) || null,
     noindex: Boolean(r.seo_noindex),
   };
