@@ -113,7 +113,7 @@ const injectable: NavCategory = {
 
 const apparatusFaceNav: NavCategory = {
   key: "apparatusFace",
-  label: L("Апаратна для обличчя", "Аппаратная для лица", "Face Treatments"),
+  label: L("Апарати для обличчя", "Аппараты для лица", "Face Devices"),
   href: R.apparatusFace,
   items: [
     { key: "emface",            label: L("EMFACE",          "EMFACE",          "EMFACE"),          href: R.apparatusEmface },
@@ -127,7 +127,7 @@ const apparatusFaceNav: NavCategory = {
 
 const apparatusBodyNav: NavCategory = {
   key: "apparatusBody",
-  label: L("Апаратна для тіла", "Аппаратная для тела", "Body Treatments"),
+  label: L("Апарати для тіла", "Аппараты для тела", "Body Devices"),
   href: R.apparatusBody,
   items: [
     { key: "emsculpt-neo",          label: L("Emsculpt Neo",          "Emsculpt Neo",          "Emsculpt Neo"),          href: R.apparatusEmsculptNeo },
