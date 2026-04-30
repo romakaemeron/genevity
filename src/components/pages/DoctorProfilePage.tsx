@@ -179,7 +179,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
             <motion.ul variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {doctor.services.map((svc) => (
                 <motion.li key={svc.slug} variants={fade}>
-                  <Link href={`/services/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark border border-black-10 hover:border-main/40 hover:bg-white hover:shadow-sm transition-all">
+                  <Link href={`/services/${svc.categorySlug}/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark border border-black-10 hover:border-main/40 hover:bg-white hover:shadow-sm transition-all">
                     <span className="body-m text-black group-hover:text-main transition-colors">{svc.title}</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0 text-black-30 group-hover:text-main transition-colors">
                       <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

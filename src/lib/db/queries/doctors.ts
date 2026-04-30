@@ -30,7 +30,7 @@ export interface DoctorProfileData {
   profileFocalPoint: string;
   education: (EducationEntry & { institution: string; degree: string })[];
   certifications: (CertEntry & { title: string; issuer?: string })[];
-  services: { slug: string; title: string }[];
+  services: { slug: string; categorySlug: string; title: string }[];
   seoTitle: string | null;
   seoDescription: string | null;
 }
@@ -42,9 +42,10 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
   const r = rows[0];
 
   const serviceRows = await sql`
-    SELECT s.slug, s.title_uk, s.title_ru, s.title_en
+    SELECT s.slug, s.title_uk, s.title_ru, s.title_en, c.slug AS category_slug
     FROM service_doctors sd
     JOIN services s ON s.id = sd.service_id
+    JOIN service_categories c ON c.id = s.category_id
     WHERE sd.doctor_id = ${r.id}
     ORDER BY sd.sort_order
   `;
@@ -76,6 +77,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
     })),
     services: serviceRows.map((s) => ({
       slug: s.slug,
+      categorySlug: s.category_slug as string,
       title: (pick(s, "title", l) || "") as string,
     })),
     seoTitle: pick(r, "seo_title", l),
