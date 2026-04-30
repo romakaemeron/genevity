@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { ChevronRight, Search } from "lucide-react";
+import { ChevronRight, Search, Download } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import type { PriceCategory } from "@/lib/db/queries/phase2";
@@ -11,12 +11,19 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 
+const DOWNLOAD_LABEL: Record<string, string> = {
+  uk: "Завантажити прайс-лист",
+  ru: "Скачать прайс-лист",
+  en: "Download Pricelist",
+};
+
 interface Props {
   locale: Locale;
   categories: PriceCategory[];
+  pricelistPdf?: string | null;
 }
 
-export default function PricesPageComponent({ locale, categories }: Props) {
+export default function PricesPageComponent({ locale, categories, pricelistPdf }: Props) {
   const [activeSlug, setActiveSlug] = useState(categories[0]?.slug || "");
   const [search, setSearch] = useState("");
   const tLabels = useTranslations("labels");
@@ -50,6 +57,16 @@ export default function PricesPageComponent({ locale, categories }: Props) {
             />
             <h1 className="heading-1 text-black mt-6">{tPage("heroTitle")}</h1>
             <p className="body-l text-muted mt-4 max-w-2xl">{tPage("heroSubtitle")}</p>
+            {pricelistPdf && (
+              <a
+                href={pricelistPdf}
+                download="Genevity_Price_Catalog.pdf"
+                className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-main/30 bg-white text-main body-m hover:bg-main hover:text-champagne transition-colors"
+              >
+                <Download size={16} />
+                {DOWNLOAD_LABEL[locale] ?? DOWNLOAD_LABEL.uk}
+              </a>
+            )}
           </motion.div>
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
-import { uploadRawOrKeep } from "./upload";
+import { uploadRawOrKeep, uploadFileOrKeep } from "./upload";
 import { logChange } from "@/lib/audit";
 
 export async function saveHero(_prevState: any, formData: FormData) {
@@ -85,5 +85,19 @@ export async function saveSiteSettings(_prevState: any, formData: FormData) {
 
   await logChange({ action: "update", entityType: "site_settings", entityId: "1", entityLabel: "Site settings", before, after: { phone1, phone2, instagram, maps_url, address_uk, address_ru, address_en, hours_uk, hours_ru, hours_en } });
   revalidatePath("/");
+  return { success: true };
+}
+
+export async function savePricelistPdf(_prevState: any, formData: FormData) {
+  const file = formData.get("pricelist_pdf") as File | null;
+  const currentUrl = (formData.get("pricelist_pdf_current") as string) || undefined;
+  const pdfUrl = await uploadFileOrKeep(file, "site", currentUrl);
+
+  const beforeRows = await sql`SELECT pricelist_pdf FROM site_settings WHERE id = 1`;
+  const before = { pricelist_pdf: beforeRows[0]?.pricelist_pdf ?? null };
+
+  await sql`UPDATE site_settings SET pricelist_pdf = ${pdfUrl} WHERE id = 1`;
+  await logChange({ action: "update", entityType: "site_settings", entityId: "1", entityLabel: "Pricelist PDF", before, after: { pricelist_pdf: pdfUrl } });
+  revalidatePath("/prices");
   return { success: true };
 }

@@ -4,15 +4,18 @@ import { getUiStringsNamespace, getUiStringsTree } from "@/lib/db/queries";
 import PricesEditor, { type PriceCategory } from "../_components/prices-editor";
 import NamespaceTextsEditor from "../_components/namespace-texts-editor";
 import { AdminPageHeader, AdminSectionHeading } from "../_components/admin-list";
+import PricelistPdfForm from "./_components/pricelist-pdf-form";
 
 export default async function PricingAdminPage() {
   await requireSession();
-  const [catRows, itemRows, pageTexts, fullTree] = await Promise.all([
+  const [catRows, itemRows, pageTexts, fullTree, settingsRows] = await Promise.all([
     sql`SELECT * FROM price_categories ORDER BY sort_order`,
     sql`SELECT * FROM price_items ORDER BY sort_order`,
     getUiStringsNamespace("pricesPage"),
     getUiStringsTree(),
+    sql`SELECT pricelist_pdf FROM site_settings WHERE id = 1`,
   ]);
+  const pricelistPdf = (settingsRows[0]?.pricelist_pdf as string | null) ?? null;
 
   const pricesMetaTexts = ((fullTree.pageMeta as Record<string, unknown>)?.prices || {}) as Record<string, unknown>;
 
@@ -37,6 +40,11 @@ export default async function PricingAdminPage() {
   return (
     <div className="p-8 flex flex-col gap-10">
       <AdminPageHeader title="Price List" subtitle="Categories and items shown on the /prices page." />
+
+      <div>
+        <AdminSectionHeading>Pricelist PDF</AdminSectionHeading>
+        <PricelistPdfForm currentUrl={pricelistPdf} />
+      </div>
 
       <PricesEditor initial={cats} />
 

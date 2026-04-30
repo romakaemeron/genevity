@@ -153,3 +153,23 @@ export async function uploadRawOrKeep(
   if (uploaded) return uploaded;
   return currentUrl || null;
 }
+
+/**
+ * Upload any file (PDF, ZIP, etc.) as-is, no image processing.
+ * Falls back to `currentUrl` when nothing is uploaded.
+ */
+export async function uploadFileOrKeep(
+  file: File | null,
+  folder: string,
+  currentUrl?: string,
+): Promise<string | null> {
+  if (!file || file.size === 0) return currentUrl || null;
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
+  const result = await put(`${folder}/${randomUUID()}.${ext}`, buffer, {
+    access: "public",
+    addRandomSuffix: false,
+    contentType: file.type || "application/octet-stream",
+  });
+  return result.url;
+}
