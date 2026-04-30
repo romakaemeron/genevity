@@ -57,7 +57,7 @@ export default function ScrollCarousel({ children, className = "" }: ScrollCarou
         <div
           ref={scrollRef}
           className="flex gap-6 scrollbar-hide snap-x snap-mandatory"
-          style={{ overflowX: "scroll", overflowY: "hidden" }}
+          style={{ overflowX: "scroll", overflowY: "clip", touchAction: "pan-x pan-y" }}
         >
           {children}
         </div>

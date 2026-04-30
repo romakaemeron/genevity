@@ -5,7 +5,7 @@ export default function CompareTableSection({ heading, columns, rows }: SectionC
     <section>
       {heading && <h2 className="heading-2 text-black mb-6">{heading}</h2>}
       {columns?.length > 0 && rows?.length > 0 && (
-        <div className="overflow-x-auto -mx-4 px-4">
+        <div className="overflow-x-auto -mx-4 px-4" style={{ overflowY: "clip", touchAction: "pan-x pan-y" }}>
           <table className="w-full border-collapse min-w-[480px]">
             <thead>
               <tr>
