@@ -177,27 +177,21 @@ export default function PhotoPositionEditor({
       {!editing && (
         <div className="flex items-center gap-3">
           <div
-            className={`relative shrink-0 rounded-lg overflow-hidden bg-champagne-dark border border-line ${
-              aspect === "portrait" ? "w-12 aspect-[3/4]" :
-              aspect === "wide" ? "w-20 aspect-[16/9]" :
-              aspect === "modal" ? "w-20 aspect-[16/10]" :
-              "w-12 aspect-square"
+            className={`shrink-0 rounded-lg overflow-hidden bg-champagne-dark border border-line ${
+              aspect === "portrait" ? "w-12 h-16" :
+              aspect === "wide" ? "w-20 h-[45px]" :
+              aspect === "modal" ? "w-20 h-[50px]" :
+              "w-12 h-12"
             }`}
+            style={scaleName && scale !== 1 ? { transform: `scale(${scale})`, transformOrigin: posString } : undefined}
           >
-            <div
-              className="absolute inset-0"
-              style={scaleName ? { transform: `scale(${scale})`, transformOrigin: posString } : undefined}
-            >
-              <Image
-                src={photoUrl}
-                alt={alt}
-                fill
-                sizes="96px"
-                quality={85}
-                className="object-cover"
-                style={{ objectPosition: posString }}
-              />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={photoUrl}
+              alt={alt}
+              className="w-full h-full object-cover"
+              style={{ objectPosition: posString }}
+            />
           </div>
           <p className="text-[11px] text-muted font-mono">
             {posString}{scaleName ? ` · ${scale.toFixed(2)}×` : ""}
