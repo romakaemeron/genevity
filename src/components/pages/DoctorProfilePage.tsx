@@ -61,7 +61,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
             <motion.div variants={stagger} initial="initial" animate="animate" className="flex flex-col gap-6">
               <motion.div variants={fade}>
                 <h1 className="heading-1 text-black">{doctor.name}</h1>
-                <p className="body-s text-main font-medium uppercase tracking-wider mt-3">{doctor.role}</p>
+                <p className="body-m text-main font-medium mt-3">{doctor.role}</p>
               </motion.div>
 
               {doctor.experience && (
