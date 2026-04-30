@@ -58,13 +58,11 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
             <h1 className="heading-1 text-black mt-6">{tPage("heroTitle")}</h1>
             <p className="body-l text-muted mt-4 max-w-2xl">{tPage("heroSubtitle")}</p>
             {pricelistPdf && (
-              <a
-                href={pricelistPdf}
-                download="Genevity_Price_Catalog.pdf"
-                className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-main/30 bg-white text-main body-m hover:bg-main hover:text-champagne transition-colors"
-              >
-                <Download size={16} />
-                {DOWNLOAD_LABEL[locale] ?? DOWNLOAD_LABEL.uk}
+              <a href={pricelistPdf} download="Genevity_Price_Catalog.pdf" className="mt-6 inline-block">
+                <Button variant="outline" size="md">
+                  <Download size={16} />
+                  {DOWNLOAD_LABEL[locale] ?? DOWNLOAD_LABEL.uk}
+                </Button>
               </a>
             )}
           </motion.div>
