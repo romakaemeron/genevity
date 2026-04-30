@@ -259,7 +259,7 @@ img::selection {
   overflow-y: hidden; /* fallback for browsers without clip support */
   overflow-y: clip;   /* clips without creating a scroll context — lets vertical swipes reach the page */
   scroll-snap-type: x mandatory;
-  touch-action: pan-x;
+  touch-action: pan-x pan-y; /* pan-y needed: overflow-y:clip means the element has no vertical scroll range, so iOS chains vertical gestures up to the page */
   overscroll-behavior-x: contain;
   /* -webkit-overflow-scrolling: touch removed — it creates an independent scroll layer
      on iOS that captures ALL touch events, blocking vertical page scroll inside the area */
