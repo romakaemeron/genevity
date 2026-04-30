@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
-import { X } from "lucide-react";
+import { useState, useTransition } from "react";
+import Modal from "@/components/ui/Modal";
 import { submitPublicReview } from "@/app/(admin)/admin/_actions/reviews";
 
 interface ServiceOption { slug: string; title: string; }
@@ -86,19 +86,6 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
   const [success, setSuccess] = useState(false);
   const [serverError, setServerError] = useState("");
 
-  // Close on Escape
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
-
-  // Lock body scroll
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
-
   const validate = () => {
     const e: Record<string, string> = {};
     if (!name.trim()) e.name = labels.required;
@@ -113,66 +100,42 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
     setServerError("");
     startTransition(async () => {
       const res = await submitPublicReview({
-        doctorId,
-        reviewerName: name,
-        rating,
-        reviewText: text,
-        procedureTag: procedure || null,
-        locale,
+        doctorId, reviewerName: name, rating,
+        reviewText: text, procedureTag: procedure || null, locale,
       });
-      if (res.ok) {
-        setSuccess(true);
-      } else {
-        setServerError(res.error ?? "Error");
-      }
+      if (res.ok) setSuccess(true);
+      else setServerError(res.error ?? "Error");
     });
   };
 
   return (
-    <div
-      className="fixed inset-0 z-[300] bg-black/60 flex items-end sm:items-center justify-center"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col max-h-[90dvh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4 p-6 pb-4 border-b border-champagne-darker">
+    <Modal open onClose={onClose} maxWidth="sm:max-w-md">
+      {success ? (
+        <div className="flex flex-col items-center gap-4 p-8 pt-10 text-center">
+          <div className="w-14 h-14 rounded-full bg-main/10 text-main flex items-center justify-center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
           <div>
-            <h2 className="heading-3 text-black">{labels.title}</h2>
-            <p className="body-s text-black-50 mt-1">{doctorName} · {labels.subtitle}</p>
+            <p className="heading-3 text-black">{labels.successTitle}</p>
+            <p className="body-m text-black-50 mt-2">{labels.successText}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-champagne-dark hover:bg-champagne-darker flex items-center justify-center text-black-50 hover:text-black transition-colors shrink-0 cursor-pointer"
-            aria-label={labels.close}
+            className="mt-2 px-6 py-2.5 rounded-[var(--radius-pill)] bg-main text-champagne body-m hover:bg-main-dark transition-colors cursor-pointer"
           >
-            <X size={16} />
+            {labels.close}
           </button>
         </div>
-
-        {success ? (
-          /* Success state */
-          <div className="flex flex-col items-center gap-4 p-8 text-center">
-            <div className="w-14 h-14 rounded-full bg-main/10 text-main flex items-center justify-center">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div>
-              <p className="body-strong text-black text-lg">{labels.successTitle}</p>
-              <p className="body-m text-black-50 mt-1">{labels.successText}</p>
-            </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="mt-2 px-6 py-2.5 rounded-[var(--radius-pill)] bg-main text-champagne body-m hover:bg-main-dark transition-colors cursor-pointer"
-            >
-              {labels.close}
-            </button>
+      ) : (
+        <div className="p-6 pt-10">
+          {/* Heading */}
+          <div className="mb-6">
+            <h2 className="heading-3 text-black">{labels.title}</h2>
+            <p className="body-s text-black-50 mt-1">{doctorName} · {labels.subtitle}</p>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5 p-6">
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Star rating */}
             <div className="flex flex-col gap-2">
               <label className="text-xs font-semibold text-black-50 uppercase tracking-wider">{labels.ratingLabel}</label>
@@ -202,9 +165,7 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
                   className="w-full rounded-xl border border-champagne-darker bg-champagne-dark px-4 py-3 body-m text-black focus:outline-none focus:ring-2 focus:ring-main/30 appearance-none cursor-pointer transition-shadow"
                 >
                   <option value="">{labels.procPlaceholder}</option>
-                  {services.map((s) => (
-                    <option key={s.slug} value={s.title}>{s.title}</option>
-                  ))}
+                  {services.map((s) => <option key={s.slug} value={s.title}>{s.title}</option>)}
                   <option value={labels.procOther}>{labels.procOther}</option>
                 </select>
               </div>
@@ -238,8 +199,8 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
               {isPending ? labels.submitting : labels.submit}
             </button>
           </form>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </Modal>
   );
 }

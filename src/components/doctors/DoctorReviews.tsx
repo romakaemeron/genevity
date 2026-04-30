@@ -145,13 +145,9 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
                 <ChevronRight size={16} />
               </Button>
             </div>
-            <button
-              type="button"
-              onClick={() => setModalOpen(true)}
-              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-[var(--radius-pill)] border border-main/25 text-main body-s hover:bg-main hover:text-champagne hover:border-main transition-colors cursor-pointer"
-            >
+            <Button variant="secondary" size="sm" onClick={() => setModalOpen(true)}>
               {labels.write}
-            </button>
+            </Button>
           </div>
         </motion.div>
       </motion.div>
