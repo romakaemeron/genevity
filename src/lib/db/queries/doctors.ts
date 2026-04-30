@@ -53,6 +53,7 @@ export interface DoctorProfileData {
   photoFull: string | null;
   photoCircle: string | null;
   profileFocalPoint: string;
+  profileScale: number;
   education: (EducationEntry & { institution: string; degree: string })[];
   certifications: (CertEntry & { title: string; issuer?: string })[];
   services: { slug: string; categorySlug: string; title: string }[];
@@ -91,6 +92,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
     photoFull: r.photo_full || null,
     photoCircle: r.photo_circle || null,
     profileFocalPoint: (r.profile_focal_point as string) || "center top",
+    profileScale: (() => { const s = parseFloat(String(r.profile_scale ?? "1")); return Number.isFinite(s) && s > 0 ? s : 1; })(),
     education: edu.map((e) => ({
       ...e,
       institution: e[`institution_${l}` as keyof EducationEntry] as string || e.institution_uk,

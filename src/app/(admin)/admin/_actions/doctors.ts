@@ -8,6 +8,9 @@ import { randomUUID } from "crypto";
 import sharp from "sharp";
 import { logChange } from "@/lib/audit";
 
+const SCALE_MIN = 0.5;
+const SCALE_MAX = 4;
+
 /**
  * Process and upload an image:
  *   - Resize to fit within `maxDim` (longest side) preserving aspect ratio (no crop, no upscale)
@@ -126,6 +129,10 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   // to photo_card at render time when photo_circle is null.
   const circle_focal_point = (formData.get("circle_focal_point") as string) || card_position;
   const profile_focal_point = (formData.get("profile_focal_point") as string) || "center top";
+  const profileScaleRaw = parseFloat((formData.get("profile_scale") as string) || "1");
+  const profile_scale = Number.isFinite(profileScaleRaw) && profileScaleRaw > 0
+    ? Math.min(SCALE_MAX, Math.max(SCALE_MIN, profileScaleRaw))
+    : 1;
   const circleScaleRaw = parseFloat((formData.get("circle_scale") as string) || "1");
   const circle_scale = Number.isFinite(circleScaleRaw) && circleScaleRaw > 0
     ? Math.min(5, Math.max(0.5, circleScaleRaw))
@@ -165,11 +172,13 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
       INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en,
         slug, seo_title_uk, seo_title_ru, seo_title_en, seo_desc_uk, seo_desc_ru, seo_desc_en,
         bio_uk, bio_ru, bio_en, education, certifications,
-        photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale, profile_focal_point, sort_order)
+        photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale,
+        profile_focal_point, profile_scale, sort_order)
       VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en},
         ${slug}, ${seo_title_uk}, ${seo_title_ru}, ${seo_title_en}, ${seo_desc_uk}, ${seo_desc_ru}, ${seo_desc_en},
         ${bio_uk}, ${bio_ru}, ${bio_en}, ${JSON.stringify(education)}, ${JSON.stringify(certifications)},
-        ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale}, ${profile_focal_point}, ${sort_order})
+        ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale},
+        ${profile_focal_point}, ${profile_scale}, ${sort_order})
     `;
     await logChange({ action: "create", entityType: "doctor", entityId: "new", entityLabel: name_uk, after });
   } else {
@@ -186,7 +195,7 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         photo_card = ${photo_card}, photo_full = ${photo_full}, photo_circle = ${photo_circle},
         card_position = ${card_position}, modal_position = ${modal_position},
         circle_focal_point = ${circle_focal_point}, circle_scale = ${circle_scale},
-        profile_focal_point = ${profile_focal_point},
+        profile_focal_point = ${profile_focal_point}, profile_scale = ${profile_scale},
         sort_order = ${sort_order}
       WHERE id = ${id}
     `;

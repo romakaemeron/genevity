@@ -33,6 +33,7 @@ interface Doctor {
   circle_focal_point?: string | null;
   circle_scale?: number | string | null;
   profile_focal_point?: string | null;
+  profile_scale?: number | string | null;
   sort_order: number;
 }
 
@@ -53,6 +54,13 @@ export default function DoctorForm({ doctor }: Props) {
   const [modalPos, setModalPos] = useState(doctor?.modal_position || doctor?.card_position || "center center");
   const initialProfilePos = doctor?.profile_focal_point || "center top";
   const [profilePos, setProfilePos] = useState(initialProfilePos);
+  const initialProfileScaleRaw = doctor?.profile_scale;
+  const initialProfileScale = typeof initialProfileScaleRaw === "string"
+    ? parseFloat(initialProfileScaleRaw)
+    : typeof initialProfileScaleRaw === "number" ? initialProfileScaleRaw : 1;
+  const [profileScale, setProfileScale] = useState(
+    Number.isFinite(initialProfileScale) && initialProfileScale > 0 ? initialProfileScale : 1,
+  );
   const initialCirclePos = doctor?.circle_focal_point || doctor?.card_position || "center center";
   const initialCircleScaleRaw = doctor?.circle_scale;
   const initialCircleScale = typeof initialCircleScaleRaw === "string"
@@ -73,6 +81,7 @@ export default function DoctorForm({ doctor }: Props) {
     cardPos !== initialCardPos ||
     modalPos !== initialModalPos ||
     profilePos !== initialProfilePos ||
+    Math.abs(profileScale - (Number.isFinite(initialProfileScale) ? initialProfileScale : 1)) > 1e-3 ||
     circlePos !== initialCirclePos ||
     Math.abs(circleScale - (Number.isFinite(initialCircleScale) ? initialCircleScale : 1)) > 1e-3 ||
     cardUrl !== (doctor?.photo_card ?? null) ||
@@ -178,6 +187,10 @@ export default function DoctorForm({ doctor }: Props) {
             aspect="portrait"
             alt={doctor?.name_uk}
             onPositionChange={setProfilePos}
+            scaleName="profile_scale"
+            defaultScale={Number.isFinite(initialProfileScale) && initialProfileScale > 0 ? initialProfileScale : 1}
+            onScaleChange={setProfileScale}
+            maxPreviewClass="max-w-[260px]"
           />
         </div>
 

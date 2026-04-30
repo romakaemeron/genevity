@@ -99,7 +99,12 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
                 className="flex flex-col gap-5 lg:sticky lg:top-28 order-first lg:order-last"
               >
                 <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-champagne-dark shadow-lg">
-                  <Image src={photo} alt={doctor.name} fill className="object-cover" style={{ objectPosition: doctor.profileFocalPoint }} sizes="(max-width: 1024px) 100vw, 340px" priority />
+                  <div
+                    className="absolute inset-0"
+                    style={doctor.profileScale !== 1 ? { transform: `scale(${doctor.profileScale})`, transformOrigin: doctor.profileFocalPoint } : undefined}
+                  >
+                    <Image src={photo} alt={doctor.name} fill className="object-cover" style={{ objectPosition: doctor.profileFocalPoint }} sizes="(max-width: 1024px) 100vw, 340px" priority />
+                  </div>
                 </div>
                 <BookingCTA ctaKey="doctorProfile" variant="primary" size="md">
                   {tLabels("bookConsultation")}
