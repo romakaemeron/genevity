@@ -28,6 +28,8 @@ export interface SearchResult {
   subtitle: string;
   path: string;
   photo?: string | null;
+  photoFocalPoint?: string;
+  photoScale?: number;
 }
 
 function pick(row: Record<string, unknown>, field: string, lang: string): string {
@@ -75,7 +77,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       LIMIT 3
     `,
     sql`
-      SELECT id, slug, name_uk, name_ru, name_en, role_uk, role_ru, role_en, photo_card
+      SELECT id, slug, name_uk, name_ru, name_en, role_uk, role_ru, role_en,
+             photo_card, photo_circle, card_position, circle_focal_point, circle_scale
       FROM doctors
       WHERE name_uk ILIKE ${primary} OR name_ru ILIKE ${primary} OR name_en ILIKE ${primary}
          OR role_uk ILIKE ${primary} OR role_ru ILIKE ${primary} OR role_en ILIKE ${primary}
@@ -116,12 +119,18 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   }
 
   for (const d of doctors as Record<string, unknown>[]) {
+    const circleUrl = (d.photo_circle as string | null) || (d.photo_card as string | null) || null;
+    const focal = (d.circle_focal_point as string | null) || (d.card_position as string | null) || "50% 50%";
+    const rawScale = d.circle_scale;
+    const scale = typeof rawScale === "number" ? rawScale : typeof rawScale === "string" ? parseFloat(rawScale) : NaN;
     results.push({
       type: "doctor",
       title: pick(d, "name", lang) || pick(d, "name", "uk"),
       subtitle: pick(d, "role", lang) || pick(d, "role", "uk"),
       path: d.slug ? `/doctors/${d.slug}` : "/doctors",
-      photo: (d.photo_card as string | null) ?? null,
+      photo: circleUrl,
+      photoFocalPoint: focal,
+      photoScale: Number.isFinite(scale) && scale > 0 ? scale : 1,
     });
   }
 
