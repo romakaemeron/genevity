@@ -9,6 +9,9 @@ import SaveBar from "../../_components/save-bar";
 import PhotoPositionEditor from "../../_components/photo-position-editor";
 import CirclePhotoEditor from "../../_components/circle-photo-editor";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
+import FinalCtaEditor from "../../_components/final-cta-editor";
+import { saveDoctorFinalCtaData } from "../../_actions/doctors";
+import type { ServiceFinalCtaInput } from "../../_actions/services";
 import Button from "@/components/ui/Button";
 
 interface Doctor {
@@ -21,6 +24,7 @@ interface Doctor {
   seo_desc_uk?: string | null; seo_desc_ru?: string | null; seo_desc_en?: string | null;
   bio_uk?: string | null; bio_ru?: string | null; bio_en?: string | null;
   education?: any; certifications?: any;
+  final_cta?: any;
   photo_card: string | null;
   photo_full: string | null;
   photo_circle: string | null;
@@ -76,6 +80,7 @@ export default function DoctorForm({ doctor }: Props) {
     circleUrl !== (doctor?.photo_circle ?? null);
 
   return (
+    <>
     <form action={formAction} ref={formRef}>
       <FormDirtyTracker
         id={doctor ? `doctor:${doctor.id}` : "doctor:new"}
@@ -301,5 +306,22 @@ export default function DoctorForm({ doctor }: Props) {
 
       <SaveBar label={isNew ? "Create Doctor" : "Save Changes"} />
     </form>
+
+    {/* Final CTA block — saved independently (outside the main form) */}
+    {!isNew && doctor && (
+      <div className="px-8 pb-8">
+        <div className="border-t border-line pt-8 mb-3">
+          <h3 className="font-heading text-base text-ink mb-1">Profile page Final CTA</h3>
+          <p className="text-xs text-muted mb-4">The booking call-to-action block shown at the bottom of this doctor&apos;s profile page. Saved independently.</p>
+        </div>
+        <FinalCtaEditor
+          serviceId={doctor.id}
+          serviceLabel={doctor.name_uk}
+          initial={(doctor.final_cta as ServiceFinalCtaInput) ?? {}}
+          saveAction={saveDoctorFinalCtaData}
+        />
+      </div>
+    )}
+    </>
   );
 }

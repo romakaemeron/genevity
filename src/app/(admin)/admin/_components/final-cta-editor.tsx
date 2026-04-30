@@ -56,9 +56,11 @@ interface Props {
   serviceLabel: string;
   initial: ServiceFinalCtaInput;
   onDelete?: () => void;
+  /** Override the default saveFinalCtaData action (e.g. for doctor profiles). */
+  saveAction?: (id: string, data: ServiceFinalCtaInput) => Promise<{ ok: boolean }>;
 }
 
-export default function FinalCtaEditor({ serviceId, serviceLabel, initial, onDelete }: Props) {
+export default function FinalCtaEditor({ serviceId, serviceLabel, initial, onDelete, saveAction }: Props) {
   const [cta, setCta] = useState<LocalCta>(() => hydrate(initial));
   const [expanded, setExpanded] = useState(false);
   const [pending, startTransition] = useTransition();
@@ -93,7 +95,8 @@ export default function FinalCtaEditor({ serviceId, serviceLabel, initial, onDel
   });
 
   const doSave = async () => {
-    await saveFinalCtaData(serviceId, buildPayload());
+    const action = saveAction ?? saveFinalCtaData;
+    await action(serviceId, buildPayload());
     setSavedAt(Date.now());
     setTimeout(() => setSavedAt(null), 2000);
   };

@@ -198,6 +198,41 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   redirect("/admin/doctors");
 }
 
+export type DoctorFinalCtaInput = {
+  bgType?: "color" | "image" | null;
+  bgColor?: string | null;
+  bgImage?: string | null;
+  bgFocalPoint?: string | null;
+  heading?: { uk?: string; ru?: string; en?: string } | null;
+  subtitle?: { uk?: string; ru?: string; en?: string } | null;
+  buttonText?: { uk?: string; ru?: string; en?: string } | null;
+};
+
+export async function saveDoctorFinalCtaData(doctorId: string, finalCta: DoctorFinalCtaInput) {
+  const bgType = finalCta.bgType === "color" || finalCta.bgType === "image" ? finalCta.bgType : null;
+  const cleaned: Record<string, unknown> = {
+    bgType,
+    bgColor: bgType === "color" && finalCta.bgColor ? finalCta.bgColor.trim() : null,
+    bgImage: bgType === "image" && finalCta.bgImage ? finalCta.bgImage.trim() : null,
+    bgFocalPoint: bgType === "image" && finalCta.bgFocalPoint ? finalCta.bgFocalPoint.trim() : null,
+  };
+  for (const f of ["heading", "subtitle", "buttonText"] as const) {
+    const v = finalCta[f] as Record<string, string> | undefined;
+    if (v) {
+      const out: Record<string, string> = {};
+      for (const l of ["uk", "ru", "en"]) { if (v[l]?.trim()) out[l] = v[l].trim(); }
+      if (Object.keys(out).length > 0) cleaned[f] = out;
+    }
+  }
+  const hasData = cleaned.bgType || cleaned.bgColor || cleaned.bgImage
+    || cleaned.heading || cleaned.subtitle || cleaned.buttonText;
+  const ctaJson = hasData ? JSON.stringify(cleaned) : null;
+  await sql`UPDATE doctors SET final_cta = ${ctaJson}::jsonb WHERE id = ${doctorId}`;
+  revalidatePath("/");
+  revalidatePath("/doctors");
+  return { ok: true };
+}
+
 export async function deleteDoctor(id: string) {
   const rows = await sql`SELECT name_uk FROM doctors WHERE id = ${id}`;
   await sql`DELETE FROM doctors WHERE id = ${id}`;

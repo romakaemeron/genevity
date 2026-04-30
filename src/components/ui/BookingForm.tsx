@@ -329,7 +329,7 @@ export default function BookingForm({
       <Button
         type="submit"
         variant="primary"
-        size="lg"
+        size="md"
         disabled={pending}
         className="w-full justify-center"
       >

@@ -179,9 +179,9 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
             <motion.ul variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {doctor.services.map((svc) => (
                 <motion.li key={svc.slug} variants={fade}>
-                  <Link href={`/services/${svc.categorySlug}/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark border border-black-10 hover:border-main/40 hover:bg-white hover:shadow-sm transition-all">
-                    <span className="body-m text-black group-hover:text-main transition-colors">{svc.title}</span>
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0 text-black-30 group-hover:text-main transition-colors">
+                  <Link href={`/services/${svc.categorySlug}/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark hover:bg-champagne-darker transition-all">
+                    <span className="body-m text-black transition-colors">{svc.title}</span>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0 text-black-40 group-hover:translate-x-0.5 group-hover:text-black transition-all duration-200">
                       <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </Link>
@@ -192,14 +192,56 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
         </section>
       )}
 
-      {/* Bottom CTA section */}
-      <section className="bg-champagne py-12 lg:py-16">
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-          <BookingCTA ctaKey="doctorProfile" variant="secondary" size="lg">
-            {tLabels("bookConsultation")}
-          </BookingCTA>
-        </div>
-      </section>
+      {/* Final CTA block */}
+      {(() => {
+        const cta = doctor.finalCta;
+        const hasCustomImage = cta.bgType === "image" && cta.bgImage;
+        const cardStyle: React.CSSProperties = {};
+        if (cta.bgType === "color" && cta.bgColor) {
+          cardStyle.backgroundColor = `var(--${cta.bgColor})`;
+        }
+        return (
+          <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
+            <div
+              className={`mt-16 rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${
+                hasCustomImage || cta.bgType === "color" ? "" : "bg-main"
+              }`}
+              style={cardStyle}
+            >
+              {hasCustomImage && (
+                <>
+                  <Image
+                    src={cta.bgImage!}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined}
+                  />
+                  <div className="absolute inset-0 bg-black/40" />
+                </>
+              )}
+              <div className="relative">
+                <h2 className="heading-2 text-champagne mb-4">
+                  {cta.heading || tLabels("bookCta")}
+                </h2>
+                <p className="body-l text-white/60 mb-8 max-w-2xl mx-auto">
+                  {cta.subtitle || tLabels("ctaSubtitle")}
+                </p>
+                <BookingCTA
+                  ctaKey="doctorProfile"
+                  variant="secondary"
+                  size="lg"
+                  className="bg-champagne text-black hover:bg-champagne-dark"
+                  initialInterest={`doctor:${doctor.slug}`}
+                >
+                  {cta.buttonText || tLabels("bookConsultation")}
+                </BookingCTA>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </>
   );
 }

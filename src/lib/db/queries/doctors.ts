@@ -1,8 +1,33 @@
 import { sql } from "../client";
+import type { ServiceFinalCta } from "../types";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
   return row[`${field}_${l}`] ?? row[`${field}_uk`] ?? null;
+}
+function pickLocalized(v: unknown, l: string): string | undefined {
+  if (!v || typeof v !== "object") return undefined;
+  const obj = v as Record<string, unknown>;
+  const raw = obj[l] ?? obj.uk;
+  if (typeof raw !== "string") return undefined;
+  const trimmed = raw.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+function resolveFinalCta(raw: unknown, l: string): ServiceFinalCta {
+  if (!raw || typeof raw !== "object") {
+    return { bgType: null, bgColor: null, bgImage: null, bgFocalPoint: null, heading: null, subtitle: null, buttonText: null };
+  }
+  const src = raw as Record<string, unknown>;
+  const bgType = src.bgType === "color" || src.bgType === "image" ? src.bgType : null;
+  return {
+    bgType,
+    bgColor: typeof src.bgColor === "string" && src.bgColor.trim() ? src.bgColor.trim() : null,
+    bgImage: typeof src.bgImage === "string" && src.bgImage.trim() ? src.bgImage.trim() : null,
+    bgFocalPoint: typeof src.bgFocalPoint === "string" && src.bgFocalPoint.trim() ? src.bgFocalPoint.trim() : null,
+    heading: pickLocalized(src.heading, l) ?? null,
+    subtitle: pickLocalized(src.subtitle, l) ?? null,
+    buttonText: pickLocalized(src.buttonText, l) ?? null,
+  };
 }
 
 export interface EducationEntry {
@@ -33,6 +58,7 @@ export interface DoctorProfileData {
   services: { slug: string; categorySlug: string; title: string }[];
   seoTitle: string | null;
   seoDescription: string | null;
+  finalCta: ServiceFinalCta;
 }
 
 export async function getDoctorBySlug(locale: string, slug: string): Promise<DoctorProfileData | null> {
@@ -82,6 +108,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
     })),
     seoTitle: pick(r, "seo_title", l),
     seoDescription: pick(r, "seo_desc", l),
+    finalCta: resolveFinalCta(r.final_cta, l),
   };
 }
 
