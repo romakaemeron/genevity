@@ -79,7 +79,11 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
     ORDER BY sd.sort_order
   `,
     sql`
-    SELECT id, reviewer_name, procedure_tag, rating, review_text, reviewed_at::text AS reviewed_at
+    SELECT id, reviewer_name,
+      procedure_tag, procedure_tag_ru, procedure_tag_en,
+      rating,
+      review_text, review_text_ru, review_text_en,
+      reviewed_at::text AS reviewed_at
     FROM doctor_reviews
     WHERE doctor_id = ${r.id} AND is_published = true
     ORDER BY sort_order, reviewed_at DESC
@@ -112,14 +116,21 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
       title: c[`title_${l}` as keyof CertEntry] as string || c.title_uk,
       issuer: c[`issuer_${l}` as keyof CertEntry] as string | undefined || c.issuer_uk,
     })),
-    reviews: reviewRows.map((rv) => ({
-      _id: rv.id as string,
-      reviewerName: rv.reviewer_name as string,
-      procedureTag: rv.procedure_tag as string | null,
-      rating: rv.rating as number,
-      reviewText: rv.review_text as string,
-      reviewedAt: rv.reviewed_at as string,
-    })),
+    reviews: reviewRows.map((rv) => {
+      const pick = (uk: unknown, ru: unknown, en: unknown) => {
+        if (l === "ru") return (ru as string) || (uk as string) || "";
+        if (l === "en") return (en as string) || (uk as string) || "";
+        return (uk as string) || "";
+      };
+      return {
+        _id: rv.id as string,
+        reviewerName: rv.reviewer_name as string,
+        procedureTag: pick(rv.procedure_tag, rv.procedure_tag_ru, rv.procedure_tag_en) || null,
+        rating: rv.rating as number,
+        reviewText: pick(rv.review_text, rv.review_text_ru, rv.review_text_en),
+        reviewedAt: rv.reviewed_at as string,
+      };
+    }),
     services: serviceRows.map((s) => ({
       slug: s.slug,
       categorySlug: s.category_slug as string,

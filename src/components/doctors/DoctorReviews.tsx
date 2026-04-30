@@ -12,9 +12,9 @@ interface Props {
 }
 
 const L = {
-  uk: { title: "Відгуки пацієнтів", write: "Поділитися враженням", verified: "Перевірений пацієнт" },
-  ru: { title: "Отзывы пациентов", write: "Оставить отзыв", verified: "Проверенный пациент" },
-  en: { title: "Patient Reviews", write: "Share Your Experience", verified: "Verified patient" },
+  uk: { title: "Відгуки пацієнтів", write: "Поділитися враженням" },
+  ru: { title: "Отзывы пациентов", write: "Оставить отзыв" },
+  en: { title: "Patient Reviews", write: "Share Your Experience" },
 };
 const l = (locale: string) => L[locale as keyof typeof L] ?? L.uk;
 
@@ -62,12 +62,6 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="body-strong text-black text-sm leading-none">{reviewerName}</span>
-            <span className="inline-flex items-center gap-1 text-[10px] text-main bg-main/8 px-1.5 py-0.5 rounded-full leading-none">
-              <svg width="9" height="9" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
-                <path d="M10.3 3.3L5 8.6 1.7 5.3l-.9.9L5 10.4l6.2-6.2-.9-.9z" />
-              </svg>
-              {l(locale).verified}
-            </span>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             {procedureTag && (
