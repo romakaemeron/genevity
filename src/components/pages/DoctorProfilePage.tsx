@@ -137,7 +137,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
                     <ul className="flex flex-col gap-5">
                       {doctor.education.map((e, i) => (
                         <li key={i} className="flex gap-4">
-                          <div className="mt-[0.35em] w-2 h-2 rounded-full bg-main shrink-0" />
+                          <div className="mt-2 w-2 h-2 rounded-full bg-main shrink-0" />
                           <div>
                             <p className="body-strong text-black">{e.institution}</p>
                             <p className="body-m text-black-60 mt-0.5">{e.degree}</p>
