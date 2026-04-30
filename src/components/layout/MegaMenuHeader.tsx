@@ -181,7 +181,7 @@ export default function MegaMenuHeader({
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-6 lg:gap-4 xl:gap-8">
+          <div className="hidden lg:flex items-center gap-6 lg:gap-3 xl:gap-6">
             {navTop.map((item) => {
               const hasMega = !!item.mega;
               const isActive = activeMega === item.key;
@@ -221,7 +221,7 @@ export default function MegaMenuHeader({
             })}
           </div>
 
-          <div className={`hidden lg:flex items-center gap-4 shrink-0 ${navTextClass}`}>
+          <div className={`hidden lg:flex items-center gap-4 lg:gap-2 xl:gap-3 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
             <SearchTrigger onOpen={() => setSearchOpen(true)} variant={isLightText ? "outline-light" : "ghost"} />
             <BookingCTA ctaKey="megamenu" variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>

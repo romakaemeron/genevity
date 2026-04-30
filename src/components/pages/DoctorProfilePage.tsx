@@ -60,15 +60,15 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
             {/* Left: text */}
             <motion.div variants={stagger} initial="initial" animate="animate" className="flex flex-col gap-6">
               <motion.div variants={fade}>
-                <p className="body-s text-main font-medium uppercase tracking-wider mb-3">{doctor.role}</p>
                 <h1 className="heading-1 text-black">{doctor.name}</h1>
+                <p className="body-s text-main font-medium uppercase tracking-wider mt-3">{doctor.role}</p>
               </motion.div>
 
               {doctor.experience && (
                 <motion.div variants={fade}>
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-main/10 text-main body-s font-medium">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-                    {doctor.experience}
+                    <span>{tLabels("experience")}:&nbsp;{doctor.experience}</span>
                   </div>
                 </motion.div>
               )}
