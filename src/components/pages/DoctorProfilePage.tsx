@@ -125,7 +125,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-champagne-dark rounded-3xl p-8 lg:p-10"
+              className="bg-champagne-dark rounded-3xl p-4 md:p-6 lg:p-8 xl:p-10"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
                 {hasEducation && (
@@ -137,7 +137,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
                     <ul className="flex flex-col gap-5">
                       {doctor.education.map((e, i) => (
                         <li key={i} className="flex gap-4">
-                          <div className="mt-1 w-2 h-2 rounded-full bg-main shrink-0" />
+                          <div className="mt-[0.35em] w-2 h-2 rounded-full bg-main shrink-0" />
                           <div>
                             <p className="body-strong text-black">{e.institution}</p>
                             <p className="body-m text-black-60 mt-0.5">{e.degree}</p>
@@ -158,7 +158,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
                     <ul className="flex flex-col gap-4">
                       {doctor.certifications.map((c, i) => (
                         <li key={i} className="flex gap-4">
-                          <div className="mt-1 w-2 h-2 rounded-full bg-rosegold shrink-0" />
+                          <div className="mt-[0.35em] w-2 h-2 rounded-full bg-rosegold shrink-0" />
                           <div>
                             <p className="body-m text-black">{c.title}</p>
                             {c.issuer && <p className="body-s text-black-50 mt-0.5">{c.issuer}</p>}
