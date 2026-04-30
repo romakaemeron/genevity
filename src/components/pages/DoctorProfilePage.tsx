@@ -199,7 +199,14 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
       )}
 
       {/* Reviews */}
-      <DoctorReviews reviews={doctor.reviews} locale={locale} doctorSlug={doctor.slug} />
+      <DoctorReviews
+        reviews={doctor.reviews}
+        locale={locale}
+        doctorSlug={doctor.slug}
+        doctorId={doctor._id}
+        doctorName={doctor.name}
+        services={doctor.services.map((s) => ({ slug: s.slug, title: s.title }))}
+      />
 
       {/* Final CTA block */}
       {(() => {

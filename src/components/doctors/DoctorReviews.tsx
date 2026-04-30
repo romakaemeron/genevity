@@ -1,17 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+const ReviewFormModal = dynamic(() => import("./ReviewFormModal"), { ssr: false });
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
-import BookingCTA from "@/components/ui/BookingCTA";
 import type { DoctorReview } from "@/lib/db/types";
 
 interface Props {
   reviews: DoctorReview[];
   locale: string;
   doctorSlug: string;
+  doctorId: string;
+  doctorName: string;
+  services: { slug: string; title: string }[];
 }
 
 const L = {
@@ -75,11 +79,10 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
   );
 }
 
-export default function DoctorReviews({ reviews, locale, doctorSlug }: Props) {
-  if (!reviews.length) return null;
-
+export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, doctorName, services }: Props) {
   const labels = l(locale);
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [hasOverflow, setHasOverflow] = useState(false);
@@ -142,30 +145,41 @@ export default function DoctorReviews({ reviews, locale, doctorSlug }: Props) {
                 <ChevronRight size={16} />
               </Button>
             </div>
-            <BookingCTA
-              ctaKey="writeReview"
-              variant="secondary"
-              size="sm"
-              initialInterest={`review:${doctorSlug}`}
+            <button
+              type="button"
+              onClick={() => setModalOpen(true)}
+              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-[var(--radius-pill)] border border-main/25 text-main body-s hover:bg-main hover:text-champagne hover:border-main transition-colors cursor-pointer"
             >
               {labels.write}
-            </BookingCTA>
+            </button>
           </div>
         </motion.div>
       </motion.div>
 
       {/* Scrollable cards */}
-      <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
-        {reviews.map((review) => (
-          <div
-            key={review._id}
-            className="shrink-0"
-            style={{ width: "min(320px, 80vw)", scrollSnapAlign: "start" }}
-          >
-            <ReviewCard review={review} locale={locale} />
-          </div>
-        ))}
-      </div>
+      {reviews.length > 0 && (
+        <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
+          {reviews.map((review) => (
+            <div
+              key={review._id}
+              className="shrink-0"
+              style={{ width: "min(320px, 80vw)", scrollSnapAlign: "start" }}
+            >
+              <ReviewCard review={review} locale={locale} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {modalOpen && (
+        <ReviewFormModal
+          doctorId={doctorId}
+          doctorName={doctorName}
+          locale={locale}
+          services={services}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
     </section>
   );
 }

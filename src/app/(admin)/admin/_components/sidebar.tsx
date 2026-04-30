@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, FileText, Stethoscope, Cpu,
   StickyNote, MessageSquare, Image as ImageIcon, Settings, LogOut,
-  BookOpen, DollarSign, Users, ScrollText, ShieldCheck,
+  BookOpen, DollarSign, Users, ScrollText, ShieldCheck, Star,
 } from "lucide-react";
 import { logout } from "../_actions/auth";
 import Button from "@/components/ui/Button";
@@ -43,6 +43,7 @@ const navItems: NavItem[] = [
   { href: "/admin/settings", label: "General Content", icon: Settings, minRole: "marketing" },
   { divider: true, label: "OPERATIONS", minRole: "support" },
   { href: "/admin/forms", label: "Forms", icon: MessageSquare, countKey: "forms", minRole: "support" },
+  { href: "/admin/reviews", label: "Reviews", icon: Star, countKey: "reviews", minRole: "support" },
   { href: "/admin/media", label: "Media", icon: ImageIcon, minRole: "marketing" },
 ];
 

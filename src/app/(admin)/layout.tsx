@@ -20,7 +20,8 @@ async function getCounts() {
         (SELECT count(*) FROM services) AS services,
         (SELECT count(*) FROM doctors) AS doctors,
         (SELECT count(*) FROM equipment) AS equipment,
-        (SELECT count(*) FROM form_submissions WHERE status = 'new') AS forms
+        (SELECT count(*) FROM form_submissions WHERE status = 'new') AS forms,
+        (SELECT count(*) FROM doctor_reviews WHERE is_published = false) AS reviews
     `;
     const r = rows[0];
     return {
@@ -28,9 +29,10 @@ async function getCounts() {
       doctors: Number(r.doctors),
       equipment: Number(r.equipment),
       forms: Number(r.forms),
+      reviews: Number(r.reviews),
     };
   } catch {
-    return { services: 0, doctors: 0, equipment: 0, forms: 0 };
+    return { services: 0, doctors: 0, equipment: 0, forms: 0, reviews: 0 };
   }
 }
 
