@@ -58,7 +58,7 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
             <h1 className="heading-1 text-black mt-6">{tPage("heroTitle")}</h1>
             <p className="body-l text-muted mt-4 max-w-2xl">{tPage("heroSubtitle")}</p>
             {pricelistPdf && (
-              <a href={pricelistPdf} download="Genevity_Price_Catalog.pdf" className="mt-6 inline-block">
+              <a href="/api/download-pricelist" className="mt-6 inline-block">
                 <Button variant="primary" size="sm">
                   <Download size={16} />
                   {DOWNLOAD_LABEL[locale] ?? DOWNLOAD_LABEL.uk}
