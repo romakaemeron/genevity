@@ -57,6 +57,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
           </motion.div>
 
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 lg:gap-16 items-start">
+            {/* Left: text */}
             <motion.div variants={stagger} initial="initial" animate="animate" className="flex flex-col gap-6">
               <motion.div variants={fade}>
                 <p className="body-s text-main font-medium uppercase tracking-wider mb-3">{doctor.role}</p>
@@ -64,8 +65,8 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
               </motion.div>
 
               {doctor.experience && (
-                <motion.div variants={fade} className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-main/10 text-main body-s font-medium">
+                <motion.div variants={fade}>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-main/10 text-main body-s font-medium">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
                     {doctor.experience}
                   </div>
@@ -89,83 +90,96 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
               )}
             </motion.div>
 
+            {/* Right: photo + CTA */}
             {photo && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-champagne-dark shadow-lg lg:sticky lg:top-28 order-first lg:order-last"
+                className="flex flex-col gap-5 lg:sticky lg:top-28 order-first lg:order-last"
               >
-                <Image src={photo} alt={doctor.name} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 340px" priority />
+                <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-champagne-dark shadow-lg">
+                  <Image src={photo} alt={doctor.name} fill className="object-cover" style={{ objectPosition: doctor.profileFocalPoint }} sizes="(max-width: 1024px) 100vw, 340px" priority />
+                </div>
+                <BookingCTA ctaKey="doctorProfile" variant="primary" size="md">
+                  {tLabels("bookConsultation")}
+                </BookingCTA>
               </motion.div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Education & Certifications */}
+      {/* Education & Certifications — contained card block */}
       {(hasEducation || hasCerts) && (
-        <section className="bg-white py-16 lg:py-20">
+        <section className="bg-champagne py-12 lg:py-16">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-
-              {hasEducation && (
-                <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 rounded-full bg-main/10 text-main flex items-center justify-center shrink-0"><GraduationIcon /></div>
-                    <h2 className="heading-3 text-black">{locale === "ru" ? "Образование" : locale === "en" ? "Education" : "Освіта"}</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-champagne-dark rounded-3xl p-8 lg:p-10"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+                {hasEducation && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-8 h-8 rounded-full bg-main/10 text-main flex items-center justify-center shrink-0"><GraduationIcon /></div>
+                      <h2 className="heading-3 text-black">{locale === "ru" ? "Образование" : locale === "en" ? "Education" : "Освіта"}</h2>
+                    </div>
+                    <ul className="flex flex-col gap-5">
+                      {doctor.education.map((e, i) => (
+                        <li key={i} className="flex gap-4">
+                          <div className="mt-1 w-2 h-2 rounded-full bg-main shrink-0" />
+                          <div>
+                            <p className="body-strong text-black">{e.institution}</p>
+                            <p className="body-m text-black-60 mt-0.5">{e.degree}</p>
+                            {e.year && <p className="body-s text-black-40 mt-0.5">{e.year}</p>}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="flex flex-col gap-5">
-                    {doctor.education.map((e, i) => (
-                      <li key={i} className="flex gap-4">
-                        <div className="mt-1 w-2 h-2 rounded-full bg-main shrink-0" />
-                        <div>
-                          <p className="body-strong text-black">{e.institution}</p>
-                          <p className="body-m text-black-60 mt-0.5">{e.degree}</p>
-                          {e.year && <p className="body-s text-black-40 mt-0.5">{e.year}</p>}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
+                )}
 
-              {hasCerts && (
-                <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 rounded-full bg-main/10 text-main flex items-center justify-center shrink-0"><BadgeIcon /></div>
-                    <h2 className="heading-3 text-black">{locale === "ru" ? "Сертификаты и обучение" : locale === "en" ? "Certifications & Training" : "Сертифікати та навчання"}</h2>
+                {hasCerts && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-8 h-8 rounded-full bg-main/10 text-main flex items-center justify-center shrink-0"><BadgeIcon /></div>
+                      <h2 className="heading-3 text-black">{locale === "ru" ? "Сертификаты и обучение" : locale === "en" ? "Certifications & Training" : "Сертифікати та навчання"}</h2>
+                    </div>
+                    <ul className="flex flex-col gap-4">
+                      {doctor.certifications.map((c, i) => (
+                        <li key={i} className="flex gap-4">
+                          <div className="mt-1 w-2 h-2 rounded-full bg-rosegold shrink-0" />
+                          <div>
+                            <p className="body-m text-black">{c.title}</p>
+                            {c.issuer && <p className="body-s text-black-50 mt-0.5">{c.issuer}</p>}
+                            {c.year && <p className="body-s text-black-40">{c.year}</p>}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="flex flex-col gap-4">
-                    {doctor.certifications.map((c, i) => (
-                      <li key={i} className="flex gap-4">
-                        <div className="mt-1 w-2 h-2 rounded-full bg-rosegold shrink-0" />
-                        <div>
-                          <p className="body-m text-black">{c.title}</p>
-                          {c.issuer && <p className="body-s text-black-50 mt-0.5">{c.issuer}</p>}
-                          {c.year && <p className="body-s text-black-40">{c.year}</p>}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
-            </div>
+                )}
+              </div>
+            </motion.div>
           </div>
         </section>
       )}
 
       {/* Services */}
       {hasServices && (
-        <section className="bg-champagne py-16 lg:py-20">
+        <section className="bg-champagne py-12 lg:py-16">
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-            <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="heading-2 text-black mb-10">
+            <motion.h2 initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="heading-2 text-black mb-8">
               {locale === "ru" ? "Процедуры и услуги" : locale === "en" ? "Procedures & Services" : "Процедури та послуги"}
             </motion.h2>
             <motion.ul variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {doctor.services.map((svc) => (
                 <motion.li key={svc.slug} variants={fade}>
-                  <Link href={`/services/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-white border border-black-10 hover:border-main/40 hover:shadow-sm transition-all">
+                  <Link href={`/services/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark border border-black-10 hover:border-main/40 hover:bg-white hover:shadow-sm transition-all">
                     <span className="body-m text-black group-hover:text-main transition-colors">{svc.title}</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0 text-black-30 group-hover:text-main transition-colors">
                       <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -178,7 +192,14 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
         </section>
       )}
 
-      <BookingCTA ctaKey="doctorProfile" variant="secondary" size="lg">{tLabels("bookConsultation")}</BookingCTA>
+      {/* Bottom CTA section */}
+      <section className="bg-champagne py-12 lg:py-16">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
+          <BookingCTA ctaKey="doctorProfile" variant="secondary" size="lg">
+            {tLabels("bookConsultation")}
+          </BookingCTA>
+        </div>
+      </section>
     </>
   );
 }

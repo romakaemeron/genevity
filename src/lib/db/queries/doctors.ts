@@ -27,6 +27,7 @@ export interface DoctorProfileData {
   photoCard: string | null;
   photoFull: string | null;
   photoCircle: string | null;
+  profileFocalPoint: string;
   education: (EducationEntry & { institution: string; degree: string })[];
   certifications: (CertEntry & { title: string; issuer?: string })[];
   services: { slug: string; title: string }[];
@@ -62,6 +63,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
     photoCard: r.photo_card || null,
     photoFull: r.photo_full || null,
     photoCircle: r.photo_circle || null,
+    profileFocalPoint: (r.profile_focal_point as string) || "center top",
     education: edu.map((e) => ({
       ...e,
       institution: e[`institution_${l}` as keyof EducationEntry] as string || e.institution_uk,

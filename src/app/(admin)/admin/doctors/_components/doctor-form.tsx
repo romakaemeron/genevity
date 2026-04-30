@@ -28,6 +28,7 @@ interface Doctor {
   modal_position?: string | null;
   circle_focal_point?: string | null;
   circle_scale?: number | string | null;
+  profile_focal_point?: string | null;
   sort_order: number;
 }
 
@@ -46,6 +47,8 @@ export default function DoctorForm({ doctor }: Props) {
   // Mirror focal-point positions so the small thumbnail reflects live edits
   const [cardPos, setCardPos] = useState(doctor?.card_position || "center center");
   const [modalPos, setModalPos] = useState(doctor?.modal_position || doctor?.card_position || "center center");
+  const initialProfilePos = doctor?.profile_focal_point || "center top";
+  const [profilePos, setProfilePos] = useState(initialProfilePos);
   const initialCirclePos = doctor?.circle_focal_point || doctor?.card_position || "center center";
   const initialCircleScaleRaw = doctor?.circle_scale;
   const initialCircleScale = typeof initialCircleScaleRaw === "string"
@@ -65,6 +68,7 @@ export default function DoctorForm({ doctor }: Props) {
   const controlledDirty =
     cardPos !== initialCardPos ||
     modalPos !== initialModalPos ||
+    profilePos !== initialProfilePos ||
     circlePos !== initialCirclePos ||
     Math.abs(circleScale - (Number.isFinite(initialCircleScale) ? initialCircleScale : 1)) > 1e-3 ||
     cardUrl !== (doctor?.photo_card ?? null) ||
@@ -150,6 +154,26 @@ export default function DoctorForm({ doctor }: Props) {
               onPositionChange={setModalPos}
             />
           </div>
+        </div>
+
+        {/* ── Profile page photo focal point (3:4 portrait) ── */}
+        <div className="mb-6 p-5 rounded-2xl bg-champagne-dark flex flex-col gap-3">
+          <div>
+            <h3 className="font-heading text-base text-ink">Profile page focal point (3:4 portrait)</h3>
+            <p className="text-xs text-muted mt-0.5 max-w-xl">
+              Controls cropping on the individual doctor profile page <code className="font-mono">/doctors/[slug]</code>.
+              Uses the <strong>Modal photo</strong> (or Card photo as fallback) displayed at 3:4 aspect ratio.
+            </p>
+          </div>
+          <PhotoPositionEditor
+            name="profile_focal_point"
+            label="Profile photo focal point (3:4)"
+            photoUrl={fullUrl || cardUrl}
+            defaultValue={doctor?.profile_focal_point || "center top"}
+            aspect="portrait"
+            alt={doctor?.name_uk}
+            onPositionChange={setProfilePos}
+          />
         </div>
 
         {/* ── Booking-modal circle thumbnail ── */}
