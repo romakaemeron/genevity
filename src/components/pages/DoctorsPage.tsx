@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { fadeInUp, viewportConfig } from "@/lib/motion";
@@ -9,8 +9,8 @@ import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import DoctorCard from "@/components/doctors/DoctorCard";
-import DoctorModalContent from "@/components/doctors/DoctorModal";
-import Modal from "@/components/ui/Modal";
+// import DoctorModalContent from "@/components/doctors/DoctorModal";
+// import Modal from "@/components/ui/Modal";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 interface Props {
@@ -31,9 +31,7 @@ const categories = [
 ];
 
 export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detailsLabel }: Props) {
-  const [expandedDoctor, setExpandedDoctor] = useState<number | null>(null);
   const [activeFilter, setActiveFilter] = useState("all");
-  const closeModal = useCallback(() => setExpandedDoctor(null), []);
   const tLabels = useTranslations("labels");
   const tDocPage = useTranslations("doctorsPage");
 
@@ -118,7 +116,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
                 <DoctorCard
                   doctor={doctor}
                   detailsLabel={detailsLabel}
-                  onClick={() => setExpandedDoctor(doctors.indexOf(doctor))}
+                  onClick={() => {}}
                 />
               </div>
             ))}
@@ -137,7 +135,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
         </div>
       </div>
 
-      {/* Doctor Modal */}
+      {/* Doctor Modal — commented out, cards now navigate to /doctors/[slug]
       <AnimatePresence>
         {expandedDoctor !== null && (
           <Modal open onClose={closeModal}>
@@ -149,6 +147,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
           </Modal>
         )}
       </AnimatePresence>
+      */}
     </>
   );
 }

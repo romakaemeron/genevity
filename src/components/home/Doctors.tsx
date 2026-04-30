@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
-import Modal from "@/components/ui/Modal";
+// import Modal from "@/components/ui/Modal";
+// import DoctorModalContent from "@/components/doctors/DoctorModal";
 import DoctorCard from "@/components/doctors/DoctorCard";
-import DoctorModalContent from "@/components/doctors/DoctorModal";
 import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorsProps {
@@ -26,10 +26,6 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [hasOverflow, setHasOverflow] = useState(false);
-  const [expandedDoctor, setExpandedDoctor] = useState<number | null>(null);
-
-  const closeModal = useCallback(() => setExpandedDoctor(null), []);
-
   const updateScrollState = useCallback(() => {
     const el = scrollerRef.current;
     if (!el) return;
@@ -119,12 +115,12 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
             className="shrink-0"
             style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}
           >
-            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => setExpandedDoctor(i)} />
+            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} />
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Doctor Modal */}
+      {/* Doctor Modal — commented out, cards now navigate to /doctors/[slug]
       <AnimatePresence>
         {expandedDoctor !== null && (
           <Modal open onClose={closeModal}>
@@ -136,6 +132,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
           </Modal>
         )}
       </AnimatePresence>
+      */}
     </section>
   );
 }
