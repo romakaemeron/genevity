@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getDoctorBySlug, getAllDoctorSlugs } from "@/lib/db/queries";
+import { getDoctorBySlug } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
@@ -7,11 +7,6 @@ import DoctorProfilePage from "@/components/pages/DoctorProfilePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 export const revalidate = 60;
-
-export async function generateStaticParams() {
-  const slugs = await getAllDoctorSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata({
   params,
