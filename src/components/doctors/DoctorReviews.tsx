@@ -1,7 +1,10 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Button from "@/components/ui/Button";
 import BookingCTA from "@/components/ui/BookingCTA";
 import type { DoctorReview } from "@/lib/db/types";
 
@@ -39,10 +42,7 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
   );
 
   return (
-    <motion.article
-      variants={fadeInUp}
-      className="bg-white rounded-[var(--radius-card)] p-6 flex flex-col gap-4 shadow-[0_2px_12px_rgba(45,45,45,0.06)]"
-    >
+    <div className="bg-white rounded-[var(--radius-card)] p-6 flex flex-col gap-4 h-full shadow-[0_2px_12px_rgba(45,45,45,0.06)]">
       {/* Quote + stars */}
       <div className="flex items-start justify-between gap-3">
         <svg width="24" height="18" viewBox="0 0 24 18" aria-hidden="true" className="text-rosegold shrink-0 mt-0.5 opacity-60">
@@ -60,9 +60,7 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
           {initial}
         </div>
         <div className="flex flex-col gap-1 min-w-0">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="body-strong text-black text-sm leading-none">{reviewerName}</span>
-          </div>
+          <span className="body-strong text-black text-sm leading-none">{reviewerName}</span>
           <div className="flex items-center gap-2 flex-wrap">
             {procedureTag && (
               <span className="text-[11px] px-2 py-0.5 rounded-full bg-champagne border border-champagne-darker text-black-50">
@@ -73,51 +71,101 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
           </div>
         </div>
       </div>
-    </motion.article>
+    </div>
   );
 }
 
 export default function DoctorReviews({ reviews, locale, doctorSlug }: Props) {
   if (!reviews.length) return null;
+
   const labels = l(locale);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [hasOverflow, setHasOverflow] = useState(false);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+    setHasOverflow(el.scrollWidth > el.clientWidth + 4);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cards = Array.from(el.children) as HTMLElement[];
+    if (!cards.length) return;
+    const scrollPad = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
+    const currentScroll = el.scrollLeft;
+    let currentIdx = 0;
+    let minDist = Infinity;
+    for (let i = 0; i < cards.length; i++) {
+      const dist = Math.abs(cards[i].offsetLeft - scrollPad - currentScroll);
+      if (dist < minDist) { minDist = dist; currentIdx = i; }
+    }
+    const nextIdx = Math.max(0, Math.min(cards.length - 1, currentIdx + (dir === "left" ? -1 : 1)));
+    el.scrollTo({ left: cards[nextIdx].offsetLeft - scrollPad, behavior: "smooth" });
+  };
 
   return (
     <section className="bg-champagne py-12 lg:py-16">
-      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-        >
-          <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-8">
-            {labels.title}
-          </motion.h2>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportConfig}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"
-          >
-            {reviews.map((r) => (
-              <ReviewCard key={r._id} review={r} locale={locale} />
-            ))}
-          </motion.div>
-
-          <motion.div variants={fadeInUp} className="flex justify-center">
+      {/* Header: title + write review button + arrows */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportConfig}
+        className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-8"
+      >
+        <motion.div variants={fadeInUp} className="flex items-center justify-between gap-4">
+          <h2 className="heading-2 text-black">{labels.title}</h2>
+          <div className="flex items-center gap-2 shrink-0">
+            <div className={`flex gap-2 ${hasOverflow ? "" : "hidden"}`}>
+              <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
+                <ChevronLeft size={18} />
+              </Button>
+              <Button variant="secondary" icon size="sm" onClick={() => scroll("right")} disabled={!canScrollRight}>
+                <ChevronRight size={18} />
+              </Button>
+            </div>
             <BookingCTA
               ctaKey="writeReview"
               variant="secondary"
-              size="md"
+              size="sm"
               className="bg-transparent border border-main/25 text-main hover:bg-main hover:text-champagne hover:border-main"
               initialInterest={`review:${doctorSlug}`}
             >
               {labels.write} →
             </BookingCTA>
-          </motion.div>
+          </div>
         </motion.div>
+      </motion.div>
+
+      {/* Scrollable cards */}
+      <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
+        {reviews.map((review) => (
+          <div
+            key={review._id}
+            className="shrink-0"
+            style={{ width: "min(320px, 80vw)", scrollSnapAlign: "start" }}
+          >
+            <ReviewCard review={review} locale={locale} />
+          </div>
+        ))}
       </div>
     </section>
   );
