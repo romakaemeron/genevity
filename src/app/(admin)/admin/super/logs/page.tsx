@@ -127,6 +127,51 @@ function changeSummary(
   return { text: labels.join(", ") + suffix, hasTrackedChanges: true };
 }
 
+// ── Word-level diff ───────────────────────────────────────────────────────────
+function wordDiff(a: string, b: string): Array<{ text: string; op: "keep" | "del" | "ins" }> {
+  const at = a.split(/(\s+)/);
+  const bt = b.split(/(\s+)/);
+  const m = at.length, n = bt.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = at[i-1] === bt[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
+  const ops: Array<{ text: string; op: "keep" | "del" | "ins" }> = [];
+  let i = m, j = n;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && at[i-1] === bt[j-1]) { ops.unshift({ text: at[i-1], op: "keep" }); i--; j--; }
+    else if (j > 0 && (i === 0 || dp[i][j-1] >= dp[i-1][j])) { ops.unshift({ text: bt[j-1], op: "ins" }); j--; }
+    else { ops.unshift({ text: at[i-1], op: "del" }); i--; }
+  }
+  return ops;
+}
+
+function DiffText({ before, after }: { before: string; after: string }) {
+  const ops = wordDiff(before, after);
+  const bParts = ops.filter(o => o.op !== "ins");
+  const aParts = ops.filter(o => o.op !== "del");
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+      <div className="px-3 py-2.5 rounded-lg bg-red-50 border border-red-200 text-xs leading-relaxed break-words whitespace-pre-wrap">
+        <span className="block text-[10px] font-semibold uppercase tracking-wider text-red-400 mb-1.5">Було</span>
+        {bParts.map((p, idx) =>
+          p.op === "del"
+            ? <mark key={idx} className="bg-red-200/80 text-red-700 rounded-sm px-0.5 not-italic">{p.text}</mark>
+            : <span key={idx} className="text-red-700/80">{p.text}</span>
+        )}
+      </div>
+      <div className="px-3 py-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs leading-relaxed break-words whitespace-pre-wrap">
+        <span className="block text-[10px] font-semibold uppercase tracking-wider text-emerald-500 mb-1.5">Стало</span>
+        {aParts.map((p, idx) =>
+          p.op === "ins"
+            ? <mark key={idx} className="bg-emerald-200/80 text-emerald-700 rounded-sm px-0.5 not-italic">{p.text}</mark>
+            : <span key={idx} className="text-emerald-700/80">{p.text}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Diff views ───────────────────────────────────────────────────────────────
 const SECTION_TYPE_LABELS: Record<string, string> = {
   text_block: "Текст", image_text: "Зображення + Текст", gallery: "Галерея",
@@ -190,16 +235,7 @@ function ArrayDiff({ beforeArr, afterArr, label }: { beforeArr: any[]; afterArr:
                   return (
                     <div key={k} className="flex flex-col gap-1">
                       <span className="text-[10px] font-semibold text-muted uppercase tracking-wider">{fl(k)}</span>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
-                        <div className="px-2 py-1.5 rounded bg-red-50 border border-red-200 text-red-600 text-xs break-words">
-                          <span className="block text-[9px] text-red-400 uppercase mb-0.5">Було</span>
-                          {tv(pf[k] ?? "—", 120)}
-                        </div>
-                        <div className="px-2 py-1.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs break-words">
-                          <span className="block text-[9px] text-emerald-500 uppercase mb-0.5">Стало</span>
-                          {tv(nf[k] ?? "—", 120)}
-                        </div>
-                      </div>
+                      <DiffText before={pf[k] ?? ""} after={nf[k] ?? ""} />
                     </div>
                   );
                 })}
@@ -280,16 +316,7 @@ function DiffView({ before, after }: { before: Record<string, unknown> | null; a
         {changed.map(k => (
           <div key={k} className="flex flex-col gap-1.5">
             <span className="text-[11px] font-semibold text-muted uppercase tracking-wider">{fl(k)}</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-              <div className="px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs break-words">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-red-400 block mb-1">Було</span>
-                {tv((before as any)[k])}
-              </div>
-              <div className="px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs break-words">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-500 block mb-1">Стало</span>
-                {tv((after as any)[k])}
-              </div>
-            </div>
+            <DiffText before={String((before as any)[k] ?? "")} after={String((after as any)[k] ?? "")} />
           </div>
         ))}
       </div>
