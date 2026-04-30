@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { Maximize2, X, Pencil, Check, Minus, Plus } from "lucide-react";
 
 /**
@@ -218,21 +217,17 @@ export default function PhotoPositionEditor({
               onPointerUp={onPointerUp}
               onPointerCancel={onPointerUp}
             >
-              {/* Zoom wrapper */}
-              <div
-                className="absolute inset-0"
-                style={scaleName ? { transform: `scale(${scale})`, transformOrigin: posString } : undefined}
-              >
-                <Image
-                  src={photoUrl}
-                  alt={alt}
-                  fill
-                  className="object-cover pointer-events-none"
-                  style={{ objectPosition: posString }}
-                  sizes="400px"
-                  draggable={false}
-                />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photoUrl}
+                alt={alt}
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                style={{
+                  objectPosition: posString,
+                  ...(scaleName ? { transform: `scale(${scale})`, transformOrigin: posString } : {}),
+                }}
+                draggable={false}
+              />
               {/* Focal-point crosshair */}
               <div
                 className="absolute w-8 h-8 rounded-full border-2 border-white pointer-events-none"
