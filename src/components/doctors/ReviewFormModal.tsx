@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Modal from "@/components/ui/Modal";
+import Button from "@/components/ui/Button";
 import { submitPublicReview } from "@/app/(admin)/admin/_actions/reviews";
 
 interface ServiceOption { slug: string; title: string; }
@@ -191,13 +192,9 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
               <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{serverError}</p>
             )}
 
-            <button
-              type="submit"
-              disabled={isPending}
-              className="w-full py-3.5 rounded-[var(--radius-pill)] bg-main text-champagne body-strong hover:bg-main-dark disabled:opacity-60 transition-colors cursor-pointer"
-            >
+            <Button type="submit" variant="primary" size="lg" disabled={isPending} className="w-full">
               {isPending ? labels.submitting : labels.submit}
-            </button>
+            </Button>
           </form>
         </div>
       )}

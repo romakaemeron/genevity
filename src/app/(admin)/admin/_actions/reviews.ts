@@ -36,19 +36,17 @@ export async function submitPublicReview(data: {
     await sql`
       INSERT INTO doctor_reviews
         (doctor_id, reviewer_name,
-         procedure_tag,
-         procedure_tag_ru, procedure_tag_en,
+         procedure_tag, procedure_tag_ru, procedure_tag_en,
          rating,
-         review_text,
-         review_text_uk, review_text_ru, review_text_en,
+         review_text, review_text_ru, review_text_en,
          review_locale, is_published)
       VALUES
         (${doctorId}, ${name},
          ${procedureTag ?? null},
-         ${locale === "ru" ? procedureTag : null}, ${locale === "en" ? procedureTag : null},
+         ${locale === "ru" ? procedureTag : null},
+         ${locale === "en" ? procedureTag : null},
          ${rating},
          ${text},
-         ${locale === "uk" || locale === "ua" ? text : null},
          ${locale === "ru" ? text : null},
          ${locale === "en" ? text : null},
          ${locale}, false)
