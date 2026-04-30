@@ -256,11 +256,13 @@ img::selection {
   flex-flow: row nowrap;
   gap: 20px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: hidden; /* fallback for browsers without clip support */
+  overflow-y: clip;   /* clips without creating a scroll context — lets vertical swipes reach the page */
   scroll-snap-type: x mandatory;
   touch-action: pan-x;
   overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
+  /* -webkit-overflow-scrolling: touch removed — it creates an independent scroll layer
+     on iOS that captures ALL touch events, blocking vertical page scroll inside the area */
   padding-left: 16px;
   padding-right: 16px;
   scroll-padding-left: 16px;
