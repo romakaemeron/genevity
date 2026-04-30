@@ -23,9 +23,9 @@ const l = (locale: string) => L[locale as keyof typeof L] ?? L.uk;
 
 function Stars({ n }: { n: number }) {
   return (
-    <div className="flex items-center gap-0.5" aria-label={`${n} out of 5 stars`}>
+    <div className="flex items-center gap-0.5 text-main" aria-label={`${n} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map((i) => (
-        <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill={i <= n ? "#F59E0B" : "none"} stroke={i <= n ? "#F59E0B" : "#d1c7bb"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill={i <= n ? "currentColor" : "none"} stroke={i <= n ? "currentColor" : "#d1c7bb"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
       ))}
@@ -42,7 +42,7 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
   );
 
   return (
-    <div className="bg-white rounded-[var(--radius-card)] p-6 flex flex-col gap-4 h-full">
+    <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6 flex flex-col gap-4 h-full">
       {/* Quote + stars */}
       <div className="flex items-start justify-between gap-3">
         <svg width="24" height="18" viewBox="0 0 24 18" aria-hidden="true" className="text-rosegold shrink-0 mt-0.5 opacity-60">
@@ -136,20 +136,19 @@ export default function DoctorReviews({ reviews, locale, doctorSlug }: Props) {
           <div className="flex items-center gap-2 shrink-0">
             <div className={`flex gap-2 ${hasOverflow ? "" : "hidden"}`}>
               <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
-                <ChevronLeft size={18} />
+                <ChevronLeft size={16} />
               </Button>
               <Button variant="secondary" icon size="sm" onClick={() => scroll("right")} disabled={!canScrollRight}>
-                <ChevronRight size={18} />
+                <ChevronRight size={16} />
               </Button>
             </div>
             <BookingCTA
               ctaKey="writeReview"
               variant="secondary"
               size="sm"
-              className="bg-transparent border border-main/25 text-main hover:bg-main hover:text-champagne hover:border-main"
               initialInterest={`review:${doctorSlug}`}
             >
-              {labels.write} →
+              {labels.write}
             </BookingCTA>
           </div>
         </motion.div>
