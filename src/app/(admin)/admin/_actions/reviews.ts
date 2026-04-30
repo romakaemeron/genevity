@@ -18,46 +18,6 @@ export interface ReviewRow {
   reviewLocale: string;
 }
 
-export async function submitPublicReview(data: {
-  doctorId: string;
-  reviewerName: string;
-  rating: number;
-  reviewText: string;
-  procedureTag: string | null;
-  locale: string;
-}): Promise<{ ok: boolean; error?: string }> {
-  const { doctorId, reviewerName, rating, reviewText, procedureTag, locale } = data;
-  if (!reviewerName.trim() || reviewText.trim().length < 10 || rating < 1 || rating > 5) {
-    return { ok: false, error: "Заповніть всі обов'язкові поля" };
-  }
-  try {
-    const text = reviewText.trim();
-    const name = reviewerName.trim();
-    await sql`
-      INSERT INTO doctor_reviews
-        (doctor_id, reviewer_name,
-         procedure_tag, procedure_tag_ru, procedure_tag_en,
-         rating,
-         review_text, review_text_ru, review_text_en,
-         review_locale, is_published)
-      VALUES
-        (${doctorId}, ${name},
-         ${procedureTag ?? null},
-         ${locale === "ru" ? procedureTag : null},
-         ${locale === "en" ? procedureTag : null},
-         ${rating},
-         ${text},
-         ${locale === "ru" ? text : null},
-         ${locale === "en" ? text : null},
-         ${locale}, false)
-    `;
-    revalidatePath("/admin/reviews");
-    return { ok: true };
-  } catch {
-    return { ok: false, error: "Помилка збереження. Спробуйте ще раз." };
-  }
-}
-
 export async function listAllReviews(): Promise<ReviewRow[]> {
   const rows = await sql`
     SELECT

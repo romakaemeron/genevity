@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
-import { submitPublicReview } from "@/app/(admin)/admin/_actions/reviews";
+import { submitPublicReview } from "@/lib/actions/reviews";
 
 interface ServiceOption { slug: string; title: string; }
 
