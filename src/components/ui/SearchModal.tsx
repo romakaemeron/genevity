@@ -325,17 +325,24 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           if (idx !== activeIndex) e.currentTarget.style.backgroundColor = "transparent";
                         }}
                       >
-                        <div
-                          className="shrink-0 flex items-center justify-center"
-                          style={{ width: 32, height: 32, borderRadius: 8, backgroundColor: "#f0ede8" }}
-                        >
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B7B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            {result.type === "service"  && <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>}
-                            {result.type === "category" && <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>}
-                            {result.type === "doctor"   && <><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></>}
-                            {result.type === "page"     && <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></>}
-                          </svg>
-                        </div>
+                        {result.type === "doctor" && result.photo ? (
+                          <div className="shrink-0" style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", backgroundColor: "#f0ede8" }}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={result.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                          </div>
+                        ) : (
+                          <div
+                            className="shrink-0 flex items-center justify-center"
+                            style={{ width: 32, height: 32, borderRadius: result.type === "doctor" ? "50%" : 8, backgroundColor: "#f0ede8" }}
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8B7B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              {result.type === "service"  && <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>}
+                              {result.type === "category" && <><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></>}
+                              {result.type === "doctor"   && <><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></>}
+                              {result.type === "page"     && <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></>}
+                            </svg>
+                          </div>
+                        )}
                         <div className="flex-1 min-w-0">
                           <p className="truncate" style={{ fontSize: 13, fontWeight: 500, color: "#2a2520" }}>
                             <Highlight text={result.title} query={query} />
