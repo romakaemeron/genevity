@@ -12,6 +12,15 @@ export interface EquipmentItem {
   photo: string | null;
 }
 
+export interface DoctorReview {
+  _id: string;
+  reviewerName: string;
+  procedureTag: string | null;
+  rating: number;
+  reviewText: string;
+  reviewedAt: string;
+}
+
 export interface DoctorItem {
   _id: string;
   slug: string | null;

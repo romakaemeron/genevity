@@ -8,6 +8,7 @@ import type { DoctorProfileData } from "@/lib/db/queries";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
+import DoctorReviews from "@/components/doctors/DoctorReviews";
 
 const fade = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const } };
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
@@ -196,6 +197,9 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
           </div>
         </section>
       )}
+
+      {/* Reviews */}
+      <DoctorReviews reviews={doctor.reviews} locale={locale} doctorSlug={doctor.slug} />
 
       {/* Final CTA block */}
       {(() => {

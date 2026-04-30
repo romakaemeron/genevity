@@ -1,0 +1,130 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import BookingCTA from "@/components/ui/BookingCTA";
+import type { DoctorReview } from "@/lib/db/types";
+
+interface Props {
+  reviews: DoctorReview[];
+  locale: string;
+  doctorSlug: string;
+}
+
+const L = {
+  uk: { title: "Відгуки пацієнтів", write: "Поділитися враженням", verified: "Перевірений пацієнт" },
+  ru: { title: "Отзывы пациентов", write: "Оставить отзыв", verified: "Проверенный пациент" },
+  en: { title: "Patient Reviews", write: "Share Your Experience", verified: "Verified patient" },
+};
+const l = (locale: string) => L[locale as keyof typeof L] ?? L.uk;
+
+function Stars({ n }: { n: number }) {
+  return (
+    <div className="flex items-center gap-0.5" aria-label={`${n} out of 5 stars`}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill={i <= n ? "#F59E0B" : "none"} stroke={i <= n ? "#F59E0B" : "#d1c7bb"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }) {
+  const { reviewerName, procedureTag, rating, reviewText, reviewedAt } = review;
+  const initial = reviewerName.charAt(0).toUpperCase();
+  const dateStr = new Date(reviewedAt).toLocaleDateString(
+    locale === "uk" ? "uk-UA" : locale === "ru" ? "ru-RU" : "en-US",
+    { year: "numeric", month: "long" },
+  );
+
+  return (
+    <motion.article
+      variants={fadeInUp}
+      className="bg-white rounded-[var(--radius-card)] p-6 flex flex-col gap-4 shadow-[0_2px_12px_rgba(45,45,45,0.06)]"
+    >
+      {/* Quote + stars */}
+      <div className="flex items-start justify-between gap-3">
+        <svg width="24" height="18" viewBox="0 0 24 18" aria-hidden="true" className="text-rosegold shrink-0 mt-0.5 opacity-60">
+          <path d="M0 18V11C0 4.5 3.5 1 10.5 0L12 2C8 3 5.5 5.5 5 9h5V18H0zM13 18V11C13 4.5 16.5 1 23.5 0L25 2C21 3 18.5 5.5 18 9h5V18H13z" fill="currentColor" />
+        </svg>
+        <Stars n={rating} />
+      </div>
+
+      {/* Text */}
+      <p className="body-m text-black-70 leading-relaxed flex-1">{reviewText}</p>
+
+      {/* Author */}
+      <div className="flex items-center gap-3 pt-3 border-t border-black/[0.06]">
+        <div className="w-9 h-9 rounded-full bg-main/10 text-main flex items-center justify-center font-semibold text-sm shrink-0 select-none">
+          {initial}
+        </div>
+        <div className="flex flex-col gap-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="body-strong text-black text-sm leading-none">{reviewerName}</span>
+            <span className="inline-flex items-center gap-1 text-[10px] text-main bg-main/8 px-1.5 py-0.5 rounded-full leading-none">
+              <svg width="9" height="9" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+                <path d="M10.3 3.3L5 8.6 1.7 5.3l-.9.9L5 10.4l6.2-6.2-.9-.9z" />
+              </svg>
+              {l(locale).verified}
+            </span>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap">
+            {procedureTag && (
+              <span className="text-[11px] px-2 py-0.5 rounded-full bg-champagne border border-champagne-darker text-black-50">
+                {procedureTag}
+              </span>
+            )}
+            <span className="body-s text-black-40">{dateStr}</span>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+export default function DoctorReviews({ reviews, locale, doctorSlug }: Props) {
+  if (!reviews.length) return null;
+  const labels = l(locale);
+
+  return (
+    <section className="bg-champagne py-12 lg:py-16">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+        >
+          <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-8">
+            {labels.title}
+          </motion.h2>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportConfig}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"
+          >
+            {reviews.map((r) => (
+              <ReviewCard key={r._id} review={r} locale={locale} />
+            ))}
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="flex justify-center">
+            <BookingCTA
+              ctaKey="writeReview"
+              variant="secondary"
+              size="md"
+              className="bg-transparent border border-main/25 text-main hover:bg-main hover:text-champagne hover:border-main"
+              initialInterest={`review:${doctorSlug}`}
+            >
+              {labels.write} →
+            </BookingCTA>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

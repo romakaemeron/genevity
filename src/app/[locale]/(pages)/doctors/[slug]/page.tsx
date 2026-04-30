@@ -67,7 +67,32 @@ export default async function DoctorPage({
         name: e.institution_uk,
       })),
     } : {}),
+    ...(doctor.certifications.length > 0 ? {
+      hasCredential: doctor.certifications.map((c) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: c.title_uk,
+        credentialCategory: "certification",
+        ...(c.issuer_uk ? { recognizedBy: { "@type": "Organization", name: c.issuer_uk } } : {}),
+        ...(c.year ? { dateCreated: String(c.year) } : {}),
+      })),
+    } : {}),
     ...(doctor.specialties.length > 0 ? { medicalSpecialty: doctor.specialties } : {}),
+    ...(doctor.reviews.length > 0 ? {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: (doctor.reviews.reduce((s, r) => s + r.rating, 0) / doctor.reviews.length).toFixed(1),
+        ratingCount: doctor.reviews.length,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      review: doctor.reviews.map((r) => ({
+        "@type": "Review",
+        author: { "@type": "Person", name: r.reviewerName },
+        reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
+        reviewBody: r.reviewText,
+        datePublished: r.reviewedAt,
+      })),
+    } : {}),
   };
 
   return (

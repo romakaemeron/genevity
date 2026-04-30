@@ -1,5 +1,5 @@
 import { sql } from "../client";
-import type { ServiceFinalCta } from "../types";
+import type { ServiceFinalCta, DoctorReview } from "../types";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -57,6 +57,7 @@ export interface DoctorProfileData {
   education: (EducationEntry & { institution: string; degree: string })[];
   certifications: (CertEntry & { title: string; issuer?: string })[];
   services: { slug: string; categorySlug: string; title: string }[];
+  reviews: DoctorReview[];
   seoTitle: string | null;
   seoDescription: string | null;
   finalCta: ServiceFinalCta;
@@ -68,14 +69,22 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
   if (!rows.length) return null;
   const r = rows[0];
 
-  const serviceRows = await sql`
+  const [serviceRows, reviewRows] = await Promise.all([
+    sql`
     SELECT s.slug, s.title_uk, s.title_ru, s.title_en, c.slug AS category_slug
     FROM service_doctors sd
     JOIN services s ON s.id = sd.service_id
     JOIN service_categories c ON c.id = s.category_id
     WHERE sd.doctor_id = ${r.id}
     ORDER BY sd.sort_order
-  `;
+  `,
+    sql`
+    SELECT id, reviewer_name, procedure_tag, rating, review_text, reviewed_at::text AS reviewed_at
+    FROM doctor_reviews
+    WHERE doctor_id = ${r.id} AND is_published = true
+    ORDER BY sort_order, reviewed_at DESC
+  `,
+  ]);
 
   const edu: EducationEntry[] = (r.education as EducationEntry[] | null) || [];
   const certs: CertEntry[] = (r.certifications as CertEntry[] | null) || [];
@@ -102,6 +111,14 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
       ...c,
       title: c[`title_${l}` as keyof CertEntry] as string || c.title_uk,
       issuer: c[`issuer_${l}` as keyof CertEntry] as string | undefined || c.issuer_uk,
+    })),
+    reviews: reviewRows.map((rv) => ({
+      _id: rv.id as string,
+      reviewerName: rv.reviewer_name as string,
+      procedureTag: rv.procedure_tag as string | null,
+      rating: rv.rating as number,
+      reviewText: rv.review_text as string,
+      reviewedAt: rv.reviewed_at as string,
     })),
     services: serviceRows.map((s) => ({
       slug: s.slug,
