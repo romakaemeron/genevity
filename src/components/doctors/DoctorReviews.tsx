@@ -42,7 +42,7 @@ function ReviewCard({ review, locale }: { review: DoctorReview; locale: string }
   );
 
   return (
-    <div className="bg-white rounded-[var(--radius-card)] p-6 flex flex-col gap-4 h-full shadow-[0_2px_12px_rgba(45,45,45,0.06)]">
+    <div className="bg-white rounded-[var(--radius-card)] p-6 flex flex-col gap-4 h-full">
       {/* Quote + stars */}
       <div className="flex items-start justify-between gap-3">
         <svg width="24" height="18" viewBox="0 0 24 18" aria-hidden="true" className="text-rosegold shrink-0 mt-0.5 opacity-60">
