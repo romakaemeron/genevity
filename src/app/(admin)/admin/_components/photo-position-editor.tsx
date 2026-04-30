@@ -141,7 +141,7 @@ export default function PhotoPositionEditor({
   }
 
   // Width class for the preview frame and aligned controls
-  const frameWidthClass = maxPreviewClass || "w-full";
+  const frameWidthClass = maxPreviewClass ? `w-full ${maxPreviewClass}` : "w-full";
   const controlsWidthClass = maxPreviewClass ? `${maxPreviewClass} mx-auto w-full` : "w-full";
 
   return (
