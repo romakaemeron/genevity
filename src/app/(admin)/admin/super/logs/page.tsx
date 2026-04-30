@@ -60,6 +60,21 @@ function tv(v: unknown, max = 100): string {
   return s.length > max ? s.slice(0, max) + "…" : s;
 }
 
+// Flatten nested localized objects so { heading: { uk: "X", ru: "Y" } } → { heading_uk: "X", heading_ru: "Y" }
+function flattenData(obj: any, prefix = ""): Record<string, string> {
+  const result: Record<string, string> = {};
+  if (!obj || typeof obj !== "object" || Array.isArray(obj)) return result;
+  for (const [k, v] of Object.entries(obj)) {
+    const key = prefix ? `${prefix}_${k}` : k;
+    if (typeof v === "object" && v !== null && !Array.isArray(v)) {
+      Object.assign(result, flattenData(v, key));
+    } else if (v !== null && v !== undefined) {
+      result[key] = typeof v === "string" ? v : JSON.stringify(v);
+    }
+  }
+  return result;
+}
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString("uk-UA", {
     day: "numeric", month: "short", year: "numeric",
@@ -133,14 +148,15 @@ function ArrayDiff({ beforeArr, afterArr, label }: { beforeArr: any[]; afterArr:
   const prevMap = new Map(beforeArr.map(s => [s.id ?? null, s]));
   const nextMap = new Map(afterArr.map(s => [s.id ?? null, s]));
 
-  const rows: { status: "+" | "−" | "~" | "="; text: string }[] = [];
+  type DiffRow = { status: "+" | "−" | "~" | "="; text: string; prev?: any; next?: any };
+  const rows: DiffRow[] = [];
   for (const item of afterArr) {
     const prev = item.id ? prevMap.get(item.id) : null;
-    if (!prev) rows.push({ status: "+", text: label(item) });
-    else rows.push({ status: JSON.stringify(prev) === JSON.stringify(item) ? "=" : "~", text: label(item) });
+    if (!prev) rows.push({ status: "+", text: label(item), next: item });
+    else rows.push({ status: JSON.stringify(prev) === JSON.stringify(item) ? "=" : "~", text: label(item), prev, next: item });
   }
   for (const item of beforeArr) {
-    if (item.id && !nextMap.has(item.id)) rows.push({ status: "−", text: label(item) });
+    if (item.id && !nextMap.has(item.id)) rows.push({ status: "−", text: label(item), prev: item });
   }
 
   const visible = rows.filter(r => r.status !== "=");
@@ -148,16 +164,50 @@ function ArrayDiff({ beforeArr, afterArr, label }: { beforeArr: any[]; afterArr:
     return <p className="text-xs text-muted italic">{rows.length} елем. — вміст не змінився</p>;
   }
   return (
-    <div className="flex flex-col gap-1">
-      {visible.map((r, i) => (
-        <div key={i} className={`flex gap-2 text-xs rounded px-2 py-1.5 ${
-          r.status === "+" ? "bg-emerald-50 border border-emerald-200" :
-          r.status === "−" ? "bg-red-50 border border-red-200" : "bg-main/6 border border-main/20"
-        }`}>
-          <span className={`font-bold shrink-0 ${r.status === "+" ? "text-emerald-600" : r.status === "−" ? "text-red-500" : "text-main"}`}>{r.status}</span>
-          <span className={r.status === "−" ? "line-through text-red-400" : "text-ink/80"}>{r.text}</span>
-        </div>
-      ))}
+    <div className="flex flex-col gap-2">
+      {visible.map((r, i) => {
+        const changedFields = r.status === "~" && r.prev && r.next
+          ? (() => {
+              const pf = flattenData(r.prev.data ?? {});
+              const nf = flattenData(r.next.data ?? {});
+              return Array.from(new Set([...Object.keys(pf), ...Object.keys(nf)])).filter(k => pf[k] !== nf[k]);
+            })()
+          : [];
+        return (
+          <div key={i}>
+            <div className={`flex gap-2 text-xs rounded px-2 py-1.5 ${
+              r.status === "+" ? "bg-emerald-50 border border-emerald-200" :
+              r.status === "−" ? "bg-red-50 border border-red-200" : "bg-main/6 border border-main/20"
+            }`}>
+              <span className={`font-bold shrink-0 ${r.status === "+" ? "text-emerald-600" : r.status === "−" ? "text-red-500" : "text-main"}`}>{r.status}</span>
+              <span className={r.status === "−" ? "line-through text-red-400" : "text-ink/80"}>{r.text}</span>
+            </div>
+            {changedFields.length > 0 && (
+              <div className="ml-4 mt-1.5 flex flex-col gap-2 border-l-2 border-main/20 pl-3">
+                {changedFields.map(k => {
+                  const pf = flattenData(r.prev.data ?? {});
+                  const nf = flattenData(r.next.data ?? {});
+                  return (
+                    <div key={k} className="flex flex-col gap-1">
+                      <span className="text-[10px] font-semibold text-muted uppercase tracking-wider">{fl(k)}</span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                        <div className="px-2 py-1.5 rounded bg-red-50 border border-red-200 text-red-600 text-xs break-words">
+                          <span className="block text-[9px] text-red-400 uppercase mb-0.5">Було</span>
+                          {tv(pf[k] ?? "—", 120)}
+                        </div>
+                        <div className="px-2 py-1.5 rounded bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs break-words">
+                          <span className="block text-[9px] text-emerald-500 uppercase mb-0.5">Стало</span>
+                          {tv(nf[k] ?? "—", 120)}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      })}
       {rows.filter(r => r.status === "=").length > 0 && (
         <p className="text-[10px] text-muted pl-1">+ {rows.filter(r => r.status === "=").length} без змін</p>
       )}
@@ -207,10 +257,22 @@ function DiffView({ before, after }: { before: Record<string, unknown> | null; a
   if (before && after) {
     const changed = computeChangedFields(before, after);
     if (!changed.length) {
+      const entries = Object.entries(after).filter(([, v]) => v !== null && v !== "" && v !== undefined);
       return (
-        <p className="text-xs text-muted italic">
-          Відстежувані поля не змінились. Могли бути оновлені: фото, фокусна точка, масштаб, SEO або інші поля.
-        </p>
+        <div className="flex flex-col gap-2">
+          <p className="text-[11px] text-muted italic">Текстові поля не змінились — оновлено фото, позиціонування або масштаб.</p>
+          {entries.length > 0 && (
+            <div className="flex flex-col gap-1.5 border-t border-line pt-2 mt-1">
+              <p className="text-[10px] font-semibold text-muted uppercase tracking-wider mb-0.5">Поточний стан</p>
+              {entries.map(([k, v]) => (
+                <div key={k} className="grid grid-cols-[180px_1fr] gap-2 text-xs">
+                  <span className="text-muted shrink-0">{fl(k)}</span>
+                  <span className="text-ink/70 break-words">{tv(v)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       );
     }
     return (
