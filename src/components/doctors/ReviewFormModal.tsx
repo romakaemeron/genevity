@@ -192,7 +192,7 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
               <p className="text-sm text-red-500 bg-red-50 rounded-xl px-4 py-3">{serverError}</p>
             )}
 
-            <Button type="submit" variant="primary" size="lg" disabled={isPending} className="w-full">
+            <Button type="submit" variant="primary" size="md" disabled={isPending} className="w-full">
               {isPending ? labels.submitting : labels.submit}
             </Button>
           </form>
