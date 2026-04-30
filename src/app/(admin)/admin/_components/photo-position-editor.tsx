@@ -151,9 +151,6 @@ export default function PhotoPositionEditor({
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <label className="text-xs font-medium text-muted uppercase tracking-wider">{label}</label>
         <div className="flex items-center gap-3 flex-wrap">
-          {scaleName && !editing && (
-            <p className="text-[11px] text-muted font-mono">{posString} · {scale.toFixed(2)}×</p>
-          )}
           <button
             type="button"
             onClick={() => setModalOpen(true)}
@@ -175,6 +172,38 @@ export default function PhotoPositionEditor({
           </button>
         </div>
       </div>
+
+      {/* Collapsed thumbnail preview */}
+      {!editing && (
+        <div className="flex items-center gap-3">
+          <div
+            className={`relative shrink-0 rounded-lg overflow-hidden bg-champagne-dark border border-line ${
+              aspect === "portrait" ? "w-12 aspect-[3/4]" :
+              aspect === "wide" ? "w-20 aspect-[16/9]" :
+              aspect === "modal" ? "w-20 aspect-[16/10]" :
+              "w-12 aspect-square"
+            }`}
+          >
+            <div
+              className="absolute inset-0"
+              style={scaleName ? { transform: `scale(${scale})`, transformOrigin: posString } : undefined}
+            >
+              <Image
+                src={photoUrl}
+                alt={alt}
+                fill
+                sizes="96px"
+                quality={85}
+                className="object-cover"
+                style={{ objectPosition: posString }}
+              />
+            </div>
+          </div>
+          <p className="text-[11px] text-muted font-mono">
+            {posString}{scaleName ? ` · ${scale.toFixed(2)}×` : ""}
+          </p>
+        </div>
+      )}
 
       {/* Expanded editor — only when in edit mode */}
       {editing && (
