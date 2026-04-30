@@ -1,257 +1,231 @@
 import { getChangeLogs } from "../../_actions/super";
 import { AdminPageHeader } from "../../_components/admin-list";
-import { Clock, User, FileText } from "lucide-react";
+import { Clock, User } from "lucide-react";
 
-const ACTION_STYLE: Record<string, string> = {
-  create: "bg-success/15 text-success",
-  update: "bg-main/15 text-main",
-  delete: "bg-error/15 text-error",
+// ── Labels ───────────────────────────────────────────────────────────────────
+const ACTION_STYLE: Record<string, { badge: string; label: string }> = {
+  create: { badge: "bg-emerald-100 text-emerald-700", label: "Створено" },
+  update: { badge: "bg-main/12 text-main",            label: "Оновлено" },
+  delete: { badge: "bg-red-100 text-red-600",         label: "Видалено" },
 };
 
 const ENTITY_LABELS: Record<string, string> = {
-  cms_user: "User",
-  service: "Service",
-  doctor: "Doctor",
-  equipment: "Equipment",
-  static_page: "Page",
-  sections: "Content Sections",
-  faq: "FAQ",
-  ui_string: "UI Text",
-  site_settings: "Settings",
-  hero: "Hero",
-  about: "About",
-  hero_slide: "Hero Slide",
-  gallery_item: "Gallery",
-  legal_doc: "Legal Doc",
-  price_item: "Price",
-  form_submission: "Form",
+  cms_user: "Користувач", service: "Послуга", doctor: "Лікар",
+  equipment: "Апарат", static_page: "Сторінка", sections: "Розділи контенту",
+  faq: "FAQ", ui_string: "UI-текст", site_settings: "Налаштування",
+  hero: "Hero", about: "Про нас", hero_slide: "Слайд", gallery_item: "Галерея",
+  legal_doc: "Документ", price_item: "Ціна", form_submission: "Заявка",
 };
 
-// Human-readable labels for snake_case field names
 const FIELD_LABELS: Record<string, string> = {
-  title_uk: "Title (UA)", title_ru: "Title (RU)", title_en: "Title (EN)",
+  name_uk: "Ім'я (UA)", name_ru: "Ім'я (RU)", name_en: "Name (EN)",
+  title_uk: "Назва (UA)", title_ru: "Назва (RU)", title_en: "Title (EN)",
+  role_uk: "Посада (UA)", role_ru: "Посада (RU)", role_en: "Role (EN)",
+  experience_uk: "Досвід (UA)", experience_ru: "Досвід (RU)", experience_en: "Experience (EN)",
+  bio_uk: "Біо (UA)", seo_title_uk: "SEO-заголовок",
   h1_uk: "H1 (UA)", h1_ru: "H1 (RU)", h1_en: "H1 (EN)",
-  summary_uk: "Summary (UA)", summary_ru: "Summary (RU)", summary_en: "Summary (EN)",
-  name_uk: "Name (UA)", name_ru: "Name (RU)", name_en: "Name (EN)",
-  role_uk: "Role (UA)", role_ru: "Role (RU)", role_en: "Role (EN)",
-  experience_uk: "Experience (UA)", experience_ru: "Experience (RU)", experience_en: "Experience (EN)",
-  short_description_uk: "Short desc (UA)", short_description_ru: "Short desc (RU)", short_description_en: "Short desc (EN)",
-  description_uk: "Description (UA)", description_ru: "Description (RU)", description_en: "Description (EN)",
-  note_uk: "Note (UA)", note_ru: "Note (RU)", note_en: "Note (EN)",
-  procedure_length_uk: "Duration (UA)", procedure_length_ru: "Duration (RU)", procedure_length_en: "Duration (EN)",
-  effect_duration_uk: "Effect (UA)", effect_duration_ru: "Effect (RU)", effect_duration_en: "Effect (EN)",
-  sessions_recommended_uk: "Sessions (UA)", sessions_recommended_ru: "Sessions (RU)", sessions_recommended_en: "Sessions (EN)",
-  price_from_uk: "Price from (UA)", price_from_ru: "Price from (RU)", price_from_en: "Price from (EN)",
-  price_unit_uk: "Price unit (UA)", price_unit_ru: "Price unit (RU)", price_unit_en: "Price unit (EN)",
-  seo_title_uk: "SEO title (UA)", seo_title_ru: "SEO title (RU)", seo_title_en: "SEO title (EN)",
-  seo_desc_uk: "SEO desc (UA)", seo_desc_ru: "SEO desc (RU)", seo_desc_en: "SEO desc (EN)",
-  slug: "Slug", category_id: "Category", sort_order: "Sort order",
-  phone1: "Phone 1", phone2: "Phone 2", instagram: "Instagram", maps_url: "Maps URL",
-  address_uk: "Address (UA)", address_ru: "Address (RU)", address_en: "Address (EN)",
-  hours_uk: "Hours (UA)", hours_ru: "Hours (RU)", hours_en: "Hours (EN)",
-  name: "Name", role: "Role", email: "Email", avatar: "Avatar", passwordReset: "Password",
+  summary_uk: "Анотація (UA)", summary_ru: "Анотація (RU)", summary_en: "Summary (EN)",
+  short_description_uk: "Коротко (UA)", short_description_ru: "Коротко (RU)",
+  description_uk: "Опис (UA)", description_ru: "Опис (RU)",
+  seo_title_ru: "SEO-заголовок (RU)", seo_title_en: "SEO title (EN)",
+  seo_desc_uk: "SEO-опис (UA)", seo_desc_ru: "SEO-опис (RU)", seo_desc_en: "SEO desc (EN)",
+  price_from_uk: "Ціна від (UA)", price_from_ru: "Ціна від (RU)", price_from_en: "Price from (EN)",
+  slug: "Slug", sort_order: "Порядок",
+  phone1: "Телефон 1", phone2: "Телефон 2", instagram: "Instagram",
+  address_uk: "Адреса (UA)", address_ru: "Адреса (RU)",
+  hours_uk: "Години (UA)", hours_ru: "Години (RU)",
+  name: "Ім'я", email: "Email", role: "Роль",
 };
 
-function fieldLabel(k: string) {
+// Filter tabs definition
+const FILTER_TABS: { key: string; label: string }[] = [
+  { key: "", label: "Всі" },
+  { key: "doctor", label: "Лікарі" },
+  { key: "service", label: "Послуги" },
+  { key: "equipment", label: "Апарати" },
+  { key: "static_page", label: "Сторінки" },
+  { key: "sections", label: "Розділи" },
+  { key: "site_settings", label: "Налаштування" },
+  { key: "ui_string", label: "UI-тексти" },
+];
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function fl(k: string) {
   return FIELD_LABELS[k] ?? k.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function formatDate(d: string) {
-  return new Date(d).toLocaleString("uk-UA", {
-    day: "2-digit", month: "short", year: "numeric",
-    hour: "2-digit", minute: "2-digit", second: "2-digit",
+function tv(v: unknown, max = 100): string {
+  if (v === null || v === undefined || v === "") return "—";
+  const s = typeof v === "string" ? v : JSON.stringify(v);
+  return s.length > max ? s.slice(0, max) + "…" : s;
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleString("uk-UA", {
+    day: "numeric", month: "short", year: "numeric",
+    hour: "2-digit", minute: "2-digit",
   });
 }
 
-function truncate(s: string, n = 80) {
-  return s.length > n ? s.slice(0, n) + "…" : s;
+function relativeTime(iso: string) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  const h = Math.floor(diff / 3600000);
+  const d = Math.floor(diff / 86400000);
+  if (m < 1) return "щойно";
+  if (m < 60) return `${m} хв тому`;
+  if (h < 24) return `${h} год тому`;
+  if (d < 7) return `${d} д тому`;
+  return null;
 }
 
-function textVal(v: unknown): string {
-  if (v === null || v === undefined || v === "") return "—";
-  if (typeof v === "string") return v;
-  if (typeof v === "number" || typeof v === "boolean") return String(v);
-  return JSON.stringify(v);
+function isToday(iso: string) {
+  const d = new Date(iso);
+  const now = new Date();
+  return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
 }
 
-// ── Section excerpt ─────────────────────────────────────────────────────────
-function sectionExcerpt(s: { type: string; data: any }): string {
-  const d = s.data ?? {};
-  const pick = (...keys: string[]) => {
-    for (const k of keys) {
-      const v = d[k];
-      if (typeof v === "string" && v.trim()) return truncate(v.trim(), 70);
-      if (typeof v === "object" && v?.uk) return truncate(String(v.uk), 70);
-    }
-    return "";
-  };
-  const text = pick("heading", "title", "text", "subtitle", "label", "question", "answer", "content");
-  return text || s.type;
+function computeChangedFields(
+  before: Record<string, unknown> | null,
+  after: Record<string, unknown> | null,
+): string[] {
+  if (!before || !after) return [];
+  const norm = (v: unknown) => (v === null || v === undefined || v === "") ? null : v;
+  const keys = Array.from(new Set([...Object.keys(before), ...Object.keys(after)]));
+  return keys.filter(k => JSON.stringify(norm(before[k])) !== JSON.stringify(norm(after[k])));
 }
 
+function changeSummary(
+  action: string,
+  before: Record<string, unknown> | null,
+  after: Record<string, unknown> | null,
+): { text: string; hasTrackedChanges: boolean } {
+  if (action === "create") return { text: "Новий запис", hasTrackedChanges: true };
+  if (action === "delete") return { text: "Запис видалено", hasTrackedChanges: true };
+
+  const changed = computeChangedFields(before, after);
+  if (changed.length === 0) {
+    return { text: "Збережено — зображення, позиціонування або інші поля", hasTrackedChanges: false };
+  }
+  const labels = changed.slice(0, 3).map(fl);
+  const suffix = changed.length > 3 ? ` + ще ${changed.length - 3}` : "";
+  return { text: labels.join(", ") + suffix, hasTrackedChanges: true };
+}
+
+// ── Diff views ───────────────────────────────────────────────────────────────
 const SECTION_TYPE_LABELS: Record<string, string> = {
-  text_block: "Text", image_text: "Image + Text", gallery: "Gallery",
-  steps: "Steps", benefits: "Benefits", video: "Video",
-  testimonial: "Testimonial", cta: "CTA", faq: "FAQ block",
-  rich_text: "Rich text", hero: "Hero", team: "Team",
+  text_block: "Текст", image_text: "Зображення + Текст", gallery: "Галерея",
+  steps: "Кроки", benefits: "Переваги", video: "Відео", cta: "CTA",
+  faq: "FAQ", rich_text: "Rich text", hero: "Hero",
 };
 
-function sectionLabel(type: string) {
-  return SECTION_TYPE_LABELS[type] ?? type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+function sectionExcerpt(s: { type: string; data: any }): string {
+  const d = s.data ?? {};
+  for (const k of ["heading", "title", "text", "subtitle", "label", "question"]) {
+    const v = d[k];
+    if (typeof v === "string" && v.trim()) return v.trim().slice(0, 60);
+    if (typeof v === "object" && v?.uk) return String(v.uk).slice(0, 60);
+  }
+  return SECTION_TYPE_LABELS[s.type] ?? s.type;
 }
 
-// ── Array diff (sections / faq items) ───────────────────────────────────────
-function ArrayDiff({
-  beforeArr, afterArr, renderItem,
-}: {
-  beforeArr: any[];
-  afterArr: any[];
-  renderItem: (item: any) => string;
-}) {
-  // Match by id when available, otherwise by index
-  const beforeById = new Map(beforeArr.map((s) => [s.id ?? null, s]));
-  const afterById = new Map(afterArr.map((s) => [s.id ?? null, s]));
+function ArrayDiff({ beforeArr, afterArr, label }: { beforeArr: any[]; afterArr: any[]; label: (item: any) => string }) {
+  const prevMap = new Map(beforeArr.map(s => [s.id ?? null, s]));
+  const nextMap = new Map(afterArr.map(s => [s.id ?? null, s]));
 
-  const rows: { status: "added" | "removed" | "changed" | "same"; label: string; detail?: string }[] = [];
-
-  // Items in after
+  const rows: { status: "+" | "−" | "~" | "="; text: string }[] = [];
   for (const item of afterArr) {
-    const prev = item.id ? beforeById.get(item.id) : null;
-    if (!prev) {
-      rows.push({ status: "added", label: renderItem(item) });
-    } else {
-      const same = JSON.stringify(prev) === JSON.stringify(item);
-      rows.push({ status: same ? "same" : "changed", label: renderItem(item) });
-    }
+    const prev = item.id ? prevMap.get(item.id) : null;
+    if (!prev) rows.push({ status: "+", text: label(item) });
+    else rows.push({ status: JSON.stringify(prev) === JSON.stringify(item) ? "=" : "~", text: label(item) });
   }
-
-  // Items removed (in before but not after)
   for (const item of beforeArr) {
-    if (item.id && !afterById.has(item.id)) {
-      rows.push({ status: "removed", label: renderItem(item) });
-    }
+    if (item.id && !nextMap.has(item.id)) rows.push({ status: "−", text: label(item) });
   }
 
-  const visible = rows.filter((r) => r.status !== "same");
-
-  if (visible.length === 0) {
-    const sameCount = rows.length;
-    return <p className="text-xs text-muted italic">{sameCount} item{sameCount !== 1 ? "s" : ""} — no content changes detected</p>;
+  const visible = rows.filter(r => r.status !== "=");
+  if (!visible.length) {
+    return <p className="text-xs text-muted italic">{rows.length} елем. — вміст не змінився</p>;
   }
-
   return (
     <div className="flex flex-col gap-1">
       {visible.map((r, i) => (
-        <div key={i} className={`flex items-start gap-2 text-xs rounded px-2 py-1.5 ${
-          r.status === "added" ? "bg-success/8 border border-success/20" :
-          r.status === "removed" ? "bg-error/8 border border-error/20" :
-          "bg-main/8 border border-main/20"
+        <div key={i} className={`flex gap-2 text-xs rounded px-2 py-1.5 ${
+          r.status === "+" ? "bg-emerald-50 border border-emerald-200" :
+          r.status === "−" ? "bg-red-50 border border-red-200" : "bg-main/6 border border-main/20"
         }`}>
-          <span className={`font-bold shrink-0 ${
-            r.status === "added" ? "text-success" :
-            r.status === "removed" ? "text-error" : "text-main"
-          }`}>
-            {r.status === "added" ? "+" : r.status === "removed" ? "−" : "~"}
-          </span>
-          <span className={r.status === "removed" ? "line-through text-error/70" : "text-ink/80"}>
-            {r.label}
-          </span>
+          <span className={`font-bold shrink-0 ${r.status === "+" ? "text-emerald-600" : r.status === "−" ? "text-red-500" : "text-main"}`}>{r.status}</span>
+          <span className={r.status === "−" ? "line-through text-red-400" : "text-ink/80"}>{r.text}</span>
         </div>
       ))}
-      {rows.filter((r) => r.status === "same").length > 0 && (
-        <p className="text-[10px] text-muted pl-1 mt-0.5">
-          + {rows.filter((r) => r.status === "same").length} unchanged
-        </p>
+      {rows.filter(r => r.status === "=").length > 0 && (
+        <p className="text-[10px] text-muted pl-1">+ {rows.filter(r => r.status === "=").length} без змін</p>
       )}
     </div>
   );
 }
 
-// ── Main diff renderer ───────────────────────────────────────────────────────
-function DiffView({ before, after }: {
-  before: Record<string, unknown> | null;
-  after: Record<string, unknown> | null;
-}) {
-  const normalize = (v: unknown) => (v === null || v === undefined || v === "") ? null : v;
-
-  // Sections array diff
+function DiffView({ before, after }: { before: Record<string, unknown> | null; after: Record<string, unknown> | null }) {
   const bSections = Array.isArray((before as any)?.sections) ? (before as any).sections as any[] : null;
   const aSections = Array.isArray((after as any)?.sections) ? (after as any).sections as any[] : null;
   if (bSections || aSections) {
-    return (
-      <ArrayDiff
-        beforeArr={bSections ?? []}
-        afterArr={aSections ?? []}
-        renderItem={(s) => `${sectionLabel(s.type)} — ${sectionExcerpt(s)}`}
-      />
-    );
+    return <ArrayDiff beforeArr={bSections ?? []} afterArr={aSections ?? []} label={s => `${SECTION_TYPE_LABELS[s.type] ?? s.type} — ${sectionExcerpt(s)}`} />;
   }
 
-  // FAQ items array diff
   const bItems = Array.isArray((before as any)?.items) ? (before as any).items as any[] : null;
   const aItems = Array.isArray((after as any)?.items) ? (after as any).items as any[] : null;
   if (bItems || aItems) {
-    return (
-      <ArrayDiff
-        beforeArr={bItems ?? []}
-        afterArr={aItems ?? []}
-        renderItem={(f) => truncate(f.question_uk || f.question_ru || f.question_en || "—", 80)}
-      />
-    );
+    return <ArrayDiff beforeArr={bItems ?? []} afterArr={aItems ?? []} label={f => (f.question_uk || f.question_ru || f.question_en || "—").slice(0, 80)} />;
   }
 
-  // Create: show non-empty after fields
   if (!before && after) {
-    const entries = Object.entries(after).filter(([, v]) => normalize(v) !== null);
     return (
       <div className="flex flex-col gap-1.5">
-        {entries.map(([k, v]) => (
-          <div key={k} className="grid grid-cols-[180px_1fr] gap-2 text-xs">
-            <span className="text-muted">{fieldLabel(k)}</span>
-            <span className="text-success break-words font-mono">{truncate(textVal(v))}</span>
+        {Object.entries(after).filter(([, v]) => v !== null && v !== "" && v !== undefined).map(([k, v]) => (
+          <div key={k} className="grid grid-cols-[200px_1fr] gap-2 text-xs">
+            <span className="text-muted shrink-0">{fl(k)}</span>
+            <span className="text-emerald-600 break-words">{tv(v)}</span>
           </div>
         ))}
       </div>
     );
   }
 
-  // Delete: show non-empty before fields
   if (before && !after) {
-    const entries = Object.entries(before).filter(([, v]) => normalize(v) !== null);
     return (
       <div className="flex flex-col gap-1.5">
-        {entries.map(([k, v]) => (
-          <div key={k} className="grid grid-cols-[180px_1fr] gap-2 text-xs">
-            <span className="text-muted">{fieldLabel(k)}</span>
-            <span className="text-error line-through break-words font-mono">{truncate(textVal(v))}</span>
+        {Object.entries(before).filter(([, v]) => v !== null && v !== "" && v !== undefined).map(([k, v]) => (
+          <div key={k} className="grid grid-cols-[200px_1fr] gap-2 text-xs">
+            <span className="text-muted shrink-0">{fl(k)}</span>
+            <span className="text-red-400 line-through break-words">{tv(v)}</span>
           </div>
         ))}
       </div>
     );
   }
 
-  // Update: field-by-field before → after for only changed fields
   if (before && after) {
-    const allKeys = Array.from(new Set([...Object.keys(before), ...Object.keys(after)]));
-    const changed = allKeys.filter(
-      (k) => JSON.stringify(normalize(before[k])) !== JSON.stringify(normalize(after[k]))
-    );
-
-    if (changed.length === 0) {
-      return <p className="text-xs text-muted italic">No changes detected</p>;
+    const changed = computeChangedFields(before, after);
+    if (!changed.length) {
+      return (
+        <p className="text-xs text-muted italic">
+          Відстежувані поля не змінились. Могли бути оновлені: фото, фокусна точка, масштаб, SEO або інші поля.
+        </p>
+      );
     }
-
     return (
-      <div className="flex flex-col gap-3">
-        {changed.map((k) => (
-          <div key={k} className="flex flex-col gap-1">
-            <span className="text-[11px] font-semibold text-muted uppercase tracking-wider">{fieldLabel(k)}</span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs font-mono">
-              <div className="px-2.5 py-1.5 rounded-lg bg-error/6 border border-error/15 text-error break-words line-through">
-                {truncate(textVal(before[k]))}
+      <div className="flex flex-col gap-4">
+        {changed.map(k => (
+          <div key={k} className="flex flex-col gap-1.5">
+            <span className="text-[11px] font-semibold text-muted uppercase tracking-wider">{fl(k)}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              <div className="px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs break-words">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-red-400 block mb-1">Було</span>
+                {tv((before as any)[k])}
               </div>
-              <div className="px-2.5 py-1.5 rounded-lg bg-success/6 border border-success/15 text-success break-words">
-                {truncate(textVal(after[k]))}
+              <div className="px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs break-words">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-500 block mb-1">Стало</span>
+                {tv((after as any)[k])}
               </div>
             </div>
           </div>
@@ -259,68 +233,99 @@ function DiffView({ before, after }: {
       </div>
     );
   }
-
   return null;
 }
 
-// ── Page ─────────────────────────────────────────────────────────────────────
-export default async function LogsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
-  const { page: pageStr } = await searchParams;
+// ── Page ──────────────────────────────────────────────────────────────────────
+export default async function LogsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; type?: string }>;
+}) {
+  const { page: pageStr, type } = await searchParams;
   const page = Math.max(0, Number(pageStr ?? 0));
-  const { rows, total } = await getChangeLogs(page, 50);
+  const entityType = type || undefined;
+  const { rows, total } = await getChangeLogs(page, 50, entityType);
   const totalPages = Math.ceil(total / 50);
 
   return (
     <div className="p-8">
       <AdminPageHeader
-        title="Change Log"
-        subtitle={`${total} events recorded — every content change with who, what, and when.`}
+        title="Журнал змін"
+        subtitle={`${total} подій — хто, що та коли змінив`}
       />
 
+      {/* Filter tabs */}
+      <div className="mt-6 flex flex-wrap gap-1.5 mb-4">
+        {FILTER_TABS.map(tab => (
+          <a
+            key={tab.key}
+            href={tab.key ? `?type=${tab.key}` : "?"}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              (entityType ?? "") === tab.key
+                ? "bg-main text-champagne"
+                : "bg-champagne-dark text-muted hover:text-ink hover:bg-champagne-darker"
+            }`}
+          >
+            {tab.label}
+          </a>
+        ))}
+      </div>
+
       {rows.length === 0 ? (
-        <div className="mt-10 text-center py-16 rounded-2xl border border-line bg-champagne-dark text-muted body-m">
-          No changes logged yet. Edits made from here on will appear here.
+        <div className="mt-4 text-center py-16 rounded-2xl border border-line bg-champagne-dark text-muted body-m">
+          Змін не знайдено.
         </div>
       ) : (
-        <div className="mt-6 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           {rows.map((row: any) => {
             const entityLabel = ENTITY_LABELS[row.entity_type] ?? row.entity_type;
+            const actionMeta = ACTION_STYLE[row.action] ?? { badge: "bg-muted/10 text-muted", label: row.action };
             const hasDiff = row.diff_before != null || row.diff_after != null;
+            const summary = changeSummary(row.action, row.diff_before, row.diff_after);
+            const rel = relativeTime(row.created_at instanceof Date ? row.created_at.toISOString() : row.created_at);
+            const dateStr = formatDate(row.created_at instanceof Date ? row.created_at.toISOString() : row.created_at);
+            const autoOpen = isToday(row.created_at instanceof Date ? row.created_at.toISOString() : row.created_at);
+
             return (
-              <div key={row.id} className="rounded-xl border border-line bg-champagne-dark p-4 flex flex-col gap-2">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className={`text-[11px] font-semibold uppercase px-2.5 py-0.5 rounded-full ${ACTION_STYLE[row.action] ?? "bg-muted/10 text-muted"}`}>
-                    {row.action}
+              <div key={row.id} className="rounded-xl border border-line bg-white p-4 flex flex-col gap-3">
+                {/* Header row */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className={`text-[11px] font-semibold uppercase px-2.5 py-0.5 rounded-full shrink-0 ${actionMeta.badge}`}>
+                    {actionMeta.label}
                   </span>
-                  <span className="text-sm font-medium text-ink">
+                  <span className="text-sm font-semibold text-ink">
                     {entityLabel}{row.entity_label ? ` · ${row.entity_label}` : ""}
                   </span>
                   <div className="flex-1" />
-                  <span className="flex items-center gap-1.5 text-xs text-muted">
-                    <Clock size={11} /> {formatDate(row.created_at)}
+                  <span className="flex items-center gap-1.5 text-xs text-muted whitespace-nowrap" title={dateStr}>
+                    <Clock size={11} />
+                    {rel ? <><span className="font-medium text-ink/70">{rel}</span><span className="text-black-30">· {dateStr}</span></> : dateStr}
                   </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 mt-0.5">
+                {/* User + change summary */}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                   <span className="flex items-center gap-1.5 text-xs text-muted">
                     <User size={11} />
                     <span className="font-medium text-ink/70">{row.user_name}</span>
                     <span className="text-black-30">{row.user_email}</span>
                   </span>
-                  {row.page_path && (
-                    <span className="flex items-center gap-1.5 text-xs text-muted">
-                      <FileText size={11} /> {row.page_path}
+                  {hasDiff && (
+                    <span className={`text-xs ${summary.hasTrackedChanges ? "text-ink/60" : "text-muted italic"}`}>
+                      {summary.hasTrackedChanges ? "✎ " : "○ "}{summary.text}
                     </span>
                   )}
                 </div>
 
+                {/* Diff — auto-open for today's entries */}
                 {hasDiff && (
-                  <details className="mt-1 group">
-                    <summary className="text-xs text-muted cursor-pointer hover:text-ink transition-colors select-none list-none flex items-center gap-1.5">
+                  <details open={autoOpen} className="group">
+                    <summary className="text-xs text-muted cursor-pointer hover:text-ink transition-colors select-none list-none flex items-center gap-1.5 mb-2">
                       <span className="inline-block transition-transform group-open:rotate-90">▶</span>
-                      Show changes
+                      {autoOpen ? "Сховати деталі" : "Показати деталі"}
                     </summary>
-                    <div className="mt-3 border-t border-line pt-3">
+                    <div className="border-t border-line pt-3">
                       <DiffView
                         before={row.diff_before as Record<string, unknown> | null}
                         after={row.diff_after as Record<string, unknown> | null}
@@ -337,14 +342,16 @@ export default async function LogsPage({ searchParams }: { searchParams: Promise
       {totalPages > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
           {page > 0 && (
-            <a href={`?page=${page - 1}`} className="px-4 py-2 rounded-xl border border-line bg-champagne-dark text-sm text-ink hover:bg-champagne transition-colors">
-              ← Previous
+            <a href={`?${entityType ? `type=${entityType}&` : ""}page=${page - 1}`}
+              className="px-4 py-2 rounded-xl border border-line bg-champagne-dark text-sm text-ink hover:bg-champagne transition-colors">
+              ← Назад
             </a>
           )}
-          <span className="text-sm text-muted">Page {page + 1} of {totalPages}</span>
+          <span className="text-sm text-muted">Стор. {page + 1} / {totalPages}</span>
           {page < totalPages - 1 && (
-            <a href={`?page=${page + 1}`} className="px-4 py-2 rounded-xl border border-line bg-champagne-dark text-sm text-ink hover:bg-champagne transition-colors">
-              Next →
+            <a href={`?${entityType ? `type=${entityType}&` : ""}page=${page + 1}`}
+              className="px-4 py-2 rounded-xl border border-line bg-champagne-dark text-sm text-ink hover:bg-champagne transition-colors">
+              Далі →
             </a>
           )}
         </div>

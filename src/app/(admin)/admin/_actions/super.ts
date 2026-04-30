@@ -132,16 +132,24 @@ export async function deleteUser(_: any, formData: FormData) {
   return { ok: true };
 }
 
-export async function getChangeLogs(page = 0, pageSize = 50) {
+export async function getChangeLogs(page = 0, pageSize = 50, entityType?: string) {
   await requireAdmin();
   const offset = page * pageSize;
-  const rows = await sql`
-    SELECT id, user_email, user_name, action, entity_type, entity_id, entity_label,
-           page_path, diff_before, diff_after, created_at
-    FROM cms_change_log
-    ORDER BY created_at DESC
-    LIMIT ${pageSize} OFFSET ${offset}
-  `;
-  const countRows = await sql`SELECT count(*) AS total FROM cms_change_log`;
+  const rows = entityType
+    ? await sql`
+        SELECT id, user_email, user_name, action, entity_type, entity_id, entity_label,
+               page_path, diff_before, diff_after, created_at
+        FROM cms_change_log WHERE entity_type = ${entityType}
+        ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}
+      `
+    : await sql`
+        SELECT id, user_email, user_name, action, entity_type, entity_id, entity_label,
+               page_path, diff_before, diff_after, created_at
+        FROM cms_change_log
+        ORDER BY created_at DESC LIMIT ${pageSize} OFFSET ${offset}
+      `;
+  const countRows = entityType
+    ? await sql`SELECT count(*) AS total FROM cms_change_log WHERE entity_type = ${entityType}`
+    : await sql`SELECT count(*) AS total FROM cms_change_log`;
   return { rows, total: Number(countRows[0]?.total ?? 0) };
 }
