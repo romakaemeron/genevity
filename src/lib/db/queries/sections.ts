@@ -55,6 +55,7 @@ export async function getSections(ownerType: string, ownerId: string, l: string)
     for (const r of doctorRows) {
       byId.set(r.id, {
         _id: r.id,
+        slug: r.slug || null,
         name: (r as any)[`name_${lang}`] || r.name_uk,
         role: (r as any)[`role_${lang}`] || r.role_uk,
         experience: (r as any)[`experience_${lang}`] || r.experience_uk,

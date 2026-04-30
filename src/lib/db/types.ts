@@ -14,6 +14,7 @@ export interface EquipmentItem {
 
 export interface DoctorItem {
   _id: string;
+  slug: string | null;
   name: string;
   role: string;
   experience: string;

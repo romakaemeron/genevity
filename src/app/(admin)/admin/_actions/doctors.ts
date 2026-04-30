@@ -103,6 +103,21 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   const experience_uk = formData.get("experience_uk") as string;
   const experience_ru = formData.get("experience_ru") as string;
   const experience_en = formData.get("experience_en") as string;
+  const slug = (formData.get("slug") as string)?.trim().toLowerCase() || null;
+  const seo_title_uk = formData.get("seo_title_uk") as string || null;
+  const seo_title_ru = formData.get("seo_title_ru") as string || null;
+  const seo_title_en = formData.get("seo_title_en") as string || null;
+  const seo_desc_uk = formData.get("seo_desc_uk") as string || null;
+  const seo_desc_ru = formData.get("seo_desc_ru") as string || null;
+  const seo_desc_en = formData.get("seo_desc_en") as string || null;
+  const bio_uk = formData.get("bio_uk") as string || null;
+  const bio_ru = formData.get("bio_ru") as string || null;
+  const bio_en = formData.get("bio_en") as string || null;
+  const educationRaw = formData.get("education_json") as string;
+  const certificationsRaw = formData.get("certifications_json") as string;
+  let education = null, certifications = null;
+  try { education = educationRaw ? JSON.parse(educationRaw) : null; } catch { education = null; }
+  try { certifications = certificationsRaw ? JSON.parse(certificationsRaw) : null; } catch { certifications = null; }
   const sort_order = parseInt(formData.get("sort_order") as string) || 0;
   const card_position = (formData.get("card_position") as string) || "center center";
   const modal_position = (formData.get("modal_position") as string) || card_position;
@@ -146,8 +161,14 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
 
   if (isNew) {
     await sql`
-      INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en, photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale, sort_order)
-      VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en}, ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale}, ${sort_order})
+      INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en,
+        slug, seo_title_uk, seo_title_ru, seo_title_en, seo_desc_uk, seo_desc_ru, seo_desc_en,
+        bio_uk, bio_ru, bio_en, education, certifications,
+        photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale, sort_order)
+      VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en},
+        ${slug}, ${seo_title_uk}, ${seo_title_ru}, ${seo_title_en}, ${seo_desc_uk}, ${seo_desc_ru}, ${seo_desc_en},
+        ${bio_uk}, ${bio_ru}, ${bio_en}, ${JSON.stringify(education)}, ${JSON.stringify(certifications)},
+        ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale}, ${sort_order})
     `;
     await logChange({ action: "create", entityType: "doctor", entityId: "new", entityLabel: name_uk, after });
   } else {
@@ -156,6 +177,11 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         name_uk = ${name_uk}, name_ru = ${name_ru}, name_en = ${name_en},
         role_uk = ${role_uk}, role_ru = ${role_ru}, role_en = ${role_en},
         experience_uk = ${experience_uk}, experience_ru = ${experience_ru}, experience_en = ${experience_en},
+        slug = ${slug},
+        seo_title_uk = ${seo_title_uk}, seo_title_ru = ${seo_title_ru}, seo_title_en = ${seo_title_en},
+        seo_desc_uk = ${seo_desc_uk}, seo_desc_ru = ${seo_desc_ru}, seo_desc_en = ${seo_desc_en},
+        bio_uk = ${bio_uk}, bio_ru = ${bio_ru}, bio_en = ${bio_en},
+        education = ${JSON.stringify(education)}, certifications = ${JSON.stringify(certifications)},
         photo_card = ${photo_card}, photo_full = ${photo_full}, photo_circle = ${photo_circle},
         card_position = ${card_position}, modal_position = ${modal_position},
         circle_focal_point = ${circle_focal_point}, circle_scale = ${circle_scale},

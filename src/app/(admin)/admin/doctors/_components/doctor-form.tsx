@@ -16,6 +16,11 @@ interface Doctor {
   name_uk: string; name_ru: string; name_en: string;
   role_uk: string; role_ru: string; role_en: string;
   experience_uk: string; experience_ru: string; experience_en: string;
+  slug?: string | null;
+  seo_title_uk?: string | null; seo_title_ru?: string | null; seo_title_en?: string | null;
+  seo_desc_uk?: string | null; seo_desc_ru?: string | null; seo_desc_en?: string | null;
+  bio_uk?: string | null; bio_ru?: string | null; bio_en?: string | null;
+  education?: any; certifications?: any;
   photo_card: string | null;
   photo_full: string | null;
   photo_circle: string | null;
@@ -186,6 +191,17 @@ export default function DoctorForm({ doctor }: Props) {
           <FormField label="Sort Order" name="sort_order" type="number" defaultValue={doctor?.sort_order ?? 0} />
         </div>
 
+        {/* Slug */}
+        <div className="mb-8 max-w-sm">
+          <FormField
+            label="URL Slug"
+            name="slug"
+            defaultValue={doctor?.slug || ""}
+            placeholder="beliyanushkin-viktor"
+            hint="Latin, lowercase, hyphens — used in /doctors/[slug]"
+          />
+        </div>
+
         <TranslationTabs>
           {(locale: LocaleKey) => (
             <div className="flex flex-col gap-5" key={locale}>
@@ -208,9 +224,55 @@ export default function DoctorForm({ doctor }: Props) {
                 defaultValue={(doctor as any)?.[`experience_${locale}`] || ""}
                 placeholder={locale === "uk" ? "10 років" : locale === "ru" ? "10 лет" : "10 years"}
               />
+              <FormField
+                label="Bio (2-3 paragraphs)"
+                name={`bio_${locale}`}
+                type="textarea"
+                rows={6}
+                defaultValue={(doctor as any)?.[`bio_${locale}`] || ""}
+                placeholder="Professional biography..."
+              />
+              <FormField
+                label="SEO Title"
+                name={`seo_title_${locale}`}
+                defaultValue={(doctor as any)?.[`seo_title_${locale}`] || ""}
+                hint={`${((doctor as any)?.[`seo_title_${locale}`] || "").length} / 60 chars`}
+              />
+              <FormField
+                label="SEO Description"
+                name={`seo_desc_${locale}`}
+                type="textarea"
+                rows={2}
+                defaultValue={(doctor as any)?.[`seo_desc_${locale}`] || ""}
+                hint={`${((doctor as any)?.[`seo_desc_${locale}`] || "").length} / 155 chars`}
+              />
             </div>
           )}
         </TranslationTabs>
+
+        {/* Education & Certifications (JSON raw editor for now) */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-muted uppercase tracking-wider">Education (JSON array)</label>
+            <p className="text-xs text-muted">Each item: institution_uk/ru/en, degree_uk/ru/en, year</p>
+            <textarea
+              name="education_json"
+              rows={8}
+              defaultValue={doctor?.education ? JSON.stringify(doctor.education, null, 2) : "[]"}
+              className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm font-mono text-ink focus:outline-none focus:ring-2 focus:ring-main/40 resize-y"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium text-muted uppercase tracking-wider">Certifications (JSON array)</label>
+            <p className="text-xs text-muted">Each item: title_uk/ru/en, issuer_uk/ru/en (optional), year (optional)</p>
+            <textarea
+              name="certifications_json"
+              rows={8}
+              defaultValue={doctor?.certifications ? JSON.stringify(doctor.certifications, null, 2) : "[]"}
+              className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm font-mono text-ink focus:outline-none focus:ring-2 focus:ring-main/40 resize-y"
+            />
+          </div>
+        </div>
       </div>
 
       <SaveBar label={isNew ? "Create Doctor" : "Save Changes"} />

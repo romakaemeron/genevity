@@ -40,6 +40,7 @@ async function getDoctors(l: string): Promise<DoctorItem[]> {
   const rows = await sql`SELECT * FROM doctors ORDER BY sort_order`;
   return rows.map((r) => ({
     _id: r.id,
+    slug: r.slug || null,
     name: pick(r, "name", l),
     role: pick(r, "role", l),
     experience: pick(r, "experience", l),

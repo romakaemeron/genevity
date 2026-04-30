@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import type { DoctorItem } from "@/lib/db/types";
 
@@ -43,14 +44,23 @@ export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCard
             {experience}
           </p>
         )}
-        <Button
-          variant="outline"
-          size="sm"
-          className="self-start mt-auto gap-1.5 group-hover:gap-2.5 transition-all duration-300 px-0"
-        >
-          {detailsLabel}
-          <ArrowUpRight className="w-3.5 h-3.5" />
-        </Button>
+        {doctor.slug ? (
+          <Link
+            href={`/doctors/${doctor.slug}`}
+            onClick={(e) => e.stopPropagation()}
+            className="self-start mt-auto"
+          >
+            <Button variant="outline" size="sm" className="gap-1.5 group-hover:gap-2.5 transition-all duration-300 px-0">
+              {detailsLabel}
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Button>
+          </Link>
+        ) : (
+          <Button variant="outline" size="sm" className="self-start mt-auto gap-1.5 group-hover:gap-2.5 transition-all duration-300 px-0">
+            {detailsLabel}
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Button>
+        )}
       </div>
     </div>
   );

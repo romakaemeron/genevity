@@ -33,7 +33,6 @@ export async function getStaticPage(locale: string, slug: string): Promise<Stati
 export interface StaticPageSeo {
   title: string;
   description: string;
-  keywords: string | null;
   ogImage: string | null;
   noindex: boolean;
 }

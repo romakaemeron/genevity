@@ -9,6 +9,8 @@ export { getLegalDocs, getLegalDocBySlug } from "./legal";
 export type { LegalDocLink } from "./legal";
 export { getUiStringsTree, getMessagesForLocale, getUiString, saveUiStringsTree, getUiStringsNamespace } from "./ui-strings";
 export type { UiStringsTree } from "./ui-strings";
+export { getDoctorBySlug, getAllDoctorSlugs } from "./doctors";
+export type { DoctorProfileData, EducationEntry, CertEntry } from "./doctors";
 export {
   getHeroSlides, getGalleryItems, getPriceCategoriesWithItems,
   getLabServices, getLabPrepSteps, getLabCheckups,

@@ -121,6 +121,7 @@ async function getRelatedDoctors(serviceId: string, l: string): Promise<DoctorIt
   `;
   return rows.map((r) => ({
     _id: r.id,
+    slug: r.slug || null,
     name: pick(r, "name", l),
     role: pick(r, "role", l),
     experience: pick(r, "experience", l),
