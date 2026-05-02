@@ -126,7 +126,7 @@ export default function LaboratoryPageComponent({
               </motion.div>
               <motion.div className="flex-1 mt-8 lg:mt-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1, delay: 0.5 }}>
                 <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                  <Image src="/clinic/semi1256-hdr.webp" alt={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  <Image src="/clinic/semi1256-hdr.webp" alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                 </div>
               </motion.div>
             </div>

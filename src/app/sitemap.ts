@@ -1,64 +1,66 @@
 import type { MetadataRoute } from "next";
-import { getAllServiceSlugs, getLegalDocs } from "@/lib/db/queries";
+import { getAllServiceSlugs, getLegalDocs, getAllDoctors } from "@/lib/db/queries";
 import { sql } from "@/lib/db/client";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
 
-function localeUrls(path: string, priority: number, changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "weekly"): MetadataRoute.Sitemap[number] {
+// SEO audit §1.6: only mandatory tags (urlset/url/loc) + alternates; no changeFreq/priority/lastMod
+function localeUrls(path: string): MetadataRoute.Sitemap[number] {
   const languages: Record<string, string> = {};
   for (const locale of routing.locales) {
-    languages[locale === "ua" ? "uk" : locale] = absoluteUrl(path, locale);
+    // SEO audit §1.11: region-qualified hreflang codes (uk-UA, ru-UA, en-UA)
+    const tag = locale === "ua" ? "uk-UA" : locale === "ru" ? "ru-UA" : "en-UA";
+    languages[tag] = absoluteUrl(path, locale);
   }
+  languages["x-default"] = absoluteUrl(path, routing.defaultLocale);
   return {
     url: absoluteUrl(path, routing.defaultLocale),
-    lastModified: new Date(),
-    changeFrequency,
-    priority,
     alternates: { languages },
   };
 }
 
-export const revalidate = 3600; // rebuild sitemap hourly so new DB categories/services appear
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categories, services, staticPages, legalDocs] = await Promise.all([
-    // Exclude noindex categories (e.g. longevity hub — non-clickable per structure brief)
+  const [categories, services, staticPages, legalDocs, doctors] = await Promise.all([
     sql`SELECT slug FROM service_categories WHERE seo_noindex IS NOT TRUE ORDER BY sort_order`,
     getAllServiceSlugs(),
     sql`SELECT slug FROM static_pages`,
     getLegalDocs("ua"),
+    getAllDoctors("ua"),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
 
   // Home
-  entries.push(localeUrls("/", 1.0));
+  entries.push(localeUrls("/"));
 
   // Static pages (about, prices, stationary, laboratory, contacts)
   for (const page of staticPages) {
-    if (page.slug === "home") continue; // home is handled above
-    entries.push(localeUrls(`/${page.slug}`, 0.8));
+    if (page.slug === "home") continue;
+    entries.push(localeUrls(`/${page.slug}`));
   }
 
-  // Services index
-  entries.push(localeUrls("/services", 0.9));
-
-  // Category hubs
+  // Services index + category hubs
+  entries.push(localeUrls("/services"));
   for (const cat of categories) {
-    entries.push(localeUrls(`/services/${cat.slug}`, 0.8));
+    entries.push(localeUrls(`/services/${cat.slug}`));
   }
 
   // Service detail pages
   for (const svc of services) {
-    entries.push(localeUrls(`/services/${svc.categorySlug}/${svc.slug}`, 0.7));
+    entries.push(localeUrls(`/services/${svc.categorySlug}/${svc.slug}`));
   }
 
-  // Doctors
-  entries.push(localeUrls("/doctors", 0.7));
+  // Doctors index + individual doctor pages
+  entries.push(localeUrls("/doctors"));
+  for (const doc of doctors) {
+    if (doc.slug) entries.push(localeUrls(`/doctors/${doc.slug}`));
+  }
 
   // Legal docs
   for (const doc of legalDocs) {
-    entries.push(localeUrls(`/legal/${doc.slug}`, 0.3, "monthly"));
+    entries.push(localeUrls(`/legal/${doc.slug}`));
   }
 
   return entries;

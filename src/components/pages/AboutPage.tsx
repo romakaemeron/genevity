@@ -82,7 +82,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
               transition={{ duration: 1, delay: 0.5 }}
             >
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                <Image src="/clinic/semi1737-hdr.webp" alt="GENEVITY" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                <Image src="/clinic/semi1737-hdr.webp" alt="GENEVITY — центр довголіття та естетичної медицини" title="GENEVITY — центр довголіття та естетичної медицини" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
               </div>
             </motion.div>
           </div>
@@ -100,7 +100,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
               </div>
             </div>
             <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden">
-              <Image src="/clinic/semi1287-hdr.webp" alt={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <Image src="/clinic/semi1287-hdr.webp" alt={about.title} title={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             </div>
           </div>
         </motion.div>
@@ -181,7 +181,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
-          <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />
+          <Image src="/clinic/acupulse.webp" alt="GENEVITY — апаратна косметологія" title="GENEVITY — апаратна косметологія" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

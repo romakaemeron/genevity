@@ -217,6 +217,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                     <Image
                       src={richHeroImage}
                       alt={data.title}
+                      title={data.title}
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 50vw"

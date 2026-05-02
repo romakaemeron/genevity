@@ -4,6 +4,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import ServiceDetailTemplate from "@/components/templates/ServiceDetailTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const revalidate = 60;
 
@@ -28,8 +29,23 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
 
   if (!data) notFound();
 
+  // §1.16.5 ImageObject schema for service hero image
+  const heroUrl = data.heroImage
+    ? data.heroImage.startsWith("http") ? data.heroImage : `https://genevity.com.ua${data.heroImage}`
+    : null;
+
   return (
     <>
+      {heroUrl && (
+        <JsonLd data={{
+          "@context": "https://schema.org/",
+          "@type": "ImageObject",
+          contentUrl: heroUrl,
+          creditText: "GENEVITY",
+          caption: data.title,
+          creator: { "@type": "Organization", name: "GENEVITY" },
+        }} />
+      )}
       <MegaMenuHeader variant="solid" position="fixed" />
       <ServiceDetailTemplate
         data={data}

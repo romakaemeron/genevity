@@ -16,9 +16,24 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const doctor = await getDoctorBySlug(locale, slug);
   if (!doctor) return {};
+  // §2.1 SEO audit — template fallback when no manual fields set
+  const titleFallback =
+    locale === "ru"
+      ? `${doctor.name} ${doctor.role} с опытом ${doctor.experience}`
+      : locale === "en"
+      ? `${doctor.name} ${doctor.role} with experience ${doctor.experience}`
+      : `${doctor.name} ${doctor.role} з досвідом ${doctor.experience}`;
+
+  const descFallback =
+    locale === "ru"
+      ? `${doctor.role} ${doctor.name} с опытом работы ${doctor.experience} 🤍 Консультация в GENEVITY 💫 Запись онлайн.`
+      : locale === "en"
+      ? `${doctor.role} ${doctor.name} with work experience ${doctor.experience} 🤍 Consultation at GENEVITY 💫 Online appointment.`
+      : `${doctor.role} ${doctor.name} з досвідом роботи ${doctor.experience} 🤍 Консультація в GENEVITY 💫 Запис онлайн.`;
+
   return generatePageMetadata({
-    title: doctor.seoTitle || doctor.name,
-    description: doctor.seoDescription || doctor.bio.slice(0, 155),
+    title: doctor.seoTitle || titleFallback,
+    description: doctor.seoDescription || descFallback,
     locale: locale as Locale,
     path: `/doctors/${slug}`,
   });
@@ -90,9 +105,27 @@ export default async function DoctorPage({
     } : {}),
   };
 
+  const photo = doctor.photoFull || doctor.photoCard;
+  const photoUrl = photo
+    ? photo.startsWith("http") ? photo : `https://genevity.com.ua${photo}`
+    : null;
+
+  // §1.16.5 ImageObject schema for doctor profile photo
+  const imageSchema = photoUrl
+    ? {
+        "@context": "https://schema.org/",
+        "@type": "ImageObject",
+        contentUrl: photoUrl,
+        creditText: "GENEVITY",
+        caption: doctor.name,
+        creator: { "@type": "Organization", name: "GENEVITY" },
+      }
+    : null;
+
   return (
     <>
       <JsonLd data={schema as Record<string, unknown>} />
+      {imageSchema && <JsonLd data={imageSchema} />}
       <MegaMenuHeader variant="solid" position="fixed" />
       <DoctorProfilePage doctor={doctor} locale={locale as Locale} />
     </>

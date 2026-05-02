@@ -8,9 +8,9 @@ export function WebSiteSchema() {
         "@type": "WebSite",
         name: "GENEVITY",
         url: "https://genevity.com.ua",
-        inLanguage: ["uk", "ru", "en"],
+        inLanguage: ["uk-UA", "ru-UA", "en-UA"],
         publisher: {
-          "@type": "MedicalBusiness",
+          "@type": "MedicalOrganization",
           name: "GENEVITY",
           url: "https://genevity.com.ua",
         },

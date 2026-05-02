@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { getLegalDocBySlug } from "@/lib/db/queries";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
 export const revalidate = 60;
 
@@ -129,8 +130,16 @@ export default async function LegalPage({
 
   const blocks = parseContent(content);
 
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
+
   return (
     <>
+      <JsonLdBreadcrumbList
+        items={[
+          { name: "GENEVITY", url: "https://genevity.com.ua/" },
+          { name: doc.title, url: `https://genevity.com.ua${localePrefix}/legal/${slug}` },
+        ]}
+      />
       <MegaMenuHeader variant="solid" position="fixed" />
     <div className="pt-32 pb-24 bg-champagne">
       <div className="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">

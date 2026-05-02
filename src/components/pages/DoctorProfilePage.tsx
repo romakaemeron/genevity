@@ -9,6 +9,8 @@ import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import DoctorReviews from "@/components/doctors/DoctorReviews";
+import CertificateGallery from "@/components/doctors/CertificateGallery";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const fade = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const } };
 const stagger = { animate: { transition: { staggerChildren: 0.07 } } };
@@ -40,6 +42,21 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
   const hasEducation = doctor.education.length > 0;
   const hasCerts = doctor.certifications.length > 0;
   const hasServices = doctor.services.length > 0;
+  const hasCertImages = doctor.certificateImages.length > 0;
+
+  const certImagesForSchema = doctor.certificateImages
+    .filter((c) => c.type === "image")
+    .map((c) => ({
+      "@type": "ImageObject",
+      "@id": c.url,
+      url: c.url,
+      contentUrl: c.url,
+      name: c[`alt_${locale === "ua" ? "uk" : locale}` as keyof typeof c] ?? c.alt_uk,
+      description: `Документ про кваліфікацію лікаря ${doctor.name}`,
+      representativeOfPage: false,
+    }));
+
+  const certTitle = locale === "ru" ? "Сертификаты" : locale === "en" ? "Certificates" : "Сертифікати";
 
   return (
     <>
@@ -104,7 +121,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
                     className="absolute inset-0"
                     style={doctor.profileScale !== 1 ? { transform: `scale(${doctor.profileScale})`, transformOrigin: doctor.profileFocalPoint } : undefined}
                   >
-                    <Image src={photo} alt={doctor.name} fill className="object-cover" style={{ objectPosition: doctor.profileFocalPoint }} sizes="(max-width: 1024px) 100vw, 340px" priority />
+                    <Image src={photo} alt={doctor.name} title={doctor.name} fill className="object-cover" style={{ objectPosition: doctor.profileFocalPoint }} sizes="(max-width: 1024px) 100vw, 340px" priority />
                   </div>
                 </div>
                 <BookingCTA ctaKey="doctorProfile" variant="primary" size="md">
@@ -173,6 +190,21 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
             </motion.div>
           </div>
         </section>
+      )}
+
+      {/* Certificate gallery */}
+      {hasCertImages && (
+        <>
+          {certImagesForSchema.length > 0 && (
+            <JsonLd data={certImagesForSchema.length === 1 ? certImagesForSchema[0] : { "@context": "https://schema.org", "@graph": certImagesForSchema }} />
+          )}
+          <CertificateGallery
+            images={doctor.certificateImages}
+            doctorName={doctor.name}
+            locale={locale}
+            title={certTitle}
+          />
+        </>
       )}
 
       {/* Services */}

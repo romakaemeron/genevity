@@ -1,35 +1,16 @@
 import type { Metadata } from "next";
-import Script from "next/script";
-import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
+import HtmlLangSetter from "@/components/ui/HtmlLangSetter";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
 import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
 import UtmCapture from "@/components/analytics/UtmCapture";
-import "../globals.css";
-
-const tenorSans = localFont({
-  src: "../../../public/fonts/TenorSans-Regular.ttf",
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const mulish = localFont({
-  src: [
-    { path: "../../../public/fonts/Mulish-Regular.ttf", weight: "400" },
-    { path: "../../../public/fonts/Mulish-Medium.ttf", weight: "500" },
-    { path: "../../../public/fonts/Mulish-SemiBold.ttf", weight: "600" },
-    { path: "../../../public/fonts/Mulish-Bold.ttf", weight: "700" },
-  ],
-  variable: "--font-body",
-  display: "swap",
-});
 
 const titles: Record<string, string> = {
   ua: "GENEVITY — Медичний центр довголіття та естетичної медицини у Дніпрі",
@@ -71,9 +52,9 @@ export async function generateMetadata({
     alternates: {
       canonical: locale === "ua" ? "/" : `/${locale}`,
       languages: {
-        "uk": "/",
-        "ru": "/ru",
-        "en": "/en",
+        "uk-UA": "/",
+        "ru-UA": "/ru",
+        "en-UA": "/en",
         "x-default": "/",
       },
     },
@@ -136,42 +117,26 @@ export default async function LocaleLayout({
   ]);
 
   return (
-    <html lang={locale === "ua" ? "uk" : locale} className={`${tenorSans.variable} ${mulish.variable}`}>
-      <head>
-        <Script
-          id="gtm-head"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtm.js?id=GTM-PGGK275D"
+    <>
+      <HtmlLangSetter locale={locale} />
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-PGGK275D"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
         />
-        <Script
-          id="gtm-init"
-          strategy="afterInteractive"
-        >{`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}</Script>
-      </head>
-      <body className="antialiased">
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-PGGK275D"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-        <ImageProtection />
-        <UtmCapture />
-        <OrganizationSchema />
-        <WebSiteSchema />
-        <NextIntlClientProvider messages={messages}>
-          <SiteSettingsProvider settings={settings}>
-            <main>{children}</main>
-            <Footer legalDocs={legalDocs} settings={settings} />
-          </SiteSettingsProvider>
-        </NextIntlClientProvider>
-        <Script
-          id="binotel-widget"
-          strategy="afterInteractive"
-        >{`(function(d,w,s){var widgetHash='Af6We2GQH21N1uJMFTL1',bch=d.createElement(s);bch.type='text/javascript';bch.async=true;bch.src='//widgets.binotel.com/chat/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(bch,sn);})(document,window,'script');`}</Script>
-      </body>
-    </html>
+      </noscript>
+      <ImageProtection />
+      <UtmCapture />
+      <OrganizationSchema locale={locale} />
+      <WebSiteSchema />
+      <NextIntlClientProvider messages={messages}>
+        <SiteSettingsProvider settings={settings}>
+          <main>{children}</main>
+          <Footer legalDocs={legalDocs} settings={settings} />
+        </SiteSettingsProvider>
+      </NextIntlClientProvider>
+    </>
   );
 }

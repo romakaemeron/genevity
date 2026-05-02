@@ -20,11 +20,17 @@ export function absoluteUrl(path: string, locale: Locale): string {
   return `${BASE_URL}${localizedPath(path, locale)}`;
 }
 
-/** Generate hreflang alternates for all locales. */
+const HREFLANG: Record<string, string> = {
+  ua: "uk-UA",
+  ru: "ru-UA",
+  en: "en-UA",
+};
+
+/** Generate hreflang alternates for all locales with region codes (e.g. uk-UA). */
 export function buildAlternates(path: string) {
   const languages: Record<string, string> = {};
   for (const locale of routing.locales) {
-    languages[locale === "ua" ? "uk" : locale] = absoluteUrl(path, locale);
+    languages[HREFLANG[locale] ?? locale] = absoluteUrl(path, locale);
   }
   languages["x-default"] = absoluteUrl(path, routing.defaultLocale);
   return {

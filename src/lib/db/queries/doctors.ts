@@ -41,6 +41,14 @@ export interface CertEntry {
   year?: number;
 }
 
+export interface CertificateImage {
+  url: string;
+  type: "image" | "pdf";
+  alt_uk: string;
+  alt_ru: string;
+  alt_en: string;
+}
+
 export interface DoctorProfileData {
   _id: string;
   slug: string;
@@ -56,6 +64,7 @@ export interface DoctorProfileData {
   profileScale: number;
   education: (EducationEntry & { institution: string; degree: string })[];
   certifications: (CertEntry & { title: string; issuer?: string })[];
+  certificateImages: CertificateImage[];
   services: { slug: string; categorySlug: string; title: string }[];
   reviews: DoctorReview[];
   seoTitle: string | null;
@@ -92,6 +101,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
 
   const edu: EducationEntry[] = (r.education as EducationEntry[] | null) || [];
   const certs: CertEntry[] = (r.certifications as CertEntry[] | null) || [];
+  const certImgs: CertificateImage[] = (r.certificate_images as CertificateImage[] | null) || [];
 
   return {
     _id: r.id,
@@ -116,6 +126,10 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
       title: c[`title_${l}` as keyof CertEntry] as string || c.title_uk,
       issuer: c[`issuer_${l}` as keyof CertEntry] as string | undefined || c.issuer_uk,
     })),
+    certificateImages: certImgs.map((ci) => ({
+      ...ci,
+      alt: ci[`alt_${l}` as keyof CertificateImage] as string || ci.alt_uk,
+    })) as CertificateImage[],
     reviews: reviewRows.map((rv) => {
       const pick = (uk: unknown, ru: unknown, en: unknown) => {
         if (l === "ru") return (ru as string) || (uk as string) || "";

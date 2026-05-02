@@ -97,7 +97,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
                   transition={{ duration: 1, delay: 0.5 }}
                 >
                   <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                    <Image src={data.heroImage} alt={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                    <Image src={data.heroImage} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                   </div>
                 </motion.div>
               )}

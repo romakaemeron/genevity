@@ -1,25 +1,46 @@
 import { JsonLd } from "./JsonLd";
 import { getSiteSettingsData } from "@/lib/db/queries";
 
-export async function OrganizationSchema() {
-  // Single source of truth — same row that drives Footer, Contacts page, etc.
+const NAMES: Record<string, string> = {
+  ua: "GENEVITY — центр довголіття та естетичної медицини",
+  ru: "GENEVITY — центр долголетия и эстетической медицины",
+  en: "GENEVITY — longevity and aesthetic medicine center",
+};
+
+const DESCRIPTIONS: Record<string, string> = {
+  ua: "Медичний центр довголіття та естетичної медицини у Дніпрі. Персоналізовані програми здоров'я, відновлення та омолодження.",
+  ru: "Медицинский центр долголетия и эстетической медицины в Днепре. Персонализированные программы здоровья, восстановления и омоложения.",
+  en: "Longevity and aesthetic medicine medical center in Dnipro. Personalized health, recovery, and rejuvenation programs.",
+};
+
+const URLS: Record<string, string> = {
+  ua: "https://genevity.com.ua/",
+  ru: "https://genevity.com.ua/ru",
+  en: "https://genevity.com.ua/en",
+};
+
+interface Props {
+  locale?: string;
+}
+
+export async function OrganizationSchema({ locale = "ua" }: Props) {
   const s = await getSiteSettingsData("ua");
+
   return (
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": ["MedicalBusiness", "LocalBusiness"],
-        name: "GENEVITY — Медичний центр довголіття",
-        url: "https://genevity.com.ua",
-        logo: "https://genevity.com.ua/brand/LogoFullDark.svg",
-        image: "https://genevity.com.ua/og/genevity-og.jpg",
-        telephone: (s.phone1 || "+380730000150").replace(/\s/g, ""),
-        priceRange: "$$$$",
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 48.4647,
-          longitude: 35.0461,
+        "@type": "MedicalOrganization",
+        name: NAMES[locale] ?? NAMES.ua,
+        url: URLS[locale] ?? URLS.ua,
+        logo: {
+          "@type": "ImageObject",
+          url: "https://genevity.com.ua/brand/LogoFullDark.svg",
         },
+        image: "https://genevity.com.ua/og/genevity-og.jpg",
+        description: DESCRIPTIONS[locale] ?? DESCRIPTIONS.ua,
+        email: "info@genevity.com.ua",
+        telephone: (s.phone1 || "+380730000150").replace(/\s/g, ""),
         address: {
           "@type": "PostalAddress",
           streetAddress: s.address || "вул. Олеся Гончара, 12",
@@ -28,93 +49,44 @@ export async function OrganizationSchema() {
           postalCode: "49000",
           addressCountry: "UA",
         },
-        openingHoursSpecification: {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: [
-            "Monday", "Tuesday", "Wednesday", "Thursday",
-            "Friday", "Saturday", "Sunday",
-          ],
-          opens: "08:00",
-          closes: "20:00",
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 48.4647,
+          longitude: 35.0461,
         },
-        sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram.replace(/^@/, "")}/`] : [],
-        hasMap: s.mapsUrl || "https://www.google.com/maps/search/GENEVITY+Дніпро",
-        medicalSpecialty: [
-          "Aesthetic Medicine",
-          "Cosmetology",
-          "Longevity Medicine",
-          "Endocrinology",
-          "Gastroenterology",
-          "Gynecology",
-          "Urology",
-          "Podiatry",
-          "Diagnostic Imaging",
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday", "Tuesday", "Wednesday", "Thursday",
+              "Friday", "Saturday", "Sunday",
+            ],
+            opens: "08:00",
+            closes: "20:00",
+          },
         ],
-        availableLanguage: [
-          { "@type": "Language", name: "Ukrainian" },
-          { "@type": "Language", name: "Russian" },
-          { "@type": "Language", name: "English" },
+        hasMap: s.mapsUrl || "https://maps.app.goo.gl/3VATqzUMmo6u51Yj7",
+        medicalSpecialty: [
+          "Dermatology",
+          "PlasticSurgery",
+          "CosmeticDermatology",
+          "Endocrinology",
+          "Gynecology",
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Послуги GENEVITY",
           itemListElement: [
-            {
-              "@type": "OfferCatalog",
-              name: "Ін'єкційна косметологія",
-              itemListElement: [
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Ботулінотерапія" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Контурна пластика" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Біоревіталізація" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Мезотерапія" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "PRP-терапія" } },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Апаратна косметологія",
-              itemListElement: [
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMFACE" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Ultraformer MPT" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMSCULPT NEO" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "HydraFacial" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "AcuPulse CO₂" } },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Лазерна епіляція",
-              itemListElement: [
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Лазерна епіляція Splendor X" } },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Longevity & Anti-Age",
-              itemListElement: [
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Check-Up 40+" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "IV-терапія" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Гормональний баланс" } },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Діагностика",
-              itemListElement: [
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "УЗД-діагностика" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Еластографія" } },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Подологія",
-              itemListElement: [
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Медичний педикюр" } },
-                { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "Лікування врослого нігтя" } },
-              ],
-            },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMFACE" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "VOLNEWMER" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EXION" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "ULTRAFORMER MPT" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMSCULPT NEO" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "SPLENDOR X" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "HYDRAFACIAL SYNDEO" } },
           ],
         },
+        sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram.replace(/^@/, "")}/`] : [],
       }}
     />
   );
