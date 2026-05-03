@@ -124,6 +124,8 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
     el.scrollTo({ left: cards[nextIdx].offsetLeft - scrollPad, behavior: "smooth" });
   };
 
+  if (reviews.length === 0) return null;
+
   return (
     <section className="bg-champagne py-12 lg:py-16">
       {/* Header: title + write review button + arrows */}
