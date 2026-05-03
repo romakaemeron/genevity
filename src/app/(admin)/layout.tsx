@@ -2,6 +2,7 @@ import { getSession } from "./admin/_actions/auth";
 import { sql } from "@/lib/db/client";
 import Sidebar from "./admin/_components/sidebar";
 import { UnsavedChangesProvider } from "./admin/_components/unsaved-changes";
+import HideWidgets from "./admin/_components/hide-widgets";
 
 export const metadata = {
   title: "GENEVITY CMS",
@@ -38,6 +39,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (!session) {
     return (
       <div className="font-body">
+        <HideWidgets />
         {children}
       </div>
     );
@@ -47,6 +49,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="font-body min-h-screen bg-champagne">
+      <HideWidgets />
       <UnsavedChangesProvider>
         <Sidebar userName={session.name} role={session.role} counts={counts} />
         <main className="ml-60 min-h-screen">
