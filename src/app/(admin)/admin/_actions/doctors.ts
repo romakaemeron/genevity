@@ -263,3 +263,105 @@ export async function deleteDoctor(id: string) {
   revalidatePath("/doctors");
   redirect("/admin/doctors");
 }
+
+/* ─── Certificate image actions ─────────────────────────────────────────── */
+
+type CertImg = { url: string; type: "image" | "pdf"; alt_uk: string; alt_ru: string; alt_en: string };
+
+export async function rotateCertificateImage(
+  doctorId: string,
+  certUrl: string,
+  direction: "cw" | "ccw",
+): Promise<{ error?: string }> {
+  try {
+    const rows = await sql`SELECT certificate_images, slug FROM doctors WHERE id = ${doctorId}`;
+    if (!rows.length) return { error: "Doctor not found" };
+    const imgs: CertImg[] = rows[0].certificate_images ?? [];
+    const entry = imgs.find((c) => c.url === certUrl);
+    if (!entry) return { error: "Image not found" };
+
+    const res = await fetch(certUrl);
+    if (!res.ok) return { error: "Failed to fetch image" };
+    const buf = Buffer.from(await res.arrayBuffer());
+
+    const degrees = direction === "cw" ? 90 : 270;
+    const rotated = await sharp(buf).rotate(degrees).webp({ quality: 88, effort: 4 }).toBuffer();
+
+    const slug: string = rows[0].slug;
+    const { url: newUrl } = await put(
+      `doctors/certificates/${slug}/${randomUUID()}.webp`,
+      rotated,
+      { access: "public", contentType: "image/webp" },
+    );
+
+    const updated = imgs.map((c) => (c.url === certUrl ? { ...c, url: newUrl } : c));
+    await sql`UPDATE doctors SET certificate_images = ${JSON.stringify(updated)}::jsonb WHERE id = ${doctorId}`;
+    revalidatePath(`/doctors/${slug}`);
+    revalidatePath(`/admin/doctors/${doctorId}`);
+    return {};
+  } catch (e) {
+    return { error: String(e) };
+  }
+}
+
+export async function deleteCertificateImage(
+  doctorId: string,
+  certUrl: string,
+): Promise<{ error?: string }> {
+  try {
+    const rows = await sql`SELECT certificate_images, slug FROM doctors WHERE id = ${doctorId}`;
+    if (!rows.length) return { error: "Doctor not found" };
+    const imgs: CertImg[] = rows[0].certificate_images ?? [];
+    const updated = imgs.filter((c) => c.url !== certUrl);
+    await sql`UPDATE doctors SET certificate_images = ${JSON.stringify(updated)}::jsonb WHERE id = ${doctorId}`;
+    const slug: string = rows[0].slug;
+    revalidatePath(`/doctors/${slug}`);
+    revalidatePath(`/admin/doctors/${doctorId}`);
+    return {};
+  } catch (e) {
+    return { error: String(e) };
+  }
+}
+
+export async function uploadCertificateImage(
+  doctorId: string,
+  formData: FormData,
+): Promise<{ error?: string }> {
+  try {
+    const file = formData.get("file") as File | null;
+    if (!file || !file.size) return { error: "No file provided" };
+
+    const rows = await sql`SELECT certificate_images, slug, name_uk, name_ru, name_en FROM doctors WHERE id = ${doctorId}`;
+    if (!rows.length) return { error: "Doctor not found" };
+    const slug: string = rows[0].slug;
+
+    const raw = Buffer.from(await file.arrayBuffer());
+    const webp = await sharp(raw)
+      .rotate()
+      .resize({ width: 2000, height: 2800, fit: "inside", withoutEnlargement: true })
+      .webp({ quality: 88, effort: 4 })
+      .toBuffer();
+
+    const { url } = await put(
+      `doctors/certificates/${slug}/${randomUUID()}.webp`,
+      webp,
+      { access: "public", contentType: "image/webp" },
+    );
+
+    const imgs: CertImg[] = rows[0].certificate_images ?? [];
+    const entry: CertImg = {
+      url,
+      type: "image",
+      alt_uk: `Сертифікат лікаря ${rows[0].name_uk}`,
+      alt_ru: `Сертификат врача ${rows[0].name_ru}`,
+      alt_en: `Certificate of ${rows[0].name_en}`,
+    };
+    const updated = [...imgs, entry];
+    await sql`UPDATE doctors SET certificate_images = ${JSON.stringify(updated)}::jsonb WHERE id = ${doctorId}`;
+    revalidatePath(`/doctors/${slug}`);
+    revalidatePath(`/admin/doctors/${doctorId}`);
+    return {};
+  } catch (e) {
+    return { error: String(e) };
+  }
+}

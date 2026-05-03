@@ -10,6 +10,7 @@ import PhotoPositionEditor from "../../_components/photo-position-editor";
 import CirclePhotoEditor from "../../_components/circle-photo-editor";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import FinalCtaEditor from "../../_components/final-cta-editor";
+import CertificatesEditor from "./certificates-editor";
 import { saveDoctorFinalCtaData } from "../../_actions/doctors";
 import type { ServiceFinalCtaInput } from "../../_actions/services";
 import Button from "@/components/ui/Button";
@@ -316,6 +317,20 @@ export default function DoctorForm({ doctor }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Certificate images */}
+      {!isNew && doctor && (
+        <div className="mt-8 border-t border-line pt-8">
+          <h3 className="font-heading text-base text-ink mb-1">Certificate images</h3>
+          <p className="text-xs text-muted mb-4">
+            Shown in the public certificate gallery on the doctor's profile. Use the rotate buttons to fix orientation.
+          </p>
+          <CertificatesEditor
+            doctorId={doctor.id}
+            initialImages={(doctor as any).certificate_images ?? []}
+          />
+        </div>
+      )}
 
       <SaveBar label={isNew ? "Create Doctor" : "Save Changes"} />
     </form>

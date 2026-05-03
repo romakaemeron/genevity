@@ -170,7 +170,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
             {laser && <CategoryBlock cat={laser} onNavigate={onNavigate} />}
           </div>
           <div className="flex flex-col gap-10">
-            {diagnostics && <CategoryBlock cat={diagnostics} onNavigate={onNavigate} compact />}
+            {diagnostics && <CategoryBlock cat={diagnostics} onNavigate={onNavigate} />}
             {mega.extra && (
               <ExtraBlock headingKey="more" items={mega.extra.items} onNavigate={onNavigate} />
             )}
