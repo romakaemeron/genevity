@@ -48,7 +48,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const counts = await getCounts();
 
   return (
-    <div className="font-body min-h-screen bg-champagne">
+    <div className="font-body min-h-screen bg-champagne" data-admin-root="true">
       <HideWidgets />
       <UnsavedChangesProvider>
         <Sidebar userName={session.name} role={session.role} counts={counts} />
