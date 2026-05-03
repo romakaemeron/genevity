@@ -1,57 +1,52 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
+/**
+ * Hides third-party floating widgets (Binotel etc.) on admin pages.
+ * Instead of guessing class names, we hide every fixed-position direct
+ * child of <body> that doesn't contain our own admin layout root.
+ */
 export default function HideWidgets() {
-  useEffect(() => {
-    const hidden: HTMLElement[] = [];
+  const rootRef = useRef<HTMLSpanElement>(null);
 
-    function hide(el: HTMLElement) {
-      if (el.dataset.adminHidden) return;
-      el.dataset.adminHidden = "1";
-      el.style.setProperty("display", "none", "important");
-      hidden.push(el);
-    }
+  useEffect(() => {
+    const hidden: { el: HTMLElement; prev: string }[] = [];
 
     function scan() {
-      // Find any iframe pointing to binotel and walk up to its top-level body child
-      document.querySelectorAll<HTMLIFrameElement>("iframe").forEach((iframe) => {
-        const src = iframe.src || iframe.getAttribute("src") || "";
-        if (!src.includes("binotel")) return;
-        let el: Element | null = iframe;
-        while (el?.parentElement && el.parentElement !== document.body) el = el.parentElement;
-        if (el instanceof HTMLElement) hide(el);
-        hide(iframe);
-      });
-
-      // Also sweep known selector patterns (belt-and-suspenders)
-      const patterns = [
-        '[id*="binotel"],[class*="binotel"]',
-        '[id*="bch"],[class*="bch"]',
-        '[id*="bcw"],[class*="bcw"]',
-        '[id*="bingocall"],[class*="bingocall"]',
-      ];
-      patterns.forEach((sel) => {
-        document.querySelectorAll<HTMLElement>(sel).forEach(hide);
+      Array.from(document.body.children).forEach((child) => {
+        const el = child as HTMLElement;
+        // Skip non-visual elements
+        if (["SCRIPT", "NOSCRIPT", "STYLE", "LINK", "META"].includes(el.tagName)) return;
+        // Skip our own admin app container (the one that contains this component)
+        if (rootRef.current && el.contains(rootRef.current)) return;
+        // Skip if already hidden by us
+        if (el.dataset.adminHidden) return;
+        // Hide if position:fixed (widget) — check both computed and inline style
+        const pos = el.style.position || getComputedStyle(el).position;
+        if (pos === "fixed") {
+          hidden.push({ el, prev: el.style.display });
+          el.dataset.adminHidden = "1";
+          el.style.setProperty("display", "none", "important");
+        }
       });
     }
 
-    // Initial sweep (widget may already be in the DOM)
+    // Sweep immediately
     scan();
 
-    // Watch for widgets injected after mount (async script)
+    // Watch for widgets injected after mount
     const observer = new MutationObserver(scan);
-    observer.observe(document.body, { childList: true, subtree: false });
+    observer.observe(document.body, { childList: true });
 
     return () => {
       observer.disconnect();
-      // Restore visibility so the widget works when navigating back to public pages
-      hidden.forEach((el) => {
+      hidden.forEach(({ el, prev }) => {
         delete el.dataset.adminHidden;
-        el.style.removeProperty("display");
+        el.style.display = prev;
       });
     };
   }, []);
 
-  return null;
+  return <span ref={rootRef} style={{ display: "none" }} aria-hidden="true" />;
 }
