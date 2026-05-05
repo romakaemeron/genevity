@@ -7,8 +7,9 @@ import type { DoctorProfileData } from "@/lib/db/queries";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
-import DoctorReviews from "@/components/doctors/DoctorReviews";
-import CertificateGallery from "@/components/doctors/CertificateGallery";
+import dynamic from "next/dynamic";
+const DoctorReviews = dynamic(() => import("@/components/doctors/DoctorReviews"), { ssr: false });
+const CertificateGallery = dynamic(() => import("@/components/doctors/CertificateGallery"), { ssr: false });
 import { JsonLd } from "@/components/seo/JsonLd";
 import { useScrollReveal } from "@/lib/useReveal";
 
