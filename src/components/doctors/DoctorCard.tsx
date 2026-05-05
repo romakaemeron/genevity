@@ -2,7 +2,8 @@
 
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import Button from "@/components/ui/Button";
+import { useRouter } from "@/i18n/navigation";
 import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorCardProps {
@@ -11,9 +12,9 @@ interface DoctorCardProps {
   onClick: () => void;
 }
 
-const cardClass = "group bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:bg-champagne-darker transition-all duration-300 cursor-pointer";
+const cardClass = "group relative bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:bg-champagne-darker transition-all duration-300 cursor-pointer";
 
-function CardInner({ doctor, detailsLabel }: { doctor: DoctorItem; detailsLabel: string }) {
+function CardInner({ doctor, detailsLabel, slug, onClick }: { doctor: DoctorItem; detailsLabel: string; slug?: string | null; onClick?: () => void }) {
   const { name, role, experience, photoCard, cardPosition } = doctor;
   return (
     <>
@@ -22,6 +23,7 @@ function CardInner({ doctor, detailsLabel }: { doctor: DoctorItem; detailsLabel:
           <Image
             src={photoCard}
             alt={`Лікар ${role} ${name} – GENEVITY Дніпро`}
+            title={name}
             fill
             className="object-cover"
             style={{ objectPosition: cardPosition }}
@@ -35,26 +37,35 @@ function CardInner({ doctor, detailsLabel }: { doctor: DoctorItem; detailsLabel:
         <h3 className="body-strong text-black">{name}</h3>
         <p className="body-m text-main">{role}</p>
         {experience && <p className="body-s text-black-40">{experience}</p>}
-        <span className="self-start mt-auto inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300 body-s text-black-60 group-hover:text-main">
+        <Button
+          variant="outline"
+          size="sm"
+          href={slug ? `/doctors/${slug}` : undefined}
+          onClick={slug ? undefined : onClick}
+          className="self-start mt-auto"
+        >
           {detailsLabel}
           <ArrowUpRight className="w-3.5 h-3.5" />
-        </span>
+        </Button>
       </div>
     </>
   );
 }
 
 export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCardProps) {
-  if (doctor.slug) {
-    return (
-      <Link href={`/doctors/${doctor.slug}`} className={cardClass}>
-        <CardInner doctor={doctor} detailsLabel={detailsLabel} />
-      </Link>
-    );
-  }
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    if (doctor.slug) {
+      router.push(`/doctors/${doctor.slug}`);
+    } else {
+      onClick();
+    }
+  };
+
   return (
-    <div className={cardClass} onClick={onClick}>
-      <CardInner doctor={doctor} detailsLabel={detailsLabel} />
+    <div className={cardClass} onClick={handleCardClick}>
+      <CardInner doctor={doctor} detailsLabel={detailsLabel} slug={doctor.slug} onClick={onClick} />
     </div>
   );
 }

@@ -219,6 +219,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                       alt={data.title}
                       title={data.title}
                       fill
+                      priority={isFirstSection}
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       style={"heroImageFocalPoint" in section && section.heroImageFocalPoint

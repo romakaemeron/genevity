@@ -128,7 +128,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
               >
                 {i === 0 && (
                   <>
-                    <Image src="/clinic/semi1256-hdr.webp" alt={feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                    <Image src="/clinic/semi1256-hdr.webp" alt={feat.label} title={feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                     <div className="absolute inset-0 bg-black/55" />
                   </>
                 )}
@@ -293,7 +293,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
-          <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />
+          <Image src="/clinic/acupulse.webp" alt="GENEVITY" title="GENEVITY — денний стаціонар" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

@@ -82,7 +82,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
           <>
             {/* Dark: full-bleed image */}
             <motion.div className="absolute inset-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1.2 }}>
-              <Image src={heroImage?.src || photos[0]} alt={category.title} fill className="object-cover" style={{ objectPosition: heroImage?.position || "center" }} sizes="100vw" priority />
+              <Image src={heroImage?.src || photos[0]} alt={category.title} title={category.title} fill className="object-cover" style={{ objectPosition: heroImage?.position || "center" }} sizes="100vw" priority />
             </motion.div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(42,37,32,0.85) 0%, rgba(42,37,32,0.6) 40%, rgba(42,37,32,0.2) 70%, transparent 100%)" }} />
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(42,37,32,0.7) 0%, transparent 40%)" }} />
@@ -148,6 +148,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                     <Image
                       src={heroImage?.src || photos[0]}
                       alt={category.title}
+                      title={category.title}
                       fill
                       className="object-cover"
                       style={{
@@ -201,6 +202,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                           <Image
                             src={photos[1] || photos[0]}
                             alt={category.title}
+                            title={category.title}
                             fill
                             className="object-cover"
                             sizes="(max-width: 1024px) 100vw, 50vw"
@@ -246,6 +248,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                       <Image
                         src={photos[2] || photos[0]}
                         alt={`${category.title} — GENEVITY`}
+                        title={`${category.title} — GENEVITY`}
                         fill
                         className="object-cover"
                         sizes="100vw"
@@ -380,6 +383,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
           <Image
             src={photos[photos.length > 4 ? 4 : 0]}
             alt="GENEVITY клініка"
+            title="GENEVITY — клініка довголіття та естетичної медицини"
             fill
             className="object-cover"
             sizes="100vw"

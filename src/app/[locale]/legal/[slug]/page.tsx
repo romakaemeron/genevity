@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getLegalDocBySlug } from "@/lib/db/queries";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
@@ -106,6 +106,30 @@ function parseContent(content: string): Block[] {
   flushParagraph();
 
   return blocks;
+}
+
+/* ---------- Inline link renderer: [text](url) → <a> ---------- */
+
+function renderWithLinks(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
+    if (match) {
+      return (
+        <a
+          key={i}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-main underline underline-offset-2 hover:text-main-dark transition-colors"
+        >
+          {match[1]}
+          <ExternalLink className="w-3 h-3 shrink-0" />
+        </a>
+      );
+    }
+    return part;
+  });
 }
 
 /* ---------- Page ---------- */
@@ -219,7 +243,7 @@ export default async function LegalPage({
                   key={i}
                   className="body-m text-black-80 leading-[1.75] mb-5 last:mb-0"
                 >
-                  {block.text}
+                  {renderWithLinks(block.text)}
                 </p>
               );
             })}

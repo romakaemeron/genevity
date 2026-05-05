@@ -152,7 +152,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
           {["/clinic/semi1737-hdr.webp", "/clinic/semi1256-hdr.webp", "/clinic/semi1287-hdr.webp"].map((src, i) => (
             <div key={i} className="relative aspect-[4/3] rounded-[var(--radius-card)] overflow-hidden">
-              <Image src={src} alt={`GENEVITY ${i + 1}`} fill className="object-cover" sizes="(max-width: 1024px) 50vw, 33vw" />
+              <Image src={src} alt={`GENEVITY ${i + 1}`} title={`GENEVITY — клініка довголіття та естетичної медицини`} fill className="object-cover" sizes="(max-width: 1024px) 50vw, 33vw" />
             </div>
           ))}
         </div>
@@ -162,7 +162,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
           className="relative rounded-[var(--radius-card)] overflow-hidden min-h-[280px] flex items-center">
-          <Image src="/clinic/acupulse.webp" alt="GENEVITY" fill className="object-cover" sizes="100vw" />
+          <Image src="/clinic/acupulse.webp" alt="GENEVITY" title="GENEVITY — клініка довголіття та естетичної медицини" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

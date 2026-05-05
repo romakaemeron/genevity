@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllServiceSlugs, getLegalDocs, getAllDoctors } from "@/lib/db/queries";
+import { getAllBlogSlugs } from "@/lib/db/queries/blog";
 import { sql } from "@/lib/db/client";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
@@ -22,12 +23,13 @@ function localeUrls(path: string): MetadataRoute.Sitemap[number] {
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categories, services, staticPages, legalDocs, doctors] = await Promise.all([
+  const [categories, services, staticPages, legalDocs, doctors, blogSlugs] = await Promise.all([
     sql`SELECT slug FROM service_categories WHERE seo_noindex IS NOT TRUE ORDER BY sort_order`,
     getAllServiceSlugs(),
     sql`SELECT slug FROM static_pages`,
     getLegalDocs("ua"),
     getAllDoctors("ua"),
+    getAllBlogSlugs(),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -61,6 +63,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Legal docs
   for (const doc of legalDocs) {
     entries.push(localeUrls(`/legal/${doc.slug}`));
+  }
+
+  // Blog index + individual posts
+  entries.push(localeUrls('/blog'));
+  for (const slug of blogSlugs) {
+    entries.push(localeUrls(`/blog/${slug}`));
   }
 
   return entries;

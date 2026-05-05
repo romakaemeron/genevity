@@ -37,7 +37,11 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
           "@type": "ImageObject",
           url: "https://genevity.com.ua/brand/LogoFullDark.svg",
         },
-        image: "https://genevity.com.ua/og/genevity-og.jpg",
+        image: [
+          "https://genevity.com.ua/clinic/semi1737-hdr.webp",
+          "https://genevity.com.ua/clinic/semi1287-hdr.webp",
+          "https://genevity.com.ua/clinic/semi1256-hdr.webp",
+        ],
         description: DESCRIPTIONS[locale] ?? DESCRIPTIONS.ua,
         email: "info@genevity.com.ua",
         telephone: (s.phone1 || "+380730000150").replace(/\s/g, ""),
