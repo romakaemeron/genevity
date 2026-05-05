@@ -104,10 +104,10 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
         <div id="static-hero-sentinel" aria-hidden="true" className="absolute bottom-0 left-0 w-px h-px" />
       </section>
 
-      {/* Comfort features */}
-      <section ref={comfortRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 cv-auto ${comfortVisible ? "revealed" : ""}`}>
-        <h2 className="reveal heading-2 text-black mb-4">{tPage("comfort.title")}</h2>
-        <p className="reveal d1 body-l text-muted mb-10 max-w-2xl">{tPage("comfort.subtitle")}</p>
+      {/* Comfort features — heading/subtitle render immediately (in viewport, potential LCP) */}
+      <section ref={comfortRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${comfortVisible ? "revealed" : ""}`}>
+        <h2 className="heading-2 text-black mb-4">{tPage("comfort.title")}</h2>
+        <p className="body-l text-muted mb-10 max-w-2xl">{tPage("comfort.subtitle")}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {comfortFeatures.map((feat, i) => (
             <div
