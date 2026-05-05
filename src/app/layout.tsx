@@ -23,6 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="uk" className={`${tenorSans.variable} ${mulish.variable}`}>
       <head>
+        {/* Preconnect for third-party origins used after load */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://widgets.binotel.com" />
         <Script
           id="gtm-head"
           strategy="afterInteractive"

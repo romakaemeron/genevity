@@ -80,6 +80,9 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [progressKey, setProgressKey] = useState(0);
+  // Track first mount to skip opacity fade on initial render — prevents LCP penalty
+  const isFirstMount = useRef(true);
+  useEffect(() => { isFirstMount.current = false; }, []);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const goto = useCallback(
@@ -137,11 +140,11 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
             key={current}
             data-hero-slide={slide.id}
             className="absolute inset-0 hero-slide-enter"
-            initial={{ opacity: 0 }}
+            initial={isFirstMount.current ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
-              opacity: { duration: 2, ease: [0.4, 0, 0.2, 1] },
+              opacity: { duration: 1.2, ease: [0.4, 0, 0.2, 1] },
             }}
           >
             {/* Scaled wrapper — zoom level + origin set by CSS vars keyed on
@@ -153,7 +156,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                 transformOrigin: "var(--focal, 50% 50%)",
               }}
             >
-              {/* Sharp image */}
+              {/* Sharp image — priority on first slide for LCP */}
               <Image
                 src={slide.src}
                 alt={slide.alt || ""}
@@ -162,28 +165,21 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                 style={{ objectPosition: "var(--focal)" }}
                 sizes="100vw"
                 priority={current === 0}
+                fetchPriority={current === 0 ? "high" : "auto"}
               />
 
-              {/* Progressive blur — inside slide so it crossfades together */}
+              {/* Progressive blur via CSS — no duplicate image request */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
+                  backdropFilter: "blur(2px)",
+                  WebkitBackdropFilter: "blur(2px)",
                   maskImage:
                     "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
                   WebkitMaskImage:
                     "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
                 }}
-              >
-                <Image
-                  src={slide.src}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: "var(--focal)", filter: "blur(2px)" }}
-                  sizes="100vw"
-                  aria-hidden
-                />
-              </div>
+              />
             </div>
           </motion.div>
         </AnimatePresence>

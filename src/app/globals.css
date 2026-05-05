@@ -462,3 +462,12 @@ input[type="search"] {
 }
 .prose-genevity hr { border-color: rgb(var(--color-black-rgb) / 0.1); margin: 2rem 0; }
 
+
+/* SEO audit §1.8.2: content-visibility for sections below the fold
+   Tells the browser to skip rendering off-screen sections until needed,
+   improving INP and TBT on long pages. contain-intrinsic-size prevents
+   layout shift by reserving estimated height. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
