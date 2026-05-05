@@ -348,17 +348,19 @@ export default function MegaMenuHeader({
                     ))}
                     {item.mega!.extra && (
                       <div
-                        className="flex flex-col gap-3"
+                        className="flex flex-col gap-4"
                         style={{
                           animation: isActive ? `grid-enter 0.3s ${0.08 + item.mega!.categories.length * 0.04}s both` : "none",
                           opacity: isActive ? 1 : 0,
                         }}
                       >
-                        <p className="body-strong text-black">{tNav("more")}</p>
-                        <ul className="flex flex-col gap-2 pl-3 border-l border-black-10">
+                        <span className="inline-flex items-center gap-1.5 heading-3 text-black cursor-default select-none">
+                          {tNav("more")}
+                        </span>
+                        <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
                           {item.mega!.extra.items.map((leaf) => (
                             <li key={leaf.key}>
-                              <Link href={leaf.href} onClick={closeMobile} className="body-m text-black-60 hover:text-main transition-colors">
+                              <Link href={leaf.href} onClick={closeMobile} className="body-l text-black-60 hover:text-main transition-colors">
                                 {tNav(leaf.key)}
                               </Link>
                             </li>

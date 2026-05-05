@@ -84,6 +84,7 @@ const R = {
   laserMen: "/services/laser-hair-removal/men",
   laserWomen: "/services/laser-hair-removal/women",
 
+  longevity: "/services/longevity",
   longevityCheckup: "/services/longevity/check-up-40",
   longevityProgram: "/services/longevity/longevity-program",
   longevityHormonal: "/services/longevity/hormonal-balance",
@@ -167,7 +168,7 @@ const laser: NavCategory = {
 const longevity: NavCategory = {
   key: "longevity",
   label: L("Longevity & Anti-Age", "Longevity & Anti-Age", "Longevity & Anti-Age"),
-  href: "",
+  href: R.longevity,
   items: [
     { key: "check-up-40", label: L("Check-Up 40+", "Check-Up 40+", "Check-Up 40+"), href: R.longevityCheckup },
     { key: "longevity-program", label: L("Longevity програма", "Longevity программа", "Longevity programme"), href: R.longevityProgram },
