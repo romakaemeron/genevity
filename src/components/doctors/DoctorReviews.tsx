@@ -126,12 +126,12 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
 
   return (
     <section className="bg-champagne py-12 lg:py-16">
-      {/* Header: title + write review button + arrows */}
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-8">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="heading-2 text-black">{labels.title}</h2>
-          <div className="flex items-center gap-2 shrink-0">
-            <div className={`flex gap-2 ${hasOverflow ? "" : "hidden"}`}>
+      {/* Header: mobile=two rows (title / arrows+button), sm+=single row */}
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+        <h2 className="heading-2 text-black">{labels.title}</h2>
+        <div className="flex items-center justify-between sm:justify-start gap-2 shrink-0">
+          {hasOverflow && (
+            <div className="flex gap-2">
               <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
                 <ChevronLeft size={16} />
               </Button>
@@ -139,25 +139,16 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
                 <ChevronRight size={16} />
               </Button>
             </div>
-            <Button variant="secondary" size="sm" onClick={() => setModalOpen(true)}>
-              {labels.write}
-            </Button>
-          </div>
+          )}
+          <Button variant="secondary" size="sm" onClick={() => setModalOpen(true)}>
+            {labels.write}
+          </Button>
         </div>
       </div>
 
-      {/* Mobile: vertical stack */}
+      {/* Horizontal scroll on all screen sizes */}
       {reviews.length > 0 && (
-        <div className="sm:hidden flex flex-col gap-4 px-4">
-          {reviews.map((review) => (
-            <ReviewCard key={review._id} review={review} locale={locale} />
-          ))}
-        </div>
-      )}
-
-      {/* sm+: horizontal scroll */}
-      {reviews.length > 0 && (
-        <div ref={scrollerRef} className="hidden sm:flex doctors-scroller scrollbar-hide">
+        <div ref={scrollerRef} className="flex doctors-scroller scrollbar-hide">
           {reviews.map((review) => (
             <div
               key={review._id}
