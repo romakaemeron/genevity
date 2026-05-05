@@ -239,7 +239,7 @@ export default function MegaMenuHeader({
               opacity: mobileView === "top" ? 1 : 0,
               filter: mobileView === "top" ? "blur(0px)" : "blur(8px)",
               transition: "transform 0.36s cubic-bezier(0.32,0.72,0,1), opacity 0.36s cubic-bezier(0.32,0.72,0,1), filter 0.36s cubic-bezier(0.32,0.72,0,1)",
-              pointerEvents: mobileView === "top" ? "auto" : "none",
+              pointerEvents: mobileOpen && mobileView === "top" ? "auto" : "none",
             }}
           >
             <div className="flex flex-col items-start gap-1 px-4 sm:px-6 pt-6 pb-24">
@@ -294,7 +294,7 @@ export default function MegaMenuHeader({
                   opacity: isActive ? 1 : 0,
                   filter: isActive ? "blur(0px)" : "blur(8px)",
                   transition: "transform 0.36s cubic-bezier(0.32,0.72,0,1), opacity 0.36s cubic-bezier(0.32,0.72,0,1), filter 0.36s cubic-bezier(0.32,0.72,0,1)",
-                  pointerEvents: isActive ? "auto" : "none",
+                  pointerEvents: mobileOpen && isActive ? "auto" : "none",
                 }}
               >
                 <div className="px-4 sm:px-6 pt-4 pb-24">

@@ -187,9 +187,13 @@ export default function CertificateGallery({ images, title }: Props) {
     const el = scrollerRef.current;
     if (!el) return;
     updateScrollState();
+    // ResizeObserver fires when images load and change the scroller's content width
+    const ro = new ResizeObserver(updateScrollState);
+    ro.observe(el);
     el.addEventListener("scroll", updateScrollState, { passive: true });
     window.addEventListener("resize", updateScrollState);
     return () => {
+      ro.disconnect();
       el.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
