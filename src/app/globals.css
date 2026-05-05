@@ -471,3 +471,12 @@ input[type="search"] {
   content-visibility: auto;
   contain-intrinsic-size: 0 600px;
 }
+
+/* Hero — CSS animations replacing Framer Motion (perf §1.8) */
+@keyframes hero-text-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-text-enter {
+  animation: hero-text-in 0.7s ease 0.2s both;
+}

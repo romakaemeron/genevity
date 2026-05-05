@@ -2,14 +2,17 @@ import { getHomepageData, getHeroSlides, getStaticPageSeo } from "@/lib/db/queri
 import { generatePageMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import About from "@/components/home/About";
-import Equipment from "@/components/home/Equipment";
-import Advantages from "@/components/home/Advantages";
-import Doctors from "@/components/home/Doctors";
-import HomeFaq from "@/components/home/HomeFaq";
-import Contacts from "@/components/home/Contacts";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+
+// Below-fold sections — code-split to defer Framer Motion out of initial bundle
+const Equipment  = dynamic(() => import("@/components/home/Equipment"));
+const Advantages = dynamic(() => import("@/components/home/Advantages"));
+const Doctors    = dynamic(() => import("@/components/home/Doctors"));
+const HomeFaq    = dynamic(() => import("@/components/home/HomeFaq"));
+const Contacts   = dynamic(() => import("@/components/home/Contacts"));
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import { ChevronRight } from "lucide-react";
