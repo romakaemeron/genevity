@@ -17,7 +17,7 @@ const nextConfig = {
   // Lift it to 20MB so large source photos (12MP+ phone shots) can reach the server.
   middlewareClientMaxBodySize: "20mb",
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react"],
     serverActions: {
       bodySizeLimit: "20mb",
     },

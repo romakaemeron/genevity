@@ -10,11 +10,12 @@ interface DoctorCardProps {
   doctor: DoctorItem;
   detailsLabel: string;
   onClick: () => void;
+  priority?: boolean;
 }
 
 const cardClass = "group relative bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:bg-champagne-darker transition-all duration-300 cursor-pointer";
 
-function CardInner({ doctor, detailsLabel, slug, onClick }: { doctor: DoctorItem; detailsLabel: string; slug?: string | null; onClick?: () => void }) {
+function CardInner({ doctor, detailsLabel, slug, onClick, priority }: { doctor: DoctorItem; detailsLabel: string; slug?: string | null; onClick?: () => void; priority?: boolean }) {
   const { name, role, experience, photoCard, cardPosition } = doctor;
   return (
     <>
@@ -28,6 +29,7 @@ function CardInner({ doctor, detailsLabel, slug, onClick }: { doctor: DoctorItem
             className="object-cover"
             style={{ objectPosition: cardPosition }}
             sizes="300px"
+            priority={priority}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-black-20 body-s">Photo</div>
@@ -52,7 +54,7 @@ function CardInner({ doctor, detailsLabel, slug, onClick }: { doctor: DoctorItem
   );
 }
 
-export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCardProps) {
+export default function DoctorCard({ doctor, detailsLabel, onClick, priority }: DoctorCardProps) {
   const router = useRouter();
 
   const handleCardClick = () => {
@@ -65,7 +67,7 @@ export default function DoctorCard({ doctor, detailsLabel, onClick }: DoctorCard
 
   return (
     <div className={cardClass} onClick={handleCardClick}>
-      <CardInner doctor={doctor} detailsLabel={detailsLabel} slug={doctor.slug} onClick={onClick} />
+      <CardInner doctor={doctor} detailsLabel={detailsLabel} slug={doctor.slug} onClick={onClick} priority={priority} />
     </div>
   );
 }

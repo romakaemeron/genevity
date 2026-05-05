@@ -84,9 +84,9 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
 
         {/* key triggers remount → CSS grid-enter animation replays on filter change */}
         <div key={activeFilter} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 grid-enter">
-          {filteredDoctors.map((doctor) => (
+          {filteredDoctors.map((doctor, i) => (
             <div key={doctor._id}>
-              <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} />
+              <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} priority={i === 0} />
             </div>
           ))}
         </div>
