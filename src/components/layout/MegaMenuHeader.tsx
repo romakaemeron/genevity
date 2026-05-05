@@ -133,6 +133,9 @@ export default function MegaMenuHeader({
     mobileView !== "top" ? navTop.find((i) => i.key === mobileView) : undefined;
 
   return (
+    // Fragment: mobile menu MUST live outside <header> because CSS transforms on <header>
+    // (used by header-fixed-appear) create a new containing block for position:fixed children.
+    <>
     <header
       className={`${positionClass} top-0 left-0 right-0 z-[999] transition-[background,box-shadow] duration-300 ${headerBgClass} ${shadowClass} ${headerAnimClass}`}
       style={headerStyle}
@@ -220,8 +223,10 @@ export default function MegaMenuHeader({
         </div>
       )}
 
-      {/* Mobile Menu — always mounted, shown/hidden via opacity + pointer-events for perf */}
-      <div
+    </header>
+
+    {/* Mobile menu is OUTSIDE <header> to avoid transform stacking-context trapping fixed children */}
+    <div
         className={`lg:hidden fixed inset-x-0 top-16 bottom-0 z-[998] overflow-hidden bg-champagne transition-opacity duration-220 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         aria-hidden={!mobileOpen}
       >
@@ -369,7 +374,7 @@ export default function MegaMenuHeader({
         </div>
       </div>
 
-      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-    </header>
+    <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    </>
   );
 }
