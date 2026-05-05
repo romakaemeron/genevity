@@ -4,10 +4,10 @@ import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
-import About from "@/components/home/About";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
-// Below-fold sections — code-split to defer Framer Motion out of initial bundle
+// All below-fold sections are dynamically imported — keeps initial bundle minimal
+const About      = dynamic(() => import("@/components/home/About"));
 const Equipment  = dynamic(() => import("@/components/home/Equipment"));
 const Advantages = dynamic(() => import("@/components/home/Advantages"));
 const Doctors    = dynamic(() => import("@/components/home/Doctors"));

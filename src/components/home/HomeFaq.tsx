@@ -1,54 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { useScrollReveal } from "@/lib/useReveal";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 
 const QUESTION_KEYS = ["q1", "q2", "q3", "q4", "q5"] as const;
 
-function FaqItem({
-  question,
-  answer,
-  isOpen,
-  onToggle,
-}: {
-  question: string;
-  answer: string;
-  isOpen: boolean;
-  onToggle: () => void;
+function FaqItem({ question, answer, isOpen, onToggle }: {
+  question: string; answer: string; isOpen: boolean; onToggle: () => void;
 }) {
   return (
     <div className="border-b border-line">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between py-5 text-left cursor-pointer group"
+        aria-expanded={isOpen}
       >
-        <span className="body-strong text-black group-hover:text-main transition-colors pr-4">
-          {question}
-        </span>
-        <motion.span
-          className="text-muted text-2xl leading-none shrink-0"
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          +
-        </motion.span>
+        <span className="body-strong text-black group-hover:text-main transition-colors pr-4">{question}</span>
+        <span className={`faq-icon text-muted text-2xl leading-none shrink-0 ${isOpen ? "open" : ""}`}>+</span>
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <p className="body-l text-muted pb-5 pr-8">{answer}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className={`accordion-body ${isOpen ? "open" : ""}`}>
+        <div>
+          <p className="body-l text-muted pb-5 pr-8">{answer}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -56,6 +32,7 @@ function FaqItem({
 export default function HomeFaq() {
   const t = useTranslations("homeFaq");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { ref, visible } = useScrollReveal();
 
   const items = QUESTION_KEYS.map((k) => ({
     question: t(`${k}.question`),
@@ -63,20 +40,11 @@ export default function HomeFaq() {
   })).filter((x) => x.question);
 
   return (
-    <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
+    <section ref={ref as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 ${visible ? "revealed" : ""}`}>
       <FaqSchema items={items} />
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="flex flex-col"
-      >
-        <motion.h2 variants={fadeInUp} className="heading-2 text-black mb-8">
-          {t("title")}
-        </motion.h2>
-
-        <motion.div variants={fadeInUp} className="border-t border-line">
+      <div className="flex flex-col">
+        <h2 className="reveal heading-2 text-black mb-8">{t("title")}</h2>
+        <div className="reveal d1 border-t border-line">
           {items.map((item, i) => (
             <FaqItem
               key={i}
@@ -86,8 +54,8 @@ export default function HomeFaq() {
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             />
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

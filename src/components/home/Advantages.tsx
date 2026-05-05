@@ -1,19 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { useScrollReveal } from "@/lib/useReveal";
 import { Users, Microscope, Clock, Award, ChevronRight, Dna } from "lucide-react";
 import Button from "@/components/ui/Button";
 
-const imageCard = {
-  icon: Microscope,
-  key: "equipment",
-  image: "/images/bento/SEMI7144.webp",
-};
-
+const imageCard = { icon: Microscope, key: "equipment", image: "/images/bento/SEMI7144.webp" };
 const smallCards: { icon: typeof Users; key: string; href?: string }[] = [
   { icon: Users, key: "team" },
   { icon: Dna, key: "longevity" },
@@ -23,26 +17,15 @@ const smallCards: { icon: typeof Users; key: string; href?: string }[] = [
 
 export default function Advantages() {
   const t = useTranslations("advantages");
+  const { ref, visible } = useScrollReveal();
 
   return (
-    <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="flex flex-col gap-10"
-      >
-        <motion.h2 variants={fadeInUp} className="heading-2 text-black">
-          {t("title")}
-        </motion.h2>
+    <section ref={ref as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 ${visible ? "revealed" : ""}`}>
+      <div className="flex flex-col gap-10">
+        <h2 className="reveal heading-2 text-black">{t("title")}</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5 lg:grid-rows-[1fr]">
-          {/* Big image card — left */}
-          <motion.div
-            variants={fadeInUp}
-            className="group relative rounded-[var(--radius-card)] overflow-hidden bg-black"
-          >
+          <div className="reveal d1 group relative rounded-[var(--radius-card)] overflow-hidden bg-black">
             <div className="relative aspect-[4/3] lg:aspect-auto lg:h-full min-h-[320px]">
               <Image
                 src={imageCard.image}
@@ -60,15 +43,13 @@ export default function Advantages() {
               </div>
               <p className="body-m text-white-60">{t(`${imageCard.key}.desc`)}</p>
             </div>
-          </motion.div>
+          </div>
 
-          {/* 4 small cards — right, 2x2 grid, stretch to fill */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 grid-rows-2">
             {smallCards.map((item, i) => (
-              <motion.div
+              <div
                 key={i}
-                variants={fadeInUp}
-                className="bg-champagne-dark p-6 lg:p-7 rounded-[var(--radius-card)] flex flex-col justify-between gap-4"
+                className={`reveal d${i + 2} bg-champagne-dark p-6 lg:p-7 rounded-[var(--radius-card)] flex flex-col justify-between gap-4`}
               >
                 <div>
                   <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center text-main mb-4">
@@ -87,11 +68,11 @@ export default function Advantages() {
                     </Link>
                   </div>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

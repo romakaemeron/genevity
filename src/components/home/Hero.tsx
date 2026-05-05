@@ -76,8 +76,12 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
   const [previous, setPrevious] = useState<number | null>(null);
   const [playing, setPlaying] = useState(true);
   const [progressKey, setProgressKey] = useState(0);
+  // Apply text animation only after hydration — keeps H1 visible in SSR for LCP
+  const [textAnimated, setTextAnimated] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const prevCleanupRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => { setTextAnimated(true); }, []);
 
   const goto = useCallback(
     (i: number) => {
@@ -176,7 +180,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
 
         <div className="relative z-[5] h-full flex items-center">
           <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)]">
-            <div className="hero-text-enter max-w-200">
+            <div className={`${textAnimated ? "hero-text-animated" : ""} max-w-200`}>
               <h1 className="heading-1 text-champagne">{data.title}</h1>
               <p className="body-l text-white-60 mt-5 max-w-[54ch]">{data.subtitle}</p>
               <div className="flex flex-col gap-4 mt-8">
