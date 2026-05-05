@@ -55,14 +55,17 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
       <section className="bg-champagne pt-28 pb-12 lg:pt-32 lg:pb-16">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
           <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: tLabels("doctors"), href: "/doctors" }, { label: doctor.name, href: `/doctors/${doctor.slug}` }]} locale={locale} />
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 lg:gap-16 items-start">
+          {/* Mobile: name→photo→bio. Desktop: [name | photo] + [bio | photo continued] */}
+          <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-y-8 lg:gap-y-10 gap-x-16 items-start">
+
+            {/* 1. Metadata — name, role, experience, specialties */}
             <div className="flex flex-col gap-6">
               <div>
                 <h1 className="heading-1 text-black">{doctor.name}</h1>
                 <p className="body-m text-main font-medium mt-3">{doctor.role}</p>
               </div>
               {doctor.experience && (
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-main/10 text-main body-s font-medium">
+                <div className="inline-flex self-start items-center gap-2 px-4 py-2 rounded-full bg-main/10 text-main body-s font-medium">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
                   <span>{tLabels("experience")}:&nbsp;{doctor.experience}</span>
                 </div>
@@ -72,20 +75,24 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
                   {doctor.specialties.map((s, i) => <span key={i} className="px-3 py-1.5 rounded-full bg-black/5 body-s text-black-60">{s}</span>)}
                 </div>
               )}
-              {doctor.bio && (
-                <div className="max-w-2xl">
-                  {doctor.bio.split("\n\n").map((para, i) => <p key={i} className={`body-l text-black-70 leading-relaxed ${i > 0 ? "mt-4" : ""}`}>{para}</p>)}
-                </div>
-              )}
             </div>
+
+            {/* 2. Photo + CTA — mobile: 2nd; desktop: right column spanning rows 1–2 */}
             {photo && (
-              <div className="flex flex-col gap-5 lg:sticky lg:top-28 order-first lg:order-last">
+              <div className="flex flex-col gap-5 lg:sticky lg:top-28 lg:row-span-2">
                 <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-champagne-dark shadow-lg">
                   <div className="absolute inset-0" style={doctor.profileScale !== 1 ? { transform: `scale(${doctor.profileScale})`, transformOrigin: doctor.profileFocalPoint } : undefined}>
                     <Image src={photo} alt={doctor.name} title={doctor.name} fill className="object-cover" style={{ objectPosition: doctor.profileFocalPoint }} sizes="(max-width: 1024px) 100vw, 340px" priority />
                   </div>
                 </div>
                 <BookingCTA ctaKey="doctorProfile" variant="primary" size="md">{tLabels("bookConsultation")}</BookingCTA>
+              </div>
+            )}
+
+            {/* 3. Bio — mobile: 3rd (after photo); desktop: left column row 2 */}
+            {doctor.bio && (
+              <div className="max-w-2xl lg:col-start-1">
+                {doctor.bio.split("\n\n").map((para, i) => <p key={i} className={`body-l text-black-70 leading-relaxed ${i > 0 ? "mt-4" : ""}`}>{para}</p>)}
               </div>
             )}
           </div>

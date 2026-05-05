@@ -146,9 +146,18 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
         </div>
       </div>
 
-      {/* Scrollable cards */}
+      {/* Mobile: vertical stack */}
       {reviews.length > 0 && (
-        <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
+        <div className="sm:hidden flex flex-col gap-4 px-4">
+          {reviews.map((review) => (
+            <ReviewCard key={review._id} review={review} locale={locale} />
+          ))}
+        </div>
+      )}
+
+      {/* sm+: horizontal scroll */}
+      {reviews.length > 0 && (
+        <div ref={scrollerRef} className="hidden sm:flex doctors-scroller scrollbar-hide">
           {reviews.map((review) => (
             <div
               key={review._id}
