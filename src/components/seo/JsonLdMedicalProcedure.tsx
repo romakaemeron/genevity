@@ -17,6 +17,8 @@ interface Props {
   /** e.g. "до 6 місяців" */
   followup?: string;
   bodyLocation?: string;
+  /** e.g. "від 1200 грн" — displayed price string */
+  priceFrom?: string;
 }
 
 export function JsonLdMedicalProcedure({
@@ -28,6 +30,7 @@ export function JsonLdMedicalProcedure({
   preparation,
   followup,
   bodyLocation,
+  priceFrom,
 }: Props) {
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -42,6 +45,18 @@ export function JsonLdMedicalProcedure({
   if (preparation) data.preparation = preparation;
   if (followup) data.followup = followup;
   if (bodyLocation) data.bodyLocation = bodyLocation;
+  if (priceFrom) {
+    data.offers = {
+      "@type": "Offer",
+      priceCurrency: "UAH",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "UAH",
+        description: priceFrom,
+      },
+      url,
+    };
+  }
 
   return <JsonLd data={data} />;
 }

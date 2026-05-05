@@ -15,6 +15,7 @@ export default function ImageGallerySection({ heading, images }: SectionImageGal
               <Image
                 src={img.url}
                 alt={img.alt || ""}
+                title={img.alt || undefined}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 50vw, 33vw"

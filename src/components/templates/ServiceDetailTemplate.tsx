@@ -97,6 +97,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         name={data.h1 || data.title}
         description={data.summary || ""}
         url={absoluteUrl(`/services/${data.category.slug}/${data.slug}`, locale)}
+        priceFrom={data.priceFrom ?? undefined}
       />
       {data.faq?.length > 0 && (
         <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />

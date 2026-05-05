@@ -274,7 +274,7 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
               animate={{ opacity: i === activeIndex ? 1 : 0 }}
               transition={{ duration: 0.4 }}
             >
-              <Image src={item.src} alt={item.alt} fill className="object-cover" sizes="100vw" />
+              <Image src={item.src} alt={item.alt} title={item.alt} fill className="object-cover" sizes="100vw" />
             </motion.div>
           ))}
         </div>

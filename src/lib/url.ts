@@ -26,15 +26,17 @@ const HREFLANG: Record<string, string> = {
   en: "en-UA",
 };
 
-/** Generate hreflang alternates for all locales with region codes (e.g. uk-UA). */
-export function buildAlternates(path: string) {
+/** Generate hreflang alternates for all locales with region codes (e.g. uk-UA).
+ *  Canonical points to the current locale's URL (self-referencing). */
+export function buildAlternates(path: string, locale?: Locale) {
+  const canonicalLocale = locale ?? routing.defaultLocale;
   const languages: Record<string, string> = {};
-  for (const locale of routing.locales) {
-    languages[HREFLANG[locale] ?? locale] = absoluteUrl(path, locale);
+  for (const loc of routing.locales) {
+    languages[HREFLANG[loc] ?? loc] = absoluteUrl(path, loc);
   }
   languages["x-default"] = absoluteUrl(path, routing.defaultLocale);
   return {
-    canonical: absoluteUrl(path, routing.defaultLocale),
+    canonical: absoluteUrl(path, canonicalLocale),
     languages,
   };
 }

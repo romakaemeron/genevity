@@ -37,6 +37,7 @@ export default async function RelatedServicesGrid({ title, services, categorySlu
                 <Image
                   src={svc.heroImage}
                   alt={svc.title}
+                  title={svc.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

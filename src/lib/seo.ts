@@ -55,7 +55,7 @@ export async function generatePageMetadata({
   return {
     title,
     description,
-    alternates: buildAlternates(path),
+    alternates: buildAlternates(path, locale),
     openGraph: {
       title,
       description,

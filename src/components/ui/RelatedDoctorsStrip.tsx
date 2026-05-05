@@ -23,6 +23,7 @@ export default function RelatedDoctorsStrip({ title, doctors }: Props) {
                 <Image
                   src={doc.photoCard}
                   alt={doc.name}
+                  title={doc.name}
                   fill
                   className="object-cover"
                   sizes="64px"

@@ -23,6 +23,7 @@ export default function DoctorModal({ doctor, cta, experience }: DoctorModalProp
           <Image
             src={photoModal}
             alt={name}
+            title={name}
             fill
             className="object-cover"
             style={{ objectPosition: modalPosition }}

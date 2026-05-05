@@ -135,6 +135,7 @@ function Lightbox({
             key={cert.url}
             src={cert.url}
             alt={cert.alt_uk}
+            title={cert.alt_uk}
             fill
             className="object-contain select-none"
             sizes="90vw"
@@ -261,6 +262,7 @@ export default function CertificateGallery({ images, title }: Props) {
                 <Image
                   src={cert.url}
                   alt={cert.alt_uk}
+                  title={cert.alt_uk}
                   width={0}
                   height={0}
                   sizes="600px"
