@@ -30,6 +30,25 @@ interface Props {
   equipmentUi?: { title: string; details: string; suitsTitle: string; resultsTitle: string };
 }
 
+/** Replace Unicode subscript digits ₀–₉ with small non-overflowing spans */
+function H({ text }: { text: string }) {
+  const parts = text.split(/([₀-₉]+)/);
+  if (parts.length === 1) return <>{text}</>;
+  return (
+    <>
+      {parts.map((part, i) =>
+        /^[₀-₉]+$/.test(part) ? (
+          <span key={i} style={{ fontSize: "0.55em", verticalAlign: "-0.1em", lineHeight: 0 }}>
+            {part.split("").map((c) => String.fromCharCode(c.charCodeAt(0) - 0x2080 + 0x30)).join("")}
+          </span>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
+
 export const SERVICE_FIXED_BLOCKS = ["faq", "doctors", "equipment", "relatedServices", "finalCTA"] as const;
 export type ServiceFixedBlockKey = typeof SERVICE_FIXED_BLOCKS[number];
 export type ServiceBlockKey = ServiceFixedBlockKey | `section:${string}`;
@@ -82,7 +101,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-4">
         <Breadcrumbs items={breadcrumbs} locale={locale} />
         <div className="mt-8 mb-6">
-          <h1 className="heading-1 text-black">{data.h1 || data.title}</h1>
+          <h1 className="heading-1 text-black"><H text={data.h1 || data.title} /></h1>
           {data.summary && <p className="body-l text-muted mt-8 max-w-3xl">{data.summary}</p>}
         </div>
         <KeyFactsBar
@@ -119,7 +138,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
             const callout = "calloutBody" in section ? (section.calloutBody as string | undefined) : undefined;
             return (
               <RevealBlock key={blockKey} id={`section-${section._key}`} className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
-                {section.heading && <h2 className="heading-2 text-black max-w-3xl mb-8 lg:mb-10">{section.heading}</h2>}
+                {section.heading && <h2 className="heading-2 text-black max-w-3xl mb-8 lg:mb-10"><H text={section.heading} /></h2>}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                   <div className="flex flex-col gap-6 justify-center lg:order-1 order-2">
                     {section.body && <p className="body-l text-black-80 leading-relaxed whitespace-pre-line">{section.body}</p>}
