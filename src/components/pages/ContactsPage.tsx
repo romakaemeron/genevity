@@ -108,17 +108,6 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
         </div>
       </section>
 
-      {/* Clinic photo strip */}
-      <section ref={photosRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 ${photosVisible ? "revealed" : ""}`}>
-        <div className="reveal grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-          {["/clinic/semi1737-hdr.webp", "/clinic/semi1256-hdr.webp", "/clinic/semi1287-hdr.webp"].map((src, i) => (
-            <div key={i} className="relative aspect-[4/3] rounded-[var(--radius-card)] overflow-hidden">
-              <Image src={src} alt={`GENEVITY ${i + 1}`} title="GENEVITY — клініка довголіття та естетичної медицини" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 33vw" />
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[280px] flex items-center">
