@@ -20,18 +20,23 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
+function absUrl(url: string): string {
+  if (url.startsWith("http")) return url;
+  return `${BASE}${url.startsWith("/") ? "" : "/"}${url}`;
+}
+
 function urlBlock(loc: string, images: { url: string; title: string }[]): string {
   const imgTags = images
     .map(
       (img) =>
-        `  <image:image>\n    <image:loc>${escapeXml(img.url)}</image:loc>\n    <image:title>${escapeXml(img.title)}</image:title>\n  </image:image>`
+        `  <image:image>\n    <image:loc>${escapeXml(absUrl(img.url))}</image:loc>\n    <image:title>${escapeXml(img.title)}</image:title>\n  </image:image>`
     )
     .join("\n");
   return `<url>\n  <loc>${escapeXml(loc)}</loc>\n${imgTags}\n</url>`;
 }
 
 export async function GET() {
-  const [doctors, serviceRows] = await Promise.all([
+  const [doctors, serviceRows, heroSlides, galleryItems, equipmentRows] = await Promise.all([
     getAllDoctors("ua"),
     sql`
       SELECT s.slug, sc.slug AS category_slug, s.hero_image, s.title_uk
@@ -39,16 +44,47 @@ export async function GET() {
       JOIN service_categories sc ON sc.id = s.category_id
       WHERE s.hero_image IS NOT NULL
     `,
+    sql`SELECT image_url, alt_uk FROM hero_slides WHERE image_url IS NOT NULL ORDER BY sort_order`,
+    sql`SELECT image_url, alt_uk, owner_key FROM gallery_items WHERE image_url IS NOT NULL ORDER BY sort_order`,
+    sql`SELECT name, photo FROM equipment WHERE photo IS NOT NULL ORDER BY sort_order`,
   ]);
 
   const blocks: string[] = [];
 
-  // Homepage
-  blocks.push(
-    urlBlock(`${BASE}/`, [
-      { url: `${BASE}/og/genevity-og.jpg`, title: "GENEVITY — центр довголіття та естетичної медицини у Дніпрі" },
-    ])
-  );
+  // Homepage — OG image + hero slides
+  const homepageImages: { url: string; title: string }[] = [
+    { url: `${BASE}/og/genevity-og.jpg`, title: "GENEVITY — центр довголіття та естетичної медицини у Дніпрі" },
+    ...heroSlides.map((s) => ({ url: s.image_url as string, title: (s.alt_uk as string) || "GENEVITY" })),
+  ];
+  blocks.push(urlBlock(`${BASE}/`, homepageImages));
+
+  // About page gallery
+  const aboutImages = galleryItems.filter((g) => g.owner_key === "about");
+  if (aboutImages.length > 0) {
+    blocks.push(urlBlock(`${BASE}/about`, aboutImages.map((g) => ({ url: g.image_url as string, title: (g.alt_uk as string) || "GENEVITY" }))));
+  }
+
+  // Stationary page gallery
+  const stationaryImages = galleryItems.filter((g) => g.owner_key === "stationary");
+  if (stationaryImages.length > 0) {
+    blocks.push(urlBlock(`${BASE}/stationary`, stationaryImages.map((g) => ({ url: g.image_url as string, title: (g.alt_uk as string) || "GENEVITY" }))));
+  }
+
+  // Laboratory page gallery
+  const labImages = galleryItems.filter((g) => g.owner_key === "laboratory");
+  if (labImages.length > 0) {
+    blocks.push(urlBlock(`${BASE}/laboratory`, labImages.map((g) => ({ url: g.image_url as string, title: (g.alt_uk as string) || "GENEVITY" }))));
+  }
+
+  // Equipment pages (apparatus cosmetology)
+  for (const eq of equipmentRows) {
+    if (!eq.photo) continue;
+    blocks.push(
+      urlBlock(`${BASE}/services/apparatus-cosmetology`, [
+        { url: eq.photo as string, title: (eq.name as string) || "Апаратна косметологія GENEVITY" },
+      ])
+    );
+  }
 
   // Doctor profile photos
   for (const doc of doctors) {
