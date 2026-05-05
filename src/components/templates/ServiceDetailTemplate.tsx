@@ -118,8 +118,8 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           if (section._type === "section.richText" && richHeroImage) {
             const callout = "calloutBody" in section ? (section.calloutBody as string | undefined) : undefined;
             return (
-              <RevealBlock key={blockKey} id={`section-${section._key}`} className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20 flex flex-col gap-10 lg:gap-12">
-                {section.heading && <h2 className="heading-2 text-black max-w-3xl">{section.heading}</h2>}
+              <RevealBlock key={blockKey} id={`section-${section._key}`} className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
+                {section.heading && <h2 className="heading-2 text-black max-w-3xl mb-8 lg:mb-10">{section.heading}</h2>}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                   <div className="flex flex-col gap-6 justify-center lg:order-1 order-2">
                     {section.body && <p className="body-l text-black-80 leading-relaxed whitespace-pre-line">{section.body}</p>}
