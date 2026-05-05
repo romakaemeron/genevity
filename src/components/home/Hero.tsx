@@ -165,7 +165,6 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                 style={{ objectPosition: "var(--focal)" }}
                 sizes="100vw"
                 priority={current === 0}
-                fetchPriority={current === 0 ? "high" : "auto"}
               />
 
               {/* Progressive blur via CSS — no duplicate image request */}
