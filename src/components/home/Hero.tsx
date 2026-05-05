@@ -73,19 +73,24 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
   }, []);
 
   const [current, setCurrent] = useState(0);
+  const [previous, setPrevious] = useState<number | null>(null);
   const [playing, setPlaying] = useState(true);
   const [progressKey, setProgressKey] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const prevCleanupRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const goto = useCallback(
     (i: number) => {
       if (SLIDES.length === 0) return;
-      setTransitioning(true);
-      setCurrent((i + SLIDES.length) % SLIDES.length);
+      const next = (i + SLIDES.length) % SLIDES.length;
+      setPrevious(current);
+      setCurrent(next);
       setProgressKey((k) => k + 1);
+      // Unmount previous slide after crossfade completes
+      clearTimeout(prevCleanupRef.current);
+      prevCleanupRef.current = setTimeout(() => setPrevious(null), CROSSFADE_MS + 100);
     },
-    [SLIDES.length],
+    [SLIDES.length, current],
   );
 
   const next = useCallback(() => goto(current + 1), [current, goto]);
@@ -106,6 +111,9 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
     return () => io.disconnect();
   }, []);
 
+  // Cleanup prevCleanupRef on unmount
+  useEffect(() => () => clearTimeout(prevCleanupRef.current), []);
+
   if (SLIDES.length === 0) return null;
 
   return (
@@ -119,43 +127,49 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
 
       <div ref={containerRef} className="absolute inset-0 overflow-hidden bg-black">
 
-        {SLIDES.map((s, i) => (
-          <div
-            key={s.id}
-            data-hero-slide={s.id}
-            className="absolute inset-0"
-            style={{
-              opacity: i === current ? 1 : 0,
-              transition: transitioning ? `opacity ${CROSSFADE_MS}ms cubic-bezier(0.4,0,0.2,1)` : "none",
-              zIndex: i === current ? 1 : 0,
-            }}
-          >
+        {SLIDES.map((s, i) => {
+          // Only mount current and previous slide — avoids loading all 6 images upfront
+          const isVisible = i === current || i === previous;
+          if (!isVisible) return null;
+          const isCurrent = i === current;
+          return (
             <div
+              key={s.id}
+              data-hero-slide={s.id}
               className="absolute inset-0"
-              style={{ transform: "scale(var(--focal-scale, 1))", transformOrigin: "var(--focal, 50% 50%)" }}
+              style={{
+                opacity: isCurrent ? 1 : 0,
+                transition: i === previous ? `opacity ${CROSSFADE_MS}ms cubic-bezier(0.4,0,0.2,1)` : "none",
+                zIndex: isCurrent ? 1 : 0,
+                willChange: "opacity",
+              }}
             >
-              <Image
-                src={s.src}
-                alt={s.alt || ""}
-                fill
-                className="object-cover"
-                style={{ objectPosition: "var(--focal)" }}
-                sizes="100vw"
-                priority={i === 0}
-                loading={i === 0 ? "eager" : "lazy"}
-              />
               <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backdropFilter: "blur(2px)",
-                  WebkitBackdropFilter: "blur(2px)",
-                  maskImage: "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
-                  WebkitMaskImage: "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
-                }}
-              />
+                className="absolute inset-0"
+                style={{ transform: "scale(var(--focal-scale, 1))", transformOrigin: "var(--focal, 50% 50%)" }}
+              >
+                <Image
+                  src={s.src}
+                  alt={s.alt || ""}
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "var(--focal)" }}
+                  sizes="100vw"
+                  priority={i === 0}
+                />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backdropFilter: "blur(2px)",
+                    WebkitBackdropFilter: "blur(2px)",
+                    maskImage: "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
+                    WebkitMaskImage: "linear-gradient(to right, black 0%, black 20%, transparent 70%)",
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         <div className="absolute inset-0 z-[2] pointer-events-none" style={{ background: "linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0.2) 55%, transparent 75%)" }} />
         <div className="absolute inset-x-0 top-0 h-40 lg:h-56 z-[3] pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }} />
