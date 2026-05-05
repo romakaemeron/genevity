@@ -63,3 +63,15 @@ fix-audit-issues.mjs
 # playwright browser cache
 .playwright-mcp/
 .DS_Store
+
+# Local working documents — not part of the codebase
+*.pdf
+отзывы*
+Сертификаты врачи/
+"Врачи на джейневети*"
+Inweb*
+genevity.com.ua*
+Genevity_Price*
+semantics/
+technical_task/
+metatags/
