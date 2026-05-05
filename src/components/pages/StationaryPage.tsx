@@ -12,13 +12,15 @@ import {
 import type { StaticPageData, DoctorItem } from "@/lib/db/types";
 import type { GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
-import Doctors from "@/components/home/Doctors";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
-import StripeGallery from "@/components/ui/StripeGallery";
+
+const Doctors = dynamic(() => import("@/components/home/Doctors"));
+const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
 
 interface Props {
   data: StaticPageData;
@@ -103,7 +105,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* Comfort features */}
-      <section ref={comfortRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${comfortVisible ? "revealed" : ""}`}>
+      <section ref={comfortRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 cv-auto ${comfortVisible ? "revealed" : ""}`}>
         <h2 className="reveal heading-2 text-black mb-4">{tPage("comfort.title")}</h2>
         <p className="reveal d1 body-l text-muted mb-10 max-w-2xl">{tPage("comfort.subtitle")}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -117,7 +119,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
             >
               {i === 0 && (
                 <>
-                  <Image src="/clinic/semi1256-hdr.webp" alt={feat.label} title={feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                  <Image src="/clinic/semi1256-hdr.webp" alt={feat.label} title={feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                   <div className="absolute inset-0 bg-black/55" />
                 </>
               )}
@@ -134,7 +136,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       </section>
 
       {/* Services */}
-      <section ref={servicesRef as React.RefObject<HTMLElement>} className={`py-16 lg:py-24 ${servicesVisible ? "revealed" : ""}`}>
+      <section ref={servicesRef as React.RefObject<HTMLElement>} className={`py-16 lg:py-24 cv-auto ${servicesVisible ? "revealed" : ""}`}>
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
           <h2 className="reveal heading-2 text-black mb-10">{tPage("servicesTitle")}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -153,7 +155,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
 
       {/* Gallery */}
       {gallery.length > 0 && (
-        <section ref={galleryRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-8 ${galleryVisible ? "revealed" : ""}`}>
+        <section ref={galleryRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-8 cv-auto ${galleryVisible ? "revealed" : ""}`}>
           <div className="reveal">
             <StripeGallery
               title={tPage("galleryTitle")}

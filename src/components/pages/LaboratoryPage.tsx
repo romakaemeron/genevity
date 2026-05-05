@@ -12,14 +12,16 @@ import {
 import type { StaticPageData, DoctorItem } from "@/lib/db/types";
 import type { LabService, LabPrepStep, GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
-import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
-import StripeGallery from "@/components/ui/StripeGallery";
+
+const Doctors = dynamic(() => import("@/components/home/Doctors"));
+const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
 
 const ICONS: Record<string, typeof Scan> = {
   Scan, TestTube, HeartPulse, Brain, Baby, Stethoscope, Heart,

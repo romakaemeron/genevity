@@ -8,11 +8,13 @@ import { Award, Heart, Microscope, Shield, ChevronRight } from "lucide-react";
 import type { DoctorItem, AboutData } from "@/lib/db/types";
 import type { GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
+import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
-import Doctors from "@/components/home/Doctors";
-import StripeGallery from "@/components/ui/StripeGallery";
+
+const Doctors = dynamic(() => import("@/components/home/Doctors"));
+const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
 
 interface Props {
   about: AboutData;
