@@ -46,8 +46,6 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
   const { ref: textRef, visible: textVisible } = useScrollReveal();
   const { ref: statsRef, visible: statsVisible } = useScrollReveal();
   const { ref: valuesRef, visible: valuesVisible } = useScrollReveal();
-  const { ref: galleryRef, visible: galleryVisible } = useScrollReveal();
-  const { ref: linksRef, visible: linksVisible } = useScrollReveal();
   const { ref: ctaRef, visible: ctaVisible } = useScrollReveal();
 
   return (
@@ -81,7 +79,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* About text — scroll reveal */}
-      <section ref={textRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${textVisible ? "revealed" : ""}`}>
+      <section ref={textRef as React.RefObject<HTMLElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${textVisible ? "revealed" : ""}`}>
         <div className="reveal grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
           <div className="flex flex-col gap-6 justify-center">
             <p className="body-l text-black-80 leading-relaxed">{about.text1}</p>
@@ -96,7 +94,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* Stats strip */}
-      <section ref={statsRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 ${statsVisible ? "revealed" : ""}`}>
+      <section ref={statsRef as React.RefObject<HTMLElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 ${statsVisible ? "revealed" : ""}`}>
         <div className="bg-champagne-dark rounded-[var(--radius-card)] px-8 lg:px-12 py-10 grid grid-cols-2 lg:grid-cols-4 gap-8">
           {STAT_KEYS.map((stat, i) => (
             <div key={i} className="reveal text-center lg:text-left" style={{ "--rd": `${i * 0.08}s` } as React.CSSProperties}>
@@ -108,7 +106,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       </section>
 
       {/* Values grid */}
-      <section ref={valuesRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${valuesVisible ? "revealed" : ""}`}>
+      <section ref={valuesRef as React.RefObject<HTMLElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${valuesVisible ? "revealed" : ""}`}>
         <h2 className="reveal heading-2 text-black mb-4">{tPage("valuesTitle")}</h2>
         <p className="reveal d1 body-l text-muted mb-10 max-w-2xl">{tPage("philosophyText")}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -126,25 +124,21 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
 
       {/* Gallery */}
       {gallery.length > 0 && (
-        <section ref={galleryRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 ${galleryVisible ? "revealed" : ""}`}>
-          <div className="reveal">
-            <StripeGallery
-              title={tPage("galleryTitle")}
-              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
-              height="420px"
-            />
-          </div>
+        <section className="cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          <StripeGallery
+            title={tPage("galleryTitle")}
+            items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
+            height="420px"
+          />
         </section>
       )}
 
       {/* Services links */}
-      <section ref={linksRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 ${linksVisible ? "revealed" : ""}`}>
-        <div className="reveal">
-          <h2 className="heading-2 text-black mb-6">{tLabels("typesOfProcedures")}</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/services"><Button variant="outline" size="sm">{tLabels("services")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-            <Link href="/laboratory"><Button variant="outline" size="sm">{tLabels("viewProcedures")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
-          </div>
+      <section className="cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+        <h2 className="heading-2 text-black mb-6">{tLabels("typesOfProcedures")}</h2>
+        <div className="flex flex-wrap gap-3">
+          <Link href="/services"><Button variant="outline" size="sm">{tLabels("services")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
+          <Link href="/laboratory"><Button variant="outline" size="sm">{tLabels("viewProcedures")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
         </div>
       </section>
 
@@ -159,7 +153,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       )}
 
       {/* Final CTA */}
-      <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20 ${ctaVisible ? "revealed" : ""}`}>
+      <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
           <Image src="/clinic/acupulse.webp" alt="GENEVITY — апаратна косметологія" title="GENEVITY — апаратна косметологія" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
