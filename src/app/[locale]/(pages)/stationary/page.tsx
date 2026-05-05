@@ -32,7 +32,7 @@ export default async function StationaryPage({ params }: { params: Promise<{ loc
 
   return (
     <>
-      <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="static-hero-sentinel" />
+      <MegaMenuHeader variant="solid" position="fixed" />
       <StationaryPageComponent
         data={data}
         locale={locale as Locale}

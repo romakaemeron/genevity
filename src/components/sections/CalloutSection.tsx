@@ -1,6 +1,5 @@
 "use client";
 
-import { useScrollReveal } from "@/lib/useReveal";
 import { Info, AlertTriangle, CheckCircle } from "lucide-react";
 import type { SectionCallout } from "@/lib/db/types";
 
@@ -13,9 +12,8 @@ const toneConfig = {
 export default function CalloutSection({ tone, body }: SectionCallout) {
   const config = toneConfig[tone] || toneConfig.info;
   const Icon = config.icon;
-  const { ref, visible } = useScrollReveal();
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} className={`reveal ${config.bg} border ${config.border} rounded-[var(--radius-card)] p-6 lg:p-8 ${visible ? "revealed" : ""}`}>
+    <section className={`${config.bg} border ${config.border} rounded-[var(--radius-card)] p-6 lg:p-8`}>
       <div className="flex gap-4">
         <div className={`w-10 h-10 rounded-full ${config.iconBg} flex items-center justify-center shrink-0`}><Icon className={`w-5 h-5 ${config.iconColor}`} /></div>
         <p className="body-l text-ink whitespace-pre-line pt-1.5">{body}</p>

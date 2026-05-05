@@ -1,13 +1,11 @@
 "use client";
 
-import { useScrollReveal } from "@/lib/useReveal";
 import BookingCTA from "@/components/ui/BookingCTA";
 import type { SectionCta } from "@/lib/db/types";
 
 export default function CtaSection({ heading, body, ctaLabel }: SectionCta) {
-  const { ref, visible } = useScrollReveal();
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} className={`reveal bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${visible ? "revealed" : ""}`}>
+    <section className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-[-50%] right-[-20%] w-[70%] h-[200%] rounded-full bg-gradient-radial from-champagne/30 to-transparent blur-3xl" />
       </div>
