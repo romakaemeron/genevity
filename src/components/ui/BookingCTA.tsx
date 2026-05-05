@@ -14,7 +14,6 @@
  */
 
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import { useMessages, useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
@@ -26,19 +25,10 @@ interface BookingCTAProps {
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
   children: React.ReactNode;
-  /** Identifier of this CTA location — drives per-instance copy overrides.
-   *  Every rendered BookingCTA should specify one; omitted = uses global
-   *  defaults only. Known keys live in CTA_REGISTRY. */
   ctaKey?: CtaKey;
-  /** Pre-select an option in the dropdown (e.g. a service-detail page
-   *  pre-picks its own service when opening the form). Values look like
-   *  `service:<slug>` or `doctor:<slug>`. */
   initialInterest?: string;
 }
 
-/** Read an optional localized string from the current messages tree —
- *  returns undefined (not the string "undefined") for missing paths so
- *  the caller can cleanly fall back to a default. */
 function readOverride(
   messages: Record<string, unknown> | null,
   ctaKey: string | undefined,
@@ -60,9 +50,6 @@ export default function BookingCTA({
   initialInterest,
 }: BookingCTAProps) {
   const [modalOpen, setModalOpen] = useState(false);
-  // Hide the modal header (title + subtitle) once the form has been
-  // submitted — the success animation should own the whole panel, no
-  // competing copy above it.
   const [submitted, setSubmitted] = useState(false);
   const t = useTranslations("ctaForm");
   const messages = useMessages() as Record<string, unknown>;
@@ -75,8 +62,6 @@ export default function BookingCTA({
 
   const handleClose = () => {
     setModalOpen(false);
-    // Reset on close so the next open starts fresh (header visible,
-    // form inputs blank through BookingForm's own internal state).
     setSubmitted(false);
   };
 
@@ -86,26 +71,24 @@ export default function BookingCTA({
         {buttonLabel || children}
       </Button>
 
-      <AnimatePresence>
-        {modalOpen && (
-          <Modal open onClose={handleClose} maxWidth="sm:max-w-md">
-            <div className="p-6 sm:p-8 pt-10 flex flex-col gap-5">
-              {!submitted && (
-                <div className="flex flex-col gap-1">
-                  <h3 className="heading-3 text-ink">{modalTitle}</h3>
-                  <p className="body-m text-stone">{modalSubtitle}</p>
-                </div>
-              )}
-              <BookingForm
-                initialInterest={initialInterest}
-                submitLabel={submitLabel}
-                ctaKey={ctaKey}
-                onSubmitted={() => setSubmitted(true)}
-              />
-            </div>
-          </Modal>
-        )}
-      </AnimatePresence>
+      {modalOpen && (
+        <Modal open onClose={handleClose} maxWidth="sm:max-w-md">
+          <div className="p-6 sm:p-8 pt-10 flex flex-col gap-5">
+            {!submitted && (
+              <div className="flex flex-col gap-1">
+                <h3 className="heading-3 text-ink">{modalTitle}</h3>
+                <p className="body-m text-stone">{modalSubtitle}</p>
+              </div>
+            )}
+            <BookingForm
+              initialInterest={initialInterest}
+              submitLabel={submitLabel}
+              ctaKey={ctaKey}
+              onSubmitted={() => setSubmitted(true)}
+            />
+          </div>
+        </Modal>
+      )}
     </>
   );
 }

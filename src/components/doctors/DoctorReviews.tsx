@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 const ReviewFormModal = dynamic(() => import("./ReviewFormModal"), { ssr: false });
-import { motion } from "framer-motion";
-import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { DoctorReview } from "@/lib/db/types";
@@ -129,14 +127,8 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
   return (
     <section className="bg-champagne py-12 lg:py-16">
       {/* Header: title + write review button + arrows */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-8"
-      >
-        <motion.div variants={fadeInUp} className="flex items-center justify-between gap-4">
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-8">
+        <div className="flex items-center justify-between gap-4">
           <h2 className="heading-2 text-black">{labels.title}</h2>
           <div className="flex items-center gap-2 shrink-0">
             <div className={`flex gap-2 ${hasOverflow ? "" : "hidden"}`}>
@@ -151,8 +143,8 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
               {labels.write}
             </Button>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Scrollable cards */}
       {reviews.length > 0 && (

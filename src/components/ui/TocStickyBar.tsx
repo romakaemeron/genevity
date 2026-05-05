@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 interface TocItem {
@@ -75,15 +74,11 @@ export default function TocStickyBar({ items, showAfter = 400 }: Props) {
   if (items.length === 0) return null;
 
   return (
-    <AnimatePresence>
+    <>
       {visible && activeLabel && (
-        <motion.div
+        <div
           ref={barRef}
-          initial={{ y: -40, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -40, opacity: 0 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed top-16 lg:top-20 left-0 right-0 z-[900] bg-champagne border-b border-line shadow-sm"
+          className="fixed top-16 lg:top-20 left-0 right-0 z-[900] bg-champagne border-b border-line shadow-sm header-fixed-appear"
         >
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 flex justify-start lg:justify-end">
             <div className="relative">
@@ -98,35 +93,27 @@ export default function TocStickyBar({ items, showAfter = 400 }: Props) {
               </button>
 
               {/* Dropdown */}
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute right-0 top-full mt-1.5 bg-champagne border border-line rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-2 min-w-[260px] z-10 flex flex-col gap-0.5"
-                  >
-                    {items.map((item) => (
-                      <button
-                        key={item.key}
-                        onClick={() => scrollTo(item.key)}
-                        className={`block w-full text-left px-3 py-2 rounded-[var(--radius-sm)] body-m transition-colors cursor-pointer ${
-                          activeLabel === item.label
-                            ? "text-main font-semibold bg-main/5"
-                            : "text-muted hover:text-black hover:bg-black-5"
-                        }`}
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {dropdownOpen && (
+                <div className="grid-enter absolute right-0 top-full mt-1.5 bg-champagne border border-line rounded-[var(--radius-card)] shadow-[var(--shadow-card)] p-2 min-w-[260px] z-10 flex flex-col gap-0.5">
+                  {items.map((item) => (
+                    <button
+                      key={item.key}
+                      onClick={() => scrollTo(item.key)}
+                      className={`block w-full text-left px-3 py-2 rounded-[var(--radius-sm)] body-m transition-colors cursor-pointer ${
+                        activeLabel === item.label
+                          ? "text-main font-semibold bg-main/5"
+                          : "text-muted hover:text-black hover:bg-black-5"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 }

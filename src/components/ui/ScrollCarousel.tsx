@@ -1,9 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, ReactNode } from "react";
-import { motion } from "framer-motion";
 import { ChevronRight } from "@/components/ui/Icons";
-import { staggerContainer, viewportConfig } from "@/lib/motion";
 
 interface ScrollCarouselProps {
   children: ReactNode[];
@@ -15,28 +13,21 @@ export default function ScrollCarousel({ children, className = "" }: ScrollCarou
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const updateScrollState = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 2);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 2);
-  };
-
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    updateScrollState();
-    el.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    return () => {
-      el.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
+    const update = () => {
+      setCanScrollLeft(el.scrollLeft > 4);
+      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
     };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    return () => el.removeEventListener("scroll", update);
   }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
-    const firstChild = scrollRef.current.children[0] as HTMLElement | undefined;
+    const firstChild = scrollRef.current.children[0] as HTMLElement;
     if (!firstChild) return;
     const itemWidth = firstChild.offsetWidth + 24;
     scrollRef.current.scrollBy({
@@ -46,13 +37,7 @@ export default function ScrollCarousel({ children, className = "" }: ScrollCarou
   };
 
   return (
-    <motion.div
-      className={className}
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportConfig}
-    >
+    <div className={className}>
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <div
           ref={scrollRef}
@@ -81,6 +66,6 @@ export default function ScrollCarousel({ children, className = "" }: ScrollCarou
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }

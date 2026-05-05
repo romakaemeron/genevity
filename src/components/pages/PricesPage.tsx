@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ChevronRight, Search, Download } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -41,42 +40,32 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
 
   return (
     <>
+      {/* Hero — above fold, no animation */}
       <section className="bg-champagne">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-12 lg:pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Breadcrumbs
-              items={[
-                { label: tLabels("home"), href: "/" },
-                { label: tPage("heroTitle"), href: "/prices" },
-              ]}
-              locale={locale}
-            />
-            <h1 className="heading-1 text-black mt-6">{tPage("heroTitle")}</h1>
-            <p className="body-l text-muted mt-4 max-w-2xl">{tPage("heroSubtitle")}</p>
-            {pricelistPdf && (
-              <a href="/api/download-pricelist" className="mt-6 inline-block">
-                <Button variant="primary" size="sm">
-                  <Download size={16} />
-                  {DOWNLOAD_LABEL[locale] ?? DOWNLOAD_LABEL.uk}
-                </Button>
-              </a>
-            )}
-          </motion.div>
+          <Breadcrumbs
+            items={[
+              { label: tLabels("home"), href: "/" },
+              { label: tPage("heroTitle"), href: "/prices" },
+            ]}
+            locale={locale}
+          />
+          <h1 className="heading-1 text-black mt-6">{tPage("heroTitle")}</h1>
+          <p className="body-l text-muted mt-4 max-w-2xl">{tPage("heroSubtitle")}</p>
+          {pricelistPdf && (
+            <a href="/api/download-pricelist" className="mt-6 inline-block">
+              <Button variant="primary" size="sm">
+                <Download size={16} />
+                {DOWNLOAD_LABEL[locale] ?? DOWNLOAD_LABEL.uk}
+              </Button>
+            </a>
+          )}
         </div>
       </section>
 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-20">
         {/* Search */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mb-8"
-        >
+        <div className="relative mb-8">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
           <input
             type="text"
@@ -85,46 +74,33 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
             placeholder={tPage("searchPlaceholder")}
             className="w-full pl-12 pr-4 py-3 rounded-2xl bg-champagne-dark border border-line body-m text-black placeholder:text-muted focus:outline-none focus:border-main transition-colors appearance-none"
           />
-        </motion.div>
+        </div>
 
-        {/* Search results */}
+        {/* Search results — key triggers remount + CSS animation */}
         {search && (
-          <AnimatePresence mode="wait">
-            <motion.div
-              key="search"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="mb-10"
-            >
-              {filteredItems.length > 0 ? (
-                <div className="flex flex-col gap-1">
-                  {filteredItems.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between py-3 px-4 rounded-[var(--radius-sm)] hover:bg-champagne-dark transition-colors">
-                      <div>
-                        <span className="body-m text-black">{item.name}</span>
-                        <span className="body-s text-muted ml-2">{item.category}</span>
-                      </div>
-                      <span className="body-strong text-main">{item.price} {item.currency}</span>
+          <div key={search.length > 0 ? "search" : "empty"} className="mb-10 grid-enter">
+            {filteredItems.length > 0 ? (
+              <div className="flex flex-col gap-1">
+                {filteredItems.map((item) => (
+                  <div key={item.id} className="flex items-center justify-between py-3 px-4 rounded-[var(--radius-sm)] hover:bg-champagne-dark transition-colors">
+                    <div>
+                      <span className="body-m text-black">{item.name}</span>
+                      <span className="body-s text-muted ml-2">{item.category}</span>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="body-m text-muted">{tPage("noResults")}</p>
-              )}
-            </motion.div>
-          </AnimatePresence>
+                    <span className="body-strong text-main">{item.price} {item.currency}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="body-m text-muted">{tPage("noResults")}</p>
+            )}
+          </div>
         )}
 
         {/* Category tabs + price table */}
         {!search && activeCat && (
           <>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap gap-2 mb-8"
-            >
+            <div className="flex flex-wrap gap-2 mb-8">
               {categories.map((cat) => (
                 <button
                   key={cat.slug}
@@ -138,41 +114,34 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
                   {cat.label}
                 </button>
               ))}
-            </motion.div>
+            </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSlug}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div className="bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden">
-                  <div className="flex items-center justify-between px-6 py-4 border-b border-line">
-                    <h2 className="heading-3 text-black">{activeCat.label}</h2>
-                    {activeCat.link && (
-                      <Link href={activeCat.link}>
-                        <Button variant="outline" size="sm">
-                          {tLabels("learnMore")}
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </Button>
-                      </Link>
-                    )}
-                  </div>
-                  <div className="divide-y divide-line">
-                    {activeCat.items.map((item) => (
-                      <div key={item.id} className="flex items-center justify-between px-6 py-4 hover:bg-champagne-darker/50 transition-colors">
-                        <span className="body-m text-black">{item.name}</span>
-                        <span className="body-strong text-main whitespace-nowrap ml-4">{item.price} {item.currency}</span>
-                      </div>
-                    ))}
-                  </div>
+            {/* key triggers remount + CSS animation on tab change */}
+            <div key={activeSlug} className="grid-enter">
+              <div className="bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-line">
+                  <h2 className="heading-3 text-black">{activeCat.label}</h2>
+                  {activeCat.link && (
+                    <Link href={activeCat.link}>
+                      <Button variant="outline" size="sm">
+                        {tLabels("learnMore")}
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </Button>
+                    </Link>
+                  )}
                 </div>
+                <div className="divide-y divide-line">
+                  {activeCat.items.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between px-6 py-4 hover:bg-champagne-darker/50 transition-colors">
+                      <span className="body-m text-black">{item.name}</span>
+                      <span className="body-strong text-main whitespace-nowrap ml-4">{item.price} {item.currency}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-                <p className="body-s text-muted mt-4">{tPage("noteText")}</p>
-              </motion.div>
-            </AnimatePresence>
+              <p className="body-s text-muted mt-4">{tPage("noteText")}</p>
+            </div>
           </>
         )}
       </section>

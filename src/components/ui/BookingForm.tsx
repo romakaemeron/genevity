@@ -14,7 +14,6 @@
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import SearchSelect from "@/components/ui/SearchSelect";
@@ -175,15 +174,10 @@ export default function BookingForm({
               3) icon translates up to its final slot
               4) copy blur-reveals in from below
            The delays chain so each step finishes before the next begins. */}
-        <motion.div
-          initial={{ y: 40, scale: 0.96 }}
-          animate={{ y: 0, scale: 1 }}
-          transition={{ delay: 0.55, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          // Inline size + aspect-ratio belt-and-braces — Tailwind's
-          // w-*/h-* were being overridden somewhere in the cascade and
-          // the flex parent flattened the disc into an ellipse.
+        {/* Disc + checkmark — CSS animations defined in globals.css */}
+        <div
+          className="success-disc shrink-0 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
           style={{ width: 64, height: 64, aspectRatio: "1 / 1" }}
-          className="shrink-0 rounded-full bg-main/10 border border-main/25 text-main flex items-center justify-center"
         >
           <svg
             width="38"
@@ -195,25 +189,10 @@ export default function BookingForm({
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <motion.path
-              d="M5 12.5 L10 17.5 L19 7.5"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{
-                pathLength: { delay: 0.1, duration: 0.5, ease: [0.65, 0, 0.35, 1] },
-                opacity: { delay: 0.1, duration: 0.1 },
-              }}
-            />
+            <path d="M5 12.5 L10 17.5 L19 7.5" className="success-checkmark" />
           </svg>
-        </motion.div>
-        <motion.p
-          initial={{ opacity: 0, y: 14, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ delay: 1.0, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="body-l text-ink"
-        >
-          {t("success")}
-        </motion.p>
+        </div>
+        <p className="success-text body-l text-ink">{t("success")}</p>
       </div>
     );
   }

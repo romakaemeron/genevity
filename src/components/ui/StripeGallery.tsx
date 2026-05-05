@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useCallback, useLayoutEffect } from "react";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
@@ -268,14 +267,13 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
       <div className="md:hidden">
         <div className="relative aspect-[4/3] rounded-[var(--radius-card)] overflow-hidden">
           {items.map((item, i) => (
-            <motion.div
+            <div
               key={i}
-              className="absolute inset-0"
-              animate={{ opacity: i === activeIndex ? 1 : 0 }}
-              transition={{ duration: 0.4 }}
+              className="absolute inset-0 transition-opacity duration-400"
+              style={{ opacity: i === activeIndex ? 1 : 0 }}
             >
               <Image src={item.src} alt={item.alt} title={item.alt} fill className="object-cover" sizes="100vw" />
-            </motion.div>
+            </div>
           ))}
         </div>
         <div className="flex justify-center gap-1.5 mt-4">
@@ -289,17 +287,11 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
         </div>
       </div>
 
-      {/* Caption */}
-      <motion.div
-        key={activeIndex}
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-2xl"
-      >
+      {/* Caption — key triggers remount + CSS fade-in */}
+      <div key={activeIndex} className="max-w-2xl grid-enter">
         <p className="body-strong text-black text-lg">{active.label}</p>
         {active.description && <p className="body-m text-muted mt-1">{active.description}</p>}
-      </motion.div>
+      </div>
     </div>
   );
 }

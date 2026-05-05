@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, FileText, Download } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { CertificateImage } from "@/lib/db/queries/doctors";
@@ -82,12 +81,8 @@ function Lightbox({
   const cert = items[index];
 
   return createPortal(
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.22 }}
-      className="fixed inset-0 z-[1000] flex items-center justify-center"
+    <div
+      className="lightbox-backdrop fixed inset-0 z-[1000] flex items-center justify-center"
       aria-modal="true"
       role="dialog"
     >
@@ -164,7 +159,7 @@ function Lightbox({
           {index + 1} / {items.length}
         </span>
       </div>
-    </motion.div>,
+    </div>,
     document.body
   );
 }
@@ -227,15 +222,7 @@ export default function CertificateGallery({ images, title }: Props) {
       <section className="bg-champagne py-12 lg:py-16">
         {/* header + arrows */}
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mb-6 flex items-center justify-between gap-4">
-          <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45 }}
-            className="heading-2 text-black"
-          >
-            {title}
-          </motion.h2>
+            <h2 className="heading-2 text-black">{title}</h2>
           {hasOverflow && (
             <div className="flex gap-2 shrink-0">
               <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
@@ -295,18 +282,15 @@ export default function CertificateGallery({ images, title }: Props) {
         )}
       </section>
 
-      {/* Lightbox — rendered via portal at document.body */}
-      <AnimatePresence>
-        {lightboxIdx !== null && (
-          <Lightbox
-            items={imageItems}
-            index={lightboxIdx}
-            onClose={closeLightbox}
-            onPrev={prevImage}
-            onNext={nextImage}
-          />
-        )}
-      </AnimatePresence>
+      {lightboxIdx !== null && (
+        <Lightbox
+          items={imageItems}
+          index={lightboxIdx}
+          onClose={closeLightbox}
+          onPrev={prevImage}
+          onNext={nextImage}
+        />
+      )}
     </>
   );
 }

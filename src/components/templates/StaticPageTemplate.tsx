@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { fadeInUp, fadeIn, viewportConfig } from "@/lib/motion";
 import { ChevronRight } from "lucide-react";
 import type { StaticPageData, DoctorItem } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
@@ -16,104 +14,83 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { useScrollReveal } from "@/lib/useReveal";
 
 interface Props {
-  data: StaticPageData;
-  locale: Locale;
-  /** Hero image */
-  heroImage?: string;
-  /** "light" = champagne bg with image, "dark" = image bg with overlay */
-  heroVariant?: "light" | "dark";
-  /** Photos for visual breaks */
-  images?: string[];
-  /** Doctors data */
-  doctors?: DoctorItem[];
-  doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
-  detailsLabel?: string;
-  /** Custom CTA in hero */
-  heroCta?: boolean;
+  data: StaticPageData; locale: Locale; heroImage?: string;
+  heroVariant?: "light" | "dark"; images?: string[];
+  doctors?: DoctorItem[]; doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
+  detailsLabel?: string; heroCta?: boolean;
 }
 
-export default function StaticPageTemplate({
-  data, locale, heroImage, heroVariant = "light", images,
-  doctors, doctorsUi, detailsLabel, heroCta = true,
-}: Props) {
+function RevealDiv({ children, className, id }: { children: React.ReactNode; className?: string; id?: string }) {
+  const { ref, visible } = useScrollReveal();
+  return (
+    <div ref={ref as React.RefObject<HTMLDivElement>} id={id} className={`${className || ""} ${visible ? "revealed" : ""}`}>
+      {children}
+    </div>
+  );
+}
+
+export default function StaticPageTemplate({ data, locale, heroImage, heroVariant = "light", images, doctors, doctorsUi, detailsLabel, heroCta = true }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const photos = images || [];
   const t = useTranslations("labels");
+  const sections = data.sections || [];
 
   const breadcrumbs = [
     { label: t("home"), href: "/" },
     { label: data.title, href: `/${data.slug}` },
   ];
 
-  const sections = data.sections || [];
-
   return (
     <>
-      {data.faq?.length > 0 && (
-        <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />
-      )}
+      {data.faq?.length > 0 && <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />}
 
-      {/* ===== HERO ===== */}
+      {/* HERO — no animation for LCP */}
       {heroVariant === "dark" && heroImage ? (
         <section className="relative overflow-hidden bg-ink">
-          <motion.div className="absolute inset-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1.2 }}>
+          <div className="absolute inset-0">
             <Image src={heroImage} alt={data.title} title={data.title} fill className="object-cover" sizes="100vw" priority />
-          </motion.div>
+          </div>
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(42,37,32,0.85) 0%, rgba(42,37,32,0.5) 50%, rgba(42,37,32,0.2) 100%)" }} />
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(42,37,32,0.6) 0%, transparent 40%)" }} />
           <div className="absolute inset-x-0 top-0 h-32 z-[3] pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%)" }} />
-          <div className="absolute inset-x-0 top-0 z-[10]">
-            <MegaMenuHeader variant="transparent" position="absolute" />
-          </div>
-
+          <div className="absolute inset-x-0 top-0 z-[10]"><MegaMenuHeader variant="transparent" position="absolute" /></div>
           <div className="relative z-[5] min-h-[60vh] lg:min-h-[65vh] flex items-end">
             <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pb-12 lg:pb-16 pt-28">
-              <motion.div className="max-w-xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}>
+              <div className="max-w-xl">
                 <Breadcrumbs items={breadcrumbs} locale={locale} variant="light" />
                 <h1 className="heading-1 text-champagne mt-6">{data.h1 || data.title}</h1>
                 {data.summary && <p className="body-l text-white-60 mt-5">{data.summary}</p>}
                 {heroCta && (
                   <div className="mt-8">
-                    <BookingCTA ctaKey="staticPageHero" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">
-                      {t("bookConsultation")}
-                    </BookingCTA>
+                    <BookingCTA ctaKey="staticPageHero" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{t("bookConsultation")}</BookingCTA>
                   </div>
                 )}
-              </motion.div>
+              </div>
             </div>
           </div>
           <div id="static-hero-sentinel" aria-hidden="true" className="absolute bottom-0 left-0 w-px h-px pointer-events-none" />
         </section>
       ) : (
         <section className="bg-champagne">
-          {heroImage && (
-            <div className="absolute inset-x-0 top-0 z-[10]">
-              <MegaMenuHeader variant="transparent-dark" position="absolute" />
-            </div>
-          )}
-
-          <div className={`relative z-[5] ${heroImage ? "" : ""}`}>
+          {heroImage && <div className="absolute inset-x-0 top-0 z-[10]"><MegaMenuHeader variant="transparent-dark" position="absolute" /></div>}
+          <div className="relative z-[5]">
             <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
               <div className={`flex flex-col ${heroImage ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
-                <motion.div className={heroImage ? "flex-1 max-w-lg lg:py-8" : "max-w-3xl"} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}>
+                <div className={heroImage ? "flex-1 max-w-lg lg:py-8" : "max-w-3xl"}>
                   <Breadcrumbs items={breadcrumbs} locale={locale} />
                   <h1 className="heading-1 text-black mt-6">{data.h1 || data.title}</h1>
                   {data.summary && <p className="body-l text-muted mt-5">{data.summary}</p>}
-                  {heroCta && (
-                    <div className="mt-8">
-                      <BookingCTA ctaKey="staticPageMid" variant="primary" size="lg">{t("bookConsultation")}</BookingCTA>
-                    </div>
-                  )}
-                </motion.div>
-
+                  {heroCta && <div className="mt-8"><BookingCTA ctaKey="staticPageMid" variant="primary" size="lg">{t("bookConsultation")}</BookingCTA></div>}
+                </div>
                 {heroImage && (
-                  <motion.div className="flex-1 mt-8 lg:mt-0" variants={fadeIn} initial="hidden" animate="visible" transition={{ duration: 1, delay: 0.5 }}>
+                  <div className="flex-1 mt-8 lg:mt-0">
                     <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
                       <Image src={heroImage} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                     </div>
-                  </motion.div>
+                  </div>
                 )}
               </div>
             </div>
@@ -122,22 +99,19 @@ export default function StaticPageTemplate({
         </section>
       )}
 
-      {/* ===== CONTENT ===== */}
+      {/* CONTENT */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         {sections.length > 0 && (
           <div className="flex flex-col gap-16 lg:gap-20">
             {sections.map((section, i) => {
               const isFirstRichText = i === 0 && section._type === "section.richText" && photos.length > 0;
               const isMidpoint = i === Math.floor(sections.length / 2) && photos.length > 1;
-
               return (
                 <div key={section._key}>
                   {isFirstRichText ? (
-                    <motion.div id={`section-${section._key}`} variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig} className="flex flex-col gap-8">
-                      {"heading" in section && section.heading && (
-                        <h2 className="heading-2 text-black max-w-2xl">{section.heading as string}</h2>
-                      )}
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+                    <RevealDiv id={`section-${section._key}`} className="flex flex-col gap-8">
+                      {"heading" in section && section.heading && <h2 className="reveal heading-2 text-black max-w-2xl">{section.heading as string}</h2>}
+                      <div className="reveal d1 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                         <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark">
                           <Image src={photos[0]} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                         </div>
@@ -147,31 +121,23 @@ export default function StaticPageTemplate({
                             const paragraphs = text.split("\n\n").filter(Boolean);
                             const mainText = paragraphs[0] || "";
                             const infoText = paragraphs.slice(1).join("\n\n");
-                            return (
-                              <>
-                                <p className="body-l text-black-80 leading-relaxed">{mainText}</p>
-                                {infoText && (
-                                  <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6">
-                                    <p className="body-m text-black-60 leading-relaxed">{infoText}</p>
-                                  </div>
-                                )}
-                              </>
-                            );
+                            return (<>
+                              <p className="body-l text-black-80 leading-relaxed">{mainText}</p>
+                              {infoText && <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6"><p className="body-m text-black-60 leading-relaxed">{infoText}</p></div>}
+                            </>);
                           })()}
                         </div>
                       </div>
-                    </motion.div>
+                    </RevealDiv>
                   ) : (
-                    <div id={`section-${section._key}`}>
-                      <SectionRenderer sections={[section]} />
-                    </div>
+                    <div id={`section-${section._key}`}><SectionRenderer sections={[section]} /></div>
                   )}
-
                   {isMidpoint && (
-                    <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={viewportConfig}
-                      className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden hidden lg:block">
-                      <Image src={photos[1]} alt={`${data.title} — GENEVITY`} title={`${data.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
-                    </motion.div>
+                    <RevealDiv className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden hidden lg:block">
+                      <div className="reveal">
+                        <Image src={photos[1]} alt={`${data.title} — GENEVITY`} title={`${data.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
+                      </div>
+                    </RevealDiv>
                   )}
                 </div>
               );
@@ -180,31 +146,27 @@ export default function StaticPageTemplate({
         )}
       </div>
 
-      {/* ===== FAQ ===== */}
+      {/* FAQ */}
       {data.faq?.length > 0 && (
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
-          <h2 className="heading-2 text-black mb-8">{t("faq")}</h2>
-          <div className="border-t border-line">
+        <RevealDiv className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          <h2 className="reveal heading-2 text-black mb-8">{t("faq")}</h2>
+          <div className="reveal d1 border-t border-line">
             {data.faq.map((item, i) => (
               <div key={i} className="border-b border-line">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between py-5 lg:py-6 text-left cursor-pointer group">
+                <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between py-5 lg:py-6 text-left cursor-pointer group" aria-expanded={openFaq === i}>
                   <span className="body-strong text-black group-hover:text-main transition-colors pr-4 text-lg">{item.question}</span>
-                  <motion.span className="text-muted text-2xl leading-none shrink-0" animate={{ rotate: openFaq === i ? 45 : 0 }} transition={{ duration: 0.2 }}>+</motion.span>
+                  <span className={`faq-icon text-muted text-2xl leading-none shrink-0 ${openFaq === i ? "open" : ""}`}>+</span>
                 </button>
-                <AnimatePresence initial={false}>
-                  {openFaq === i && (
-                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }} className="overflow-hidden">
-                      <p className="body-l text-muted pb-6 pr-8">{item.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className={`accordion-body ${openFaq === i ? "open" : ""}`}>
+                  <div><p className="body-l text-muted pb-6 pr-8">{item.answer}</p></div>
+                </div>
               </div>
             ))}
           </div>
-        </div>
+        </RevealDiv>
       )}
 
-      {/* ===== DOCTORS ===== */}
+      {/* DOCTORS */}
       {doctors && doctors.length > 0 && doctorsUi && (
         <div className="mt-4 lg:mt-8">
           <Doctors doctors={doctors} ui={doctorsUi} detailsLabel={detailsLabel || ""} />
@@ -214,7 +176,7 @@ export default function StaticPageTemplate({
         </div>
       )}
 
-      {/* ===== FINAL CTA ===== */}
+      {/* FINAL CTA */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{t("bookCta")}</h2>

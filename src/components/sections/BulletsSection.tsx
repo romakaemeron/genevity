@@ -1,67 +1,33 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { useScrollReveal } from "@/lib/useReveal";
 import { Check, AlertTriangle } from "lucide-react";
 
-interface Props {
-  _type: string;
-  _key: string;
-  heading: string;
-  items: string[];
-}
+interface Props { _type: string; _key: string; heading: string; items: string[]; }
 
 export default function BulletsSection({ heading, items }: Props) {
   const benefits = (items || []).filter((item) => !item.startsWith("⚠"));
   const drawbacks = (items || []).filter((item) => item.startsWith("⚠"));
-
+  const { ref, visible } = useScrollReveal();
   return (
-    <motion.section
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportConfig}
-    >
-      {heading && (
-        <motion.div variants={fadeInUp} className="mb-8">
-          <h2 className="heading-2 text-black">{heading}</h2>
-        </motion.div>
-      )}
-
+    <section ref={ref as React.RefObject<HTMLElement>} className={visible ? "revealed" : ""}>
+      {heading && <h2 className="reveal heading-2 text-black mb-8">{heading}</h2>}
       {(benefits.length > 0 || drawbacks.length > 0) && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {benefits.map((item, i) => (
-            <motion.div
-              key={i}
-              variants={fadeInUp}
-              className="flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark"
-            >
-              <div className="shrink-0 mt-0.5" style={{ width: 28, height: 28 }}>
-                <div className="w-full h-full rounded-full bg-success/15 flex items-center justify-center">
-                  <Check className="w-4 h-4 text-success" />
-                </div>
-              </div>
+            <div key={i} className="reveal flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark" style={{ "--rd": `${i * 0.07}s` } as React.CSSProperties}>
+              <div className="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-success/15 flex items-center justify-center"><Check className="w-4 h-4 text-success" /></div>
               <p className="body-l text-ink">{item}</p>
-            </motion.div>
+            </div>
           ))}
           {drawbacks.map((item, i) => (
-            <motion.div
-              key={`d-${i}`}
-              variants={fadeInUp}
-              className={`flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-warning/5 border border-warning/20${
-                i === 0 && benefits.length % 2 !== 0 ? " sm:col-start-1" : ""
-              }`}
-            >
-              <div className="shrink-0 mt-0.5" style={{ width: 28, height: 28 }}>
-                <div className="w-full h-full rounded-full bg-warning/15 flex items-center justify-center">
-                  <AlertTriangle className="w-3.5 h-3.5 text-warning" />
-                </div>
-              </div>
+            <div key={`d-${i}`} className={`reveal flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-warning/5 border border-warning/20${i === 0 && benefits.length % 2 !== 0 ? " sm:col-start-1" : ""}`} style={{ "--rd": `${(benefits.length + i) * 0.07}s` } as React.CSSProperties}>
+              <div className="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-warning/15 flex items-center justify-center"><AlertTriangle className="w-3.5 h-3.5 text-warning" /></div>
               <p className="body-l text-ink">{item.replace(/^⚠\s*/, "")}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       )}
-    </motion.section>
+    </section>
   );
 }

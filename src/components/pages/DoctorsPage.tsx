@@ -1,16 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { fadeInUp, viewportConfig } from "@/lib/motion";
 import type { DoctorItem } from "@/lib/db/types";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import DoctorCard from "@/components/doctors/DoctorCard";
-// import DoctorModalContent from "@/components/doctors/DoctorModal";
-// import Modal from "@/components/ui/Modal";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 interface Props {
@@ -44,7 +40,6 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
 
   return (
     <>
-      {/* Physician schema for each doctor */}
       {doctors.map((doc) => (
         <JsonLd key={doc._id} data={{
           "@context": "https://schema.org",
@@ -56,36 +51,22 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
         }} />
       ))}
 
-      {/* Hero */}
       <section className="bg-champagne">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-12 lg:pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Breadcrumbs
-              items={[
-                { label: tLabels("home"), href: "/" },
-                { label: doctorsUi.title, href: "/doctors" },
-              ]}
-              locale={locale}
-            />
-            <h1 className="heading-1 text-black mt-6">{doctorsUi.title}</h1>
-            <p className="body-l text-muted mt-4 max-w-2xl">{doctorsUi.subtitle}</p>
-          </motion.div>
+          <Breadcrumbs
+            items={[
+              { label: tLabels("home"), href: "/" },
+              { label: doctorsUi.title, href: "/doctors" },
+            ]}
+            locale={locale}
+          />
+          <h1 className="heading-1 text-black mt-6">{doctorsUi.title}</h1>
+          <p className="body-l text-muted mt-4 max-w-2xl">{doctorsUi.subtitle}</p>
         </div>
       </section>
 
-      {/* Filter + Grid */}
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-20">
-        {/* Filter pills */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-wrap gap-2 mb-10"
-        >
+        <div className="flex flex-wrap gap-2 mb-10">
           {categories.map((cat) => (
             <button
               key={cat.key}
@@ -99,32 +80,18 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
               {tDocPage(`filter_${cat.key}`)}
             </button>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Doctor cards */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredDoctors.map((doctor) => (
-              <div key={doctor._id}>
-                <DoctorCard
-                  doctor={doctor}
-                  detailsLabel={detailsLabel}
-                  onClick={() => {}}
-                />
-              </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+        {/* key triggers remount → CSS grid-enter animation replays on filter change */}
+        <div key={activeFilter} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 grid-enter">
+          {filteredDoctors.map((doctor) => (
+            <div key={doctor._id}>
+              <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} />
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* CTA */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
@@ -134,20 +101,6 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
           </BookingCTA>
         </div>
       </div>
-
-      {/* Doctor Modal — commented out, cards now navigate to /doctors/[slug]
-      <AnimatePresence>
-        {expandedDoctor !== null && (
-          <Modal open onClose={closeModal}>
-            <DoctorModalContent
-              doctor={doctors[expandedDoctor]}
-              cta={doctorsUi.cta}
-              experience={doctorsUi.experience}
-            />
-          </Modal>
-        )}
-      </AnimatePresence>
-      */}
     </>
   );
 }

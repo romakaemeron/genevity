@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import type { SearchResult } from "@/app/api/search/route";
@@ -124,48 +123,24 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   let flatIdx = 0;
 
   const content = (
-    <AnimatePresence>
+    <>
       {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-[1001] flex items-start justify-center px-4"
+        <div
+          className="modal-backdrop fixed inset-0 z-[1001] flex items-start justify-center px-4"
           style={{ paddingTop: "12vh" }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
           onClick={onClose}
         >
-          {/* Dark tint */}
-          <motion.div
-            className="absolute inset-0"
-            style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          />
-          {/* Blur layer — opacity-animated so Safari interpolates correctly */}
-          <motion.div
-            className="absolute inset-0"
-            style={{ backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          />
+          {/* Dark tint + blur */}
+          <div className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }} />
 
           {/* Card */}
-          <motion.div
-            className="relative w-full max-w-xl rounded-2xl flex flex-col overflow-hidden"
+          <div
+            className="modal-panel relative w-full max-w-xl rounded-2xl flex flex-col overflow-hidden"
             style={{
               backgroundColor: "#ffffff",
               boxShadow: "0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.1)",
               maxHeight: "75vh",
             }}
-            initial={{ scale: 0.96, opacity: 0, y: -8 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.96, opacity: 0, y: -8 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             onClick={e => e.stopPropagation()}
           >
             {/* Input row */}
@@ -374,10 +349,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 <span style={{ fontSize: 10, color: "rgba(0,0,0,0.25)" }}>ESC закрити</span>
               </div>
             )}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       )}
-    </AnimatePresence>
+    </>
   );
 
   if (typeof document === "undefined") return null;
