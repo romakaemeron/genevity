@@ -83,7 +83,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         <Breadcrumbs items={breadcrumbs} locale={locale} />
         <div className="mt-8 mb-6">
           <h1 className="heading-1 text-black">{data.h1 || data.title}</h1>
-          {data.summary && <p className="body-l text-muted mt-4 max-w-3xl">{data.summary}</p>}
+          {data.summary && <p className="body-l text-muted mt-8 max-w-3xl">{data.summary}</p>}
         </div>
         <KeyFactsBar
           procedureLength={data.procedureLength}
