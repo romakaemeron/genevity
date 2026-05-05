@@ -44,7 +44,7 @@ export default async function LaboratoryPage({ params }: { params: Promise<{ loc
 
   return (
     <>
-      <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="static-hero-sentinel" />
+      <MegaMenuHeader variant="solid" position="fixed" />
       <LaboratoryPageComponent
         data={data}
         locale={locale as Locale}

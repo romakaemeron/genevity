@@ -16,7 +16,6 @@ import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
-import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
 
@@ -61,9 +60,6 @@ export default function LaboratoryPageComponent({
 
       {/* Hero — above fold, no animation */}
       <section className="relative overflow-hidden bg-champagne">
-        <div className="absolute inset-x-0 top-0 z-[10]">
-          <MegaMenuHeader variant="solid" position="fixed" />
-        </div>
         <div className="relative z-[5]">
           <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:gap-10">
@@ -89,8 +85,8 @@ export default function LaboratoryPageComponent({
       {/* Services — tabbed */}
       {services.length > 0 && activeService && (
         <section ref={servicesRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${servicesVisible ? "revealed" : ""}`}>
-          <h2 className="reveal heading-2 text-black mb-4">{tPage("servicesTitle")}</h2>
-          <p className="reveal d1 body-l text-muted mb-10 max-w-2xl">{tPage("introSubtitle")}</p>
+          <h2 className="heading-2 text-black mb-4">{tPage("servicesTitle")}</h2>
+          <p className="body-l text-muted mb-10 max-w-2xl">{tPage("introSubtitle")}</p>
 
           <div className="reveal d2 flex flex-wrap gap-2 mb-8">
             {services.map((svc, i) => {
