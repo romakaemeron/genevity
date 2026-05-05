@@ -221,10 +221,10 @@ export default function MegaMenuHeader({
             })}
           </div>
 
-          <div className={`hidden lg:flex items-center gap-4 lg:gap-2 xl:gap-3 shrink-0 ${navTextClass}`}>
+          <div className={`hidden lg:flex items-center gap-2 shrink-0 ${navTextClass}`}>
             <LocaleSelector />
             <SearchTrigger onOpen={() => setSearchOpen(true)} variant={isLightText ? "outline-light" : "ghost"} />
-            <BookingCTA ctaKey="megamenu" variant={isLightText ? "secondary" : "primary"}>{tNav("cta")}</BookingCTA>
+            <BookingCTA ctaKey="megamenu" variant={isLightText ? "secondary" : "primary"} size="md">{tNav("cta")}</BookingCTA>
           </div>
 
           {/* Mobile: locale + hamburger */}
