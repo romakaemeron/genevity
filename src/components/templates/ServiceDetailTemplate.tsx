@@ -30,20 +30,20 @@ interface Props {
   equipmentUi?: { title: string; details: string; suitsTitle: string; resultsTitle: string };
 }
 
-/** Replace Unicode subscript digits ₀–₉ with small non-overflowing spans */
+/** Replace Unicode subscript digits U+2080–U+2089 with small non-overflowing spans */
+const SUB_SPLIT = new RegExp("([₀-₉]+)");
+const SUB_TEST  = new RegExp("^[₀-₉]+$");
 function H({ text }: { text: string }) {
-  const parts = text.split(/([₀-₉]+)/);
+  const parts = text.split(SUB_SPLIT);
   if (parts.length === 1) return <>{text}</>;
   return (
     <>
       {parts.map((part, i) =>
-        /^[₀-₉]+$/.test(part) ? (
+        SUB_TEST.test(part) ? (
           <span key={i} style={{ fontSize: "0.55em", verticalAlign: "-0.1em", lineHeight: 0 }}>
             {part.split("").map((c) => String.fromCharCode(c.charCodeAt(0) - 0x2080 + 0x30)).join("")}
           </span>
-        ) : (
-          part
-        )
+        ) : part
       )}
     </>
   );
