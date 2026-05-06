@@ -101,7 +101,7 @@ export async function getRelatedBlogPosts(locale: string, postId: string, catego
   const rows = categorySlug
     ? await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, d.photo_circle as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id
@@ -109,7 +109,7 @@ export async function getRelatedBlogPosts(locale: string, postId: string, catego
         ORDER BY bp.published_at DESC LIMIT ${limit}`
     : await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, d.photo_circle as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id

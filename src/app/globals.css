@@ -443,14 +443,14 @@ input[type="search"] {
   letter-spacing: -0.01em;
 }
 .prose-genevity p {
-  color: rgb(var(--color-black-rgb) / 0.72);
+  color: rgb(var(--color-black) / 0.6);
   line-height: 1.85;
   margin-bottom: 1.35rem;
 }
 .prose-genevity ul, .prose-genevity ol {
   padding-left: 1.5rem;
   margin-bottom: 1.35rem;
-  color: rgb(var(--color-black-rgb) / 0.72);
+  color: rgb(var(--color-black-rgb) / 0.6);
   line-height: 1.85;
 }
 .prose-genevity ul { list-style-type: disc; }
