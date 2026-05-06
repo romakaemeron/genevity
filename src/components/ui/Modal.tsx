@@ -47,7 +47,7 @@ export default function Modal({ open, onClose, children, maxWidth = "sm:max-w-lg
   if (!open) return null;
 
   return createPortal(
-    <div className="modal-backdrop fixed inset-0 z-[1000]">
+    <div className="modal-backdrop fixed inset-0 z-[1000]" data-admin-portal="true">
       <div className="fixed inset-0 bg-black/80 z-[1000]" onClick={onClose} />
       <div className="fixed inset-0 z-[1001] flex items-center justify-center p-4 sm:p-8" onClick={onClose}>
         <div

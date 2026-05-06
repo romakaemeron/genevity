@@ -15,6 +15,7 @@ export default function HideWidgets() {
         if (["SCRIPT", "NOSCRIPT", "STYLE", "LINK", "META"].includes(el.tagName)) return;
         if (adminRoot && el.contains(adminRoot)) return;
         if (el.dataset.adminHidden) return;
+        if (el.dataset.adminPortal) return;  // admin modal portals — never hide
         const pos = el.style.position || getComputedStyle(el).position;
         if (pos === "fixed") {
           hidden.push({ el, prev: el.style.display });
