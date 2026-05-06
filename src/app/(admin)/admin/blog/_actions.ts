@@ -45,6 +45,11 @@ export async function savePost(formData: FormData) {
   };
   const result = await adminSavePost(data);
   revalidatePath('/blog');
+  revalidatePath(`/blog/${data.slug}`);
+  revalidatePath('/ru/blog');
+  revalidatePath(`/ru/blog/${data.slug}`);
+  revalidatePath('/en/blog');
+  revalidatePath(`/en/blog/${data.slug}`);
   revalidatePath('/admin/blog');
   if (result.ok) redirect(`/admin/blog/${result.id}`);
 }
