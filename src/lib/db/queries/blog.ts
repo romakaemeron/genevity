@@ -24,6 +24,7 @@ export interface BlogPostCard {
   categoryTitle: string | null;
   authorName: string | null;
   authorSlug: string | null;
+  authorAvatar: string | null;
   publishedAt: string;
   readTimeMinutes: number;
   tags: string[];
@@ -54,7 +55,8 @@ export async function getBlogPosts(locale: string, categorySlug?: string, limit 
   const rows = categorySlug
     ? await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-               d.name_uk as author_name_uk, d.name_ru as author_name_ru, d.name_en as author_name_en, d.slug as author_slug
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug,
+               COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id
@@ -62,7 +64,8 @@ export async function getBlogPosts(locale: string, categorySlug?: string, limit 
         ORDER BY bp.published_at DESC LIMIT ${limit}`
     : await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-               d.name_uk as author_name_uk, d.name_ru as author_name_ru, d.name_en as author_name_en, d.slug as author_slug
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug,
+               COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id
@@ -75,7 +78,8 @@ export async function getBlogPostBySlug(locale: string, slug: string): Promise<B
   const l = lang(locale);
   const rows = await sql`
     SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-           d.name_uk as author_name_uk, d.name_ru as author_name_ru, d.name_en as author_name_en, d.slug as author_slug
+           d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug,
+           COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
     FROM blog_posts bp
     LEFT JOIN blog_categories bc ON bc.id = bp.category_id
     LEFT JOIN doctors d ON d.id = bp.author_id
@@ -97,7 +101,7 @@ export async function getRelatedBlogPosts(locale: string, postId: string, catego
   const rows = categoryId
     ? await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-               d.name_uk as author_name_uk, d.name_ru as author_name_ru, d.name_en as author_name_en, d.slug as author_slug
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id
@@ -105,7 +109,7 @@ export async function getRelatedBlogPosts(locale: string, postId: string, catego
         ORDER BY bp.published_at DESC LIMIT ${limit}`
     : await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-               d.name_uk as author_name_uk, d.name_ru as author_name_ru, d.name_en as author_name_en, d.slug as author_slug
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id
@@ -150,6 +154,8 @@ export async function adminSavePost(data: {
   seoTitleUk: string; seoTitleRu: string; seoTitleEn: string;
   seoDescUk: string; seoDescRu: string; seoDescEn: string;
   readTimeMinutes: number;
+  authorName: string;
+  authorAvatar: string;
 }): Promise<{ ok: boolean; id?: string; error?: string }> {
   try {
     if (data.id) {
@@ -162,7 +168,8 @@ export async function adminSavePost(data: {
         is_draft=${data.isDraft}, published_at=${data.publishedAt ? sql`${data.publishedAt}::timestamptz` : sql`NULL`},
         seo_title_uk=${data.seoTitleUk}, seo_title_ru=${data.seoTitleRu}, seo_title_en=${data.seoTitleEn},
         seo_desc_uk=${data.seoDescUk}, seo_desc_ru=${data.seoDescRu}, seo_desc_en=${data.seoDescEn},
-        read_time_minutes=${data.readTimeMinutes}, updated_at=NOW()
+        read_time_minutes=${data.readTimeMinutes}, author_name=${data.authorName || null},
+        author_avatar=${data.authorAvatar || null}, updated_at=NOW()
         WHERE id=${data.id}`;
       return { ok: true, id: data.id };
     } else {
@@ -174,7 +181,7 @@ export async function adminSavePost(data: {
         cover_image, tags, is_draft, published_at,
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
-        read_time_minutes
+        read_time_minutes, author_name, author_avatar
       ) VALUES (
         ${data.slug}, ${data.categoryId}, ${data.authorId},
         ${data.titleUk}, ${data.titleRu}, ${data.titleEn},
@@ -184,7 +191,7 @@ export async function adminSavePost(data: {
         ${data.publishedAt ? sql`${data.publishedAt}::timestamptz` : sql`NULL`},
         ${data.seoTitleUk}, ${data.seoTitleRu}, ${data.seoTitleEn},
         ${data.seoDescUk}, ${data.seoDescRu}, ${data.seoDescEn},
-        ${data.readTimeMinutes}
+        ${data.readTimeMinutes}, ${data.authorName || null}, ${data.authorAvatar || null}
       ) RETURNING id`;
       return { ok: true, id: rows[0].id as string };
     }
@@ -196,6 +203,7 @@ export async function adminDeletePost(id: string) {
 }
 
 function mapCard(r: any, l: string): BlogPostCard {
+  const doctorName = r[`doctor_name_${l}`] || r.doctor_name_uk || null;
   return {
     _id: r.id as string,
     slug: r.slug as string,
@@ -204,8 +212,9 @@ function mapCard(r: any, l: string): BlogPostCard {
     coverImage: r.cover_image as string | null,
     categorySlug: r.cat_slug as string | null,
     categoryTitle: r[`cat_title_${l}`] || r.cat_title_uk || null,
-    authorName: r[`author_name_${l}`] || r.author_name_uk || null,
+    authorName: (r.author_name as string | null) || doctorName,
     authorSlug: r.author_slug as string | null,
+    authorAvatar: (r.author_avatar as string | null) || (r.doctor_avatar as string | null),
     publishedAt: r.published_at ? new Date(r.published_at).toISOString().split('T')[0] : '',
     readTimeMinutes: (r.read_time_minutes as number) || 5,
     tags: (r.tags as string[]) || [],

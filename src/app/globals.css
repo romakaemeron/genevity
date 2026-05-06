@@ -420,47 +420,102 @@ input[type="search"] {
 }
 
 /* Blog article body */
+.prose-genevity {
+  max-width: 72ch;
+  font-size: 1.0625rem;
+}
 .prose-genevity h2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  font-weight: 400;
   color: var(--color-black);
-  margin-top: 2.5rem;
+  margin-top: 3rem;
   margin-bottom: 1rem;
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 .prose-genevity h3 {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--color-black);
-  margin-top: 2rem;
+  margin-top: 2.25rem;
   margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
 }
 .prose-genevity p {
-  color: rgb(var(--color-black-rgb) / 0.75);
-  line-height: 1.8;
-  margin-bottom: 1.25rem;
+  color: rgb(var(--color-black-rgb) / 0.72);
+  line-height: 1.85;
+  margin-bottom: 1.35rem;
 }
 .prose-genevity ul, .prose-genevity ol {
   padding-left: 1.5rem;
-  margin-bottom: 1.25rem;
-  color: rgb(var(--color-black-rgb) / 0.75);
-  line-height: 1.8;
+  margin-bottom: 1.35rem;
+  color: rgb(var(--color-black-rgb) / 0.72);
+  line-height: 1.85;
 }
 .prose-genevity ul { list-style-type: disc; }
 .prose-genevity ol { list-style-type: decimal; }
-.prose-genevity li { margin-bottom: 0.5rem; }
+.prose-genevity li { margin-bottom: 0.4rem; }
 .prose-genevity strong { font-weight: 600; color: var(--color-black); }
 .prose-genevity em { font-style: italic; }
 .prose-genevity a { color: var(--color-main); text-decoration: underline; text-underline-offset: 3px; }
-.prose-genevity a:hover { color: var(--color-main-dark, var(--color-main)); }
+.prose-genevity a:hover { opacity: 0.75; }
 .prose-genevity blockquote {
-  border-left: 3px solid var(--color-main);
-  padding-left: 1.25rem;
-  margin: 1.5rem 0;
+  border-left: 2px solid var(--color-main);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  margin: 2rem 0;
   font-style: italic;
   color: rgb(var(--color-black-rgb) / 0.6);
+  font-size: 1.1em;
 }
-.prose-genevity hr { border-color: rgb(var(--color-black-rgb) / 0.1); margin: 2rem 0; }
+.prose-genevity hr {
+  border: none;
+  border-top: 1px solid rgb(var(--color-black-rgb) / 0.1);
+  margin: 2.5rem 0;
+}
+/* Inline images — centered, rounded, full-width with caption */
+.prose-genevity img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+  margin: 2rem auto;
+  box-shadow: 0 2px 24px rgb(0 0 0 / 0.08);
+}
+.prose-genevity p > img:only-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+/* Figure with caption */
+.prose-genevity figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+.prose-genevity figcaption {
+  font-size: 0.875rem;
+  color: rgb(var(--color-black-rgb) / 0.45);
+  margin-top: 0.5rem;
+}
+/* Code */
+.prose-genevity code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  background: rgb(var(--color-black-rgb) / 0.06);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--color-black);
+}
+.prose-genevity pre {
+  background: rgb(var(--color-black-rgb) / 0.06);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.prose-genevity pre code {
+  background: none;
+  padding: 0;
+}
 
 
 /* SEO audit §1.8.2: content-visibility for sections below the fold

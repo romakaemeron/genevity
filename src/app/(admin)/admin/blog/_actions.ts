@@ -30,6 +30,8 @@ export async function savePost(formData: FormData) {
     seoDescRu: formData.get('seoDescRu') as string,
     seoDescEn: formData.get('seoDescEn') as string,
     readTimeMinutes: parseInt(formData.get('readTimeMinutes') as string) || 5,
+    authorName: (formData.get('authorName') as string) || '',
+    authorAvatar: (formData.get('authorAvatar') as string) || '',
   };
   const result = await adminSavePost(data);
   revalidatePath('/blog');
