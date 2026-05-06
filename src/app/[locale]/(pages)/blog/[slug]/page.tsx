@@ -104,17 +104,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         </div>
       </div>
 
-      {/* ─── COVER IMAGE (full-width stripe below header) ──────────────── */}
+      {/* ─── COVER IMAGE (contained, rounded) ──────────────────────────── */}
       {post.coverImage && (
-        <div className="relative w-full aspect-[21/9] max-h-[520px] overflow-hidden bg-champagne-dark">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-          />
+        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12 pb-2">
+          <div className="relative w-full aspect-[21/9] max-h-[480px] overflow-hidden rounded-[var(--radius-card)] bg-champagne-dark">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 1280px) 100vw, 1280px"
+            />
+          </div>
         </div>
       )}
 
