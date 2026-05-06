@@ -96,16 +96,16 @@ export async function getBlogPostBySlug(locale: string, slug: string): Promise<B
   };
 }
 
-export async function getRelatedBlogPosts(locale: string, postId: string, categoryId: string | null, limit = 3): Promise<BlogPostCard[]> {
+export async function getRelatedBlogPosts(locale: string, postId: string, categorySlug: string | null, limit = 3): Promise<BlogPostCard[]> {
   const l = lang(locale);
-  const rows = categoryId
+  const rows = categorySlug
     ? await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
                d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug, COALESCE(d.photo_circle, d.photo_card) as doctor_avatar
         FROM blog_posts bp
         LEFT JOIN blog_categories bc ON bc.id = bp.category_id
         LEFT JOIN doctors d ON d.id = bp.author_id
-        WHERE bp.is_draft = false AND bp.published_at <= NOW() AND bp.id != ${postId} AND bp.category_id = ${categoryId}
+        WHERE bp.is_draft = false AND bp.published_at <= NOW() AND bp.id != ${postId} AND bc.slug = ${categorySlug}
         ORDER BY bp.published_at DESC LIMIT ${limit}`
     : await sql`
         SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
