@@ -1,10 +1,20 @@
 "use server";
 import { adminSavePost, adminDeletePost } from "@/lib/db/queries/blog";
+import { processUploadOrKeep } from "../_actions/upload";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function savePost(formData: FormData) {
   const id = formData.get('id') as string | null;
+
+  const coverFile = formData.get('coverImage') as File | null;
+  const coverCurrent = (formData.get('coverImage_current') as string) || undefined;
+  const coverImage = await processUploadOrKeep(
+    coverFile && coverFile.size > 0 ? coverFile : null,
+    'blog',
+    coverCurrent,
+  );
+
   const data = {
     id: id || undefined,
     slug: (formData.get('slug') as string).trim(),
@@ -19,7 +29,7 @@ export async function savePost(formData: FormData) {
     bodyUk: formData.get('bodyUk') as string,
     bodyRu: formData.get('bodyRu') as string,
     bodyEn: formData.get('bodyEn') as string,
-    coverImage: formData.get('coverImage') as string,
+    coverImage: coverImage || '',
     tags: ((formData.get('tags') as string) || '').split(',').map(t => t.trim()).filter(Boolean),
     isDraft: formData.get('isDraft') === 'true',
     publishedAt: (formData.get('publishedAt') as string) || null,
