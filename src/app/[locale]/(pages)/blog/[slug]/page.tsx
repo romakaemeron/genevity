@@ -88,44 +88,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       ]} />
       <MegaMenuHeader variant="solid" position="fixed" />
 
-      {/* ─── HERO ─────────────────────────────────────────────────────── */}
-      {post.coverImage ? (
-        /* Cover image: full-width stripe with gradient overlay + title */
-        <div className="relative w-full h-[60vh] min-h-[380px] max-h-[620px] overflow-hidden">
-          <Image src={post.coverImage} alt={post.title} fill priority className="object-cover" sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/25" />
-          {/* Back link */}
-          <div className="absolute top-0 left-0 right-0 pt-28 px-4 sm:px-6 lg:px-12 max-w-[var(--container-max)] mx-auto">
-            <Link href="/blog" className="inline-flex items-center gap-1.5 text-white/60 hover:text-white transition-colors text-sm">
-              <ArrowLeft className="w-3.5 h-3.5" /> {l.back}
+      {/* ─── ARTICLE HEADER (always visible, champagne bg) ────────────── */}
+      <div className="bg-champagne pt-28 pb-8">
+        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12">
+          <Link href="/blog" className="inline-flex items-center gap-1.5 text-black-40 hover:text-main transition-colors text-sm mb-6">
+            <ArrowLeft className="w-3.5 h-3.5" /> {l.back}
+          </Link>
+          {post.categoryTitle && (
+            <Link href={`/blog?category=${post.categorySlug}`} className="text-xs font-semibold uppercase tracking-widest text-main mb-3 block">
+              {post.categoryTitle}
             </Link>
-          </div>
-          {/* Title + meta */}
-          <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-12 pb-10 max-w-[var(--container-max)] mx-auto">
-            {post.categoryTitle && (
-              <Link href={`/blog?category=${post.categorySlug}`} className="text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white mb-3 block transition-colors">
-                {post.categoryTitle}
-              </Link>
-            )}
-            <h1 className="heading-1 text-white mb-5 max-w-3xl text-balance">{post.title}</h1>
-            <PostMeta post={post} locale={localePrefix} formattedDate={formattedDate} readLabel={l.read} light />
-          </div>
+          )}
+          <h1 className="heading-1 text-black mb-6 max-w-3xl text-balance">{post.title}</h1>
+          <PostMeta post={post} locale={localePrefix} formattedDate={formattedDate} readLabel={l.read} />
         </div>
-      ) : (
-        /* No cover: champagne header with title */
-        <div className="bg-champagne pt-28 pb-10 border-b border-black-10">
-          <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12">
-            <Link href="/blog" className="inline-flex items-center gap-1.5 text-black-40 hover:text-main transition-colors text-sm mb-6">
-              <ArrowLeft className="w-3.5 h-3.5" /> {l.back}
-            </Link>
-            {post.categoryTitle && (
-              <Link href={`/blog?category=${post.categorySlug}`} className="text-xs font-semibold uppercase tracking-widest text-main mb-3 block">
-                {post.categoryTitle}
-              </Link>
-            )}
-            <h1 className="heading-1 text-black mb-6 max-w-3xl text-balance">{post.title}</h1>
-            <PostMeta post={post} locale={localePrefix} formattedDate={formattedDate} readLabel={l.read} />
-          </div>
+      </div>
+
+      {/* ─── COVER IMAGE (full-width stripe below header) ──────────────── */}
+      {post.coverImage && (
+        <div className="relative w-full aspect-[21/9] max-h-[520px] overflow-hidden bg-champagne-dark">
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
         </div>
       )}
 
