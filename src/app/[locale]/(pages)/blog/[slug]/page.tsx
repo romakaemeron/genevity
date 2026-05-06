@@ -99,7 +99,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               {post.categoryTitle}
             </Link>
           )}
-          <h1 className="heading-1 text-black mb-6 max-w-3xl text-balance">{post.title}</h1>
+          <h1 className="heading-1 text-black mb-4 max-w-3xl text-balance">{post.title}</h1>
+          {post.excerpt && (
+            <p className="body-l text-black-50 leading-relaxed max-w-2xl mb-6">{post.excerpt}</p>
+          )}
           <PostMeta post={post} locale={localePrefix} formattedDate={formattedDate} readLabel={l.read} />
         </div>
       </div>
@@ -107,7 +110,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       {/* ─── COVER IMAGE (contained, rounded) ──────────────────────────── */}
       {post.coverImage && (
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12 pb-2">
-          <div className="relative w-full aspect-[21/9] max-h-[480px] overflow-hidden rounded-[var(--radius-card)] bg-champagne-dark">
+          <div className="relative w-full aspect-[16/9] max-h-[480px] overflow-hidden rounded-[var(--radius-card)] bg-champagne-dark">
             <Image
               src={post.coverImage}
               alt={post.title}
@@ -130,9 +133,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             {/* Article */}
             <article className="min-w-0">
-              {post.excerpt && (
-                <p className="body-l text-black-60 leading-relaxed mb-10 pb-10 border-b border-black-10">{post.excerpt}</p>
-              )}
               {html && <ArticleBody html={html} />}
 
               {/* Tags */}
