@@ -32,8 +32,7 @@ const MARKDOWN_GUIDE = [
   { syntax: "> Callout text", desc: "Highlighted blockquote / tip" },
   { syntax: "- Item\\n- Item 2", desc: "Bullet list" },
   { syntax: "1. First\\n2. Second", desc: "Numbered list" },
-  { syntax: "---", desc: "Horizontal divider" },
-  { syntax: "`code`", desc: "Inline monospace code" },
+  { syntax: "---", desc: "Horizontal divider — must be on its own empty line" },
 ];
 
 // Inline SEO preview (Google SERP)

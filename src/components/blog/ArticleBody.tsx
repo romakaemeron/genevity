@@ -16,7 +16,10 @@ renderer.heading = function(token: Tokens.Heading) {
 };
 
 export function parseMarkdown(md: string): string {
-  return marked(md, { renderer }) as string;
+  // Ensure --- / *** / ___ on their own line get blank lines around them
+  // so marked's breaks:true doesn't prevent <hr> detection
+  const normalized = md.replace(/^(-{3,}|\*{3,}|_{3,})\s*$/gm, '\n\n$1\n\n');
+  return marked(normalized, { renderer }) as string;
 }
 
 interface Props { html: string; }
