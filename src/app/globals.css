@@ -659,10 +659,10 @@ input[type="search"] {
 .faq-icon { display: inline-block; transition: transform 0.2s ease; }
 .faq-icon.open { transform: rotate(45deg); }
 
-/* ─── Hero text — opacity fade applied after hydration (no LCP penalty) ── */
+/* ─── Hero text — transform only, no opacity so LCP element is never hidden ── */
 @keyframes hero-text-full-in {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: none; }
+  from { transform: translateY(18px); }
+  to   { transform: none; }
 }
 .hero-text-animated { animation: hero-text-full-in 0.7s ease both; }
 

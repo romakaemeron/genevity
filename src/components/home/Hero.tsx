@@ -16,18 +16,18 @@ function ProgressFill({ playing, duration }: { playing: boolean; duration: numbe
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    el.style.width = "0%";
+    el.style.transform = "scaleX(0)";
     el.style.transition = "none";
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         if (playing) {
-          el.style.transition = `width ${duration}ms linear`;
-          el.style.width = "100%";
+          el.style.transition = `transform ${duration}ms linear`;
+          el.style.transform = "scaleX(1)";
         }
       });
     });
   }, [playing, duration]);
-  return <div ref={ref} className="h-full bg-champagne/80 rounded-full" style={{ width: "0%" }} />;
+  return <div ref={ref} className="h-full w-full bg-champagne/80 rounded-full origin-left" style={{ transform: "scaleX(0)" }} />;
 }
 
 export default function Hero({ data, slides }: { data: HeroData; slides: HeroSlide[] }) {
@@ -66,7 +66,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
     if (!container) return;
     const onScroll = () => {
       const progress = Math.min(window.scrollY / (window.innerHeight * 0.4), 1);
-      container.style.borderRadius = `${progress * 24}px`;
+      container.style.clipPath = `inset(0 round ${progress * 24}px)`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -76,12 +76,8 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
   const [previous, setPrevious] = useState<number | null>(null);
   const [playing, setPlaying] = useState(true);
   const [progressKey, setProgressKey] = useState(0);
-  // Apply text animation only after hydration — keeps H1 visible in SSR for LCP
-  const [textAnimated, setTextAnimated] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const prevCleanupRef = useRef<ReturnType<typeof setTimeout>>(undefined);
-
-  useEffect(() => { setTextAnimated(true); }, []);
 
   const goto = useCallback(
     (i: number) => {
@@ -180,7 +176,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
 
         <div className="relative z-[5] h-full flex items-center">
           <div className="max-w-[var(--container-max)] mx-auto w-full px-4 sm:px-6 lg:px-[var(--container-padding)]">
-            <div className={`${textAnimated ? "hero-text-animated" : ""} max-w-200`}>
+            <div className="hero-text-animated max-w-200">
               <h1 className="heading-1 text-champagne">{data.title}</h1>
               <p className="body-l text-white-60 mt-5 max-w-[54ch]">{data.subtitle}</p>
               <div className="flex flex-col gap-4 mt-8">
@@ -212,7 +208,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
         <div className="absolute bottom-0 left-0 right-0 z-[8] max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-4 flex items-end gap-1.5">
           {SLIDES.map((_, i) => (
             <button key={i} onClick={() => goto(i)} className="flex-1 group cursor-pointer h-5 flex items-center" aria-label={`Slide ${i + 1}`}>
-              <div className="w-full h-[2px] group-hover:h-[5px] bg-white/15 rounded-full overflow-hidden transition-[height] duration-200">
+              <div className="w-full h-[2px] bg-white/15 rounded-full overflow-hidden transition-transform duration-200 origin-center group-hover:scale-y-[2.5]">
                 {i === current ? (
                   <ProgressFill key={progressKey} playing={playing} duration={AUTOPLAY_MS} />
                 ) : (
