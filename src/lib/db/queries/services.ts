@@ -206,6 +206,31 @@ export async function getServicesByCategory(locale: string, categorySlug: string
   }));
 }
 
+export async function getServicesBySlugs(locale: string, slugs: string[]): Promise<ServiceCardData[]> {
+  if (!slugs.length) return [];
+  const l = lang(locale);
+  const rows = await sql`
+    SELECT s.id, s.slug, s.hero_image,
+           s.title_uk, s.title_ru, s.title_en,
+           s.summary_uk, s.summary_ru, s.summary_en,
+           s.price_from_uk, s.price_from_ru, s.price_from_en,
+           c.slug AS category_slug
+    FROM services s
+    JOIN service_categories c ON s.category_id = c.id
+    WHERE s.slug = ANY(${slugs})
+    ORDER BY s.sort_order
+  `;
+  return rows.map((r) => ({
+    _id: r.id,
+    title: pick(r, "title", l) || "",
+    slug: r.slug,
+    summary: pick(r, "summary", l) || "",
+    heroImage: r.hero_image,
+    categorySlug: r.category_slug,
+    priceFrom: pick(r, "price_from", l),
+  }));
+}
+
 export async function getAllServiceSlugs(): Promise<{ slug: string; categorySlug: string }[]> {
   const rows = await sql`
     SELECT s.slug, c.slug AS category_slug

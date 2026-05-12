@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
+import PhotoSlideshow from "@/components/ui/PhotoSlideshow";
 
 const Doctors = dynamic(() => import("@/components/home/Doctors"));
 const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
@@ -71,7 +72,15 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
 
             <div className="flex-1 mt-8 lg:mt-0">
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                <Image src="/clinic/semi1737-hdr.webp" alt="GENEVITY — центр довголіття та естетичної медицини" title="GENEVITY — центр довголіття та естетичної медицини" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                {gallery.length > 0 ? (
+                  <PhotoSlideshow
+                    items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt }))}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    withLightbox
+                  />
+                ) : (
+                  <Image src="/clinic/semi1737-hdr.webp" alt="GENEVITY — центр довголіття та естетичної медицини" title="GENEVITY — центр довголіття та естетичної медицини" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                )}
               </div>
             </div>
           </div>

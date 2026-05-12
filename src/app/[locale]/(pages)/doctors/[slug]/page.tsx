@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import DoctorProfilePage from "@/components/pages/DoctorProfilePage";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
 export const revalidate = 60;
 
@@ -122,9 +123,39 @@ export default async function DoctorPage({
       }
     : null;
 
+  const doctorUrl = `https://genevity.com.ua${locale === "ua" ? "" : "/" + locale}/doctors/${slug}`;
+
+  // §1.22.3 ProfilePage schema — required by inweb SEO audit for author/E-E-A-T signals
+  const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    url: doctorUrl,
+    name: doctor.name,
+    description: doctor.seoDescription || doctor.bio.slice(0, 200),
+    mainEntity: {
+      "@type": ["Person", "Physician"],
+      name: doctor.name,
+      url: doctorUrl,
+      jobTitle: doctor.role,
+      description: doctor.seoDescription || doctor.bio.slice(0, 200),
+      ...(photoUrl ? { image: photoUrl } : {}),
+      worksFor: { "@type": "MedicalOrganization", name: "GENEVITY", url: "https://genevity.com.ua" },
+      ...(doctor.specialties.length > 0 ? { medicalSpecialty: doctor.specialties } : {}),
+    },
+  };
+
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
+  const doctorsLabel = locale === "ru" ? "Врачи" : locale === "en" ? "Doctors" : "Лікарі";
+
   return (
     <>
+      <JsonLdBreadcrumbList items={[
+        { name: "GENEVITY", url: "https://genevity.com.ua/" },
+        { name: doctorsLabel, url: `https://genevity.com.ua${localePrefix}/doctors` },
+        { name: doctor.name, url: doctorUrl },
+      ]} />
       <JsonLd data={schema as Record<string, unknown>} />
+      <JsonLd data={profilePageSchema} />
       {imageSchema && <JsonLd data={imageSchema} />}
       <MegaMenuHeader variant="solid" position="fixed" />
       <DoctorProfilePage doctor={doctor} locale={locale as Locale} />

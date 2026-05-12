@@ -31,6 +31,7 @@ export async function savePost(formData: FormData) {
     bodyEn: formData.get('bodyEn') as string,
     coverImage: coverImage || '',
     tags: ((formData.get('tags') as string) || '').split(',').map(t => t.trim()).filter(Boolean),
+    relatedServiceSlugs: ((formData.get('relatedServiceSlugs') as string) || '').split(',').map(t => t.trim()).filter(Boolean),
     isDraft: formData.get('isDraft') === 'true',
     publishedAt: (formData.get('publishedAt') as string) || null,
     seoTitleUk: formData.get('seoTitleUk') as string,

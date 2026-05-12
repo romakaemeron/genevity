@@ -1,16 +1,17 @@
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
+import { getServicesBySlugs } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
-import ArticleBody, { parseMarkdown } from "@/components/blog/ArticleBody";
+import ArticleBody, { processBody, parseTocItems } from "@/components/blog/ArticleBody";
 import TableOfContents from "@/components/blog/TableOfContents";
 import BlogTocBar from "@/components/blog/BlogTocBar";
 import BlogCard from "@/components/blog/BlogCard";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
-import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 export const revalidate = 60;
@@ -50,8 +51,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (!post) notFound();
 
   const l = L[locale as keyof typeof L] ?? L.ua;
-  const related = await getRelatedBlogPosts(locale, post._id, post.categorySlug ?? null, 3);
-  const html = post.body ? parseMarkdown(post.body) : "";
+  const [related, relatedServices] = await Promise.all([
+    getRelatedBlogPosts(locale, post._id, post.categorySlug ?? null, 3),
+    getServicesBySlugs(locale, post.relatedServiceSlugs),
+  ]);
+  const html = post.body ? processBody(post.body) : "";
+  const tocItems = parseTocItems(html);
   const localePrefix = locale === "ua" ? "" : `/${locale}`;
   const articleUrl = `https://genevity.com.ua${localePrefix}/blog/${slug}`;
 
@@ -114,6 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <Image
               src={post.coverImage}
               alt={post.title}
+              title={post.title}
               fill
               priority
               className="object-cover"
@@ -124,7 +130,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       )}
 
       {/* ─── MOBILE TOC BAR ────────────────────────────────────────────── */}
-      {html && <BlogTocBar html={html} label={l.toc} />}
+      {tocItems.length >= 2 && <BlogTocBar items={tocItems} label={l.toc} />}
 
       {/* ─── ARTICLE + DESKTOP TOC SIDEBAR ─────────────────────────────── */}
       <div className="bg-champagne py-12 lg:py-16">
@@ -145,17 +151,46 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </div>
               )}
 
+              {/* Related services block */}
+              {relatedServices.length > 0 && (
+                <div className="mt-10 pt-8 border-t border-black-10">
+                  <p className="body-strong text-black mb-4">
+                    {locale === "ru" ? "Записаться на процедуру" : locale === "en" ? "Book a procedure" : "Записатись на процедуру"}
+                  </p>
+                  <div className="flex flex-col gap-3">
+                    {relatedServices.map(svc => (
+                      <Link
+                        key={svc._id}
+                        href={`/services/${svc.categorySlug}/${svc.slug}`}
+                        className="flex items-center gap-4 p-4 rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-colors group"
+                      >
+                        {svc.heroImage && (
+                          <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-champagne-darker">
+                            <Image src={svc.heroImage} alt={svc.title} fill className="object-cover" sizes="64px" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="body-strong text-black group-hover:text-main transition-colors truncate">{svc.title}</p>
+                          {svc.priceFrom && <p className="body-s text-black-40 mt-0.5">{locale === "ru" ? "от" : locale === "en" ? "from" : "від"} {svc.priceFrom}</p>}
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-black-30 group-hover:text-main transition-colors shrink-0" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Author card */}
               {post.authorName && (
                 <div className="mt-10 pt-8 border-t border-black-10">
-                  <AuthorCard name={post.authorName} slug={post.authorSlug} avatar={post.authorAvatar} locale={localePrefix} label={l.by} />
+                  <AuthorCard name={post.authorName} slug={post.authorSlug} avatar={post.authorAvatar} focalPoint={post.authorFocalPoint} scale={post.authorScale} locale={localePrefix} label={l.by} />
                 </div>
               )}
             </article>
 
             {/* Desktop TOC sidebar */}
             <aside className="hidden lg:block sticky top-28 self-start">
-              {html && <TableOfContents html={html} labels={{ title: l.toc }} />}
+              {tocItems.length >= 2 && <TableOfContents items={tocItems} labels={{ title: l.toc }} />}
             </aside>
           </div>
 
@@ -177,15 +212,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 /* ── shared sub-components ─────────────────────────────────────────────── */
 
 function PostMeta({ post, locale, formattedDate, readLabel, light }: {
-  post: { authorName: string | null; authorSlug: string | null; authorAvatar: string | null; publishedAt: string; readTimeMinutes: number };
+  post: { authorName: string | null; authorSlug: string | null; authorAvatar: string | null; authorFocalPoint: string | null; authorScale: number | null; publishedAt: string; readTimeMinutes: number };
   locale: string; formattedDate: string; readLabel: string; light?: boolean;
 }) {
-  const text = light ? "text-white/70 hover:text-white" : "text-black-50 hover:text-main";
   return (
     <div className="flex flex-wrap items-center gap-4">
       {post.authorName && (
         <span className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${light ? "text-white/80" : "text-black-70"}`}>
-          <AvatarCircle name={post.authorName} avatar={post.authorAvatar} size={7} />
+          <AvatarCircle name={post.authorName} avatar={post.authorAvatar} focalPoint={post.authorFocalPoint} scale={post.authorScale} size={7} />
           {post.authorSlug
             ? <Link href={`${locale}/doctors/${post.authorSlug}`} className={light ? "hover:text-white" : "hover:text-main"}>{post.authorName}</Link>
             : post.authorName}
@@ -201,16 +235,26 @@ function PostMeta({ post, locale, formattedDate, readLabel, light }: {
   );
 }
 
-function AvatarCircle({ name, avatar, size = 7 }: { name: string; avatar: string | null; size?: number }) {
-  const s = `w-${size} h-${size}`;
-  if (avatar) return <span className={`${s} rounded-full overflow-hidden shrink-0`}><img src={avatar} alt={name} className="w-full h-full object-cover" /></span>;
-  return <span className={`${s} rounded-full bg-main/15 flex items-center justify-center text-xs font-semibold text-main shrink-0`}>{name.charAt(0).toUpperCase()}</span>;
+function AvatarCircle({ name, avatar, focalPoint, scale, size = 7 }: { name: string; avatar: string | null; focalPoint?: string | null; scale?: number | null; size?: number }) {
+  const px = size * 4;
+  const fp = focalPoint || "50% 50%";
+  const sc = scale && scale > 0 ? scale : 1;
+  if (avatar) {
+    return (
+      <span className="relative rounded-full overflow-hidden shrink-0 bg-champagne-dark" style={{ width: px, height: px }}>
+        <span className="absolute inset-0" style={{ transform: `scale(${sc})`, transformOrigin: fp }}>
+          <Image src={avatar} alt={name} fill sizes="256px" quality={92} className="object-cover" style={{ objectPosition: fp }} />
+        </span>
+      </span>
+    );
+  }
+  return <span className="rounded-full bg-main/15 flex items-center justify-center text-xs font-semibold text-main shrink-0" style={{ width: px, height: px }}>{name.charAt(0).toUpperCase()}</span>;
 }
 
-function AuthorCard({ name, slug, avatar, locale, label }: { name: string; slug: string | null; avatar: string | null; locale: string; label: string }) {
+function AuthorCard({ name, slug, avatar, focalPoint, scale, locale, label }: { name: string; slug: string | null; avatar: string | null; focalPoint: string | null; scale: number | null; locale: string; label: string }) {
   return (
     <div className="flex items-center gap-4">
-      <AvatarCircle name={name} avatar={avatar} size={12} />
+      <AvatarCircle name={name} avatar={avatar} focalPoint={focalPoint} scale={scale} size={12} />
       <div>
         <p className="text-xs text-black-40 mb-0.5">{label}</p>
         {slug

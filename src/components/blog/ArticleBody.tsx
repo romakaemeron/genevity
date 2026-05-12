@@ -2,12 +2,11 @@ import { marked, Renderer, type Tokens } from "marked";
 
 marked.setOptions({ gfm: true, breaks: true });
 
-// Add IDs to headings for ToC — marked v18 heading renderer uses Tokens.Heading
 const renderer = new Renderer();
 renderer.heading = function(token: Tokens.Heading) {
   const text = this.parser.parseInline(token.tokens);
   const id = text
-    .replace(/<[^>]*>/g, '') // strip any HTML tags from the text
+    .replace(/<[^>]*>/g, '')
     .toLowerCase()
     .replace(/[^\wа-яёіїєґ\s]/gi, '')
     .replace(/\s+/g, '-')
@@ -15,16 +14,52 @@ renderer.heading = function(token: Tokens.Heading) {
   return `<h${token.depth} id="${id}">${text}</h${token.depth}>\n`;
 };
 
+// Adds id="..." to <h2>–<h4> tags based on text content, for TOC anchor links.
+function addHeadingIds(html: string): string {
+  return html.replace(
+    /<(h[2-4])([^>]*)>([\s\S]*?)<\/\1>/gi,
+    (match, tag, attrs, inner) => {
+      if (/\bid=/.test(attrs)) return match;
+      const text = inner.replace(/<[^>]*>/g, '');
+      const id = text
+        .toLowerCase()
+        .replace(/[^\wа-яёіїєґ\s]/gi, '')
+        .replace(/\s+/g, '-')
+        .slice(0, 60)
+        .replace(/^-+|-+$/g, '');
+      if (!id) return match;
+      return `<${tag}${attrs} id="${id}">${inner}</${tag}>`;
+    }
+  );
+}
+
+export interface TocItem { id: string; text: string; level: number; }
+
+export function parseTocItems(html: string): TocItem[] {
+  return [...html.matchAll(/<(h[23])[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/\1>/gi)].map((m) => ({
+    id: m[2],
+    text: m[3].replace(/<[^>]*>/g, "").trim(),
+    level: parseInt(m[1][1]),
+  }));
+}
+
 export function parseMarkdown(md: string): string {
-  // Ensure --- / *** / ___ on their own line get blank lines around them
-  // so marked's breaks:true doesn't prevent <hr> detection
   const normalized = md.replace(/^(-{3,}|\*{3,}|_{3,})\s*$/gm, '\n\n$1\n\n');
   return marked(normalized, { renderer }) as string;
 }
 
+// Detects HTML vs markdown and processes accordingly.
+export function processBody(body: string): string {
+  const trimmed = body.trim();
+  if (!trimmed) return "";
+  // HTML content starts with a tag
+  if (trimmed.startsWith("<")) return addHeadingIds(trimmed);
+  return parseMarkdown(trimmed);
+}
+
 interface Props { html: string; }
 
-// html is server-generated from markdown (developer-controlled CMS content), not raw user input.
+// html is server-generated from markdown or WYSIWYG (admin-controlled CMS content), not raw user input.
 export default function ArticleBody({ html }: Props) {
   return (
     <div

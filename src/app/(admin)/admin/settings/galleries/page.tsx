@@ -4,7 +4,8 @@ import GalleryEditor, { type GalleryItemInput } from "../../_components/gallery-
 
 const OWNERS = [
   { key: "stationary", label: "Stationary page" },
-  { key: "about", label: "About page" },
+  { key: "about", label: "About page slideshow" },
+  { key: "homepage_about", label: "Homepage About slideshow" },
   { key: "homepage", label: "Homepage bento" },
 ];
 

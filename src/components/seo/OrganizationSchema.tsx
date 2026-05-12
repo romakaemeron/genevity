@@ -1,5 +1,6 @@
 import { JsonLd } from "./JsonLd";
 import { getSiteSettingsData } from "@/lib/db/queries";
+import { sql } from "@/lib/db/client";
 
 const NAMES: Record<string, string> = {
   ua: "GENEVITY — центр довголіття та естетичної медицини",
@@ -23,8 +24,17 @@ interface Props {
   locale?: string;
 }
 
+async function getClinicRating() {
+  try {
+    const [row] = await sql`SELECT AVG(rating)::numeric(3,1) AS avg, COUNT(*)::int AS cnt FROM doctor_reviews WHERE is_published = true`;
+    const count = row?.cnt ?? 0;
+    if (count < 3) return null;
+    return { ratingValue: parseFloat(row.avg), ratingCount: count };
+  } catch { return null; }
+}
+
 export async function OrganizationSchema({ locale = "ua" }: Props) {
-  const s = await getSiteSettingsData("ua");
+  const [s, rating] = await Promise.all([getSiteSettingsData("ua"), getClinicRating()]);
 
   return (
     <JsonLd
@@ -91,6 +101,15 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
           ],
         },
         sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram.replace(/^@/, "")}/`] : [],
+        ...(rating ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: rating.ratingValue,
+            ratingCount: rating.ratingCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        } : {}),
       }}
     />
   );

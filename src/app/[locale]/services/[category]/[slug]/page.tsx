@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import ServiceDetailTemplate from "@/components/templates/ServiceDetailTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
 export const revalidate = 60;
 
@@ -34,8 +35,18 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
     ? data.heroImage.startsWith("http") ? data.heroImage : `https://genevity.com.ua${data.heroImage}`
     : null;
 
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
+  const servicesLabel = locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Послуги";
+  const serviceUrl = `https://genevity.com.ua${localePrefix}/services/${category}/${slug}`;
+
   return (
     <>
+      <JsonLdBreadcrumbList items={[
+        { name: "GENEVITY", url: "https://genevity.com.ua/" },
+        { name: servicesLabel, url: `https://genevity.com.ua${localePrefix}/services` },
+        { name: data.category.title, url: `https://genevity.com.ua${localePrefix}/services/${category}` },
+        { name: data.title, url: serviceUrl },
+      ]} />
       {heroUrl && (
         <JsonLd data={{
           "@context": "https://schema.org/",

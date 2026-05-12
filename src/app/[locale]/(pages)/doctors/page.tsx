@@ -3,6 +3,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import DoctorsPageComponent from "@/components/pages/DoctorsPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
 export const revalidate = 60;
 
@@ -26,8 +27,15 @@ export default async function DoctorsPage({ params }: { params: Promise<{ locale
     getUiStringsData(locale),
   ]);
 
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
+  const doctorsLabel = locale === "ru" ? "Врачи" : locale === "en" ? "Doctors" : "Лікарі";
+
   return (
     <>
+      <JsonLdBreadcrumbList items={[
+        { name: "GENEVITY", url: "https://genevity.com.ua/" },
+        { name: doctorsLabel, url: `https://genevity.com.ua${localePrefix}/doctors` },
+      ]} />
       <MegaMenuHeader variant="solid" position="fixed" />
       <DoctorsPageComponent
         doctors={doctors}

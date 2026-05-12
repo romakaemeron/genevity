@@ -1,7 +1,7 @@
 // Central re-export — drop-in replacement for @/sanity/queries
 export { getHomepageData, getAllDoctors, getUiStringsData, getSiteSettingsData, getAboutData } from "./homepage";
 export { getCategoryBySlug, getAllCategories, getAllCategorySlugs } from "./categories";
-export { getServiceBySlug, getServicesByCategory, getAllServiceSlugs } from "./services";
+export { getServiceBySlug, getServicesByCategory, getAllServiceSlugs, getServicesBySlugs } from "./services";
 export { getStaticPage, getStaticPageSeo } from "./static-pages";
 export type { StaticPageSeo } from "./static-pages";
 export { getNavigation } from "./navigation";

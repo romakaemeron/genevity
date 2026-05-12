@@ -4,6 +4,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
 /** Map category slugs to relevant doctor IDs */
 const categoryDoctorIds: Record<string, string[]> = {
@@ -70,8 +71,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
 
   if (!category) notFound();
 
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
+  const servicesLabel = locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Послуги";
+
   return (
     <>
+      <JsonLdBreadcrumbList items={[
+        { name: "GENEVITY", url: "https://genevity.com.ua/" },
+        { name: servicesLabel, url: `https://genevity.com.ua${localePrefix}/services` },
+        { name: category.title, url: `https://genevity.com.ua${localePrefix}/services/${slug}` },
+      ]} />
       {/* Sticky solid header — slides in after hero scrolls past */}
       <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="category-hero-sentinel" />
       <CategoryHubTemplate

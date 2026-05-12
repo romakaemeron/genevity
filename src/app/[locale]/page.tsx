@@ -1,4 +1,4 @@
-import { getHomepageData, getHeroSlides, getStaticPageSeo } from "@/lib/db/queries";
+import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
@@ -38,10 +38,11 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [data, tLabels, heroSlides] = await Promise.all([
+  const [data, tLabels, heroSlides, homepageAboutGallery] = await Promise.all([
     getHomepageData(locale),
     getTranslations("labels"),
     getHeroSlides(locale),
+    getGalleryItems("homepage_about", locale),
   ]);
 
   return (
@@ -50,7 +51,7 @@ export default async function HomePage({
       <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="hero-end-sentinel" />
       <div className="flex flex-col gap-16 lg:gap-[120px]">
         <Hero data={data.hero} slides={heroSlides} />
-        <div id="about"><About data={data.about} /></div>
+        <div id="about"><About data={data.about} gallery={homepageAboutGallery} /></div>
         <div id="equipment" className="cv-auto">
           <Equipment items={data.equipment} ui={data.ui.equipment} />
         </div>

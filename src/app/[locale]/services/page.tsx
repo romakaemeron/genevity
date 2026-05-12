@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { categoryIllustrations } from "@/components/ui/illustrations";
@@ -29,8 +30,15 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
   ]);
   const topLevel = categories.filter((c) => !c.parent);
 
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
+  const servicesLabel = locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Послуги";
+
   return (
     <>
+      <JsonLdBreadcrumbList items={[
+        { name: "GENEVITY", url: "https://genevity.com.ua/" },
+        { name: servicesLabel, url: `https://genevity.com.ua${localePrefix}/services` },
+      ]} />
       <MegaMenuHeader variant="solid" position="fixed" />
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-20">
         <div className="animate-enter animate-enter-1">

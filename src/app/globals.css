@@ -443,7 +443,7 @@ input[type="search"] {
   letter-spacing: -0.01em;
 }
 .prose-genevity p {
-  color: rgb(var(--color-black) / 0.6);
+  color: rgb(var(--color-black-rgb) / 0.6);
   line-height: 1.85;
   margin-bottom: 1.35rem;
 }
@@ -517,6 +517,85 @@ input[type="search"] {
   padding: 0;
 }
 
+
+/* TipTap rich-text editor — admin only
+   Use high-specificity selectors to beat Tailwind v4 preflight resets */
+.tiptap-admin .tiptap:focus { outline: none; }
+.tiptap-admin .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: rgb(var(--color-black-rgb) / 0.3);
+  pointer-events: none;
+  height: 0;
+}
+.tiptap-admin .tiptap h1 {
+  font-family: var(--font-heading) !important;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  color: var(--color-black);
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.tiptap-admin .tiptap h2 {
+  font-family: var(--font-heading) !important;
+  font-size: 1.55rem !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  color: var(--color-black);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.tiptap-admin .tiptap h3 {
+  font-family: var(--font-body) !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  color: var(--color-black);
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+.tiptap-admin .tiptap h4 {
+  font-family: var(--font-body) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: rgb(var(--color-black-rgb) / 0.8);
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+.tiptap-admin .tiptap p { margin-bottom: 0.75rem; line-height: 1.7; color: rgb(var(--color-black-rgb) / 0.75); }
+.tiptap-admin .tiptap ul, .tiptap-admin .tiptap ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+.tiptap-admin .tiptap ul { list-style-type: disc; }
+.tiptap-admin .tiptap ol { list-style-type: decimal; }
+.tiptap-admin .tiptap li { margin-bottom: 0.25rem; }
+.tiptap-admin .tiptap strong { font-weight: 600 !important; }
+.tiptap-admin .tiptap em { font-style: italic !important; }
+.tiptap-admin .tiptap u { text-decoration: underline !important; }
+.tiptap-admin .tiptap s { text-decoration: line-through !important; }
+.tiptap-admin .tiptap a { color: var(--color-main); text-decoration: underline; text-underline-offset: 3px; }
+.tiptap-admin .tiptap blockquote {
+  border-left: 2px solid var(--color-main);
+  padding: 0.2rem 0 0.2rem 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: rgb(var(--color-black-rgb) / 0.55);
+}
+.tiptap-admin .tiptap img {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  margin: 1rem 0;
+}
+.tiptap-admin .tiptap hr {
+  border: none;
+  border-top: 1px solid rgb(var(--color-black-rgb) / 0.12);
+  margin: 1.5rem 0;
+}
 
 /* SEO audit §1.8.2: content-visibility for sections below the fold
    Tells the browser to skip rendering off-screen sections until needed,

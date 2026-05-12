@@ -2,33 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
-
-interface TocItem { id: string; text: string; level: number; }
+import type { TocItem } from "./ArticleBody";
 
 interface Props {
-  html: string;
+  items: TocItem[];
   label: string;
 }
 
-// html is server-generated markdown (admin-controlled content), not user input
-function parseHeadings(html: string): TocItem[] {
-  const div = document.createElement("div");
-  div.innerHTML = html; // safe: admin-authored markdown output only
-  return Array.from(div.querySelectorAll("h2, h3")).map((h, i) => ({
-    id: h.id || `heading-${i}`,
-    text: h.textContent || "",
-    level: parseInt(h.tagName[1]),
-  }));
-}
-
-export default function BlogTocBar({ html, label }: Props) {
-  const [items, setItems] = useState<TocItem[]>([]);
+export default function BlogTocBar({ items, label }: Props) {
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const barRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => { setItems(parseHeadings(html)); }, [html]);
 
   useEffect(() => {
     if (items.length < 2) return;
@@ -66,7 +51,7 @@ export default function BlogTocBar({ html, label }: Props) {
 
   if (items.length < 2) return null;
 
-  const activeItem = items.find(i => i.id === active);
+  const activeItem = items.find((i) => i.id === active);
 
   return (
     <div
@@ -78,7 +63,7 @@ export default function BlogTocBar({ html, label }: Props) {
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
         <button
           type="button"
-          onClick={() => setOpen(v => !v)}
+          onClick={() => setOpen((v) => !v)}
           className="w-full py-2.5 flex items-center justify-between gap-3 text-left"
         >
           <span className="body-s font-medium text-main truncate">
@@ -88,7 +73,7 @@ export default function BlogTocBar({ html, label }: Props) {
         </button>
         {open && (
           <div className="pb-3 flex flex-col gap-0.5 border-t border-black-10 pt-2">
-            {items.map(item => (
+            {items.map((item) => (
               <button
                 key={item.id}
                 type="button"
