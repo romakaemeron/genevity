@@ -97,7 +97,7 @@ export interface GalleryItem {
 
 export async function getGalleryItems(ownerKey: string, locale: string): Promise<GalleryItem[]> {
   const l = lang(locale);
-  const rows = await sql`SELECT * FROM gallery_items WHERE owner_key = ${ownerKey} ORDER BY sort_order`;
+  const rows = await sql`SELECT * FROM gallery_items WHERE owner_key = ${ownerKey} AND image_url IS NOT NULL AND image_url != '' ORDER BY sort_order`;
   return rows.map((r) => ({
     id: r.id,
     imageUrl: r.image_url,

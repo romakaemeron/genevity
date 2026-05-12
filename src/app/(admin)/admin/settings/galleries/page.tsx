@@ -13,7 +13,7 @@ export default async function GalleriesPage({ searchParams }: { searchParams: Pr
   const params = await searchParams;
   const activeOwner = params.owner || "stationary";
 
-  const rows = await sql`SELECT * FROM gallery_items WHERE owner_key = ${activeOwner} ORDER BY sort_order`;
+  const rows = await sql`SELECT * FROM gallery_items WHERE owner_key = ${activeOwner} AND image_url IS NOT NULL AND image_url != '' ORDER BY sort_order`;
   const items: GalleryItemInput[] = rows.map((r) => ({
     id: r.id as string,
     image_url: (r.image_url as string) || "",

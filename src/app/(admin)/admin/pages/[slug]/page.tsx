@@ -72,7 +72,7 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
     isLaboratory ? sql`SELECT * FROM lab_checkups ORDER BY sort_order` : Promise.resolve([]),
     isHome ? sql`SELECT * FROM hero_slides ORDER BY sort_order` : Promise.resolve([]),
     isHome ? sql`SELECT * FROM hero WHERE id = 1` : Promise.resolve([]),
-    isHome ? sql`SELECT * FROM gallery_items WHERE owner_key = 'homepage_about' ORDER BY sort_order` : Promise.resolve([]),
+    isHome ? sql`SELECT * FROM gallery_items WHERE owner_key = 'homepage_about' AND image_url IS NOT NULL AND image_url != '' ORDER BY sort_order` : Promise.resolve([]),
     isHome
       ? Promise.all(HOME_NAMESPACES.map(async (n) => ({
           key: n.key,
