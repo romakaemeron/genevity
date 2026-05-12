@@ -143,8 +143,8 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
               className="absolute inset-0"
               style={{
                 opacity: isCurrent ? 1 : 0,
-                transition: i === previous ? `opacity ${CROSSFADE_MS}ms cubic-bezier(0.4,0,0.2,1)` : "none",
-                zIndex: isCurrent ? 1 : 0,
+                transition: `opacity ${CROSSFADE_MS}ms cubic-bezier(0.4,0,0.2,1)`,
+                zIndex: isCurrent ? 0 : 1,
                 willChange: "opacity",
               }}
             >
