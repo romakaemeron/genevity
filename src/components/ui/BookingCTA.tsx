@@ -14,11 +14,13 @@
  */
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { useMessages, useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
-import Modal from "@/components/ui/Modal";
-import BookingForm from "@/components/ui/BookingForm";
 import type { CtaKey } from "@/lib/cta-registry";
+
+const Modal = dynamic(() => import("@/components/ui/Modal"), { ssr: false });
+const BookingForm = dynamic(() => import("@/components/ui/BookingForm"), { ssr: false });
 
 interface BookingCTAProps {
   variant?: "primary" | "secondary";
