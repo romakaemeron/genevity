@@ -9,23 +9,11 @@ import PhotoSlideshow from "@/components/ui/PhotoSlideshow";
 import type { AboutData } from "@/lib/db/types";
 import type { GalleryItem } from "@/lib/db/queries/phase2";
 
-const FALLBACK_PHOTOS = [
-  "/clinic/semi1737-hdr.webp",
-  "/clinic/semi1287-hdr.webp",
-  "/clinic/semi1256-hdr.webp",
-  "/clinic/hydrafacial.webp",
-  "/clinic/acupulse.webp",
-];
-
 export default function About({ data, gallery = [] }: { data: AboutData; gallery?: GalleryItem[] }) {
   const tLabels = useTranslations("labels");
-  const tSlides = useTranslations("aboutSlideshow");
   const { ref, visible } = useScrollReveal();
 
-  const validGallery = gallery.filter((g) => g.imageUrl);
-  const slides = validGallery.length > 0
-    ? validGallery.map((g) => ({ src: g.imageUrl, alt: g.alt }))
-    : FALLBACK_PHOTOS.map((src, i) => ({ src, alt: tSlides(`slide${i}` as Parameters<typeof tSlides>[0]) }));
+  const slides = gallery.filter((g) => g.imageUrl).map((g) => ({ src: g.imageUrl, alt: g.alt }));
 
   return (
     <section ref={ref as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 ${visible ? "revealed" : ""}`}>
