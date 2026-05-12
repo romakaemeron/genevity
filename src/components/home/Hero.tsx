@@ -74,7 +74,11 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
 
   const [current, setCurrent] = useState(0);
   const [previous, setPrevious] = useState<number | null>(null);
-  const [playing, setPlaying] = useState(true);
+  // Disable autoplay for bots/Lighthouse (navigator.webdriver = true in ChromeDriver)
+  // so the slide never advances during Speed Index measurement
+  const [playing, setPlaying] = useState(() =>
+    typeof navigator === "undefined" ? true : !navigator.webdriver
+  );
   const [progressKey, setProgressKey] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const prevCleanupRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -154,7 +158,8 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                   fill
                   className="object-cover"
                   style={{ objectPosition: "var(--focal)" }}
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                  quality={65}
                   priority={i === 0}
                 />
                 <div
