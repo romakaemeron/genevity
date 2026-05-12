@@ -22,8 +22,9 @@ export default function About({ data, gallery = [] }: { data: AboutData; gallery
   const tSlides = useTranslations("aboutSlideshow");
   const { ref, visible } = useScrollReveal();
 
-  const slides = gallery.length > 0
-    ? gallery.map((g) => ({ src: g.imageUrl, alt: g.alt }))
+  const validGallery = gallery.filter((g) => g.imageUrl);
+  const slides = validGallery.length > 0
+    ? validGallery.map((g) => ({ src: g.imageUrl, alt: g.alt }))
     : FALLBACK_PHOTOS.map((src, i) => ({ src, alt: tSlides(`slide${i}` as Parameters<typeof tSlides>[0]) }));
 
   return (

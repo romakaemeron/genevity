@@ -72,9 +72,9 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
 
             <div className="flex-1 mt-8 lg:mt-0">
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                {gallery.length > 0 ? (
+                {gallery.filter((g) => g.imageUrl).length > 0 ? (
                   <PhotoSlideshow
-                    items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt }))}
+                    items={gallery.filter((g) => g.imageUrl).map((g) => ({ src: g.imageUrl, alt: g.alt }))}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     withLightbox
                   />
