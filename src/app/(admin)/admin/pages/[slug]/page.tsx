@@ -55,7 +55,7 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
     priceCatRows, priceItemRows,
     labSvcRows, labPrepRows, labChkRows,
     heroSlidesRows, heroSingletonRows,
-    homeNsPayloads,
+    homeNsPayloads, homeAboutGalleryRows,
   ] = await Promise.all([
     sql`SELECT id, section_type, data, sort_order FROM content_sections WHERE owner_type = 'static_page' AND owner_id = ${page.id} ORDER BY sort_order`,
     sql`SELECT * FROM faq_items WHERE owner_type = 'static_page' AND owner_id = ${page.id} ORDER BY sort_order`,
@@ -72,6 +72,7 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
     isLaboratory ? sql`SELECT * FROM lab_checkups ORDER BY sort_order` : Promise.resolve([]),
     isHome ? sql`SELECT * FROM hero_slides ORDER BY sort_order` : Promise.resolve([]),
     isHome ? sql`SELECT * FROM hero WHERE id = 1` : Promise.resolve([]),
+    isHome ? sql`SELECT * FROM gallery_items WHERE owner_key = 'homepage_about' ORDER BY sort_order` : Promise.resolve([]),
     isHome
       ? Promise.all(HOME_NAMESPACES.map(async (n) => ({
           key: n.key,
@@ -165,6 +166,15 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
     alt_en: (r.alt_en as string) || "",
   }));
 
+  const homeAboutGallery = (homeAboutGalleryRows as any[]).map((r) => ({
+    id: r.id as string,
+    image_url: (r.image_url as string) || "",
+    alt_uk: (r.alt_uk as string) || "", alt_ru: (r.alt_ru as string) || "", alt_en: (r.alt_en as string) || "",
+    label_uk: (r.label_uk as string) || "", label_ru: (r.label_ru as string) || "", label_en: (r.label_en as string) || "",
+    sublabel_uk: (r.sublabel_uk as string) || "", sublabel_ru: (r.sublabel_ru as string) || "", sublabel_en: (r.sublabel_en as string) || "",
+    description_uk: (r.description_uk as string) || "", description_ru: (r.description_ru as string) || "", description_en: (r.description_en as string) || "",
+  }));
+
   return (
     <PageForm
       page={page as any}
@@ -187,6 +197,7 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
       heroSlides={isHome ? heroSlides : undefined}
       heroSingleton={isHome ? ((heroSingletonRows as any[])[0] || null) : undefined}
       homeNamespaces={isHome ? (homeNsPayloads as any) : undefined}
+      homeAboutGallery={isHome ? homeAboutGallery : undefined}
     />
   );
 }

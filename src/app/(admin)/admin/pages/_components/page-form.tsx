@@ -59,6 +59,7 @@ interface Props {
   heroSlides?: HeroSlideInput[];
   heroSingleton?: any | null;
   homeNamespaces?: HomeNamespacePayload[];
+  homeAboutGallery?: GalleryItemInput[];
 }
 
 type Tab = "meta" | "seo" | "sections" | "faq" | "gallery" | "prices" | "lab" | "contactInfo" | "texts" | "home";
@@ -68,7 +69,7 @@ export default function PageForm({
   textNamespace, pageTexts, pageMetaTexts, pageSlug,
   aboutSingleton, gallery, galleryOwnerKey,
   priceCategories, labServices, labPrepSteps, labCheckups, siteSettings,
-  isHome, heroSlides, heroSingleton, homeNamespaces,
+  isHome, heroSlides, heroSingleton, homeNamespaces, homeAboutGallery,
 }: Props) {
   const [state, formAction] = useActionState(saveStaticPage, null as any);
   const [tab, setTab] = useState<Tab>(isHome && page ? "home" : "meta");
@@ -204,6 +205,19 @@ export default function PageForm({
                 </p>
               </div>
               <AboutSingletonForm about={aboutSingleton} label="Title, main paragraph, accent, diagnostics" />
+              <div className="border-t border-line" />
+            </>
+          )}
+
+          {homeAboutGallery !== undefined && (
+            <>
+              <div>
+                <h3 className="font-heading text-lg text-ink mb-1">About section — slideshow photos</h3>
+                <p className="body-m text-muted">
+                  Photos rotating in the slideshow on the homepage About section. When empty, 5 default clinic photos are used as fallback.
+                </p>
+              </div>
+              <GalleryEditor ownerKey="homepage_about" initial={homeAboutGallery} />
               <div className="border-t border-line" />
             </>
           )}
