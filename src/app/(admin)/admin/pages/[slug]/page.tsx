@@ -55,7 +55,7 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
     priceCatRows, priceItemRows,
     labSvcRows, labPrepRows, labChkRows,
     heroSlidesRows, heroSingletonRows,
-    homeNsPayloads, homeAboutGalleryRows,
+    homeAboutGalleryRows, homeNsPayloads,
   ] = await Promise.all([
     sql`SELECT id, section_type, data, sort_order FROM content_sections WHERE owner_type = 'static_page' AND owner_id = ${page.id} ORDER BY sort_order`,
     sql`SELECT * FROM faq_items WHERE owner_type = 'static_page' AND owner_id = ${page.id} ORDER BY sort_order`,
