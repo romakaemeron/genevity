@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import { type NextRequest, NextResponse } from "next/server";
+import { routing } from "@/i18n/routing";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -8,17 +8,24 @@ function isAdminPath(pathname: string) {
   return pathname === "/admin" || pathname.startsWith("/admin/");
 }
 
-export default function proxy(request: NextRequest) {
-  const hostname = request.headers.get("host") || "";
+export function proxy(request: NextRequest) {
+  const host = request.headers.get("host") ?? "";
   const { pathname } = request.nextUrl;
 
+  // Redirect www → non-www with true 301
+  // (next.config redirects() only produce 308; Vercel domain redirects default to 307)
+  if (host.startsWith("www.")) {
+    const url = request.nextUrl.clone();
+    url.host = host.slice(4);
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 301);
+  }
+
   // Admin subdomain → always treat as /admin/* (no i18n)
-  if (hostname.startsWith("admin.")) {
-    // Root on admin subdomain → /admin/dashboard
+  if (host.startsWith("admin.")) {
     if (pathname === "/") {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
-    // If request doesn't already start with /admin, rewrite so route resolves
     if (!isAdminPath(pathname)) {
       const url = request.nextUrl.clone();
       url.pathname = `/admin${pathname}`;
@@ -32,7 +39,6 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Everything else → i18n (client site)
   return intlMiddleware(request);
 }
 
