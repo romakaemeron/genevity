@@ -3,7 +3,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
-import { buildAlternates } from "@/lib/url";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import HtmlLangSetter from "@/components/ui/HtmlLangSetter";
@@ -50,7 +49,6 @@ export async function generateMetadata({
       ],
       shortcut: "/favicon.ico",
     },
-    alternates: buildAlternates("/", lang),
     openGraph: {
       title: titles[lang] || titles.ua,
       description: descriptions[lang] || descriptions.ua,

@@ -1,11 +1,28 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { getLegalDocBySlug } from "@/lib/db/queries";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { buildAlternates } from "@/lib/url";
+import type { Locale } from "@/i18n/routing";
 
 export const revalidate = 60;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const doc = await getLegalDocBySlug(locale, slug);
+  return {
+    title: doc?.title ?? slug,
+    robots: { index: false, follow: false },
+    alternates: buildAlternates(`/legal/${slug}`, locale as Locale),
+  };
+}
 
 /* ---------- Content parser ---------- */
 

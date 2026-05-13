@@ -12,7 +12,8 @@ export const BASE_URL = "https://genevity.com.ua";
 export function localizedPath(path: string, locale: Locale): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   if (locale === routing.defaultLocale) return normalized;
-  return `/${locale}${normalized}`;
+  // Root "/" → "/ru" not "/ru/" — avoid trailing slash on locale roots
+  return `/${locale}${normalized === "/" ? "" : normalized}`;
 }
 
 /** Build full URL for a locale-prefixed path. */
