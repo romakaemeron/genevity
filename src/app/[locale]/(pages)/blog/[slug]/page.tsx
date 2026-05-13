@@ -221,7 +221,7 @@ function PostMeta({ post, locale, formattedDate, readLabel, light }: {
         <span className={`inline-flex items-center gap-2 text-sm font-medium transition-colors ${light ? "text-white/80" : "text-black-70"}`}>
           <AvatarCircle name={post.authorName} avatar={post.authorAvatar} focalPoint={post.authorFocalPoint} scale={post.authorScale} size={7} />
           {post.authorSlug
-            ? <Link href={`${locale}/doctors/${post.authorSlug}`} className={light ? "hover:text-white" : "hover:text-main"}>{post.authorName}</Link>
+            ? <Link href={`/doctors/${post.authorSlug}`} className={light ? "hover:text-white" : "hover:text-main"}>{post.authorName}</Link>
             : post.authorName}
         </span>
       )}
@@ -258,7 +258,7 @@ function AuthorCard({ name, slug, avatar, focalPoint, scale, locale, label }: { 
       <div>
         <p className="text-xs text-black-40 mb-0.5">{label}</p>
         {slug
-          ? <Link href={`${locale}/doctors/${slug}`} className="body-strong text-black hover:text-main transition-colors">{name}</Link>
+          ? <Link href={`/doctors/${slug}`} className="body-strong text-black hover:text-main transition-colors">{name}</Link>
           : <p className="body-strong text-black">{name}</p>}
       </div>
     </div>

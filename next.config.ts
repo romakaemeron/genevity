@@ -35,6 +35,16 @@ const nextConfig = {
         destination: "https://genevity.com.ua/:path*",
         permanent: true,
       },
+      // SEO audit §1.7: laser-hair-removal slug renames (women/men → laser-women/laser-men)
+      { source: "/services/laser-hair-removal/women", destination: "/services/laser-hair-removal/laser-women", permanent: true },
+      { source: "/services/laser-hair-removal/men", destination: "/services/laser-hair-removal/laser-men", permanent: true },
+      { source: "/ru/services/laser-hair-removal/women", destination: "/ru/services/laser-hair-removal/laser-women", permanent: true },
+      { source: "/ru/services/laser-hair-removal/men", destination: "/ru/services/laser-hair-removal", permanent: true },
+      { source: "/en/services/laser-hair-removal/women", destination: "/en/services/laser-hair-removal/laser-women", permanent: true },
+      { source: "/en/services/laser-hair-removal/men", destination: "/en/services/laser-hair-removal", permanent: true },
+      // SEO audit §1.7: fix double-locale prefix in doctor URLs (bug in blog link builder)
+      { source: "/en/en/doctors/:slug", destination: "/en/doctors/:slug", permanent: true },
+      { source: "/ru/ru/doctors/:slug", destination: "/ru/doctors/:slug", permanent: true },
       // 301: blog/page1 → blog (first pagination page is a duplicate of parent)
       {
         source: "/blog/page1",
