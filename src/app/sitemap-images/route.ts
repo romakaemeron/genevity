@@ -21,8 +21,14 @@ function escapeXml(s: string): string {
 }
 
 function absUrl(url: string): string {
-  if (url.startsWith("http")) return url;
-  return `${BASE}${url.startsWith("/") ? "" : "/"}${url}`;
+  if (!url) return "";
+  // Relative path → prepend BASE
+  if (!url.startsWith("http")) return `${BASE}${url.startsWith("/") ? "" : "/"}${url}`;
+  // Already on our domain → keep as-is
+  if (url.startsWith(BASE)) return url;
+  // External storage (Vercel Blob, etc.) → proxy through Next.js image optimisation
+  // so the URL in the sitemap is on genevity.com.ua, not on a third-party host.
+  return `${BASE}/_next/image?url=${encodeURIComponent(url)}&w=1200&q=75`;
 }
 
 function urlBlock(loc: string, images: { url: string; title: string }[]): string {
