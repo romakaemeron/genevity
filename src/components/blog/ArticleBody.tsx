@@ -14,6 +14,17 @@ renderer.heading = function(token: Tokens.Heading) {
   return `<h${token.depth} id="${id}">${text}</h${token.depth}>\n`;
 };
 
+// Adds target="_blank" rel="noopener noreferrer" to all external links.
+function processExternalLinks(html: string): string {
+  return html.replace(
+    /<a\s([^>]*href="(https?:\/\/[^"]+)"[^>]*)>/gi,
+    (match, attrs) => {
+      if (/\btarget=/.test(attrs)) return match;
+      return `<a ${attrs} target="_blank" rel="noopener noreferrer">`;
+    }
+  );
+}
+
 // Adds id="..." to <h2>–<h4> tags based on text content, for TOC anchor links.
 function addHeadingIds(html: string): string {
   return html.replace(
@@ -52,9 +63,8 @@ export function parseMarkdown(md: string): string {
 export function processBody(body: string): string {
   const trimmed = body.trim();
   if (!trimmed) return "";
-  // HTML content starts with a tag
-  if (trimmed.startsWith("<")) return addHeadingIds(trimmed);
-  return parseMarkdown(trimmed);
+  const html = trimmed.startsWith("<") ? addHeadingIds(trimmed) : parseMarkdown(trimmed);
+  return processExternalLinks(html);
 }
 
 interface Props { html: string; }
