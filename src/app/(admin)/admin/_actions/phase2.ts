@@ -92,6 +92,7 @@ type GalleryItemInput = {
   id?: string;
   image_url: string;
   alt_uk: string; alt_ru: string; alt_en: string;
+  title_uk: string; title_ru: string; title_en: string;
   label_uk: string; label_ru: string; label_en: string;
   sublabel_uk: string; sublabel_ru: string; sublabel_en: string;
   description_uk: string; description_ru: string; description_en: string;
@@ -103,9 +104,10 @@ export async function saveGallery(ownerKey: string, items: GalleryItemInput[]) {
     const g = items[i];
     if (!g.image_url) continue;
     await sql`
-      INSERT INTO gallery_items (owner_key, image_url, alt_uk, alt_ru, alt_en, label_uk, label_ru, label_en, sublabel_uk, sublabel_ru, sublabel_en, description_uk, description_ru, description_en, sort_order)
+      INSERT INTO gallery_items (owner_key, image_url, alt_uk, alt_ru, alt_en, title_uk, title_ru, title_en, label_uk, label_ru, label_en, sublabel_uk, sublabel_ru, sublabel_en, description_uk, description_ru, description_en, sort_order)
       VALUES (${ownerKey}, ${g.image_url},
         ${g.alt_uk || null}, ${g.alt_ru || null}, ${g.alt_en || null},
+        ${g.title_uk || null}, ${g.title_ru || null}, ${g.title_en || null},
         ${g.label_uk || null}, ${g.label_ru || null}, ${g.label_en || null},
         ${g.sublabel_uk || null}, ${g.sublabel_ru || null}, ${g.sublabel_en || null},
         ${g.description_uk || null}, ${g.description_ru || null}, ${g.description_en || null},

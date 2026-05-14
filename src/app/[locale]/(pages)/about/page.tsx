@@ -21,11 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const [about, uiStrings, doctors, gallery, staticPage] = await Promise.all([
+  const [about, uiStrings, doctors, gallery, ctaBgItems, staticPage] = await Promise.all([
     getAboutData(locale),
     getUiStringsData(locale),
     getAllDoctors(locale),
     getGalleryItems("about", locale),
+    getGalleryItems("about_cta_bg", locale),
     getStaticPage(locale, "about"),
   ]);
 
@@ -40,6 +41,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         detailsLabel={uiStrings?.equipment?.details}
         gallery={gallery}
         breadcrumbLabel={staticPage?.title || about.title}
+        heroImage={staticPage?.heroImage}
+        ctaBg={ctaBgItems[0] ?? null}
       />
     </>
   );

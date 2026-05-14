@@ -38,11 +38,12 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [data, tLabels, heroSlides, homepageAboutGallery] = await Promise.all([
+  const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems] = await Promise.all([
     getHomepageData(locale),
     getTranslations("labels"),
     getHeroSlides(locale),
     getGalleryItems("homepage_about", locale),
+    getGalleryItems("advantages_bento", locale),
   ]);
 
   return (
@@ -56,7 +57,7 @@ export default async function HomePage({
           <Equipment items={data.equipment} ui={data.ui.equipment} />
         </div>
         <div id="advantages" className="cv-auto">
-          <Advantages />
+          <Advantages bentoImage={advantagesBentoItems[0] ?? null} />
         </div>
         <div id="doctors" className="cv-auto">
           <Doctors doctors={data.doctors} ui={data.ui.doctors} detailsLabel={data.ui.equipment.details} />

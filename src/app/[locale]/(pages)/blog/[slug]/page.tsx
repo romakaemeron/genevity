@@ -166,7 +166,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                       >
                         {svc.heroImage && (
                           <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-champagne-darker">
-                            <Image src={svc.heroImage} alt={svc.title} fill className="object-cover" sizes="64px" />
+                            <Image src={svc.heroImage} alt={svc.title} title={svc.title} fill className="object-cover" sizes="64px" />
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
@@ -243,7 +243,7 @@ function AvatarCircle({ name, avatar, focalPoint, scale, size = 7 }: { name: str
     return (
       <span className="relative rounded-full overflow-hidden shrink-0 bg-champagne-dark" style={{ width: px, height: px }}>
         <span className="absolute inset-0" style={{ transform: `scale(${sc})`, transformOrigin: fp }}>
-          <Image src={avatar} alt={name} fill sizes="256px" quality={92} className="object-cover" style={{ objectPosition: fp }} />
+          <Image src={avatar} alt={name} title={name} fill sizes="256px" quality={92} className="object-cover" style={{ objectPosition: fp }} />
         </span>
       </span>
     );

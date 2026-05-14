@@ -13,6 +13,7 @@ export interface GalleryItemInput {
   id?: string;
   image_url: string;
   alt_uk: string; alt_ru: string; alt_en: string;
+  title_uk: string; title_ru: string; title_en: string;
   label_uk: string; label_ru: string; label_en: string;
   sublabel_uk: string; sublabel_ru: string; sublabel_en: string;
   description_uk: string; description_ru: string; description_en: string;
@@ -21,6 +22,7 @@ export interface GalleryItemInput {
 const emptyItem = (): GalleryItemInput => ({
   image_url: "",
   alt_uk: "", alt_ru: "", alt_en: "",
+  title_uk: "", title_ru: "", title_en: "",
   label_uk: "", label_ru: "", label_en: "",
   sublabel_uk: "", sublabel_ru: "", sublabel_en: "",
   description_uk: "", description_ru: "", description_en: "",
@@ -67,7 +69,19 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
     }
   };
 
+  const validate = () => {
+    for (let i = 0; i < items.length; i++) {
+      const g = items[i];
+      if (!g.image_url) continue;
+      if (!g.alt_uk) return `Photo #${i + 1}: Alt text (UK) is required`;
+      if (!g.title_uk) return `Photo #${i + 1}: Title (UK) is required`;
+    }
+    return null;
+  };
+
   const save = () => {
+    const err = validate();
+    if (err) { alert(err); return; }
     startTransition(async () => {
       await saveGallery(ownerKey, items);
       setSavedAt(Date.now());
@@ -75,7 +89,7 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
     });
   };
 
-  const field = (key: "label" | "sublabel" | "description" | "alt") => `${key}_${locale}` as const;
+  const field = (key: "label" | "sublabel" | "description" | "alt" | "title") => `${key}_${locale}` as const;
   const inputCls = "w-full px-3 py-2 rounded-lg bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main focus:ring-1 focus:ring-main/20";
 
   const { getRowProps, getHandleProps } = useReorderable(items, (next) => {
@@ -150,8 +164,26 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
                 <textarea rows={3} value={item[field("description")]} onChange={(e) => update(i, { [field("description")]: e.target.value })} className={`${inputCls} resize-y`} />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-[11px] font-medium text-muted uppercase tracking-wider">Alt text ({locale.toUpperCase()})</label>
-                <input value={item[field("alt")]} onChange={(e) => update(i, { [field("alt")]: e.target.value })} className={inputCls} />
+                <label className="text-[11px] font-medium text-muted uppercase tracking-wider">
+                  Alt text ({locale.toUpperCase()}) {locale === "uk" && <span className="text-error">*</span>}
+                </label>
+                <input
+                  value={item[field("alt")]}
+                  onChange={(e) => update(i, { [field("alt")]: e.target.value })}
+                  className={`${inputCls} ${locale === "uk" && !item[field("alt")] && item.image_url ? "border-error/60 ring-1 ring-error/20" : ""}`}
+                  placeholder={locale === "uk" ? "Required" : ""}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-medium text-muted uppercase tracking-wider">
+                  Title ({locale.toUpperCase()}) {locale === "uk" && <span className="text-error">*</span>}
+                </label>
+                <input
+                  value={item[field("title")]}
+                  onChange={(e) => update(i, { [field("title")]: e.target.value })}
+                  className={`${inputCls} ${locale === "uk" && !item[field("title")] && item.image_url ? "border-error/60 ring-1 ring-error/20" : ""}`}
+                  placeholder={locale === "uk" ? "Required" : "Short title for SEO"}
+                />
               </div>
             </div>
           )}

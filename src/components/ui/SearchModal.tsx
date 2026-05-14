@@ -304,7 +304,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                           <div className="shrink-0" style={{ position: "relative", width: 32, height: 32, borderRadius: "50%", overflow: "hidden", backgroundColor: "#f0ede8" }}>
                             <div style={{ position: "absolute", inset: 0, transform: `scale(${result.photoScale || 1})`, transformOrigin: result.photoFocalPoint || "50% 50%" }}>
                               {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img src={result.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: result.photoFocalPoint || "50% 50%" }} />
+                              <img src={result.photo} alt={result.title} title={result.title} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: result.photoFocalPoint || "50% 50%" }} />
                             </div>
                           </div>
                         ) : (

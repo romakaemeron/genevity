@@ -155,6 +155,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                 <Image
                   src={s.src}
                   alt={s.alt || ""}
+                  title={s.alt || undefined}
                   fill
                   className="object-cover"
                   style={{ objectPosition: "var(--focal)" }}

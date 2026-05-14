@@ -67,6 +67,7 @@ export default function EquipmentModal({ item, suitsTitle, resultsTitle }: Equip
           <Image
             src={item.photo}
             alt={item.name}
+            title={item.name}
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 400px"

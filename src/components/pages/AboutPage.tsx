@@ -25,6 +25,8 @@ interface Props {
   detailsLabel?: string;
   gallery?: GalleryItem[];
   breadcrumbLabel?: string;
+  heroImage?: string | null;
+  ctaBg?: GalleryItem | null;
 }
 
 const VALUE_KEYS = [
@@ -41,7 +43,7 @@ const STAT_KEYS = [
   { valueKey: "stat_patients_value", labelKey: "stat_patients" },
 ];
 
-export default function AboutPageComponent({ about, locale, doctors, doctorsUi, detailsLabel, gallery = [], breadcrumbLabel }: Props) {
+export default function AboutPageComponent({ about, locale, doctors, doctorsUi, detailsLabel, gallery = [], breadcrumbLabel, heroImage, ctaBg }: Props) {
   const tLabels = useTranslations("labels");
   const tPage = useTranslations("aboutPage");
   const { ref: textRef, visible: textVisible } = useScrollReveal();
@@ -74,7 +76,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
                 {gallery.filter((g) => g.imageUrl).length > 0 ? (
                   <PhotoSlideshow
-                    items={gallery.filter((g) => g.imageUrl).map((g) => ({ src: g.imageUrl, alt: g.alt }))}
+                    items={gallery.filter((g) => g.imageUrl).map((g) => ({ src: g.imageUrl, alt: g.alt, title: g.title || g.alt }))}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     withLightbox
                   />
@@ -97,7 +99,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
             </div>
           </div>
           <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden">
-            <Image src="/clinic/semi1287-hdr.webp" alt={about.title} title={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+            <Image src={heroImage || "/clinic/semi1287-hdr.webp"} alt={about.title} title={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
           </div>
         </div>
       </section>
@@ -136,7 +138,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
         <section className="cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
           <StripeGallery
             title={tPage("galleryTitle")}
-            items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
+            items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, title: g.title || g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
             height="420px"
           />
         </section>
@@ -164,7 +166,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       {/* Final CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
-          <Image src="/clinic/acupulse.webp" alt="GENEVITY — апаратна косметологія" title="GENEVITY — апаратна косметологія" fill className="object-cover" sizes="100vw" />
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY — апаратна косметологія"} title={ctaBg?.title || "GENEVITY — апаратна косметологія"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

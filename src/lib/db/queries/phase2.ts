@@ -90,6 +90,7 @@ export interface GalleryItem {
   id: string;
   imageUrl: string;
   alt: string;
+  title: string;
   label: string;
   sublabel: string;
   description: string;
@@ -102,6 +103,7 @@ export async function getGalleryItems(ownerKey: string, locale: string): Promise
     id: r.id,
     imageUrl: r.image_url,
     alt: pick(r, "alt", l) || "",
+    title: pick(r, "title", l) || "",
     label: pick(r, "label", l) || "",
     sublabel: pick(r, "sublabel", l) || "",
     description: pick(r, "description", l) || "",

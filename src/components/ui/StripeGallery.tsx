@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 interface GalleryItem {
   src: string;
   alt: string;
+  title?: string;
   label: string;
   sublabel?: string;
   description?: string;
@@ -150,6 +151,7 @@ function Stripe({
           <Image
             src={item.src}
             alt={item.alt}
+            title={item.title || item.alt || undefined}
             fill
             className={`object-cover transition-transform duration-700 ${
               !state.isActive ? "scale-[1.02]" : "scale-100"
@@ -272,7 +274,7 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
               className="absolute inset-0 transition-opacity duration-400"
               style={{ opacity: i === activeIndex ? 1 : 0 }}
             >
-              <Image src={item.src} alt={item.alt} title={item.alt} fill className="object-cover" sizes="100vw" />
+              <Image src={item.src} alt={item.alt} title={item.title || item.alt} fill className="object-cover" sizes="100vw" />
             </div>
           ))}
         </div>

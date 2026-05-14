@@ -29,6 +29,8 @@ interface Props {
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
   gallery?: GalleryItem[];
+  comfortBg?: GalleryItem | null;
+  ctaBg?: GalleryItem | null;
 }
 
 const COMFORT_KEYS = ["rooms", "monitoring", "care", "privacy", "noqueue"] as const;
@@ -40,7 +42,7 @@ const SERVICE_ICONS: Record<string, typeof Bed> = { iv: Droplets, consultations:
 const INDICATION_KEYS = ["indication_1", "indication_2", "indication_3", "indication_4", "indication_5", "indication_6"] as const;
 const STEP_KEYS = ["step_1", "step_2", "step_3"] as const;
 
-export default function StationaryPageComponent({ data, locale, doctors, doctorsUi, detailsLabel, gallery = [] }: Props) {
+export default function StationaryPageComponent({ data, locale, doctors, doctorsUi, detailsLabel, gallery = [], comfortBg, ctaBg }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const tPage = useTranslations("stationaryPage");
   const tLabels = useTranslations("labels");
@@ -119,7 +121,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
             >
               {i === 0 && (
                 <>
-                  <Image src="/clinic/semi1256-hdr.webp" alt={feat.label} title={feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  <Image src={comfortBg?.imageUrl || "/clinic/semi1256-hdr.webp"} alt={comfortBg?.alt || feat.label} title={comfortBg?.title || feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                   <div className="absolute inset-0 bg-black/55" />
                 </>
               )}
@@ -160,7 +162,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
             <StripeGallery
               title={tPage("galleryTitle")}
               subtitle={tPage("gallerySubtitle")}
-              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
+              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, title: g.title || g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
               height="420px"
             />
           </div>
@@ -246,7 +248,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       {/* Final CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
-          <Image src="/clinic/acupulse.webp" alt="GENEVITY" title="GENEVITY — денний стаціонар" fill className="object-cover" sizes="100vw" />
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — денний стаціонар"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

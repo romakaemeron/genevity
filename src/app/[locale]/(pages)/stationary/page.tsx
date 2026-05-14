@@ -22,11 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function StationaryPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const [data, uiStrings, doctors, gallery] = await Promise.all([
+  const [data, uiStrings, doctors, gallery, comfortBgItems, ctaBgItems] = await Promise.all([
     getStaticPage(locale, "stationary"),
     getUiStringsData(locale),
     getAllDoctors(locale),
     getGalleryItems("stationary", locale),
+    getGalleryItems("stationary_comfort_bg", locale),
+    getGalleryItems("stationary_cta_bg", locale),
   ]);
   if (!data) notFound();
 
@@ -40,6 +42,8 @@ export default async function StationaryPage({ params }: { params: Promise<{ loc
         doctorsUi={uiStrings?.doctors}
         detailsLabel={uiStrings?.equipment?.details}
         gallery={gallery}
+        comfortBg={comfortBgItems[0] ?? null}
+        ctaBg={ctaBgItems[0] ?? null}
       />
     </>
   );

@@ -73,7 +73,7 @@ export default function LaboratoryPageComponent({
               </div>
               <div className="flex-1 mt-8 lg:mt-0">
                 <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                  <Image src="/clinic/semi1256-hdr.webp" alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  <Image src={data.heroImage || "/clinic/semi1256-hdr.webp"} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                 </div>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function LaboratoryPageComponent({
             <StripeGallery
               title={tPage("galleryTitle")}
               subtitle={tPage("gallerySubtitle")}
-              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
+              items={gallery.map((g) => ({ src: g.imageUrl, alt: g.alt || g.label, title: g.title || g.alt || g.label, label: g.label, sublabel: g.sublabel, description: g.description }))}
               height="380px"
             />
           </div>

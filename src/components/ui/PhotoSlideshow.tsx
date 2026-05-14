@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 export interface SlideItem {
   src: string;
   alt: string;
+  title?: string;
 }
 
 function useSlideshow(total: number, autoPlay = true, interval = 5000) {
@@ -42,7 +43,7 @@ function SlideImages({ items, current, sizes }: { items: SlideItem[]; current: n
     <>
       {items.map((item, i) => (
         <div key={i} className="absolute inset-0 transition-opacity duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]" style={{ opacity: i === current ? 1 : 0 }}>
-          <Image src={item.src} alt={item.alt} fill className="object-cover" sizes={sizes} priority={i === 0} />
+          <Image src={item.src} alt={item.alt} title={item.title || item.alt || undefined} fill className="object-cover" sizes={sizes} priority={i === 0} />
         </div>
       ))}
     </>

@@ -1,4 +1,4 @@
-import { getUiStringsData, getSiteSettingsData, getStaticPageSeo } from "@/lib/db/queries";
+import { getUiStringsData, getSiteSettingsData, getStaticPageSeo, getGalleryItems } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import ContactsPageComponent from "@/components/pages/ContactsPage";
@@ -21,9 +21,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ContactsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const [settings, uiStrings] = await Promise.all([
+  const [settings, uiStrings, ctaBgItems] = await Promise.all([
     getSiteSettingsData(locale),
     getUiStringsData(locale),
+    getGalleryItems("contacts_cta_bg", locale),
   ]);
 
   return (
@@ -33,6 +34,7 @@ export default async function ContactsPage({ params }: { params: Promise<{ local
         settings={settings}
         locale={locale as Locale}
         contactsUi={uiStrings.contacts}
+        ctaBg={ctaBgItems[0] ?? null}
       />
     </>
   );

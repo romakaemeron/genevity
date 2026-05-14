@@ -13,7 +13,7 @@ export default function About({ data, gallery = [] }: { data: AboutData; gallery
   const tLabels = useTranslations("labels");
   const { ref, visible } = useScrollReveal();
 
-  const slides = (gallery ?? []).filter((g) => g?.imageUrl).map((g) => ({ src: g.imageUrl, alt: g.alt }));
+  const slides = (gallery ?? []).filter((g) => g?.imageUrl).map((g) => ({ src: g.imageUrl, alt: g.alt, title: g.title || g.alt }));
 
   return (
     <section ref={ref as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 ${visible ? "revealed" : ""}`}>

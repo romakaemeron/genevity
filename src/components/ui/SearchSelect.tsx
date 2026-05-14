@@ -482,7 +482,8 @@ export default function SearchSelect(props: Props) {
                                     browser upscales into mush. */}
                               <Image
                                 src={o.rightImage}
-                                alt=""
+                                alt={o.label}
+                                title={o.label}
                                 fill
                                 sizes="256px"
                                 quality={92}

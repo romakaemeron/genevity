@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useScrollReveal } from "@/lib/useReveal";
 import { MapPin, Phone, Clock, AtSign } from "lucide-react";
 import type { SiteSettingsData } from "@/lib/db/types";
+import type { GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
@@ -13,9 +14,10 @@ interface Props {
   settings: SiteSettingsData;
   locale: Locale;
   contactsUi: { title: string; instagramLabel: string };
+  ctaBg?: GalleryItem | null;
 }
 
-export default function ContactsPageComponent({ settings, locale, contactsUi }: Props) {
+export default function ContactsPageComponent({ settings, locale, contactsUi, ctaBg }: Props) {
   const tLabels = useTranslations("labels");
   const tPage = useTranslations("contactsPage");
   const { ref: photosRef, visible: photosVisible } = useScrollReveal();
@@ -111,7 +113,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi }: 
       {/* CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[280px] flex items-center">
-          <Image src="/clinic/acupulse.webp" alt="GENEVITY" title="GENEVITY — клініка довголіття та естетичної медицини" fill className="object-cover" sizes="100vw" />
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — клініка довголіття та естетичної медицини"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

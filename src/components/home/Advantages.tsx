@@ -6,8 +6,9 @@ import { Link } from "@/i18n/navigation";
 import { useScrollReveal } from "@/lib/useReveal";
 import { Users, Microscope, Clock, Award, ChevronRight, Dna } from "lucide-react";
 import Button from "@/components/ui/Button";
+import type { GalleryItem } from "@/lib/db/queries/phase2";
 
-const imageCard = { icon: Microscope, key: "equipment", image: "/images/bento/SEMI7144.webp" };
+const FALLBACK_IMAGE = "/images/bento/SEMI7144.webp";
 const smallCards: { icon: typeof Users; key: string; href?: string }[] = [
   { icon: Users, key: "team" },
   { icon: Dna, key: "longevity" },
@@ -15,9 +16,12 @@ const smallCards: { icon: typeof Users; key: string; href?: string }[] = [
   { icon: Award, key: "laboratory", href: "/laboratory" },
 ];
 
-export default function Advantages() {
+export default function Advantages({ bentoImage }: { bentoImage?: GalleryItem | null }) {
   const t = useTranslations("advantages");
   const { ref, visible } = useScrollReveal();
+  const imgSrc = bentoImage?.imageUrl || FALLBACK_IMAGE;
+  const imgAlt = bentoImage?.alt || t("equipment.title");
+  const imgTitle = bentoImage?.title || t("equipment.title");
 
   return (
     <section ref={ref as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 ${visible ? "revealed" : ""}`}>
@@ -28,8 +32,9 @@ export default function Advantages() {
           <div className="reveal d1 group relative rounded-[var(--radius-card)] overflow-hidden bg-black">
             <div className="relative aspect-[4/3] lg:aspect-auto lg:h-full min-h-[320px]">
               <Image
-                src={imageCard.image}
-                alt={t(`${imageCard.key}.title`)}
+                src={imgSrc}
+                alt={imgAlt}
+                title={imgTitle}
                 fill
                 className="object-cover opacity-100 group-hover:opacity-90 transition-opacity duration-300"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -38,10 +43,10 @@ export default function Advantages() {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8 z-10">
               <div className="flex items-center gap-2.5 mb-2">
-                <imageCard.icon className="w-5 h-5 text-champagne" />
-                <h3 className="body-strong text-champagne">{t(`${imageCard.key}.title`)}</h3>
+                <Microscope className="w-5 h-5 text-champagne" />
+                <h3 className="body-strong text-champagne">{t("equipment.title")}</h3>
               </div>
-              <p className="body-m text-white-60">{t(`${imageCard.key}.desc`)}</p>
+              <p className="body-m text-white-60">{t("equipment.desc")}</p>
             </div>
           </div>
 

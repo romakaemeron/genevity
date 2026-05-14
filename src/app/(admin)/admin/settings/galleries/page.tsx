@@ -3,9 +3,14 @@ import { requireSession } from "../../_actions/auth";
 import GalleryEditor, { type GalleryItemInput } from "../../_components/gallery-editor";
 
 const OWNERS = [
-  { key: "stationary", label: "Stationary page" },
-  { key: "about", label: "About page slideshow" },
+  { key: "stationary", label: "Stationary — gallery" },
+  { key: "about", label: "About — hero slideshow" },
   { key: "homepage", label: "Homepage bento" },
+  { key: "advantages_bento", label: "Homepage — advantages image" },
+  { key: "stationary_comfort_bg", label: "Stationary — comfort bg" },
+  { key: "stationary_cta_bg", label: "Stationary — CTA bg" },
+  { key: "about_cta_bg", label: "About — CTA bg" },
+  { key: "contacts_cta_bg", label: "Contacts — CTA bg" },
 ];
 
 export default async function GalleriesPage({ searchParams }: { searchParams: Promise<{ owner?: string }> }) {
@@ -20,6 +25,9 @@ export default async function GalleriesPage({ searchParams }: { searchParams: Pr
     alt_uk: (r.alt_uk as string) || "",
     alt_ru: (r.alt_ru as string) || "",
     alt_en: (r.alt_en as string) || "",
+    title_uk: (r.title_uk as string) || "",
+    title_ru: (r.title_ru as string) || "",
+    title_en: (r.title_en as string) || "",
     label_uk: (r.label_uk as string) || "",
     label_ru: (r.label_ru as string) || "",
     label_en: (r.label_en as string) || "",
