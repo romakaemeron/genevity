@@ -63,12 +63,12 @@ const nextConfig = {
       },
     ];
   },
-  // SEO audit §1.15: Cache-Control + Vary response headers
+  // SEO audit §1.15: Vary header for all responses.
+  // Cache-Control for static assets (clinic/, images/, brand/, etc.) is set in vercel.json
+  // because next.config headers() are overridden by Vercel ISR for HTML pages and by
+  // Vercel's edge CDN for public-folder static files.
   headers: () => [
-    { source: "/(.*)", headers: [{ key: "Vary", value: "User-Agent" }] },
-    { source: "/_next/static/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
-    { source: "/(fonts|icons|brand|og)/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }] },
-    { source: "/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=3600" }] },
+    { source: "/(.*)", headers: [{ key: "Vary", value: "Accept-Encoding, User-Agent" }] },
   ],
 } satisfies NextConfig & { middlewareClientMaxBodySize?: string };
 
