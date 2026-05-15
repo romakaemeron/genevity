@@ -2,34 +2,31 @@
 
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
-import type { DoctorItem } from "@/sanity/types";
-import { DOCTOR_PHOTOS } from "./constants";
+import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorModalProps {
   doctor: DoctorItem;
-  index: number;
   cta: string;
   experience: string;
 }
 
-export default function DoctorModal({ doctor, index, cta, experience }: DoctorModalProps) {
-  const { name, role, experience: years, specialties } = doctor;
-  const local = DOCTOR_PHOTOS[index];
-  const photoSrc = doctor.photoModal || local?.modal || null;
-  const position = doctor.modalPosition || local?.modalPosition || "center";
+export default function DoctorModal({ doctor, cta, experience }: DoctorModalProps) {
+  const { name, role, experience: years, specialties, photoModal, modalPosition } = doctor;
 
   const experienceLabel = years ? experience.replace("{years}", years) : null;
 
   return (
     <div className="flex flex-col">
-      {photoSrc && (
+      {/* Photo — uses modal (high-quality) version */}
+      {photoModal && (
         <div className="w-full aspect-[16/10] relative skeleton">
           <Image
-            src={photoSrc}
+            src={photoModal}
             alt={name}
+            title={name}
             fill
             className="object-cover"
-            style={{ objectPosition: position }}
+            style={{ objectPosition: modalPosition }}
             sizes="(max-width: 640px) 100vw, 512px"
             priority
           />
@@ -58,7 +55,12 @@ export default function DoctorModal({ doctor, index, cta, experience }: DoctorMo
           </ul>
         )}
 
-        <BookingCTA variant="primary" className="self-start mt-2">
+        <BookingCTA
+          ctaKey="doctorModal"
+          variant="primary"
+          className="self-start mt-2"
+          initialInterest={`doctor:${doctor._id}`}
+        >
           {cta}
         </BookingCTA>
       </div>

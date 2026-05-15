@@ -1,31 +1,27 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { sanityClient } from "@/sanity/client";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { getLegalDocBySlug } from "@/lib/db/queries";
+import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { buildAlternates } from "@/lib/url";
+import type { Locale } from "@/i18n/routing";
 
 export const revalidate = 60;
 
-interface LegalDoc {
-  title: string;
-  content: string;
-}
-
-async function getLegalDoc(slug: string, locale: string): Promise<LegalDoc | null> {
-  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return null;
-  const l = locale === "ua" ? "uk" : locale;
-  return sanityClient.fetch(
-    `*[_type == "legalDoc" && slug.current == $slug][0] {
-      "title": coalesce(
-        select(length(title.${l}) > 0 => title.${l}),
-        title.uk
-      ),
-      "content": coalesce(
-        select(length(content.${l}) > 0 => content.${l}),
-        content.uk
-      ),
-    }`,
-    { slug }
-  );
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const doc = await getLegalDocBySlug(locale, slug);
+  return {
+    title: doc?.title ?? slug,
+    robots: { index: false, follow: false },
+    alternates: buildAlternates(`/legal/${slug}`, locale as Locale),
+  };
 }
 
 /* ---------- Content parser ---------- */
@@ -129,6 +125,30 @@ function parseContent(content: string): Block[] {
   return blocks;
 }
 
+/* ---------- Inline link renderer: [text](url) → <a> ---------- */
+
+function renderWithLinks(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\(https?:\/\/[^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
+    if (match) {
+      return (
+        <a
+          key={i}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-main underline underline-offset-2 hover:text-main-dark transition-colors"
+        >
+          {match[1]}
+          <ExternalLink className="w-3 h-3 shrink-0" />
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 /* ---------- Page ---------- */
 
 export default async function LegalPage({
@@ -137,9 +157,11 @@ export default async function LegalPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const doc = await getLegalDoc(slug, locale);
+  const doc = await getLegalDocBySlug(locale, slug);
 
-  if (!doc || !doc.content) notFound();
+  if (!doc || !doc.body) notFound();
+  // Alias for compatibility with content parser below
+  const content = doc.body;
 
   const backLabel: Record<string, string> = {
     ua: "Повернутися на головну",
@@ -147,11 +169,21 @@ export default async function LegalPage({
     en: "Back to home",
   };
 
-  const blocks = parseContent(doc.content);
+  const blocks = parseContent(content);
+
+  const localePrefix = locale === "ua" ? "" : `/${locale}`;
 
   return (
+    <>
+      <JsonLdBreadcrumbList
+        items={[
+          { name: "GENEVITY", url: "https://genevity.com.ua/" },
+          { name: doc.title, url: `https://genevity.com.ua${localePrefix}/legal/${slug}` },
+        ]}
+      />
+      <MegaMenuHeader variant="solid" position="fixed" />
     <div className="pt-32 pb-24 bg-champagne">
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
+      <div className="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <Link
           href="/"
           className="inline-flex items-center gap-2 body-s text-black-40 hover:text-main transition-colors mb-16"
@@ -160,7 +192,7 @@ export default async function LegalPage({
           {backLabel[locale] || backLabel.ua}
         </Link>
 
-        <article className="max-w-[720px]">
+        <article>
           {/* Title */}
           <h1 className="heading-2 text-black mb-10 text-balance">{doc.title}</h1>
 
@@ -171,7 +203,7 @@ export default async function LegalPage({
                 return (
                   <h2
                     key={i}
-                    className="heading-3 text-black mt-14 mb-4 first:mt-0 flex items-baseline gap-4"
+                    className="heading-3 text-black mt-4 mb-4 first:mt-0 flex items-baseline gap-4"
                   >
                     {block.number && (
                       <span className="body-s text-main font-semibold tabular-nums shrink-0">
@@ -228,7 +260,7 @@ export default async function LegalPage({
                   key={i}
                   className="body-m text-black-80 leading-[1.75] mb-5 last:mb-0"
                 >
-                  {block.text}
+                  {renderWithLinks(block.text)}
                 </p>
               );
             })}
@@ -236,5 +268,6 @@ export default async function LegalPage({
         </article>
       </div>
     </div>
+    </>
   );
 }

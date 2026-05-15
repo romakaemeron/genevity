@@ -1,0 +1,11 @@
+[production]
+chrome >= 109
+firefox >= 109
+safari >= 16
+edge >= 109
+not dead
+
+[development]
+last 1 Chrome version
+last 1 Firefox version
+last 1 Safari version

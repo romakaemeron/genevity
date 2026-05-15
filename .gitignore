@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+/technical_task
+/docs
+
 # next.js
 /.next/
 /out/
@@ -45,3 +48,30 @@ next-env.d.ts
 *.docx.md
 ~$*
 *.md.md
+
+# Source semantics data — private, not part of the public repo
+/semantics
+
+
+# audit screenshots & temp files
+*.png
+*.jpeg
+*.jpg
+!public/**
+fix-audit-issues.mjs
+
+# playwright browser cache
+.playwright-mcp/
+.DS_Store
+
+# Local working documents — not part of the codebase
+*.pdf
+отзывы*
+Сертификаты врачи/
+"Врачи на джейневети*"
+Inweb*
+genevity.com.ua*
+Genevity_Price*
+semantics/
+technical_task/
+metatags/

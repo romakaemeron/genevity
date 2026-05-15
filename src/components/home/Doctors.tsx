@@ -1,23 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
+import { useScrollReveal } from "@/lib/useReveal";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
-import Modal from "@/components/ui/Modal";
 import DoctorCard from "@/components/doctors/DoctorCard";
-import DoctorModalContent from "@/components/doctors/DoctorModal";
-import type { DoctorItem } from "@/sanity/types";
+import type { DoctorItem } from "@/lib/db/types";
 
 interface DoctorsProps {
   doctors: DoctorItem[];
-  ui: {
-    title: string;
-    subtitle: string;
-    cta: string;
-    experience: string;
-  };
+  ui: { title: string; subtitle: string; cta: string; experience: string; };
   detailsLabel: string;
 }
 
@@ -25,15 +17,15 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [expandedDoctor, setExpandedDoctor] = useState<number | null>(null);
-
-  const closeModal = useCallback(() => setExpandedDoctor(null), []);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const { ref: headerRef, visible } = useScrollReveal();
 
   const updateScrollState = useCallback(() => {
     const el = scrollerRef.current;
     if (!el) return;
     setCanScrollLeft(el.scrollLeft > 4);
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+    setHasOverflow(el.scrollWidth > el.clientWidth + 4);
   }, []);
 
   useEffect(() => {
@@ -53,88 +45,41 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
     if (!el) return;
     const cards = Array.from(el.children) as HTMLElement[];
     if (!cards.length) return;
-
     const scrollPad = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
     const currentScroll = el.scrollLeft;
-
     let currentIdx = 0;
     let minDist = Infinity;
     for (let i = 0; i < cards.length; i++) {
-      const cardLeft = cards[i].offsetLeft - scrollPad;
-      const dist = Math.abs(cardLeft - currentScroll);
-      if (dist < minDist) {
-        minDist = dist;
-        currentIdx = i;
-      }
+      const dist = Math.abs(cards[i].offsetLeft - scrollPad - currentScroll);
+      if (dist < minDist) { minDist = dist; currentIdx = i; }
     }
-
     const nextIdx = Math.max(0, Math.min(cards.length - 1, currentIdx + (dir === "left" ? -1 : 1)));
-    const targetScroll = cards[nextIdx].offsetLeft - scrollPad;
-    el.scrollTo({ left: targetScroll, behavior: "smooth" });
+    el.scrollTo({ left: cards[nextIdx].offsetLeft - scrollPad, behavior: "smooth" });
   };
 
   return (
     <section>
-      {/* Header + arrows */}
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-10"
+      <div
+        ref={headerRef as React.RefObject<HTMLDivElement>}
+        className={`max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-10 ${visible ? "revealed" : ""}`}
       >
-        <motion.h2 variants={fadeInUp} className="heading-2 text-black">
-          {ui.title}
-        </motion.h2>
-        <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <p className="body-l text-black-60 max-w-[600px]">
-            {ui.subtitle}
-          </p>
-          <div className="flex gap-2 shrink-0">
-            <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
-              <ChevronLeft size={18} />
-            </Button>
-            <Button variant="secondary" icon size="sm" onClick={() => scroll("right")} disabled={!canScrollRight}>
-              <ChevronRight size={18} />
-            </Button>
+        <h2 className="reveal heading-2 text-black">{ui.title}</h2>
+        <div className="reveal d1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <p className="body-l text-black-60 max-w-[600px]">{ui.subtitle}</p>
+          <div className={`flex gap-2 shrink-0 ${hasOverflow ? "" : "hidden"}`}>
+            <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}><ChevronLeft size={18} /></Button>
+            <Button variant="secondary" icon size="sm" onClick={() => scroll("right")} disabled={!canScrollRight}><ChevronRight size={18} /></Button>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Scrollable cards */}
-      <motion.div
-        ref={scrollerRef}
-        className="doctors-scroller scrollbar-hide"
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-      >
-        {doctors.map((doctor, i) => (
-          <motion.div
-            key={doctor._id}
-            variants={fadeInUp}
-            className="shrink-0"
-            style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}
-          >
-            <DoctorCard doctor={doctor} index={i} detailsLabel={detailsLabel} onClick={() => setExpandedDoctor(i)} />
-          </motion.div>
+      <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
+        {doctors.map((doctor) => (
+          <div key={doctor._id} className="shrink-0" style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}>
+            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} />
+          </div>
         ))}
-      </motion.div>
-
-      {/* Doctor Modal */}
-      <AnimatePresence>
-        {expandedDoctor !== null && (
-          <Modal open onClose={closeModal}>
-            <DoctorModalContent
-              doctor={doctors[expandedDoctor]}
-              index={expandedDoctor}
-              cta={ui.cta}
-              experience={ui.experience}
-            />
-          </Modal>
-        )}
-      </AnimatePresence>
+      </div>
     </section>
   );
 }

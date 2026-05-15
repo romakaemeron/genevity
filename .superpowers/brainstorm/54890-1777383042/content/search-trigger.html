@@ -1,0 +1,83 @@
+<h2>Де розмістити кнопку пошуку в хедері?</h2>
+<p class="subtitle">Хедер: Лого | Навігація | [LocaleSelector] [???] [Кнопка CTA]</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a1a;padding:10px 18px;border-radius:8px;font-family:sans-serif;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="color:#8B7B6B;font-size:10px;letter-spacing:2px;text-transform:uppercase;">GENEVITY</span>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="color:#aaa;font-size:9px;">Послуги</span>
+          <span style="color:#aaa;font-size:9px;">Лікарі</span>
+          <span style="color:#aaa;font-size:9px;">Ціни</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="color:#888;font-size:9px;">UA</span>
+          <!-- Search icon here -->
+          <div style="width:28px;height:28px;border-radius:7px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <div style="background:#8B7B6B;color:#fff;border-radius:8px;padding:5px 12px;font-size:9px;white-space:nowrap;">Записатися</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Між селектором мови і CTA (рекомендую)</h3>
+      <p>Іконка пошуку в рядку правих дій, перед кнопкою «Записатися». Природне місце для утиліт. Не конкурує з CTA-кнопкою — вони різного пріоритету.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a1a;padding:10px 18px;border-radius:8px;font-family:sans-serif;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="color:#8B7B6B;font-size:10px;letter-spacing:2px;text-transform:uppercase;">GENEVITY</span>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="color:#aaa;font-size:9px;">Послуги</span>
+          <span style="color:#aaa;font-size:9px;">Лікарі</span>
+          <span style="color:#aaa;font-size:9px;">Ціни</span>
+          <!-- Subtle search pill in nav -->
+          <div style="display:flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:3px 10px;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span style="color:#888;font-size:9px;">Пошук</span>
+            <span style="color:#666;font-size:8px;border:1px solid rgba(255,255,255,0.1);border-radius:3px;padding:0 3px;">⌘K</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="color:#888;font-size:9px;">UA</span>
+          <div style="background:#8B7B6B;color:#fff;border-radius:8px;padding:5px 12px;font-size:9px;white-space:nowrap;">Записатися</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Пошук-пілюля у навігації + ⌘K підказка</h3>
+      <p>Inline пілюля з текстом «Пошук» і підказкою ⌘K прямо у рядку навігації. Добре видно, підкреслює можливість пошуку. Трохи більше місця займає.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1a1a;padding:10px 18px;border-radius:8px;font-family:sans-serif;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="color:#8B7B6B;font-size:10px;letter-spacing:2px;text-transform:uppercase;">GENEVITY</span>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="color:#aaa;font-size:9px;">Послуги</span>
+          <span style="color:#aaa;font-size:9px;">Лікарі</span>
+          <span style="color:#aaa;font-size:9px;">Ціни</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="color:#888;font-size:9px;">UA</span>
+          <div style="background:#8B7B6B;color:#fff;border-radius:8px;padding:5px 12px;font-size:9px;white-space:nowrap;">Записатися</div>
+          <!-- Search icon after CTA -->
+          <div style="width:28px;height:28px;border-radius:7px;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Після кнопки CTA, крайній правий</h3>
+      <p>Іконка після «Записатися». CTA залишається крайньою правою точкою уваги, пошук — вторинний. Може губитися на тлі кнопки.</p>
+    </div>
+  </div>
+
+</div>

@@ -1,33 +1,16 @@
 import type { Metadata } from "next";
-import Script from "next/script";
-import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import Header from "@/components/layout/Header";
+import { routing, type Locale } from "@/i18n/routing";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
+import HtmlLangSetter from "@/components/ui/HtmlLangSetter";
 import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
-import { getLegalDocs } from "@/sanity/queries";
-import "../globals.css";
-
-const tenorSans = localFont({
-  src: "../../../public/fonts/TenorSans-Regular.ttf",
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const mulish = localFont({
-  src: [
-    { path: "../../../public/fonts/Mulish-Regular.ttf", weight: "400" },
-    { path: "../../../public/fonts/Mulish-Medium.ttf", weight: "500" },
-    { path: "../../../public/fonts/Mulish-SemiBold.ttf", weight: "600" },
-    { path: "../../../public/fonts/Mulish-Bold.ttf", weight: "700" },
-  ],
-  variable: "--font-body",
-  display: "swap",
-});
+import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
+import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
+import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
+import UtmCapture from "@/components/analytics/UtmCapture";
 
 const titles: Record<string, string> = {
   ua: "GENEVITY — Медичний центр довголіття та естетичної медицини у Дніпрі",
@@ -57,10 +40,7 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL("https://genevity.com.ua"),
-    title: {
-      default: titles[lang] || titles.ua,
-      template: "%s | GENEVITY",
-    },
+    title: titles[lang] || titles.ua,
     description: descriptions[lang] || descriptions.ua,
     icons: {
       icon: [
@@ -68,28 +48,6 @@ export async function generateMetadata({
         { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       ],
       shortcut: "/favicon.ico",
-    },
-    keywords: [
-      "GENEVITY",
-      "медичний центр довголіття",
-      "естетична медицина",
-      "Дніпро",
-      "косметологія",
-      "апаратна косметологія",
-      "longevity medicine",
-      "anti-aging",
-      "HydraFacial",
-      "EMFACE",
-      "EMSCULPT NEO",
-    ],
-    alternates: {
-      canonical: locale === "ua" ? "/" : `/${locale}`,
-      languages: {
-        "uk": "/",
-        "ru": "/ru",
-        "en": "/en",
-        "x-default": "/",
-      },
     },
     openGraph: {
       title: titles[lang] || titles.ua,
@@ -139,44 +97,37 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as "ua" | "ru" | "en")) {
+  if (!routing.locales?.includes(locale as "ua" | "ru" | "en")) {
     notFound();
   }
 
-  const [messages, legalDocs] = await Promise.all([
+  const [messages, legalDocs, settings] = await Promise.all([
     getMessages(),
     getLegalDocs(locale),
+    getSiteSettingsData(locale),
   ]);
 
   return (
-    <html lang={locale} className={`${tenorSans.variable} ${mulish.variable}`}>
-      <head>
-        <Script
-          id="gtm-init"
-          strategy="afterInteractive"
-        >{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PGGK275D');`}</Script>
-      </head>
-      <body className="antialiased">
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-PGGK275D"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-        <ImageProtection />
-        <OrganizationSchema />
-        <NextIntlClientProvider messages={messages}>
-          <Header />
+    <>
+      <HtmlLangSetter locale={locale} />
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-PGGK275D"
+          height="0"
+          width="0"
+          style={{ display: "none", visibility: "hidden" }}
+        />
+      </noscript>
+      <ImageProtection />
+      <UtmCapture />
+      <OrganizationSchema locale={locale} />
+      <WebSiteSchema />
+      <NextIntlClientProvider messages={messages}>
+        <SiteSettingsProvider settings={settings}>
           <main>{children}</main>
-          <Footer legalDocs={legalDocs} />
-        </NextIntlClientProvider>
-        <Script
-          id="binotel-widget"
-          strategy="afterInteractive"
-        >{`(function(d,w,s){var widgetHash='Af6We2GQH21N1uJMFTL1',bch=d.createElement(s);bch.type='text/javascript';bch.async=true;bch.src='//widgets.binotel.com/chat/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(bch,sn);})(document,window,'script');`}</Script>
-      </body>
-    </html>
+          <Footer legalDocs={legalDocs} settings={settings} />
+        </SiteSettingsProvider>
+      </NextIntlClientProvider>
+    </>
   );
 }

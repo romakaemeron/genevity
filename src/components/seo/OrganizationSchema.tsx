@@ -1,180 +1,115 @@
 import { JsonLd } from "./JsonLd";
+import { getSiteSettingsData } from "@/lib/db/queries";
+import { sql } from "@/lib/db/client";
 
-export function OrganizationSchema() {
+const NAMES: Record<string, string> = {
+  ua: "GENEVITY — центр довголіття та естетичної медицини",
+  ru: "GENEVITY — центр долголетия и эстетической медицины",
+  en: "GENEVITY — longevity and aesthetic medicine center",
+};
+
+const DESCRIPTIONS: Record<string, string> = {
+  ua: "Медичний центр довголіття та естетичної медицини у Дніпрі. Персоналізовані програми здоров'я, відновлення та омолодження.",
+  ru: "Медицинский центр долголетия и эстетической медицины в Днепре. Персонализированные программы здоровья, восстановления и омоложения.",
+  en: "Longevity and aesthetic medicine medical center in Dnipro. Personalized health, recovery, and rejuvenation programs.",
+};
+
+const URLS: Record<string, string> = {
+  ua: "https://genevity.com.ua/",
+  ru: "https://genevity.com.ua/ru",
+  en: "https://genevity.com.ua/en",
+};
+
+interface Props {
+  locale?: string;
+}
+
+async function getClinicRating() {
+  try {
+    const [row] = await sql`SELECT AVG(rating)::numeric(3,1) AS avg, COUNT(*)::int AS cnt FROM doctor_reviews WHERE is_published = true`;
+    const count = row?.cnt ?? 0;
+    if (count < 3) return null;
+    return { ratingValue: parseFloat(row.avg), ratingCount: count };
+  } catch { return null; }
+}
+
+export async function OrganizationSchema({ locale = "ua" }: Props) {
+  const [s, rating] = await Promise.all([getSiteSettingsData("ua"), getClinicRating()]);
+
   return (
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": ["MedicalBusiness", "LocalBusiness"],
-        name: "GENEVITY — Медичний центр довголіття",
-        url: "https://genevity.com.ua",
-        telephone: "+380730000150",
-        priceRange: "$$$$",
+        "@type": "MedicalOrganization",
+        name: NAMES[locale] ?? NAMES.ua,
+        url: URLS[locale] ?? URLS.ua,
+        logo: {
+          "@type": "ImageObject",
+          url: "https://genevity.com.ua/brand/LogoFullDark.svg",
+        },
+        image: [
+          "https://genevity.com.ua/clinic/semi1737-hdr.webp",
+          "https://genevity.com.ua/clinic/semi1287-hdr.webp",
+          "https://genevity.com.ua/clinic/semi1256-hdr.webp",
+        ],
+        description: DESCRIPTIONS[locale] ?? DESCRIPTIONS.ua,
+        email: "info@genevity.com.ua",
+        telephone: (s.phone1 || "+380730000150").replace(/\s/g, ""),
         address: {
           "@type": "PostalAddress",
-          streetAddress: "вул. Олеся Гончара, 12",
+          streetAddress: s.address || "вул. Олеся Гончара, 12",
           addressLocality: "Дніпро",
           addressRegion: "Дніпропетровська область",
           postalCode: "49000",
           addressCountry: "UA",
         },
-        openingHoursSpecification: {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-          ],
-          opens: "08:00",
-          closes: "20:00",
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 48.4647,
+          longitude: 35.0461,
         },
-        sameAs: ["https://www.instagram.com/genevity.center/"],
-        hasMap:
-          "https://www.google.com/maps/place/Genevity/@48.4647,35.0461,17z",
-        medicalSpecialty: ["Dermatology", "PlasticSurgery"],
-        availableLanguage: [
-          { "@type": "Language", name: "Ukrainian" },
-          { "@type": "Language", name: "Russian" },
-          { "@type": "Language", name: "English" },
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday", "Tuesday", "Wednesday", "Thursday",
+              "Friday", "Saturday", "Sunday",
+            ],
+            opens: "08:00",
+            closes: "20:00",
+          },
+        ],
+        hasMap: s.mapsUrl || "https://maps.app.goo.gl/3VATqzUMmo6u51Yj7",
+        medicalSpecialty: [
+          "Dermatology",
+          "PlasticSurgery",
+          "CosmeticDermatology",
+          "Endocrinology",
+          "Gynecology",
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Послуги GENEVITY",
           itemListElement: [
-            {
-              "@type": "OfferCatalog",
-              name: "Face",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EMFACE",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "VOLNEWMER",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EXION",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "ULTRAFORMER MPT",
-                  },
-                },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Body",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EMSCULPT NEO",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "ULTRAFORMER MPT Body",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EXION Body",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "VOLNEWMER Body",
-                  },
-                },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Skin",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "M22 STELLAR BLACK",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "SPLENDOR X",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "HYDRAFACIAL SYNDEO",
-                  },
-                },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Intimate",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "EXION Intimate",
-                  },
-                },
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "CO2 AcuPulse",
-                  },
-                },
-              ],
-            },
-            {
-              "@type": "OfferCatalog",
-              name: "Laser",
-              itemListElement: [
-                {
-                  "@type": "Offer",
-                  itemOffered: {
-                    "@type": "MedicalProcedure",
-                    name: "SPLENDOR X",
-                  },
-                },
-              ],
-            },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMFACE" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "VOLNEWMER" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EXION" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "ULTRAFORMER MPT" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMSCULPT NEO" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "SPLENDOR X" } },
+            { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "HYDRAFACIAL SYNDEO" } },
           ],
         },
+        sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram.replace(/^@/, "")}/`] : [],
+        ...(rating ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: rating.ratingValue,
+            ratingCount: rating.ratingCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        } : {}),
       }}
     />
   );

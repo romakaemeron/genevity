@@ -1,0 +1,117 @@
+<h2>Empty state — before the user types</h2>
+<p class="subtitle">What does the modal show when it first opens?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f0ede8;padding:16px;border-radius:8px;font-family:sans-serif;">
+      <div style="background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.15);padding:16px;max-width:440px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0ede8;padding-bottom:10px;margin-bottom:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span style="color:#bbb;font-size:12px;flex:1;">Пошук послуг, лікарів...</span>
+          <kbd style="background:#f5f5f5;border-radius:4px;padding:1px 5px;font-size:10px;color:#aaa;border:1px solid #e0e0e0;">ESC</kbd>
+        </div>
+        <!-- Popular tags -->
+        <div style="font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Популярні запити</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+          <span style="background:#f5f0eb;color:#8B7B6B;border-radius:20px;padding:4px 11px;font-size:11px;cursor:pointer;">Ботулінотерапія</span>
+          <span style="background:#f5f0eb;color:#8B7B6B;border-radius:20px;padding:4px 11px;font-size:11px;cursor:pointer;">EMFACE</span>
+          <span style="background:#f5f0eb;color:#8B7B6B;border-radius:20px;padding:4px 11px;font-size:11px;cursor:pointer;">Лазерна епіляція</span>
+          <span style="background:#f5f0eb;color:#8B7B6B;border-radius:20px;padding:4px 11px;font-size:11px;cursor:pointer;">Check-Up 40+</span>
+          <span style="background:#f5f0eb;color:#8B7B6B;border-radius:20px;padding:4px 11px;font-size:11px;cursor:pointer;">IV-терапія</span>
+          <span style="background:#f5f0eb;color:#8B7B6B;border-radius:20px;padding:4px 11px;font-size:11px;cursor:pointer;">Hydrafacial</span>
+        </div>
+        <!-- Category shortcuts -->
+        <div style="font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Розділи</div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;background:#faf9f8;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:#8B7B6B;">💉</div>
+            <div style="font-size:9px;color:#555;margin-top:2px;">Ін'єкції</div>
+          </div>
+          <div style="flex:1;background:#faf9f8;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:#8B7B6B;">✨</div>
+            <div style="font-size:9px;color:#555;margin-top:2px;">Апаратна</div>
+          </div>
+          <div style="flex:1;background:#faf9f8;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:#8B7B6B;">🔬</div>
+            <div style="font-size:9px;color:#555;margin-top:2px;">Longevity</div>
+          </div>
+          <div style="flex:1;background:#faf9f8;border-radius:8px;padding:8px;text-align:center;">
+            <div style="font-size:9px;color:#8B7B6B;">⚕️</div>
+            <div style="font-size:9px;color:#555;margin-top:2px;">Лікарі</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Популярні теги + категорії</h3>
+      <p>Показує найпопулярніші процедури як кліковані чіплети і 4 категорії-ярлики. Клік на чіпліт відразу запускає пошук. Корисно для нових відвідувачів.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f0ede8;padding:16px;border-radius:8px;font-family:sans-serif;">
+      <div style="background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.15);padding:16px;max-width:440px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0ede8;padding-bottom:10px;margin-bottom:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span style="color:#bbb;font-size:12px;flex:1;">Пошук послуг, лікарів...</span>
+          <kbd style="background:#f5f5f5;border-radius:4px;padding:1px 5px;font-size:10px;color:#aaa;border:1px solid #e0e0e0;">ESC</kbd>
+        </div>
+        <!-- Simple hint -->
+        <div style="text-align:center;padding:24px 0;">
+          <div style="width:40px;height:40px;background:#f5f0eb;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B7B6B" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <p style="font-size:12px;color:#aaa;margin:0;">Введіть назву процедури, лікаря або послуги</p>
+          <p style="font-size:10px;color:#ccc;margin:6px 0 0;">наприклад: «ботокс», «emface», «лазерна епіляція»</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Чисто, тільки підказка</h3>
+      <p>Мінімалістичний пустий стан з іконкою і короткою підказкою. Без зайвих елементів — фокус тільки на полі вводу. Відповідає преміальному стилю клініки.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f0ede8;padding:16px;border-radius:8px;font-family:sans-serif;">
+      <div style="background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.15);padding:16px;max-width:440px;margin:0 auto;">
+        <div style="display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0ede8;padding-bottom:10px;margin-bottom:12px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <span style="color:#bbb;font-size:12px;flex:1;">Пошук послуг, лікарів...</span>
+          <kbd style="background:#f5f5f5;border-radius:4px;padding:1px 5px;font-size:10px;color:#aaa;border:1px solid #e0e0e0;">ESC</kbd>
+        </div>
+        <!-- Full service list -->
+        <div style="font-size:9px;color:#aaa;text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px;">Всі послуги</div>
+        <div style="max-height:140px;overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:6px;">
+            <div style="width:20px;height:20px;background:#f5f0eb;border-radius:5px;flex-shrink:0;"></div>
+            <div style="font-size:11px;color:#333;">Ботулінотерапія</div>
+            <div style="font-size:9px;color:#bbb;margin-left:auto;">Ін'єкційна</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:6px;">
+            <div style="width:20px;height:20px;background:#f5f0eb;border-radius:5px;flex-shrink:0;"></div>
+            <div style="font-size:11px;color:#333;">EMFACE</div>
+            <div style="font-size:9px;color:#bbb;margin-left:auto;">Апаратна</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:6px;">
+            <div style="width:20px;height:20px;background:#f5f0eb;border-radius:5px;flex-shrink:0;"></div>
+            <div style="font-size:11px;color:#333;">Лазерна епіляція</div>
+            <div style="font-size:9px;color:#bbb;margin-left:auto;">Епіляція</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:6px;">
+            <div style="width:20px;height:20px;background:#f5f0eb;border-radius:5px;flex-shrink:0;"></div>
+            <div style="font-size:11px;color:#333;">Hydrafacial</div>
+            <div style="font-size:9px;color:#bbb;margin-left:auto;">Апаратна</div>
+          </div>
+          <div style="text-align:center;padding-top:6px;font-size:9px;color:#ccc;">+ ще 18 послуг...</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Показати всі послуги одразу</h3>
+      <p>Відразу відображає повний список, що фільтрується при наборі. Поводиться як фільтрований перелік, а не пошуковик. Зручно якщо користувач просто переглядає.</p>
+    </div>
+  </div>
+
+</div>

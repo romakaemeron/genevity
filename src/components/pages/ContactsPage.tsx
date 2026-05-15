@@ -1,0 +1,127 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { useScrollReveal } from "@/lib/useReveal";
+import { MapPin, Phone, Clock, AtSign } from "lucide-react";
+import type { SiteSettingsData } from "@/lib/db/types";
+import type { GalleryItem } from "@/lib/db/queries/phase2";
+import type { Locale } from "@/i18n/routing";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import BookingCTA from "@/components/ui/BookingCTA";
+
+interface Props {
+  settings: SiteSettingsData;
+  locale: Locale;
+  contactsUi: { title: string; instagramLabel: string };
+  ctaBg?: GalleryItem | null;
+}
+
+export default function ContactsPageComponent({ settings, locale, contactsUi, ctaBg }: Props) {
+  const tLabels = useTranslations("labels");
+  const tPage = useTranslations("contactsPage");
+  const { ref: photosRef, visible: photosVisible } = useScrollReveal();
+  const { ref: ctaRef, visible: ctaVisible } = useScrollReveal();
+
+  const mapsUrl = settings.mapsUrl || `https://www.google.com/maps/search/${encodeURIComponent(settings.address || "GENEVITY")}`;
+  const mapsEmbed = settings.mapsEmbedUrl;
+
+  return (
+    <>
+      {/* Hero — map + info split, above fold, no animation */}
+      <section className="bg-champagne">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-0">
+          <Breadcrumbs
+            items={[
+              { label: tLabels("home"), href: "/" },
+              { label: contactsUi.title, href: "/contacts" },
+            ]}
+            locale={locale}
+          />
+          <h1 className="heading-1 text-black mt-6 mb-4">{contactsUi.title}</h1>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+            <div className="flex flex-col gap-8 lg:py-8">
+              <p className="body-l text-muted max-w-md">{tPage("heroSubtitle")}</p>
+
+              <div className="flex flex-col gap-5">
+                <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-main" />
+                  </div>
+                  <div>
+                    <p className="body-strong text-black group-hover:text-main transition-colors">{settings.address}</p>
+                    <p className="body-s text-muted mt-1">{tPage("mapTitle")}</p>
+                  </div>
+                </a>
+
+                <div className="flex flex-col gap-3 p-5 rounded-[var(--radius-card)] bg-champagne-dark">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5 text-main" />
+                    </div>
+                    <div>
+                      <a href={`tel:${settings.phone1.replace(/\s/g, "")}`} className="body-strong text-black hover:text-main transition-colors block">
+                        {settings.phone1}
+                      </a>
+                      <a href={`tel:${settings.phone2.replace(/\s/g, "")}`} className="body-m text-muted hover:text-main transition-colors block mt-0.5">
+                        {settings.phone2}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark">
+                  <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center shrink-0">
+                    <Clock className="w-5 h-5 text-main" />
+                  </div>
+                  <div>
+                    <p className="body-strong text-black">{settings.hours}</p>
+                    <p className="body-s text-muted mt-0.5">{tPage("hoursTitle")}</p>
+                  </div>
+                </div>
+
+                <a href={`https://www.instagram.com/${settings.instagram}/`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-5 rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-main/10 flex items-center justify-center shrink-0">
+                    <AtSign className="w-5 h-5 text-main" />
+                  </div>
+                  <div>
+                    <p className="body-strong text-black group-hover:text-main transition-colors">@{settings.instagram}</p>
+                    <p className="body-s text-muted mt-0.5">{contactsUi.instagramLabel}</p>
+                  </div>
+                </a>
+              </div>
+
+              <BookingCTA ctaKey="contactsHero" variant="primary" size="lg" className="self-start">
+                {tLabels("bookConsultation")}
+              </BookingCTA>
+            </div>
+
+            <div className="relative rounded-[var(--radius-card)] overflow-hidden aspect-square lg:aspect-auto lg:min-h-[500px]">
+              <iframe
+                src={mapsEmbed}
+                className="w-full h-full border-0"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Genevity on Google Maps"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20 ${ctaVisible ? "revealed" : ""}`}>
+        <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[280px] flex items-center">
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — клініка довголіття та естетичної медицини"} fill className="object-cover" sizes="100vw" />
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative z-10 w-full text-center p-8 lg:p-14">
+            <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
+            <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
+            <BookingCTA ctaKey="contactsFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
