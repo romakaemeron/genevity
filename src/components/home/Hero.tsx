@@ -187,7 +187,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
               <p className="body-l text-white-60 mt-5 max-w-[54ch]">{data.subtitle}</p>
               <div className="flex flex-col gap-4 mt-8">
                 <a
-                  href="https://maps.google.com/?q=Дніпро,+вул.+Олеся+Гончара,+12"
+                  href="https://www.google.com/maps/search/Genevity+Longevity+Medical+Center+Днiпро/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 body-l text-white-60 hover:text-champagne transition-colors duration-200 w-fit"
