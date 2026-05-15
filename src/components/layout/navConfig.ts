@@ -236,11 +236,6 @@ export const navTop: NavTop[] = [
     href: R.doctors,
   },
   {
-    key: "blog",
-    label: L("Блог", "Блог", "Blog"),
-    href: "/blog",
-  },
-  {
     key: "contacts",
     label: L("Контакти", "Контакты", "Contacts"),
     href: R.contacts,
