@@ -18,8 +18,8 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const doc = await getLegalDocBySlug(locale, slug);
   return {
-    title: doc?.title ?? slug,
-    robots: { index: false, follow: false },
+    title: doc?.seoTitle ?? doc?.title ?? slug,
+    description: doc?.seoDesc ?? undefined,
     alternates: buildAlternates(`/legal/${slug}`, locale as Locale),
   };
 }

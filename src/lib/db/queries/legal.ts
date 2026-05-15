@@ -28,5 +28,7 @@ export async function getLegalDocBySlug(locale: string, slug: string) {
     slug: r.slug,
     title: (r as any)[`title_${l}`] || r.title_uk || "",
     body: (r as any)[`body_${l}`] || r.body_uk || "",
+    seoTitle: (r as any)[`seo_title_${l}`] || (r as any)[`title_${l}`] || r.title_uk || null,
+    seoDesc: (r as any)[`seo_desc_${l}`] || null,
   };
 }
