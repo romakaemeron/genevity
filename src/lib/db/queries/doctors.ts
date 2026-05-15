@@ -74,7 +74,7 @@ export interface DoctorProfileData {
 
 export async function getDoctorBySlug(locale: string, slug: string): Promise<DoctorProfileData | null> {
   const l = lang(locale);
-  const rows = await sql`SELECT * FROM doctors WHERE slug = ${slug} LIMIT 1`;
+  const rows = await sql`SELECT * FROM doctors WHERE slug = ${slug} AND is_published = true LIMIT 1`;
   if (!rows.length) return null;
   const r = rows[0];
 
@@ -157,6 +157,6 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
 }
 
 export async function getAllDoctorSlugs(): Promise<string[]> {
-  const rows = await sql`SELECT slug FROM doctors WHERE slug IS NOT NULL ORDER BY sort_order`;
+  const rows = await sql`SELECT slug FROM doctors WHERE slug IS NOT NULL AND is_published = true ORDER BY sort_order`;
   return rows.map((r) => r.slug as string);
 }

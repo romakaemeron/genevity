@@ -50,7 +50,7 @@ export async function getSections(ownerType: string, ownerId: string, l: string)
 
   if (allIds.size > 0) {
     const idArr = Array.from(allIds);
-    const doctorRows = await sql`SELECT * FROM doctors WHERE id = ANY(${idArr}::uuid[])`;
+    const doctorRows = await sql`SELECT * FROM doctors WHERE id = ANY(${idArr}::uuid[]) AND is_published = true`;
     const byId = new Map<string, DoctorItem>();
     for (const r of doctorRows) {
       byId.set(r.id, {

@@ -36,6 +36,7 @@ interface Doctor {
   profile_focal_point?: string | null;
   profile_scale?: number | string | null;
   sort_order: number;
+  is_published: boolean;
 }
 
 interface Props {
@@ -45,6 +46,7 @@ interface Props {
 export default function DoctorForm({ doctor }: Props) {
   const [state, formAction] = useActionState(saveDoctor, null as any);
   const isNew = !doctor;
+  const [isPublished, setIsPublished] = useState(doctor?.is_published ?? true);
 
   // Mirror uploaded-image URLs so the position previews update immediately after upload
   const [cardUrl, setCardUrl] = useState<string | null>(doctor?.photo_card ?? null);
@@ -100,6 +102,33 @@ export default function DoctorForm({ doctor }: Props) {
         onSave={() => formRef.current?.requestSubmit()}
       />
       {doctor && <input type="hidden" name="id" value={doctor.id} />}
+      <input type="hidden" name="is_published" value={isPublished ? "1" : "0"} />
+
+      {/* ── Publish / Draft status bar ── */}
+      <div className={`flex items-center gap-3 px-6 py-3 border-b border-line ${isPublished ? "bg-success-light" : "bg-champagne-dark"}`}>
+        <span
+          aria-hidden
+          style={{ width: 8, height: 8 }}
+          className={`block shrink-0 rounded-full ${isPublished ? "bg-success" : "bg-amber-400"}`}
+        />
+        <span className="body-s font-medium text-ink">
+          {isPublished ? "Published" : "Draft"}
+        </span>
+        <span className="body-s text-muted">
+          {isPublished ? "— visible on website" : "— hidden from website"}
+        </span>
+        <button
+          type="button"
+          onClick={() => setIsPublished((v) => !v)}
+          className={`ml-auto px-3 py-1 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
+            isPublished
+              ? "bg-white border-line text-muted hover:text-ink hover:border-ink/20"
+              : "bg-success-light border-success/30 text-success hover:bg-success/10"
+          }`}
+        >
+          {isPublished ? "Unpublish" : "Publish"}
+        </button>
+      </div>
 
       <div className="p-8">
         <div className="flex items-center justify-between mb-8">

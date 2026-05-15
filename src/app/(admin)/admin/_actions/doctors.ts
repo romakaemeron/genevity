@@ -121,6 +121,7 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   let education = null, certifications = null;
   try { education = educationRaw ? JSON.parse(educationRaw) : null; } catch { education = null; }
   try { certifications = certificationsRaw ? JSON.parse(certificationsRaw) : null; } catch { certifications = null; }
+  const is_published = formData.get("is_published") === "1";
   const sort_order = parseInt(formData.get("sort_order") as string) || 0;
   const card_position = (formData.get("card_position") as string) || "center center";
   const modal_position = (formData.get("modal_position") as string) || card_position;
@@ -186,12 +187,12 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         slug, seo_title_uk, seo_title_ru, seo_title_en, seo_desc_uk, seo_desc_ru, seo_desc_en,
         bio_uk, bio_ru, bio_en, education, certifications,
         photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale,
-        profile_focal_point, profile_scale, sort_order)
+        profile_focal_point, profile_scale, sort_order, is_published)
       VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en},
         ${slug}, ${seo_title_uk}, ${seo_title_ru}, ${seo_title_en}, ${seo_desc_uk}, ${seo_desc_ru}, ${seo_desc_en},
         ${bio_uk}, ${bio_ru}, ${bio_en}, ${JSON.stringify(education)}, ${JSON.stringify(certifications)},
         ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale},
-        ${profile_focal_point}, ${profile_scale}, ${sort_order})
+        ${profile_focal_point}, ${profile_scale}, ${sort_order}, ${is_published})
     `;
     await logChange({ action: "create", entityType: "doctor", entityId: "new", entityLabel: name_uk, after });
   } else {
@@ -209,7 +210,7 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         card_position = ${card_position}, modal_position = ${modal_position},
         circle_focal_point = ${circle_focal_point}, circle_scale = ${circle_scale},
         profile_focal_point = ${profile_focal_point}, profile_scale = ${profile_scale},
-        sort_order = ${sort_order}
+        sort_order = ${sort_order}, is_published = ${is_published}
       WHERE id = ${id}
     `;
     await logChange({ action: "update", entityType: "doctor", entityId: id!, entityLabel: name_uk, before, after });

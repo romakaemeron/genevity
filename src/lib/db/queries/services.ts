@@ -116,7 +116,7 @@ async function getRelatedDoctors(serviceId: string, l: string): Promise<DoctorIt
     SELECT d.*
     FROM doctors d
     JOIN service_doctors sd ON d.id = sd.doctor_id
-    WHERE sd.service_id = ${serviceId}
+    WHERE sd.service_id = ${serviceId} AND d.is_published = true
     ORDER BY sd.sort_order
   `;
   return rows.map((r) => ({

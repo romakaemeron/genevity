@@ -80,9 +80,10 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       SELECT id, slug, name_uk, name_ru, name_en, role_uk, role_ru, role_en,
              photo_card, photo_circle, card_position, circle_focal_point, circle_scale
       FROM doctors
-      WHERE name_uk ILIKE ${primary} OR name_ru ILIKE ${primary} OR name_en ILIKE ${primary}
+      WHERE is_published = true
+        AND (name_uk ILIKE ${primary} OR name_ru ILIKE ${primary} OR name_en ILIKE ${primary}
          OR role_uk ILIKE ${primary} OR role_ru ILIKE ${primary} OR role_en ILIKE ${primary}
-         OR name_uk ILIKE ${p2} OR name_ru ILIKE ${p2} OR name_en ILIKE ${p2}
+         OR name_uk ILIKE ${p2} OR name_ru ILIKE ${p2} OR name_en ILIKE ${p2})
       LIMIT 2
     `,
     sql`

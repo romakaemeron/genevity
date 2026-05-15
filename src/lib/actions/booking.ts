@@ -63,6 +63,7 @@ export async function listBookingOptions(locale: string): Promise<BookingOptions
              photo_card, photo_circle, card_position, circle_focal_point, circle_scale,
              name_uk, name_ru, name_en, role_uk, role_ru, role_en
       FROM doctors
+      WHERE is_published = true
       ORDER BY sort_order
     `,
   ]);

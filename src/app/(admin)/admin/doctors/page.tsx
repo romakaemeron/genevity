@@ -47,6 +47,10 @@ export default async function DoctorsListPage() {
                   Photo
                 </div>
               )}
+              <span className={`absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${doc.is_published ? "bg-success-light text-success" : "bg-amber-50 text-amber-600"}`}>
+                <span aria-hidden style={{ width: 6, height: 6 }} className={`block rounded-full ${doc.is_published ? "bg-success" : "bg-amber-400"}`} />
+                {doc.is_published ? "Published" : "Draft"}
+              </span>
             </div>
             <div className="p-6 flex flex-col gap-2 flex-1">
               <h3 className="body-strong text-black">{doc.name_uk}</h3>
