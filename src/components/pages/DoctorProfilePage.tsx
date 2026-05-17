@@ -193,7 +193,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
         return (
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
             <div className={`mt-16 rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${hasCustomImage || cta.bgType === "color" ? "" : "bg-main"}`} style={cardStyle}>
-              {hasCustomImage && (<><Image src={cta.bgImage!} alt="" fill className="object-cover" sizes="100vw" style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined} /><div className="absolute inset-0 bg-black/40" /></>)}
+              {hasCustomImage && (<><Image src={cta.bgImage!} alt="" title={cta.heading || doctor.name} fill className="object-cover" sizes="100vw" style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined} /><div className="absolute inset-0 bg-black/40" /></>)}
               <div className="relative">
                 <h2 className="heading-2 text-champagne mb-4">{cta.heading || tLabels("bookCta")}</h2>
                 <p className="body-l text-white/60 mb-8 max-w-2xl mx-auto">{cta.subtitle || tLabels("ctaSubtitle")}</p>

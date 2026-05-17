@@ -4,11 +4,13 @@ import type { Locale } from "@/i18n/routing";
 import DoctorsPageComponent from "@/components/pages/DoctorsPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { setRequestLocale } from "next-intl/server";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const seo = await getStaticPageSeo(locale, "doctors");
   return generatePageMetadata({
     title: seo?.title || "",
@@ -22,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function DoctorsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [doctors, uiStrings] = await Promise.all([
     getAllDoctors(locale),
     getUiStringsData(locale),

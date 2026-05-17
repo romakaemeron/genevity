@@ -5,6 +5,16 @@ import type { Locale } from "@/i18n/routing";
 import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { JsonLdImageObject } from "@/components/seo/JsonLdImageObject";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
+
+export async function generateStaticParams() {
+  const categories = await getAllCategorySlugs();
+  return routing.locales.flatMap((locale) =>
+    categories.map(({ slug }) => ({ locale, category: slug }))
+  );
+}
 
 /** Map category slugs to relevant doctor IDs */
 const categoryDoctorIds: Record<string, string[]> = {
@@ -45,7 +55,7 @@ const categoryImages: Record<string, string[]> = {
   "longevity": ["/clinic/hydrafacial.webp", "/clinic/semi1287-hdr.webp", "/clinic/acupulse.webp"],
 };
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string }> }) {
   const { locale, category: slug } = await params;
@@ -81,6 +91,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         { name: servicesLabel, url: `https://genevity.com.ua${localePrefix}/services` },
         { name: category.title, url: `https://genevity.com.ua${localePrefix}/services/${slug}` },
       ]} />
+      <JsonLdImageObject
+        url={(categoryHeroImages[slug] || DEFAULT_HERO).src}
+        caption={category.title}
+      />
       {/* Sticky solid header — slides in after hero scrolls past */}
       <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="category-hero-sentinel" />
       <CategoryHubTemplate

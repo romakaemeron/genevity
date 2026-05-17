@@ -30,6 +30,7 @@ export interface DoctorItem {
   specialties: string[];
   photoCard: string | null;
   photoModal: string | null;
+  photoCircle: string | null;
   cardPosition: string;
   modalPosition: string;
 }

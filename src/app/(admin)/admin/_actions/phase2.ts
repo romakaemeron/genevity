@@ -84,6 +84,7 @@ export async function saveHeroSlides(slides: HeroSlideInput[]) {
     `;
   }
   revalidatePath("/");
+  revalidatePath("/sitemap-images");
   return { ok: true };
 }
 
@@ -115,6 +116,7 @@ export async function saveGallery(ownerKey: string, items: GalleryItemInput[]) {
     `;
   }
   revalidatePath("/");
+  revalidatePath("/sitemap-images");
   return { ok: true };
 }
 

@@ -136,6 +136,7 @@ export async function saveService(_prevState: any, formData: FormData) {
     `;
     await logChange({ action: "create", entityType: "service", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
+    revalidatePath("/sitemap-images");
     redirect(`/admin/pages/services/${newId}`);
   } else {
     await sql`
@@ -156,6 +157,7 @@ export async function saveService(_prevState: any, formData: FormData) {
     `;
     await logChange({ action: "update", entityType: "service", entityId: id!, entityLabel: fields.title_uk ?? slug, before: logBefore, after: logAfter });
     revalidatePath("/");
+    revalidatePath("/sitemap-images");
     return { success: true };
   }
 }

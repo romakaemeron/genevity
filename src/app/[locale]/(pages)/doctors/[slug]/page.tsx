@@ -1,13 +1,22 @@
 import { notFound } from "next/navigation";
-import { getDoctorBySlug } from "@/lib/db/queries";
+import { getDoctorBySlug, getAllDoctorSlugs } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import DoctorProfilePage from "@/components/pages/DoctorProfilePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
-export const revalidate = 60;
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  const slugs = await getAllDoctorSlugs();
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, slug }))
+  );
+}
 
 export async function generateMetadata({
   params,

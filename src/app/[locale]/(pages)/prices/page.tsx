@@ -4,11 +4,13 @@ import type { Locale } from "@/i18n/routing";
 import PricesPageComponent from "@/components/pages/PricesPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { sql } from "@/lib/db/client";
+import { setRequestLocale } from "next-intl/server";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const seo = await getStaticPageSeo(locale, "prices");
   return generatePageMetadata({
     title: seo?.title || "",
@@ -22,6 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function PricesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [categories, settingsRows] = await Promise.all([
     getPriceCategoriesWithItems(locale),
     sql`SELECT pricelist_pdf FROM site_settings WHERE id = 1`,

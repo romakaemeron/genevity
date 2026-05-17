@@ -2,13 +2,22 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { getLegalDocBySlug } from "@/lib/db/queries";
+import { getLegalDocBySlug, getLegalDocs } from "@/lib/db/queries";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { buildAlternates } from "@/lib/url";
 import type { Locale } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
-export const revalidate = 60;
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  const docs = await getLegalDocs("ua");
+  return routing.locales.flatMap((locale) =>
+    docs.map(({ slug }) => ({ locale, slug }))
+  );
+}
 
 export async function generateMetadata({
   params,

@@ -128,6 +128,7 @@ async function getRelatedDoctors(serviceId: string, l: string): Promise<DoctorIt
     specialties: (r as any)[`specialties_${l}`] || r.specialties_uk || [],
     photoCard: r.photo_card,
     photoModal: r.photo_full,
+    photoCircle: r.photo_circle || null,
     cardPosition: r.card_position || "center center",
     modalPosition: r.modal_position || r.card_position || "center center",
   }));

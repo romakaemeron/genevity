@@ -58,6 +58,7 @@ export async function uploadMediaAsset(formData: FormData) {
   `;
 
   revalidatePath("/admin/media");
+  revalidatePath("/sitemap-images");
   return { ok: true, url };
 }
 

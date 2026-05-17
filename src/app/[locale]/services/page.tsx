@@ -1,6 +1,6 @@
 import { getAllCategories } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
-import { getTranslations } from "next-intl/server";
+import { getTranslations , setRequestLocale} from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
@@ -10,10 +10,11 @@ import { ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { categoryIllustrations } from "@/components/ui/illustrations";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   return generatePageMetadata({
     title: locale === "ru" ? "Услуги — косметология и longevity в Днепре" : locale === "en" ? "Services — Cosmetology & Longevity in Dnipro" : "Послуги — косметологія та longevity у Дніпрі",
     description: locale === "ru" ? "Полный спектр услуг центра эстетической медицины и долголетия GENEVITY в Днепре" : locale === "en" ? "Full range of aesthetic medicine and longevity services at GENEVITY center in Dnipro" : "Повний спектр послуг центру естетичної медицини та довголіття GENEVITY у Дніпрі",
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ServicesIndexPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [categories, t] = await Promise.all([
     getAllCategories(locale),
     getTranslations("labels"),

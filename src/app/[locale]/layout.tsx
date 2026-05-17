@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import HtmlLangSetter from "@/components/ui/HtmlLangSetter";
-import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
 import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
@@ -88,6 +87,10 @@ export async function generateMetadata({
   };
 }
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -100,6 +103,8 @@ export default async function LocaleLayout({
   if (!routing.locales?.includes(locale as "ua" | "ru" | "en")) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   const [messages, legalDocs, settings] = await Promise.all([
     getMessages(),
@@ -120,7 +125,6 @@ export default async function LocaleLayout({
       </noscript>
       <ImageProtection />
       <UtmCapture />
-      <OrganizationSchema locale={locale} />
       <WebSiteSchema />
       <NextIntlClientProvider messages={messages}>
         <SiteSettingsProvider settings={settings}>

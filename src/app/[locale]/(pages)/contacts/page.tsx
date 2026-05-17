@@ -3,11 +3,13 @@ import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import ContactsPageComponent from "@/components/pages/ContactsPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
+import { setRequestLocale } from "next-intl/server";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const seo = await getStaticPageSeo(locale, "contacts");
   return generatePageMetadata({
     title: seo?.title || "",
@@ -21,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ContactsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [settings, uiStrings, ctaBgItems] = await Promise.all([
     getSiteSettingsData(locale),
     getUiStringsData(locale),
