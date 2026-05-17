@@ -9,11 +9,13 @@ import { processBody } from "@/components/blog/ArticleBody";
 import type { Editor } from "@tiptap/react";
 import { Search, AlertTriangle, ImageIcon, Upload, X } from "lucide-react";
 import faviconSrc from "@/app/android-chrome-192x192.png";
+import RelatedServicesPicker from "../_components/related-services-picker";
 
 interface Props {
   post: any | null;
   categories: { id: string; title_uk: string }[];
   doctors: { id: string; name_uk: string }[];
+  services: { slug: string; title_uk: string; cat_title: string }[];
   isNew: boolean;
 }
 
@@ -67,7 +69,7 @@ function SeoPreview({ title, desc, slug }: { title: string; desc: string; slug: 
   );
 }
 
-export default function BlogPostForm({ post, categories, doctors, isNew }: Props) {
+export default function BlogPostForm({ post, categories, doctors, services, isNew }: Props) {
   const p = post || {};
   const readTimeRef = useRef<HTMLInputElement>(null);
   const coverFileRef = useRef<HTMLInputElement>(null);
@@ -291,11 +293,11 @@ export default function BlogPostForm({ post, categories, doctors, isNew }: Props
         </div>
 
         {/* Related services */}
-        <div>
-          <label className={labelCls}>Related services <span className="font-normal normal-case text-black-40">service slugs, comma-separated — shown as a block at the bottom of the article</span></label>
-          <input name="relatedServiceSlugs" defaultValue={(p.related_service_slugs || []).join(", ")} placeholder="botox, lip-augmentation, emface" className={inputCls} />
-          <p className="text-[11px] text-black-40 mt-1">Example: <code className="font-mono">botox, emface, ultraformer-mpt</code> — use the service slug from the URL.</p>
-        </div>
+        <RelatedServicesPicker
+          options={services.map(s => ({ id: s.slug, label: s.title_uk, sub: s.cat_title }))}
+          initial={p.related_service_slugs || []}
+          inputName="relatedServiceSlugs"
+        />
 
         {/* SEO */}
         <details className="bg-champagne-dark rounded-xl p-5">
