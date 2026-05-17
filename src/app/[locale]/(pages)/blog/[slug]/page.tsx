@@ -11,7 +11,8 @@ import BlogCard from "@/components/blog/BlogCard";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
-import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
+import Button from "@/components/ui/Button";
 import Image from "next/image";
 
 // Blog is visible on dev/preview only — hidden on production until launch
@@ -45,9 +46,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 const L = {
-  ua: { toc: "Зміст", back: "До блогу", related: "Читайте також", read: "хв читання", by: "Автор" },
-  ru: { toc: "Содержание", back: "К блогу", related: "Читайте также", read: "мин чтения", by: "Автор" },
-  en: { toc: "Contents", back: "Back to blog", related: "Read also", read: "min read", by: "Author" },
+  ua: { toc: "Зміст", back: "До блогу", related: "Читайте також", read: "хв читання", by: "Автор", bookProcedure: "Записатись на процедуру", learnMore: "Детальніше" },
+  ru: { toc: "Содержание", back: "К блогу", related: "Читайте также", read: "мин чтения", by: "Автор", bookProcedure: "Записаться на процедуру", learnMore: "Подробнее" },
+  en: { toc: "Contents", back: "Back to blog", related: "Read also", read: "min read", by: "Author", bookProcedure: "Book a procedure", learnMore: "Learn more" },
 };
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
@@ -143,25 +144,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               )}
               {relatedServices.length > 0 && (
                 <div className="mt-12 pt-10 border-t border-black-10">
-                  <h2 className="heading-3 text-black mb-6">
-                    {locale === "ru" ? "Записаться на процедуру" : locale === "en" ? "Book a procedure" : "Записатись на процедуру"}
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <h2 className="heading-2 text-black mb-8">{l.bookProcedure}</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {relatedServices.map(svc => (
                       <Link
                         key={svc._id}
                         href={`/services/${svc.categorySlug}/${svc.slug}`}
-                        className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-shadow"
+                        className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6"
                       >
-                        {svc.heroImage && (
-                          <div className="relative aspect-[16/10] bg-champagne-darker">
-                            <Image src={svc.heroImage} alt={svc.title} title={svc.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, 50vw" />
-                          </div>
-                        )}
-                        <div className="flex flex-col gap-2 p-5">
-                          <h3 className="body-strong text-black group-hover:text-main transition-colors">{svc.title}</h3>
-                          {svc.summary && <p className="body-m text-muted line-clamp-2">{svc.summary}</p>}
-                          {svc.priceFrom && <p className="body-m text-main mt-1">{svc.priceFrom}</p>}
+                        <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>
+                        {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{svc.summary}</p>}
+                        {svc.priceFrom && <p className="body-strong text-main mt-3">{svc.priceFrom}</p>}
+                        <div className="mt-auto pt-4">
+                          <Button variant="outline" size="sm">
+                            {l.learnMore}
+                            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                          </Button>
                         </div>
                       </Link>
                     ))}
