@@ -6,7 +6,6 @@ import { routing, type Locale } from "@/i18n/routing";
 import Footer from "@/components/layout/Footer";
 import ImageProtection from "@/components/ui/ImageProtection";
 import HtmlLangSetter from "@/components/ui/HtmlLangSetter";
-import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
 import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
@@ -126,7 +125,6 @@ export default async function LocaleLayout({
       </noscript>
       <ImageProtection />
       <UtmCapture />
-      <OrganizationSchema locale={locale} />
       <WebSiteSchema />
       <NextIntlClientProvider messages={messages}>
         <SiteSettingsProvider settings={settings}>

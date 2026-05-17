@@ -2,6 +2,7 @@ import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems } fro
 import { generatePageMetadata } from "@/lib/seo";
 import { getTranslations , setRequestLocale} from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import { OrganizationSchema } from "@/components/seo/OrganizationSchema";
 import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
@@ -50,6 +51,7 @@ export default async function HomePage({
 
   return (
     <>
+      <OrganizationSchema locale={locale} />
       {/* Sticky solid header — slides in once the hero scrolls past */}
       <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="hero-end-sentinel" />
       <div className="flex flex-col gap-16 lg:gap-[120px]">
