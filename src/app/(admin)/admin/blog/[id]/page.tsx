@@ -3,9 +3,10 @@ import { adminGetPostById } from "@/lib/db/queries/blog";
 import { sql } from "@/lib/db/client";
 import BlogPostForm from "./_form";
 
-export default async function AdminBlogPostPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function AdminBlogPostPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ saved?: string }> }) {
   await requireSession();
   const { id } = await params;
+  const { saved } = await searchParams;
   const isNew = id === 'new';
   const post = isNew ? null : await adminGetPostById(id);
   const [categories, doctors, services] = await Promise.all([
@@ -22,6 +23,7 @@ export default async function AdminBlogPostPage({ params }: { params: Promise<{ 
       doctors={doctors as any[]}
       services={services as any[]}
       isNew={isNew}
+      justSaved={saved === "1"}
     />
   );
 }
