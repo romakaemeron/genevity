@@ -7,6 +7,7 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { buildAlternates } from "@/lib/url";
 import type { Locale } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
 
 export const revalidate = 86400;
 

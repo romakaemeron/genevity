@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { setRequestLocale } from "next-intl/server";
 
 /** Map category slugs to relevant doctor IDs */
 const categoryDoctorIds: Record<string, string[]> = {

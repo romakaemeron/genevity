@@ -1,6 +1,6 @@
 import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
-import { getTranslations } from "next-intl/server";
+import { getTranslations , setRequestLocale} from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import dynamic from "next/dynamic";
 import Hero from "@/components/home/Hero";
@@ -21,6 +21,7 @@ export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const seo = await getStaticPageSeo(locale, "home");
   return generatePageMetadata({
     title: seo?.title || "",
@@ -38,6 +39,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems] = await Promise.all([
     getHomepageData(locale),
     getTranslations("labels"),

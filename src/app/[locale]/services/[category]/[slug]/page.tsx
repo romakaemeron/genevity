@@ -6,6 +6,7 @@ import ServiceDetailTemplate from "@/components/templates/ServiceDetailTemplate"
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { setRequestLocale } from "next-intl/server";
 
 export const revalidate = 86400;
 

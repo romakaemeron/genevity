@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import {
   getStaticPage, getUiStringsData, getAllDoctors,
   getLabServices, getLabPrepSteps, getGalleryItems, getStaticPageSeo,
@@ -12,6 +13,7 @@ export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const seo = await getStaticPageSeo(locale, "laboratory");
   return generatePageMetadata({
     title: seo?.title || "",
@@ -25,6 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function LaboratoryPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [data, uiStrings, doctors, services, prepSteps, gallery] = await Promise.all([
     getStaticPage(locale, "laboratory"),
     getUiStringsData(locale),

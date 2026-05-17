@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import Footer from "@/components/layout/Footer";
@@ -100,6 +100,8 @@ export default async function LocaleLayout({
   if (!routing.locales?.includes(locale as "ua" | "ru" | "en")) {
     notFound();
   }
+
+  setRequestLocale(locale);
 
   const [messages, legalDocs, settings] = await Promise.all([
     getMessages(),

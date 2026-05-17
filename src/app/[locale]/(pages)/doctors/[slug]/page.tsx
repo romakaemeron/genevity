@@ -6,6 +6,7 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import DoctorProfilePage from "@/components/pages/DoctorProfilePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { setRequestLocale } from "next-intl/server";
 
 export const revalidate = 86400;
 
