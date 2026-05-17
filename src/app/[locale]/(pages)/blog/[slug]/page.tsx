@@ -142,30 +142,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                   ))}
                 </div>
               )}
-              {relatedServices.length > 0 && (
-                <div className="mt-12 pt-10 border-t border-black-10">
-                  <h2 className="heading-2 text-black mb-8">{l.bookProcedure}</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {relatedServices.map(svc => (
-                      <Link
-                        key={svc._id}
-                        href={`/services/${svc.categorySlug}/${svc.slug}`}
-                        className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6"
-                      >
-                        <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>
-                        {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{svc.summary}</p>}
-                        {svc.priceFrom && <p className="body-strong text-main mt-3">{svc.priceFrom}</p>}
-                        <div className="mt-auto pt-4">
-                          <Button variant="outline" size="sm">
-                            {l.learnMore}
-                            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
               {post.authorName && (
                 <div className="mt-10 pt-8 border-t border-black-10">
                   <AuthorCard name={post.authorName} slug={post.authorSlug} avatar={post.authorAvatar} focalPoint={post.authorFocalPoint} scale={post.authorScale} locale={localePrefix} label={l.by} />
@@ -176,6 +152,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               {tocItems.length >= 2 && <TableOfContents items={tocItems} labels={{ title: l.toc }} />}
             </aside>
           </div>
+
+          {/* Related services — full width below article+sidebar grid */}
+          {relatedServices.length > 0 && (
+            <div className="mt-16 pt-12 border-t border-black-10">
+              <h2 className="heading-2 text-black mb-8">{l.bookProcedure}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {relatedServices.map(svc => (
+                  <Link
+                    key={svc._id}
+                    href={`/services/${svc.categorySlug}/${svc.slug}`}
+                    className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6"
+                  >
+                    <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>
+                    {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{svc.summary}</p>}
+                    {svc.priceFrom && <p className="body-strong text-main mt-3">{svc.priceFrom}</p>}
+                    <div className="mt-auto pt-4">
+                      <Button variant="outline" size="sm">
+                        {l.learnMore}
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           {related.length > 0 && (
             <section className="mt-20 pt-10 border-t border-black-10">
               <h2 className="heading-3 text-black mb-8">{l.related}</h2>
