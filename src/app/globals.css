@@ -654,13 +654,13 @@ input[type="search"] {
   text-decoration: line-through;
 }
 
-/* Images — full-width Notion style */
+/* Images — left-aligned */
 .tiptap-admin .tiptap img {
   display: block;
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-card);
-  margin: 1.5rem auto;
+  margin: 1.5rem 0;
 }
 
 /* Selected node */

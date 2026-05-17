@@ -24,7 +24,7 @@ import {
   AlignLeft, AlignCenter, AlignRight,
   Subscript as SubIcon, Superscript as SupIcon,
   Eraser, ChevronDown, Code, Code2,
-  Minus, CheckSquare, Heading1, Heading2, Heading3,
+  Minus, CheckSquare, Heading2, Heading3,
   Type,
 } from "lucide-react";
 import type { Editor } from "@tiptap/react";
@@ -41,9 +41,8 @@ interface Props {
 // ── Slash command menu items ───────────────────────────────────────────────
 const SLASH_ITEMS = [
   { title: "Text",        desc: "Plain paragraph",         icon: Type,         cmd: (e: Editor) => e.chain().focus().setParagraph().run() },
-  { title: "Heading 1",   desc: "Large section title",     icon: Heading1,     cmd: (e: Editor) => e.chain().focus().setHeading({ level: 1 }).run() },
-  { title: "Heading 2",   desc: "Medium section title",    icon: Heading2,     cmd: (e: Editor) => e.chain().focus().setHeading({ level: 2 }).run() },
-  { title: "Heading 3",   desc: "Small section title",     icon: Heading3,     cmd: (e: Editor) => e.chain().focus().setHeading({ level: 3 }).run() },
+  { title: "Heading 2",   desc: "Section title",           icon: Heading2,     cmd: (e: Editor) => e.chain().focus().setHeading({ level: 2 }).run() },
+  { title: "Heading 3",   desc: "Sub-section title",       icon: Heading3,     cmd: (e: Editor) => e.chain().focus().setHeading({ level: 3 }).run() },
   { title: "Bullet List", desc: "Simple bullet list",      icon: List,         cmd: (e: Editor) => e.chain().focus().toggleBulletList().run() },
   { title: "Numbered List",desc:"Numbered list",           icon: ListOrdered,  cmd: (e: Editor) => e.chain().focus().toggleOrderedList().run() },
   { title: "Task List",   desc: "Checkboxes",              icon: CheckSquare,  cmd: (e: Editor) => e.chain().focus().toggleTaskList().run() },
@@ -252,7 +251,6 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
           <select
             className="h-7 pl-2 pr-6 text-xs rounded-lg bg-champagne-dark border-0 text-ink cursor-pointer appearance-none hover:bg-champagne-darker focus:outline-none font-medium"
             value={
-              isActive("heading", { level: 1 }) ? "h1" :
               isActive("heading", { level: 2 }) ? "h2" :
               isActive("heading", { level: 3 }) ? "h3" :
               isActive("heading", { level: 4 }) ? "h4" : "p"
@@ -264,7 +262,6 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
             }}
           >
             <option value="p">Text</option>
-            <option value="h1">Heading 1</option>
             <option value="h2">Heading 2</option>
             <option value="h3">Heading 3</option>
             <option value="h4">Heading 4</option>
