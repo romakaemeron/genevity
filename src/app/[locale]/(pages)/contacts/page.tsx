@@ -4,7 +4,7 @@ import type { Locale } from "@/i18n/routing";
 import ContactsPageComponent from "@/components/pages/ContactsPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

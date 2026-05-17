@@ -21,7 +21,7 @@ export default function robots(): MetadataRoute.Robots {
         // SEO audit §1.4.1: do NOT block AI crawlers.
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/_next/", "/studio/"],
+        disallow: ["/admin/", "/api/", "/_next/data/", "/studio/"],
       },
     ],
     sitemap: [`${BASE}/sitemap.xml`, `${BASE}/sitemap-images.xml`],

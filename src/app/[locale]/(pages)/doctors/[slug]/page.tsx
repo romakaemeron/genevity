@@ -7,7 +7,7 @@ import DoctorProfilePage from "@/components/pages/DoctorProfilePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

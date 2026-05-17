@@ -7,7 +7,7 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string; slug: string }> }) {
   const { locale, category, slug } = await params;

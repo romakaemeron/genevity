@@ -45,7 +45,7 @@ const categoryImages: Record<string, string[]> = {
   "longevity": ["/clinic/hydrafacial.webp", "/clinic/semi1287-hdr.webp", "/clinic/acupulse.webp"],
 };
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string }> }) {
   const { locale, category: slug } = await params;

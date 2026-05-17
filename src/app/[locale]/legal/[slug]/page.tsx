@@ -8,7 +8,7 @@ import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { buildAlternates } from "@/lib/url";
 import type { Locale } from "@/i18n/routing";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

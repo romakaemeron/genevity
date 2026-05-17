@@ -5,7 +5,7 @@ import PricesPageComponent from "@/components/pages/PricesPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { sql } from "@/lib/db/client";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

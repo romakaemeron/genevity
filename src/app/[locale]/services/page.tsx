@@ -10,7 +10,7 @@ import { ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { categoryIllustrations } from "@/components/ui/illustrations";
 
-export const revalidate = 60;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
