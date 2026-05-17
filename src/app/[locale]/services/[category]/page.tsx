@@ -5,6 +5,7 @@ import type { Locale } from "@/i18n/routing";
 import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { JsonLdImageObject } from "@/components/seo/JsonLdImageObject";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
@@ -90,6 +91,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         { name: servicesLabel, url: `https://genevity.com.ua${localePrefix}/services` },
         { name: category.title, url: `https://genevity.com.ua${localePrefix}/services/${slug}` },
       ]} />
+      <JsonLdImageObject
+        url={(categoryHeroImages[slug] || DEFAULT_HERO).src}
+        caption={category.title}
+      />
       {/* Sticky solid header — slides in after hero scrolls past */}
       <MegaMenuHeader variant="solid" position="fixed" hideUntilScrollPastId="category-hero-sentinel" />
       <CategoryHubTemplate
