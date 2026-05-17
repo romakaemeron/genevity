@@ -7,8 +7,9 @@
   ],
   "headers": [
     {
-      "source": "/((?!_next/static|_next/image|api/|admin/).*)",
+      "source": "/((?!_next/static|_next/image|_next/data|api/|admin/).*)",
       "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=3600" },
         { "key": "Vary", "value": "Accept-Encoding, User-Agent" }
       ]
     },
