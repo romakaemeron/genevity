@@ -7,8 +7,17 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { setRequestLocale } from "next-intl/server";
+import { getAllServiceSlugs } from "@/lib/db/queries";
+import { routing } from "@/i18n/routing";
 
 export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  const services = await getAllServiceSlugs();
+  return routing.locales.flatMap((locale) =>
+    services.map(({ slug, categorySlug }) => ({ locale, category: categorySlug, slug }))
+  );
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; category: string; slug: string }> }) {
   const { locale, category, slug } = await params;

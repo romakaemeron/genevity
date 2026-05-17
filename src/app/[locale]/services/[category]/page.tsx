@@ -6,6 +6,14 @@ import CategoryHubTemplate from "@/components/templates/CategoryHubTemplate";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
+
+export async function generateStaticParams() {
+  const categories = await getAllCategorySlugs();
+  return routing.locales.flatMap((locale) =>
+    categories.map(({ slug }) => ({ locale, category: slug }))
+  );
+}
 
 /** Map category slugs to relevant doctor IDs */
 const categoryDoctorIds: Record<string, string[]> = {
