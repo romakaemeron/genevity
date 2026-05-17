@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               )}
               {relatedServices.length > 0 && (
                 <div className="mt-12 pt-10 border-t border-black-10">
-                  <h2 className="text-black mb-6" style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.35rem, 2.5vw, 1.65rem)", fontWeight: 400, lineHeight: 1.25, letterSpacing: "-0.02em" }}>{l.bookProcedure}</h2>
+                  <h2 className="heading-2 text-black mb-6">{l.bookProcedure}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {relatedServices.map(svc => (
                       <Link
