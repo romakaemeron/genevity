@@ -11,7 +11,7 @@ import BlogCard from "@/components/blog/BlogCard";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
-import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
 import Image from "next/image";
 
 // Blog is visible on dev/preview only — hidden on production until launch
@@ -142,23 +142,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </div>
               )}
               {relatedServices.length > 0 && (
-                <div className="mt-10 pt-8 border-t border-black-10">
-                  <p className="body-strong text-black mb-4">
+                <div className="mt-12 pt-10 border-t border-black-10">
+                  <h2 className="heading-3 text-black mb-6">
                     {locale === "ru" ? "Записаться на процедуру" : locale === "en" ? "Book a procedure" : "Записатись на процедуру"}
-                  </p>
-                  <div className="flex flex-col gap-3">
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {relatedServices.map(svc => (
-                      <Link key={svc._id} href={`/services/${svc.categorySlug}/${svc.slug}`} className="flex items-center gap-4 p-4 rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-colors group">
+                      <Link
+                        key={svc._id}
+                        href={`/services/${svc.categorySlug}/${svc.slug}`}
+                        className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-shadow"
+                      >
                         {svc.heroImage && (
-                          <div className="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-champagne-darker">
-                            <Image src={svc.heroImage} alt={svc.title} title={svc.title} fill className="object-cover" sizes="64px" />
+                          <div className="relative aspect-[16/10] bg-champagne-darker">
+                            <Image src={svc.heroImage} alt={svc.title} title={svc.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, 50vw" />
                           </div>
                         )}
-                        <div className="flex-1 min-w-0">
-                          <p className="body-strong text-black group-hover:text-main transition-colors truncate">{svc.title}</p>
-                          {svc.priceFrom && <p className="body-s text-black-40 mt-0.5">{locale === "ru" ? "от" : locale === "en" ? "from" : "від"} {svc.priceFrom}</p>}
+                        <div className="flex flex-col gap-2 p-5">
+                          <h3 className="body-strong text-black group-hover:text-main transition-colors">{svc.title}</h3>
+                          {svc.summary && <p className="body-m text-muted line-clamp-2">{svc.summary}</p>}
+                          {svc.priceFrom && <p className="body-m text-main mt-1">{svc.priceFrom}</p>}
                         </div>
-                        <ChevronRight className="w-4 h-4 text-black-30 group-hover:text-main transition-colors shrink-0" />
                       </Link>
                     ))}
                   </div>
