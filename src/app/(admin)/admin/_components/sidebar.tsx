@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
   { href: "/admin/services", label: "Services", icon: FileText, countKey: "services", minRole: "marketing" },
   { href: "/admin/doctors", label: "Doctors", icon: Stethoscope, countKey: "doctors", minRole: "marketing" },
   { href: "/admin/equipment", label: "Equipment", icon: Cpu, countKey: "equipment", minRole: "marketing" },
+  { href: "/admin/blog", label: "Blog", icon: BookOpen, minRole: "marketing" },
   { href: "/admin/pricing", label: "Pricing", icon: DollarSign, minRole: "marketing" },
   { divider: true, label: "WEBSITE", minRole: "marketing" },
   { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "marketing" },
