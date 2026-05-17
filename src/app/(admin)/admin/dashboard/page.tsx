@@ -14,7 +14,7 @@ async function getStats() {
       (SELECT count(*) FROM doctors WHERE is_published = true) AS doctors,
       (SELECT count(*) FROM equipment) AS equipment,
       (SELECT count(*) FROM form_submissions WHERE status = 'new') AS new_forms,
-      (SELECT count(*) FROM reviews WHERE is_published = false) AS pending_reviews
+      (SELECT count(*) FROM doctor_reviews WHERE is_published = false) AS pending_reviews
   `;
   return rows[0];
 }
