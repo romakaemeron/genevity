@@ -81,8 +81,8 @@ const R = {
   intimateAcupulse: "/services/intimate-rejuvenation/acupulse-co2-intimate",
 
   laser: "/services/laser-hair-removal",
-  laserMen: "/services/laser-hair-removal/men",
-  laserWomen: "/services/laser-hair-removal/women",
+  laserMen: "/services/laser-hair-removal/laser-men",
+  laserWomen: "/services/laser-hair-removal/laser-women",
 
   longevity: "/services/longevity",
   longevityCheckup: "/services/longevity/check-up-40",
