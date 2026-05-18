@@ -1,4 +1,4 @@
-import { redirect, notFound } from "next/navigation";
+import { permanentRedirect, notFound } from "next/navigation";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
 import { getServicesBySlugs } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
@@ -52,7 +52,7 @@ const L = {
 };
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
-  if (IS_PRODUCTION) redirect("/");
+  if (IS_PRODUCTION) permanentRedirect("/");
 
   const { locale, slug } = await params;
   const post = await getBlogPostBySlug(locale, slug);
