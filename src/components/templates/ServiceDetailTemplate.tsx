@@ -99,7 +99,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
       {/* Hero — no animation, content visible immediately for LCP */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-4">
-        <Breadcrumbs items={breadcrumbs} locale={locale} />
+        <Breadcrumbs items={breadcrumbs} locale={locale} noSchema />
         <div className="mt-8 mb-6">
           <h1 className="heading-1 text-black"><H text={data.h1 || data.title} /></h1>
           {data.summary && <p className="body-l text-muted mt-8 max-w-3xl">{data.summary}</p>}

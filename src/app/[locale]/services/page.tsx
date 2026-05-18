@@ -50,6 +50,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
               { label: t("services"), href: "/services" },
             ]}
             locale={locale as Locale}
+            noSchema
           />
         </div>
 

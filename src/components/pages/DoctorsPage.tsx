@@ -59,6 +59,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
               { label: doctorsUi.title, href: "/doctors" },
             ]}
             locale={locale}
+            noSchema
           />
           <h1 className="heading-1 text-black mt-6">{doctorsUi.title}</h1>
           <p className="body-l text-muted mt-4 max-w-2xl">{doctorsUi.subtitle}</p>
