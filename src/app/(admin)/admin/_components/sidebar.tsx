@@ -33,18 +33,19 @@ function canSee(item: { minRole?: Role }, role: Role): boolean {
 
 const navItems: NavItem[] = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard, minRole: "support" },
+  { divider: true, label: "OPERATIONS", minRole: "support" },
+  { href: "/admin/forms", label: "Appointment Requests", icon: MessageSquare, countKey: "forms", minRole: "support" },
+  { href: "/admin/reviews", label: "Reviews", icon: Star, countKey: "reviews", minRole: "support" },
   { divider: true, label: "CONTENT", minRole: "marketing" },
-  { href: "/admin/pages", label: "Pages", icon: StickyNote, minRole: "marketing" },
   { href: "/admin/services", label: "Services", icon: FileText, countKey: "services", minRole: "marketing" },
   { href: "/admin/doctors", label: "Doctors", icon: Stethoscope, countKey: "doctors", minRole: "marketing" },
   { href: "/admin/equipment", label: "Equipment", icon: Cpu, countKey: "equipment", minRole: "marketing" },
-  { href: "/admin/pricing", label: "Pricing", icon: DollarSign, minRole: "marketing" },
   { href: "/admin/blog", label: "Blog", icon: BookOpen, minRole: "marketing" },
-  { href: "/admin/settings", label: "General Content", icon: Settings, minRole: "marketing" },
-  { divider: true, label: "OPERATIONS", minRole: "support" },
-  { href: "/admin/forms", label: "Forms", icon: MessageSquare, countKey: "forms", minRole: "support" },
-  { href: "/admin/reviews", label: "Reviews", icon: Star, countKey: "reviews", minRole: "support" },
-  { href: "/admin/media", label: "Media", icon: ImageIcon, minRole: "marketing" },
+  { href: "/admin/pricing", label: "Pricing", icon: DollarSign, minRole: "marketing" },
+  { divider: true, label: "WEBSITE", minRole: "marketing" },
+  { href: "/admin/settings", label: "Settings", icon: Settings, minRole: "marketing" },
+  { href: "/admin/pages", label: "Pages & SEO", icon: StickyNote, minRole: "marketing" },
+  { href: "/admin/media", label: "Media Library", icon: ImageIcon, minRole: "marketing" },
 ];
 
 const superItems: NavItem[] = [

@@ -55,7 +55,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
       {/* Hero — no animation for LCP */}
       <section className="bg-champagne pt-28 pb-12 lg:pt-32 lg:pb-16">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-          <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: tLabels("doctors"), href: "/doctors" }, { label: doctor.name, href: `/doctors/${doctor.slug}` }]} locale={locale} />
+          <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: tLabels("doctors"), href: "/doctors" }, { label: doctor.name, href: `/doctors/${doctor.slug}` }]} locale={locale} noSchema />
           {/* Mobile: name→photo→bio. Desktop: [name | photo] + [bio | photo continued] */}
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-y-8 lg:gap-y-10 gap-x-16 items-start">
 

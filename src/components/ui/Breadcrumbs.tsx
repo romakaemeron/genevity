@@ -12,9 +12,11 @@ interface Props {
   items: BreadcrumbItem[];
   locale: Locale;
   variant?: "light" | "dark";
+  /** Pass true when the parent page already renders its own JsonLdBreadcrumbList */
+  noSchema?: boolean;
 }
 
-export default function Breadcrumbs({ items, locale, variant = "dark" }: Props) {
+export default function Breadcrumbs({ items, locale, variant = "dark", noSchema = false }: Props) {
   const jsonLdItems = items.map((item) => ({
     name: item.label,
     url: absoluteUrl(item.href, locale),
@@ -27,7 +29,7 @@ export default function Breadcrumbs({ items, locale, variant = "dark" }: Props) 
 
   return (
     <>
-      <JsonLdBreadcrumbList items={jsonLdItems} />
+      {!noSchema && <JsonLdBreadcrumbList items={jsonLdItems} />}
       <nav aria-label="Breadcrumb" className={`body-s ${textClass}`}>
         <ol className="flex items-center gap-1.5 flex-wrap">
           {items.map((item, i) => {

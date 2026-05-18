@@ -42,6 +42,8 @@ type SortKey = "status" | "name" | "phone" | "date";
 
 interface Props {
   submissions: SubmissionRow[];
+  /** Compact mode: hides search bar and disables live polling (used on dashboard) */
+  compact?: boolean;
 }
 
 function formatDate(raw: string | Date): string {
@@ -64,17 +66,14 @@ function hostOf(url: string | null): string {
   }
 }
 
-export default function SubmissionsTable({ submissions }: Props) {
+export default function SubmissionsTable({ submissions, compact }: Props) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("date");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
-  // Live poll state: local copy of the rows (so the table can update
-  // without re-rendering the server page), plus a set of IDs that are
-  // brand new relative to the last poll — used to flash-highlight them.
   const [rows, setRows] = useState<SubmissionRow[]>(submissions);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(!!compact);
   const [lastPoll, setLastPoll] = useState<number>(Date.now());
   const [freshIds, setFreshIds] = useState<Set<string>>(new Set());
   const knownIds = useRef<Set<string>>(new Set(submissions.map((s) => s.id)));
@@ -179,8 +178,8 @@ export default function SubmissionsTable({ submissions }: Props) {
 
   return (
     <div className="rounded-[var(--radius-card)] border border-line bg-white overflow-hidden">
-      {/* Search bar */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-line bg-champagne-dark/40">
+      {/* Search bar — hidden in compact (dashboard) mode */}
+      {!compact && <div className="flex items-center gap-3 px-4 py-3 border-b border-line bg-champagne-dark/40">
         <Search size={14} className="text-stone shrink-0" />
         <input
           type="search"
@@ -225,7 +224,7 @@ export default function SubmissionsTable({ submissions }: Props) {
             </span>
           )}
         </button>
-      </div>
+      </div>}
 
       {displayed.length === 0 ? (
         <div className="p-12 text-center text-sm text-muted">

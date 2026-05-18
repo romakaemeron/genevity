@@ -1,28 +1,34 @@
 import { sql } from "@/lib/db/client";
 import { requireSession } from "../_actions/auth";
-import { getUiStringsNamespace, getUiStringsTree } from "@/lib/db/queries";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, ArrowUpRight } from "lucide-react";
-import NamespaceTextsEditor from "../_components/namespace-texts-editor";
-import { AdminPageHeader, AdminPrimaryButton, AdminSectionHeading } from "../_components/admin-list";
+import { Plus, ArrowUpRight, Settings } from "lucide-react";
+import { AdminPageHeader, AdminPrimaryButton } from "../_components/admin-list";
 
 export default async function DoctorsListPage() {
   await requireSession();
-  const [doctors, doctorsSectionTexts, doctorsPageTexts, fullTree] = await Promise.all([
-    sql`SELECT * FROM doctors ORDER BY sort_order`,
-    getUiStringsNamespace("doctors"),
-    getUiStringsNamespace("doctorsPage"),
-    getUiStringsTree(),
-  ]);
-  const doctorsMetaTexts = ((fullTree.pageMeta as Record<string, unknown>)?.doctors || {}) as Record<string, unknown>;
+  const doctors = await sql`SELECT * FROM doctors ORDER BY sort_order`;
 
   return (
-    <div className="p-8 flex flex-col gap-10">
+    <div className="p-8 flex flex-col gap-8">
       <AdminPageHeader
         title="Doctors"
         subtitle={`${doctors.length} physicians`}
-        actions={<AdminPrimaryButton href="/admin/doctors/new"><Plus size={16} /> Add Doctor</AdminPrimaryButton>}
+        actions={
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin/settings/ui-strings"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-champagne-darker transition-colors"
+              title="Edit section texts and labels"
+            >
+              <Settings size={14} />
+              Section texts
+            </Link>
+            <AdminPrimaryButton href="/admin/doctors/new">
+              <Plus size={16} /> Add Doctor
+            </AdminPrimaryButton>
+          </div>
+        }
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -44,7 +50,7 @@ export default async function DoctorsListPage() {
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-black-20 body-s">
-                  Photo
+                  No photo
                 </div>
               )}
               <span className={`absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${doc.is_published ? "bg-success-light text-success" : "bg-amber-50 text-amber-600"}`}>
@@ -64,18 +70,6 @@ export default async function DoctorsListPage() {
           </Link>
         ))}
       </div>
-
-      <AdminSectionHeading>Doctors section texts (homepage + /doctors)</AdminSectionHeading>
-      <p className="body-m text-muted -mt-6">Section title, subtitle, CTA, and experience label.</p>
-      <NamespaceTextsEditor namespace="doctors" initial={doctorsSectionTexts} />
-
-      <AdminSectionHeading>Doctors page — filter labels</AdminSectionHeading>
-      <p className="body-m text-muted -mt-6">Category filter pills on /doctors.</p>
-      <NamespaceTextsEditor namespace="doctorsPage" initial={doctorsPageTexts} />
-
-      <AdminSectionHeading>SEO meta</AdminSectionHeading>
-      <p className="body-m text-muted -mt-6">Browser title + description for /doctors.</p>
-      <NamespaceTextsEditor namespace="pageMeta.doctors" initial={doctorsMetaTexts} />
     </div>
   );
 }

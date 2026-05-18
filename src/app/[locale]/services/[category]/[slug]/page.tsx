@@ -40,10 +40,11 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
 
   if (!data) notFound();
 
-  // §1.16.5 ImageObject schema for service hero image
+  // §1.16.5 ImageObject schema — use hero image or fall back to clinic photo
+  const FALLBACK_IMG = "https://genevity.com.ua/clinic/semi1737-hdr.webp";
   const heroUrl = data.heroImage
     ? data.heroImage.startsWith("http") ? data.heroImage : `https://genevity.com.ua${data.heroImage}`
-    : null;
+    : FALLBACK_IMG;
 
   const localePrefix = locale === "ua" ? "" : `/${locale}`;
   const servicesLabel = locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Послуги";
@@ -57,16 +58,14 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
         { name: data.category.title, url: `https://genevity.com.ua${localePrefix}/services/${category}` },
         { name: data.title, url: serviceUrl },
       ]} />
-      {heroUrl && (
-        <JsonLd data={{
-          "@context": "https://schema.org/",
-          "@type": "ImageObject",
-          contentUrl: heroUrl,
-          creditText: "GENEVITY",
-          caption: data.title,
-          creator: { "@type": "Organization", name: "GENEVITY" },
-        }} />
-      )}
+      <JsonLd data={{
+        "@context": "https://schema.org/",
+        "@type": "ImageObject",
+        contentUrl: heroUrl,
+        creditText: "GENEVITY",
+        caption: data.title,
+        creator: { "@type": "Organization", name: "GENEVITY" },
+      }} />
       <MegaMenuHeader variant="solid" position="fixed" />
       <ServiceDetailTemplate
         data={data}

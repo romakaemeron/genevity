@@ -1,20 +1,34 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import Image from "next/image";
 import { savePost, deletePost } from "../_actions";
 import MediaPicker from "../../_components/media-picker";
 import RichTextEditor from "../../_components/rich-text-editor";
 import { processBody } from "@/components/blog/ArticleBody";
 import type { Editor } from "@tiptap/react";
-import { Search, AlertTriangle, ImageIcon, Upload, X } from "lucide-react";
+import { Search, AlertTriangle, ImageIcon, Upload, X, Check } from "lucide-react";
 import faviconSrc from "@/app/android-chrome-192x192.png";
+import RelatedServicesPicker from "../_components/related-services-picker";
+import Button from "@/components/ui/Button";
 
 interface Props {
   post: any | null;
   categories: { id: string; title_uk: string }[];
   doctors: { id: string; name_uk: string }[];
+  services: { slug: string; title_uk: string; cat_title: string }[];
   isNew: boolean;
+  justSaved?: boolean;
+}
+
+function SubmitBtn({ isNew }: { isNew: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" variant="primary" disabled={pending}>
+      {pending ? "Saving…" : isNew ? "Create Post" : "Save Changes"}
+    </Button>
+  );
 }
 
 const WORDS_PER_MIN = 200;
@@ -67,7 +81,7 @@ function SeoPreview({ title, desc, slug }: { title: string; desc: string; slug: 
   );
 }
 
-export default function BlogPostForm({ post, categories, doctors, isNew }: Props) {
+export default function BlogPostForm({ post, categories, doctors, services, isNew, justSaved }: Props) {
   const p = post || {};
   const readTimeRef = useRef<HTMLInputElement>(null);
   const coverFileRef = useRef<HTMLInputElement>(null);
@@ -291,11 +305,11 @@ export default function BlogPostForm({ post, categories, doctors, isNew }: Props
         </div>
 
         {/* Related services */}
-        <div>
-          <label className={labelCls}>Related services <span className="font-normal normal-case text-black-40">service slugs, comma-separated — shown as a block at the bottom of the article</span></label>
-          <input name="relatedServiceSlugs" defaultValue={(p.related_service_slugs || []).join(", ")} placeholder="botox, lip-augmentation, emface" className={inputCls} />
-          <p className="text-[11px] text-black-40 mt-1">Example: <code className="font-mono">botox, emface, ultraformer-mpt</code> — use the service slug from the URL.</p>
-        </div>
+        <RelatedServicesPicker
+          options={services.map(s => ({ id: s.slug, label: s.title_uk, sub: s.cat_title }))}
+          initial={p.related_service_slugs || []}
+          inputName="relatedServiceSlugs"
+        />
 
         {/* SEO */}
         <details className="bg-champagne-dark rounded-xl p-5">
@@ -319,9 +333,14 @@ export default function BlogPostForm({ post, categories, doctors, isNew }: Props
           </div>
         </details>
 
-        <button type="submit" className="self-start bg-main text-champagne px-8 py-3 rounded-[var(--radius-button)] text-sm font-medium hover:bg-main/90 transition-colors">
-          {isNew ? "Create Post" : "Save Changes"}
-        </button>
+        <div className="flex items-center gap-4">
+          <SubmitBtn isNew={isNew} />
+          {justSaved && (
+            <span className="inline-flex items-center gap-1.5 text-sm text-success font-medium animate-in fade-in slide-in-from-left-2 duration-300">
+              <Check size={15} /> Saved
+            </span>
+          )}
+        </div>
       </form>
     </div>
   );

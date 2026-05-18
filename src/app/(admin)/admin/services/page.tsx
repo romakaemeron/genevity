@@ -32,7 +32,7 @@ export default async function ServicesListPage() {
         {services.map((svc: any) => (
           <AdminListItem
             key={svc.id}
-            href={`/admin/pages/services/${svc.id}`}
+            href={`/admin/services/${svc.id}`}
             title={svc.title_uk}
             subtitle={`/services/${svc.cat_slug}/${svc.slug}`}
             badge={

@@ -593,9 +593,86 @@ input[type="search"] {
 }
 .tiptap-admin .tiptap hr {
   border: none;
-  border-top: 1px solid rgb(var(--color-black-rgb) / 0.12);
+  border-top: 2px solid rgb(var(--color-black-rgb) / 0.1);
+  margin: 2rem 0;
+  border-radius: 99px;
+}
+
+/* Code — inline */
+.tiptap-admin .tiptap code {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 0.82em;
+  background: rgb(var(--color-black-rgb) / 0.06);
+  color: #c7254e;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* Code — block */
+.tiptap-admin .tiptap pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+.tiptap-admin .tiptap pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+/* Task list / checkboxes */
+.tiptap-admin .tiptap ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0.25rem;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li > label {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li > label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-main);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li[data-checked="true"] > div {
+  color: rgb(var(--color-black-rgb) / 0.4);
+  text-decoration: line-through;
+}
+
+/* Images — left-aligned */
+.tiptap-admin .tiptap img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
   margin: 1.5rem 0;
 }
+
+/* Selected node */
+.tiptap-admin .tiptap .ProseMirror-selectednode {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Tippy slash menu — no arrow, no theme */
+.tippy-box[data-theme~="none"] { background: none; box-shadow: none; }
+.tippy-box[data-theme~="none"] .tippy-content { padding: 0; }
 
 /* SEO audit §1.8.2: content-visibility for sections below the fold
    Tells the browser to skip rendering off-screen sections until needed,

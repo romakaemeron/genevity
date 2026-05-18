@@ -52,7 +52,7 @@ export async function savePost(formData: FormData) {
   revalidatePath('/en/blog');
   revalidatePath(`/en/blog/${data.slug}`);
   revalidatePath('/admin/blog');
-  if (result.ok) redirect(`/admin/blog/${result.id}`);
+  if (result.ok) redirect(`/admin/blog/${result.id}?saved=1`);
 }
 
 export async function deletePost(id: string) {

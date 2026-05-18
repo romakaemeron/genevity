@@ -14,8 +14,29 @@ export default async function SettingsPage() {
     <div className="p-8">
       <AdminPageHeader
         title="Settings"
-        subtitle="Global site configuration — contact info, booking texts, navigation, and footer."
+        subtitle="Site configuration — contact info, homepage content, galleries, and texts."
       />
+
+      <AdminSectionHeading>Homepage Content</AdminSectionHeading>
+      <div className="mb-10">
+        <AdminList>
+          <AdminListItem
+            href="/admin/settings/hero-slides"
+            title="Hero Slides"
+            subtitle="Main banner slides on the homepage — images, titles, buttons"
+          />
+          <AdminListItem
+            href="/admin/settings/homepage"
+            title="Homepage Sections"
+            subtitle="Hero background, About section texts and image"
+          />
+          <AdminListItem
+            href="/admin/settings/galleries"
+            title="Galleries"
+            subtitle="Photo galleries shown across different pages (clinic, about, stationary)"
+          />
+        </AdminList>
+      </div>
 
       <AdminSectionHeading>General</AdminSectionHeading>
       <div className="mb-10">
@@ -26,6 +47,11 @@ export default async function SettingsPage() {
       <div className="mb-10">
         <AdminList>
           <AdminListItem
+            href="/admin/settings/navigation"
+            title="Navigation"
+            subtitle="Menu items and navigation CTA button"
+          />
+          <AdminListItem
             href="/admin/settings/ui-strings"
             title="Footer & Labels"
             subtitle="Footer links and booking form default labels"
@@ -34,11 +60,6 @@ export default async function SettingsPage() {
             href="/admin/settings/cta"
             title="Booking CTAs"
             subtitle="Per-location button text, modal title, and submit label overrides"
-          />
-          <AdminListItem
-            href="/admin/settings/navigation"
-            title="Navigation"
-            subtitle="Menu items and navigation CTA"
           />
         </AdminList>
       </div>

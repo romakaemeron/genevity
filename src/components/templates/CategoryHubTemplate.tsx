@@ -88,7 +88,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
           <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
             <div className={`flex flex-col ${heroVariant === "light" ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
               <div className={heroVariant === "light" ? "flex-1 max-w-lg lg:py-8" : "max-w-lg"}>
-                <Breadcrumbs items={breadcrumbs} locale={locale} variant={heroVariant === "light" ? "dark" : "light"} />
+                <Breadcrumbs items={breadcrumbs} locale={locale} variant={heroVariant === "light" ? "dark" : "light"} noSchema />
                 <h1 className={`heading-1 mt-6 ${heroVariant === "light" ? "text-black" : "text-champagne"}`}>{category.title}</h1>
                 {category.summary && <p className={`body-l mt-5 ${heroVariant === "light" ? "text-muted" : "text-white-60"}`}>{category.summary}</p>}
                 <div className="mt-8 flex flex-col gap-3 w-fit">
