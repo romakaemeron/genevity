@@ -67,9 +67,18 @@ const nextConfig = {
   // Cache-Control for static assets (clinic/, images/, brand/, etc.) is set in vercel.json
   // because next.config headers() are overridden by Vercel ISR for HTML pages and by
   // Vercel's edge CDN for public-folder static files.
-  headers: () => [
-    { source: "/(.*)", headers: [{ key: "Vary", value: "Accept-Encoding, User-Agent" }] },
-  ],
+  headers: async () => {
+    const lastModified = new Date().toUTCString();
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "Vary", value: "Accept-Encoding, User-Agent" },
+          { key: "Last-Modified", value: lastModified },
+        ],
+      },
+    ];
+  },
 } satisfies NextConfig & { middlewareClientMaxBodySize?: string };
 
 export default withNextIntl(nextConfig);
