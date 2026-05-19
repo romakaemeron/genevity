@@ -1,6 +1,9 @@
 import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import localFont from "next/font/local";
 import "./globals.css";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 
 const tenorSans = localFont({
   src: "../../public/fonts/TenorSans-Regular.ttf",
@@ -41,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {`if(!window.location.pathname.startsWith('/admin')){var _bLoaded=false;function _bLoad(){if(_bLoaded)return;_bLoaded=true;(function(d,w,s){var widgetHash='Af6We2GQH21N1uJMFTL1',bch=d.createElement(s);bch.type='text/javascript';bch.async=true;bch.src='//widgets.binotel.com/chat/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(bch,sn);})(document,window,'script');}['mousemove','touchstart','keydown','click'].forEach(function(e){window.addEventListener(e,_bLoad,{once:true,passive:true});});}`}
         </Script>
       </body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
