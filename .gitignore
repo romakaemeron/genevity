@@ -75,3 +75,9 @@ Genevity_Price*
 semantics/
 technical_task/
 metatags/
+genevity-analytics-d287e299af9d.json
+
+# Service account credentials — never commit
+*-service-account*.json
+*-credentials*.json
+client_secret_*.json
