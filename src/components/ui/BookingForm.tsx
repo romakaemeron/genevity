@@ -162,6 +162,12 @@ export default function BookingForm({
       }
       setSuccess(true);
       onSubmitted?.();
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "booking_submitted", {
+          cta_location: ctaKey ?? "unknown",
+          interest: interests.join(", "),
+        });
+      }
     });
   };
 
