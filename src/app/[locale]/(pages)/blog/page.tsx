@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { redirect, permanentRedirect } from "next/navigation";
 import { getBlogCategories, getBlogPosts } from "@/lib/db/queries/blog";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
@@ -39,7 +39,7 @@ export default async function BlogIndexPage({ params, searchParams }: {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ category?: string }>;
 }) {
-  if (IS_PRODUCTION) redirect("/");
+  if (IS_PRODUCTION) permanentRedirect("/");
 
   const { locale } = await params;
   const { category } = await searchParams;
