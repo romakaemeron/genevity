@@ -1,20 +1,9 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { sql } from "@/lib/db/client";
 
-/**
- * Sanity webhook handler for on-demand ISR revalidation.
- *
- * Uses path-based revalidation for now (compatible with ISR via `revalidate = 60`).
- * Will upgrade to tag-based revalidation when migrating to Cache Components (`use cache`).
- *
- * Setup in Sanity:
- * 1. Go to sanity.io/manage → your project → API → Webhooks
- * 2. Create webhook:
- *    - URL: https://genevity.com.ua/api/revalidate
- *    - Trigger: Create, Update, Delete
- *    - Projection: { _type, "slug": slug.current, _id }
- *    - Secret: (set SANITY_REVALIDATE_SECRET in Vercel env vars)
- */
+const LOCALES = ["", "/ru", "/en"] as const;
+
 export async function POST(request: NextRequest) {
   const secret = request.headers.get("x-sanity-secret");
 
@@ -33,27 +22,53 @@ export async function POST(request: NextRequest) {
     const slug = body.slug;
     const paths: string[] = [];
 
-    // Always revalidate homepage (most content changes affect it)
-    paths.push("/[locale]");
+    paths.push("/");
+    for (const locale of LOCALES) {
+      paths.push(`${locale}/`);
+    }
 
     switch (type) {
       case "service":
-        if (slug) paths.push(`/[locale]/services/[category]/${slug}`);
+        if (slug) {
+          // Look up the category slug so we can build exact paths
+          const rows = await sql`
+            SELECT sc.slug AS cat
+            FROM services s
+            JOIN service_categories sc ON sc.id = s.category_id
+            WHERE s.slug = ${slug}
+            LIMIT 1
+          `;
+          const cat = rows[0]?.cat ?? "[category]";
+          for (const locale of LOCALES) {
+            paths.push(`${locale}/services/${cat}/${slug}`);
+          }
+        }
         break;
       case "serviceCategory":
-        if (slug) paths.push(`/[locale]/services/${slug}`);
-        paths.push("/[locale]/services");
+        if (slug) {
+          for (const locale of LOCALES) {
+            paths.push(`${locale}/services/${slug}`);
+            paths.push(`${locale}/services`);
+          }
+        }
         break;
       case "staticPage":
-        if (slug && slug !== "home") paths.push(`/[locale]/${slug}`);
+        if (slug && slug !== "home") {
+          for (const locale of LOCALES) {
+            paths.push(`${locale}/${slug}`);
+          }
+        }
         break;
       case "doctor":
-        paths.push("/[locale]/doctors");
+        for (const locale of LOCALES) {
+          paths.push(`${locale}/doctors`);
+        }
         break;
       case "navigation":
       case "siteSettings":
-        // Global — revalidate layout-level data
-        paths.push("/[locale]");
+        for (const locale of LOCALES) {
+          paths.push(`${locale}/`);
+        }
         break;
     }
 
@@ -61,11 +76,7 @@ export async function POST(request: NextRequest) {
       revalidatePath(path, "page");
     }
 
-    return NextResponse.json({
-      revalidated: true,
-      paths,
-      now: Date.now(),
-    });
+    return NextResponse.json({ revalidated: true, paths, now: Date.now() });
   } catch (err) {
     return NextResponse.json(
       { message: "Error revalidating", error: String(err) },
