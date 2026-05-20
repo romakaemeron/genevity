@@ -68,3 +68,10 @@ export async function deleteSubmission(id: string) {
   revalidatePath("/admin/forms");
   revalidatePath("/admin/dashboard");
 }
+
+export async function deleteSubmissions(ids: string[]) {
+  if (!ids.length) return;
+  await Promise.all(ids.map((id) => sql`DELETE FROM form_submissions WHERE id = ${id}`));
+  revalidatePath("/admin/forms");
+  revalidatePath("/admin/dashboard");
+}

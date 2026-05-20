@@ -24,7 +24,7 @@ export default async function HeroSlidesPage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="heading-2 text-ink">Hero Slides</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">Hero Slides</h1>
         <p className="body-m text-muted mt-1">Images that appear in the rotating homepage hero slideshow.</p>
       </div>
       <HeroSlidesEditor

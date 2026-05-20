@@ -1,9 +1,13 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { FormItem, FormLabel, FormDescription } from "@/components/ui/form";
+
 interface Props {
   label: string;
   name: string;
-  type?: "text" | "textarea" | "number";
+  type?: "text" | "textarea" | "number" | "email" | "url" | "tel";
   defaultValue?: string | number;
   placeholder?: string;
   required?: boolean;
@@ -14,42 +18,31 @@ interface Props {
 export default function FormField({
   label, name, type = "text", defaultValue = "", placeholder, required, rows = 4, hint,
 }: Props) {
-  const baseClass = "w-full px-4 py-2.5 rounded-xl bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main focus:ring-1 focus:ring-main/20 transition-all placeholder:text-stone-light";
-
   return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={name} className="text-xs font-medium text-muted uppercase tracking-wider inline-flex items-center gap-1.5">
-        <span>{label}</span>
-        {required && (
-          <span
-            className="text-error text-[14px] font-bold"
-          >
-            *
-          </span>
-        )}
-      </label>
+    <FormItem>
+      <FormLabel htmlFor={name} required={required}>{label}</FormLabel>
       {type === "textarea" ? (
-        <textarea
+        <Textarea
           id={name}
           name={name}
           defaultValue={defaultValue}
           placeholder={placeholder}
           required={required}
           rows={rows}
-          className={`${baseClass} resize-y`}
+          className="resize-y bg-background"
         />
       ) : (
-        <input
+        <Input
           id={name}
           name={name}
           type={type}
           defaultValue={defaultValue}
           placeholder={placeholder}
           required={required}
-          className={baseClass}
+          className="bg-background"
         />
       )}
-      {hint && <p className="text-xs text-muted">{hint}</p>}
-    </div>
+      {hint && <FormDescription>{hint}</FormDescription>}
+    </FormItem>
   );
 }

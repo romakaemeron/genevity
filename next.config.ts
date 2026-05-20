@@ -17,7 +17,7 @@ const nextConfig = {
   // Lift it to 20MB so large source photos (12MP+ phone shots) can reach the server.
   middlewareClientMaxBodySize: "20mb",
   experimental: {
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: ["lucide-react", "framer-motion"],
     serverActions: {
       bodySizeLimit: "20mb",
     },
@@ -63,22 +63,16 @@ const nextConfig = {
       },
     ];
   },
-  // SEO audit §1.15: Vary header for all responses.
-  // Cache-Control for static assets (clinic/, images/, brand/, etc.) is set in vercel.json
-  // because next.config headers() are overridden by Vercel ISR for HTML pages and by
-  // Vercel's edge CDN for public-folder static files.
-  headers: async () => {
-    const lastModified = new Date().toUTCString();
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          { key: "Vary", value: "Accept-Encoding, User-Agent" },
-          { key: "Last-Modified", value: lastModified },
-        ],
-      },
-    ];
-  },
+  // Vary: Accept-Encoding only — User-Agent fragments the CDN cache
+  // (each browser variant gets its own entry → near-zero cache hit rate).
+  // Last-Modified is omitted: static assets are immutable-cached, ISR pages
+  // use ETag/s-maxage instead.
+  headers: async () => [
+    {
+      source: "/(.*)",
+      headers: [{ key: "Vary", value: "Accept-Encoding" }],
+    },
+  ],
 } satisfies NextConfig & { middlewareClientMaxBodySize?: string };
 
 export default withNextIntl(nextConfig);

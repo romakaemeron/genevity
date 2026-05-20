@@ -88,7 +88,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
           До всіх заявок
         </Link>
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="heading-2 text-ink">{r.name || "Без імені"}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">{r.name || "Без імені"}</h1>
           <FormStatusDropdown id={r.id as string} current={status} />
         </div>
         <p className="body-s text-muted mt-1">

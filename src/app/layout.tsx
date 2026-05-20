@@ -1,42 +1,41 @@
 import Script from "next/script";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import localFont from "next/font/local";
+import { Mulish, Tenor_Sans } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
-
-const tenorSans = localFont({
-  src: "../../public/fonts/TenorSans-Regular.ttf",
+// Downloaded at build time, self-hosted on Vercel CDN as WOFF2 with subsetting.
+// No runtime Google Fonts connection.
+const tenorSans = Tenor_Sans({
+  subsets: ["latin", "cyrillic"],
+  weight: "400",
   variable: "--font-heading",
   display: "swap",
+  preload: true,
 });
 
-const mulish = localFont({
-  src: [
-    { path: "../../public/fonts/Mulish-Regular.ttf", weight: "400" },
-    { path: "../../public/fonts/Mulish-Medium.ttf", weight: "500" },
-    { path: "../../public/fonts/Mulish-SemiBold.ttf", weight: "600" },
-    { path: "../../public/fonts/Mulish-Bold.ttf", weight: "700" },
-  ],
+const mulish = Mulish({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
+  preload: true,
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="uk" className={`${tenorSans.variable} ${mulish.variable}`}>
+    <html lang="uk" className={cn(tenorSans.variable, mulish.variable)}>
       <head>
-        {/* Preconnect for third-party origins used after load */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://widgets.binotel.com" />
+        {/* GTM handles GA4 — dataLayer init must run before gtm.js */}
+        <Script id="gtm-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}
+        </Script>
         <Script
           id="gtm-head"
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtm.js?id=GTM-PGGK275D"
         />
-        <Script id="gtm-init" strategy="afterInteractive">
-          {`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}
-        </Script>
       </head>
       <body className="antialiased">
         {children}
@@ -44,7 +43,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {`if(!window.location.pathname.startsWith('/admin')){var _bLoaded=false;function _bLoad(){if(_bLoaded)return;_bLoaded=true;(function(d,w,s){var widgetHash='Af6We2GQH21N1uJMFTL1',bch=d.createElement(s);bch.type='text/javascript';bch.async=true;bch.src='//widgets.binotel.com/chat/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(bch,sn);})(document,window,'script');}['mousemove','touchstart','keydown','click'].forEach(function(e){window.addEventListener(e,_bLoad,{once:true,passive:true});});}`}
         </Script>
       </body>
-      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }

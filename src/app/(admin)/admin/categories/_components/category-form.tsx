@@ -35,7 +35,7 @@ export default function CategoryForm({ category: cat, sections = [], faq = [], d
   return (
     <div>
       <div className="px-8 pt-8">
-        <h1 className="heading-2 text-ink">{cat.title_uk}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">{cat.title_uk}</h1>
         <p className="body-m text-muted mt-1 mb-6">/services/{cat.slug}</p>
 
         <div className="flex gap-1 border-b border-line -mx-8 px-8">

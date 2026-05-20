@@ -42,7 +42,7 @@ export default async function GalleriesPage({ searchParams }: { searchParams: Pr
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="heading-2 text-ink">Galleries</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">Galleries</h1>
         <p className="body-m text-muted mt-1">Stripe galleries shown on different pages.</p>
       </div>
 

@@ -73,7 +73,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
               )}
               {doctor.specialties.length > 0 && (
                 <div className="flex flex-wrap gap-2">
-                  {doctor.specialties.map((s, i) => <span key={i} className="px-3 py-1.5 rounded-full bg-black/5 body-s text-black-60">{s}</span>)}
+                  {doctor.specialties.map((s, i) => <span key={i} className="px-3 py-1.5 rounded-full bg-black/5 body-s text-black-60">{s ? s.charAt(0).toUpperCase() + s.slice(1) : s}</span>)}
                 </div>
               )}
             </div>

@@ -16,8 +16,8 @@ export function AdminPageHeader({
   return (
     <div className="flex items-start justify-between mb-8 gap-4 flex-wrap">
       <div>
-        <h1 className="heading-2 text-ink mb-3">{title}</h1>
-        {subtitle && <p className="body-m text-muted">{subtitle}</p>}
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">{title}</h1>
+        {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
       </div>
       {actions && <div className="flex gap-2">{actions}</div>}
     </div>
@@ -43,7 +43,7 @@ export function AdminSecondaryButton({ href, children }: { href: string; childre
 
 /* ── Section heading (above an AdminList) ── */
 export function AdminSectionHeading({ children }: { children: ReactNode }) {
-  return <h2 className="font-heading text-lg text-ink mb-3">{children}</h2>;
+  return <h2 className="text-base font-semibold text-foreground mb-3">{children}</h2>;
 }
 
 /* ── List container ── */

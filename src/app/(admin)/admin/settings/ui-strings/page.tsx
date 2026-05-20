@@ -14,7 +14,7 @@ export default async function GlobalLabelsPage() {
   return (
     <div className="p-8 flex flex-col gap-10">
       <div>
-        <h1 className="heading-2 text-ink">Footer & Labels</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">Footer & Labels</h1>
         <p className="body-m text-muted mt-1">
           Global texts that appear across every page — footer links and booking form labels.
           Page-specific texts live on each page's editor under{" "}

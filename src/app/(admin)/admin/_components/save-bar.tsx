@@ -87,9 +87,9 @@ export default function SaveBar({ label }: { label?: string }) {
   return (
     <div
       ref={anchorRef}
-      className="sticky bottom-0 left-0 right-0 bg-champagne border-t border-line px-8 py-4 flex items-center justify-end gap-3 z-10"
+      className="sticky bottom-0 left-0 right-0 bg-background border-t border-border px-8 py-4 flex items-center justify-end gap-3 z-10"
     >
-      {dirty && <span className="text-xs text-warning">Unsaved changes</span>}
+      {dirty && <span className="text-xs text-[var(--color-warning)] font-medium">Unsaved changes</span>}
       <CancelButton dirty={dirty} />
       <SubmitButton label={label} dirty={dirty} />
     </div>

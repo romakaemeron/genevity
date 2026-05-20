@@ -3,6 +3,7 @@ import { requireSession } from "../_actions/auth";
 import Image from "next/image";
 import { Plus, Cpu } from "lucide-react";
 import { AdminPageHeader, AdminPrimaryButton, AdminList, AdminListItem } from "../_components/admin-list";
+import { getAdminStrings } from "../_i18n/server";
 
 const categoryLabels: Record<string, string> = {
   face: "Face", body: "Body", skin: "Skin", intimate: "Intimate", laser: "Laser",
@@ -10,16 +11,19 @@ const categoryLabels: Record<string, string> = {
 
 export default async function EquipmentListPage() {
   await requireSession();
-  const items = await sql`SELECT * FROM equipment ORDER BY sort_order`;
+  const [items, t] = await Promise.all([
+    sql`SELECT * FROM equipment ORDER BY sort_order`,
+    getAdminStrings(),
+  ]);
 
   return (
     <div className="p-8">
       <AdminPageHeader
-        title="Equipment"
-        subtitle={`${items.length} devices`}
-        actions={<AdminPrimaryButton href="/admin/equipment/new"><Plus size={16} /> Add Equipment</AdminPrimaryButton>}
+        title={t.equipmentPage.title}
+        subtitle={t.equipmentPage.subtitle(items.length)}
+        actions={<AdminPrimaryButton href="/admin/equipment/new"><Plus size={16} /> {t.equipmentPage.addNew}</AdminPrimaryButton>}
       />
-      <AdminList empty="No equipment yet">
+      <AdminList empty={t.equipmentPage.noEquipment}>
         {items.map((item) => (
           <AdminListItem
             key={item.id}

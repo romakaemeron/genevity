@@ -14,7 +14,7 @@
 /coverage
 
 /technical_task
-/docs
+/docs/ignored
 
 # next.js
 /.next/

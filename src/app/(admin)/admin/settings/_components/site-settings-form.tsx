@@ -55,7 +55,7 @@ export default function SiteSettingsForm({ settings }: { settings: any }) {
         {/* ── Default OG image — cascade source for every page ── */}
         <section className="flex flex-col gap-3">
           <div>
-            <h3 className="font-heading text-base text-ink mb-1">Default social share image (Open Graph)</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Default social share image (Open Graph)</h3>
             <p className="body-s text-muted">
               Shown when any page of the site is shared on Facebook, Twitter, LinkedIn, Telegram, etc. —
               unless that page has its own OG image in the SEO tab, which overrides this one.

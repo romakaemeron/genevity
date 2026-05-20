@@ -4,62 +4,66 @@ import SiteSettingsForm from "./_components/site-settings-form";
 import {
   AdminPageHeader, AdminSectionHeading, AdminList, AdminListItem,
 } from "../_components/admin-list";
+import { getAdminStrings } from "../_i18n/server";
 
 export default async function SettingsPage() {
   await requireSession();
-  const rows = await sql`SELECT * FROM site_settings WHERE id = 1`;
+  const [rows, t] = await Promise.all([
+    sql`SELECT * FROM site_settings WHERE id = 1`,
+    getAdminStrings(),
+  ]);
   const settings = rows[0] || {};
 
   return (
     <div className="p-8">
       <AdminPageHeader
-        title="Settings"
-        subtitle="Site configuration — contact info, homepage content, galleries, and texts."
+        title={t.settingsPage.title}
+        subtitle={t.settingsPage.subtitle}
       />
 
-      <AdminSectionHeading>Homepage Content</AdminSectionHeading>
+      <AdminSectionHeading>{t.settingsPage.homepage}</AdminSectionHeading>
       <div className="mb-10">
         <AdminList>
           <AdminListItem
             href="/admin/settings/hero-slides"
-            title="Hero Slides"
-            subtitle="Main banner slides on the homepage — images, titles, buttons"
+            title={t.settingsPage.heroSlides}
+            subtitle={t.settingsPage.heroSlidesDesc}
           />
           <AdminListItem
             href="/admin/settings/homepage"
-            title="Homepage Sections"
-            subtitle="Hero background, About section texts and image"
+            title={t.settingsPage.homepage}
+            subtitle={t.settingsPage.homepageDesc}
           />
           <AdminListItem
             href="/admin/settings/galleries"
-            title="Galleries"
-            subtitle="Photo galleries shown across different pages (clinic, about, stationary)"
+            title={t.settingsPage.galleries}
+            subtitle={t.settingsPage.galleriesDesc}
           />
         </AdminList>
       </div>
 
-      <AdminSectionHeading>General</AdminSectionHeading>
+      <AdminSectionHeading>{t.common.edit}</AdminSectionHeading>
       <div className="mb-10">
         <SiteSettingsForm settings={settings} />
       </div>
 
-      <AdminSectionHeading>Global Texts</AdminSectionHeading>
+      <AdminSectionHeading>{t.settingsPage.uiStrings}</AdminSectionHeading>
       <div className="mb-10">
         <AdminList>
           <AdminListItem
             href="/admin/settings/navigation"
-            title="Navigation"
-            subtitle="Menu items and navigation CTA button"
+            title={t.settingsPage.navigation}
+            subtitle={t.settingsPage.navigationDesc}
           />
           <AdminListItem
             href="/admin/settings/ui-strings"
-            title="Footer & Labels"
-            subtitle="Footer links and booking form default labels"
+            title={t.settingsPage.uiStrings}
+            subtitle={t.settingsPage.uiStringsDesc}
           />
           <AdminListItem
             href="/admin/settings/cta"
-            title="Booking CTAs"
-            subtitle="Per-location button text, modal title, and submit label overrides"
+            title={t.settingsPage.cta}
+            subtitle={t.settingsPage.ctaDesc}
           />
         </AdminList>
       </div>

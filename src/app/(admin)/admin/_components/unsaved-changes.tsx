@@ -19,9 +19,17 @@ import {
   createContext, useCallback, useContext, useEffect, useMemo,
   useRef, useState,
 } from "react";
-import { createPortal } from "react-dom";
-import { AlertTriangle, X } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import Button from "@/components/ui/Button";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface EditorEntry {
   id: string;
@@ -202,53 +210,38 @@ function UnsavedGuard() {
     goToPending();
   };
 
-  if (!pendingHref || typeof document === "undefined") return null;
-
   const dirtyEditors = ctx.snapshot().filter((e) => e.dirty);
 
-  return createPortal(
-    <div
-      className="fixed inset-0 z-[200] bg-black/60 flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="bg-champagne-dark rounded-2xl shadow-2xl max-w-lg w-full p-6 relative">
-        <button
-          type="button"
-          onClick={close}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-champagne-dark text-muted flex items-center justify-center transition-colors cursor-pointer"
-          aria-label="Close"
-        >
-          <X size={16} />
-        </button>
+  return (
+    <AlertDialog open={!!pendingHref} onOpenChange={(open) => { if (!open) close(); }}>
+      <AlertDialogContent size="default" className="max-w-md">
+        <AlertDialogHeader>
+          <AlertDialogMedia className="bg-[var(--color-warning-light)] text-[var(--color-warning)]">
+            <AlertTriangle className="size-5" />
+          </AlertDialogMedia>
+          <AlertDialogTitle>Unsaved changes</AlertDialogTitle>
+          <AlertDialogDescription>
+            You have changes that haven&apos;t been saved yet. What would you like to do?
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
-        <div className="flex items-start gap-3 mb-4">
-          <div className="w-10 h-10 rounded-full bg-warning/10 text-warning flex items-center justify-center shrink-0">
-            <AlertTriangle size={20} />
-          </div>
-          <div>
-            <h2 className="font-heading text-xl text-ink">Unsaved changes</h2>
-            <p className="body-m text-muted mt-1">
-              You have changes that haven&apos;t been saved yet. What would you like to do?
+        {dirtyEditors.length > 0 && (
+          <div className="bg-muted rounded-lg px-4 py-3 max-h-40 overflow-y-auto">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
+              {dirtyEditors.length} unsaved section{dirtyEditors.length === 1 ? "" : "s"}
             </p>
+            <ul className="flex flex-col gap-1">
+              {dirtyEditors.map((e) => (
+                <li key={e.id} className="text-sm text-foreground flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-warning)] shrink-0" />
+                  {e.label}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        )}
 
-        <div className="bg-champagne-dark rounded-xl p-4 mb-5 max-h-48 overflow-y-auto">
-          <p className="text-xs font-medium text-muted uppercase tracking-wider mb-2">
-            {dirtyEditors.length} unsaved section{dirtyEditors.length === 1 ? "" : "s"}
-          </p>
-          <ul className="flex flex-col gap-1">
-            {dirtyEditors.map((e) => (
-              <li key={e.id} className="text-sm text-ink flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-warning" />
-                {e.label}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="flex flex-col gap-2">
+        <AlertDialogFooter className="flex-col gap-2 sm:flex-col">
           <Button variant="primary" size="sm" onClick={saveAllAndLeave} disabled={!!working} className="w-full">
             {working === "save" ? "Saving..." : "Save all and leave"}
           </Button>
@@ -258,10 +251,9 @@ function UnsavedGuard() {
           <Button variant="destructive-outline" size="sm" onClick={discardAndLeave} disabled={!!working} className="w-full">
             Discard changes and leave
           </Button>
-        </div>
-      </div>
-    </div>,
-    document.body,
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 

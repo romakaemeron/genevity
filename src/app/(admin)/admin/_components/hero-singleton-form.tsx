@@ -48,7 +48,7 @@ export default function HeroSingletonForm({ hero, label = "Hero section (homepag
 
   return (
     <div className="bg-champagne-dark rounded-2xl border border-line p-6">
-      <h2 className="font-heading text-lg text-ink mb-1">{label}</h2>
+      <h2 className="text-sm font-semibold text-foreground mb-1">{label}</h2>
       <p className="body-s text-muted mb-4">
         Overlay text shown on top of the hero slideshow on the homepage — the main
         <strong> H1 heading</strong>, subtitle, a short location line, and the CTA button label.

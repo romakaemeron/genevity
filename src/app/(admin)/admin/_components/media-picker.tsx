@@ -110,7 +110,7 @@ export default function MediaPicker({ open, onClose, onPick, onPickMultiple, mul
     <Modal open={open} onClose={onClose} maxWidth="sm:max-w-2xl">
       <div className="flex flex-col max-h-[85vh]">
         <div className="flex items-center gap-3 px-6 py-4 border-b border-line">
-          <h2 className="font-heading text-lg text-ink">Pick from media library</h2>
+          <h2 className="text-sm font-semibold text-foreground">Pick from media library</h2>
           <span className="text-xs text-muted">{assets ? `${assets.length} assets` : "Loading…"}</span>
           {multi && selected.size > 0 && (
             <span className="ml-auto text-xs font-medium text-main">{selected.size} / {maxSelect} selected</span>
