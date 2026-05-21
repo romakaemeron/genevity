@@ -39,7 +39,7 @@ function calcReadTime(html: string) {
   return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / WORDS_PER_MIN));
 }
 
-const inputCls = "w-full bg-champagne-dark rounded-lg px-3 py-2 text-sm border-0 focus:ring-1 focus:ring-main outline-none";
+const inputCls = "w-full bg-champagne-dark rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none";
 const labelCls = "block text-xs font-semibold text-black-50 uppercase tracking-wider mb-1";
 
 function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slug: string; t: any }) {
