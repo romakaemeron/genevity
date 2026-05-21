@@ -66,8 +66,8 @@ function LangField({ label, name, value, onChange, multiline = false }: {
       <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{label}</label>
       {multiline
         ? <textarea name={name} rows={3} value={value} onChange={(e) => onChange(e.target.value)}
-            className="w-full rounded-lg border border-border bg-muted/30 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40 resize-none" />
-        : <Input type="text" name={name} value={value} onChange={(e) => onChange(e.target.value)} className="bg-muted/30" />
+            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40 resize-none" />
+        : <Input type="text" name={name} value={value} onChange={(e) => onChange(e.target.value)} className="bg-background border-border" />
       }
     </div>
   );
@@ -97,38 +97,39 @@ function rowToForm(r: ReviewRow): FormState {
 function ReviewFormFields({ form, set, showPublish = true }: {
   form: FormState; set: (k: keyof FormState, v: string | number | boolean) => void; showPublish?: boolean;
 }) {
+  const { t } = useAdminLocale();
   return (
     <div className="flex flex-col gap-5">
       <div className="grid grid-cols-2 gap-4">
-        <LangField label="Ім'я пацієнта" name="reviewer_name" value={form.reviewerName} onChange={(v) => set("reviewerName", v)} />
+        <LangField label={t.reviewsTable.patientName} name="reviewer_name" value={form.reviewerName} onChange={(v) => set("reviewerName", v)} />
         <div className="flex flex-col gap-1">
-          <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Дата</label>
+          <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t.common.date}</label>
           <input type="date" value={form.reviewedAt} onChange={(e) => set("reviewedAt", e.target.value)}
-            className="w-full rounded-lg border border-border bg-muted/30 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40" />
+            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40" />
         </div>
       </div>
       <div className="flex flex-col gap-1">
-        <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Оцінка</label>
+        <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t.reviewsTable.rating}</label>
         <Stars n={form.rating} onChange={(v) => set("rating", v)} />
       </div>
-      <div className="rounded-xl bg-muted/40 p-3 flex flex-col gap-3">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Процедура</p>
+      <div className="rounded-xl bg-champagne-dark p-3 flex flex-col gap-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t.reviewsTable.procedure}</p>
         <div className="grid grid-cols-3 gap-3">
-          <LangField label="🇺🇦 UK" name="procedure_tag" value={form.procedureTag} onChange={(v) => set("procedureTag", v)} />
-          <LangField label="🇷🇺 RU" name="procedure_tag_ru" value={form.procedureTagRu} onChange={(v) => set("procedureTagRu", v)} />
-          <LangField label="🇬🇧 EN" name="procedure_tag_en" value={form.procedureTagEn} onChange={(v) => set("procedureTagEn", v)} />
+          <LangField label="UK" name="procedure_tag" value={form.procedureTag} onChange={(v) => set("procedureTag", v)} />
+          <LangField label="RU" name="procedure_tag_ru" value={form.procedureTagRu} onChange={(v) => set("procedureTagRu", v)} />
+          <LangField label="EN" name="procedure_tag_en" value={form.procedureTagEn} onChange={(v) => set("procedureTagEn", v)} />
         </div>
       </div>
-      <div className="rounded-xl bg-muted/40 p-3 flex flex-col gap-3">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Текст відгуку</p>
-        <LangField label="🇺🇦 Українська" name="review_text" value={form.reviewText} onChange={(v) => set("reviewText", v)} multiline />
-        <LangField label="🇷🇺 Російська" name="review_text_ru" value={form.reviewTextRu} onChange={(v) => set("reviewTextRu", v)} multiline />
-        <LangField label="🇬🇧 English" name="review_text_en" value={form.reviewTextEn} onChange={(v) => set("reviewTextEn", v)} multiline />
+      <div className="rounded-xl bg-champagne-dark p-3 flex flex-col gap-3">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t.reviewsTable.review}</p>
+        <LangField label="Українська" name="review_text" value={form.reviewText} onChange={(v) => set("reviewText", v)} multiline />
+        <LangField label="Російська" name="review_text_ru" value={form.reviewTextRu} onChange={(v) => set("reviewTextRu", v)} multiline />
+        <LangField label="English" name="review_text_en" value={form.reviewTextEn} onChange={(v) => set("reviewTextEn", v)} multiline />
       </div>
       {showPublish && (
         <label className="flex items-center gap-2 cursor-pointer select-none">
           <input type="checkbox" checked={form.isPublished} onChange={(e) => set("isPublished", e.target.checked)} className="w-4 h-4 rounded accent-primary" />
-          <span className="text-sm text-foreground">Опублікувати</span>
+          <span className="text-sm text-foreground">{t.reviewsTable.publish}</span>
         </label>
       )}
     </div>
@@ -143,13 +144,13 @@ function ReviewDialog({ open, title, onClose, busy, error, onSave, saveLabel, ch
   const { t } = useAdminLocale();
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-sm font-semibold text-foreground">{title}</DialogTitle>
         </DialogHeader>
         {error && <p className="text-xs text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2">{error}</p>}
         <div className="flex flex-col gap-4">{children}</div>
-        <DialogFooter className="gap-2 pt-2">
+        <DialogFooter className="gap-2 pt-4 mt-2 border-t border-border">
           <NativeButton variant="neutral" size="sm" onClick={onClose}>{t.reviewsTable.cancelEdit}</NativeButton>
           <NativeButton variant="primary" size="sm" onClick={onSave} disabled={busy}>
             {busy && <Loader2 size={14} className="animate-spin" />}
@@ -222,7 +223,7 @@ function AddModal({ doctors, today, onClose, onCreated }: {
       <div className="flex flex-col gap-1">
         <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t.reviewsTable.doctor}</label>
         <select value={doctorId} onChange={(e) => setDoctorId(e.target.value)}
-          className="w-full rounded-lg border border-border bg-muted/30 px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40">
+          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40">
           {doctors.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
         </select>
       </div>

@@ -34,7 +34,7 @@ export default function AdminHeader() {
   const visible = crumbs.slice(-3);
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b border-border/50 bg-background px-8">
+    <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-2 border-b border-border/50 bg-background px-8">
       <SidebarTrigger className="-ml-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted active:scale-95 transition-transform" />
       <Separator
         orientation="vertical"

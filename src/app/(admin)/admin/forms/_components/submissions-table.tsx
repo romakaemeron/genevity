@@ -579,25 +579,23 @@ export default function SubmissionsTable({ submissions: initial, compact, noPoll
               selectedIds.length > 0 ? "opacity-100 blur-0 translate-x-0 scale-100" : "opacity-0 blur-[2px] pointer-events-none translate-x-1 scale-[0.97]"
             )}>
               <span className="text-xs text-muted-foreground font-medium whitespace-nowrap">
-                {selectedIds.length} вибрано
+                {t.submissionsTable.batchSelected(selectedIds.length)}
               </span>
-              {/* "Processed" button — styled like the status badge */}
               <button
                 type="button"
                 onClick={() => markSelectedAs("processed")}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-sm font-medium border border-border bg-background text-foreground hover:bg-muted transition-colors"
               >
                 <CheckCircle2 size={13} className="text-green-600" />
-                Оброблено
+                {t.submissionsTable.statusProcessed}
               </button>
-              {/* "New" button — plain text */}
               <button
                 type="button"
                 onClick={() => markSelectedAs("new")}
                 className="inline-flex items-center gap-1.5 px-2 py-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
-                Нові
+                {t.submissionsTable.statusNew}
               </button>
               {/* Divider */}
               <span className="w-px h-4 bg-border shrink-0" />
