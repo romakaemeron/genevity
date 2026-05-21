@@ -545,14 +545,15 @@ input[type="search"] {
   padding: 0.6rem 1rem;
   text-align: left;
   vertical-align: top;
+  background: var(--color-champagne);
 }
 .prose-genevity table th:last-child,
 .prose-genevity table td:last-child { border-right: none; }
 .prose-genevity table tr:last-child th,
 .prose-genevity table tr:last-child td { border-bottom: none; }
 .prose-genevity table th {
-  background: var(--color-champagne-dark);
-  font-weight: 600;
+  background: var(--color-champagne-dark) !important;
+  font-weight: 700;
   font-size: 0.875rem;
   color: var(--color-black);
 }
