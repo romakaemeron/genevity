@@ -535,11 +535,13 @@ input[type="search"] {
 .prose-genevity table {
   border-collapse: separate;
   border-spacing: 0;
-  width: 100%;
+  min-width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin: 1.5rem 0;
   border: 1px solid var(--color-champagne-darker);
   border-radius: 8px;
-  overflow: hidden;
 }
 .prose-genevity table th,
 .prose-genevity table td {
