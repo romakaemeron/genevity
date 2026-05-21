@@ -530,28 +530,31 @@ input[type="search"] {
   padding: 0;
 }
 .prose-genevity table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   margin: 1.5rem 0;
-  border: 1px solid rgb(var(--color-black-rgb) / 0.15);
+  border: 1px solid var(--color-champagne-darker);
   border-radius: 8px;
   overflow: hidden;
 }
 .prose-genevity table th,
 .prose-genevity table td {
-  border: 1px solid rgb(var(--color-black-rgb) / 0.12);
+  border-right: 1px solid var(--color-champagne-darker);
+  border-bottom: 1px solid var(--color-champagne-darker);
   padding: 0.6rem 1rem;
   text-align: left;
   vertical-align: top;
 }
+.prose-genevity table th:last-child,
+.prose-genevity table td:last-child { border-right: none; }
+.prose-genevity table tr:last-child th,
+.prose-genevity table tr:last-child td { border-bottom: none; }
 .prose-genevity table th {
-  background: rgb(var(--color-black-rgb) / 0.04);
+  background: var(--color-champagne-dark);
   font-weight: 600;
   font-size: 0.875rem;
   color: var(--color-black);
-}
-.prose-genevity table tr:nth-child(even) td {
-  background: rgb(var(--color-black-rgb) / 0.02);
 }
 
 /* TipTap rich-text editor — admin only
