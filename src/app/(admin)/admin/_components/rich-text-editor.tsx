@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -59,44 +60,9 @@ interface SlashMenuState {
   query: string;
 }
 
-// ── Slash extension: detects "/" typing via ProseMirror ───────────────────
-function createSlashExtension(callbacks: {
-  onOpen: (state: SlashMenuState) => void;
-  onClose: () => void;
-}) {
-  return Extension.create({
-    name: "slashCommand",
-    addProseMirrorPlugins() {
-      return [
-        new Plugin({
-          key: new PluginKey("slashCommand"),
-          props: {
-            handleKeyDown(_view, event) {
-              if (event.key === "Escape") {
-                callbacks.onClose();
-                return false;
-              }
-              return false;
-            },
-            handleTextInput(view, from, _to, text) {
-              if (text === "/") {
-                // coords of insertion point
-                const coords = view.coordsAtPos(from);
-                const editorRect = view.dom.getBoundingClientRect();
-                callbacks.onOpen({
-                  top: coords.bottom - editorRect.top + 4,
-                  left: coords.left - editorRect.left,
-                  from,  // "/" will be at `from` after insertion
-                  query: "",
-                });
-              }
-              return false;
-            },
-          },
-        }),
-      ];
-    },
-  });
+// Minimal placeholder extension (slash detection handled via DOM keydown in React)
+function createSlashExtension() {
+  return Extension.create({ name: "slashCommand" });
 }
 
 // ── Toolbar helpers ────────────────────────────────────────────────────────
@@ -196,6 +162,15 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
   const [slashMenu, setSlashMenu] = useState<SlashMenuState | null>(null);
   const [slashSelected, setSlashSelected] = useState(0);
   const slashMenuRef = useRef<SlashMenuState | null>(null);
+  const portalContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const div = document.createElement("div");
+    div.id = "slash-menu-root";
+    document.body.appendChild(div);
+    portalContainerRef.current = div;
+    return () => { document.body.removeChild(div); portalContainerRef.current = null; };
+  }, []);
 
   const closeSlash = useCallback(() => {
     setSlashMenu(null);
@@ -203,14 +178,7 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
     setSlashSelected(0);
   }, []);
 
-  const slashExt = useRef(createSlashExtension({
-    onOpen: (state) => {
-      slashMenuRef.current = state;
-      setSlashMenu(state);
-      setSlashSelected(0);
-    },
-    onClose: closeSlash,
-  })).current;
+  const slashExt = useRef(createSlashExtension()).current;
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -268,17 +236,42 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
     setLinkInput(null);
   }, [editor, linkInput]);
 
-  // Track text after "/" to update slash query
+  // Detect "/" keypress — listen on document, check target is inside editor
+  useEffect(() => {
+    if (!editor) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!editor.view.dom.contains(e.target as Node)) return;
+      if (e.key === "Escape" && slashMenuRef.current) { closeSlash(); return; }
+      if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
+      setTimeout(() => {
+        const { from: cursorAfter } = editor.state.selection;
+        const slashPos = cursorAfter - 1;
+        if (slashPos < 1) return;
+        const charAtSlash = editor.state.doc.textBetween(slashPos, cursorAfter, "");
+        if (charAtSlash !== "/") return;
+        const coords = editor.view.coordsAtPos(slashPos);
+        const menuH = 360;
+        const spaceBelow = window.innerHeight - coords.bottom;
+        const top = spaceBelow < menuH ? Math.max(4, coords.top - menuH - 4) : coords.bottom + 4;
+        const state: SlashMenuState = { top, left: coords.left, from: slashPos, query: "" };
+        slashMenuRef.current = state;
+        setSlashMenu(state);
+        setSlashSelected(0);
+      }, 0);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("keydown", onKeyDown); };
+  }, [editor, closeSlash]);
+
+  // Track query as user types after "/"
   useEffect(() => {
     if (!editor) return;
     const onTransaction = () => {
       const current = slashMenuRef.current;
       if (!current) return;
       const { from } = editor.state.selection;
-      // If cursor moved before the "/" position — close
       if (from <= current.from) { closeSlash(); return; }
       const textNode = editor.state.doc.textBetween(current.from, from, "");
-      // first char should be "/" — extract query after it
       if (!textNode.startsWith("/")) { closeSlash(); return; }
       const query = textNode.slice(1);
       if (query !== current.query) {
@@ -334,13 +327,13 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
   const inTable = editor.isActive("tableCell") || editor.isActive("tableHeader");
 
   return (
-    <div ref={containerRef} className="tiptap-admin border border-border rounded-2xl bg-champagne overflow-hidden flex flex-col shadow-sm relative">
+    <div ref={containerRef} className="tiptap-admin border border-border rounded-2xl bg-champagne overflow-clip flex flex-col shadow-sm relative">
 
-      {/* ── Slash command menu ── */}
-      {slashMenu && slashItems.length > 0 && (
+      {/* ── Slash command menu (dedicated portal container) ── */}
+      {slashMenu && slashItems.length > 0 && portalContainerRef.current && createPortal(
         <div
-          className="absolute z-50 bg-white border border-border rounded-xl shadow-xl overflow-hidden w-60 py-1"
-          style={{ top: slashMenu.top, left: slashMenu.left }}
+          className="fixed z-[9999] bg-white border border-border rounded-xl shadow-xl w-60 py-1 overflow-y-auto"
+          style={{ top: slashMenu.top, left: slashMenu.left, maxHeight: "min(360px, calc(100vh - 16px))" }}
           onMouseDown={e => e.preventDefault()}
         >
           <p className="px-3 py-1.5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Blocks</p>
@@ -370,7 +363,8 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
               </button>
             );
           })}
-        </div>
+        </div>,
+        portalContainerRef.current
       )}
 
       {/* ── Floating bubble on text selection ── */}
@@ -384,8 +378,10 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
         </div>
       )}
 
-      {/* ── Static toolbar ── */}
-      <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 border-b border-border bg-white select-none sticky top-0 z-10">
+      {/* ── Sticky toolbar group (main + table context) ── */}
+      <div className="sticky top-14 z-20 shrink-0">
+      {/* Main toolbar */}
+      <div className="flex flex-wrap items-center gap-0.5 px-3 py-2 border-b border-border bg-white select-none">
 
         {/* Block type */}
         <div className="relative">
@@ -499,9 +495,9 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
         <ToolBtn onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()} title="Clear formatting"><Eraser size={13} /></ToolBtn>
       </div>
 
-      {/* ── Table context bar (auto-shows when cursor is inside a table) ── */}
+      {/* Table context bar (auto-shows when cursor is inside a table) */}
       {inTable && (
-        <div className="flex items-center gap-1 px-3 py-1.5 border-b border-main/20 bg-main/[0.04] select-none animate-in fade-in duration-150">
+        <div className="flex items-center gap-1 px-3 py-1.5 border-b border-main/20 bg-champagne-dark select-none animate-in fade-in duration-150">
           <TableIcon size={12} className="text-main shrink-0" />
           <span className="text-[11px] font-semibold text-main mr-1.5">Таблиця</span>
           <div className="w-px h-4 bg-main/20 mx-0.5" />
@@ -526,9 +522,30 @@ export default function RichTextEditor({ value, onChange, onImageRequest, editor
           </button>
         </div>
       )}
+      </div>{/* end sticky toolbar group */}
 
       {/* ── Editor area ── */}
-      <div className="relative flex-1">
+      <div className="relative flex-1"
+        onKeyDown={e => {
+          if (e.key === "Escape" && slashMenuRef.current) { closeSlash(); return; }
+          if (e.key !== "/" || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
+          setTimeout(() => {
+            if (slashMenuRef.current) return;
+            const { from: cur } = editor.state.selection;
+            const sp = cur - 1;
+            if (sp < 1) return;
+            const ch = editor.state.doc.textBetween(sp, cur, "");
+            if (ch !== "/") return;
+            const c = editor.view.coordsAtPos(sp);
+            const below = window.innerHeight - c.bottom;
+            const top = below < 360 ? Math.max(4, c.top - 364) : c.bottom + 4;
+            const state: SlashMenuState = { top, left: c.left, from: sp, query: "" };
+            slashMenuRef.current = state;
+            setSlashMenu(state);
+            setSlashSelected(0);
+          }, 0);
+        }}
+      >
         {editor.isEmpty && placeholder && (
           <div className="absolute top-6 left-8 text-sm text-muted-foreground/50 pointer-events-none select-none">
             <p>{placeholder}</p>

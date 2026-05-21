@@ -529,6 +529,30 @@ input[type="search"] {
   background: none;
   padding: 0;
 }
+.prose-genevity table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  border: 1px solid rgb(var(--color-black-rgb) / 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.prose-genevity table th,
+.prose-genevity table td {
+  border: 1px solid rgb(var(--color-black-rgb) / 0.12);
+  padding: 0.6rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-genevity table th {
+  background: rgb(var(--color-black-rgb) / 0.04);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-black);
+}
+.prose-genevity table tr:nth-child(even) td {
+  background: rgb(var(--color-black-rgb) / 0.02);
+}
 
 /* TipTap rich-text editor — admin only
    Use high-specificity selectors to beat Tailwind v4 preflight resets */
@@ -685,23 +709,28 @@ input[type="search"] {
 
 /* TipTap table styles */
 .tiptap-admin .tiptap table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   table-layout: fixed;
   width: 100%;
-  margin: 1rem 0;
+  margin: 0;
   overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid var(--color-champagne-darker);
+  border-radius: 0;
 }
 .tiptap-admin .tiptap table td,
 .tiptap-admin .tiptap table th {
-  border: 1px solid var(--color-champagne-darker);
+  border-right: 1px solid var(--color-champagne-darker);
+  border-bottom: 1px solid var(--color-champagne-darker);
   padding: 0.5rem 0.75rem;
   min-width: 80px;
   vertical-align: top;
   position: relative;
   background: var(--color-champagne);
 }
+.tiptap-admin .tiptap table td:last-child,
+.tiptap-admin .tiptap table th:last-child { border-right: none; }
+.tiptap-admin .tiptap table tr:last-child td,
+.tiptap-admin .tiptap table tr:last-child th { border-bottom: none; }
 .tiptap-admin .tiptap table th {
   background: var(--color-champagne-dark) !important;
   font-weight: 700;
@@ -727,7 +756,12 @@ input[type="search"] {
   width: 4px;
   cursor: col-resize;
 }
-.tiptap-admin .tiptap .tableWrapper { overflow-x: auto; }
+.tiptap-admin .tiptap .tableWrapper {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--color-champagne-darker);
+  margin: 1rem 0;
+}
 /* resize-cursor is added to the .tiptap root element by ProseMirror columnResizing */
 .tiptap-admin .tiptap.resize-cursor,
 .tiptap-admin .tiptap.resize-cursor * { cursor: col-resize !important; }
