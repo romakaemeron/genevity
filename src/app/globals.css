@@ -447,6 +447,8 @@ input[type="search"] {
   line-height: 1.25;
   letter-spacing: -0.02em;
 }
+.prose-genevity h2:first-child,
+.prose-genevity h3:first-child { margin-top: 0; }
 .prose-genevity h3 {
   font-size: 1.125rem;
   font-weight: 600;
