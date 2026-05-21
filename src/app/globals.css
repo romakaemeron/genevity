@@ -486,7 +486,7 @@ input[type="search"] {
 }
 .prose-genevity hr {
   border: none;
-  border-top: 1px solid rgb(var(--color-black-rgb) / 0.1);
+  border-top: 1px solid var(--color-champagne-darker);
   margin: 2.5rem 0;
 }
 /* Inline images — centered, rounded, full-width with caption */
