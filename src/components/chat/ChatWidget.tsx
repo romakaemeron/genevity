@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import ChatPanel from "./ChatPanel";
 import ChatEscalation from "./ChatEscalation";
+import { useChatSession } from "./useChatSession";
 
 type View = "closed" | "chat" | "escalation";
 
@@ -15,6 +16,7 @@ declare global {
 }
 
 export default function ChatWidget() {
+  const sessionToken = useChatSession();
   const [view, setView] = useState<View>("closed");
   const [locale, setLocale] = useState("uk");
   const [escalationTarget, setEscalationTarget] = useState<"genevity" | "helyos">("genevity");
@@ -111,9 +113,10 @@ export default function ChatWidget() {
 
       <div className="fixed bottom-6 right-6 z-50">
         <AnimatePresence mode="wait">
-          {view === "chat" && (
+          {view === "chat" && sessionToken && (
             <ChatPanel
               key="chat"
+              sessionToken={sessionToken}
               onClose={() => setView("closed")}
               onEscalate={handleEscalate}
               pageUrl={pageUrl}

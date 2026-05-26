@@ -6,7 +6,6 @@ import { DefaultChatTransport } from "ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, X } from "lucide-react";
 import ChatMessage from "./ChatMessage";
-import { useChatSession } from "./useChatSession";
 
 interface ChatState {
   suggestions: string[];
@@ -19,6 +18,7 @@ interface ChatState {
 }
 
 interface Props {
+  sessionToken: string;
   onClose: () => void;
   onEscalate: (target: "genevity" | "helyos", summary: string) => void;
   pageUrl: string;
@@ -31,6 +31,7 @@ const LOCALES = ["uk", "ru", "en"] as const;
 const IDLE_MS = 8_000;
 
 export default function ChatPanel({
+  sessionToken,
   onClose,
   onEscalate,
   pageUrl,
@@ -38,7 +39,6 @@ export default function ChatPanel({
   locale,
   onLocaleChange,
 }: Props) {
-  const sessionToken = useChatSession();
   const bottomRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
   const [chatState, setChatState] = useState<ChatState>({
