@@ -100,7 +100,7 @@ export default function NamespaceTextsEditor({ namespace, initial, title, descri
     <div className="flex flex-col gap-4">
       {(title || description) && (
         <div>
-          {title && <h3 className="font-heading text-lg text-ink">{title}</h3>}
+          {title && <h3 className="text-sm font-semibold text-foreground">{title}</h3>}
           {description && <p className="body-m text-muted mt-1">{description}</p>}
         </div>
       )}

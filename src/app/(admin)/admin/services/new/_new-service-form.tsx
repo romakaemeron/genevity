@@ -16,7 +16,7 @@ export default function NewServiceForm({ categories }: Props) {
   return (
     <div>
       <div className="px-8 pt-8 pb-4">
-        <h1 className="heading-2 text-ink">Add service</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">Add service</h1>
         <p className="body-m text-muted mt-1 max-w-xl">
           Start with a Ukrainian title and a category. After the service is created you&apos;ll be taken
           straight to its page editor to fill in body, photos, pricing, sections, FAQ and SEO.

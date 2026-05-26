@@ -2,6 +2,7 @@ import { sql } from "@/lib/db/client";
 import { requireSession } from "../_actions/auth";
 import { Plus } from "lucide-react";
 import { AdminPageHeader, AdminPrimaryButton, AdminList, AdminListItem } from "../_components/admin-list";
+import { getAdminStrings } from "../_i18n/server";
 
 /**
  * Flat roster of every service, grouped only as "all services" with the
@@ -11,6 +12,7 @@ import { AdminPageHeader, AdminPrimaryButton, AdminList, AdminListItem } from ".
  */
 export default async function ServicesListPage() {
   await requireSession();
+  const t = await getAdminStrings();
 
   const services = await sql`
     SELECT s.id, s.slug, s.title_uk, s.price_from_uk,
@@ -23,12 +25,12 @@ export default async function ServicesListPage() {
   return (
     <div className="p-8">
       <AdminPageHeader
-        title="Services"
-        subtitle={`${services.length} service${services.length === 1 ? "" : "s"} — click any to edit its page`}
-        actions={<AdminPrimaryButton href="/admin/services/new"><Plus size={16} /> Add Service</AdminPrimaryButton>}
+        title={t.servicesPage.title}
+        subtitle={t.servicesPage.subtitle(services.length)}
+        actions={<AdminPrimaryButton href="/admin/services/new"><Plus size={16} /> {t.servicesPage.addNew}</AdminPrimaryButton>}
       />
 
-      <AdminList empty="No services yet — click Add Service to create the first one">
+      <AdminList empty={t.servicesPage.noServices}>
         {services.map((svc: any) => (
           <AdminListItem
             key={svc.id}

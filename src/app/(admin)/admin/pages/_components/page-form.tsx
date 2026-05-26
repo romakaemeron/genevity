@@ -109,7 +109,7 @@ export default function PageForm({
       <div className="px-8 pt-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="heading-2 text-ink">{isNew ? "New Page" : page.title_uk || page.slug}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground">{isNew ? "New Page" : page.title_uk || page.slug}</h1>
             {!isNew && <p className="body-m text-muted mt-3">{page.slug === "home" ? "/" : `/${page.slug}`}</p>}
           </div>
           {canDelete && (
@@ -163,7 +163,7 @@ export default function PageForm({
           {heroSingleton && (
             <>
               <div>
-                <h3 className="font-heading text-lg text-ink mb-1">Hero text overlay (H1, subtitle, CTA)</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">Hero text overlay (H1, subtitle, CTA)</h3>
                 <p className="body-m text-muted">
                   The biggest typography on the homepage — the <strong>H1</strong> is the single most important SEO heading,
                   plus the supporting subtitle and CTA label shown on top of the slideshow below.
@@ -175,7 +175,7 @@ export default function PageForm({
           )}
 
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Hero slideshow (background images)</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Hero slideshow (background images)</h3>
             <p className="body-m text-muted">
               Background images rotating behind the hero text above. Drag to reorder, upload to replace, tune alt text per locale.
             </p>
@@ -199,7 +199,7 @@ export default function PageForm({
           {aboutSingleton && (
             <>
               <div>
-                <h3 className="font-heading text-lg text-ink mb-1">About section (homepage + /about hero)</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">About section (homepage + /about hero)</h3>
                 <p className="body-m text-muted">
                   Title, lead paragraph, accent line, and diagnostics list — shared with the <code className="font-mono text-xs">/about</code> page hero.
                 </p>
@@ -212,7 +212,7 @@ export default function PageForm({
           {homeAboutGallery !== undefined && (
             <>
               <div>
-                <h3 className="font-heading text-lg text-ink mb-1">About section — slideshow photos</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">About section — slideshow photos</h3>
                 <p className="body-m text-muted">
                   Photos rotating in the slideshow on the homepage About section. When empty, 5 default clinic photos are used as fallback.
                 </p>
@@ -225,7 +225,7 @@ export default function PageForm({
           {(homeNamespaces || []).map((ns) => (
             <div key={ns.key} className="flex flex-col gap-4">
               <div>
-                <h3 className="font-heading text-lg text-ink mb-1">{ns.label}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">{ns.label}</h3>
                 {ns.description && <p className="body-m text-muted">{ns.description}</p>}
                 <p className="body-s text-muted mt-1">
                   Namespace: <code className="font-mono text-xs">{ns.key}</code>
@@ -257,7 +257,7 @@ export default function PageForm({
       {tab === "gallery" && hasGallery && (
         <div className="p-8 flex flex-col gap-6">
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Photo gallery</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Photo gallery</h3>
             <p className="body-m text-muted">
               StripeGallery shown on this page. Upload images, drag to reorder, and edit labels per locale.
             </p>
@@ -269,7 +269,7 @@ export default function PageForm({
       {tab === "prices" && hasPrices && (
         <div className="p-8 flex flex-col gap-6">
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Price categories & items</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Price categories & items</h3>
             <p className="body-m text-muted">Full price list shown on /prices — add categories, drag to reorder, set prices per item.</p>
           </div>
           <PricesEditor initial={priceCategories!} />
@@ -279,7 +279,7 @@ export default function PageForm({
       {tab === "lab" && hasLab && (
         <div className="p-8 flex flex-col gap-6">
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Laboratory-specific content</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Laboratory-specific content</h3>
             <p className="body-m text-muted">
               Tabbed diagnostic services, preparation steps, and Check-Up programs shown on /laboratory.
             </p>
@@ -291,7 +291,7 @@ export default function PageForm({
       {tab === "contactInfo" && (hasContactInfo || (isHome && siteSettings)) && (
         <div className="p-8 flex flex-col gap-6">
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Contact information</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Contact information</h3>
             <p className="body-m text-muted">
               Phone numbers, address, working hours, Instagram — shared across the site and used prominently on /contacts.
             </p>
@@ -305,7 +305,7 @@ export default function PageForm({
           {aboutSingleton && (
             <>
               <div>
-                <h3 className="font-heading text-lg text-ink mb-1">Hero / About section (title + paragraphs)</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">Hero / About section (title + paragraphs)</h3>
                 <p className="body-m text-muted">
                   Stored in the <code className="font-mono text-xs">about</code> singleton. Shown on both the homepage About section and at the top of <code className="font-mono text-xs">/about</code>.
                 </p>
@@ -316,7 +316,7 @@ export default function PageForm({
           )}
 
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Body copy texts</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Body copy texts</h3>
             <p className="body-m text-muted">Every heading, label, and body paragraph used on this page. Edits apply immediately.</p>
           </div>
           <NamespaceTextsEditor
@@ -432,7 +432,7 @@ function ContentTab({ page, isNew, isCorePage, isHome, state, formAction, formRe
         <div className="mb-3">
           <div className="inline-flex items-center gap-2 mb-2">
             <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-main text-champagne text-[10px] font-bold uppercase tracking-wider">Hero</span>
-            <h3 className="font-heading text-base text-ink">Page title {showH1Summary ? "(H1)" : ""}</h3>
+            <h3 className="text-sm font-semibold text-foreground">Page title {showH1Summary ? "(H1)" : ""}</h3>
           </div>
           <p className="body-s text-muted">
             {showH1Summary ? (
@@ -508,7 +508,7 @@ function ContentTab({ page, isNew, isCorePage, isHome, state, formAction, formRe
             <div className="mb-3">
               <div className="inline-flex items-center gap-2 mb-1">
                 <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-rosegold text-white text-[10px] font-bold uppercase tracking-wider">Image</span>
-                <h3 className="font-heading text-base text-ink">Hero image</h3>
+                <h3 className="text-sm font-semibold text-foreground">Hero image</h3>
               </div>
               <p className="body-s text-muted">Photo shown alongside the page title. Displayed as a side-by-side image on desktop.</p>
             </div>

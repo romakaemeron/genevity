@@ -21,7 +21,7 @@ export default async function CtaSettingsPage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <h1 className="heading-2 text-ink">Call-to-action overrides</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">Call-to-action overrides</h1>
         <p className="body-m text-muted mt-1 max-w-2xl">
           Fine-tune every booking CTA on the public site. Each registered location
           (homepage hero, service final CTA, etc.) can have its own button text,

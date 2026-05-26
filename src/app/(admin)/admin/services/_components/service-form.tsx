@@ -66,7 +66,7 @@ export default function ServiceForm({
       <div className="px-8 pt-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="heading-2 text-ink">{isNew ? "New Service" : svc.title_uk}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground">{isNew ? "New Service" : svc.title_uk}</h1>
             {!isNew && categorySlug && (
               <p className="body-m text-muted mt-1">/services/{categorySlug}/{svc.slug}</p>
             )}
@@ -132,7 +132,7 @@ export default function ServiceForm({
             {/* ── URL & sorting ── */}
             <section className="flex flex-col gap-4">
               <div>
-                <h3 className="font-heading text-base text-ink mb-1">Routing & ordering</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">Routing & ordering</h3>
                 <p className="body-s text-muted">
                   The public URL and the position of this service inside its category grid.
                 </p>
@@ -162,7 +162,7 @@ export default function ServiceForm({
             {/* ── Hero image ── */}
             <section className="flex flex-col gap-4">
               <div>
-                <h3 className="font-heading text-base text-ink mb-1">Hero image</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1">Hero image</h3>
                 <p className="body-s text-muted">
                   Photo shown at the top of the service detail page, paired with the Title + Summary below.
                   Also used as the card thumbnail on the category grid.
@@ -178,7 +178,7 @@ export default function ServiceForm({
               <div className="flex flex-col gap-1">
                 <div className="inline-flex items-center gap-2">
                   <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-main text-champagne text-[10px] font-bold uppercase tracking-wider">Hero</span>
-                  <h3 className="font-heading text-base text-ink">Hero section text & key facts (H1)</h3>
+                  <h3 className="text-sm font-semibold text-foreground">Hero section text & key facts (H1)</h3>
                 </div>
                 <p className="body-s text-muted">
                   Everything shown at the top of <code className="font-mono text-xs">/services/&lt;category&gt;/&lt;slug&gt;</code>:
@@ -330,7 +330,7 @@ export default function ServiceForm({
       {tab === "layout" && !isNew && (
         <div className="p-8 flex flex-col gap-10">
           <div>
-            <h3 className="font-heading text-lg text-ink mb-1">Page layout</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Page layout</h3>
             <p className="body-m text-muted max-w-2xl">
               Drag or use the up/down arrows to reorder the sections that appear below the hero on
               <code className="font-mono text-xs mx-1">/services/{categorySlug}/{svc.slug}</code>.

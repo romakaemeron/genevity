@@ -55,7 +55,7 @@ export default function AboutSingletonForm({ about, label = "About section" }: {
 
   return (
     <div className="bg-champagne-dark rounded-2xl border border-line p-6">
-      <h2 className="font-heading text-lg text-ink mb-1">{label}</h2>
+      <h2 className="text-sm font-semibold text-foreground mb-1">{label}</h2>
       <p className="body-s text-muted mb-4">
         Shared between the homepage About section and the <code className="font-mono text-xs">/about</code> page hero.
       </p>

@@ -123,7 +123,7 @@ export default function SeoFormTab({
         {state?.success && <div className="p-4 bg-success-light text-success rounded-xl text-sm">Saved!</div>}
 
         <div>
-          <h3 className="font-heading text-lg text-ink mb-1">Search engine indexing</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-1">Search engine indexing</h3>
           <p className="body-s text-muted mb-3">Keep this URL out of Google / Bing without unpublishing it.</p>
           <label className="flex items-center gap-2 text-sm text-ink cursor-pointer">
             <input type="checkbox" name="seo_noindex" defaultChecked={entity.seo_noindex || false} className="rounded" />
@@ -134,7 +134,7 @@ export default function SeoFormTab({
         <div className="border-t border-line" />
 
         <div>
-          <h3 className="font-heading text-lg text-ink mb-1">Social share image (Open Graph)</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-1">Social share image (Open Graph)</h3>
           <p className="body-s text-muted mb-3">
             Displayed when this URL is shared on Facebook, Twitter, LinkedIn, Telegram, etc. 1200×630 recommended.
             If left empty, the default <code className="font-mono text-xs">/og/genevity-og.jpg</code> is used.
@@ -152,7 +152,7 @@ export default function SeoFormTab({
         <div className="border-t border-line" />
 
         <div>
-          <h3 className="font-heading text-lg text-ink mb-1">Meta title & description</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-1">Meta title & description</h3>
           <p className="body-s text-muted mb-4">
             Separate per language. Google shows the title (~60 chars) and description (~155 chars) in search results.
           </p>
@@ -188,7 +188,7 @@ export default function SeoFormTab({
         <div className="border-t border-line" />
 
         <div>
-          <h3 className="font-heading text-lg text-ink mb-1">Live preview</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-1">Live preview</h3>
           <p className="body-s text-muted mb-4">How this page will appear in Google search results and when shared on social networks.</p>
 
           <div className="flex gap-1 mb-5">

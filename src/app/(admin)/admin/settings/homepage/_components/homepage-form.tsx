@@ -12,11 +12,11 @@ export default function HomepageForm({ hero, about }: { hero: any; about: any })
 
   return (
     <div className="p-8">
-      <h1 className="heading-2 text-ink mb-8">Homepage Settings</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-foreground mb-6">Homepage Settings</h1>
 
       {/* Hero */}
       <div className="bg-champagne-dark rounded-2xl border border-line p-6 mb-6">
-        <h2 className="font-heading text-lg text-ink mb-4">Hero Section</h2>
+        <h2 className="text-sm font-semibold text-foreground mb-4">Hero Section</h2>
         {heroState?.success && <div className="mb-4 p-3 bg-success-light text-success rounded-xl text-sm">Saved!</div>}
         <form action={heroAction}>
           <TranslationTabs>
@@ -37,7 +37,7 @@ export default function HomepageForm({ hero, about }: { hero: any; about: any })
 
       {/* About */}
       <div className="bg-champagne-dark rounded-2xl border border-line p-6">
-        <h2 className="font-heading text-lg text-ink mb-4">About Section</h2>
+        <h2 className="text-sm font-semibold text-foreground mb-4">About Section</h2>
         {aboutState?.success && <div className="mb-4 p-3 bg-success-light text-success rounded-xl text-sm">Saved!</div>}
         <form action={aboutAction}>
           <TranslationTabs>

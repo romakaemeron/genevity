@@ -1,0 +1,781 @@
+@import "tailwindcss";
+
+@theme {
+  /* === Color Tokens (original brand) === */
+  --color-main: #8B7B6B;
+  --color-main-dark: #6B5E51;
+  --color-main-light: #A89888;
+  --color-main-darker: #5A4D42;
+  --color-main-lighter: #C4B8AC;
+  --color-main-subtle: #E2DDD7;
+  --color-champagne: #FAF9F6;
+  --color-champagne-dark: #F0EDE7;
+  --color-champagne-darker: #E5E0D8;
+  --color-champagne-warm: #F5F0E8;
+  --color-rosegold: #C0CFD5;
+  --color-rosegold-dark: #A3B5BD;
+  --color-ice: #C0CFD5;
+  --color-ice-dark: #A3B5BD;
+  --color-ice-darker: #88A0AA;
+  --color-ice-light: #D4DEE3;
+  --color-ice-lighter: #E6ECEF;
+  --color-ice-subtle: #F2F5F7;
+  --color-stone: #9A9A9A;
+  --color-stone-dark: #7A7A7A;
+  --color-stone-darker: #5E5E5E;
+  --color-stone-light: #B8B8B8;
+  --color-stone-lighter: #D4D4D4;
+  --color-stone-subtle: #ECECEC;
+  --color-black: #2D2D2D;
+  --color-black-80: rgba(45, 45, 45, 0.8);
+  --color-black-60: rgba(45, 45, 45, 0.6);
+  --color-black-40: rgba(45, 45, 45, 0.4);
+  --color-black-20: rgba(45, 45, 45, 0.2);
+  --color-black-10: rgba(45, 45, 45, 0.1);
+  --color-black-5: rgba(45, 45, 45, 0.05);
+  --color-white: #FFFFFF;
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-60: rgba(255, 255, 255, 0.6);
+  --color-white-40: rgba(255, 255, 255, 0.4);
+  --color-white-20: rgba(255, 255, 255, 0.2);
+  --color-error: #C75050;
+  --color-error-light: #F5E0E0;
+  --color-success: #5A8A6A;
+  --color-success-light: #E0F0E6;
+  --color-warning: #C4944A;
+  --color-warning-light: #F5EDDF;
+  --color-ink: #2A2520;
+  --color-muted: #6B6359;
+  --color-line: #E6E0D6;
+  --color-rosegold-deep: #9CB1B8;
+  --color-surface-dark: #2D2D2D;
+  --color-surface-dark-elevated: #3A3A3A;
+
+  /* === Typography === */
+  --font-heading: "Tenor Sans", Georgia, serif;
+  --font-body: "Mulish", system-ui, sans-serif;
+
+  /* === Spacing Scale === */
+  --spacing-section: 120px;
+  --spacing-block: 64px;
+  --spacing-element: 32px;
+  --spacing-card: 24px;
+  --spacing-inner: 16px;
+  --spacing-tight: 12px;
+  --spacing-xs: 8px;
+  --spacing-2xs: 4px;
+
+  /* === Border Radius === */
+  --radius-button: 12px;
+  --radius-card: 16px;
+  --radius-input: 16px;
+  --radius-pill: 999px;
+  --radius-sm: 8px;
+
+  /* === Container === */
+  --container-max: 1200px;
+  --container-padding: 48px;
+
+  /* === Shadows === */
+  --shadow-sm: 0 1px 2px rgba(45, 45, 45, 0.04);
+  --shadow-md: 0 4px 16px rgba(45, 45, 45, 0.06);
+  --shadow-lg: 0 8px 32px rgba(45, 45, 45, 0.08);
+  --shadow-xl: 0 16px 48px rgba(45, 45, 45, 0.1);
+  --shadow-glow: 0 0 40px rgba(139, 123, 107, 0.15);
+  --shadow-card: 0 2px 8px rgba(45, 45, 45, 0.04), 0 8px 24px rgba(45, 45, 45, 0.06);
+  --shadow-card-hover: 0 4px 16px rgba(45, 45, 45, 0.08), 0 16px 48px rgba(45, 45, 45, 0.1);
+
+  /* === Transitions === */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-premium: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration-fast: 200ms;
+  --duration-quick: 180ms;
+  --duration-base: 320ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+}
+
+/* === Base Styles === */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--color-champagne);
+  color: var(--color-black);
+  font-family: var(--font-body);
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+img::selection {
+  background: transparent;
+}
+
+::selection {
+  background-color: var(--color-main);
+  color: var(--color-champagne);
+}
+
+/* === Typography Presets === */
+.heading-1 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.heading-2 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.heading-3 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.heading-4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.body-l {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.body-strong {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.body-m {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.body-s {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+/* === Scrollbar Hide === */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* === Button press === */
+.btn-press {
+  transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, color 150ms ease, gap 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+.btn-press:active {
+  transform: scale3d(0.97, 0.97, 1);
+}
+.btn-press-icon:active {
+  transform: scale3d(0.92, 0.92, 1);
+}
+
+/* === Scroll Anchor Offset (navbar height + breathing room) === */
+#about,
+#equipment,
+#advantages,
+#doctors,
+#faq,
+#contacts,
+#booking,
+#procedures {
+  scroll-margin-top: 100px;
+}
+
+/* Service page sections need extra offset for navbar + sticky TOC bar */
+[id^="section-"] {
+  scroll-margin-top: 140px;
+}
+
+/* === Doctors Horizontal Scroller === */
+.doctors-scroller {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden; /* fallback for browsers without clip support */
+  overflow-y: clip;   /* clips without creating a scroll context — lets vertical swipes reach the page */
+  scroll-snap-type: x mandatory;
+  touch-action: pan-x pan-y; /* pan-y needed: overflow-y:clip means the element has no vertical scroll range, so iOS chains vertical gestures up to the page */
+  overscroll-behavior-x: contain;
+  /* -webkit-overflow-scrolling: touch removed — it creates an independent scroll layer
+     on iOS that captures ALL touch events, blocking vertical page scroll inside the area */
+  padding-left: 16px;
+  padding-right: 16px;
+  scroll-padding-left: 16px;
+}
+
+@media (min-width: 640px) {
+  .doctors-scroller {
+    padding-left: 24px;
+    padding-right: 24px;
+    scroll-padding-left: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .doctors-scroller {
+    padding-left: 48px;
+    padding-right: 48px;
+    scroll-padding-left: 48px;
+  }
+}
+
+@media (min-width: 1296px) {
+  .doctors-scroller {
+    padding-left: calc((100vw - 1200px) / 2 + 48px);
+    padding-right: calc((100vw - 1200px) / 2 + 48px);
+    scroll-padding-left: calc((100vw - 1200px) / 2 + 48px);
+  }
+}
+
+/* === Page Entrance Animation === */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-enter {
+  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-enter-1 { animation-delay: 0.05s; }
+.animate-enter-2 { animation-delay: 0.15s; }
+.animate-enter-3 { animation-delay: 0.25s; }
+.animate-enter-4 { animation-delay: 0.35s; }
+.animate-enter-5 { animation-delay: 0.45s; }
+.animate-enter-6 { animation-delay: 0.55s; }
+
+/* === Container max-width === */
+@utility max-w-container {
+  max-width: 1200px;
+}
+
+/* === Safari Fixes === */
+input[type="text"],
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* === Rich Text Body Padding === */
+@media (min-width: 1024px) {
+  .rich-text-body {
+    padding-left: 20px;
+  }
+}
+
+/* === SVG Draw Animation === */
+.illustration-draw path,
+.illustration-draw line,
+.illustration-draw rect,
+.illustration-draw circle,
+.illustration-draw ellipse {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 0;
+}
+.group:hover .illustration-draw path,
+.group:hover .illustration-draw line,
+.group:hover .illustration-draw rect,
+.group:hover .illustration-draw circle,
+.group:hover .illustration-draw ellipse {
+  animation: draw-cycle 2s ease forwards;
+}
+@keyframes draw-cycle {
+  /* Draw out: 0% → 40% (1s) */
+  0% { stroke-dashoffset: 0; }
+  40% { stroke-dashoffset: 300; }
+  /* Hold empty briefly */
+  42% { stroke-dashoffset: 300; }
+  /* Draw in: 42% → 100% (1.45s) */
+  100% { stroke-dashoffset: 0; }
+}
+
+/* === Shimmer Skeleton === */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    240deg,
+    var(--color-champagne-dark) 25%,
+    var(--color-champagne-darker) 37%,
+    var(--color-champagne-dark) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* === Tab Content Reveal === */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-reveal {
+  animation: revealUp 0.45s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* === Smooth Scroll Reveal === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Hero slide directional reveal — soft diagonal gradient mask sweep === */
+@keyframes heroMaskSweep {
+  from {
+    mask-position: 100% 100%;
+    -webkit-mask-position: 100% 100%;
+  }
+  to {
+    mask-position: 0% 0%;
+    -webkit-mask-position: 0% 0%;
+  }
+}
+
+.hero-slide-enter {
+  mask-image: linear-gradient(135deg, black 40%, transparent 100%);
+  -webkit-mask-image: linear-gradient(135deg, black 40%, transparent 100%);
+  mask-size: 300% 300%;
+  -webkit-mask-size: 300% 300%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  animation: heroMaskSweep 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Blog article body */
+.prose-genevity {
+  max-width: 72ch;
+  font-size: 1.0625rem;
+}
+.prose-genevity h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+  font-weight: 400;
+  color: var(--color-black);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.prose-genevity h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.prose-genevity p {
+  color: rgb(var(--color-black-rgb) / 0.6);
+  line-height: 1.85;
+  margin-bottom: 1.35rem;
+}
+.prose-genevity ul, .prose-genevity ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.35rem;
+  color: rgb(var(--color-black-rgb) / 0.6);
+  line-height: 1.85;
+}
+.prose-genevity ul { list-style-type: disc; }
+.prose-genevity ol { list-style-type: decimal; }
+.prose-genevity li { margin-bottom: 0.4rem; }
+.prose-genevity strong { font-weight: 600; color: var(--color-black); }
+.prose-genevity em { font-style: italic; }
+.prose-genevity a { color: var(--color-main); text-decoration: underline; text-underline-offset: 3px; }
+.prose-genevity a:hover { opacity: 0.75; }
+.prose-genevity blockquote {
+  border-left: 2px solid var(--color-main);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: rgb(var(--color-black-rgb) / 0.6);
+  font-size: 1.1em;
+}
+.prose-genevity hr {
+  border: none;
+  border-top: 1px solid rgb(var(--color-black-rgb) / 0.1);
+  margin: 2.5rem 0;
+}
+/* Inline images — centered, rounded, full-width with caption */
+.prose-genevity img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+  margin: 2rem auto;
+  box-shadow: 0 2px 24px rgb(0 0 0 / 0.08);
+}
+.prose-genevity p > img:only-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+/* Figure with caption */
+.prose-genevity figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+.prose-genevity figcaption {
+  font-size: 0.875rem;
+  color: rgb(var(--color-black-rgb) / 0.45);
+  margin-top: 0.5rem;
+}
+/* Code */
+.prose-genevity code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+  background: rgb(var(--color-black-rgb) / 0.06);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--color-black);
+}
+.prose-genevity pre {
+  background: rgb(var(--color-black-rgb) / 0.06);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.prose-genevity pre code {
+  background: none;
+  padding: 0;
+}
+
+
+/* TipTap rich-text editor — admin only
+   Use high-specificity selectors to beat Tailwind v4 preflight resets */
+.tiptap-admin .tiptap:focus { outline: none; }
+.tiptap-admin .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: rgb(var(--color-black-rgb) / 0.3);
+  pointer-events: none;
+  height: 0;
+}
+.tiptap-admin .tiptap h1 {
+  font-family: var(--font-heading) !important;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  color: var(--color-black);
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+.tiptap-admin .tiptap h2 {
+  font-family: var(--font-heading) !important;
+  font-size: 1.55rem !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  color: var(--color-black);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.tiptap-admin .tiptap h3 {
+  font-family: var(--font-body) !important;
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  color: var(--color-black);
+  margin-top: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+.tiptap-admin .tiptap h4 {
+  font-family: var(--font-body) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: rgb(var(--color-black-rgb) / 0.8);
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+}
+.tiptap-admin .tiptap p { margin-bottom: 0.75rem; line-height: 1.7; color: rgb(var(--color-black-rgb) / 0.75); }
+.tiptap-admin .tiptap ul, .tiptap-admin .tiptap ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+.tiptap-admin .tiptap ul { list-style-type: disc; }
+.tiptap-admin .tiptap ol { list-style-type: decimal; }
+.tiptap-admin .tiptap li { margin-bottom: 0.25rem; }
+.tiptap-admin .tiptap strong { font-weight: 600 !important; }
+.tiptap-admin .tiptap em { font-style: italic !important; }
+.tiptap-admin .tiptap u { text-decoration: underline !important; }
+.tiptap-admin .tiptap s { text-decoration: line-through !important; }
+.tiptap-admin .tiptap a { color: var(--color-main); text-decoration: underline; text-underline-offset: 3px; }
+.tiptap-admin .tiptap blockquote {
+  border-left: 2px solid var(--color-main);
+  padding: 0.2rem 0 0.2rem 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: rgb(var(--color-black-rgb) / 0.55);
+}
+.tiptap-admin .tiptap img {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  margin: 1rem 0;
+}
+.tiptap-admin .tiptap hr {
+  border: none;
+  border-top: 2px solid rgb(var(--color-black-rgb) / 0.1);
+  margin: 2rem 0;
+  border-radius: 99px;
+}
+
+/* Code — inline */
+.tiptap-admin .tiptap code {
+  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+  font-size: 0.82em;
+  background: rgb(var(--color-black-rgb) / 0.06);
+  color: #c7254e;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* Code — block */
+.tiptap-admin .tiptap pre {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+.tiptap-admin .tiptap pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+/* Task list / checkboxes */
+.tiptap-admin .tiptap ul[data-type="taskList"] {
+  list-style: none;
+  padding-left: 0.25rem;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li > label {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li > label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-main);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.tiptap-admin .tiptap ul[data-type="taskList"] li[data-checked="true"] > div {
+  color: rgb(var(--color-black-rgb) / 0.4);
+  text-decoration: line-through;
+}
+
+/* Images — left-aligned */
+.tiptap-admin .tiptap img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-card);
+  margin: 1.5rem 0;
+}
+
+/* Selected node */
+.tiptap-admin .tiptap .ProseMirror-selectednode {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Tippy slash menu — no arrow, no theme */
+.tippy-box[data-theme~="none"] { background: none; box-shadow: none; }
+.tippy-box[data-theme~="none"] .tippy-content { padding: 0; }
+
+/* SEO audit §1.8.2: content-visibility for sections below the fold
+   Tells the browser to skip rendering off-screen sections until needed,
+   improving INP and TBT on long pages. contain-intrinsic-size prevents
+   layout shift by reserving estimated height. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* Hero — CSS animations replacing Framer Motion (perf §1.8) */
+@keyframes hero-text-in {
+  from { transform: translateY(18px); }
+  to   { transform: translateY(0); }
+}
+.hero-text-enter {
+  /* No opacity — text visible immediately for LCP. Subtle slide only. */
+  animation: hero-text-in 0.6s ease both;
+  will-change: transform;
+}
+
+/* ─── Scroll reveal system (replaces Framer Motion whileInView) ─────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+              transform 0.6s cubic-bezier(0.16,1,0.3,1);
+  will-change: opacity, transform;
+}
+.revealed .reveal { opacity: 1; transform: none; }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
+.reveal.d5 { transition-delay: 0.5s; }
+
+/* ─── Modal CSS (replaces Framer Motion in Modal.tsx) ───────────────────── */
+@keyframes modal-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-panel-in {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+.modal-backdrop { animation: modal-backdrop-in 0.2s ease both; }
+.modal-panel    { animation: modal-panel-in 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ─── Lightbox (About) ──────────────────────────────────────────────────── */
+@keyframes lightbox-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lightbox-panel-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: none; }
+}
+.lightbox-backdrop { animation: lightbox-in   0.25s ease both; }
+.lightbox-panel    { animation: lightbox-panel-in 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ─── FAQ accordion (replaces AnimatePresence height animation) ─────────── */
+.accordion-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s cubic-bezier(0.16,1,0.3,1); }
+.accordion-body.open { grid-template-rows: 1fr; }
+.accordion-body > div { overflow: hidden; }
+
+/* ─── FAQ + icon rotate ─────────────────────────────────────────────────── */
+.faq-icon { display: inline-block; transition: transform 0.2s ease; }
+.faq-icon.open { transform: rotate(45deg); }
+
+/* ─── Hero text — transform only, no opacity so LCP element is never hidden ── */
+@keyframes hero-text-full-in {
+  from { transform: translateY(18px); }
+  to   { transform: none; }
+}
+.hero-text-animated { animation: hero-text-full-in 0.7s ease both; }
+
+/* Variable stagger delay for lists with dynamic item counts */
+.reveal { transition-delay: var(--rd, 0s); }
+
+/* ─── Grid / tab filter enter animation ────────────────────────────────── */
+@keyframes grid-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.grid-enter { animation: grid-enter 0.3s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ─── Fixed header slide-in on mount ────────────────────────────────────── */
+@keyframes header-appear { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+.header-fixed-appear { animation: header-appear 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* ─── Mega menu panel + item stagger ────────────────────────────────────── */
+@keyframes megamenu-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+.megamenu-panel { animation: megamenu-in 0.22s cubic-bezier(0.16,1,0.3,1) both; }
+.megamenu-backdrop { animation: modal-backdrop-in 0.24s ease both; }
+.megamenu-item {
+  opacity: 0;
+  animation: grid-enter 0.35s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* ─── BookingForm success state ─────────────────────────────────────────── */
+@keyframes success-disc-in {
+  from { transform: translateY(40px) scale(0.96); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+@keyframes success-text-in {
+  from { opacity: 0; transform: translateY(14px); filter: blur(10px); }
+  to   { opacity: 1; transform: none; filter: blur(0px); }
+}
+@keyframes checkmark-draw {
+  from { stroke-dashoffset: 40; opacity: 0; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+.success-disc      { animation: success-disc-in 0.55s 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+.success-text      { animation: success-text-in 0.6s 1s cubic-bezier(0.22,1,0.36,1) both; }
+.success-checkmark { stroke-dasharray: 40; animation: checkmark-draw 0.5s 0.1s cubic-bezier(0.65,0,0.35,1) both; }

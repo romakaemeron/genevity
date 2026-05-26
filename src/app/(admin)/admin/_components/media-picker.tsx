@@ -10,11 +10,11 @@
  * to the file-upload drop zone.
  */
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import Image from "next/image";
-import { Search, Folder as FolderIcon, Check } from "lucide-react";
+import { Search, Folder as FolderIcon, Check, Upload } from "lucide-react";
 import Modal from "@/components/ui/Modal";
-import { listMediaAssets, type MediaAssetDTO } from "../_actions/media";
+import { listMediaAssets, uploadMediaAsset, type MediaAssetDTO } from "../_actions/media";
 
 interface SingleProps {
   open: boolean;
@@ -44,6 +44,7 @@ export default function MediaPicker({ open, onClose, onPick, onPickMultiple, mul
   const [folder, setFolder] = useState<string | "all">("all");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [uploadOpen, setUploadOpen] = useState(false);
 
   // Lazy fetch on first open
   useEffect(() => {
@@ -110,15 +111,15 @@ export default function MediaPicker({ open, onClose, onPick, onPickMultiple, mul
     <Modal open={open} onClose={onClose} maxWidth="sm:max-w-2xl">
       <div className="flex flex-col max-h-[85vh]">
         <div className="flex items-center gap-3 px-6 py-4 border-b border-line">
-          <h2 className="font-heading text-lg text-ink">Pick from media library</h2>
+          <h2 className="text-sm font-semibold text-foreground">Pick from media library</h2>
           <span className="text-xs text-muted">{assets ? `${assets.length} assets` : "Loading…"}</span>
           {multi && selected.size > 0 && (
-            <span className="ml-auto text-xs font-medium text-main">{selected.size} / {maxSelect} selected</span>
+            <span className="text-xs font-medium text-main">{selected.size} / {maxSelect} selected</span>
           )}
         </div>
 
         <div className="px-6 py-3 border-b border-line flex flex-wrap items-center gap-3">
-          <div className="relative flex-1 min-w-[220px] max-w-sm">
+          <div className="relative flex-1 min-w-[180px] max-w-sm">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
             <input
               value={query}
@@ -127,7 +128,14 @@ export default function MediaPicker({ open, onClose, onPick, onPickMultiple, mul
               className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-line text-ink text-sm outline-none focus:border-main"
             />
           </div>
-          <div className="flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            onClick={() => setUploadOpen(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-main text-champagne text-xs font-medium hover:opacity-90 transition-opacity cursor-pointer shrink-0"
+          >
+            <Upload size={12} /> Upload image
+          </button>
+          <div className="flex flex-wrap gap-1.5 w-full">
             <FolderPill label="All" active={folder === "all"} onClick={() => setFolder("all")} />
             {folders.map((f) => (
               <FolderPill key={f} label={f} active={folder === f} onClick={() => setFolder(f)} />
@@ -207,6 +215,141 @@ export default function MediaPicker({ open, onClose, onPick, onPickMultiple, mul
             </button>
           </div>
         )}
+      </div>
+
+      {uploadOpen && (
+        <UploadPanel
+          existingFolders={folders}
+          preferredFolder={preferredFolder}
+          onClose={() => setUploadOpen(false)}
+          onUploaded={(newAsset) => {
+            setAssets((prev) => (prev ? [newAsset, ...prev] : [newAsset]));
+            setUploadOpen(false);
+          }}
+        />
+      )}
+    </Modal>
+  );
+}
+
+function UploadPanel({
+  existingFolders,
+  preferredFolder,
+  onClose,
+  onUploaded,
+}: {
+  existingFolders: string[];
+  preferredFolder?: string;
+  onClose: () => void;
+  onUploaded: (asset: MediaAssetDTO) => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [folder, setFolder] = useState(preferredFolder || existingFolders[0] || "uncategorized");
+  const [customFolder, setCustomFolder] = useState("");
+  const [title, setTitle] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  const submit = () => {
+    if (!file) { setError("Pick a file first"); return; }
+    setError(null);
+    startTransition(async () => {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("folder", customFolder.trim() || folder);
+      fd.append("title", title);
+      const res = await uploadMediaAsset(fd);
+      if (!res || "error" in res) {
+        setError(res?.error ?? "Upload failed");
+      } else {
+        onUploaded({
+          id: res.url,
+          url: res.url,
+          filename: res.url.split("/").pop() || file.name,
+          folder: customFolder.trim() || folder,
+          title: title || file.name,
+          source: "blob",
+          createdAt: new Date().toISOString(),
+        });
+      }
+    });
+  };
+
+  return (
+    <Modal open onClose={onClose} maxWidth="sm:max-w-md">
+      <div className="p-6">
+        <h2 className="text-base font-semibold text-foreground mb-1">Upload image</h2>
+        <p className="text-xs text-muted mb-4">Auto-converted to WebP and added to the library.</p>
+
+        {error && <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-xl text-sm">{error}</div>}
+
+        <div className="flex flex-col gap-4">
+          <div
+            className="relative aspect-[16/9] rounded-xl border-2 border-dashed border-line bg-champagne-dark flex items-center justify-center cursor-pointer hover:border-main/40 transition-colors"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            {file ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={URL.createObjectURL(file)} alt="" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
+            ) : (
+              <div className="flex flex-col items-center gap-1.5 text-muted text-sm">
+                <Upload size={20} />
+                <span>Click to pick an image</span>
+                <span className="text-xs">JPG / PNG / WebP / SVG</span>
+              </div>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+            />
+          </div>
+          {file && <p className="text-xs text-muted -mt-2 truncate">{file.name}</p>}
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-medium text-muted uppercase tracking-wider">Folder</label>
+            <select
+              value={folder}
+              onChange={(e) => setFolder(e.target.value)}
+              className="px-3 py-2 rounded-lg bg-white border border-line text-ink text-sm outline-none focus:border-main"
+            >
+              {existingFolders.map((f) => <option key={f} value={f}>{f}</option>)}
+              <option value="__new__">+ Create new folder…</option>
+            </select>
+            {folder === "__new__" && (
+              <input
+                value={customFolder}
+                onChange={(e) => setCustomFolder(e.target.value)}
+                placeholder="folder-name"
+                className="mt-1 px-3 py-2 rounded-lg bg-white border border-line text-ink text-sm outline-none focus:border-main"
+              />
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-xs font-medium text-muted uppercase tracking-wider">Title (optional)</label>
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Defaults to filename"
+              className="px-3 py-2 rounded-lg bg-white border border-line text-ink text-sm outline-none focus:border-main"
+            />
+          </div>
+        </div>
+
+        <div className="mt-5 flex items-center justify-end gap-2">
+          <button type="button" onClick={onClose} disabled={pending}
+            className="px-4 py-2 rounded-lg border border-line text-sm text-ink hover:border-main/40 transition-colors cursor-pointer">
+            Cancel
+          </button>
+          <button type="button" onClick={submit} disabled={pending || !file}
+            className="px-4 py-2 rounded-lg bg-main text-champagne text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+            {pending ? "Uploading…" : "Upload"}
+          </button>
+        </div>
       </div>
     </Modal>
   );

@@ -4,28 +4,32 @@ import Link from "next/link";
 import Image from "next/image";
 import { Plus, ArrowUpRight, Settings } from "lucide-react";
 import { AdminPageHeader, AdminPrimaryButton } from "../_components/admin-list";
+import { getAdminStrings } from "../_i18n/server";
 
 export default async function DoctorsListPage() {
   await requireSession();
-  const doctors = await sql`SELECT * FROM doctors ORDER BY sort_order`;
+  const [doctors, t] = await Promise.all([
+    sql`SELECT * FROM doctors ORDER BY sort_order`,
+    getAdminStrings(),
+  ]);
 
   return (
     <div className="p-8 flex flex-col gap-8">
       <AdminPageHeader
-        title="Doctors"
-        subtitle={`${doctors.length} physicians`}
+        title={t.doctorsPage.title}
+        subtitle={t.doctorsPage.subtitle(doctors.length)}
         actions={
           <div className="flex items-center gap-2">
             <Link
               href="/admin/settings/ui-strings"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-champagne-darker transition-colors"
-              title="Edit section texts and labels"
+              title={t.doctorsPage.sectionTexts}
             >
               <Settings size={14} />
-              Section texts
+              {t.doctorsPage.sectionTexts}
             </Link>
             <AdminPrimaryButton href="/admin/doctors/new">
-              <Plus size={16} /> Add Doctor
+              <Plus size={16} /> {t.doctorsPage.addNew}
             </AdminPrimaryButton>
           </div>
         }

@@ -133,19 +133,19 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
           {/* Heading */}
           <div className="mb-6">
             <h2 className="heading-3 text-black">{labels.title}</h2>
-            <p className="body-s text-black-50 mt-1">{doctorName} · {labels.subtitle}</p>
+            <p className="body-m text-black-60 mt-1">{doctorName} · {labels.subtitle}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             {/* Star rating */}
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-black-50 uppercase tracking-wider">{labels.ratingLabel}</label>
+              <label className="text-sm font-medium text-black-60">{labels.ratingLabel}</label>
               <StarPicker value={rating} onChange={setRating} />
             </div>
 
             {/* Name */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-black-50 uppercase tracking-wider">{labels.nameLabel}</label>
+              <label className="text-sm font-medium text-black-60">{labels.nameLabel}</label>
               <input
                 type="text"
                 value={name}
@@ -159,7 +159,7 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
             {/* Procedure */}
             {services.length > 0 && (
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-black-50 uppercase tracking-wider">{labels.procLabel}</label>
+                <label className="text-sm font-medium text-black-60">{labels.procLabel}</label>
                 <select
                   value={procedure}
                   onChange={(e) => setProcedure(e.target.value)}
@@ -174,7 +174,7 @@ export default function ReviewFormModal({ doctorId, doctorName, locale, services
 
             {/* Review text */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-black-50 uppercase tracking-wider">{labels.textLabel}</label>
+              <label className="text-sm font-medium text-black-60">{labels.textLabel}</label>
               <textarea
                 value={text}
                 onChange={(e) => { setText(e.target.value); setErrors((p) => ({ ...p, text: "" })); }}

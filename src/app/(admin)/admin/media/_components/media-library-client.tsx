@@ -204,7 +204,7 @@ function UploadModal({
   return (
     <Modal open onClose={onClose} maxWidth="sm:max-w-lg">
       <div className="p-6">
-        <h2 className="font-heading text-xl text-ink mb-1">Upload to media library</h2>
+        <h2 className="text-lg font-semibold text-foreground mb-1">Upload to media library</h2>
         <p className="body-s text-muted mb-5">
           Auto-converted to WebP (≤2400 px) and added to the selected folder. Reusable across sections without re-uploading.
         </p>
@@ -326,7 +326,7 @@ function AssetModal({
         </div>
         <div className="flex flex-col gap-4">
           <div>
-            <h3 className="font-heading text-lg text-ink break-all">{asset.title}</h3>
+            <h3 className="text-sm font-semibold text-foreground break-all">{asset.title}</h3>
             <p className="text-xs text-muted mt-0.5 break-all">{asset.filename}</p>
           </div>
 

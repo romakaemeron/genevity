@@ -101,7 +101,7 @@ export default function Sidebar({ userName, role, counts = {} }: SidebarProps) {
   }
 
   return (
-    <aside className="m-2 fixed left-0 top-0 bottom-0 w-60 bg-ink rounded-3xl flex flex-col z-50">
+    <aside className="m-2 fixed left-0 top-0 bottom-0 w-80 bg-ink rounded-3xl flex flex-col z-50">
       {/* Logo */}
       <div className="px-5 py-5 border-b border-white/10">
         <div className="flex items-center gap-2">

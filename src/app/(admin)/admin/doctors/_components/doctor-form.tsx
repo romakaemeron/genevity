@@ -132,7 +132,7 @@ export default function DoctorForm({ doctor }: Props) {
 
       <div className="p-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="heading-2 text-ink">{isNew ? "New Doctor" : doctor.name_uk}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">{isNew ? "New Doctor" : doctor.name_uk}</h1>
           {!isNew && (
             <Button
               variant="destructive-ghost"
@@ -157,7 +157,7 @@ export default function DoctorForm({ doctor }: Props) {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
           <div className="flex flex-col gap-3 p-5 rounded-2xl bg-champagne-dark">
-            <h3 className="font-heading text-base text-ink">Card photo (1:1 square)</h3>
+            <h3 className="text-sm font-semibold text-foreground">Card photo (1:1 square)</h3>
             <p className="text-xs text-muted">Shown on the doctors grid. Uploading here alone is enough — the modal image will be generated from the same source.</p>
             <ImageUpload
               name="photo_card"
@@ -178,7 +178,7 @@ export default function DoctorForm({ doctor }: Props) {
             />
           </div>
           <div className="flex flex-col gap-3 p-5 rounded-2xl bg-champagne-dark">
-            <h3 className="font-heading text-base text-ink">Modal photo (16:10 horizontal)</h3>
+            <h3 className="text-sm font-semibold text-foreground">Modal photo (16:10 horizontal)</h3>
             <p className="text-xs text-muted">Optional. Upload a separate photo only if you want the fullscreen modal to look different from the card.</p>
             <ImageUpload
               name="photo_full"
@@ -203,7 +203,7 @@ export default function DoctorForm({ doctor }: Props) {
         {/* ── Profile page photo focal point (3:4 portrait) ── */}
         <div className="mb-6 p-5 rounded-2xl bg-champagne-dark flex flex-col gap-3">
           <div>
-            <h3 className="font-heading text-base text-ink">Profile page focal point (3:4 portrait)</h3>
+            <h3 className="text-sm font-semibold text-foreground">Profile page focal point (3:4 portrait)</h3>
             <p className="text-xs text-muted mt-0.5 max-w-xl">
               Controls cropping on the individual doctor profile page <code className="font-mono">/doctors/[slug]</code>.
               Uses the <strong>Modal photo</strong> (or Card photo as fallback) displayed at 3:4 aspect ratio.
@@ -227,7 +227,7 @@ export default function DoctorForm({ doctor }: Props) {
         {/* ── Booking-modal circle thumbnail ── */}
         <div className="mb-10 p-5 rounded-2xl bg-champagne-dark flex flex-col gap-3">
           <div>
-            <h3 className="font-heading text-base text-ink">Booking modal thumbnail (circle)</h3>
+            <h3 className="text-sm font-semibold text-foreground">Booking modal thumbnail (circle)</h3>
             <p className="text-xs text-muted mt-0.5 max-w-xl">
               The small round avatar rendered next to the doctor in the <strong>Book consultation</strong>
               form&apos;s dropdown. Uploading here is optional — if you skip it, the Card photo is used
@@ -349,7 +349,7 @@ export default function DoctorForm({ doctor }: Props) {
         {/* Certificate images */}
         {!isNew && doctor && (
           <div className="mt-8 border-t border-line pt-8">
-            <h3 className="font-heading text-base text-ink mb-1">Certificate images</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-1">Certificate images</h3>
             <p className="text-xs text-muted mb-4">
               Shown in the public certificate gallery on the doctor&apos;s profile. Use the rotate buttons to fix orientation.
             </p>
@@ -368,7 +368,7 @@ export default function DoctorForm({ doctor }: Props) {
     {!isNew && doctor && (
       <div className="px-8 pb-8">
         <div className="border-t border-line pt-8 mb-3">
-          <h3 className="font-heading text-base text-ink mb-1">Profile page Final CTA</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-1">Profile page Final CTA</h3>
           <p className="text-xs text-muted mb-4">The booking call-to-action block shown at the bottom of this doctor&apos;s profile page. Saved independently.</p>
         </div>
         <FinalCtaEditor

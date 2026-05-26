@@ -1,4 +1,4 @@
-import localFont from "next/font/local";
+import { Mulish, Tenor_Sans } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessagesForLocale } from "@/lib/db/queries/ui-strings";
 import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
@@ -7,18 +7,16 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import Footer from "@/components/layout/Footer";
 import Button from "@/components/ui/Button";
 
-const tenorSans = localFont({
-  src: "../../public/fonts/TenorSans-Regular.ttf",
+const tenorSans = Tenor_Sans({
+  subsets: ["latin", "cyrillic"],
+  weight: "400",
   variable: "--font-heading",
   display: "swap",
 });
 
-const mulish = localFont({
-  src: [
-    { path: "../../public/fonts/Mulish-Regular.ttf", weight: "400" },
-    { path: "../../public/fonts/Mulish-Medium.ttf", weight: "500" },
-    { path: "../../public/fonts/Mulish-SemiBold.ttf", weight: "600" },
-  ],
+const mulish = Mulish({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
   variable: "--font-body",
   display: "swap",
 });

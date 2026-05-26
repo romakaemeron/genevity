@@ -54,7 +54,7 @@ export default function EquipmentForm({ equipment: eq }: { equipment?: Equipment
 
       <div className="p-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="heading-2 text-ink">{isNew ? "New Equipment" : eq.name}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">{isNew ? "New Equipment" : eq.name}</h1>
           {!isNew && (
             <Button variant="destructive-ghost" size="xs" onClick={() => { if (confirm("Delete?")) deleteEquipment(eq.id); }}>
               Delete
@@ -68,7 +68,7 @@ export default function EquipmentForm({ equipment: eq }: { equipment?: Equipment
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-6 mb-10">
           <div className="flex flex-col gap-3 p-5 rounded-2xl bg-champagne-dark">
             <div className="flex items-center justify-between">
-              <h3 className="font-heading text-base text-ink">Device photo</h3>
+              <h3 className="text-sm font-semibold text-foreground">Device photo</h3>
               {photoUrl && (
                 <button
                   type="button"

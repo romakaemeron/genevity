@@ -200,7 +200,7 @@ export default function HeroFocalResponsiveEditor({
     <Modal open={open} onClose={onClose} maxWidth="sm:max-w-5xl">
       <div className="flex flex-col max-h-[94vh]">
         <div className="px-6 py-4 border-b border-line">
-          <h2 className="font-heading text-lg text-ink">Edit hero focal points</h2>
+          <h2 className="text-sm font-semibold text-foreground">Edit hero focal points</h2>
           <p className="text-xs text-muted mt-0.5">
             Drag inside the preview to move the focal point. Scroll or use the slider to zoom.
             Drag the frame&apos;s right / bottom / corner to emulate any viewport — breakpoints

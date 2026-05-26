@@ -3,26 +3,27 @@ import { AdminPageHeader, AdminPrimaryButton } from "../_components/admin-list";
 import { adminGetAllPosts } from "@/lib/db/queries/blog";
 import Link from "next/link";
 import { Plus, FileText, Eye, EyeOff } from "lucide-react";
+import { getAdminStrings } from "../_i18n/server";
 
 export default async function AdminBlogPage() {
   await requireSession();
-  const posts = await adminGetAllPosts();
+  const [posts, t] = await Promise.all([adminGetAllPosts(), getAdminStrings()]);
 
   return (
     <div className="p-8 flex flex-col gap-8">
       <AdminPageHeader
-        title="Blog"
-        subtitle={`${posts.length} posts`}
+        title={t.blogPage.title}
+        subtitle={t.blogPage.subtitle(posts.length)}
         actions={
           <AdminPrimaryButton href="/admin/blog/new">
-            <Plus size={16} /> New Post
+            <Plus size={16} /> {t.blogPage.newPost}
           </AdminPrimaryButton>
         }
       />
       <div className="flex flex-col gap-2">
         {posts.length === 0 && (
           <div className="bg-champagne-dark rounded-2xl p-12 text-center text-muted">
-            No posts yet. Create your first post.
+            {t.blogPage.noPosts}
           </div>
         )}
         {posts.map((post: any) => (

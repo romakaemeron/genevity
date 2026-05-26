@@ -41,7 +41,8 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 export default async function SubmissionDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  await requireSession();
+  const session = await requireSession();
+  const isAdmin = session.role === "admin";
   const { id } = await params;
 
   const rows = await sql`
@@ -88,7 +89,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
           До всіх заявок
         </Link>
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="heading-2 text-ink">{r.name || "Без імені"}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">{r.name || "Без імені"}</h1>
           <FormStatusDropdown id={r.id as string} current={status} />
         </div>
         <p className="body-s text-muted mt-1">
@@ -169,10 +170,12 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
         <Row label="utm_content"><Value mono>{r.utm_content}</Value></Row>
       </section>
 
-      {/* Danger zone */}
-      <div className="flex justify-end">
-        <DeleteSubmissionButton id={r.id as string} />
-      </div>
+      {/* Danger zone — admin only */}
+      {isAdmin && (
+        <div className="flex justify-end">
+          <DeleteSubmissionButton id={r.id as string} />
+        </div>
+      )}
     </div>
   );
 }

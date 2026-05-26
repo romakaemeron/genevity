@@ -25,7 +25,7 @@ export default function LegalForm({ doc }: { doc?: any }) {
       <div className="p-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="heading-2 text-ink">{isNew ? "New Legal Document" : doc.title_uk || doc.slug}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground">{isNew ? "New Legal Document" : doc.title_uk || doc.slug}</h1>
             {!isNew && <p className="body-m text-muted mt-1">/legal/{doc.slug}</p>}
           </div>
           {!isNew && (
