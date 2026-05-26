@@ -1,5 +1,5 @@
 import { streamText, convertToModelMessages, stepCountIs, type UIMessage } from "ai";
-import { gateway } from "@ai-sdk/gateway";
+import { openai } from "@ai-sdk/openai";
 import { z } from "zod";
 import { buildSystemPrompt } from "@/lib/chat/prompt";
 import {
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
   const systemPrompt = buildSystemPrompt({ locale, pageUrl, pageTitle });
 
   const result = streamText({
-    model: gateway("openai/gpt-4o-mini"),
+    model: openai("gpt-4o-mini"),
     system: systemPrompt,
     messages: await convertToModelMessages(messages),
     stopWhen: stepCountIs(5),
