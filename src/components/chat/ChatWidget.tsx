@@ -36,31 +36,21 @@ export default function ChatWidget() {
     else setLocale("uk");
   }, []);
 
-  // Hide Binotel native launcher button — our widget replaces it visually.
-  // Uses MutationObserver because the Binotel script loads lazily on first interaction.
+  // Hide Binotel native launcher — our widget replaces it visually.
+  // Binotel uses bwc-* IDs (not "binotel"), so we watch for them via MutationObserver.
   useEffect(() => {
-    const hideEl = (el: Element) => {
-      const cls = el.getAttribute("class") ?? "";
-      const id = el.getAttribute("id") ?? "";
-      if (/binotel/i.test(cls + id)) {
-        (el as HTMLElement).style.setProperty("display", "none", "important");
-      }
-      el.querySelectorAll<HTMLElement>('[class*="binotel"],[id*="binotel"],[data-binotel-widget-launcher]').forEach(
-        (child) => child.style.setProperty("display", "none", "important")
-      );
+    const HIDE_IDS = ["bwc-widget-action", "bwc-chat-cloud-message"];
+
+    const hideKnown = () => {
+      HIDE_IDS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.style.setProperty("display", "none", "important");
+      });
     };
 
-    document.querySelectorAll<HTMLElement>('[class*="binotel"],[id*="binotel"],[data-binotel-widget-launcher]').forEach(
-      (el) => el.style.setProperty("display", "none", "important")
-    );
+    hideKnown();
 
-    const observer = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        m.addedNodes.forEach((node) => {
-          if (node.nodeType === 1) hideEl(node as Element);
-        });
-      }
-    });
+    const observer = new MutationObserver(hideKnown);
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, []);
