@@ -11,6 +11,8 @@
 
 A proactive AI chat widget embedded in the Genevity website. Джидяра acts as a knowledgeable clinic assistant — answers questions about services, doctors, cosmetology, and longevity — but never books appointments directly (operators handle that). When a patient is ready to book or requests it, the bot hands off to a live operator via the existing Binotel Online Chat widget.
 
+Джидяра also knows the full catalogue of **Helyos** (sister clinic, 200+ doctors, 300+ directions) and can discuss it in depth via on-demand DB tool calls — only fetching Helyos data when the conversation requires it, keeping token usage minimal.
+
 **Model:** GPT-4o-mini (Vercel AI SDK, streaming)  
 **Cost estimate:** ~$1–3/month at typical clinic traffic  
 **Languages:** Ukrainian (default), Russian, English — auto-detected from browser/locale with manual switcher in chat header
@@ -36,9 +38,14 @@ Chat Panel Overlay
       ▼
 POST /api/chat  (Next.js Route Handler)
   ├── Vercel AI SDK — streamText (GPT-4o-mini)
-  ├── System prompt = role + agent.md knowledge base
+  ├── System prompt = role + agent.md (Genevity knowledge)
+  ├── Tools (called on-demand by the model):
+  │   ├── searchHelyosServices(query)   → Helyos Neon DB
+  │   ├── searchHelyosDoctors(specialty) → Helyos Neon DB
+  │   └── getHelyosServiceDetail(id)    → Helyos Neon DB
   ├── Structured output: message, suggestions, urgency,
-  │   shouldEscalate, escalationHint, collectedName, collectedPhone
+  │   shouldEscalate, escalationHint, escalationTarget,
+  │   collectedName, collectedPhone
   └── Saves messages to Neon DB
       │
       ▼
@@ -46,7 +53,8 @@ Neon DB  (chat_sessions + chat_messages tables)
       │
   on escalation
       ▼
-window.binotelChatWidget.open()  +  pre-filled summary message
+window.binotelChatWidget.open()
+  + pre-filled summary + source clinic (Genevity or Helyos)
 ```
 
 **Binotel coexistence:** The Binotel widget script remains in the DOM but its launcher button is hidden via CSS (`[data-binotel-widget-launcher] { display: none }`). On escalation, Binotel is programmatically opened and our chat panel is dismissed.
@@ -101,6 +109,7 @@ interface ChatResponse {
   urgency: 'browsing' | 'interested' | 'ready_to_book';
   shouldEscalate: boolean;
   escalationHint: string | null;
+  escalationTarget: 'genevity' | 'helyos'; // which clinic operator to open
   collectedName: string | null;
   collectedPhone: string | null;
 }
@@ -116,11 +125,11 @@ interface ChatResponse {
 
 The bot offers escalation **once per session** unless the user declines, then again only when urgency upgrades to `ready_to_book`.
 
-### Knowledge Base — `agent.md`
+### Knowledge Base — `agent.md` (Genevity) + Helyos tools
 
-Location: `src/lib/chat/agent.md`
+**Genevity:** `src/lib/chat/agent.md` — loaded in full on every request. The model is instructed to **only reference facts listed in this file** for Genevity — it must never invent services, prices, or doctor names not present. Admins update this file; no redeploy needed.
 
-Loaded in full as part of the system prompt on every request. The model is instructed to **only reference facts listed in this file** — it must never invent services, prices, or doctor names not present in the document. Admins update this file to keep the bot current; no redeploy needed for content changes (file is read at request time).
+**Helyos:** NOT pre-loaded. The model calls tools on demand when the conversation touches topics outside Genevity's scope. This keeps the base prompt lean while giving Джидяра full depth on both clinics.
 
 Structure:
 ```markdown
@@ -162,6 +171,69 @@ Structure:
 4. ПРАВИЛА ВІДПОВІДІ — формат JSON, обмеження теми
 5. ІСТОРІЯ — останні N повідомлень сесії
 ```
+
+---
+
+## Helyos Cross-Referral
+
+### Concept
+
+When a patient asks about something outside Genevity's profile (surgery, cardiology, oncology, IVF, diagnostics, etc.), Джидяра discusses it in full depth by querying the Helyos Neon DB on demand — then offers to connect the patient with a Helyos operator.
+
+### On-Demand Tools (Vercel AI SDK tool calls)
+
+```ts
+searchHelyosServices(query: string)
+// Full-text search across Helyos services/directions
+// SQL: SELECT id, title, category, price_from, description
+//      FROM services WHERE to_tsvector('russian', title || ' ' || description)
+//      @@ plainto_tsquery('russian', query) LIMIT 5
+
+searchHelyosDoctors(specialty: string)
+// Find Helyos doctors by specialization
+// SQL: SELECT name, role, photo, experience FROM doctors
+//      WHERE role ILIKE '%' || specialty || '%' LIMIT 5
+
+getHelyosServiceDetail(serviceId: string)
+// Full details: description, prices, related doctors
+// SQL: SELECT s.*, array_agg(d.name) as doctors FROM services s
+//      LEFT JOIN doctor_services ds ON ... WHERE s.id = serviceId
+```
+
+**Token cost:** 0 extra tokens when conversation stays in Genevity. ~200–500 tokens per Helyos tool call (only relevant rows returned).
+
+### Helyos DB Connection
+
+Separate `HELYOS_DATABASE_URL` env var pointing to Helyos Neon project. A dedicated `helyosSql` client instance in `src/lib/db/helyos.ts` — mirrors the existing `sql` client pattern.
+
+### Cross-Referral Flow
+
+```
+Patient: "А є у вас кардіологія?"
+         │
+         ▼
+Bot detects: not in Genevity scope
+         │
+         ▼
+Calls: searchHelyosServices("кардіологія")
+→ returns: кардіолог + 3 relevant services from Helyos DB
+         │
+         ▼
+Bot: "У GENEVITY ми спеціалізуємось на естетичній медицині,
+     але наша партнерська клініка Helyos має повний кардіологічний
+     відділ. Там працює [ім'я лікаря], спеціаліст з [...]
+     Ціна консультації від [X] грн.
+     Хочете, щоб я з'єднав вас з оператором Helyos?"
+
+Buttons: [ Так, з'єднайте з Helyos ]  [ Ні, дякую ]
+```
+
+### Escalation to Helyos Operator
+
+When `escalationTarget: 'helyos'`:
+- Binotel opens (same account)
+- Pre-filled message: *"Пацієнт з сайту GENEVITY. Цікавиться: [topic]. Направлений асистентом. Прохання допомогти."*
+- Phone shown on escalation screen: `+38 (067) 000 01 50` (Helyos Dnipro)
 
 ---
 
@@ -278,14 +350,17 @@ src/components/chat/
   ChatWidget.tsx          -- floating button + panel orchestrator
   ChatPanel.tsx           -- message list, input, quick replies
   ChatMessage.tsx         -- single message bubble
-  ChatEscalation.tsx      -- escalation screen
+  ChatEscalation.tsx      -- escalation screen (Genevity or Helyos target)
   useChatSession.ts       -- session token, localStorage, session init
 src/app/api/chat/
-  route.ts                -- POST handler, streamText, DB writes
+  route.ts                -- POST handler, streamText, tool calls, DB writes
 src/lib/chat/
   agent.md                -- Genevity knowledge base (human-editable)
   prompt.ts               -- builds system prompt from agent.md + context
   session.ts              -- DB read/write helpers for sessions/messages
+  helyos-tools.ts         -- AI SDK tool definitions + Helyos DB queries
+src/lib/db/
+  helyos.ts               -- Helyos Neon SQL client (HELYOS_DATABASE_URL)
 ```
 
 **Modified files:**
@@ -297,7 +372,8 @@ src/lib/db/migrations/           -- chat_sessions + chat_messages tables
 
 **New env vars:**
 ```
-OPENAI_API_KEY=...
+OPENAI_API_KEY=sk-...
+HELYOS_DATABASE_URL=postgres://...   -- Helyos Neon connection string
 ```
 
 ---
@@ -309,3 +385,4 @@ OPENAI_API_KEY=...
 - Admin ability to edit `agent.md` via UI (future)
 - Push notifications for new chat sessions
 - Full Binotel API integration (not available)
+- Syncing Genevity knowledge from DB into `agent.md` automatically (manual for now)
