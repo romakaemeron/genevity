@@ -36,6 +36,35 @@ export default function ChatWidget() {
     else setLocale("uk");
   }, []);
 
+  // Hide Binotel native launcher button — our widget replaces it visually.
+  // Uses MutationObserver because the Binotel script loads lazily on first interaction.
+  useEffect(() => {
+    const hideEl = (el: Element) => {
+      const cls = el.getAttribute("class") ?? "";
+      const id = el.getAttribute("id") ?? "";
+      if (/binotel/i.test(cls + id)) {
+        (el as HTMLElement).style.setProperty("display", "none", "important");
+      }
+      el.querySelectorAll<HTMLElement>('[class*="binotel"],[id*="binotel"],[data-binotel-widget-launcher]').forEach(
+        (child) => child.style.setProperty("display", "none", "important")
+      );
+    };
+
+    document.querySelectorAll<HTMLElement>('[class*="binotel"],[id*="binotel"],[data-binotel-widget-launcher]').forEach(
+      (el) => el.style.setProperty("display", "none", "important")
+    );
+
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) hideEl(node as Element);
+        });
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   const handleEscalate = useCallback(
     (target: "genevity" | "helyos", summary: string) => {
       setEscalationTarget(target);
@@ -74,12 +103,6 @@ export default function ChatWidget() {
 
   return (
     <>
-      <style>{`
-        [class*="binotel-chat-button"],
-        [class*="binotel-launcher"],
-        [id*="binotel-chat-button"] { display: none !important; }
-      `}</style>
-
       <AnimatePresence>
         {view === "closed" && (
           <motion.button

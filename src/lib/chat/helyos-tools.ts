@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { helyosSql } from "@/lib/db/helyos";
+import { getHelyosSql } from "@/lib/db/helyos";
 
 export const helyosTools = {
   searchHelyosServices: {
@@ -9,8 +9,10 @@ export const helyosTools = {
       query: z.string().describe("Search keyword in Ukrainian or Russian"),
     }),
     execute: async ({ query }: { query: string }) => {
+      const sql = getHelyosSql();
+      if (!sql) return { results: [], note: "Helyos DB не налаштовано" };
       try {
-        const rows = await helyosSql`
+        const rows = await sql`
           SELECT id, title_uk AS title, description_uk AS description,
                  price_from_uk AS price_from
           FROM services
@@ -33,8 +35,10 @@ export const helyosTools = {
       specialty: z.string().describe("Specialty in Ukrainian/Russian, e.g. кардіолог, хірург"),
     }),
     execute: async ({ specialty }: { specialty: string }) => {
+      const sql = getHelyosSql();
+      if (!sql) return { doctors: [], note: "Helyos DB не налаштовано" };
       try {
-        const rows = await helyosSql`
+        const rows = await sql`
           SELECT name_uk AS name, role_uk AS role
           FROM doctors
           WHERE role_uk ILIKE ${"%" + specialty + "%"}
@@ -56,8 +60,10 @@ export const helyosTools = {
       serviceId: z.string().describe("Service ID from searchHelyosServices result"),
     }),
     execute: async ({ serviceId }: { serviceId: string }) => {
+      const sql = getHelyosSql();
+      if (!sql) return { service: null, note: "Helyos DB не налаштовано" };
       try {
-        const rows = await helyosSql`
+        const rows = await sql`
           SELECT s.id, s.title_uk AS title, s.description_uk AS description,
                  s.price_from_uk AS price_from, c.title_uk AS category
           FROM services s
