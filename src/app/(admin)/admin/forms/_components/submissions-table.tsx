@@ -87,6 +87,7 @@ interface Props {
   submissions: SubmissionRow[];
   compact?: boolean;
   noPoll?: boolean;
+  isAdmin?: boolean;
 }
 
 function formatDate(raw: string | Date) {
@@ -218,7 +219,7 @@ function RowActions({ row, onStatusChange }: { row: SubmissionRow; onStatusChang
   );
 }
 
-export default function SubmissionsTable({ submissions: initial, compact, noPoll }: Props) {
+export default function SubmissionsTable({ submissions: initial, compact, noPoll, isAdmin }: Props) {
   const router = useRouter();
   const { t } = useAdminLocale();
   const [rows, setRows] = useState<SubmissionRow[]>(initial);
@@ -597,17 +598,20 @@ export default function SubmissionsTable({ submissions: initial, compact, noPoll
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
                 {t.submissionsTable.statusNew}
               </button>
-              {/* Divider */}
-              <span className="w-px h-4 bg-border shrink-0" />
-              {/* Delete */}
-              <button
-                type="button"
-                onClick={() => setDeleteDialogOpen(true)}
-                className="inline-flex items-center justify-center w-7 h-7 rounded-[6px] shrink-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                title={`Видалити ${selectedIds.length} заявок`}
-              >
-                <Trash2 size={13} />
-              </button>
+              {/* Delete — admin only */}
+              {isAdmin && (
+                <>
+                  <span className="w-px h-4 bg-border shrink-0" />
+                  <button
+                    type="button"
+                    onClick={() => setDeleteDialogOpen(true)}
+                    className="inline-flex items-center justify-center w-7 h-7 rounded-[6px] shrink-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                    title={`Видалити ${selectedIds.length} заявок`}
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
 

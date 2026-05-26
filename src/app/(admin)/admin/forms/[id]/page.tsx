@@ -41,7 +41,8 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 export default async function SubmissionDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  await requireSession();
+  const session = await requireSession();
+  const isAdmin = session.role === "admin";
   const { id } = await params;
 
   const rows = await sql`
@@ -169,10 +170,12 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
         <Row label="utm_content"><Value mono>{r.utm_content}</Value></Row>
       </section>
 
-      {/* Danger zone */}
-      <div className="flex justify-end">
-        <DeleteSubmissionButton id={r.id as string} />
-      </div>
+      {/* Danger zone — admin only */}
+      {isAdmin && (
+        <div className="flex justify-end">
+          <DeleteSubmissionButton id={r.id as string} />
+        </div>
+      )}
     </div>
   );
 }

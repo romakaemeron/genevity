@@ -273,7 +273,7 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
     return { ok: false, errorKey: "generic" };
   }
 
-  void notifyAdmin({
+  await notifyAdmin({
     name, phone, interestLabel: joinedLabel, pageUrl, pageTitle,
     referrer, formLabel, locale: input.locale,
     utmSource, utmMedium, utmCampaign, utmTerm, utmContent,
@@ -297,10 +297,9 @@ async function notifyAdmin(s: {
   utmTerm: string | null;
   utmContent: string | null;
 }) {
-  const to = process.env.BOOKING_NOTIFY_EMAIL;
-  if (!to) return;
+  const to = "helyos1nfo@outlook.com";
 
-  const subject = `Нова заявка — ${s.name}`;
+  const subject = `Genevity — Нова заявка — ${s.name}`;
   const dateKyiv = new Date().toLocaleString("uk-UA", {
     day: "2-digit",
     month: "long",

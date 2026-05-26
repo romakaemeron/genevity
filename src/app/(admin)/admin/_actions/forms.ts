@@ -2,6 +2,7 @@
 
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
+import { getSession } from "./auth";
 
 export type FormStatus = "new" | "processed";
 
@@ -64,6 +65,8 @@ export async function setFormStatus(id: string, status: FormStatus) {
 }
 
 export async function deleteSubmission(id: string) {
+  const session = await getSession();
+  if (!session || session.role !== "admin") throw new Error("Forbidden");
   await sql`DELETE FROM form_submissions WHERE id = ${id}`;
   revalidatePath("/admin/forms");
   revalidatePath("/admin/dashboard");
@@ -71,6 +74,8 @@ export async function deleteSubmission(id: string) {
 
 export async function deleteSubmissions(ids: string[]) {
   if (!ids.length) return;
+  const session = await getSession();
+  if (!session || session.role !== "admin") throw new Error("Forbidden");
   await Promise.all(ids.map((id) => sql`DELETE FROM form_submissions WHERE id = ${id}`));
   revalidatePath("/admin/forms");
   revalidatePath("/admin/dashboard");

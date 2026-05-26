@@ -27,7 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://widgets.binotel.com" />
-        {/* GTM handles GA4 — dataLayer init must run before gtm.js */}
+      </head>
+      <body className="antialiased">
+        {/* GTM: dataLayer init must run before gtm.js — Script must be in body, not head */}
         <Script id="gtm-init" strategy="afterInteractive">
           {`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}
         </Script>
@@ -36,8 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtm.js?id=GTM-PGGK275D"
         />
-      </head>
-      <body className="antialiased">
         {children}
         <Script id="binotel-widget" strategy="afterInteractive">
           {`if(!window.location.pathname.startsWith('/admin')){var _bLoaded=false;function _bLoad(){if(_bLoaded)return;_bLoaded=true;(function(d,w,s){var widgetHash='Af6We2GQH21N1uJMFTL1',bch=d.createElement(s);bch.type='text/javascript';bch.async=true;bch.src='//widgets.binotel.com/chat/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(bch,sn);})(document,window,'script');}['mousemove','touchstart','keydown','click'].forEach(function(e){window.addEventListener(e,_bLoad,{once:true,passive:true});});}`}

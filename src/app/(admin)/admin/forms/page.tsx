@@ -15,7 +15,8 @@ export default async function FormsPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  await requireSession();
+  const session = await requireSession();
+  const isAdmin = session.role === "admin";
 
   const { page: pageParam = "1" } = await searchParams;
   const page = Math.max(1, parseInt(pageParam, 10) || 1);
@@ -60,7 +61,7 @@ export default async function FormsPage({
   return (
     <div className="p-8 overflow-hidden">
       <AdminPageHeader title={t.formsPage.title} subtitle={subtitle} />
-      <SubmissionsTable submissions={submissions} noPoll={page > 1} />
+      <SubmissionsTable submissions={submissions} noPoll={page > 1} isAdmin={isAdmin} />
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
