@@ -92,7 +92,7 @@ export default async function ChatsPage({
       GROUP BY topic
       ORDER BY cnt DESC
       LIMIT 12
-    ` as Promise<{ topic: string; cnt: number }[]>,
+    ` as unknown as Promise<{ topic: string; cnt: number }[]>,
 
     // Locale breakdown
     sql`
@@ -101,7 +101,7 @@ export default async function ChatsPage({
       WHERE  started_at >= ${since}
       GROUP BY locale
       ORDER BY cnt DESC
-    ` as Promise<{ locale: string; cnt: number }[]>,
+    ` as unknown as Promise<{ locale: string; cnt: number }[]>,
 
     // Recent sessions table
     sql`
