@@ -144,91 +144,53 @@ export default function ChatWidget() {
       }
 
       if (prefill) {
-        const findChatInput = (): HTMLTextAreaElement | HTMLInputElement | null => {
-          // Main document search
-          const mainInput =
-            document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
-              "textarea[placeholder*='повідомлення'], input[placeholder*='повідомлення']"
-            ) ||
-            Array.from(document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>(
-              "[id*='bwc'] textarea, [class*='bwc'] textarea, [id*='bwc'] input[type='text'], [class*='bwc'] input[type='text']"
-            )).find(el => el.id !== "estimate-form-input") ||
-            null;
-          if (mainInput) return mainInput;
-
-          // Binotel likely renders the chat panel inside an iframe
-          const iframes = Array.from(document.querySelectorAll("iframe"));
-          console.log("[binotel] iframes in DOM:", iframes.map(f => `${f.id || "(no-id)"} src=${f.src}`).join(" | ") || "(none)");
-          for (const iframe of iframes) {
-            try {
-              const iDoc = iframe.contentDocument;
-              if (!iDoc) { console.log("[binotel] iframe no contentDocument:", iframe.src); continue; }
-              // Any textarea or text input inside the iframe
-              const iInput =
-                iDoc.querySelector<HTMLTextAreaElement | HTMLInputElement>(
-                  "textarea, input[type='text']"
-                );
-              console.log("[binotel] iframe", iframe.src || iframe.id, "→ input:", iInput ? `${iInput.tagName} placeholder="${iInput.placeholder}"` : "none");
-              if (iInput) return iInput;
-            } catch {
-              console.log("[binotel] iframe cross-origin (cannot access):", iframe.src);
-            }
-          }
-          return null;
-        };
+        // Binotel chat input is a div[contenteditable], NOT a textarea/input
+        const findChatInput = (): HTMLElement | null =>
+          document.querySelector<HTMLElement>(
+            "div.bwc-message[contenteditable], div[contenteditable][placeholder*='повідомлення']"
+          ) || null;
 
         const injectText = (text: string, attempt = 0) => {
           const input = findChatInput();
-          console.log(`[binotel] injectText attempt ${attempt}`, input ? `found: ${input.tagName}#${input.id}.${input.className}` : "NOT FOUND");
+          console.log(`[binotel] injectText attempt ${attempt}`, input ? `found: ${input.tagName}.${input.className}` : "NOT FOUND");
 
           if (!input) {
             if (attempt < 25) setTimeout(() => injectText(text, attempt + 1), 300);
-            else console.warn("[binotel] prefill FAILED — input not found after 25 attempts");
+            else console.warn("[binotel] prefill FAILED — contenteditable not found after 25 attempts");
             return;
           }
 
           input.focus();
 
-          // Native value setter + input event — works for React/Vue/plain JS controlled inputs
-          const proto = input instanceof HTMLTextAreaElement ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
-          const nativeSetter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
-          if (nativeSetter) { nativeSetter.call(input, text); } else { input.value = text; }
-          input.dispatchEvent(new InputEvent("input", { bubbles: true, data: text, inputType: "insertText" }));
-          input.dispatchEvent(new Event("change", { bubbles: true }));
-          console.log(`[binotel] after native setter: "${input.value}"`);
+          // For contenteditable divs: execCommand insertText fires proper input events
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          const ok = document.execCommand("insertText", false, text);
+          console.log(`[binotel] execCommand insertText ok=${ok}, textContent="${input.textContent}"`);
 
-          // Fallback: execCommand (works on non-framework plain textareas)
-          if (!input.value) {
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
-            document.execCommand("insertText", false, text);
-            console.log(`[binotel] after execCommand: "${input.value}"`);
+          // Fallback: set innerText + dispatch input event
+          if (!input.textContent?.trim()) {
+            input.innerText = text;
+            input.dispatchEvent(new InputEvent("input", { bubbles: true, data: text, inputType: "insertText" }));
+            console.log(`[binotel] innerText fallback, textContent="${input.textContent}"`);
           }
 
-          if (!input.value) {
-            console.warn("[binotel] value still empty after injection attempts");
+          if (!input.textContent?.trim()) {
+            console.warn("[binotel] contenteditable still empty");
             if (attempt < 5) setTimeout(() => injectText(text, attempt + 1), 400);
             return;
           }
 
-          // Send: first try Enter key (most reliable for chat UIs), then send button click
+          // Send after short delay
           setTimeout(() => {
-            console.log(`[binotel] pre-send value: "${input.value}"`);
-            if (!input.value) return;
+            const sendBtn = document.querySelector<HTMLElement>("div.bwc-send, [class*='bwc-send']");
+            console.log("[binotel] send button:", sendBtn ? `found: ${sendBtn.className}` : "NOT FOUND");
+            if (sendBtn) { sendBtn.click(); console.log("[binotel] clicked send button"); return; }
 
-            // Enter keydown — many chat widgets send on Enter
+            // Fallback: Enter key
             const enterEvt = new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true, cancelable: true });
-            const prevented = !input.dispatchEvent(enterEvt);
-            console.log("[binotel] Enter keydown dispatched, prevented:", prevented);
+            input.dispatchEvent(enterEvt);
             input.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
-
-            // Also click send button 300ms later as backup
-            setTimeout(() => {
-              const sendBtn = document.querySelector<HTMLElement>(
-                "button.bwc-btn-send, [class*='bwc-send'], form[class*='bwc'] button[type='submit'], [id*='bwc'] button[type='submit'], [class*='bwc'] button[type='submit']"
-              );
-              console.log("[binotel] send button:", sendBtn ? `found: ${sendBtn.className}` : "NOT FOUND", "input value:", input.value);
-              if (sendBtn) { sendBtn.click(); console.log("[binotel] clicked send button"); }
-            }, 300);
+            console.log("[binotel] Enter key dispatched as fallback");
           }, 200);
         };
 
