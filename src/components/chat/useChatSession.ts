@@ -2,18 +2,26 @@
 
 import { useEffect, useState } from "react";
 
-export function useChatSession(): string | null {
-  const [sessionToken, setSessionToken] = useState<string | null>(null);
+const SESSION_KEY = "genevity_chat_session";
+
+export function useChatSession(): { token: string | null; reset: () => void } {
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const key = "genevity_chat_session";
-    let token = sessionStorage.getItem(key);
-    if (!token) {
-      token = crypto.randomUUID();
-      sessionStorage.setItem(key, token);
+    let t = sessionStorage.getItem(SESSION_KEY);
+    if (!t) {
+      t = crypto.randomUUID();
+      sessionStorage.setItem(SESSION_KEY, t);
     }
-    setSessionToken(token);
+    setToken(t);
   }, []);
 
-  return sessionToken;
+  const reset = () => {
+    const t = crypto.randomUUID();
+    sessionStorage.setItem(SESSION_KEY, t);
+    sessionStorage.removeItem(`genevity_welcomed_${token}`);
+    setToken(t);
+  };
+
+  return { token, reset };
 }

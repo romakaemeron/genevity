@@ -25,19 +25,8 @@ const categoryDoctorIds: Record<string, string[]> = {
   "longevity": ["doctor-2", "doctor-3", "doctor-8", "doctor-9"],
 };
 
-/** Default hero image when no category-specific one exists */
 const DEFAULT_HERO = { src: "/clinic/semi1737-hdr.webp", position: "center" };
 
-/** Category-specific hero images */
-const categoryHeroImages: Record<string, { src: string; position?: string; flip?: boolean; scale?: number }> = {
-  "injectable-cosmetology": { src: "/services/injectable-cosmetology-hero.webp", position: "center" },
-  "apparatus-cosmetology": { src: "/clinic/semi1737-hdr.webp", position: "center" },
-  "intimate-rejuvenation": { src: "/clinic/semi1287-hdr.webp", position: "center" },
-  "laser-hair-removal": { src: "/clinic/semi1256-hdr.webp", position: "center" },
-  "longevity": { src: "/clinic/hydrafacial.webp", position: "center" },
-};
-
-/** Default clinic photos used as visual breaks within sections */
 const DEFAULT_PHOTOS = [
   "/clinic/semi1737-hdr.webp",
   "/clinic/semi1287-hdr.webp",
@@ -45,15 +34,6 @@ const DEFAULT_PHOTOS = [
   "/clinic/hydrafacial.webp",
   "/clinic/acupulse.webp",
 ];
-
-/** Category-specific clinic/procedure gallery images */
-const categoryImages: Record<string, string[]> = {
-  "injectable-cosmetology": ["/services/injectable-cosmetology-hero.webp", "/clinic/semi1287-hdr.webp", "/clinic/semi1256-hdr.webp"],
-  "apparatus-cosmetology": ["/clinic/semi1737-hdr.webp", "/clinic/acupulse.webp", "/clinic/hydrafacial.webp"],
-  "laser-hair-removal": ["/clinic/semi1256-hdr.webp", "/clinic/semi1737-hdr.webp", "/clinic/semi1287-hdr.webp"],
-  "intimate-rejuvenation": ["/clinic/semi1287-hdr.webp", "/clinic/semi1256-hdr.webp", "/clinic/semi1737-hdr.webp"],
-  "longevity": ["/clinic/hydrafacial.webp", "/clinic/semi1287-hdr.webp", "/clinic/acupulse.webp"],
-};
 
 export const revalidate = 86400;
 
@@ -92,7 +72,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         { name: category.title, url: `https://genevity.com.ua${localePrefix}/services/${slug}` },
       ]} />
       <JsonLdImageObject
-        url={(categoryHeroImages[slug] || DEFAULT_HERO).src}
+        url={category.heroImage || DEFAULT_HERO.src}
         caption={category.title}
       />
       {/* Sticky solid header — slides in after hero scrolls past */}
@@ -101,9 +81,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         category={category}
         services={services}
         locale={locale as Locale}
-        heroImage={categoryHeroImages[slug] || DEFAULT_HERO}
+        heroImage={category.heroImage ? { src: category.heroImage, position: "center" } : DEFAULT_HERO}
         heroVariant="light"
-        images={categoryImages[slug] || DEFAULT_PHOTOS}
+        images={category.gallery?.length ? category.gallery : DEFAULT_PHOTOS}
         doctors={
           categoryDoctorIds[slug]
             ? doctors.filter((d) => categoryDoctorIds[slug].includes(d._id))

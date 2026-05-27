@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, X } from "lucide-react";
+import { Send, X, RotateCcw } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 
 interface ChatState {
@@ -15,32 +15,43 @@ interface ChatState {
   escalationHint: string | null;
   collectedName: string | null;
   collectedPhone: string | null;
+  topics: string[];
 }
 
 interface Props {
+  isOpen: boolean;
   sessionToken: string;
   onClose: () => void;
   onEscalate: (target: "genevity" | "helyos", summary: string) => void;
+  onNewChat: () => void;
   pageUrl: string;
   pageTitle: string;
   locale: string;
-  onLocaleChange: (locale: string) => void;
+  escalationResetKey: number;
 }
 
-const LOCALES = ["uk", "ru", "en"] as const;
-const IDLE_MS = 8_000;
+function detectLocale(text: string): string {
+  if (/[a-zA-Z]{3,}/.test(text) && !/[а-яёА-ЯЁіїєґІЇЄҐ]/.test(text)) return "en";
+  if (/[іїєґІЇЄҐ]/.test(text)) return "uk";
+  if (/[ёэъыЁЭЪЫ]/.test(text)) return "ru";
+  return "";
+}
 
 export default function ChatPanel({
+  isOpen,
   sessionToken,
   onClose,
   onEscalate,
+  onNewChat,
   pageUrl,
   pageTitle,
-  locale,
-  onLocaleChange,
+  locale: initialLocale,
+  escalationResetKey,
 }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
+  const [locale, setLocale] = useState(initialLocale);
+  const localeRef = useRef(locale);
   const [chatState, setChatState] = useState<ChatState>({
     suggestions: ["Наші послуги", "Наші лікарі", "Ціни"],
     urgency: "browsing",
@@ -49,45 +60,70 @@ export default function ChatPanel({
     escalationHint: null,
     collectedName: null,
     collectedPhone: null,
+    topics: [],
   });
   const [escalationOffered, setEscalationOffered] = useState(false);
   const [showEscalatePrompt, setShowEscalatePrompt] = useState(false);
 
-  const { messages, sendMessage, addToolOutput, status } = useChat({
+  // Reset when user comes back from escalation screen
+  useEffect(() => {
+    setEscalationOffered(false);
+    setShowEscalatePrompt(false);
+  }, [escalationResetKey]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sendMessageRef = useRef<((msg: any) => void) | null>(null);
+
+  const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
-      body: { sessionToken, locale, pageUrl, pageTitle },
+      body: () => ({ sessionToken, locale: localeRef.current, pageUrl, pageTitle }),
     }),
-    onToolCall: ({ toolCall }) => {
-      if (toolCall.dynamic) return;
-      if (toolCall.toolName === "updateChatState") {
-        const args = toolCall.input as ChatState;
-        setChatState(args);
-        if (args.shouldEscalate && !escalationOffered) {
-          setEscalationOffered(true);
-          setShowEscalatePrompt(true);
-        }
-        addToolOutput({
-          tool: "updateChatState",
-          toolCallId: toolCall.toolCallId,
-          output: "ok",
-        });
-      }
-    },
   });
+
+  // Read chatState from tool invocation parts streamed by the server
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const allParts = messages.flatMap((m) => m.parts) as any[];
+    const lastToolPart = [...allParts].reverse().find(
+      (p) => p.type === "tool-updateChatState" && p.state === "output-available"
+    ) as { input: ChatState } | undefined;
+    if (!lastToolPart) return;
+    const args = lastToolPart.input;
+    setChatState(prev => ({
+      ...args,
+      topics: [...new Set([...prev.topics, ...(args.topics ?? [])])],
+    }));
+    if (args.shouldEscalate && !escalationOffered) {
+      setEscalationOffered(true);
+      const mergedTopics = [...new Set([...chatState.topics, ...(args.topics ?? [])])];
+      const topicsPart = mergedTopics.length ? `Цікавився: ${mergedTopics.join(", ")}` : null;
+      const summary = [args.escalationHint, topicsPart].filter(Boolean).join(". ");
+      if (args.urgency === "ready_to_book") {
+        onEscalate(args.escalationTarget, summary);
+      } else {
+        setShowEscalatePrompt(true);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
+  // Keep ref current so the welcome timer can call latest sendMessage without being a dep
+  useEffect(() => { sendMessageRef.current = sendMessage; });
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // 8-second idle trigger
+  // Send welcome once on mount — no deps so cleanup never cancels the timer prematurely
+  // ChatPanel is keyed by sessionToken so this runs fresh for each session
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (messages.length > 0 || !sessionToken) return;
     const timer = setTimeout(() => {
-      sendMessage({ text: "__idle__" });
-    }, IDLE_MS);
+      sendMessageRef.current?.({ text: "__welcome__" });
+    }, 400);
     return () => clearTimeout(timer);
-  }, [messages.length, sessionToken, sendMessage]);
+  }, []);
 
   const isStreaming = status === "streaming" || status === "submitted";
   const lastBotMsg = [...messages].reverse().find((m) => m.role === "assistant");
@@ -95,11 +131,13 @@ export default function ChatPanel({
   return (
     <motion.div
       initial={{ opacity: 0, y: 16, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 16, scale: 0.97 }}
+      animate={isOpen
+        ? { opacity: 1, y: 0, scale: 1 }
+        : { opacity: 0, y: 16, scale: 0.97 }
+      }
       transition={{ duration: 0.2, ease: "easeOut" }}
       className="flex flex-col w-[360px] h-[520px] rounded-2xl shadow-2xl overflow-hidden border border-[var(--color-champagne-darker)]"
-      style={{ background: "var(--color-champagne)" }}
+      style={{ background: "var(--color-champagne)", pointerEvents: isOpen ? "auto" : "none" }}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-[var(--color-main)] text-white shrink-0">
@@ -110,19 +148,13 @@ export default function ChatPanel({
           GENEVITY Асистент
         </span>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 bg-white/20 rounded-lg px-2 py-1">
-            {LOCALES.map((l) => (
-              <button
-                key={l}
-                onClick={() => onLocaleChange(l)}
-                className={`text-xs px-1 rounded transition-colors ${
-                  locale === l ? "text-white font-semibold" : "text-white/60 hover:text-white"
-                }`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
+          <button
+            onClick={onNewChat}
+            className="text-white/70 hover:text-white transition-colors"
+            title="Новий чат"
+          >
+            <RotateCcw size={14} />
+          </button>
           <button
             onClick={onClose}
             className="text-white/70 hover:text-white transition-colors"
@@ -208,15 +240,54 @@ export default function ChatPanel({
           )}
         </AnimatePresence>
 
+        <AnimatePresence>
+          {status === "submitted" && (
+            <motion.div
+              key="thinking"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.15 }}
+              className="flex justify-start"
+            >
+              <div className="bg-[var(--color-champagne-dark)] rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1.5">
+                {[0, 150, 300].map((delay) => (
+                  <span
+                    key={delay}
+                    className="w-1.5 h-1.5 rounded-full bg-[var(--color-main)] opacity-50 animate-bounce"
+                    style={{ animationDelay: `${delay}ms`, animationDuration: "800ms" }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div ref={bottomRef} />
       </div>
 
       {/* Connect to operator */}
       <div className="px-4 pb-1 shrink-0">
         <button
-          onClick={() =>
-            onEscalate(chatState.escalationTarget, chatState.escalationHint ?? "")
-          }
+          onClick={() => {
+            const topicsLine = chatState.topics?.length
+              ? `Цікавився: ${chatState.topics.join(", ")}`
+              : (() => {
+                  const lastUserTexts = messages
+                    .filter(m => m.role === "user")
+                    .map(m => m.parts.filter((p): p is { type: "text"; text: string } => p.type === "text").map(p => p.text).join(""))
+                    .filter(t => t && !t.startsWith("__"))
+                    .slice(-3)
+                    .join(" / ");
+                  return lastUserTexts ? `Запит: ${lastUserTexts}` : null;
+                })();
+            const parts = [
+              chatState.escalationHint,
+              topicsLine,
+              chatState.collectedName ? `Ім'я: ${chatState.collectedName}` : null,
+            ].filter(Boolean);
+            onEscalate(chatState.escalationTarget, parts.join(". "));
+          }}
           className="w-full py-2 text-xs text-[var(--color-main)] border border-[var(--color-main)] rounded-xl hover:bg-[var(--color-main)]/5 transition-colors flex items-center justify-center gap-1.5"
         >
           📞 Зв'язатись з оператором
@@ -228,6 +299,11 @@ export default function ChatPanel({
         onSubmit={(e) => {
           e.preventDefault();
           if (!input.trim() || isStreaming || !sessionToken) return;
+          const detected = detectLocale(input.trim());
+          if (detected) {
+            localeRef.current = detected;
+            setLocale(detected);
+          }
           sendMessage({ text: input });
           setInput("");
         }}

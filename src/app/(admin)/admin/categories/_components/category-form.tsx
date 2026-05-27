@@ -10,17 +10,19 @@ import SectionBuilder from "../../_components/section-builder";
 import FaqEditor from "../../_components/faq-editor";
 import SeoFormTab from "../../_components/seo-form-tab";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
+import GalleryEditor, { type GalleryItemInput } from "../../_components/gallery-editor";
 
 interface Props {
   category: any;
   sections?: { type: string; data: any }[];
   faq?: any[];
   doctors?: { id: string; name_uk: string; role_uk: string | null }[];
+  gallery?: GalleryItemInput[];
 }
 
-type Tab = "meta" | "seo" | "sections" | "faq";
+type Tab = "meta" | "seo" | "sections" | "faq" | "gallery";
 
-export default function CategoryForm({ category: cat, sections = [], faq = [], doctors = [] }: Props) {
+export default function CategoryForm({ category: cat, sections = [], faq = [], doctors = [], gallery = [] }: Props) {
   const [state, formAction] = useActionState(saveCategory, null as any);
   const [tab, setTab] = useState<Tab>("meta");
   const metaFormRef = useRef<HTMLFormElement | null>(null);
@@ -30,6 +32,7 @@ export default function CategoryForm({ category: cat, sections = [], faq = [], d
     { key: "seo", label: "SEO" },
     { key: "sections", label: `Sections (${sections.length})` },
     { key: "faq", label: `FAQ (${faq.length})` },
+    { key: "gallery", label: `Gallery (${gallery.length})` },
   ];
 
   return (
@@ -147,6 +150,15 @@ export default function CategoryForm({ category: cat, sections = [], faq = [], d
         <div className="p-8">
           <p className="body-m text-muted mb-6">Category-level FAQ.</p>
           <FaqEditor ownerType="category" ownerId={cat.id} initial={faq} />
+        </div>
+      )}
+
+      {tab === "gallery" && (
+        <div className="p-8">
+          <p className="body-m text-muted mb-6">
+            Photos used as visual breaks between sections on the category hub page. Upload 3–5 images. First image is used in the hero if no dedicated hero image is set.
+          </p>
+          <GalleryEditor ownerKey={`category_${cat.slug}`} initial={gallery} />
         </div>
       )}
     </div>
