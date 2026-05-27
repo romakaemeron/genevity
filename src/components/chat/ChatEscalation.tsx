@@ -13,7 +13,7 @@ interface Props {
 
 const PHONES = {
   genevity: "056 794 70 00",
-  helyos: "+38 (067) 000 01 50",
+  helyos: "+38 (067) 506 80 84",
 };
 
 export default function ChatEscalation({ target, summary, onClose, onBack, onOpenBinotel }: Props) {
