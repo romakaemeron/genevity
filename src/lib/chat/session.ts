@@ -59,6 +59,15 @@ export async function updateSessionState(params: {
   `;
 }
 
+export async function confirmEscalation(sessionToken: string): Promise<void> {
+  await sql`
+    UPDATE chat_sessions SET user_confirmed_at = now()
+    WHERE session_token = ${sessionToken}
+      AND escalated_at IS NOT NULL
+      AND user_confirmed_at IS NULL
+  `;
+}
+
 export async function escalateSession(params: {
   sessionId: string;
   escalationBy: "bot" | "user";
