@@ -109,18 +109,31 @@ export default function ChatWidget() {
         el.style.setProperty("visibility", "visible", "important");
       };
 
-      // The Chat button is inside bwc-widget-action: <button aria-label="Chat button" class="bwc-chat ...">
       const chatBtn = document.querySelector<HTMLElement>('button[aria-label="Chat button"]');
-      console.log("[binotel] Chat button:", chatBtn);
+      const isActive = chatBtn && !chatBtn.classList.contains("bwc-chat-inactive");
+      console.log("[binotel] Chat button:", chatBtn, "active:", isActive);
 
-      if (chatBtn) {
-        // Show the parent container so Binotel registers the click correctly
-        if (launcher) showEl(launcher);
-        console.log("[binotel] clicking Chat button directly");
+      // GTM wraps history.pushState and crashes when Binotel passes a string as state.
+      // Patch pushState to coerce string states to objects before clicking.
+      const _origPushState = history.pushState;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (history as any).pushState = function(state: unknown, title: string, url?: string | URL | null) {
+        const safeState = typeof state === "string" ? { binotel: state } : state;
+        console.log("[binotel] pushState patched, state was:", typeof state);
+        return _origPushState.call(history, safeState, title, url);
+      };
+      setTimeout(() => {
+        (history as any).pushState = _origPushState;
+        console.log("[binotel] pushState restored");
+      }, 2000);
+
+      if (chatBtn && launcher) {
+        showEl(launcher);
+        console.log("[binotel] clicking Chat button");
         chatBtn.click();
         console.log("[binotel] clicked Chat button");
       } else if (launcher) {
-        console.log("[binotel] Chat button not found, falling back to launcher click");
+        console.log("[binotel] no chat btn — clicking launcher");
         showEl(launcher);
         launcher.click();
       } else if (typeof window.binotelChatWidget?.open === "function") {
@@ -132,14 +145,15 @@ export default function ChatWidget() {
 
       if (prefill) {
         const injectText = (text: string, attempt = 0) => {
-          const input = document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
-            "#bwc-chat-input, " +
-            "textarea[placeholder*='повідомлення'], " +
-            "input[placeholder*='повідомлення'], " +
-            "[id*='bwc'] textarea, " +
-            "[class*='bwc'] textarea, " +
-            "[id*='bwc'] input[type='text']"
-          );
+          // Prefer the main chat textarea; avoid estimate-form-input (callback form, not chat)
+          const input =
+            document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
+              "textarea[placeholder*='повідомлення'], input[placeholder*='повідомлення']"
+            ) ||
+            Array.from(document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>(
+              "[id*='bwc'] textarea, [class*='bwc'] textarea, [id*='bwc'] input[type='text']"
+            )).find(el => el.id !== "estimate-form-input") ||
+            null;
           console.log(`[binotel] injectText attempt ${attempt}, input:`, input);
           if (input) {
             const proto = input instanceof HTMLTextAreaElement
