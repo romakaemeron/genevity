@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import ChatPanel from "./ChatPanel";
@@ -41,7 +41,9 @@ export default function ChatWidget() {
   }, []);
 
   // Hide Binotel native launcher — our widget replaces it visually.
-  // Binotel uses bwc-* IDs (not "binotel"), so we watch for them via MutationObserver.
+  // Store ref so we can disconnect when deliberately opening Binotel.
+  const binotelObserverRef = useRef<MutationObserver | null>(null);
+
   useEffect(() => {
     const HIDE_IDS = ["bwc-widget-action", "bwc-chat-cloud-message"];
 
@@ -55,8 +57,9 @@ export default function ChatWidget() {
     hideKnown();
 
     const observer = new MutationObserver(hideKnown);
+    binotelObserverRef.current = observer;
     observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); binotelObserverRef.current = null; };
   }, []);
 
   const handleEscalate = useCallback(
@@ -72,25 +75,27 @@ export default function ChatWidget() {
     setView("closed");
 
     const prefill = escalationSummary
-      ? (escalationTarget === "helyos"
-          ? "Пацієнт з сайту GENEVITY. "
-          : "") + escalationSummary
+      ? (escalationTarget === "helyos" ? "Пацієнт з сайту GENEVITY. " : "") + escalationSummary
       : "";
 
     const openChat = () => {
-      // Try Binotel programmatic API first
-      if (typeof window.binotelChatWidget?.open === "function") {
+      // Stop hiding Binotel elements so the chat panel can appear
+      binotelObserverRef.current?.disconnect();
+      binotelObserverRef.current = null;
+
+      // Un-hide the launcher button before clicking
+      const btn = document.getElementById("bwc-widget-action");
+      if (btn) {
+        btn.style.removeProperty("display");
+        btn.click();
+      } else if (typeof window.binotelChatWidget?.open === "function") {
         window.binotelChatWidget.open();
-      } else {
-        // Fall back: click the native Binotel button (hidden via CSS but still clickable)
-        const btn = document.getElementById("bwc-widget-action");
-        if (btn) btn.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
       }
 
       if (prefill) {
         setTimeout(() => {
           const input = document.querySelector<HTMLInputElement>(
-            "input[class*='bwc'], textarea[class*='bwc'], [id*='bwc'] input, [id*='bwc'] textarea"
+            "[id*='bwc'] input, [id*='bwc'] textarea, input[class*='bwc'], textarea[class*='bwc']"
           );
           if (input) {
             input.value = prefill;
@@ -100,11 +105,11 @@ export default function ChatWidget() {
       }
     };
 
-    // Binotel loads lazily — give it a tick to finish if still initializing
+    // Binotel loads lazily on first user interaction — wait if not ready yet
     if (document.getElementById("bwc-widget-action") || typeof window.binotelChatWidget?.open === "function") {
       openChat();
     } else {
-      setTimeout(openChat, 600);
+      setTimeout(openChat, 800);
     }
   }, [escalationTarget, escalationSummary]);
 
