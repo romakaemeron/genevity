@@ -228,6 +228,29 @@ export default function ChatPanel({
           )}
         </AnimatePresence>
 
+        <AnimatePresence>
+          {status === "submitted" && (
+            <motion.div
+              key="thinking"
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.15 }}
+              className="flex justify-start"
+            >
+              <div className="bg-[var(--color-champagne-dark)] rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1.5">
+                {[0, 150, 300].map((delay) => (
+                  <span
+                    key={delay}
+                    className="w-1.5 h-1.5 rounded-full bg-[var(--color-main)] opacity-50 animate-bounce"
+                    style={{ animationDelay: `${delay}ms`, animationDuration: "800ms" }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div ref={bottomRef} />
       </div>
 
