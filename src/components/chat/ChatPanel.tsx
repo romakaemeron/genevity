@@ -15,6 +15,7 @@ interface ChatState {
   escalationHint: string | null;
   collectedName: string | null;
   collectedPhone: string | null;
+  topics: string[];
 }
 
 interface Props {
@@ -57,6 +58,7 @@ export default function ChatPanel({
     escalationHint: null,
     collectedName: null,
     collectedPhone: null,
+    topics: [],
   });
   const [escalationOffered, setEscalationOffered] = useState(false);
   const [showEscalatePrompt, setShowEscalatePrompt] = useState(false);
@@ -226,9 +228,14 @@ export default function ChatPanel({
       {/* Connect to operator */}
       <div className="px-4 pb-1 shrink-0">
         <button
-          onClick={() =>
-            onEscalate(chatState.escalationTarget, chatState.escalationHint ?? "")
-          }
+          onClick={() => {
+            const parts = [
+              chatState.escalationHint,
+              chatState.topics?.length ? `Цікавився: ${chatState.topics.join(", ")}` : null,
+              chatState.collectedName ? `Ім'я: ${chatState.collectedName}` : null,
+            ].filter(Boolean);
+            onEscalate(chatState.escalationTarget, parts.join(". "));
+          }}
           className="w-full py-2 text-xs text-[var(--color-main)] border border-[var(--color-main)] rounded-xl hover:bg-[var(--color-main)]/5 transition-colors flex items-center justify-center gap-1.5"
         >
           📞 Зв'язатись з оператором
