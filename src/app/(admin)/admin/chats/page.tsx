@@ -2,16 +2,10 @@ import Link from "next/link";
 import { sql } from "@/lib/db/client";
 import { requireSession } from "../_actions/auth";
 import { AdminPageHeader } from "../_components/admin-list";
+import { getAdminStrings } from "../_i18n/server";
 import { cn } from "@/lib/utils";
 
-const URGENCY = {
-  browsing:      { label: "Переглядає",  cls: "bg-gray-100 text-gray-600" },
-  interested:    { label: "Цікавиться",  cls: "bg-blue-100 text-blue-700" },
-  ready_to_book: { label: "До запису",   cls: "bg-green-100 text-green-700" },
-} as const;
-
 type Range = "today" | "week" | "month";
-const RANGE_LABELS: Record<Range, string> = { today: "Сьогодні", week: "7 днів", month: "30 днів" };
 const RANGE_DAYS: Record<Range, number> = { today: 1, week: 7, month: 30 };
 
 function pct(a: number, b: number) {
@@ -49,9 +43,18 @@ export default async function ChatsPage({
 }) {
   await requireSession();
 
+  const t = await getAdminStrings();
+  const cp = t.chatsPage;
+
   const { range: rawRange = "month" } = await searchParams;
   const range = (["today", "week", "month"].includes(rawRange) ? rawRange : "month") as Range;
   const since = new Date(Date.now() - RANGE_DAYS[range] * 24 * 60 * 60 * 1000).toISOString();
+
+  const urgency = {
+    browsing:      { label: cp.urgencyBrowsing,   cls: "bg-gray-100 text-gray-600" },
+    interested:    { label: cp.urgencyInterested,  cls: "bg-blue-100 text-blue-700" },
+    ready_to_book: { label: cp.urgencyReady,       cls: "bg-green-100 text-green-700" },
+  } as const;
 
   const [statsRow, topicsRows, localeRows, rows] = await Promise.all([
     // Main stats
@@ -124,14 +127,15 @@ export default async function ChatsPage({
   const engagementRate = pct(s.engaged, s.total);
   const escalationRate = pct(s.escalated, s.engaged);
   const topTopicMax = topicsRows[0]?.cnt ?? 1;
+  const rangeLabel = cp.rangeLabels[range];
 
   return (
     <div className="p-8 space-y-6">
       {/* Header + range selector */}
       <div className="flex items-start justify-between gap-4">
         <AdminPageHeader
-          title="AI Чат — Аналітика"
-          subtitle={`${s.total} сесій за ${RANGE_LABELS[range].toLowerCase()}`}
+          title={cp.title}
+          subtitle={cp.subtitle(s.total, rangeLabel.toLowerCase())}
         />
         <div className="flex items-center gap-1 border border-border rounded-lg p-1 bg-card shrink-0">
           {(["today", "week", "month"] as Range[]).map((r) => (
@@ -145,7 +149,7 @@ export default async function ChatsPage({
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
-              {RANGE_LABELS[r]}
+              {cp.rangeLabels[r]}
             </Link>
           ))}
         </div>
@@ -153,24 +157,24 @@ export default async function ChatsPage({
 
       {/* Stats cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <StatCard label="Всього сесій" value={s.total} />
-        <StatCard label="Почали чат" value={s.engaged} sub={engagementRate + " від сесій"} />
-        <StatCard label="Ескаловано" value={s.escalated} sub={escalationRate + " від чатів"} accent />
-        <StatCard label="→ Genevity" value={s.esc_genevity} />
-        <StatCard label="→ Helyos" value={s.esc_helyos} />
-        <StatCard label="Повід. / чат" value={s.avg_messages ?? "—"} sub="середнє" />
+        <StatCard label={cp.statTotal} value={s.total} />
+        <StatCard label={cp.statEngaged} value={s.engaged} sub={cp.statEngagedSub(engagementRate)} />
+        <StatCard label={cp.statEscalated} value={s.escalated} sub={cp.statEscalatedSub(escalationRate)} accent />
+        <StatCard label={cp.statGenevity} value={s.esc_genevity} />
+        <StatCard label={cp.statHelyos} value={s.esc_helyos} />
+        <StatCard label={cp.statMsgPerChat} value={s.avg_messages ?? "—"} sub={cp.statAvgSub} />
       </div>
 
       {/* Funnel + Topics row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Conversion funnel */}
         <div className="border border-border rounded-xl bg-card p-5">
-          <h3 className="text-sm font-semibold mb-4">Воронка конверсії</h3>
+          <h3 className="text-sm font-semibold mb-4">{cp.funnelTitle}</h3>
           <div className="space-y-2.5">
-            <FunnelBar label="Почали чат"    count={s.engaged}       total={s.engaged}       cls="bg-gray-400" />
-            <FunnelBar label="Цікавляться"   count={s.interested}    total={s.engaged}       cls="bg-blue-400" />
-            <FunnelBar label="До запису"     count={s.ready_to_book} total={s.engaged}       cls="bg-emerald-400" />
-            <FunnelBar label="Ескалація"     count={s.escalated}     total={s.engaged}       cls="bg-primary" />
+            <FunnelBar label={cp.funnelEngaged}   count={s.engaged}       total={s.engaged} cls="bg-gray-400" />
+            <FunnelBar label={cp.funnelInterested} count={s.interested}    total={s.engaged} cls="bg-blue-400" />
+            <FunnelBar label={cp.funnelReady}      count={s.ready_to_book} total={s.engaged} cls="bg-emerald-400" />
+            <FunnelBar label={cp.funnelEscalated}  count={s.escalated}     total={s.engaged} cls="bg-primary" />
           </div>
           {/* Locale mini row */}
           {localeRows.length > 0 && (
@@ -187,9 +191,9 @@ export default async function ChatsPage({
 
         {/* Top topics */}
         <div className="border border-border rounded-xl bg-card p-5">
-          <h3 className="text-sm font-semibold mb-4">Топ тем розмов</h3>
+          <h3 className="text-sm font-semibold mb-4">{cp.topicsTitle}</h3>
           {topicsRows.length === 0 ? (
-            <p className="text-sm text-muted-foreground">Немає даних</p>
+            <p className="text-sm text-muted-foreground">{cp.topicsNoData}</p>
           ) : (
             <div className="space-y-2">
               {topicsRows.map(({ topic, cnt }) => {
@@ -211,23 +215,23 @@ export default async function ChatsPage({
 
       {/* Sessions table */}
       <div>
-        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">Сесії</h3>
+        <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wider">{cp.tableSection}</h3>
         <div className="border border-border rounded-xl overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-muted text-muted-foreground text-left">
-                <th className="px-4 py-3 font-medium">Дата</th>
-                <th className="px-4 py-3 font-medium">Статус</th>
-                <th className="px-4 py-3 font-medium">Пацієнт</th>
-                <th className="px-4 py-3 font-medium">Теми</th>
-                <th className="px-4 py-3 font-medium text-center">Повід.</th>
-                <th className="px-4 py-3 font-medium">Ескалація</th>
+                <th className="px-4 py-3 font-medium">{cp.colDate}</th>
+                <th className="px-4 py-3 font-medium">{cp.colStatus}</th>
+                <th className="px-4 py-3 font-medium">{cp.colPatient}</th>
+                <th className="px-4 py-3 font-medium">{cp.colTopics}</th>
+                <th className="px-4 py-3 font-medium text-center">{cp.colMessages}</th>
+                <th className="px-4 py-3 font-medium">{cp.colEscalation}</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((r) => {
-                const urgency = (r.urgency as string | null) ?? "browsing";
-                const u = URGENCY[urgency as keyof typeof URGENCY] ?? URGENCY.browsing;
+                const urgencyKey = (r.urgency as string | null) ?? "browsing";
+                const u = urgency[urgencyKey as keyof typeof urgency] ?? urgency.browsing;
                 const topics = (r.topics as string[] | null) ?? [];
                 return (
                   <tr
@@ -261,8 +265,8 @@ export default async function ChatsPage({
                     <td className="px-4 py-3 max-w-[200px]">
                       {topics.length > 0 ? (
                         <div className="flex flex-wrap gap-1">
-                          {topics.slice(0, 3).map((t) => (
-                            <span key={t} className="text-xs bg-muted px-1.5 py-0.5 rounded-md">{t}</span>
+                          {topics.slice(0, 3).map((topic) => (
+                            <span key={topic} className="text-xs bg-muted px-1.5 py-0.5 rounded-md">{topic}</span>
                           ))}
                           {topics.length > 3 && (
                             <span className="text-xs text-muted-foreground">+{topics.length - 3}</span>
@@ -290,7 +294,7 @@ export default async function ChatsPage({
               })}
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-8 text-center text-sm text-muted-foreground">Немає сесій за цей період</td>
+                  <td colSpan={6} className="px-4 py-8 text-center text-sm text-muted-foreground">{cp.noSessions}</td>
                 </tr>
               )}
             </tbody>
