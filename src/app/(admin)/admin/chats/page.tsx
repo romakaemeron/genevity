@@ -63,12 +63,11 @@ export default async function ChatsPage({
         count(*)::int                                                         AS total,
         count(*) FILTER (WHERE msg_count > 0)::int                           AS engaged,
         count(*) FILTER (WHERE escalated_at IS NOT NULL)::int                AS escalated,
+        count(*) FILTER (WHERE user_confirmed_at IS NOT NULL)::int           AS confirmed,
         count(*) FILTER (WHERE escalation_target = 'genevity'
                            AND escalated_at IS NOT NULL)::int                AS esc_genevity,
         count(*) FILTER (WHERE escalation_target = 'helyos'
                            AND escalated_at IS NOT NULL)::int                AS esc_helyos,
-        count(*) FILTER (WHERE urgency = 'browsing')::int                    AS browsing,
-        count(*) FILTER (WHERE urgency = 'interested')::int                  AS interested,
         count(*) FILTER (WHERE urgency = 'ready_to_book')::int               AS ready_to_book,
         round(avg(msg_count) FILTER (WHERE msg_count > 0))::int              AS avg_messages
       FROM (
@@ -83,7 +82,7 @@ export default async function ChatsPage({
       esc_genevity: number; esc_helyos: number;
       browsing: number; interested: number; ready_to_book: number;
       avg_messages: number | null;
-    } | undefined),
+    } & { confirmed: number } | undefined),
 
     // Top topics
     sql`
@@ -121,11 +120,12 @@ export default async function ChatsPage({
   ]);
 
   const s = statsRow ?? {
-    total: 0, engaged: 0, escalated: 0, esc_genevity: 0, esc_helyos: 0,
-    browsing: 0, interested: 0, ready_to_book: 0, avg_messages: null,
+    total: 0, engaged: 0, escalated: 0, confirmed: 0,
+    esc_genevity: 0, esc_helyos: 0, ready_to_book: 0, avg_messages: null,
   };
   const engagementRate = pct(s.engaged, s.total);
   const escalationRate = pct(s.escalated, s.engaged);
+  const confirmRate = pct(s.confirmed, s.escalated);
   const topTopicMax = topicsRows[0]?.cnt ?? 1;
   const rangeLabel = cp.rangeLabels[range];
 
@@ -156,10 +156,11 @@ export default async function ChatsPage({
       </div>
 
       {/* Stats cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
         <StatCard label={cp.statTotal} value={s.total} />
         <StatCard label={cp.statEngaged} value={s.engaged} sub={cp.statEngagedSub(engagementRate)} />
-        <StatCard label={cp.statEscalated} value={s.escalated} sub={cp.statEscalatedSub(escalationRate)} accent />
+        <StatCard label={cp.statEscalated} value={s.escalated} sub={cp.statEscalatedSub(escalationRate)} />
+        <StatCard label={cp.statConfirmed} value={s.confirmed} sub={cp.statConfirmedSub(confirmRate)} accent />
         <StatCard label={cp.statGenevity} value={s.esc_genevity} />
         <StatCard label={cp.statHelyos} value={s.esc_helyos} />
         <StatCard label={cp.statMsgPerChat} value={s.avg_messages ?? "—"} sub={cp.statAvgSub} />
@@ -171,10 +172,10 @@ export default async function ChatsPage({
         <div className="border border-border rounded-xl bg-card p-5">
           <h3 className="text-sm font-semibold mb-4">{cp.funnelTitle}</h3>
           <div className="space-y-2.5">
-            <FunnelBar label={cp.funnelEngaged}   count={s.engaged}       total={s.engaged} cls="bg-gray-400" />
-            <FunnelBar label={cp.funnelInterested} count={s.interested}    total={s.engaged} cls="bg-blue-400" />
-            <FunnelBar label={cp.funnelReady}      count={s.ready_to_book} total={s.engaged} cls="bg-emerald-400" />
-            <FunnelBar label={cp.funnelEscalated}  count={s.escalated}     total={s.engaged} cls="bg-primary" />
+            <FunnelBar label={cp.funnelEngaged}   count={s.engaged}       total={s.engaged}    cls="bg-gray-400" />
+            <FunnelBar label={cp.funnelReady}      count={s.ready_to_book} total={s.engaged}    cls="bg-emerald-400" />
+            <FunnelBar label={cp.funnelEscalated}  count={s.escalated}     total={s.engaged}    cls="bg-amber-400" />
+            <FunnelBar label={cp.funnelConfirmed}  count={s.confirmed}     total={s.escalated}  cls="bg-primary" />
           </div>
           {/* Locale mini row */}
           {localeRows.length > 0 && (

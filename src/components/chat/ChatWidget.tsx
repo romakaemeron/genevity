@@ -84,6 +84,14 @@ export default function ChatWidget() {
     console.log("[binotel] handleOpenBinotel called");
     setView("closed");
 
+    if (sessionToken) {
+      fetch("/api/chat/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionToken }),
+      }).catch(() => {});
+    }
+
     const prefill = escalationSummary
       ? (escalationTarget === "helyos" ? "Пацієнт з сайту GENEVITY. " : "") + escalationSummary
       : "";
