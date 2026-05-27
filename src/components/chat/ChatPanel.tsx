@@ -336,6 +336,14 @@ export default function ChatPanel({
           <Send size={14} />
         </button>
       </form>
+
+      <p className="px-4 pb-3 text-[10px] text-[var(--color-stone,#8b7b6b)] leading-tight text-center">
+        Натискаючи «Відправити», ви погоджуєтесь з{" "}
+        <a href="/polityka-konfidentsiynosti" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70 transition-opacity">
+          Політикою конфіденційності
+        </a>{" "}
+        та надаєте згоду на обробку персональних даних.
+      </p>
     </motion.div>
   );
 }
