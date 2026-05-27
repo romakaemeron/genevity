@@ -36,12 +36,15 @@ export async function getCategoryBySlug(locale: string, slug: string): Promise<S
     if (parentRows.length) parent = parentRows[0];
   }
 
-  const [sections, faq] = await Promise.all([
+  const [sections, faq, galleryRows] = await Promise.all([
     getSections("category", r.id, l),
     getFaqItems("category", r.id, l),
+    sql`SELECT image_url FROM gallery_items WHERE owner_key = ${'category_' + r.slug} AND image_url IS NOT NULL AND image_url != '' ORDER BY sort_order`,
   ]);
 
-  return { ...mapCategory(r, l, parent), sections, faq };
+  const gallery = (galleryRows as any[]).map((g) => g.image_url as string);
+
+  return { ...mapCategory(r, l, parent), sections, faq, gallery };
 }
 
 export async function getAllCategories(locale: string): Promise<ServiceCategoryData[]> {

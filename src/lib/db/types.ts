@@ -257,6 +257,7 @@ export interface ServiceCategoryData {
   seoNoindex?: boolean;
   sections?: ContentSection[];
   faq?: FaqItemData[];
+  gallery?: string[];
 }
 
 /** Per-service heading overrides for each reorderable block. Resolved to the
