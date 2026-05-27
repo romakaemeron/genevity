@@ -50,9 +50,14 @@ export default function ChatWidget() {
     const hideKnown = () => {
       HIDE_IDS.forEach((id) => {
         const el = document.getElementById(id);
-        if (el && el.style.display !== "none") {
-          console.log("[binotel] observer hiding:", id);
+        if (el) {
+          const vis = el.style.visibility;
+          const disp = el.style.display;
+          if (disp !== "none" || vis !== "hidden") {
+            console.log("[binotel] observer hiding:", id, "display:", disp, "visibility:", vis);
+          }
           el.style.setProperty("display", "none", "important");
+          el.style.setProperty("visibility", "hidden", "important");
         }
       });
     };
@@ -98,18 +103,26 @@ export default function ChatWidget() {
       console.log("[binotel] window.binotelChatWidget:", window.binotelChatWidget);
 
       if (chatMsg) {
-        console.log("[binotel] clicking bwc-chat-cloud-message, display was:", chatMsg.style.display);
+        console.log("[binotel] clicking bwc-chat-cloud-message, visibility:", chatMsg.style.visibility, "display:", chatMsg.style.display);
         chatMsg.style.removeProperty("display");
+        chatMsg.style.removeProperty("visibility");
+        chatMsg.style.setProperty("visibility", "visible", "important");
         chatMsg.click();
         console.log("[binotel] clicked bwc-chat-cloud-message");
       } else if (launcher) {
         console.log("[binotel] clicking bwc-widget-action (launcher fallback)");
         launcher.style.removeProperty("display");
+        launcher.style.removeProperty("visibility");
         launcher.click();
         setTimeout(() => {
           const chatBtn = document.getElementById("bwc-chat-cloud-message");
           console.log("[binotel] delayed bwc-chat-cloud-message:", chatBtn);
-          if (chatBtn) { chatBtn.style.removeProperty("display"); chatBtn.click(); }
+          if (chatBtn) {
+            chatBtn.style.removeProperty("display");
+            chatBtn.style.removeProperty("visibility");
+            chatBtn.style.setProperty("visibility", "visible", "important");
+            chatBtn.click();
+          }
         }, 300);
       } else if (typeof window.binotelChatWidget?.open === "function") {
         console.log("[binotel] using window.binotelChatWidget.open()");
