@@ -102,28 +102,52 @@ export default function ChatWidget() {
       console.log("[binotel] bwc-widget-action:", launcher);
       console.log("[binotel] window.binotelChatWidget:", window.binotelChatWidget);
 
-      if (chatMsg) {
-        console.log("[binotel] clicking bwc-chat-cloud-message, visibility:", chatMsg.style.visibility, "display:", chatMsg.style.display);
-        chatMsg.style.removeProperty("display");
-        chatMsg.style.removeProperty("visibility");
-        chatMsg.style.setProperty("visibility", "visible", "important");
+      const showEl = (el: HTMLElement) => {
+        el.style.removeProperty("display");
+        el.style.removeProperty("visibility");
+        el.style.setProperty("display", "flex", "important");
+        el.style.setProperty("visibility", "visible", "important");
+      };
+
+      if (launcher) {
+        // Step 1: show and click the main launcher button
+        console.log("[binotel] step1: clicking bwc-widget-action");
+        showEl(launcher);
+        launcher.click();
+
+        // Step 2: after panel expands, find and click the chat option inside it
+        setTimeout(() => {
+          // Log all buttons inside the Binotel panel to find the chat one
+          const allBtns = document.querySelectorAll("[id^='bwc'] button, [class^='bwc'] button, [class*=' bwc'] button");
+          console.log("[binotel] step2: all bwc buttons:", Array.from(allBtns).map(b => `${(b as HTMLElement).className} | ${b.textContent?.trim().slice(0,40)}`));
+
+          // Try to find the chat/message button (not the call button)
+          const chatOpener =
+            document.querySelector<HTMLElement>("[id='bwc-chat-button'], [class*='bwc-chat-button']") ||
+            Array.from(document.querySelectorAll<HTMLElement>("[id^='bwc'] button, [class*='bwc'] button"))
+              .find(b => {
+                const txt = b.textContent?.toLowerCase() ?? "";
+                const cls = b.className?.toLowerCase() ?? "";
+                return txt.includes("чат") || txt.includes("зв'язку") || txt.includes("допоможу") ||
+                       cls.includes("chat") || cls.includes("message") || cls.includes("online");
+              }) || null;
+
+          console.log("[binotel] step2: chatOpener found:", chatOpener);
+          if (chatOpener) {
+            chatOpener.click();
+            console.log("[binotel] step2: clicked chatOpener");
+          } else {
+            // Last resort: click cloud message if it now has content
+            const cm = document.getElementById("bwc-chat-cloud-message");
+            console.log("[binotel] step2: bwc-chat-cloud-message container children:", cm?.querySelector(".bwc-container")?.children.length);
+            if (cm) { showEl(cm); cm.click(); }
+          }
+        }, 400);
+      } else if (chatMsg) {
+        console.log("[binotel] clicking bwc-chat-cloud-message directly (no launcher)");
+        showEl(chatMsg);
         chatMsg.click();
         console.log("[binotel] clicked bwc-chat-cloud-message");
-      } else if (launcher) {
-        console.log("[binotel] clicking bwc-widget-action (launcher fallback)");
-        launcher.style.removeProperty("display");
-        launcher.style.removeProperty("visibility");
-        launcher.click();
-        setTimeout(() => {
-          const chatBtn = document.getElementById("bwc-chat-cloud-message");
-          console.log("[binotel] delayed bwc-chat-cloud-message:", chatBtn);
-          if (chatBtn) {
-            chatBtn.style.removeProperty("display");
-            chatBtn.style.removeProperty("visibility");
-            chatBtn.style.setProperty("visibility", "visible", "important");
-            chatBtn.click();
-          }
-        }, 300);
       } else if (typeof window.binotelChatWidget?.open === "function") {
         console.log("[binotel] using window.binotelChatWidget.open()");
         window.binotelChatWidget.open();
