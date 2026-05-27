@@ -105,15 +105,30 @@ export default function ChatWidget() {
       }
 
       if (prefill) {
-        setTimeout(() => {
-          const input = document.querySelector<HTMLInputElement>(
-            "[id*='bwc'] input[type='text'], [id*='bwc'] textarea, input[placeholder*='повідомлення'], textarea[placeholder*='повідомлення']"
+        const injectText = (text: string, attempt = 0) => {
+          const input = document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
+            "#bwc-chat-input, " +
+            "textarea[placeholder*='повідомлення'], " +
+            "input[placeholder*='повідомлення'], " +
+            "[id*='bwc'] textarea, " +
+            "[class*='bwc'] textarea, " +
+            "[id*='bwc'] input[type='text']"
           );
           if (input) {
-            input.value = prefill;
+            // Works for both React-controlled and plain inputs
+            const proto = input instanceof HTMLTextAreaElement
+              ? HTMLTextAreaElement.prototype
+              : HTMLInputElement.prototype;
+            const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
+            if (setter) setter.call(input, text); else input.value = text;
+            input.focus();
             input.dispatchEvent(new Event("input", { bubbles: true }));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+          } else if (attempt < 15) {
+            setTimeout(() => injectText(text, attempt + 1), 300);
           }
-        }, 1000);
+        };
+        setTimeout(() => injectText(prefill), 600);
       }
     };
 
