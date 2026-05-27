@@ -72,12 +72,18 @@ export default function ChatPanel({
       if (toolCall.dynamic) return;
       if (toolCall.toolName === "updateChatState") {
         const args = toolCall.input as ChatState;
-        setChatState(args);
+        // Merge topics so AI can't accidentally wipe previously accumulated ones
+        const mergedTopics = [...new Set([...chatState.topics, ...(args.topics ?? [])])];
+        setChatState(prev => ({
+          ...args,
+          topics: [...new Set([...prev.topics, ...(args.topics ?? [])])],
+        }));
         if (args.shouldEscalate && !escalationOffered) {
           setEscalationOffered(true);
+          const topicsPart = mergedTopics.length ? `Цікавився: ${mergedTopics.join(", ")}` : null;
+          const summary = [args.escalationHint, topicsPart].filter(Boolean).join(". ");
           if (args.urgency === "ready_to_book") {
-            // Skip confirmation banner — go straight to operator screen
-            onEscalate(args.escalationTarget, args.escalationHint ?? "");
+            onEscalate(args.escalationTarget, summary);
           } else {
             setShowEscalatePrompt(true);
           }
@@ -229,9 +235,20 @@ export default function ChatPanel({
       <div className="px-4 pb-1 shrink-0">
         <button
           onClick={() => {
+            const topicsLine = chatState.topics?.length
+              ? `Цікавився: ${chatState.topics.join(", ")}`
+              : (() => {
+                  const lastUserTexts = messages
+                    .filter(m => m.role === "user")
+                    .map(m => m.parts.filter((p): p is { type: "text"; text: string } => p.type === "text").map(p => p.text).join(""))
+                    .filter(t => t && !t.startsWith("__"))
+                    .slice(-3)
+                    .join(" / ");
+                  return lastUserTexts ? `Запит: ${lastUserTexts}` : null;
+                })();
             const parts = [
               chatState.escalationHint,
-              chatState.topics?.length ? `Цікавився: ${chatState.topics.join(", ")}` : null,
+              topicsLine,
               chatState.collectedName ? `Ім'я: ${chatState.collectedName}` : null,
             ].filter(Boolean);
             onEscalate(chatState.escalationTarget, parts.join(". "));
