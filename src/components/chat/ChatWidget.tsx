@@ -25,6 +25,7 @@ export default function ChatWidget() {
   const [pageUrl, setPageUrl] = useState("");
   const [pageTitle, setPageTitle] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [escalationResetKey, setEscalationResetKey] = useState(0);
 
   useEffect(() => {
     if (window.location.pathname.startsWith("/admin")) {
@@ -249,6 +250,7 @@ export default function ChatWidget() {
             pageUrl={pageUrl}
             pageTitle={pageTitle}
             locale={locale}
+            escalationResetKey={escalationResetKey}
           />
         )}
         <AnimatePresence mode="wait">
@@ -258,7 +260,7 @@ export default function ChatWidget() {
               target={escalationTarget}
               summary={escalationSummary}
               onClose={() => setView("closed")}
-              onBack={() => setView("chat")}
+              onBack={() => { setView("chat"); setEscalationResetKey(k => k + 1); }}
               onOpenBinotel={handleOpenBinotel}
             />
           )}

@@ -27,6 +27,7 @@ interface Props {
   pageUrl: string;
   pageTitle: string;
   locale: string;
+  escalationResetKey: number;
 }
 
 function detectLocale(text: string): string {
@@ -45,6 +46,7 @@ export default function ChatPanel({
   pageUrl,
   pageTitle,
   locale: initialLocale,
+  escalationResetKey,
 }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
@@ -62,6 +64,12 @@ export default function ChatPanel({
   });
   const [escalationOffered, setEscalationOffered] = useState(false);
   const [showEscalatePrompt, setShowEscalatePrompt] = useState(false);
+
+  // Reset when user comes back from escalation screen
+  useEffect(() => {
+    setEscalationOffered(false);
+    setShowEscalatePrompt(false);
+  }, [escalationResetKey]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sendMessageRef = useRef<((msg: any) => void) | null>(null);
