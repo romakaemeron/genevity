@@ -144,10 +144,10 @@ export default function ChatWidget() {
       }
 
       if (prefill) {
-        // Binotel chat input is a div[contenteditable], NOT a textarea/input
+        // Binotel online: div[contenteditable]; offline: textarea#bnt-of-message
         const findChatInput = (): HTMLElement | null =>
           document.querySelector<HTMLElement>(
-            "div.bwc-message[contenteditable], div[contenteditable][placeholder*='повідомлення']"
+            "div.bwc-message[contenteditable], div[contenteditable][placeholder*='повідомлення'], textarea#bnt-of-message"
           ) || null;
 
         const injectText = (text: string, attempt = 0) => {
@@ -162,7 +162,15 @@ export default function ChatWidget() {
 
           input.focus();
 
-          // For contenteditable divs: execCommand insertText fires proper input events
+          // Offline form: regular textarea — just set value and fire input event, don't auto-send
+          if (input.tagName === "TEXTAREA") {
+            (input as HTMLTextAreaElement).value = text;
+            input.dispatchEvent(new InputEvent("input", { bubbles: true }));
+            console.log(`[binotel] offline textarea prefilled: "${text}"`);
+            return;
+          }
+
+          // Online chat: contenteditable div
           // eslint-disable-next-line @typescript-eslint/no-deprecated
           const ok = document.execCommand("insertText", false, text);
           console.log(`[binotel] execCommand insertText ok=${ok}, textContent="${input.textContent}"`);
