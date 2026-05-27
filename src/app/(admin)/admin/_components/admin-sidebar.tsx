@@ -49,6 +49,7 @@ const navSections: NavSectionDef[] = [
     sectionKey: "operations",
     items: [
       { key: "forms",     href: "/admin/forms",     icon: MessageSquare, countKey: "forms",    minRole: "support" },
+      { key: "chats",     href: "/admin/chats",     icon: MessageSquare,                        minRole: "support" },
       { key: "reviews",   href: "/admin/reviews",   icon: Star,          countKey: "reviews",  minRole: "support" },
       { key: "analytics", href: "/admin/analytics", icon: BarChart2,                           minRole: "marketing" },
     ],

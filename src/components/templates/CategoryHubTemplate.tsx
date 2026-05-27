@@ -149,11 +149,9 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                   )}
 
                   {isBeforeLastThree && photos.length > 2 && (
-                    <RevealSection className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden">
-                      <div className="reveal">
-                        <Image src={photos[2] || photos[0]} alt={`${category.title} — GENEVITY`} title={`${category.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
-                      </div>
-                    </RevealSection>
+                    <div className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden">
+                      <Image src={photos[2] || photos[0]} alt={`${category.title} — GENEVITY`} title={`${category.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
+                    </div>
                   )}
                 </div>
               );
@@ -214,8 +212,8 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
 
       {/* ===== FINAL CTA ===== */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
-        <RevealSection className="relative mt-16 lg:mt-20 rounded-[var(--radius-card)] overflow-hidden min-h-[320px] flex items-center">
-          <div className="reveal">
+        <RevealSection className="mt-16 lg:mt-20">
+          <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[320px] flex items-center">
             <Image src={photos[photos.length > 4 ? 4 : 0]} alt="GENEVITY клініка" title="GENEVITY — клініка довголіття та естетичної медицини" fill className="object-cover" sizes="100vw" />
             <div className="absolute inset-0 bg-black/60" />
             <div className="relative z-10 w-full text-center p-8 lg:p-14">

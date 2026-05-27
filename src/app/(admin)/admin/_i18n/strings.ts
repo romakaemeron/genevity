@@ -18,6 +18,7 @@ const uk = {
     items: {
       dashboard: "Дашборд",
       forms: "Заявки",
+      chats: "Чати",
       reviews: "Відгуки",
       analytics: "Аналітика",
       services: "Послуги",
@@ -355,6 +356,7 @@ const ru: typeof uk = {
     items: {
       dashboard: "Дашборд",
       forms: "Заявки",
+      chats: "Чаты",
       reviews: "Отзывы",
       analytics: "Аналитика",
       services: "Услуги",
@@ -692,6 +694,7 @@ const en: typeof uk = {
     items: {
       dashboard: "Dashboard",
       forms: "Appointment Requests",
+      chats: "Chats",
       reviews: "Reviews",
       analytics: "Analytics",
       services: "Services",

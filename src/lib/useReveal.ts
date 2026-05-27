@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 
 /** IntersectionObserver-based scroll reveal — adds .revealed to container once in view. */
-export function useScrollReveal(margin = "-80px") {
+export function useScrollReveal(margin = "0px") {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {

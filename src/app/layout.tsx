@@ -2,7 +2,6 @@ import Script from "next/script";
 import { Mulish, Tenor_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-
 // Downloaded at build time, self-hosted on Vercel CDN as WOFF2 with subsetting.
 // No runtime Google Fonts connection.
 const tenorSans = Tenor_Sans({
