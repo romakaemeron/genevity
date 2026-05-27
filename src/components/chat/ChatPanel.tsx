@@ -337,7 +337,7 @@ export default function ChatPanel({
         </button>
       </form>
 
-      <p className="px-4 pb-3 text-[10px] text-[var(--color-stone,#8b7b6b)] leading-tight text-center">
+      <p className="px-4 pb-3 text-[10px] text-[var(--color-stone,#8b7b6b)] leading-tight">
         {locale === "ru"
           ? "Нажимая «Отправить», вы соглашаетесь с "
           : locale === "en"
