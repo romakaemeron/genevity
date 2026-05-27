@@ -71,7 +71,12 @@ export default function ChatPanel({
         setChatState(args);
         if (args.shouldEscalate && !escalationOffered) {
           setEscalationOffered(true);
-          setShowEscalatePrompt(true);
+          if (args.urgency === "ready_to_book") {
+            // Skip confirmation banner — go straight to operator screen
+            onEscalate(args.escalationTarget, args.escalationHint ?? "");
+          } else {
+            setShowEscalatePrompt(true);
+          }
         }
         addToolOutput({
           tool: "updateChatState",
