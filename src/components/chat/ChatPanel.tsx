@@ -64,11 +64,14 @@ export default function ChatPanel({
   });
   const [escalationOffered, setEscalationOffered] = useState(false);
   const [showEscalatePrompt, setShowEscalatePrompt] = useState(false);
+  // Track which toolCallId we already escalated for — prevents re-triggering on reset
+  const escalatedToolCallIdRef = useRef<string | null>(null);
 
   // Reset when user comes back from escalation screen
   useEffect(() => {
     setEscalationOffered(false);
     setShowEscalatePrompt(false);
+    escalatedToolCallIdRef.current = null;
   }, [escalationResetKey]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -87,14 +90,17 @@ export default function ChatPanel({
     const allParts = messages.flatMap((m) => m.parts) as any[];
     const lastToolPart = [...allParts].reverse().find(
       (p) => p.type === "tool-updateChatState" && p.state === "output-available"
-    ) as { input: ChatState } | undefined;
+    ) as { toolCallId?: string; input: ChatState } | undefined;
     if (!lastToolPart) return;
     const args = lastToolPart.input;
+    const toolCallId = lastToolPart.toolCallId ?? null;
     setChatState(prev => ({
       ...args,
       topics: [...new Set([...prev.topics, ...(args.topics ?? [])])],
     }));
-    if (args.shouldEscalate && !escalationOffered) {
+    // Guard: only escalate once per unique toolCallId to prevent infinite loop on reset
+    if (args.shouldEscalate && !escalationOffered && toolCallId !== escalatedToolCallIdRef.current) {
+      escalatedToolCallIdRef.current = toolCallId;
       setEscalationOffered(true);
       const mergedTopics = [...new Set([...chatState.topics, ...(args.topics ?? [])])];
       const topicsPart = mergedTopics.length ? `Цікавився: ${mergedTopics.join(", ")}` : null;
