@@ -13,7 +13,7 @@ export const maxDuration = 60;
 
 const updateChatStateTool = {
   description:
-    "REQUIRED: Call this with every single response to update the chat UI. Provide quick-reply suggestions, urgency, and escalation info.",
+    "Call this AFTER writing your text reply to update the chat UI state. Always generate text first, then call this tool.",
   inputSchema: z.object({
     suggestions: z
       .array(z.string())
