@@ -144,65 +144,63 @@ export default function ChatWidget() {
       }
 
       if (prefill) {
-        // Binotel online: div[contenteditable]; offline: textarea#bnt-of-message
-        const findChatInput = (): HTMLElement | null =>
-          document.querySelector<HTMLElement>(
-            "div.bwc-message[contenteditable], div[contenteditable][placeholder*='повідомлення'], textarea#bnt-of-message"
-          ) || null;
+        const injectPrefill = (text: string, attempt = 0) => {
+          // Check Binotel mode: offline form vs online chat
+          const bwcChat = document.getElementById("bwc-chat");
+          const isOffline = !bwcChat || bwcChat.classList.contains("bwc-chat-hide") || bwcChat.classList.contains("bwc-form-offline");
 
-        const injectText = (text: string, attempt = 0) => {
-          const input = findChatInput();
-          console.log(`[binotel] injectText attempt ${attempt}`, input ? `found: ${input.tagName}.${input.className}` : "NOT FOUND");
-
-          if (!input) {
-            if (attempt < 25) setTimeout(() => injectText(text, attempt + 1), 300);
-            else console.warn("[binotel] prefill FAILED — contenteditable not found after 25 attempts");
-            return;
-          }
-
-          input.focus();
-
-          // Offline form: regular textarea — just set value and fire input event, don't auto-send
-          if (input.tagName === "TEXTAREA") {
-            (input as HTMLTextAreaElement).value = text;
-            input.dispatchEvent(new InputEvent("input", { bubbles: true }));
+          if (isOffline) {
+            // Offline mode: target the textarea in the contact form
+            const textarea = document.querySelector<HTMLTextAreaElement>("textarea#bnt-of-message, textarea[name='message']");
+            if (!textarea) {
+              if (attempt < 20) setTimeout(() => injectPrefill(text, attempt + 1), 300);
+              else console.warn("[binotel] offline textarea not found after 20 attempts");
+              return;
+            }
+            textarea.focus();
+            textarea.value = text;
+            textarea.dispatchEvent(new Event("input", { bubbles: true }));
+            textarea.dispatchEvent(new Event("change", { bubbles: true }));
             console.log(`[binotel] offline textarea prefilled: "${text}"`);
             return;
           }
 
-          // Online chat: contenteditable div
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          const ok = document.execCommand("insertText", false, text);
-          console.log(`[binotel] execCommand insertText ok=${ok}, textContent="${input.textContent}"`);
-
-          // Fallback: set innerText + dispatch input event
-          if (!input.textContent?.trim()) {
-            input.innerText = text;
-            input.dispatchEvent(new InputEvent("input", { bubbles: true, data: text, inputType: "insertText" }));
-            console.log(`[binotel] innerText fallback, textContent="${input.textContent}"`);
-          }
-
-          if (!input.textContent?.trim()) {
-            console.warn("[binotel] contenteditable still empty");
-            if (attempt < 5) setTimeout(() => injectText(text, attempt + 1), 400);
+          // Online mode: contenteditable chat input
+          const chatInput = document.querySelector<HTMLElement>("div.bwc-message[contenteditable]");
+          if (!chatInput) {
+            if (attempt < 20) setTimeout(() => injectPrefill(text, attempt + 1), 300);
+            else console.warn("[binotel] online contenteditable not found after 20 attempts");
             return;
           }
 
-          // Send after short delay
+          // Use Selection API — safe, doesn't affect other focused elements
+          chatInput.focus();
+          const range = document.createRange();
+          range.selectNodeContents(chatInput);
+          range.collapse(false);
+          const sel = window.getSelection();
+          sel?.removeAllRanges();
+          sel?.addRange(range);
+          const textNode = document.createTextNode(text);
+          range.insertNode(textNode);
+          chatInput.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: text }));
+          console.log(`[binotel] online contenteditable prefilled: "${chatInput.textContent}"`);
+
+          if (!chatInput.textContent?.trim()) {
+            if (attempt < 5) setTimeout(() => injectPrefill(text, attempt + 1), 400);
+            return;
+          }
+
+          // Auto-send
           setTimeout(() => {
             const sendBtn = document.querySelector<HTMLElement>("div.bwc-send, [class*='bwc-send']");
-            console.log("[binotel] send button:", sendBtn ? `found: ${sendBtn.className}` : "NOT FOUND");
-            if (sendBtn) { sendBtn.click(); console.log("[binotel] clicked send button"); return; }
-
-            // Fallback: Enter key
-            const enterEvt = new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true, cancelable: true });
-            input.dispatchEvent(enterEvt);
-            input.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
-            console.log("[binotel] Enter key dispatched as fallback");
+            if (sendBtn) { sendBtn.click(); return; }
+            chatInput.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true, cancelable: true }));
+            chatInput.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
           }, 200);
         };
 
-        setTimeout(() => injectText(prefill), 1500);
+        setTimeout(() => injectPrefill(prefill), 1500);
       }
     };
 
