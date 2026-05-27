@@ -40,6 +40,25 @@ export async function saveMessage(params: {
   `;
 }
 
+export async function updateSessionState(params: {
+  sessionId: string;
+  urgency: string;
+  topics: string[];
+  operatorNote: string;
+  patientName?: string | null;
+  patientPhone?: string | null;
+}): Promise<void> {
+  await sql`
+    UPDATE chat_sessions SET
+      urgency       = ${params.urgency},
+      topics        = ${params.topics as string[]},
+      operator_note = ${params.operatorNote},
+      patient_name  = COALESCE(${params.patientName ?? null}, patient_name),
+      patient_phone = COALESCE(${params.patientPhone ?? null}, patient_phone)
+    WHERE id = ${params.sessionId}
+  `;
+}
+
 export async function escalateSession(params: {
   sessionId: string;
   escalationBy: "bot" | "user";

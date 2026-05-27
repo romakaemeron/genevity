@@ -5,6 +5,12 @@ import { sql } from "@/lib/db/client";
 import { requireSession } from "../../_actions/auth";
 import { cn } from "@/lib/utils";
 
+const URGENCY_LABEL: Record<string, string> = {
+  browsing:      "Переглядає",
+  interested:    "Зацікавлений",
+  ready_to_book: "Готовий до запису",
+};
+
 export default async function ChatDetailPage({
   params,
 }: {
@@ -25,12 +31,9 @@ export default async function ChatDetailPage({
 
   if (!sessionRows[0]) notFound();
 
-  const session = sessionRows[0];
-  const messages = messageRows as Array<{
-    role: string;
-    content: string;
-    created_at: string;
-  }>;
+  const s = sessionRows[0];
+  const messages = messageRows as Array<{ role: string; content: string; created_at: string }>;
+  const topics = (s.topics as string[] | null) ?? [];
 
   return (
     <div className="p-8 max-w-2xl">
@@ -41,50 +44,87 @@ export default async function ChatDetailPage({
         <ChevronLeft size={14} /> Усі чати
       </Link>
 
+      {/* Operator briefing card */}
+      {s.operator_note && (
+        <div className="mb-6 border-2 border-amber-300 rounded-xl p-4 bg-amber-50">
+          <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 mb-3">
+            📋 Брифінг для оператора
+          </div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-sm mb-3">
+            <div>
+              <span className="text-muted-foreground">Статус:</span>{" "}
+              <span className="font-medium">
+                {URGENCY_LABEL[(s.urgency as string | null) ?? "browsing"] ?? s.urgency as string}
+              </span>
+            </div>
+            {s.patient_name && (
+              <div>
+                <span className="text-muted-foreground">Ім&apos;я:</span>{" "}
+                <span className="font-medium">{s.patient_name as string}</span>
+              </div>
+            )}
+            {s.patient_phone && (
+              <div>
+                <span className="text-muted-foreground">Телефон:</span>{" "}
+                <span className="font-mono font-medium">{s.patient_phone as string}</span>
+              </div>
+            )}
+            <div>
+              <span className="text-muted-foreground">Мова:</span>{" "}
+              <span className="uppercase">{s.locale as string}</span>
+            </div>
+            {s.page_title && (
+              <div className="col-span-2">
+                <span className="text-muted-foreground">Сторінка:</span>{" "}
+                {s.page_title as string}
+              </div>
+            )}
+          </div>
+          {topics.length > 0 && (
+            <div className="mb-3">
+              <span className="text-xs text-muted-foreground uppercase tracking-wide">Питання пацієнта:</span>
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                {topics.map((t) => (
+                  <span key={t} className="text-xs bg-amber-100 border border-amber-200 px-2 py-0.5 rounded-full">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {s.summary && (
+            <div className="text-sm text-amber-900 bg-amber-100 rounded-lg px-3 py-2">
+              {s.summary as string}
+            </div>
+          )}
+          {/* Full note for copy-paste to Binotel / CRM */}
+          <details className="mt-3">
+            <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">
+              Повна нотатка для CRM / Binotel
+            </summary>
+            <pre className="mt-2 text-xs bg-white border border-amber-200 rounded-lg p-3 whitespace-pre-wrap font-mono select-all">
+              {s.operator_note as string}
+            </pre>
+          </details>
+        </div>
+      )}
+
+      {/* Session meta */}
       <div className="mb-6 space-y-1 text-sm border border-border rounded-xl p-4 bg-muted/20">
         <div>
           <span className="text-muted-foreground">Початок: </span>
-          {new Date(session.started_at as string).toLocaleString("uk-UA")}
+          {new Date(s.started_at as string).toLocaleString("uk-UA")}
         </div>
-        <div>
-          <span className="text-muted-foreground">Мова: </span>
-          {(session.locale as string).toUpperCase()}
-        </div>
-        {session.patient_name && (
-          <div>
-            <span className="text-muted-foreground">Пацієнт: </span>
-            {session.patient_name as string}
-          </div>
-        )}
-        {session.patient_phone && (
-          <div>
-            <span className="text-muted-foreground">Телефон: </span>
-            <span className="font-mono">{session.patient_phone as string}</span>
-          </div>
-        )}
-        {session.patient_interest && (
-          <div>
-            <span className="text-muted-foreground">Інтерес: </span>
-            {session.patient_interest as string}
-          </div>
-        )}
-        {session.escalated_at && (
+        {s.escalated_at && (
           <div>
             <span className="text-muted-foreground">Ескалація → </span>
-            <span className="font-medium">{session.escalation_target as string}</span>
-            {" "}({new Date(session.escalated_at as string).toLocaleString("uk-UA")})
-          </div>
-        )}
-        {session.summary && (
-          <div className="mt-2 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm">
-            <span className="text-muted-foreground text-xs uppercase tracking-wide block mb-1">
-              Summary для оператора
-            </span>
-            {session.summary as string}
+            <span className="font-medium">{s.escalation_target as string}</span>
+            {" "}({new Date(s.escalated_at as string).toLocaleString("uk-UA")})
           </div>
         )}
       </div>
 
+      {/* Messages */}
       <div className="space-y-3">
         {messages.map((m, i) => {
           if (m.content.startsWith("__")) return null;

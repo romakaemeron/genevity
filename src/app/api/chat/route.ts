@@ -6,8 +6,8 @@ import {
   getOrCreateSession,
   saveMessage,
   escalateSession,
+  updateSessionState,
 } from "@/lib/chat/session";
-import { helyosTools } from "@/lib/chat/helyos-tools";
 
 export const maxDuration = 60;
 
@@ -22,6 +22,9 @@ const updateChatStateTool = {
     urgency: z
       .enum(["browsing", "interested", "ready_to_book"])
       .describe("Patient booking urgency"),
+    topics: z
+      .array(z.string())
+      .describe("Topics the patient has asked about so far, e.g. ['ботокс', 'ціни']"),
     shouldEscalate: z.boolean().describe("Offer operator escalation now"),
     escalationTarget: z
       .enum(["genevity", "helyos"])
@@ -30,8 +33,34 @@ const updateChatStateTool = {
     collectedName: z.string().nullable().describe("Patient name if mentioned naturally"),
     collectedPhone: z.string().nullable().describe("Patient phone if mentioned naturally"),
   }),
-  // No execute — this is a client-side tool handled by onToolCall in useChat
+  // No execute — client-side tool handled by onToolCall in useChat
 };
+
+const URGENCY_LABEL: Record<string, string> = {
+  browsing: "Переглядає",
+  interested: "Зацікавлений",
+  ready_to_book: "Готовий до запису",
+};
+
+function buildOperatorNote(args: {
+  urgency: string;
+  topics: string[];
+  escalationHint: string | null;
+  collectedName: string | null;
+  collectedPhone: string | null;
+  pageTitle?: string;
+  locale: string;
+}): string {
+  const lines: string[] = ["=== GENEVITY AI-чат — брифінг для оператора ==="];
+  lines.push(`Статус: ${URGENCY_LABEL[args.urgency] ?? args.urgency}`);
+  if (args.collectedName) lines.push(`Ім'я: ${args.collectedName}`);
+  if (args.collectedPhone) lines.push(`Телефон: ${args.collectedPhone}`);
+  if (args.topics.length) lines.push(`Питання: ${args.topics.join(", ")}`);
+  if (args.escalationHint) lines.push(`Контекст: ${args.escalationHint}`);
+  if (args.pageTitle) lines.push(`Сторінка: ${args.pageTitle}`);
+  lines.push(`Мова: ${args.locale.toUpperCase()}`);
+  return lines.join("\n");
+}
 
 export async function POST(req: Request) {
   const body = (await req.json()) as {
@@ -69,7 +98,6 @@ export async function POST(req: Request) {
     messages: await convertToModelMessages(messages),
     stopWhen: stepCountIs(5),
     tools: {
-      ...helyosTools,
       updateChatState: updateChatStateTool,
     },
     onFinish: async ({ text, steps }) => {
@@ -77,19 +105,40 @@ export async function POST(req: Request) {
         await saveMessage({ sessionId: session.id, role: "assistant", content: text });
       }
 
-      // Find updateChatState call across all steps
       const stateCall = steps
         .flatMap((s) => s.toolCalls ?? [])
         .find((c) => c.toolName === "updateChatState");
 
       if (stateCall?.input) {
         const args = stateCall.input as {
+          urgency: string;
+          topics: string[];
           shouldEscalate: boolean;
           escalationTarget: "genevity" | "helyos";
           escalationHint: string | null;
           collectedName: string | null;
           collectedPhone: string | null;
         };
+
+        const operatorNote = buildOperatorNote({
+          urgency: args.urgency,
+          topics: args.topics ?? [],
+          escalationHint: args.escalationHint,
+          collectedName: args.collectedName,
+          collectedPhone: args.collectedPhone,
+          pageTitle,
+          locale,
+        });
+
+        await updateSessionState({
+          sessionId: session.id,
+          urgency: args.urgency,
+          topics: args.topics ?? [],
+          operatorNote,
+          patientName: args.collectedName,
+          patientPhone: args.collectedPhone,
+        });
+
         if (args.shouldEscalate) {
           await escalateSession({
             sessionId: session.id,

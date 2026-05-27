@@ -37,8 +37,20 @@ function renderMarkdown(content: string): ReactNode {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const isBullet = /^[-•]\s+/.test(line);
+    const h3 = /^###\s+(.*)/.exec(line);
+    const h2 = /^##\s+(.*)/.exec(line);
+    const h1 = /^#\s+(.*)/.exec(line);
 
-    if (isBullet) {
+    if (h3) {
+      if (nodes.length > 0) nodes.push(<div key={key++} className="h-1" />);
+      nodes.push(<div key={key++} className="font-semibold text-sm">{parseInline(h3[1])}</div>);
+    } else if (h2) {
+      if (nodes.length > 0) nodes.push(<div key={key++} className="h-1" />);
+      nodes.push(<div key={key++} className="font-semibold text-[0.9rem]">{parseInline(h2[1])}</div>);
+    } else if (h1) {
+      if (nodes.length > 0) nodes.push(<div key={key++} className="h-1" />);
+      nodes.push(<div key={key++} className="font-bold text-base">{parseInline(h1[1])}</div>);
+    } else if (isBullet) {
       const text = line.replace(/^[-•]\s+/, "");
       nodes.push(
         <div key={key++} className="flex gap-1.5 mt-0.5">

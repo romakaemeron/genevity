@@ -16,7 +16,7 @@ declare global {
 }
 
 export default function ChatWidget() {
-  const sessionToken = useChatSession();
+  const { token: sessionToken, reset: resetSession } = useChatSession();
   const [view, setView] = useState<View>("closed");
   const [locale, setLocale] = useState("uk");
   const [escalationTarget, setEscalationTarget] = useState<"genevity" | "helyos">("genevity");
@@ -32,9 +32,10 @@ export default function ChatWidget() {
     }
     setPageUrl(window.location.href);
     setPageTitle(document.title);
-    const lang = navigator.language.slice(0, 2).toLowerCase();
-    if (lang === "ru") setLocale("ru");
-    else if (lang === "en") setLocale("en");
+    // Detect locale from URL path prefix (next-intl: /ru/... or /en/... or no prefix = uk)
+    const seg = window.location.pathname.split("/")[1];
+    if (seg === "ru") setLocale("ru");
+    else if (seg === "en") setLocale("en");
     else setLocale("uk");
   }, []);
 
@@ -115,14 +116,14 @@ export default function ChatWidget() {
         <AnimatePresence mode="wait">
           {view === "chat" && sessionToken && (
             <ChatPanel
-              key="chat"
+              key={sessionToken}
               sessionToken={sessionToken}
               onClose={() => setView("closed")}
               onEscalate={handleEscalate}
+              onNewChat={resetSession}
               pageUrl={pageUrl}
               pageTitle={pageTitle}
               locale={locale}
-              onLocaleChange={setLocale}
             />
           )}
           {view === "escalation" && (

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, X } from "lucide-react";
+import { Send, X, RotateCcw } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 
 interface ChatState {
@@ -21,26 +21,32 @@ interface Props {
   sessionToken: string;
   onClose: () => void;
   onEscalate: (target: "genevity" | "helyos", summary: string) => void;
+  onNewChat: () => void;
   pageUrl: string;
   pageTitle: string;
   locale: string;
-  onLocaleChange: (locale: string) => void;
 }
 
-const LOCALES = ["uk", "ru", "en"] as const;
-const IDLE_MS = 8_000;
+function detectLocale(text: string): string {
+  if (/[a-zA-Z]{3,}/.test(text) && !/[а-яёА-ЯЁіїєґІЇЄҐ]/.test(text)) return "en";
+  if (/[іїєґІЇЄҐ]/.test(text)) return "uk";
+  if (/[ёэъыЁЭЪЫ]/.test(text)) return "ru";
+  return "";
+}
 
 export default function ChatPanel({
   sessionToken,
   onClose,
   onEscalate,
+  onNewChat,
   pageUrl,
   pageTitle,
-  locale,
-  onLocaleChange,
+  locale: initialLocale,
 }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
+  const [locale, setLocale] = useState(initialLocale);
+  const localeRef = useRef(locale);
   const [chatState, setChatState] = useState<ChatState>({
     suggestions: ["Наші послуги", "Наші лікарі", "Ціни"],
     urgency: "browsing",
@@ -56,7 +62,7 @@ export default function ChatPanel({
   const { messages, sendMessage, addToolOutput, status } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
-      body: { sessionToken, locale, pageUrl, pageTitle },
+      body: () => ({ sessionToken, locale: localeRef.current, pageUrl, pageTitle }),
     }),
     onToolCall: ({ toolCall }) => {
       if (toolCall.dynamic) return;
@@ -80,12 +86,15 @@ export default function ChatPanel({
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // 8-second idle trigger
+  // Send welcome once per session token
   useEffect(() => {
     if (messages.length > 0 || !sessionToken) return;
+    const flag = `genevity_welcomed_${sessionToken}`;
+    if (sessionStorage.getItem(flag)) return;
     const timer = setTimeout(() => {
-      sendMessage({ text: "__idle__" });
-    }, IDLE_MS);
+      sessionStorage.setItem(flag, "1");
+      sendMessage({ text: "__welcome__" });
+    }, 400);
     return () => clearTimeout(timer);
   }, [messages.length, sessionToken, sendMessage]);
 
@@ -110,19 +119,13 @@ export default function ChatPanel({
           GENEVITY Асистент
         </span>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 bg-white/20 rounded-lg px-2 py-1">
-            {LOCALES.map((l) => (
-              <button
-                key={l}
-                onClick={() => onLocaleChange(l)}
-                className={`text-xs px-1 rounded transition-colors ${
-                  locale === l ? "text-white font-semibold" : "text-white/60 hover:text-white"
-                }`}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
+          <button
+            onClick={onNewChat}
+            className="text-white/70 hover:text-white transition-colors"
+            title="Новий чат"
+          >
+            <RotateCcw size={14} />
+          </button>
           <button
             onClick={onClose}
             className="text-white/70 hover:text-white transition-colors"
@@ -228,6 +231,11 @@ export default function ChatPanel({
         onSubmit={(e) => {
           e.preventDefault();
           if (!input.trim() || isStreaming || !sessionToken) return;
+          const detected = detectLocale(input.trim());
+          if (detected) {
+            localeRef.current = detected;
+            setLocale(detected);
+          }
           sendMessage({ text: input });
           setInput("");
         }}
