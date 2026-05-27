@@ -76,7 +76,7 @@ export default function Doctors({ doctors, ui, detailsLabel }: DoctorsProps) {
       <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
         {doctors.map((doctor) => (
           <div key={doctor._id} className="shrink-0" style={{ width: "min(300px, 75vw)", scrollSnapAlign: "start" }}>
-            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} />
+            <DoctorCard doctor={doctor} detailsLabel={detailsLabel} experienceLabel={ui.experience} onClick={() => {}} />
           </div>
         ))}
       </div>

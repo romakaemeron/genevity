@@ -9,13 +9,14 @@ import type { DoctorItem } from "@/lib/db/types";
 interface DoctorCardProps {
   doctor: DoctorItem;
   detailsLabel: string;
+  experienceLabel?: string;
   onClick: () => void;
   priority?: boolean;
 }
 
 const cardClass = "group relative bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden flex flex-col h-full hover:bg-champagne-darker transition-all duration-300 cursor-pointer";
 
-function CardInner({ doctor, detailsLabel, slug, onClick, priority }: { doctor: DoctorItem; detailsLabel: string; slug?: string | null; onClick?: () => void; priority?: boolean }) {
+function CardInner({ doctor, detailsLabel, experienceLabel, slug, onClick, priority }: { doctor: DoctorItem; detailsLabel: string; experienceLabel?: string; slug?: string | null; onClick?: () => void; priority?: boolean }) {
   const { name, role, experience, photoCard, cardPosition } = doctor;
   return (
     <>
@@ -38,7 +39,11 @@ function CardInner({ doctor, detailsLabel, slug, onClick, priority }: { doctor: 
       <div className="p-6 flex flex-col gap-2 flex-1">
         <h3 className="body-strong text-black">{name}</h3>
         <p className="body-m text-main">{role}</p>
-        {experience && <p className="body-s text-black-40">{experience}</p>}
+        {experience && (
+          <p className="body-s text-black-40">
+            {experienceLabel ? experienceLabel.replace("{years}", experience) : experience}
+          </p>
+        )}
         <Button
           variant="outline"
           size="sm"
@@ -54,7 +59,7 @@ function CardInner({ doctor, detailsLabel, slug, onClick, priority }: { doctor: 
   );
 }
 
-export default function DoctorCard({ doctor, detailsLabel, onClick, priority }: DoctorCardProps) {
+export default function DoctorCard({ doctor, detailsLabel, experienceLabel, onClick, priority }: DoctorCardProps) {
   const router = useRouter();
 
   const handleCardClick = () => {
@@ -67,7 +72,7 @@ export default function DoctorCard({ doctor, detailsLabel, onClick, priority }: 
 
   return (
     <div className={cardClass} onClick={handleCardClick}>
-      <CardInner doctor={doctor} detailsLabel={detailsLabel} slug={doctor.slug} onClick={onClick} priority={priority} />
+      <CardInner doctor={doctor} detailsLabel={detailsLabel} experienceLabel={experienceLabel} slug={doctor.slug} onClick={onClick} priority={priority} />
     </div>
   );
 }
