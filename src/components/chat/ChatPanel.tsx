@@ -63,55 +63,59 @@ export default function ChatPanel({
   const [escalationOffered, setEscalationOffered] = useState(false);
   const [showEscalatePrompt, setShowEscalatePrompt] = useState(false);
 
-  const { messages, sendMessage, addToolOutput, status } = useChat({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const sendMessageRef = useRef<((msg: any) => void) | null>(null);
+
+  const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
       body: () => ({ sessionToken, locale: localeRef.current, pageUrl, pageTitle }),
     }),
-    onToolCall: ({ toolCall }) => {
-      if (toolCall.dynamic) return;
-      if (toolCall.toolName === "updateChatState") {
-        const args = toolCall.input as ChatState;
-        // Merge topics so AI can't accidentally wipe previously accumulated ones
-        const mergedTopics = [...new Set([...chatState.topics, ...(args.topics ?? [])])];
-        setChatState(prev => ({
-          ...args,
-          topics: [...new Set([...prev.topics, ...(args.topics ?? [])])],
-        }));
-        if (args.shouldEscalate && !escalationOffered) {
-          setEscalationOffered(true);
-          const topicsPart = mergedTopics.length ? `Цікавився: ${mergedTopics.join(", ")}` : null;
-          const summary = [args.escalationHint, topicsPart].filter(Boolean).join(". ");
-          if (args.urgency === "ready_to_book") {
-            onEscalate(args.escalationTarget, summary);
-          } else {
-            setShowEscalatePrompt(true);
-          }
-        }
-        addToolOutput({
-          tool: "updateChatState",
-          toolCallId: toolCall.toolCallId,
-          output: "ok",
-        });
-      }
-    },
   });
+
+  // Read chatState from tool invocation parts streamed by the server
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const allParts = messages.flatMap((m) => m.parts) as any[];
+    const lastToolPart = [...allParts].reverse().find(
+      (p) => p.type === "tool-updateChatState" && p.state === "output-available"
+    ) as { input: ChatState } | undefined;
+    if (!lastToolPart) return;
+    const args = lastToolPart.input;
+    setChatState(prev => ({
+      ...args,
+      topics: [...new Set([...prev.topics, ...(args.topics ?? [])])],
+    }));
+    if (args.shouldEscalate && !escalationOffered) {
+      setEscalationOffered(true);
+      const mergedTopics = [...new Set([...chatState.topics, ...(args.topics ?? [])])];
+      const topicsPart = mergedTopics.length ? `Цікавився: ${mergedTopics.join(", ")}` : null;
+      const summary = [args.escalationHint, topicsPart].filter(Boolean).join(". ");
+      if (args.urgency === "ready_to_book") {
+        onEscalate(args.escalationTarget, summary);
+      } else {
+        setShowEscalatePrompt(true);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
+
+  // Keep ref current so the welcome timer can call latest sendMessage without being a dep
+  useEffect(() => { sendMessageRef.current = sendMessage; });
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Send welcome once per session token
+  // Send welcome once on mount — no deps so cleanup never cancels the timer prematurely
+  // ChatPanel is keyed by sessionToken so this runs fresh for each session
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (messages.length > 0 || !sessionToken) return;
-    const flag = `genevity_welcomed_${sessionToken}`;
-    if (sessionStorage.getItem(flag)) return;
     const timer = setTimeout(() => {
-      sessionStorage.setItem(flag, "1");
-      sendMessage({ text: "__welcome__" });
+      sendMessageRef.current?.({ text: "__welcome__" });
     }, 400);
     return () => clearTimeout(timer);
-  }, [messages.length, sessionToken, sendMessage]);
+  }, []);
 
   const isStreaming = status === "streaming" || status === "submitted";
   const lastBotMsg = [...messages].reverse().find((m) => m.role === "assistant");

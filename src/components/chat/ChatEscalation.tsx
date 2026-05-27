@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { X, Phone, MessageCircle } from "lucide-react";
+import { X, Phone, MessageCircle, ArrowLeft } from "lucide-react";
 
 interface Props {
   target: "genevity" | "helyos";
   summary: string;
   onClose: () => void;
+  onBack: () => void;
   onOpenBinotel: () => void;
 }
 
@@ -15,7 +16,7 @@ const PHONES = {
   helyos: "+38 (067) 000 01 50",
 };
 
-export default function ChatEscalation({ target, summary, onClose, onOpenBinotel }: Props) {
+export default function ChatEscalation({ target, summary, onClose, onBack, onOpenBinotel }: Props) {
   const isHelyos = target === "helyos";
   const phone = PHONES[target];
 
@@ -29,9 +30,14 @@ export default function ChatEscalation({ target, summary, onClose, onOpenBinotel
       style={{ background: "var(--color-champagne)", pointerEvents: "auto" }}
     >
       <div className="flex items-center justify-between px-4 py-3 bg-[var(--color-main)] text-white">
-        <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-heading)" }}>
-          {isHelyos ? "Перенаправлення до Helyos" : "З'єднання з оператором"}
-        </span>
+        <div className="flex items-center gap-2">
+          <button onClick={onBack} className="text-white/70 hover:text-white transition-colors">
+            <ArrowLeft size={16} />
+          </button>
+          <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-heading)" }}>
+            {isHelyos ? "Перенаправлення до Helyos" : "З'єднання з оператором"}
+          </span>
+        </div>
         <button onClick={onClose} className="text-white/70 hover:text-white transition-colors">
           <X size={16} />
         </button>

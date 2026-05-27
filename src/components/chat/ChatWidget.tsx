@@ -221,7 +221,7 @@ export default function ChatWidget() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => { setView("chat"); setChatEverOpened(true); }}
-            className="fixed bottom-24 right-6 z-[2147483647] w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
+            className="fixed bottom-24 right-7 z-[2147483647] w-14 h-14 rounded-2xl shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
             style={{ background: "var(--color-main)" }}
             aria-label="Відкрити чат"
           >
@@ -230,7 +230,7 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-6 right-6 z-[2147483647]" style={{ pointerEvents: "none" }}>
+      <div className="fixed bottom-6 right-7 z-[2147483647]" style={{ pointerEvents: "none" }}>
         {/* ChatPanel stays mounted after first open to preserve message history */}
         {sessionToken && chatEverOpened && (
           <ChatPanel
@@ -252,6 +252,7 @@ export default function ChatWidget() {
               target={escalationTarget}
               summary={escalationSummary}
               onClose={() => setView("closed")}
+              onBack={() => setView("chat")}
               onOpenBinotel={handleOpenBinotel}
             />
           )}

@@ -98,57 +98,46 @@ export async function POST(req: Request) {
     messages: await convertToModelMessages(messages),
     stopWhen: stepCountIs(5),
     tools: {
-      updateChatState: updateChatStateTool,
-    },
-    onFinish: async ({ text, steps }) => {
-      if (text) {
-        await saveMessage({ sessionId: session.id, role: "assistant", content: text });
-      }
+      updateChatState: {
+        ...updateChatStateTool,
+        execute: async (args) => {
+          const operatorNote = buildOperatorNote({
+            urgency: args.urgency,
+            topics: args.topics ?? [],
+            escalationHint: args.escalationHint,
+            collectedName: args.collectedName,
+            collectedPhone: args.collectedPhone,
+            pageTitle,
+            locale,
+          });
 
-      const stateCall = steps
-        .flatMap((s) => s.toolCalls ?? [])
-        .find((c) => c.toolName === "updateChatState");
-
-      if (stateCall?.input) {
-        const args = stateCall.input as {
-          urgency: string;
-          topics: string[];
-          shouldEscalate: boolean;
-          escalationTarget: "genevity" | "helyos";
-          escalationHint: string | null;
-          collectedName: string | null;
-          collectedPhone: string | null;
-        };
-
-        const operatorNote = buildOperatorNote({
-          urgency: args.urgency,
-          topics: args.topics ?? [],
-          escalationHint: args.escalationHint,
-          collectedName: args.collectedName,
-          collectedPhone: args.collectedPhone,
-          pageTitle,
-          locale,
-        });
-
-        await updateSessionState({
-          sessionId: session.id,
-          urgency: args.urgency,
-          topics: args.topics ?? [],
-          operatorNote,
-          patientName: args.collectedName,
-          patientPhone: args.collectedPhone,
-        });
-
-        if (args.shouldEscalate) {
-          await escalateSession({
+          await updateSessionState({
             sessionId: session.id,
-            escalationBy: "bot",
-            escalationTarget: args.escalationTarget,
-            summary: args.escalationHint ?? "Пацієнт готовий до запису",
+            urgency: args.urgency,
+            topics: args.topics ?? [],
+            operatorNote,
             patientName: args.collectedName,
             patientPhone: args.collectedPhone,
           });
-        }
+
+          if (args.shouldEscalate) {
+            await escalateSession({
+              sessionId: session.id,
+              escalationBy: "bot",
+              escalationTarget: args.escalationTarget,
+              summary: args.escalationHint ?? "Пацієнт готовий до запису",
+              patientName: args.collectedName,
+              patientPhone: args.collectedPhone,
+            });
+          }
+
+          return "ok";
+        },
+      },
+    },
+    onFinish: async ({ text }) => {
+      if (text) {
+        await saveMessage({ sessionId: session.id, role: "assistant", content: text });
       }
     },
   });
