@@ -144,14 +144,38 @@ export default function ChatWidget() {
       }
 
       if (prefill) {
-        const findChatInput = () =>
-          document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
-            "textarea[placeholder*='повідомлення'], input[placeholder*='повідомлення']"
-          ) ||
-          Array.from(document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>(
-            "[id*='bwc'] textarea, [class*='bwc'] textarea, [id*='bwc'] input[type='text'], [class*='bwc'] input[type='text']"
-          )).find(el => el.id !== "estimate-form-input") ||
-          null;
+        const findChatInput = (): HTMLTextAreaElement | HTMLInputElement | null => {
+          // Main document search
+          const mainInput =
+            document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
+              "textarea[placeholder*='повідомлення'], input[placeholder*='повідомлення']"
+            ) ||
+            Array.from(document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>(
+              "[id*='bwc'] textarea, [class*='bwc'] textarea, [id*='bwc'] input[type='text'], [class*='bwc'] input[type='text']"
+            )).find(el => el.id !== "estimate-form-input") ||
+            null;
+          if (mainInput) return mainInput;
+
+          // Binotel likely renders the chat panel inside an iframe
+          const iframes = Array.from(document.querySelectorAll("iframe"));
+          console.log("[binotel] iframes in DOM:", iframes.map(f => `${f.id || "(no-id)"} src=${f.src}`).join(" | ") || "(none)");
+          for (const iframe of iframes) {
+            try {
+              const iDoc = iframe.contentDocument;
+              if (!iDoc) { console.log("[binotel] iframe no contentDocument:", iframe.src); continue; }
+              // Any textarea or text input inside the iframe
+              const iInput =
+                iDoc.querySelector<HTMLTextAreaElement | HTMLInputElement>(
+                  "textarea, input[type='text']"
+                );
+              console.log("[binotel] iframe", iframe.src || iframe.id, "→ input:", iInput ? `${iInput.tagName} placeholder="${iInput.placeholder}"` : "none");
+              if (iInput) return iInput;
+            } catch {
+              console.log("[binotel] iframe cross-origin (cannot access):", iframe.src);
+            }
+          }
+          return null;
+        };
 
         const injectText = (text: string, attempt = 0) => {
           const input = findChatInput();
