@@ -156,14 +156,20 @@ export default function ChatWidget() {
             null;
           console.log(`[binotel] injectText attempt ${attempt}, input:`, input);
           if (input) {
-            const proto = input instanceof HTMLTextAreaElement
-              ? HTMLTextAreaElement.prototype
-              : HTMLInputElement.prototype;
-            const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
-            if (setter) setter.call(input, text); else input.value = text;
             input.focus();
-            input.dispatchEvent(new Event("input", { bubbles: true }));
-            input.dispatchEvent(new Event("change", { bubbles: true }));
+            // execCommand simulates real typing — works with Binotel's controlled input
+            const inserted = document.execCommand("insertText", false, text);
+            console.log("[binotel] execCommand insertText result:", inserted);
+            if (!inserted) {
+              // Fallback: native setter + synthetic events
+              const proto = input instanceof HTMLTextAreaElement
+                ? HTMLTextAreaElement.prototype
+                : HTMLInputElement.prototype;
+              const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
+              if (setter) setter.call(input, text); else input.value = text;
+              input.dispatchEvent(new InputEvent("input", { bubbles: true, data: text, inputType: "insertText" }));
+              input.dispatchEvent(new Event("change", { bubbles: true }));
+            }
             console.log("[binotel] prefill injected:", text);
           } else if (attempt < 15) {
             setTimeout(() => injectText(text, attempt + 1), 300);
