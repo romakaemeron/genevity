@@ -50,7 +50,10 @@ export default function ChatWidget() {
     const hideKnown = () => {
       HIDE_IDS.forEach((id) => {
         const el = document.getElementById(id);
-        if (el) el.style.setProperty("display", "none", "important");
+        if (el && el.style.display !== "none") {
+          console.log("[binotel] observer hiding:", id);
+          el.style.setProperty("display", "none", "important");
+        }
       });
     };
 
@@ -72,36 +75,47 @@ export default function ChatWidget() {
   );
 
   const handleOpenBinotel = useCallback(() => {
+    console.log("[binotel] handleOpenBinotel called");
     setView("closed");
 
     const prefill = escalationSummary
       ? (escalationTarget === "helyos" ? "Пацієнт з сайту GENEVITY. " : "") + escalationSummary
       : "";
+    console.log("[binotel] prefill:", prefill || "(none)");
 
     const openChat = () => {
-      // Stop hiding Binotel elements permanently so the chat panel can appear
+      console.log("[binotel] openChat() called");
+      console.log("[binotel] observer active:", !!binotelObserverRef.current);
+
       binotelObserverRef.current?.disconnect();
       binotelObserverRef.current = null;
+      console.log("[binotel] observer disconnected");
 
-      // bwc-chat-cloud-message is the direct "open chat" button (the bubble).
-      // bwc-widget-action is the main launcher — clicking it only expands the panel.
-      // We click the chat bubble directly to skip the intermediate step.
       const chatMsg = document.getElementById("bwc-chat-cloud-message");
       const launcher = document.getElementById("bwc-widget-action");
+      console.log("[binotel] bwc-chat-cloud-message:", chatMsg);
+      console.log("[binotel] bwc-widget-action:", launcher);
+      console.log("[binotel] window.binotelChatWidget:", window.binotelChatWidget);
 
       if (chatMsg) {
+        console.log("[binotel] clicking bwc-chat-cloud-message, display was:", chatMsg.style.display);
         chatMsg.style.removeProperty("display");
         chatMsg.click();
+        console.log("[binotel] clicked bwc-chat-cloud-message");
       } else if (launcher) {
-        // Fallback: click launcher, then click chat button once it appears
+        console.log("[binotel] clicking bwc-widget-action (launcher fallback)");
         launcher.style.removeProperty("display");
         launcher.click();
         setTimeout(() => {
           const chatBtn = document.getElementById("bwc-chat-cloud-message");
+          console.log("[binotel] delayed bwc-chat-cloud-message:", chatBtn);
           if (chatBtn) { chatBtn.style.removeProperty("display"); chatBtn.click(); }
         }, 300);
       } else if (typeof window.binotelChatWidget?.open === "function") {
+        console.log("[binotel] using window.binotelChatWidget.open()");
         window.binotelChatWidget.open();
+      } else {
+        console.warn("[binotel] NO BINOTEL ELEMENT OR API FOUND — widget may not be loaded");
       }
 
       if (prefill) {
@@ -114,8 +128,8 @@ export default function ChatWidget() {
             "[class*='bwc'] textarea, " +
             "[id*='bwc'] input[type='text']"
           );
+          console.log(`[binotel] injectText attempt ${attempt}, input:`, input);
           if (input) {
-            // Works for both React-controlled and plain inputs
             const proto = input instanceof HTMLTextAreaElement
               ? HTMLTextAreaElement.prototype
               : HTMLInputElement.prototype;
@@ -124,8 +138,11 @@ export default function ChatWidget() {
             input.focus();
             input.dispatchEvent(new Event("input", { bubbles: true }));
             input.dispatchEvent(new Event("change", { bubbles: true }));
+            console.log("[binotel] prefill injected:", text);
           } else if (attempt < 15) {
             setTimeout(() => injectText(text, attempt + 1), 300);
+          } else {
+            console.warn("[binotel] prefill FAILED — input not found after 15 attempts");
           }
         };
         setTimeout(() => injectText(prefill), 600);
@@ -136,6 +153,7 @@ export default function ChatWidget() {
     const ready = document.getElementById("bwc-chat-cloud-message") ||
                   document.getElementById("bwc-widget-action") ||
                   typeof window.binotelChatWidget?.open === "function";
+    console.log("[binotel] ready check:", !!ready, "— calling openChat", ready ? "now" : "after 800ms");
     if (ready) {
       openChat();
     } else {
