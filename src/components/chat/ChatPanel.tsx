@@ -112,12 +112,12 @@ export default function ChatPanel({
     <motion.div
       initial={{ opacity: 0, y: 16, scale: 0.97 }}
       animate={isOpen
-        ? { opacity: 1, y: 0, scale: 1, pointerEvents: "auto" }
-        : { opacity: 0, y: 16, scale: 0.97, pointerEvents: "none" }
+        ? { opacity: 1, y: 0, scale: 1 }
+        : { opacity: 0, y: 16, scale: 0.97 }
       }
       transition={{ duration: 0.2, ease: "easeOut" }}
       className="flex flex-col w-[360px] h-[520px] rounded-2xl shadow-2xl overflow-hidden border border-[var(--color-champagne-darker)]"
-      style={{ background: "var(--color-champagne)" }}
+      style={{ background: "var(--color-champagne)", pointerEvents: isOpen ? "auto" : "none" }}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-[var(--color-main)] text-white shrink-0">
