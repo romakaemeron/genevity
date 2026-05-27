@@ -69,28 +69,43 @@ export default function ChatWidget() {
   );
 
   const handleOpenBinotel = useCallback(() => {
+    setView("closed");
+
     const prefill = escalationSummary
       ? (escalationTarget === "helyos"
           ? "Пацієнт з сайту GENEVITY. "
           : "") + escalationSummary
       : "";
 
-    if (window.binotelChatWidget?.open) {
-      window.binotelChatWidget.open();
-    }
+    const openChat = () => {
+      // Try Binotel programmatic API first
+      if (typeof window.binotelChatWidget?.open === "function") {
+        window.binotelChatWidget.open();
+      } else {
+        // Fall back: click the native Binotel button (hidden via CSS but still clickable)
+        const btn = document.getElementById("bwc-widget-action");
+        if (btn) btn.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      }
 
-    if (prefill) {
-      setTimeout(() => {
-        const input = document.querySelector<HTMLInputElement>(
-          "[class*='binotel'] input[type='text'], .binotel-chat-input"
-        );
-        if (input) {
-          input.value = prefill;
-          input.dispatchEvent(new Event("input", { bubbles: true }));
-        }
-      }, 800);
+      if (prefill) {
+        setTimeout(() => {
+          const input = document.querySelector<HTMLInputElement>(
+            "input[class*='bwc'], textarea[class*='bwc'], [id*='bwc'] input, [id*='bwc'] textarea"
+          );
+          if (input) {
+            input.value = prefill;
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+          }
+        }, 800);
+      }
+    };
+
+    // Binotel loads lazily — give it a tick to finish if still initializing
+    if (document.getElementById("bwc-widget-action") || typeof window.binotelChatWidget?.open === "function") {
+      openChat();
+    } else {
+      setTimeout(openChat, 600);
     }
-    setView("closed");
   }, [escalationTarget, escalationSummary]);
 
   if (isAdmin) return null;
