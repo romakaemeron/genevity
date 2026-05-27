@@ -79,15 +79,27 @@ export default function ChatWidget() {
       : "";
 
     const openChat = () => {
-      // Stop hiding Binotel elements so the chat panel can appear
+      // Stop hiding Binotel elements permanently so the chat panel can appear
       binotelObserverRef.current?.disconnect();
       binotelObserverRef.current = null;
 
-      // Un-hide the launcher button before clicking
-      const btn = document.getElementById("bwc-widget-action");
-      if (btn) {
-        btn.style.removeProperty("display");
-        btn.click();
+      // bwc-chat-cloud-message is the direct "open chat" button (the bubble).
+      // bwc-widget-action is the main launcher — clicking it only expands the panel.
+      // We click the chat bubble directly to skip the intermediate step.
+      const chatMsg = document.getElementById("bwc-chat-cloud-message");
+      const launcher = document.getElementById("bwc-widget-action");
+
+      if (chatMsg) {
+        chatMsg.style.removeProperty("display");
+        chatMsg.click();
+      } else if (launcher) {
+        // Fallback: click launcher, then click chat button once it appears
+        launcher.style.removeProperty("display");
+        launcher.click();
+        setTimeout(() => {
+          const chatBtn = document.getElementById("bwc-chat-cloud-message");
+          if (chatBtn) { chatBtn.style.removeProperty("display"); chatBtn.click(); }
+        }, 300);
       } else if (typeof window.binotelChatWidget?.open === "function") {
         window.binotelChatWidget.open();
       }
@@ -95,18 +107,21 @@ export default function ChatWidget() {
       if (prefill) {
         setTimeout(() => {
           const input = document.querySelector<HTMLInputElement>(
-            "[id*='bwc'] input, [id*='bwc'] textarea, input[class*='bwc'], textarea[class*='bwc']"
+            "[id*='bwc'] input[type='text'], [id*='bwc'] textarea, input[placeholder*='повідомлення'], textarea[placeholder*='повідомлення']"
           );
           if (input) {
             input.value = prefill;
             input.dispatchEvent(new Event("input", { bubbles: true }));
           }
-        }, 800);
+        }, 1000);
       }
     };
 
     // Binotel loads lazily on first user interaction — wait if not ready yet
-    if (document.getElementById("bwc-widget-action") || typeof window.binotelChatWidget?.open === "function") {
+    const ready = document.getElementById("bwc-chat-cloud-message") ||
+                  document.getElementById("bwc-widget-action") ||
+                  typeof window.binotelChatWidget?.open === "function";
+    if (ready) {
       openChat();
     } else {
       setTimeout(openChat, 800);
