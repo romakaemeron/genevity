@@ -87,7 +87,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
         <div key={activeFilter} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 grid-enter">
           {filteredDoctors.map((doctor, i) => (
             <div key={doctor._id}>
-              <DoctorCard doctor={doctor} detailsLabel={detailsLabel} onClick={() => {}} priority={i === 0} />
+              <DoctorCard doctor={doctor} detailsLabel={detailsLabel} experienceLabel={doctorsUi.experience} onClick={() => {}} priority={i === 0} />
             </div>
           ))}
         </div>
