@@ -26,7 +26,7 @@ export default function ChatEscalation({ target, summary, onClose, onOpenBinotel
       exit={{ opacity: 0, y: 16, scale: 0.97 }}
       transition={{ duration: 0.2 }}
       className="flex flex-col w-[360px] rounded-2xl shadow-2xl overflow-hidden border border-[var(--color-champagne-darker,#e8e3db)]"
-      style={{ background: "var(--color-champagne)" }}
+      style={{ background: "var(--color-champagne)", pointerEvents: "auto" }}
     >
       <div className="flex items-center justify-between px-4 py-3 bg-[var(--color-main)] text-white">
         <span className="text-sm font-semibold" style={{ fontFamily: "var(--font-heading)" }}>
