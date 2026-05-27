@@ -2,9 +2,9 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import ChatPanel from "./ChatPanel";
 import ChatEscalation from "./ChatEscalation";
-import SiriOrb from "./SiriOrb";
 import { useChatSession } from "./useChatSession";
 
 type View = "closed" | "chat" | "escalation";
@@ -228,11 +228,11 @@ export default function ChatWidget() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => { setView("chat"); setChatEverOpened(true); }}
-            className="fixed bottom-24 right-7 z-[2147483647] rounded-[18px] shadow-2xl hover:scale-105 active:scale-95 transition-transform overflow-hidden"
-            style={{ padding: 0, background: "none", border: "none" }}
+            className="fixed bottom-24 right-7 z-[2147483647] w-14 h-14 rounded-2xl shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
+            style={{ background: "var(--color-main)" }}
             aria-label="Відкрити чат"
           >
-            <SiriOrb size={56} />
+            <MessageCircle size={24} color="white" />
           </motion.button>
         )}
       </AnimatePresence>
