@@ -338,11 +338,28 @@ export default function ChatPanel({
       </form>
 
       <p className="px-4 pb-3 text-[10px] text-[var(--color-stone,#8b7b6b)] leading-tight text-center">
-        Натискаючи «Відправити», ви погоджуєтесь з{" "}
-        <a href="/polityka-konfidentsiynosti" target="_blank" rel="noopener noreferrer" className="underline hover:opacity-70 transition-opacity">
-          Політикою конфіденційності
-        </a>{" "}
-        та надаєте згоду на обробку персональних даних.
+        {locale === "ru"
+          ? "Нажимая «Отправить», вы соглашаетесь с "
+          : locale === "en"
+          ? "By clicking «Send» you agree to the "
+          : "Натискаючи «Відправити», ви погоджуєтесь з "}
+        <a
+          href={`${locale === "uk" ? "" : `/${locale}`}/legal/privacy-policy`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:opacity-70 transition-opacity"
+        >
+          {locale === "ru"
+            ? "Политикой конфиденциальности"
+            : locale === "en"
+            ? "Privacy Policy"
+            : "Політикою конфіденційності"}
+        </a>
+        {locale === "ru"
+          ? " и даёте согласие на обработку персональных данных."
+          : locale === "en"
+          ? " and consent to personal data processing."
+          : " та надаєте згоду на обробку персональних даних."}
       </p>
     </motion.div>
   );
