@@ -18,6 +18,7 @@ declare global {
 export default function ChatWidget() {
   const { token: sessionToken, reset: resetSession } = useChatSession();
   const [view, setView] = useState<View>("closed");
+  const [chatEverOpened, setChatEverOpened] = useState(false);
   const [locale, setLocale] = useState("uk");
   const [escalationTarget, setEscalationTarget] = useState<"genevity" | "helyos">("genevity");
   const [escalationSummary, setEscalationSummary] = useState("");
@@ -102,7 +103,7 @@ export default function ChatWidget() {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            onClick={() => setView("chat")}
+            onClick={() => { setView("chat"); setChatEverOpened(true); }}
             className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
             style={{ background: "var(--color-main)" }}
             aria-label="Відкрити чат"
@@ -113,19 +114,21 @@ export default function ChatWidget() {
       </AnimatePresence>
 
       <div className="fixed bottom-6 right-6 z-50">
+        {/* ChatPanel stays mounted after first open to preserve message history */}
+        {sessionToken && chatEverOpened && (
+          <ChatPanel
+            key={sessionToken}
+            isOpen={view === "chat"}
+            sessionToken={sessionToken}
+            onClose={() => setView("closed")}
+            onEscalate={handleEscalate}
+            onNewChat={resetSession}
+            pageUrl={pageUrl}
+            pageTitle={pageTitle}
+            locale={locale}
+          />
+        )}
         <AnimatePresence mode="wait">
-          {view === "chat" && sessionToken && (
-            <ChatPanel
-              key={sessionToken}
-              sessionToken={sessionToken}
-              onClose={() => setView("closed")}
-              onEscalate={handleEscalate}
-              onNewChat={resetSession}
-              pageUrl={pageUrl}
-              pageTitle={pageTitle}
-              locale={locale}
-            />
-          )}
           {view === "escalation" && (
             <ChatEscalation
               key="escalation"

@@ -18,6 +18,7 @@ interface ChatState {
 }
 
 interface Props {
+  isOpen: boolean;
   sessionToken: string;
   onClose: () => void;
   onEscalate: (target: "genevity" | "helyos", summary: string) => void;
@@ -35,6 +36,7 @@ function detectLocale(text: string): string {
 }
 
 export default function ChatPanel({
+  isOpen,
   sessionToken,
   onClose,
   onEscalate,
@@ -109,8 +111,10 @@ export default function ChatPanel({
   return (
     <motion.div
       initial={{ opacity: 0, y: 16, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 16, scale: 0.97 }}
+      animate={isOpen
+        ? { opacity: 1, y: 0, scale: 1, pointerEvents: "auto" }
+        : { opacity: 0, y: 16, scale: 0.97, pointerEvents: "none" }
+      }
       transition={{ duration: 0.2, ease: "easeOut" }}
       className="flex flex-col w-[360px] h-[520px] rounded-2xl shadow-2xl overflow-hidden border border-[var(--color-champagne-darker)]"
       style={{ background: "var(--color-champagne)" }}
