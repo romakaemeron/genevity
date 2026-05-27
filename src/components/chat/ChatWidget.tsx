@@ -144,66 +144,71 @@ export default function ChatWidget() {
       }
 
       if (prefill) {
+        const findChatInput = () =>
+          document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
+            "textarea[placeholder*='повідомлення'], input[placeholder*='повідомлення']"
+          ) ||
+          Array.from(document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>(
+            "[id*='bwc'] textarea, [class*='bwc'] textarea, [id*='bwc'] input[type='text'], [class*='bwc'] input[type='text']"
+          )).find(el => el.id !== "estimate-form-input") ||
+          null;
+
         const injectText = (text: string, attempt = 0) => {
-          // Prefer the main chat textarea; avoid estimate-form-input (callback form, not chat)
-          const input =
-            document.querySelector<HTMLTextAreaElement | HTMLInputElement>(
-              "textarea[placeholder*='повідомлення'], input[placeholder*='повідомлення']"
-            ) ||
-            Array.from(document.querySelectorAll<HTMLTextAreaElement | HTMLInputElement>(
-              "[id*='bwc'] textarea, [class*='bwc'] textarea, [id*='bwc'] input[type='text']"
-            )).find(el => el.id !== "estimate-form-input") ||
-            null;
-          console.log(`[binotel] injectText attempt ${attempt}, input:`, input);
-          if (input) {
-            input.focus();
+          const input = findChatInput();
+          console.log(`[binotel] injectText attempt ${attempt}`, input ? `found: ${input.tagName}#${input.id}.${input.className}` : "NOT FOUND");
 
-            // Try 1: paste event (most reliable for controlled inputs)
-            try {
-              const dt = new DataTransfer();
-              dt.setData("text/plain", text);
-              const pasteEvt = new ClipboardEvent("paste", { bubbles: true, cancelable: true, clipboardData: dt });
-              input.dispatchEvent(pasteEvt);
-              console.log("[binotel] paste event dispatched, value now:", input.value);
-            } catch (e) {
-              console.log("[binotel] paste failed:", e);
-            }
-
-            // Try 2: execCommand insertText
-            if (!input.value) {
-              const ok = document.execCommand("insertText", false, text);
-              console.log("[binotel] execCommand result:", ok, "value:", input.value);
-            }
-
-            // Try 3: native setter fallback
-            if (!input.value) {
-              const proto = input instanceof HTMLTextAreaElement ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
-              const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
-              if (setter) setter.call(input, text); else input.value = text;
-              input.dispatchEvent(new InputEvent("input", { bubbles: true, data: text, inputType: "insertText" }));
-              input.dispatchEvent(new Event("change", { bubbles: true }));
-              console.log("[binotel] native setter value:", input.value);
-            }
-
-            console.log("[binotel] final input value:", input.value);
-
-            // Auto-send the prefill message so operator sees context immediately
-            if (input.value) {
-              setTimeout(() => {
-                const sendBtn = document.querySelector<HTMLElement>(
-                  "button.bwc-btn-send, button[type='submit'][class*='bwc'], [class*='bwc-send'], form[class*='bwc'] button[type='submit']"
-                );
-                console.log("[binotel] send button:", sendBtn);
-                if (sendBtn) { sendBtn.click(); console.log("[binotel] auto-sent prefill"); }
-              }, 200);
-            }
-          } else if (attempt < 20) {
-            setTimeout(() => injectText(text, attempt + 1), 300);
-          } else {
-            console.warn("[binotel] prefill FAILED — input not found after 20 attempts");
+          if (!input) {
+            if (attempt < 25) setTimeout(() => injectText(text, attempt + 1), 300);
+            else console.warn("[binotel] prefill FAILED — input not found after 25 attempts");
+            return;
           }
+
+          input.focus();
+
+          // Native value setter + input event — works for React/Vue/plain JS controlled inputs
+          const proto = input instanceof HTMLTextAreaElement ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
+          const nativeSetter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
+          if (nativeSetter) { nativeSetter.call(input, text); } else { input.value = text; }
+          input.dispatchEvent(new InputEvent("input", { bubbles: true, data: text, inputType: "insertText" }));
+          input.dispatchEvent(new Event("change", { bubbles: true }));
+          console.log(`[binotel] after native setter: "${input.value}"`);
+
+          // Fallback: execCommand (works on non-framework plain textareas)
+          if (!input.value) {
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            document.execCommand("insertText", false, text);
+            console.log(`[binotel] after execCommand: "${input.value}"`);
+          }
+
+          if (!input.value) {
+            console.warn("[binotel] value still empty after injection attempts");
+            if (attempt < 5) setTimeout(() => injectText(text, attempt + 1), 400);
+            return;
+          }
+
+          // Send: first try Enter key (most reliable for chat UIs), then send button click
+          setTimeout(() => {
+            console.log(`[binotel] pre-send value: "${input.value}"`);
+            if (!input.value) return;
+
+            // Enter keydown — many chat widgets send on Enter
+            const enterEvt = new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true, cancelable: true });
+            const prevented = !input.dispatchEvent(enterEvt);
+            console.log("[binotel] Enter keydown dispatched, prevented:", prevented);
+            input.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
+
+            // Also click send button 300ms later as backup
+            setTimeout(() => {
+              const sendBtn = document.querySelector<HTMLElement>(
+                "button.bwc-btn-send, [class*='bwc-send'], form[class*='bwc'] button[type='submit'], [id*='bwc'] button[type='submit'], [class*='bwc'] button[type='submit']"
+              );
+              console.log("[binotel] send button:", sendBtn ? `found: ${sendBtn.className}` : "NOT FOUND", "input value:", input.value);
+              if (sendBtn) { sendBtn.click(); console.log("[binotel] clicked send button"); }
+            }, 300);
+          }, 200);
         };
-        setTimeout(() => injectText(prefill), 1200);
+
+        setTimeout(() => injectText(prefill), 1500);
       }
     };
 
