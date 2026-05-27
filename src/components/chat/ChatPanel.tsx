@@ -142,7 +142,7 @@ export default function ChatPanel({
         : { opacity: 0, y: 16, scale: 0.97 }
       }
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="flex flex-col w-[360px] h-[520px] rounded-2xl shadow-2xl overflow-hidden border border-[var(--color-champagne-darker)]"
+      className="flex flex-col w-[380px] h-[520px] rounded-2xl shadow-2xl overflow-hidden border border-[var(--color-champagne-darker)]"
       style={{ background: "var(--color-champagne)", pointerEvents: isOpen ? "auto" : "none" }}
     >
       {/* Header */}
