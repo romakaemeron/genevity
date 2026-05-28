@@ -1,17 +1,17 @@
-# AI Chat Widget — Джидяра (GENEVITY)
+# AI Chat Widget — Свiтлана (GENEVITY)
 
 **Date:** 2026-05-26  
 **Status:** Approved — ready for implementation  
-**Dev codename:** Джидяра (replace with final name before launch)  
+**Dev codename:** Свiтлана (replace with final name before launch)  
 **Public persona name:** Ліна (placeholder — confirm before launch)
 
 ---
 
 ## Overview
 
-A proactive AI chat widget embedded in the Genevity website. Джидяра acts as a knowledgeable clinic assistant — answers questions about services, doctors, cosmetology, and longevity — but never books appointments directly (operators handle that). When a patient is ready to book or requests it, the bot hands off to a live operator via the existing Binotel Online Chat widget.
+A proactive AI chat widget embedded in the Genevity website. Свiтлана acts as a knowledgeable clinic assistant — answers questions about services, doctors, cosmetology, and longevity — but never books appointments directly (operators handle that). When a patient is ready to book or requests it, the bot hands off to a live operator via the existing Binotel Online Chat widget.
 
-Джидяра also knows the full catalogue of **Helyos** (sister clinic, 200+ doctors, 300+ directions) and can discuss it in depth via on-demand DB tool calls — only fetching Helyos data when the conversation requires it, keeping token usage minimal.
+Свiтлана also knows the full catalogue of **Helyos** (sister clinic, 200+ doctors, 300+ directions) and can discuss it in depth via on-demand DB tool calls — only fetching Helyos data when the conversation requires it, keeping token usage minimal.
 
 **Model:** GPT-4o-mini (Vercel AI SDK, streaming)  
 **Cost estimate:** ~$1–3/month at typical clinic traffic  
@@ -129,11 +129,11 @@ The bot offers escalation **once per session** unless the user declines, then ag
 
 **Genevity:** `src/lib/chat/agent.md` — loaded in full on every request. The model is instructed to **only reference facts listed in this file** for Genevity — it must never invent services, prices, or doctor names not present. Admins update this file; no redeploy needed.
 
-**Helyos:** NOT pre-loaded. The model calls tools on demand when the conversation touches topics outside Genevity's scope. This keeps the base prompt lean while giving Джидяра full depth on both clinics.
+**Helyos:** NOT pre-loaded. The model calls tools on demand when the conversation touches topics outside Genevity's scope. This keeps the base prompt lean while giving Свiтлана full depth on both clinics.
 
 Structure:
 ```markdown
-# GENEVITY — база знань асистента Джидяра
+# GENEVITY — база знань асистента Свiтлана
 
 ## Клініка
 Назва, адреса, телефон, графік роботи, філософія...
@@ -178,7 +178,7 @@ Structure:
 
 ### Concept
 
-When a patient asks about something outside Genevity's profile (surgery, cardiology, oncology, IVF, diagnostics, etc.), Джидяра discusses it in full depth by querying the Helyos Neon DB on demand — then offers to connect the patient with a Helyos operator.
+When a patient asks about something outside Genevity's profile (surgery, cardiology, oncology, IVF, diagnostics, etc.), Свiтлана discusses it in full depth by querying the Helyos Neon DB on demand — then offers to connect the patient with a Helyos operator.
 
 ### On-Demand Tools (Vercel AI SDK tool calls)
 

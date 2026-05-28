@@ -2,7 +2,8 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
+import SiriOrb from "./SiriOrb";
 import ChatPanel from "./ChatPanel";
 import ChatEscalation from "./ChatEscalation";
 import { useChatSession } from "./useChatSession";
@@ -18,14 +19,19 @@ declare global {
 export default function ChatWidget() {
   const { token: sessionToken, reset: resetSession } = useChatSession();
   const [view, setView] = useState<View>("closed");
+  const [isOrbLabelCollapsed, setIsOrbLabelCollapsed] = useState(false);
+  const [isOrbHovered, setIsOrbHovered] = useState(false);
   const [chatEverOpened, setChatEverOpened] = useState(false);
-  const [locale, setLocale] = useState("uk");
+  const pathname = usePathname();
+  const seg = pathname.split("/")[1];
+  const locale = seg === "ru" ? "ru" : seg === "en" ? "en" : "uk";
   const [escalationTarget, setEscalationTarget] = useState<"genevity" | "helyos">("genevity");
   const [escalationSummary, setEscalationSummary] = useState("");
   const [pageUrl, setPageUrl] = useState("");
   const [pageTitle, setPageTitle] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [escalationResetKey, setEscalationResetKey] = useState(0);
+  const [binotelLoaded, setBinotelLoaded] = useState(false);
 
   useEffect(() => {
     if (window.location.pathname.startsWith("/admin")) {
@@ -34,11 +40,6 @@ export default function ChatWidget() {
     }
     setPageUrl(window.location.href);
     setPageTitle(document.title);
-    // Detect locale from URL path prefix (next-intl: /ru/... or /en/... or no prefix = uk)
-    const seg = window.location.pathname.split("/")[1];
-    if (seg === "ru") setLocale("ru");
-    else if (seg === "en") setLocale("en");
-    else setLocale("uk");
   }, []);
 
   // Hide Binotel native launcher — our widget replaces it visually.
@@ -59,6 +60,7 @@ export default function ChatWidget() {
           }
           el.style.setProperty("display", "none", "important");
           el.style.setProperty("visibility", "hidden", "important");
+          setBinotelLoaded(true);
         }
       });
     };
@@ -70,6 +72,22 @@ export default function ChatWidget() {
     observer.observe(document.body, { childList: true, subtree: true });
     return () => { observer.disconnect(); binotelObserverRef.current = null; };
   }, []);
+
+  useEffect(() => {
+    if (view !== "closed") return;
+    setIsOrbLabelCollapsed(false);
+    const t = setTimeout(() => setIsOrbLabelCollapsed(true), 4400);
+    return () => clearTimeout(t);
+  }, [view]);
+
+  const showOrbLabel = !isOrbLabelCollapsed || isOrbHovered;
+
+  const orbLabels = {
+    uk: { title: "AI Асистент", sub: "Запитати про послуги" },
+    ru: { title: "AI Ассистент", sub: "Задать вопрос" },
+    en: { title: "AI Assistant", sub: "Ask about services" },
+  };
+  const orbLabel = orbLabels[locale as keyof typeof orbLabels] ?? orbLabels.uk;
 
   const handleEscalate = useCallback(
     (target: "genevity" | "helyos", summary: string) => {
@@ -236,11 +254,88 @@ export default function ChatWidget() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => { setView("chat"); setChatEverOpened(true); }}
-            className="fixed bottom-24 right-7 z-[2147483647] w-14 h-14 rounded-2xl shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
-            style={{ background: "var(--color-main)" }}
-            aria-label="Відкрити чат"
+            onMouseEnter={() => setIsOrbHovered(true)}
+            onMouseLeave={() => setIsOrbHovered(false)}
+            className="fixed z-[2147483647]"
+            style={{
+              right: 24,
+              bottom: 96,
+              transition: "bottom 300ms ease",
+              display: "flex",
+              alignItems: "center",
+              border: 0,
+              padding: 0,
+              background: "transparent",
+              cursor: "pointer",
+              WebkitTapHighlightColor: "transparent",
+            }}
+            aria-label="Відкрити AI асистента"
           >
-            <MessageCircle size={24} color="white" />
+            {/* Slide-out label pill */}
+            <span style={{
+              background: "var(--color-champagne)",
+              color: "#2A2520",
+              border: "1px solid #E6E0D6",
+              borderRight: "none",
+              borderRadius: "999px 0 0 999px",
+              boxShadow: "0 8px 24px -10px rgba(42,37,32,0.18)",
+              height: 60,
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              maxWidth: showOrbLabel ? 320 : 0,
+              opacity: showOrbLabel ? 1 : 0,
+              paddingLeft: showOrbLabel ? 22 : 0,
+              paddingRight: showOrbLabel ? 52 : 0,
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              pointerEvents: showOrbLabel ? "auto" : "none",
+              transition: "max-width 420ms cubic-bezier(.6,0,.2,1), opacity 240ms ease, padding 420ms cubic-bezier(.6,0,.2,1)",
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#5A8A6A", boxShadow: "0 0 0 4px rgba(90,138,106,0.18)", flexShrink: 0 }} />
+              <span>
+                <span style={{ fontWeight: 600, fontSize: 14, letterSpacing: "-0.005em", display: "block" }}>{orbLabel.title}</span>
+                <span style={{ color: "#6B6359", fontSize: 12.5 }}>{orbLabel.sub}</span>
+              </span>
+            </span>
+            {/* Orb */}
+            <span style={{
+              position: "relative",
+              width: 84,
+              height: 84,
+              borderRadius: "50%",
+              boxShadow: "0 18px 40px -14px rgba(42,37,32,0.26)",
+              isolation: "isolate",
+              flexShrink: 0,
+              marginLeft: -42,
+              zIndex: 1,
+            }}>
+              <SiriOrb />
+              {/* Glass disc + logo */}
+              <span style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "65%",
+                aspectRatio: "1",
+                transform: "translate(-50%, -50%)",
+                borderRadius: "50%",
+                display: "grid",
+                placeItems: "center",
+                zIndex: 1,
+                background: "rgba(255,255,255,0.15)",
+                backdropFilter: "blur(2px) saturate(100%)",
+                WebkitBackdropFilter: "blur(2px) saturate(100%)",
+                border: "1px solid rgba(245,240,232,0.60)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 6px 18px -6px rgba(42,37,32,0.22)",
+                color: "var(--color-black)",
+              }}>
+                <svg viewBox="0 0 510 1231" fill="currentColor" style={{ width: "75%", height: "75%" }} aria-hidden="true">
+                  <path d="M478.616 773.3C443.806 698.75 379.676 648.63 311.556 602.52L286.626 618.68L286.656 618.71C355.146 662.91 419.856 710.32 457.276 783.62C490.786 853.97 500.326 940.87 468.886 1013.51C429.956 1094.97 366.916 1163.85 294.706 1217.78L303.586 1230.11C375.156 1178.9 437.316 1112.8 480.136 1035.22C522.976 955.25 515.806 854.1 478.616 773.31V773.3Z" />
+                  <path d="M316.446 567.41C329.576 558.37 342.436 549.15 354.846 539.56C415.656 494.33 471.096 431.87 492.616 358.02C499.976 332.69 501.576 310.24 501.096 302.66C500.436 292.69 493.066 283.9 484.006 280.92C478.056 278.63 469.976 279.75 463.996 279.48H236.766L241.926 295.75H463.996C466.996 295.91 476.726 295.3 478.716 296.25C482.726 297.58 484.966 301.33 484.486 305.21C483.766 328.12 480.656 333.51 473.406 355.01C465.036 379.94 452.626 403.51 436.996 424.85C391.786 486.53 325.296 527.12 257.866 566.85H257.836C185.206 518.67 108.956 465.04 73.7356 382.01C36.3956 294.07 53.3556 198.98 113.656 125.68C140.016 93.63 171.756 66.95 205.716 42.92L175.076 0C132.366 31.01 93.3256 65.59 64.8656 113.53C22.6056 184.78 5.89561 271.71 28.0856 352.4C59.1556 465.48 142.766 526.66 230.516 582.92C181.876 611.73 134.206 641.49 95.2156 679.87C23.8556 747.29 -11.4044 839.97 3.28562 936.78H56.7856C43.6056 876.08 54.0256 809.88 87.6156 757.15C118.656 708.25 162.796 671.33 210.456 637.98C227.466 626.05 244.926 614.59 262.386 603.19H262.416C270.896 597.66 279.376 592.14 287.796 586.61C297.416 580.26 307.006 573.88 316.446 567.4V567.41Z" />
+                </svg>
+              </span>
+            </span>
           </motion.button>
         )}
       </AnimatePresence>
