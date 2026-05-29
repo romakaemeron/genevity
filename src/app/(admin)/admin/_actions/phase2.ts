@@ -148,6 +148,9 @@ export async function savePriceCategories(cats: PriceCatInput[]) {
     }
   }
   revalidatePath("/");
+  revalidatePath("/prices");
+  revalidatePath("/ru/prices");
+  revalidatePath("/en/prices");
   return { ok: true };
 }
 

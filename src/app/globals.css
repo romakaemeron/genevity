@@ -989,3 +989,7 @@ input[type="search"] {
     @apply font-sans;
   }
 }
+/* Hide AI orb when Binotel chat is open */
+body.binotel-active .genevity-ai-widget {
+  display: none !important;
+}
