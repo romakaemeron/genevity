@@ -64,6 +64,12 @@ export async function POST(request: NextRequest) {
           paths.push(`${locale}/doctors`);
         }
         break;
+      case "priceItem":
+      case "priceCategory":
+        for (const locale of LOCALES) {
+          paths.push(`${locale}/prices`);
+        }
+        break;
       case "navigation":
       case "siteSettings":
         for (const locale of LOCALES) {
