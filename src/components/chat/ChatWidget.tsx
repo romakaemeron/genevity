@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { flushSync } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import SiriOrb from "./SiriOrb";
@@ -32,6 +33,7 @@ export default function ChatWidget() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [escalationResetKey, setEscalationResetKey] = useState(0);
   const [binotelLoaded, setBinotelLoaded] = useState(false);
+  const [binotelOpen, setBinotelOpen] = useState(false);
 
   useEffect(() => {
     if (window.location.pathname.startsWith("/admin")) {
@@ -73,6 +75,36 @@ export default function ChatWidget() {
     return () => { observer.disconnect(); binotelObserverRef.current = null; };
   }, []);
 
+  // Detect when user clicks native Binotel trigger (bwc-widget-action) directly —
+  // this bypasses handleOpenBinotel, so we must hide the orb here too.
+  useEffect(() => {
+    let closeHandled = false;
+
+    const onNativeBinotelOpen = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      if (!t.closest("#bwc-widget-action") && !t.closest("#bwc-chat-cloud-message")) return;
+
+      setBinotelOpen(true);
+      closeHandled = false;
+
+      const restoreOrb = () => {
+        if (closeHandled) return;
+        closeHandled = true;
+        document.removeEventListener("click", onNativeClose, true);
+        clearTimeout(fallbackRestore);
+        setTimeout(() => setBinotelOpen(false), 400);
+      };
+      const onNativeClose = (ce: MouseEvent) => {
+        if ((ce.target as HTMLElement).closest(".bwc-close")) restoreOrb();
+      };
+      document.addEventListener("click", onNativeClose, true);
+      const fallbackRestore = setTimeout(restoreOrb, 180_000);
+    };
+
+    document.addEventListener("click", onNativeBinotelOpen, true);
+    return () => document.removeEventListener("click", onNativeBinotelOpen, true);
+  }, []);
+
   useEffect(() => {
     if (view !== "closed") return;
     setIsOrbLabelCollapsed(false);
@@ -100,7 +132,28 @@ export default function ChatWidget() {
 
   const handleOpenBinotel = useCallback(() => {
     console.log("[binotel] handleOpenBinotel called");
-    setView("closed");
+    // flushSync guarantees the orb is removed from DOM synchronously before Binotel opens
+    flushSync(() => {
+      setView("closed");
+      setBinotelOpen(true);
+    });
+
+    // Restore when user clicks the Binotel × close button
+    let handled = false;
+    const restore = () => {
+      if (handled) return;
+      handled = true;
+      document.removeEventListener("click", onClose, true);
+      clearTimeout(fallback);
+      setBinotelOpen(false);
+    };
+    const onClose = (e: MouseEvent) => {
+      if ((e.target as HTMLElement).closest(".bwc-close")) restore();
+    };
+    document.addEventListener("click", onClose, true);
+
+    // Fallback: restore after 3 min
+    const fallback = setTimeout(restore, 180_000);
 
     if (sessionToken) {
       fetch("/api/chat/confirm", {
@@ -244,9 +297,10 @@ export default function ChatWidget() {
   }, [escalationTarget, escalationSummary]);
 
   if (isAdmin) return null;
+  if (binotelOpen) return null;
 
   return (
-    <>
+    <div className="genevity-ai-widget">
       <AnimatePresence>
         {view === "closed" && (
           <motion.button
@@ -256,6 +310,7 @@ export default function ChatWidget() {
             onClick={() => { setView("chat"); setChatEverOpened(true); }}
             onMouseEnter={() => setIsOrbHovered(true)}
             onMouseLeave={() => setIsOrbHovered(false)}
+            id="genevity-orb-btn"
             className="fixed z-[2147483647]"
             style={{
               right: 24,
@@ -340,7 +395,7 @@ export default function ChatWidget() {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-6 right-7 z-[2147483647]" style={{ pointerEvents: "none" }}>
+      <div id="genevity-chat-panel" className="fixed bottom-6 right-7 z-[2147483647]" style={{ pointerEvents: "none" }}>
         {/* ChatPanel stays mounted after first open to preserve message history */}
         {sessionToken && chatEverOpened && (
           <ChatPanel
@@ -369,6 +424,6 @@ export default function ChatWidget() {
           )}
         </AnimatePresence>
       </div>
-    </>
+    </div>
   );
 }
