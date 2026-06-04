@@ -115,7 +115,7 @@ export default function Footer({ legalDocs = [], settings }: { legalDocs?: Legal
               {settings?.phone1 && (
                 <a
                   href={`tel:${settings.phone1.replace(/\s/g, "")}`}
-                  className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
+                  className="binct-phone-number-1 flex items-center gap-2 body-m text-black hover:text-main transition-colors"
                 >
                   <Phone className="w-4 h-4 text-main shrink-0" />
                   <span>{settings.phone1}</span>

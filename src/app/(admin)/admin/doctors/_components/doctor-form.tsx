@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState, useRef } from "react";
+import { flushSync } from "react-dom";
 import { saveDoctor, deleteDoctor } from "../../_actions/doctors";
 import TranslationTabs, { type LocaleKey } from "../../_components/translation-tabs";
 import FormField from "../../_components/form-field";
@@ -119,7 +120,10 @@ export default function DoctorForm({ doctor }: Props) {
         </span>
         <button
           type="button"
-          onClick={() => setIsPublished((v) => !v)}
+          onClick={() => {
+            flushSync(() => setIsPublished((v) => !v));
+            formRef.current?.requestSubmit();
+          }}
           className={`ml-auto px-3 py-1 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
             isPublished
               ? "bg-white border-line text-muted hover:text-ink hover:border-ink/20"
