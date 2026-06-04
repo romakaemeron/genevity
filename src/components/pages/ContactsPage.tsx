@@ -61,10 +61,10 @@ export default function ContactsPageComponent({ settings, locale, contactsUi, ct
                       <Phone className="w-5 h-5 text-main" />
                     </div>
                     <div>
-                      <a href={`tel:${settings.phone1.replace(/\s/g, "")}`} className="body-strong text-black hover:text-main transition-colors block">
+                      <a href={`tel:${settings.phone1.replace(/\s/g, "")}`} className="binct-phone-number-1 body-strong text-black hover:text-main transition-colors block">
                         {settings.phone1}
                       </a>
-                      <a href={`tel:${settings.phone2.replace(/\s/g, "")}`} className="body-m text-muted hover:text-main transition-colors block mt-0.5">
+                      <a href={`tel:${settings.phone2.replace(/\s/g, "")}`} className="binct-phone-number-2 body-m text-muted hover:text-main transition-colors block mt-0.5">
                         {settings.phone2}
                       </a>
                     </div>

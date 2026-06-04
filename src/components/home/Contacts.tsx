@@ -33,8 +33,8 @@ export default function Contacts({ data }: { data: { settings: SiteSettingsData;
               <Phone className="w-5 h-5" />
             </div>
             <div className="flex flex-col gap-1">
-              <a href={`tel:${settings.phone1.replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">{settings.phone1}</a>
-              <a href={`tel:${settings.phone2.replace(/\s/g, "")}`} className="body-l text-black hover:text-main transition-colors">{settings.phone2}</a>
+              <a href={`tel:${settings.phone1.replace(/\s/g, "")}`} className="binct-phone-number-1 body-l text-black hover:text-main transition-colors">{settings.phone1}</a>
+              <a href={`tel:${settings.phone2.replace(/\s/g, "")}`} className="binct-phone-number-2 body-l text-black hover:text-main transition-colors">{settings.phone2}</a>
             </div>
           </div>
 
