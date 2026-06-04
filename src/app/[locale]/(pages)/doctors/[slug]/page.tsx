@@ -9,7 +9,7 @@ import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
-export const revalidate = 86400;
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   const slugs = await getAllDoctorSlugs();

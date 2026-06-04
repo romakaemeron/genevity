@@ -6,7 +6,7 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { setRequestLocale } from "next-intl/server";
 
-export const revalidate = 86400;
+export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

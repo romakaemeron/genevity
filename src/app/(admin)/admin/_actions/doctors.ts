@@ -218,6 +218,8 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/doctors");
+  revalidatePath("/ru/doctors");
+  revalidatePath("/en/doctors");
   revalidatePath("/sitemap-images");
   redirect("/admin/doctors");
 }
