@@ -160,11 +160,11 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
         )}
 
         {/* ===== SERVICE GRID ===== */}
-        {services.length > 0 && (
+        {services.filter(svc => svc.slug !== category.slug).length > 0 && (
           <RevealSection id="procedures" className="mt-20">
             <div className="reveal mb-10"><h2 className="heading-2 text-black">{t("typesOfProcedures")}</h2></div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {services.map((svc, i) => (
+              {services.filter(svc => svc.slug !== category.slug).map((svc, i) => (
                 <Link key={svc._id} href={`/services/${svc.categorySlug || category.slug}/${svc.slug}`}
                   className="reveal group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6"
                   style={{ "--rd": `${i * 0.05}s` } as React.CSSProperties}
