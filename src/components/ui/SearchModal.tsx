@@ -61,12 +61,19 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     }
   }, [isOpen]);
 
-  // Prevent background scroll while modal is open (no position change = no jump on close)
+  // Prevent background scroll while modal is open — position:fixed works on iOS too
   useEffect(() => {
     if (!isOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev; };
+    const scrollY = window.scrollY;
+    document.body.style.cssText = `position:fixed;top:-${scrollY}px;left:0;right:0;overflow:hidden`;
+    document.body.classList.add("modal-open");
+    return () => {
+      document.body.style.cssText = "";
+      document.body.classList.remove("modal-open");
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo(0, scrollY);
+      requestAnimationFrame(() => { document.documentElement.style.scrollBehavior = ""; });
+    };
   }, [isOpen]);
 
   // Debounced fetch
@@ -143,9 +150,27 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
             }}
             onClick={e => e.stopPropagation()}
           >
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Закрити пошук"
+              style={{
+                position: "absolute", top: 10, right: 10, zIndex: 10,
+                width: 28, height: 28, borderRadius: 6,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: "rgba(0,0,0,0.4)", backgroundColor: "transparent",
+                border: "none", cursor: "pointer", transition: "background-color 0.15s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "rgba(0,0,0,0.06)")}
+              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "transparent")}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+
             {/* Input row */}
             <div
-              className="flex items-center gap-3 px-4"
+              className="flex items-center gap-3 px-4 pr-10"
               style={{ paddingTop: 14, paddingBottom: 14, borderBottom: "1px solid #f0ede8" }}
             >
               <svg className="shrink-0" style={{ color: "#8B7B6B" }} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -164,19 +189,10 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {loading && (
                 <svg className="animate-spin shrink-0" style={{ color: "rgba(0,0,0,0.2)" }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
               )}
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="Закрити пошук"
-                className="shrink-0"
-                style={{ fontSize: 10, color: "rgba(0,0,0,0.3)", backgroundColor: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 4, padding: "2px 6px", cursor: "pointer" }}
-              >
-                ESC
-              </button>
             </div>
 
             {/* Body */}
-            <div className="overflow-y-auto flex-1 px-2 py-2">
+            <div className="overflow-y-auto overflow-x-hidden flex-1 px-2 py-2">
 
               {/* Empty state */}
               {query.length < 2 && (
@@ -234,7 +250,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                               border: "1px solid #f0ede8",
                               cursor: "pointer",
                               transition: "background-color 0.15s",
-                              whiteSpace: "nowrap",
+                              textAlign: "left",
                             }}
                             onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#f5f0eb")}
                             onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#faf9f6")}
