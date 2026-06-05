@@ -49,6 +49,10 @@ const nextConfig = {
       { source: "/blog/page1", destination: "/blog", permanent: true },
       { source: "/ru/blog/page1", destination: "/ru/blog", permanent: true },
       { source: "/en/blog/page1", destination: "/en/blog", permanent: true },
+      // ТЗ №1 §2: plastic-surgery/plastic-surgery is empty → redirect to category page
+      { source: "/services/plastic-surgery/plastic-surgery", destination: "/services/plastic-surgery", permanent: true },
+      { source: "/ru/services/plastic-surgery/plastic-surgery", destination: "/ru/services/plastic-surgery", permanent: true },
+      { source: "/en/services/plastic-surgery/plastic-surgery", destination: "/en/services/plastic-surgery", permanent: true },
       // ТЗ №1 §2: gynaecology/gynaecology is a duplicate of gynaecology → redirect to canonical
       { source: "/services/gynaecology/gynaecology", destination: "/services/gynaecology", permanent: true },
       { source: "/ru/services/gynaecology/gynaecology", destination: "/ru/services/gynaecology", permanent: true },
