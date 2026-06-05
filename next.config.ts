@@ -46,21 +46,17 @@ const nextConfig = {
       { source: "/en/en/doctors/:slug", destination: "/en/doctors/:slug", permanent: true },
       { source: "/ru/ru/doctors/:slug", destination: "/ru/doctors/:slug", permanent: true },
       // 301: blog/page1 → blog (first pagination page is a duplicate of parent)
-      {
-        source: "/blog/page1",
-        destination: "/blog",
-        permanent: true,
-      },
-      {
-        source: "/ru/blog/page1",
-        destination: "/ru/blog",
-        permanent: true,
-      },
-      {
-        source: "/en/blog/page1",
-        destination: "/en/blog",
-        permanent: true,
-      },
+      { source: "/blog/page1", destination: "/blog", permanent: true },
+      { source: "/ru/blog/page1", destination: "/ru/blog", permanent: true },
+      { source: "/en/blog/page1", destination: "/en/blog", permanent: true },
+      // ТЗ №1 §2: plastic-surgery category has a single service = itself → redirect category to service
+      { source: "/services/plastic-surgery", destination: "/services/plastic-surgery/plastic-surgery", permanent: true },
+      { source: "/ru/services/plastic-surgery", destination: "/ru/services/plastic-surgery/plastic-surgery", permanent: true },
+      { source: "/en/services/plastic-surgery", destination: "/en/services/plastic-surgery/plastic-surgery", permanent: true },
+      // ТЗ №1 §2: gynaecology/gynaecology is a duplicate of gynaecology → redirect to canonical
+      { source: "/services/gynaecology/gynaecology", destination: "/services/gynaecology", permanent: true },
+      { source: "/ru/services/gynaecology/gynaecology", destination: "/ru/services/gynaecology", permanent: true },
+      { source: "/en/services/gynaecology/gynaecology", destination: "/en/services/gynaecology", permanent: true },
     ];
   },
   // Vary: Accept-Encoding only — User-Agent fragments the CDN cache
@@ -71,6 +67,12 @@ const nextConfig = {
     {
       source: "/(.*)",
       headers: [{ key: "Vary", value: "Accept-Encoding" }],
+    },
+    // ТЗ №1 §1: block indexing of Next.js RSC prefetch URLs (?_rsc=…)
+    {
+      source: "/(.*)",
+      has: [{ type: "query", key: "_rsc" }],
+      headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
     },
   ],
 } satisfies NextConfig & { middlewareClientMaxBodySize?: string };

@@ -15,9 +15,19 @@ export const revalidate = 86400;
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const titles: Record<string, string> = {
+    ua: "Послуги GENEVITY — естетична медицина, діагностика та косметологія в Дніпрі",
+    ru: "Услуги GENEVITY — эстетическая медицина, диагностика и косметология в Днепре",
+    en: "GENEVITY Services — Aesthetic Medicine, Diagnostics, and Cosmetology in Dnipro",
+  };
+  const descs: Record<string, string> = {
+    ua: "Повний спектр медичних та естетичних послуг в 🤍 GENEVITY 💫 Ін'єкційна та апаратна косметологія, діагностика, пластична хірургія та програми довголіття в Дніпрі.",
+    ru: "Полный спектр медицинских и эстетических услуг в 🤍 GENEVITY 💫 Инъекционная и аппаратная косметология, диагностика, пластическая хирургия и программы долголетия в Днепре.",
+    en: "A full range of medical and aesthetic services at 🤍 GENEVITY 💫 Injectable and non-invasive cosmetology, diagnostics, plastic surgery, and longevity programs in Dnipro.",
+  };
   return generatePageMetadata({
-    title: locale === "ru" ? "Услуги — косметология и longevity в Днепре" : locale === "en" ? "Services — Cosmetology & Longevity in Dnipro" : "Послуги — косметологія та longevity у Дніпрі",
-    description: locale === "ru" ? "Полный спектр услуг центра эстетической медицины и долголетия GENEVITY в Днепре" : locale === "en" ? "Full range of aesthetic medicine and longevity services at GENEVITY center in Dnipro" : "Повний спектр послуг центру естетичної медицини та довголіття GENEVITY у Дніпрі",
+    title: titles[locale] ?? titles.ua,
+    description: descs[locale] ?? descs.ua,
     locale: locale as Locale,
     path: "/services",
   });
