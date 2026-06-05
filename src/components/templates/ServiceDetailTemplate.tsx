@@ -236,12 +236,12 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
             if (cta.bgType === "color" && cta.bgColor) cardStyle.backgroundColor = `var(--${cta.bgColor})`;
             return (
               <div key="finalCTA" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
-                <div className={`mt-20 lg:mt-24 rounded-[var(--radius-card)] p-8 lg:p-12 text-center relative overflow-hidden ${hasCustomImage || cta.bgType === "color" ? "" : "bg-main"}`} style={cardStyle}>
+                <div className={`mt-20 lg:mt-24 rounded-[var(--radius-card)] px-4 py-6 sm:p-8 lg:p-12 text-center relative overflow-hidden ${hasCustomImage || cta.bgType === "color" ? "" : "bg-main"}`} style={cardStyle}>
                   {hasCustomImage && (<><Image src={cta.bgImage!} alt="" fill className="object-cover" sizes="100vw" style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined} /><div className="absolute inset-0 bg-black/40" /></>)}
                   <div className="relative">
                     <h2 className="heading-2 text-champagne mb-4">{data.finalCta.heading || heading(data.blockHeadings.finalCTA, t("bookCta"))}</h2>
                     <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{data.finalCta.subtitle || t("ctaSubtitle")}</p>
-                    <BookingCTA ctaKey="serviceDetailFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark" initialInterest={`service:${data.slug}`}>{data.finalCta.buttonText || t("bookConsultation")}</BookingCTA>
+                    <BookingCTA ctaKey="serviceDetailFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark max-w-full !whitespace-normal" initialInterest={`service:${data.slug}`}>{data.finalCta.buttonText || t("bookConsultation")}</BookingCTA>
                   </div>
                 </div>
               </div>

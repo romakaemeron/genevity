@@ -168,10 +168,10 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
           <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY — апаратна косметологія"} title={ctaBg?.title || "GENEVITY — апаратна косметологія"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 w-full text-center p-8 lg:p-14">
+          <div className="relative z-10 w-full text-center px-4 py-8 sm:p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
             <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-            <BookingCTA ctaKey="aboutFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+            <BookingCTA ctaKey="aboutFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark max-w-full !whitespace-normal">{tLabels("book")}</BookingCTA>
           </div>
         </div>
       </div>

@@ -148,10 +148,10 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
 
       {/* CTA */}
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
-        <div className="bg-main rounded-[var(--radius-card)] p-8 lg:p-12 text-center">
+        <div className="bg-main rounded-[var(--radius-card)] px-4 py-6 sm:p-8 lg:p-12 text-center">
           <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
           <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-          <BookingCTA ctaKey="pricesFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+          <BookingCTA ctaKey="pricesFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark max-w-full !whitespace-normal">{tLabels("book")}</BookingCTA>
         </div>
       </div>
     </>
