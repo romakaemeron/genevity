@@ -164,12 +164,15 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {loading && (
                 <svg className="animate-spin shrink-0" style={{ color: "rgba(0,0,0,0.2)" }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
               )}
-              <kbd
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Закрити пошук"
                 className="shrink-0"
-                style={{ fontSize: 10, color: "rgba(0,0,0,0.3)", backgroundColor: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 4, padding: "2px 6px" }}
+                style={{ fontSize: 10, color: "rgba(0,0,0,0.3)", backgroundColor: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.1)", borderRadius: 4, padding: "2px 6px", cursor: "pointer" }}
               >
                 ESC
-              </kbd>
+              </button>
             </div>
 
             {/* Body */}

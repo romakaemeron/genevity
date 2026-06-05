@@ -214,12 +214,12 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
 
       {/* Pricing */}
       <section ref={pricingRef as React.RefObject<HTMLElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 ${pricingVisible ? "revealed" : ""}`}>
-        <div className="reveal bg-champagne-dark rounded-[var(--radius-card)] p-8 lg:p-12 flex flex-col gap-6">
+        <div className="reveal bg-champagne-dark rounded-[var(--radius-card)] px-4 py-6 sm:p-8 lg:p-12 flex flex-col gap-6">
           <div>
-            <h2 className="heading-3 text-black mb-3">{tPage("pricingTitle")}</h2>
+            <h2 className="heading-2 text-black mb-3">{tPage("pricingTitle")}</h2>
             <p className="body-l text-muted">{tPage("pricingBody")}</p>
           </div>
-          <BookingCTA ctaKey="stationaryMid" variant="primary" size="lg" className="self-start shrink-0">
+          <BookingCTA ctaKey="stationaryMid" variant="primary" size="lg" className="self-start shrink-0 max-w-full !whitespace-normal">
             {tLabels("bookConsultation")}
           </BookingCTA>
         </div>
@@ -250,10 +250,10 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
           <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — денний стаціонар"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 w-full text-center p-8 lg:p-14">
+          <div className="relative z-10 w-full text-center px-4 py-8 sm:p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>
             <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{tLabels("ctaSubtitle")}</p>
-            <BookingCTA ctaKey="stationaryFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark">{tLabels("book")}</BookingCTA>
+            <BookingCTA ctaKey="stationaryFinal" variant="secondary" size="lg" className="bg-champagne text-black hover:bg-champagne-dark max-w-full !whitespace-normal">{tLabels("book")}</BookingCTA>
           </div>
         </div>
       </div>

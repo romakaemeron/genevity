@@ -993,3 +993,7 @@ input[type="search"] {
 body.binotel-active .genevity-ai-widget {
   display: none !important;
 }
+/* Hide AI orb when any modal is open */
+body.modal-open .genevity-ai-widget {
+  display: none !important;
+}
