@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useActionState, useState, useRef } from "react";
 import { createUser, updateUserProfile, updateUserRole, resetUserPassword, deleteUser } from "../../../_actions/super";
-import { ChevronDown, Plus, Pencil, Trash2, X } from "lucide-react";
+import { ChevronDown, Plus, Pencil, Trash2, X, Eye, EyeOff } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 const ROLE_LABELS: Record<string, { label: string; color: string; desc: string }> = {
@@ -28,6 +28,31 @@ interface Props {
 }
 
 const inputClass = "w-full px-3 py-2 rounded-lg bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main focus:ring-1 focus:ring-main/20";
+
+function PasswordInput({ name, placeholder, minLength }: { name: string; placeholder?: string; minLength?: number }) {
+  const [show, setShow] = useState(false);
+  return (
+    <div className="relative">
+      <input
+        name={name}
+        type={show ? "text" : "password"}
+        required
+        minLength={minLength}
+        placeholder={placeholder}
+        className={`${inputClass} pr-9`}
+      />
+      <button
+        type="button"
+        onClick={() => setShow(v => !v)}
+        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-ink transition-colors"
+        tabIndex={-1}
+        title={show ? "Hide password" : "Show password"}
+      >
+        {show ? <EyeOff size={15} /> : <Eye size={15} />}
+      </button>
+    </div>
+  );
+}
 
 function UserAvatar({ user, size = 36 }: { user: User; size?: number }) {
   if (user.avatar) {
@@ -218,7 +243,7 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
               <input type="hidden" name="userId" value={user.id} />
               <p className="text-[11px] font-semibold text-muted uppercase tracking-wider">New password</p>
               <div className="flex gap-2">
-                <input type="password" name="password" placeholder="Min 8 characters" minLength={8} required className={`${inputClass} flex-1`} />
+                <div className="flex-1"><PasswordInput name="password" placeholder="Min 8 characters" minLength={8} /></div>
                 <Button variant="primary" size="sm" type="submit">Set</Button>
               </div>
               {pwState?.error && <p className="text-error text-xs">{pwState.error}</p>}
@@ -237,6 +262,7 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
 export default function UsersPanel({ users, currentUserId }: Props) {
   const [showCreate, setShowCreate] = useState(false);
   const [createState, createAction] = useActionState(createUser, null as any);
+  const createFormRef = useRef<HTMLFormElement>(null);
 
   return (
     <div className="flex flex-col gap-8 mt-6">
@@ -272,7 +298,7 @@ export default function UsersPanel({ users, currentUserId }: Props) {
 
         {showCreate && (
           <div className="border-t border-line p-5">
-            <form action={createAction} className="flex flex-col gap-4">
+            <form ref={createFormRef} action={createAction} onSubmit={() => { if (createFormRef.current) createFormRef.current.reset(); }} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] font-medium text-muted uppercase tracking-wider">Name</label>
@@ -284,7 +310,7 @@ export default function UsersPanel({ users, currentUserId }: Props) {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] font-medium text-muted uppercase tracking-wider">Password</label>
-                  <input name="password" type="password" required minLength={8} placeholder="Min 8 characters" className={inputClass} />
+                  <PasswordInput name="password" placeholder="Min 8 characters" minLength={8} />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] font-medium text-muted uppercase tracking-wider">Role</label>
