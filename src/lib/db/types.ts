@@ -53,6 +53,7 @@ export interface AboutData {
   text1: string;
   text2: string;
   diagnostics: string;
+  requisites?: string;
 }
 
 export interface SiteSettingsData {

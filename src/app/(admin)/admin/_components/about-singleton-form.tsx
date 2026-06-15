@@ -77,6 +77,16 @@ export default function AboutSingletonForm({ about, label = "About section" }: {
             </div>
           )}
         </TranslationTabs>
+        <div className="mt-4 border-t border-line pt-4">
+          <FormField
+            label="Реквізити компанії (відображаються внизу сторінки «Про нас»)"
+            name="requisites"
+            type="textarea"
+            rows={10}
+            defaultValue={about.requisites || ""}
+            hint="Юридична адреса, банківські реквізити, контакти ФОП. Не залежить від мови сторінки."
+          />
+        </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {dirty && <span className="text-xs text-warning">Unsaved changes</span>}
           <Button variant="neutral" size="sm" type="reset" disabled={!dirty} title="Revert unsaved edits to the last-saved values">Cancel changes</Button>

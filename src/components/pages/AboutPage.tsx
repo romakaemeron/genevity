@@ -175,6 +175,17 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
           </div>
         </div>
       </div>
+
+      {/* Requisites */}
+      {about.requisites && (
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          <div className="border-t border-black-10 pt-10">
+            <pre className="body-s text-black-40 whitespace-pre-wrap font-sans leading-relaxed">
+              {about.requisites}
+            </pre>
+          </div>
+        </div>
+      )}
     </>
   );
 }
