@@ -1,20 +1,45 @@
 "use client";
 
-import { useActionState, useRef } from "react";
+import { useActionState, useRef, useState } from "react";
+import type { Editor } from "@tiptap/react";
 import { saveLegalDoc, deleteLegalDoc } from "../../_actions/legal";
 import TranslationTabs, { type LocaleKey } from "../../_components/translation-tabs";
 import FormField from "../../_components/form-field";
 import SaveBar from "../../_components/save-bar";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
+import RichTextEditor from "../../_components/rich-text-editor";
 import Button from "@/components/ui/Button";
+import { processBody } from "@/components/blog/ArticleBody";
 
 export default function LegalForm({ doc }: { doc?: any }) {
   const [state, formAction] = useActionState(saveLegalDoc, null as any);
   const isNew = !doc;
   const formRef = useRef<HTMLFormElement | null>(null);
 
+  const [bodyUk, setBodyUk] = useState(() => processBody(doc?.body_uk || ""));
+  const [bodyRu, setBodyRu] = useState(() => processBody(doc?.body_ru || ""));
+  const [bodyEn, setBodyEn] = useState(() => processBody(doc?.body_en || ""));
+
+  const editorRefs = {
+    uk: useRef<Editor | null>(null),
+    ru: useRef<Editor | null>(null),
+    en: useRef<Editor | null>(null),
+  };
+
+  const bodyValues: Record<LocaleKey, string> = { uk: bodyUk, ru: bodyRu, en: bodyEn };
+  const bodySetters: Record<LocaleKey, (v: string) => void> = {
+    uk: setBodyUk,
+    ru: setBodyRu,
+    en: setBodyEn,
+  };
+
   return (
     <form action={formAction} ref={formRef}>
+      {/* Hidden body inputs so FormData picks them up on submit */}
+      <input type="hidden" name="body_uk" value={bodyUk} />
+      <input type="hidden" name="body_ru" value={bodyRu} />
+      <input type="hidden" name="body_en" value={bodyEn} />
+
       <FormDirtyTracker
         id={doc ? `legal:${doc.slug}` : "legal:new"}
         label={`Legal doc · ${doc?.title_uk || doc?.slug || "new"}`}
@@ -22,10 +47,13 @@ export default function LegalForm({ doc }: { doc?: any }) {
         onSave={() => formRef.current?.requestSubmit()}
       />
       {doc && <input type="hidden" name="id" value={doc.id} />}
+
       <div className="p-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground">{isNew ? "New Legal Document" : doc.title_uk || doc.slug}</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+              {isNew ? "New Legal Document" : doc.title_uk || doc.slug}
+            </h1>
             {!isNew && <p className="body-m text-muted mt-1">/legal/{doc.slug}</p>}
           </div>
           {!isNew && (
@@ -39,8 +67,12 @@ export default function LegalForm({ doc }: { doc?: any }) {
           )}
         </div>
 
-        {state?.error && <div className="mb-6 p-4 bg-error-light text-error rounded-xl text-sm">{state.error}</div>}
-        {state?.success && <div className="mb-6 p-4 bg-success-light text-success rounded-xl text-sm">Saved!</div>}
+        {state?.error && (
+          <div className="mb-6 p-4 bg-error-light text-error rounded-xl text-sm">{state.error}</div>
+        )}
+        {state?.success && (
+          <div className="mb-6 p-4 bg-success-light text-success rounded-xl text-sm">Saved!</div>
+        )}
 
         <div className="grid grid-cols-2 gap-4 mb-6 max-w-2xl">
           <FormField label="Slug" name="slug" defaultValue={doc?.slug || ""} placeholder="privacy-policy" required />
@@ -64,17 +96,21 @@ export default function LegalForm({ doc }: { doc?: any }) {
                 placeholder="Privacy"
                 hint="Shown in the footer link list. Defaults to title if empty."
               />
-              <FormField
-                label="Body (full legal text — markdown or plain)"
-                name={`body_${locale}`}
-                type="textarea"
-                rows={20}
-                defaultValue={doc?.[`body_${locale}`] || ""}
-              />
+              <div>
+                <p className="text-xs font-semibold text-black-50 uppercase tracking-wider mb-2">Body</p>
+                <RichTextEditor
+                  value={bodyValues[locale]}
+                  onChange={(html) => bodySetters[locale](html)}
+                  editorRef={editorRefs[locale]}
+                  placeholder="Start typing the legal text here… Type / to insert blocks, tables, etc."
+                  minHeight={500}
+                />
+              </div>
             </div>
           )}
         </TranslationTabs>
       </div>
+
       <SaveBar label={isNew ? "Create Legal Document" : "Save Changes"} />
     </form>
   );
