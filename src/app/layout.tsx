@@ -42,6 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script id="binotel-calltracking" strategy="afterInteractive">
           {`(function(d,w,s){var widgetHash='fx083acd84tcu2jfnais',ctw=d.createElement(s);ctw.type='text/javascript';ctw.async=true;ctw.src='//widgets.binotel.com/calltracking/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(ctw,sn);})(document,window,'script');`}
         </Script>
+        <Script
+          id="binotel-getcall"
+          strategy="afterInteractive"
+          src="https://widgets.binotel.com/getcall/widgets/qhffh6f0lda5b209o83d.js"
+        />
         <Script id="binotel-widget" strategy="afterInteractive">
           {`if(!window.location.pathname.startsWith('/admin')){var _bLoaded=false;function _bLoad(){if(_bLoaded)return;_bLoaded=true;(function(d,w,s){var widgetHash='Af6We2GQH21N1uJMFTL1',bch=d.createElement(s);bch.type='text/javascript';bch.async=true;bch.src='//widgets.binotel.com/chat/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(bch,sn);})(document,window,'script');}['mousemove','touchstart','keydown','click'].forEach(function(e){window.addEventListener(e,_bLoad,{once:true,passive:true});});}`}
         </Script>
