@@ -2,15 +2,14 @@
 
 ## 🚨 CRITICAL: BRANCH POLICY — READ BEFORE ANY WORK 🚨
 
-**`main` IS LOCKED. IT IS THE LIVE LANDING PAGE. DO NOT PUSH TO `main`.**
+**v2 is now LIVE on `main` / `genevity.com.ua`. Work on `develop`; merge to `main` only with explicit per-merge confirmation.**
 
-- **ALL work happens on the `develop` branch.** No exceptions.
-- `main` is protected on GitHub (direct pushes blocked, PR required, force-push disabled).
-- `main` auto-deploys to the production domain (`genevity.com.ua`) — it must stay pinned to the current landing until the full 30+ page v2 site is ready to ship.
+- **ALL work happens on the `develop` branch.** Never commit/push directly to `main`.
+- `main` is protected on GitHub (direct pushes blocked, PR required, force-push disabled) and auto-deploys to production (`genevity.com.ua`).
 - `develop` auto-deploys to a Vercel preview URL (`genevity-git-develop-*.vercel.app`). Use this for everything: content, features, schema changes, experiments.
-- When v2 is fully ready, we merge `develop` → `main` via PR in ONE go. Until then, NEVER touch `main`.
+- Merging `develop` → `main` is allowed via PR, but **treat `main` carefully: ask the user to confirm before each merge** — a merge ships everything on `develop` to production, not just the latest change.
 - Before any `git push`, `git commit`, or branch-changing command: verify you are on `develop` with `git branch --show-current`. If it says `main`, STOP and switch.
-- Never run `git push origin main`, `git checkout main && git merge …`, or any command that lands commits on `main`.
+- Never push directly to `main` (`git push origin main`) — always go through a PR.
 
 **Sanity:** single `production` dataset shared by both branches (intentional — the landing and v2 read the same content). Schema additions are safe since Sanity is schemaless at the API level. If a v2 change would break the live landing, coordinate before merging.
 
