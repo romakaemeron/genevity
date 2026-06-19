@@ -75,6 +75,37 @@ export default function ChatWidget() {
     return () => { observer.disconnect(); binotelObserverRef.current = null; };
   }, []);
 
+  // Keep the Binotel GetCall button always visible. When the chat widget (bwc)
+  // loads, Binotel strips the `bingc-show` class from the standalone getcall
+  // button to dedupe it — which makes the orange callback button disappear.
+  // We restore `bingc-show` and clear any inline display:none so it persists.
+  useEffect(() => {
+    if (window.location.pathname.startsWith("/admin")) return;
+
+    let attrObserver: MutationObserver | null = null;
+    const ensureVisible = (btn: HTMLElement) => {
+      if (!btn.classList.contains("bingc-show")) btn.classList.add("bingc-show");
+      if (btn.style.display === "none") btn.style.removeProperty("display");
+    };
+    const attach = () => {
+      const btn = document.getElementById("bingc-phone-button");
+      if (!btn) return false;
+      ensureVisible(btn);
+      if (!attrObserver) {
+        attrObserver = new MutationObserver(() => ensureVisible(btn));
+        attrObserver.observe(btn, { attributes: true, attributeFilter: ["class", "style"] });
+      }
+      return true;
+    };
+
+    if (attach()) return () => attrObserver?.disconnect();
+
+    // Button is injected asynchronously by the getcall script — wait for it.
+    const bodyObserver = new MutationObserver(() => { if (attach()) bodyObserver.disconnect(); });
+    bodyObserver.observe(document.body, { childList: true, subtree: true });
+    return () => { bodyObserver.disconnect(); attrObserver?.disconnect(); };
+  }, []);
+
   // Detect when user clicks native Binotel trigger (bwc-widget-action) directly —
   // this bypasses handleOpenBinotel, so we must hide the orb here too.
   useEffect(() => {
