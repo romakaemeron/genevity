@@ -997,3 +997,11 @@ body.binotel-active .genevity-ai-widget {
 body.modal-open .genevity-ai-widget {
   display: none !important;
 }
+/* Keep the Binotel GetCall button always visible on the public site.
+   Binotel's theme stylesheet hides it once an impression cap is reached;
+   this ID+!important rule overrides that class-based hide. In /admin the
+   HideWidgets component sets an inline display:none !important, which beats
+   this external rule, so the admin UI stays clean. */
+#bingc-phone-button {
+  display: flex !important;
+}
