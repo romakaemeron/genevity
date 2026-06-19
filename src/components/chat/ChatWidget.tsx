@@ -224,19 +224,25 @@ export default function ChatWidget() {
       const isActive = chatBtn && !chatBtn.classList.contains("bwc-chat-inactive");
       console.log("[binotel] Chat button:", chatBtn, "active:", isActive);
 
-      // GTM wraps history.pushState and crashes when Binotel passes a string as state.
-      // Patch pushState to coerce string states to objects before clicking.
-      const _origPushState = history.pushState;
+      // GTM/Next wrap history.pushState and crash ("Cannot create property
+      // '__NA' on string") when Binotel passes a string as the state arg.
+      // Permanently coerce string states to objects. Applied here (at open
+      // time) so we sit outside the GTM/Next/Binotel wrappers, and only once
+      // — Binotel's pushState can fire well after the open click, so a
+      // temporary patch would be restored too early.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (history as any).pushState = function(state: unknown, title: string, url?: string | URL | null) {
-        const safeState = typeof state === "string" ? { binotel: state } : state;
-        console.log("[binotel] pushState patched, state was:", typeof state);
-        return _origPushState.call(history, safeState, title, url);
-      };
-      setTimeout(() => {
-        (history as any).pushState = _origPushState;
-        console.log("[binotel] pushState restored");
-      }, 2000);
+      const w = window as any;
+      if (!w.__binotelHistoryPatched) {
+        w.__binotelHistoryPatched = true;
+        const coerce = (state: unknown) => (typeof state === "string" ? { binotel: state } : state);
+        const origPush = history.pushState.bind(history);
+        const origReplace = history.replaceState.bind(history);
+        history.pushState = (state: unknown, unused: string, url?: string | URL | null) =>
+          origPush(coerce(state), unused, url);
+        history.replaceState = (state: unknown, unused: string, url?: string | URL | null) =>
+          origReplace(coerce(state), unused, url);
+        console.log("[binotel] history.pushState/replaceState patched (permanent)");
+      }
 
       if (chatBtn && launcher) {
         showEl(launcher);
