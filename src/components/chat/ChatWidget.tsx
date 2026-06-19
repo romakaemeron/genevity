@@ -75,6 +75,37 @@ export default function ChatWidget() {
     return () => { observer.disconnect(); binotelObserverRef.current = null; };
   }, []);
 
+  // Keep the Binotel GetCall button always visible. When the chat widget (bwc)
+  // loads, Binotel strips the `bingc-show` class from the standalone getcall
+  // button to dedupe it — which makes the orange callback button disappear.
+  // We restore `bingc-show` and clear any inline display:none so it persists.
+  useEffect(() => {
+    if (window.location.pathname.startsWith("/admin")) return;
+
+    let attrObserver: MutationObserver | null = null;
+    const ensureVisible = (btn: HTMLElement) => {
+      if (!btn.classList.contains("bingc-show")) btn.classList.add("bingc-show");
+      if (btn.style.display === "none") btn.style.removeProperty("display");
+    };
+    const attach = () => {
+      const btn = document.getElementById("bingc-phone-button");
+      if (!btn) return false;
+      ensureVisible(btn);
+      if (!attrObserver) {
+        attrObserver = new MutationObserver(() => ensureVisible(btn));
+        attrObserver.observe(btn, { attributes: true, attributeFilter: ["class", "style"] });
+      }
+      return true;
+    };
+
+    if (attach()) return () => attrObserver?.disconnect();
+
+    // Button is injected asynchronously by the getcall script — wait for it.
+    const bodyObserver = new MutationObserver(() => { if (attach()) bodyObserver.disconnect(); });
+    bodyObserver.observe(document.body, { childList: true, subtree: true });
+    return () => { bodyObserver.disconnect(); attrObserver?.disconnect(); };
+  }, []);
+
   // Detect when user clicks native Binotel trigger (bwc-widget-action) directly —
   // this bypasses handleOpenBinotel, so we must hide the orb here too.
   useEffect(() => {
@@ -193,19 +224,25 @@ export default function ChatWidget() {
       const isActive = chatBtn && !chatBtn.classList.contains("bwc-chat-inactive");
       console.log("[binotel] Chat button:", chatBtn, "active:", isActive);
 
-      // GTM wraps history.pushState and crashes when Binotel passes a string as state.
-      // Patch pushState to coerce string states to objects before clicking.
-      const _origPushState = history.pushState;
+      // GTM/Next wrap history.pushState and crash ("Cannot create property
+      // '__NA' on string") when Binotel passes a string as the state arg.
+      // Permanently coerce string states to objects. Applied here (at open
+      // time) so we sit outside the GTM/Next/Binotel wrappers, and only once
+      // — Binotel's pushState can fire well after the open click, so a
+      // temporary patch would be restored too early.
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (history as any).pushState = function(state: unknown, title: string, url?: string | URL | null) {
-        const safeState = typeof state === "string" ? { binotel: state } : state;
-        console.log("[binotel] pushState patched, state was:", typeof state);
-        return _origPushState.call(history, safeState, title, url);
-      };
-      setTimeout(() => {
-        (history as any).pushState = _origPushState;
-        console.log("[binotel] pushState restored");
-      }, 2000);
+      const w = window as any;
+      if (!w.__binotelHistoryPatched) {
+        w.__binotelHistoryPatched = true;
+        const coerce = (state: unknown) => (typeof state === "string" ? { binotel: state } : state);
+        const origPush = history.pushState.bind(history);
+        const origReplace = history.replaceState.bind(history);
+        history.pushState = (state: unknown, unused: string, url?: string | URL | null) =>
+          origPush(coerce(state), unused, url);
+        history.replaceState = (state: unknown, unused: string, url?: string | URL | null) =>
+          origReplace(coerce(state), unused, url);
+        console.log("[binotel] history.pushState/replaceState patched (permanent)");
+      }
 
       if (chatBtn && launcher) {
         showEl(launcher);
