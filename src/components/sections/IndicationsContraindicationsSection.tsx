@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "@/lib/useReveal";
 import { Check, X } from "lucide-react";
+import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
 interface Props {
   _type: string; _key: string; title?: string;
@@ -26,7 +27,7 @@ export default function IndicationsContraindicationsSection({ title, indications
               {indications.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 body-l text-ink">
                   <div className="shrink-0 mt-0.5 w-6 h-6 rounded-full bg-success/20 border border-success/30 flex items-center justify-center"><Check className="w-3.5 h-3.5 text-success" /></div>
-                  {item}
+                  {renderInlineMarkdown(item)}
                 </li>
               ))}
             </ul>
@@ -43,7 +44,7 @@ export default function IndicationsContraindicationsSection({ title, indications
               {contraindications.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 body-l text-ink">
                   <div className="shrink-0 mt-0.5 w-6 h-6 rounded-full bg-warning/20 border border-warning/30 flex items-center justify-center"><X className="w-3.5 h-3.5 text-warning" /></div>
-                  {item}
+                  {renderInlineMarkdown(item)}
                 </li>
               ))}
             </ul>

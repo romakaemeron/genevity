@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from "@/lib/useReveal";
 import { ClipboardList, Sparkles, Syringe, HeartPulse, ShieldCheck, Scan } from "lucide-react";
+import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
 const stepIcons = [ClipboardList, Scan, Syringe, HeartPulse, ShieldCheck, Sparkles];
 
@@ -23,8 +24,8 @@ export default function StepsSection({ heading, steps }: Props) {
                   <Icon className="w-5 h-5 text-black-60" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="body-strong text-black">{step.title}</h3>
-                  {step.description && <p className="body-m text-muted">{step.description}</p>}
+                  <h3 className="body-strong text-black">{renderInlineMarkdown(step.title)}</h3>
+                  {step.description && <p className="body-m text-muted">{renderInlineMarkdown(step.description)}</p>}
                 </div>
               </div>
             );
