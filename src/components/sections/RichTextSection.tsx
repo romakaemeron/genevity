@@ -1,6 +1,7 @@
 "use client";
 
 import { useScrollReveal } from "@/lib/useReveal";
+import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
 interface Props { _type: string; _key: string; heading: string; body: string; calloutBody?: string; heroImage?: string; index?: number; }
 
@@ -15,10 +16,10 @@ export default function RichTextSection({ heading, body, calloutBody }: Props) {
             <h2 className="heading-2 text-black">{heading}</h2>
           </div>
         )}
-        {body && <p className="body-l text-muted leading-relaxed whitespace-pre-line rich-text-body">{body}</p>}
+        {body && <p className="body-l text-muted leading-relaxed whitespace-pre-line rich-text-body">{renderInlineMarkdown(body)}</p>}
         {calloutBody && (
           <div className="mt-6 bg-champagne rounded-[var(--radius-card)] p-6">
-            <p className="body-m text-black-60 leading-relaxed whitespace-pre-line">{calloutBody}</p>
+            <p className="body-m text-black-60 leading-relaxed whitespace-pre-line">{renderInlineMarkdown(calloutBody)}</p>
           </div>
         )}
       </div>

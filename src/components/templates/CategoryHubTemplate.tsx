@@ -17,6 +17,7 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { useTranslations } from "next-intl";
 import Doctors from "@/components/home/Doctors";
 import { useScrollReveal } from "@/lib/useReveal";
+import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
 interface Props {
   category: ServiceCategoryData;
@@ -90,7 +91,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
               <div className={heroVariant === "light" ? "flex-1 max-w-lg lg:py-8" : "max-w-lg"}>
                 <Breadcrumbs items={breadcrumbs} locale={locale} variant={heroVariant === "light" ? "dark" : "light"} noSchema />
                 <h1 className={`heading-1 mt-6 ${heroVariant === "light" ? "text-black" : "text-champagne"}`}>{category.title}</h1>
-                {category.summary && <p className={`body-l mt-5 ${heroVariant === "light" ? "text-muted" : "text-white-60"}`}>{category.summary}</p>}
+                {category.summary && <p className={`body-l mt-5 ${heroVariant === "light" ? "text-muted" : "text-white-60"}`}>{renderInlineMarkdown(category.summary)}</p>}
                 <div className="mt-8 flex flex-col gap-3 w-fit">
                   <BookingCTA ctaKey="categoryHero" variant={heroVariant === "light" ? "primary" : "secondary"} size="lg" className={`${heroVariant === "light" ? "" : "bg-champagne text-black hover:bg-champagne-dark"} text-center`}>{t("bookConsultation")}</BookingCTA>
                   <Button variant="secondary" size="lg" onClick={() => { const el = document.getElementById("procedures"); if (el) { window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: "smooth" }); } }}>
@@ -135,8 +136,8 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                             const mainText = paragraphs[0] || "";
                             const infoText = paragraphs.slice(1).join("\n\n");
                             return (<>
-                              <p className="body-l text-black-80 leading-relaxed">{mainText}</p>
-                              {infoText && <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6"><p className="body-m text-black-60 leading-relaxed">{infoText}</p></div>}
+                              <p className="body-l text-black-80 leading-relaxed whitespace-pre-line">{renderInlineMarkdown(mainText)}</p>
+                              {infoText && <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6"><p className="body-m text-black-60 leading-relaxed whitespace-pre-line">{renderInlineMarkdown(infoText)}</p></div>}
                             </>);
                           })()}
                         </div>
@@ -170,7 +171,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                   style={{ "--rd": `${i * 0.05}s` } as React.CSSProperties}
                 >
                   <h3 className="heading-4 text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>
-                  {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{svc.summary}</p>}
+                  {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{renderInlineMarkdown(svc.summary)}</p>}
                   {svc.priceFrom && <p className="body-strong text-main mt-3">{svc.priceFrom}</p>}
                   <div className="mt-auto pt-4"><Button variant="outline" size="sm">{t("learnMore")}<ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" /></Button></div>
                 </Link>
@@ -191,7 +192,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                     <span className={`faq-icon text-muted text-2xl leading-none shrink-0 ${openFaq === i ? "open" : ""}`}>+</span>
                   </button>
                   <div className={`accordion-body ${openFaq === i ? "open" : ""}`}>
-                    <div><p className="body-l text-muted pb-6 pr-8">{item.answer}</p></div>
+                    <div><p className="body-l text-muted pb-6 pr-8">{renderInlineMarkdown(item.answer)}</p></div>
                   </div>
                 </div>
               ))}

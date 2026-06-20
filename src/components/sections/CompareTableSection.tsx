@@ -1,4 +1,5 @@
 import type { SectionCompareTable } from "@/lib/db/types";
+import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
 export default function CompareTableSection({ heading, columns, rows }: SectionCompareTable) {
   return (
@@ -21,11 +22,11 @@ export default function CompareTableSection({ heading, columns, rows }: SectionC
               {rows.map((row, ri) => (
                 <tr key={ri}>
                   <td className="body-strong text-black py-3 pr-4 border-b border-line/50">
-                    {row.label}
+                    {renderInlineMarkdown(row.label)}
                   </td>
                   {row.values?.map((val, vi) => (
                     <td key={vi} className="body-l text-muted py-3 px-4 border-b border-line/50">
-                      {val}
+                      {renderInlineMarkdown(val)}
                     </td>
                   ))}
                 </tr>

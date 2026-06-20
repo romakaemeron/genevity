@@ -21,6 +21,7 @@ import { JsonLdMedicalProcedure } from "@/components/seo/JsonLdMedicalProcedure"
 import BookingCTA from "@/components/ui/BookingCTA";
 import { absoluteUrl } from "@/lib/url";
 import { useScrollReveal } from "@/lib/useReveal";
+import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
 interface Props {
   data: ServiceData;
@@ -102,7 +103,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         <Breadcrumbs items={breadcrumbs} locale={locale} noSchema />
         <div className="mt-8 mb-6">
           <h1 className="heading-1 text-black"><H text={data.h1 || data.title} /></h1>
-          {data.summary && <p className="body-l text-muted mt-8 max-w-3xl">{data.summary}</p>}
+          {data.summary && <p className="body-l text-muted mt-8 max-w-3xl">{renderInlineMarkdown(data.summary)}</p>}
         </div>
         <KeyFactsBar
           procedureLength={data.procedureLength}
@@ -141,10 +142,10 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                 {section.heading && <h2 className="heading-2 text-black max-w-3xl mb-8 lg:mb-10"><H text={section.heading} /></h2>}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                   <div className="flex flex-col gap-6 justify-center lg:order-1 order-2">
-                    {section.body && <p className="body-l text-black-80 leading-relaxed whitespace-pre-line">{section.body}</p>}
+                    {section.body && <p className="body-l text-black-80 leading-relaxed whitespace-pre-line">{renderInlineMarkdown(section.body)}</p>}
                     {callout && (
                       <div className="bg-champagne-dark rounded-[var(--radius-card)] p-6">
-                        <p className="body-m text-black-60 leading-relaxed whitespace-pre-line">{callout}</p>
+                        <p className="body-m text-black-60 leading-relaxed whitespace-pre-line">{renderInlineMarkdown(callout)}</p>
                       </div>
                     )}
                   </div>
@@ -219,7 +220,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                   {data.relatedServices.map((svc) => (
                     <Link key={svc._id} href={`/services/${(svc as { categorySlug?: string }).categorySlug || data.category.slug}/${svc.slug}`} className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6">
                       <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>
-                      {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{svc.summary}</p>}
+                      {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{renderInlineMarkdown(svc.summary)}</p>}
                       {(svc as { priceFrom?: string }).priceFrom && <p className="body-strong text-main mt-3">{(svc as { priceFrom?: string }).priceFrom}</p>}
                       <div className="mt-auto pt-4"><Button variant="outline" size="sm">{t("learnMore")}<ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" /></Button></div>
                     </Link>
@@ -285,7 +286,7 @@ function FaqBlock({ heading, items, openIndex, onToggle, className }: {
               <span className={`faq-icon text-muted text-2xl leading-none shrink-0 ${openIndex === i ? "open" : ""}`}>+</span>
             </button>
             <div className={`accordion-body ${openIndex === i ? "open" : ""}`}>
-              <div><p className="body-l text-muted pb-6 pr-8">{item.answer}</p></div>
+              <div><p className="body-l text-muted pb-6 pr-8">{renderInlineMarkdown(item.answer)}</p></div>
             </div>
           </div>
         ))}
