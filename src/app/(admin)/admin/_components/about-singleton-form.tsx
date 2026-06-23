@@ -74,19 +74,19 @@ export default function AboutSingletonForm({ about, label = "About section" }: {
               <FormField label="Text 1 (main paragraph)" name={`text1_${locale}`} type="textarea" rows={4} defaultValue={about[`text1_${locale}`] || ""} />
               <FormField label="Text 2 (subtitle / accent paragraph)" name={`text2_${locale}`} type="textarea" rows={2} defaultValue={about[`text2_${locale}`] || ""} />
               <FormField label="Diagnostics callout" name={`diagnostics_${locale}`} type="textarea" rows={3} defaultValue={about[`diagnostics_${locale}`] || ""} />
+              <div className="mt-2 border-t border-line pt-4">
+                <FormField
+                  label="Реквізити компанії (відображаються внизу сторінки «Про нас»)"
+                  name={`requisites_${locale}`}
+                  type="textarea"
+                  rows={10}
+                  defaultValue={about[`requisites_${locale}`] || ""}
+                  hint="Юридична адреса, банківські реквізити, контакти ФОП. Перекладається окремо для кожної мови."
+                />
+              </div>
             </div>
           )}
         </TranslationTabs>
-        <div className="mt-4 border-t border-line pt-4">
-          <FormField
-            label="Реквізити компанії (відображаються внизу сторінки «Про нас»)"
-            name="requisites"
-            type="textarea"
-            rows={10}
-            defaultValue={about.requisites || ""}
-            hint="Юридична адреса, банківські реквізити, контакти ФОП. Не залежить від мови сторінки."
-          />
-        </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {dirty && <span className="text-xs text-warning">Unsaved changes</span>}
           <Button variant="neutral" size="sm" type="reset" disabled={!dirty} title="Revert unsaved edits to the last-saved values">Cancel changes</Button>

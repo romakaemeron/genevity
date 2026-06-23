@@ -33,13 +33,12 @@ export async function saveHero(_prevState: any, formData: FormData) {
 export async function saveAbout(_prevState: any, formData: FormData) {
   const fields: Record<string, any> = {};
   for (const suffix of ["uk", "ru", "en"]) {
-    for (const f of ["title", "text1", "text2", "diagnostics"]) {
+    for (const f of ["title", "text1", "text2", "diagnostics", "requisites"]) {
       fields[`${f}_${suffix}`] = formData.get(`${f}_${suffix}`) as string || null;
     }
   }
-  fields.requisites = formData.get("requisites") as string || null;
 
-  const beforeRows = await sql`SELECT title_uk, title_ru, title_en, text1_uk, text1_ru, text1_en, text2_uk, text2_ru, text2_en, diagnostics_uk, diagnostics_ru, diagnostics_en, requisites FROM about WHERE id = 1`;
+  const beforeRows = await sql`SELECT title_uk, title_ru, title_en, text1_uk, text1_ru, text1_en, text2_uk, text2_ru, text2_en, diagnostics_uk, diagnostics_ru, diagnostics_en, requisites_uk, requisites_ru, requisites_en FROM about WHERE id = 1`;
   const before = beforeRows[0] ?? null;
 
   await sql`
@@ -48,7 +47,7 @@ export async function saveAbout(_prevState: any, formData: FormData) {
       text1_uk = ${fields.text1_uk}, text1_ru = ${fields.text1_ru}, text1_en = ${fields.text1_en},
       text2_uk = ${fields.text2_uk}, text2_ru = ${fields.text2_ru}, text2_en = ${fields.text2_en},
       diagnostics_uk = ${fields.diagnostics_uk}, diagnostics_ru = ${fields.diagnostics_ru}, diagnostics_en = ${fields.diagnostics_en},
-      requisites = ${fields.requisites}
+      requisites_uk = ${fields.requisites_uk}, requisites_ru = ${fields.requisites_ru}, requisites_en = ${fields.requisites_en}
     WHERE id = 1
   `;
 

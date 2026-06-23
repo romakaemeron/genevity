@@ -87,7 +87,7 @@ async function getAbout(l: string): Promise<AboutData> {
     text1: pick(r, "text1", l),
     text2: pick(r, "text2", l),
     diagnostics: pick(r, "diagnostics", l),
-    requisites: (r.requisites as string | null) ?? undefined,
+    requisites: pick<string | null>(r, "requisites", l) ?? undefined,
   };
 }
 
