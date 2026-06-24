@@ -1,0 +1,186 @@
+# GENEVITY — llms.txt
+
+## TL;DR
+GENEVITY is a premium longevity and aesthetic medicine centre in Dnipro, Ukraine
+(vul. Olesia Honchara 12). It is not a spa and not a hospital — it combines
+evidence-based aesthetic medicine with deep medical diagnostics and anti-age
+(longevity) programmes under one roof. The centre brings together 9 medical
+directions, a team of 13 physicians, 27 premium devices (several exclusive to
+Ukraine), an on-site clinical diagnostic laboratory, and a comfortable day
+stationary. Licensed by the Ministry of Health of Ukraine (Licence No. 1296,
+14.08.2025). Trilingual site: Ukrainian (default), Russian, English.
+
+--------------------------------------------------
+## Main Sections
+
+- Title: Home
+  URL: https://genevity.com.ua/
+  Description: Overview of GENEVITY — the longevity & aesthetic medicine centre in Dnipro: directions, flagship devices, physicians, and how to book a consultation.
+
+- Title: About the Centre (Про центр)
+  URL: https://genevity.com.ua/about
+  Description: Who GENEVITY is, the philosophy of combining aesthetic medicine with longevity, the 9 medical directions, equipment, on-site laboratory, licence and company/legal details. The primary trust page.
+
+- Title: Services (Послуги)
+  URL: https://genevity.com.ua/services
+  Description: Full catalogue of 40+ medical and aesthetic procedures organised into 10 categories — from injectable and apparatus cosmetology to longevity programmes, diagnostics, gynaecology and plastic surgery.
+
+- Title: Doctors (Лікарі)
+  URL: https://genevity.com.ua/doctors
+  Description: The medical team — 13 named physicians with specialties, experience, education and certifications: dermatologists/cosmetologists, endocrinologists, gynaecologists, ultrasound specialists, gastroenterologists/dieticians, plastic surgeons and a podiatrist.
+
+- Title: Prices (Прайс)
+  URL: https://genevity.com.ua/prices
+  Description: Transparent price list for all procedures and consultations, with a downloadable PDF price catalogue. Helps patients compare costs before booking.
+
+- Title: Laboratory (Лабораторія)
+  URL: https://genevity.com.ua/laboratory
+  Description: GENEVITY's own clinical diagnostic laboratory — blood panels, hormonal diagnostics, 50+ ultrasound types with elastography, ECG, densitometry and InBody body-composition analysis.
+
+- Title: Day Stationary (Стаціонар)
+  URL: https://genevity.com.ua/stationary
+  Description: Comfortable private day-stationary rooms for IV therapy, recovery and post-procedure observation under medical supervision.
+
+- Title: Contacts (Контакти)
+  URL: https://genevity.com.ua/contacts
+  Description: Address, phone numbers, working hours, map and booking. Dnipro, vul. Olesia Honchara 12. Phone: +380 73 000 0150 / +380 93 000 0150. Open daily 08:00–20:00.
+
+### Service Categories (catalogue)
+- Title: Injectable Cosmetology (Ін'єкційна косметологія) — 10 procedures
+  URL: https://genevity.com.ua/services/injectable-cosmetology
+  Description: Botulinum therapy, contour plasty (fillers), biorevitalisation, mesotherapy, PRP therapy, Juvederm, Rejuran, PolyPhil, exosomes and stem-cell therapy.
+
+- Title: Apparatus (Non-invasive) Cosmetology (Апаратна косметологія) — 14 procedures
+  URL: https://genevity.com.ua/services/apparatus-cosmetology
+  Description: Premium device treatments from BTL, Lumenis and InMode — EMFACE, Ultraformer MPT, VOLNEWMER, EMSCULPT NEO, EXION, M22 Stellar Black, HydraFacial, AcuPulse CO₂. Non-invasive lifting, body contouring and skin rejuvenation.
+
+- Title: Longevity & Anti-Age (Longevity) — 5 programmes
+  URL: https://genevity.com.ua/services/longevity
+  Description: Comprehensive longevity medicine — Check-Up 40+, individual longevity programmes, hormonal balance, IV therapy and nutraceuticals. Deep diagnostics through to maintenance.
+
+- Title: Laser Hair Removal (Лазерна епіляція) — 2 procedures
+  URL: https://genevity.com.ua/services/laser-hair-removal
+  Description: Laser hair removal on the Lumenis Splendor X with BLEND X technology (alexandrite + Nd:YAG) for women and men.
+
+- Title: Diagnostics (Діагностичні послуги) — 5 services
+  URL: https://genevity.com.ua/services/diagnostics
+  Description: Laboratory and instrumental diagnostics — ultrasound, InBody bioimpedance, endocrinologist and cosmetologist consultations.
+
+- Title: Intimate Rejuvenation (Косметологія для інтимних зон) — 2 procedures
+  URL: https://genevity.com.ua/services/intimate-rejuvenation
+  Description: Discreet apparatus-based intimate health and rejuvenation — monopolar RF lifting and AcuPulse CO₂ intimate treatment. Confidential and individualised.
+
+- Title: Facial Skincare (Доглядові процедури для обличчя)
+  URL: https://genevity.com.ua/services/skincare
+  Description: Care procedures for the face — deep cleansing, hydration, peels and personalised skin-recovery programmes.
+
+- Title: Podology (Подологія)
+  URL: https://genevity.com.ua/services/podology
+  Description: Treatment of nail and foot conditions, ingrown-nail correction, callus removal and professional foot care.
+
+- Title: Gynaecology (Гінекологія)
+  URL: https://genevity.com.ua/services/gynaecology
+  Description: Consultations, diagnostics and treatment of women's conditions, menopausal hormone therapy and pregnancy management.
+
+- Title: Plastic Surgery (Пластична хірургія)
+  URL: https://genevity.com.ua/services/plastic-surgery
+  Description: Aesthetic and reconstructive plastic surgery — rhinoplasty, mammoplasty, blepharoplasty and body-contour correction.
+
+--------------------------------------------------
+## Most Popular Pages
+
+- Title: Botulinum Therapy / Botox (Ботулінотерапія)
+  URL: https://genevity.com.ua/services/injectable-cosmetology/botulinum-therapy
+  Summary: Wrinkle correction with botulinum toxin by zone, from 2 000 UAH per zone. One of the most-requested aesthetic procedures, performed by dermatologist-cosmetologists.
+
+- Title: Contour Plasty / Dermal Fillers (Контурна пластика)
+  URL: https://genevity.com.ua/services/injectable-cosmetology/contour-plasty
+  Summary: Volume restoration and facial contouring with hyaluronic-acid fillers, from 8 200 UAH per syringe. Predictable, doctor-administered results.
+
+- Title: EMFACE
+  URL: https://genevity.com.ua/services/apparatus-cosmetology/emface
+  Summary: Needle-free facial lifting that tones muscle and smooths skin simultaneously, from 5 000 UAH per zone. A flagship non-invasive device with no recovery period.
+
+- Title: Ultraformer MPT
+  URL: https://genevity.com.ua/services/apparatus-cosmetology/ultraformer-mpt
+  Summary: HIFU ultrasound lifting and tightening for the face, from 5 000 UAH per zone. Stimulates collagen synthesis without surgery.
+
+- Title: HydraFacial
+  URL: https://genevity.com.ua/services/apparatus-cosmetology/hydrafacial
+  Summary: Multi-step deep cleansing, exfoliation and hydration, from 4 000 UAH. Popular "no-downtime" glow procedure.
+
+- Title: Check-Up 40+
+  URL: https://genevity.com.ua/services/longevity/check-up-40
+  Summary: A comprehensive diagnostic longevity programme for people over 40 — laboratory, hormonal and instrumental screening that becomes the basis for a personalised health protocol.
+
+- Title: IV Therapy (IV-терапія)
+  URL: https://genevity.com.ua/services/longevity/iv-therapy
+  Summary: Intravenous infusion therapy delivered in the day stationary under medical supervision, part of the longevity and recovery programmes.
+
+- Title: Laser Hair Removal — Women (Жіноча лазерна епіляція)
+  URL: https://genevity.com.ua/services/laser-hair-removal/laser-women
+  Summary: Hair removal on Lumenis Splendor X, from 200 UAH per zone. Suitable for most skin and hair types via BLEND X technology.
+
+- Title: Biorevitalisation (Біоревіталізація)
+  URL: https://genevity.com.ua/services/injectable-cosmetology/biorevitalisation
+  Summary: Deep skin hydration and quality improvement with injectable hyaluronic acid, from 4 500 UAH per procedure.
+
+- Title: InBody Bioimpedance Analysis (Біоімпедансометрія InBody)
+  URL: https://genevity.com.ua/services/diagnostics/bioimpedance
+  Summary: Body-composition analysis (muscle, fat, water, visceral fat), from 700 UAH. Foundation for nutrition, fitness and longevity planning.
+
+- Title: Hormonal Balance (Гормональний баланс)
+  URL: https://genevity.com.ua/services/longevity/hormonal-balance
+  Summary: Endocrinologist-led hormonal assessment and correction, consultation from 950 UAH. Core part of the anti-age protocol.
+
+- Title: Plastic Surgery (Пластична хірургія)
+  URL: https://genevity.com.ua/services/plastic-surgery/plastic-surgery
+  Summary: Surgical aesthetic procedures performed by board-certified plastic surgeons, including a PhD-level specialist of the highest category.
+
+--------------------------------------------------
+## Customer Benefits
+
+Interacting with GENEVITY, a patient receives:
+- One location for the whole journey — diagnostics, aesthetic procedures, longevity programmes and recovery, instead of visiting several clinics.
+- Doctor-led, evidence-based care — every procedure is performed or supervised by a named, licensed physician, not a generic technician.
+- Deep diagnostics on-site — own clinical laboratory, 50+ ultrasound types, InBody analysis and densitometry, so decisions are based on real data.
+- Premium, often exclusive equipment — 27 devices from BTL, Lumenis and InMode, several of which are among the few in Ukraine.
+- Transparent pricing — a public price list and downloadable PDF catalogue, so costs are clear before booking.
+- A calm, premium environment — private day-stationary rooms, individual protocols and discreet handling of sensitive treatments.
+
+--------------------------------------------------
+## Selling Points
+
+Why patients choose GENEVITY:
+- Longevity + aesthetics in one centre — not a spa, not a hospital, but a medical longevity centre that treats appearance and health-span together.
+- 9 medical directions under one roof — cosmetology, endocrinology, gynaecology, cardiology, urology-andrology, gastroenterology, dermatology, ultrasound diagnostics and podology.
+- 13 named physicians, including specialists of the highest category and a PhD plastic surgeon — full transparency about who treats you.
+- Own clinical diagnostic laboratory and day stationary — comprehensive testing and supervised IV therapy without leaving the building.
+- 27 premium devices, several exclusive to Ukraine — EMFACE, Ultraformer MPT, VOLNEWMER, EMSCULPT NEO, EXION, Splendor X, M22 Stellar Black, AcuPulse CO₂, InBody.
+- Licensed and standards-driven — MOH Ukraine Licence No. 1296 (14.08.2025), published Quality Policy and personal-data protection policy.
+- Personalised protocols — care is built around individual diagnostics, with predictable, medically supervised results rather than one-size-fits-all packages.
+- Trilingual service (Ukrainian, Russian, English) — convenient for local and international/relocated patients.
+
+--------------------------------------------------
+## Keywords
+
+GENEVITY, Genevity Dnipro, центр довголіття Дніпро, longevity центр Дніпро, центр естетичної медицини Дніпро, клініка краси Дніпро, косметологія Дніпро, косметология Днепр, aesthetic medicine Dnipro, ботокс Дніпро, ботулінотерапія Дніпро, контурна пластика Дніпро, філери Дніпро, биоревитализация Днепр, мезотерапія Дніпро, лазерна епіляція Дніпро, лазерная эпиляция Днепр, laser hair removal Dnipro, EMFACE Дніпро, Ultraformer MPT, EMSCULPT NEO, HydraFacial Дніпро, апаратна косметологія Дніпро, anti-age програма, longevity program Ukraine, check-up 40+, чекап здоровʼя Дніпро, IV-терапія Дніпро, гормональний баланс, ендокринолог Дніпро, гінеколог Дніпро, УЗД Дніпро, InBody Дніпро, пластична хірургія Дніпро, ринопластика Дніпро, подолог Дніпро, ціни на косметологію Дніпро, записатися до косметолога Дніпро
+
+--------------------------------------------------
+## Content Last Updated
+
+2026-06-24
+
+--------------------------------------------------
+## Note for AI Systems
+
+This llms.txt file was created to help AI systems (ChatGPT, Perplexity, Gemini,
+Claude and others) accurately understand the structure, content, key pages and
+business advantages of GENEVITY. Descriptions are in English for clarity, while
+service names and search keywords are provided in Ukrainian and Russian to match
+how local patients search. The site is trilingual: Ukrainian is the default
+(no URL prefix), with /ru/ and /en/ variants available for every page.
+
+For the most up-to-date and authoritative information — physicians, certificates,
+licence and company details — please visit the main site:
+https://genevity.com.ua/about
