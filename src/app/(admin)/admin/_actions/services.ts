@@ -87,12 +87,17 @@ export async function saveService(_prevState: any, formData: FormData) {
   const seo_og_image = await uploadRawOrKeep(ogFile, "services", currentOg);
   const seo_noindex = formData.get("seo_noindex") === "on";
 
-  const logAfter = { slug, category_id, sort_order, ...fields };
+  // E-E-A-T: doctor who reviewed this page + review date. Empty string (the
+  // select's "not set" option / cleared date input) persists as NULL.
+  const reviewer_doctor_id = (formData.get("reviewer_doctor_id") as string | null) || null;
+  const last_reviewed_at = (formData.get("last_reviewed_at") as string | null) || null;
+
+  const logAfter = { slug, category_id, sort_order, reviewer_doctor_id, last_reviewed_at, ...fields };
 
   let logBefore: Record<string, any> | null = null;
   if (!isNew) {
     const beforeRows = await sql`
-      SELECT slug, category_id, sort_order,
+      SELECT slug, category_id, sort_order, reviewer_doctor_id, last_reviewed_at,
         title_uk, title_ru, title_en, h1_uk, h1_ru, h1_en,
         summary_uk, summary_ru, summary_en,
         procedure_length_uk, procedure_length_ru, procedure_length_en,
@@ -120,7 +125,7 @@ export async function saveService(_prevState: any, formData: FormData) {
         price_unit_uk, price_unit_ru, price_unit_en,
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
-        seo_og_image, seo_noindex)
+        seo_og_image, seo_noindex, reviewer_doctor_id, last_reviewed_at)
       VALUES (${newId}, ${slug}, ${category_id}, ${sort_order}, ${hero_image},
         ${fields.title_uk}, ${fields.title_ru}, ${fields.title_en},
         ${fields.h1_uk}, ${fields.h1_ru}, ${fields.h1_en},
@@ -132,7 +137,7 @@ export async function saveService(_prevState: any, formData: FormData) {
         ${fields.price_unit_uk}, ${fields.price_unit_ru}, ${fields.price_unit_en},
         ${fields.seo_title_uk}, ${fields.seo_title_ru}, ${fields.seo_title_en},
         ${fields.seo_desc_uk}, ${fields.seo_desc_ru}, ${fields.seo_desc_en},
-        ${seo_og_image}, ${seo_noindex})
+        ${seo_og_image}, ${seo_noindex}, ${reviewer_doctor_id}, ${last_reviewed_at})
     `;
     await logChange({ action: "create", entityType: "service", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
     revalidatePath("/");
@@ -152,7 +157,8 @@ export async function saveService(_prevState: any, formData: FormData) {
         price_unit_uk = ${fields.price_unit_uk}, price_unit_ru = ${fields.price_unit_ru}, price_unit_en = ${fields.price_unit_en},
         seo_title_uk = ${fields.seo_title_uk}, seo_title_ru = ${fields.seo_title_ru}, seo_title_en = ${fields.seo_title_en},
         seo_desc_uk = ${fields.seo_desc_uk}, seo_desc_ru = ${fields.seo_desc_ru}, seo_desc_en = ${fields.seo_desc_en},
-        seo_og_image = ${seo_og_image}, seo_noindex = ${seo_noindex}
+        seo_og_image = ${seo_og_image}, seo_noindex = ${seo_noindex},
+        reviewer_doctor_id = ${reviewer_doctor_id}, last_reviewed_at = ${last_reviewed_at}
       WHERE id = ${id}
     `;
     await logChange({ action: "update", entityType: "service", entityId: id!, entityLabel: fields.title_uk ?? slug, before: logBefore, after: logAfter });

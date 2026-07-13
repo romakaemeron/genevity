@@ -160,3 +160,13 @@ export async function getAllDoctorSlugs(): Promise<string[]> {
   const rows = await sql`SELECT slug FROM doctors WHERE slug IS NOT NULL AND is_published = true ORDER BY sort_order`;
   return rows.map((r) => r.slug as string);
 }
+
+/**
+ * Lightweight {id, name} list of published doctors, used by the admin service
+ * form's "reviewer" selector (E-E-A-T byline). Ordered like the public site.
+ */
+export async function getDoctorOptions(locale: string): Promise<{ id: string; name: string }[]> {
+  const l = lang(locale);
+  const rows = await sql`SELECT id, name_uk, name_ru, name_en FROM doctors WHERE is_published = true ORDER BY sort_order`;
+  return rows.map((r) => ({ id: r.id, name: r[`name_${l}`] ?? r.name_uk ?? "" }));
+}

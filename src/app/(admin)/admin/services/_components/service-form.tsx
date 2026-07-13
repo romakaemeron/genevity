@@ -24,6 +24,8 @@ interface Props {
   faq?: any[];
   relations?: { doctorIds: string[]; relatedServiceIds: string[]; equipmentIds: string[] };
   doctors?: { id: string; name_uk: string; role_uk: string | null }[];
+  /** Published doctors as {id, name} — used by the "Reviewed by" selector below. */
+  doctorOptions?: { id: string; name: string }[];
   allServices?: { id: string; title_uk: string; slug: string; cat_title: string }[];
   equipment?: { id: string; name: string; category: string }[];
   /** Global ui_strings labels for all locales — used as placeholders in per-service override inputs. */
@@ -41,7 +43,7 @@ type Tab = "meta" | "seo" | "sections" | "faq" | "relations" | "layout";
 export default function ServiceForm({
   service: svc, categories,
   sections = [], faq = [], relations = { doctorIds: [], relatedServiceIds: [], equipmentIds: [] },
-  doctors = [], allServices = [], equipment = [], uiDefaults = {},
+  doctors = [], doctorOptions = [], allServices = [], equipment = [], uiDefaults = {},
 }: Props) {
   const [state, formAction] = useActionState(saveService, null as any);
   const [tab, setTab] = useState<Tab>("meta");
@@ -59,6 +61,12 @@ export default function ServiceForm({
 
   const categorySlug = svc?.category_id
     ? categories.find((c) => c.id === svc.category_id)?.slug || ""
+    : "";
+
+  // services.last_reviewed_at comes back as a Date (or date-ish string) from
+  // the DB client — normalize to yyyy-mm-dd for the <input type="date"> value.
+  const lastReviewedAtValue = svc?.last_reviewed_at
+    ? new Date(svc.last_reviewed_at).toISOString().slice(0, 10)
     : "";
 
   return (
@@ -233,6 +241,39 @@ export default function ServiceForm({
                   </div>
                 )}
               </TranslationTabs>
+            </section>
+
+            <div className="border-t border-line" />
+
+            {/* ── Reviewer / E-E-A-T ── */}
+            <section className="flex flex-col gap-4">
+              <div>
+                <h3 className="text-sm font-semibold text-foreground mb-1">Medical review (E-E-A-T)</h3>
+                <p className="body-s text-muted">
+                  Optionally attribute this page to a doctor who reviewed it, with a review date.
+                  When both are set, a &quot;Reviewed by&quot; badge appears on the public service page.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium text-muted uppercase tracking-wider">Reviewed by</label>
+                  <select
+                    name="reviewer_doctor_id"
+                    defaultValue={svc?.reviewer_doctor_id ?? ""}
+                    className="px-4 py-2.5 rounded-xl bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main"
+                  >
+                    <option value="">— не задано —</option>
+                    {doctorOptions.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
+                  </select>
+                </div>
+                <FormField
+                  label="Review date"
+                  name="last_reviewed_at"
+                  type="date"
+                  defaultValue={lastReviewedAtValue}
+                />
+              </div>
             </section>
 
             <div className="border-t border-line" />
@@ -424,6 +465,8 @@ function buildHiddenRoundtripFields(svc: any): Record<string, string | number | 
     category_id: svc.category_id,
     sort_order: svc.sort_order,
     hero_image_current: svc.hero_image || "",
+    reviewer_doctor_id: svc.reviewer_doctor_id || "",
+    last_reviewed_at: svc.last_reviewed_at ? new Date(svc.last_reviewed_at).toISOString().slice(0, 10) : "",
   };
   for (const l of ["uk", "ru", "en"] as const) {
     fields[`title_${l}`] = svc[`title_${l}`] || "";
