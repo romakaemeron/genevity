@@ -1,8 +1,9 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import type { NavCategory, NavLeaf, NavTop } from "./navConfig";
+import { resolveNavLabel } from "./navLabel";
 
 type Props = {
   item: NavTop;
@@ -19,6 +20,7 @@ function ArrowRight({ className = "" }: { className?: string }) {
 
 function CategoryBlock({ cat, onNavigate, compact = false, delay = 0 }: { cat: NavCategory; onNavigate?: () => void; compact?: boolean; delay?: number }) {
   const tNav = useTranslations("nav_mega");
+  const locale = useLocale();
   return (
     <div className="flex flex-col gap-2 megamenu-item" style={{ animationDelay: `${delay}s` }}>
       <Link
@@ -27,14 +29,14 @@ function CategoryBlock({ cat, onNavigate, compact = false, delay = 0 }: { cat: N
         className={`group inline-flex items-center gap-1.5 hover:text-main transition-colors ${compact ? "body-m text-black" : "body-strong text-black"}`}
         style={compact ? { fontWeight: 600 } : undefined}
       >
-        <span>{tNav(cat.key)}</span>
+        <span>{resolveNavLabel(tNav, cat.key, cat.label, locale)}</span>
         <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
       </Link>
       <ul className="flex flex-col gap-2">
         {cat.items.map((leaf) => (
           <li key={leaf.key}>
             <Link href={leaf.href} onClick={onNavigate} className="body-m text-black-60 hover:text-main transition-colors">
-              {tNav(leaf.key)}
+              {resolveNavLabel(tNav, leaf.key, leaf.label, locale)}
             </Link>
           </li>
         ))}
@@ -45,6 +47,7 @@ function CategoryBlock({ cat, onNavigate, compact = false, delay = 0 }: { cat: N
 
 function ExtraBlock({ headingKey, items, onNavigate, delay = 0 }: { headingKey: string; items: NavLeaf[]; onNavigate?: () => void; delay?: number }) {
   const tNav = useTranslations("nav_mega");
+  const locale = useLocale();
   return (
     <div className="flex flex-col gap-3 megamenu-item" style={{ animationDelay: `${delay}s` }}>
       <p className="body-strong text-black">{tNav(headingKey)}</p>
@@ -52,7 +55,7 @@ function ExtraBlock({ headingKey, items, onNavigate, delay = 0 }: { headingKey: 
         {items.map((leaf) => (
           <li key={leaf.key}>
             <Link href={leaf.href} onClick={onNavigate} className="body-m text-black-60 hover:text-main transition-colors">
-              {tNav(leaf.key)}
+              {resolveNavLabel(tNav, leaf.key, leaf.label, locale)}
             </Link>
           </li>
         ))}
@@ -63,6 +66,7 @@ function ExtraBlock({ headingKey, items, onNavigate, delay = 0 }: { headingKey: 
 
 export default function MegaMenuPanel({ item, onNavigate }: Props) {
   const tNav = useTranslations("nav_mega");
+  const locale = useLocale();
   const mega = item.mega;
   if (!mega) return null;
 
@@ -101,7 +105,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
                   onClick={onNavigate}
                   className="group inline-flex items-center gap-1.5 body-strong text-black hover:text-main transition-colors"
                 >
-                  <span>{tNav(apparatus.key)}</span>
+                  <span>{resolveNavLabel(tNav, apparatus.key, apparatus.label, locale)}</span>
                   <ArrowRight className="text-black-40 group-hover:text-main group-hover:translate-x-0.5 transition-all duration-200" />
                 </Link>
               </div>

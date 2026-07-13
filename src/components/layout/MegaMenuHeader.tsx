@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import LocaleSelector from "@/components/ui/LocaleSelector";
@@ -10,6 +10,7 @@ import SearchTrigger from "@/components/ui/SearchTrigger";
 import SearchModal from "@/components/ui/SearchModal";
 import MegaMenuPanel from "./MegaMenuPanel";
 import { navTop, type NavTop } from "./navConfig";
+import { resolveNavLabel } from "./navLabel";
 
 type MobileView = "top" | string; // "top" = main nav, string = itemKey for sub-panel
 
@@ -42,6 +43,9 @@ export default function MegaMenuHeader({
 }: Props = {}) {
   const tNav = useTranslations("nav_mega");
   const tLabels = useTranslations("labels");
+  const locale = useLocale();
+  const navLabel = (key: string, label: Record<"ua" | "ru" | "en", string>) =>
+    resolveNavLabel(tNav, key, label, locale);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileView, setMobileView] = useState<MobileView>("top");
@@ -170,7 +174,7 @@ export default function MegaMenuHeader({
                       isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
                     }`}
                   >
-                    {tNav(item.key)}
+                    {navLabel(item.key, item.label)}
                     {hasMega && (
                       <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true" className={`transition-transform duration-200 ${isActive ? "rotate-180" : ""}`}>
                         <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.25" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -257,12 +261,12 @@ export default function MegaMenuHeader({
                   >
                     {hasMega ? (
                       <button type="button" onClick={() => setMobileView(item.key)} className={rowClass}>
-                        <span>{tNav(item.key)}</span>
+                        <span>{navLabel(item.key, item.label)}</span>
                         <ChevronRight className="text-black-40" />
                       </button>
                     ) : (
                       <Link href={item.href} onClick={closeMobile} className={rowClass}>
-                        <span>{tNav(item.key)}</span>
+                        <span>{navLabel(item.key, item.label)}</span>
                       </Link>
                     )}
                   </div>
@@ -327,19 +331,19 @@ export default function MegaMenuHeader({
                       >
                         {cat.href ? (
                           <Link href={cat.href} onClick={closeMobile} className="inline-flex items-center gap-1.5 heading-3 text-black">
-                            <span>{tNav(cat.key)}</span>
+                            <span>{navLabel(cat.key, cat.label)}</span>
                             <ChevronRight className="text-black-40 w-3 h-3" />
                           </Link>
                         ) : (
                           <span className="inline-flex items-center gap-1.5 heading-3 text-black cursor-default select-none">
-                            <span>{tNav(cat.key)}</span>
+                            <span>{navLabel(cat.key, cat.label)}</span>
                           </span>
                         )}
                         <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
                           {cat.items.map((leaf) => (
                             <li key={leaf.key}>
                               <Link href={leaf.href} onClick={closeMobile} className="body-l text-black-60 hover:text-main transition-colors">
-                                {tNav(leaf.key)}
+                                {navLabel(leaf.key, leaf.label)}
                               </Link>
                             </li>
                           ))}
@@ -361,7 +365,7 @@ export default function MegaMenuHeader({
                           {item.mega!.extra.items.map((leaf) => (
                             <li key={leaf.key}>
                               <Link href={leaf.href} onClick={closeMobile} className="body-l text-black-60 hover:text-main transition-colors">
-                                {tNav(leaf.key)}
+                                {navLabel(leaf.key, leaf.label)}
                               </Link>
                             </li>
                           ))}

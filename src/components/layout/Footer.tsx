@@ -2,7 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { MapPin, Phone, Clock } from "@/components/ui/Icons";
 import {
   serviceCategoriesForFooter,
@@ -10,6 +10,7 @@ import {
   type NavCategory,
   type NavLeaf,
 } from "./navConfig";
+import { resolveNavLabel } from "./navLabel";
 
 interface LegalLink {
   _id: string;
@@ -28,13 +29,14 @@ interface FooterSettings {
 
 function CategoryColumn({ cat }: { cat: NavCategory }) {
   const tNav = useTranslations("nav_mega");
+  const locale = useLocale();
   return (
     <div className="flex flex-col gap-3">
       <Link
         href={cat.href}
         className="body-strong text-black-60 hover:text-main transition-colors"
       >
-        {tNav(cat.key)}
+        {resolveNavLabel(tNav, cat.key, cat.label, locale)}
       </Link>
       <ul className="flex flex-col gap-2">
         {cat.items.map((leaf) => (
@@ -43,7 +45,7 @@ function CategoryColumn({ cat }: { cat: NavCategory }) {
               href={leaf.href}
               className="body-m text-black hover:text-main transition-colors"
             >
-              {tNav(leaf.key)}
+              {resolveNavLabel(tNav, leaf.key, leaf.label, locale)}
             </Link>
           </li>
         ))}
@@ -54,6 +56,7 @@ function CategoryColumn({ cat }: { cat: NavCategory }) {
 
 function LinkListColumn({ headingKey, items }: { headingKey: string; items: NavLeaf[] }) {
   const tNav = useTranslations("nav_mega");
+  const locale = useLocale();
   return (
     <div className="flex flex-col gap-3">
       <p className="body-strong text-black-60">{tNav(headingKey)}</p>
@@ -64,7 +67,7 @@ function LinkListColumn({ headingKey, items }: { headingKey: string; items: NavL
               href={leaf.href}
               className="body-m text-black hover:text-main transition-colors"
             >
-              {tNav(leaf.key)}
+              {resolveNavLabel(tNav, leaf.key, leaf.label, locale)}
             </Link>
           </li>
         ))}
