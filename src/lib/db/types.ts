@@ -235,6 +235,13 @@ export interface SectionCta {
   ctaHref: string;
 }
 
+export interface SectionSources {
+  _type: "section.sources";
+  _key: string;
+  heading: string;
+  items: { label: string; url: string }[];
+}
+
 export type ContentSection =
   | SectionRichText
   | SectionBullets
@@ -246,7 +253,8 @@ export type ContentSection =
   | SectionImageGallery
   | SectionShowcaseGallery
   | SectionRelatedDoctors
-  | SectionCta;
+  | SectionCta
+  | SectionSources;
 
 export interface ServiceCategoryData {
   _id: string;
