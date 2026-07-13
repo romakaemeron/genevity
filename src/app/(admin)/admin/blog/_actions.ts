@@ -43,6 +43,8 @@ export async function savePost(formData: FormData) {
     readTimeMinutes: parseInt(formData.get('readTimeMinutes') as string) || 5,
     authorName: (formData.get('authorName') as string) || '',
     authorAvatar: (formData.get('authorAvatar') as string) || '',
+    reviewerDoctorId: (formData.get('reviewer_doctor_id') as string) || null,
+    lastReviewedAt: (formData.get('last_reviewed_at') as string) || null,
   };
   const result = await adminSavePost(data);
   revalidatePath('/blog');

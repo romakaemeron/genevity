@@ -177,6 +177,26 @@ export default function BlogPostForm({ post, categories, doctors, services, isNe
           </div>
         </div>
 
+        {/* Medical reviewer */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label className={labelCls}>{t.blogForm.reviewerDoctor}</label>
+            <select name="reviewer_doctor_id" defaultValue={p.reviewer_doctor_id || ""} className={inputCls}>
+              <option value="">{t.blogForm.noneOption}</option>
+              {doctors.map(d => <option key={d.id} value={d.id}>{d.name_uk}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className={labelCls}>{t.blogForm.reviewedDate}</label>
+            <input
+              type="date"
+              name="last_reviewed_at"
+              defaultValue={p.last_reviewed_at ? new Date(p.last_reviewed_at).toISOString().slice(0, 10) : ""}
+              className={inputCls}
+            />
+          </div>
+        </div>
+
         {/* Custom author */}
         <div className="bg-champagne-dark rounded-xl p-4 flex flex-col gap-3">
           <p className="text-xs font-semibold text-black-50 uppercase tracking-wider">{t.blogForm.customAuthor} <span className="font-normal normal-case text-black-40">{t.blogForm.customAuthorNote}</span></p>
