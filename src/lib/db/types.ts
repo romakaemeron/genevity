@@ -119,6 +119,11 @@ export interface UiStringsData {
     title: string;
     description: string;
   };
+  eeat: {
+    reviewedBy: string;
+    updated: string;
+    disclaimer: string;
+  };
 }
 
 export interface HomepageData {

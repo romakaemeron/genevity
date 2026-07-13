@@ -18,7 +18,10 @@ import EquipmentCard from "@/components/equipment/EquipmentCard";
 import EquipmentModalContent from "@/components/equipment/EquipmentModal";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLdMedicalProcedure } from "@/components/seo/JsonLdMedicalProcedure";
+import { JsonLdMedicalWebPage } from "@/components/seo/JsonLdMedicalWebPage";
 import BookingCTA from "@/components/ui/BookingCTA";
+import ReviewedByBadge from "@/components/ui/ReviewedByBadge";
+import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { absoluteUrl } from "@/lib/url";
 import { useScrollReveal } from "@/lib/useReveal";
 import { renderInlineMarkdown } from "@/lib/inline-markdown";
@@ -29,6 +32,7 @@ interface Props {
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
   equipmentUi?: { title: string; details: string; suitsTitle: string; resultsTitle: string };
+  eeatUi?: { reviewedBy: string; updated: string; disclaimer: string };
 }
 
 /** Replace Unicode subscript digits U+2080–U+2089 with small non-overflowing spans */
@@ -54,7 +58,7 @@ export const SERVICE_FIXED_BLOCKS = ["faq", "doctors", "equipment", "relatedServ
 export type ServiceFixedBlockKey = typeof SERVICE_FIXED_BLOCKS[number];
 export type ServiceBlockKey = ServiceFixedBlockKey | `section:${string}`;
 
-export default function ServiceDetailTemplate({ data, locale, doctorsUi, detailsLabel, equipmentUi }: Props) {
+export default function ServiceDetailTemplate({ data, locale, doctorsUi, detailsLabel, equipmentUi, eeatUi }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openEquipmentId, setOpenEquipmentId] = useState<string | null>(null);
   const t = useTranslations("labels");
@@ -94,6 +98,15 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         url={absoluteUrl(`/services/${data.category.slug}/${data.slug}`, locale)}
         priceFrom={data.priceFrom ?? undefined}
       />
+      <JsonLdMedicalWebPage
+        url={absoluteUrl(`/services/${data.category.slug}/${data.slug}`, locale)}
+        name={data.h1 || data.title}
+        lastReviewed={data.lastReviewedAt ?? undefined}
+        reviewer={data.reviewer ? {
+          name: data.reviewer.name,
+          url: data.reviewer.slug ? absoluteUrl(`/doctors/${data.reviewer.slug}`, locale) : undefined,
+        } : undefined}
+      />
       {data.faq?.length > 0 && (
         <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />
       )}
@@ -118,6 +131,19 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
             {t("book")}
           </BookingCTA>
         </div>
+        {data.reviewer && eeatUi && (
+          <div className="mb-8">
+            <ReviewedByBadge
+              name={data.reviewer.name}
+              role={data.reviewer.role}
+              slug={data.reviewer.slug}
+              photoCircle={data.reviewer.photoCircle}
+              date={data.lastReviewedAt}
+              label={eeatUi.reviewedBy}
+              updatedLabel={eeatUi.updated}
+            />
+          </div>
+        )}
         <TocStickyBar items={tocItems} />
       </div>
 
@@ -252,6 +278,12 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           default: return null;
         }
       })}
+
+      {eeatUi?.disclaimer && (
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-12">
+          <MedicalDisclaimer text={eeatUi.disclaimer} />
+        </div>
+      )}
     </>
   );
 }
