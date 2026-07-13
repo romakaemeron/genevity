@@ -52,13 +52,17 @@ Small reusable pieces every later phase depends on.
 - **JSON-LD**: wire `JsonLdMedicalWebPage` (`reviewedBy` + `lastReviewed`) into service detail and blog article.
 - **New section type "Джерела / Sources"**: add to `ContentSection` union (`types.ts:233`), renderer in `SectionRenderer.tsx`, admin block editor entry. Renders a titled list of source links (medical studies / references) for a service.
 
-### 1.2 Reviews via Google Business Profile (rows 33, 34, part of 4)
-- **Prerequisite (client)**: `Place ID` + credentials. Two integration paths:
-  - **Places API** — simplest, but returns **max 5 reviews** + overall rating. Needs a Google Maps API key.
-  - **Business Profile API** — full review list, but requires ownership verification + OAuth. Preferred if access is available.
-  - Plan supports both behind one server module; choose at implementation based on granted access.
-- **Migration**: `google_reviews` cache table (author, rating, text, time, source, `service_id NULL`, `fetched_at`).
-- **Fetch/refresh**: server module `src/lib/reviews/google.ts`; revalidate via cron or ISR (`revalidate` window). Moderation flag for hiding individual reviews from admin.
+### 1.2 Reviews via Google Business Profile API (rows 33, 34, part of 4)
+**Chosen path: Google Business Profile API** (full review list, not the 5-review Places API cap).
+
+- **Prerequisites (client) — start these now, they gate the live wiring:**
+  1. **API access is gated by Google.** The Business Profile APIs must be enabled in a Google Cloud project *and* access requested via Google's access form — approval is a manual review that can take days. Apply early.
+  2. **OAuth 2.0, offline access.** No service accounts — must authenticate as a Google account that **manages the clinic's Business Profile location**. One-time interactive consent → store a **refresh token** server-side for unattended fetches.
+  3. **Account ID + Location ID** of the clinic's profile.
+- **Fallback (only if access is denied):** Places API (max 5 reviews + rating) behind the same server module interface — same `ReviewsBlock`, degraded data. Not the target.
+- **Migration**: `google_reviews` cache table (author, rating, text, time, reply, source, `service_id NULL`, `hidden BOOL`, `fetched_at`).
+- **Auth/secrets**: `GOOGLE_BP_CLIENT_ID`, `GOOGLE_BP_CLIENT_SECRET`, `GOOGLE_BP_REFRESH_TOKEN`, `GOOGLE_BP_ACCOUNT_ID`, `GOOGLE_BP_LOCATION_ID` in Vercel env (preview + prod).
+- **Fetch/refresh**: server module `src/lib/reviews/google.ts` (token refresh + list reviews); revalidate via Vercel cron or ISR window. Reviews are cached in `google_reviews`; the page reads the cache, never the API at request time.
 - **Frontend**: `ReviewsBlock` component (list + aggregate rating), placed on service pages and a reputation hub section.
 - **Schema**: update clinic-level `AggregateRating` with real Google data.
 - **Admin**: read-only review list + hide/show toggle under `admin/reviews`.
