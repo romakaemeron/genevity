@@ -291,6 +291,13 @@ export interface ServiceFinalCta {
   buttonText: string | null;
 }
 
+export interface ServiceReviewer {
+  name: string;
+  slug: string | null;
+  role: string;
+  photoCircle: string | null;
+}
+
 export interface ServiceData {
   _id: string;
   title: string;
@@ -319,6 +326,10 @@ export interface ServiceData {
   blockHeadings: ServiceBlockHeadings;
   /** Per-service Final CTA background config. */
   finalCta: ServiceFinalCta;
+  /** Medical reviewer doctor for this page (null = not set). */
+  reviewer: ServiceReviewer | null;
+  /** ISO date (YYYY-MM-DD) the medical content was last reviewed, or null. */
+  lastReviewedAt: string | null;
 }
 
 export interface ServiceCardData {

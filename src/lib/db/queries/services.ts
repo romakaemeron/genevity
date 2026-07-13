@@ -73,12 +73,13 @@ export async function getServiceBySlug(
   if (!rows.length) return null;
   const r = rows[0];
 
-  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment] = await Promise.all([
+  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment, reviewer] = await Promise.all([
     getSections("service", r.id, l),
     getFaqItems("service", r.id, l),
     getRelatedDoctors(r.id, l),
     getRelatedServices(r.id, l),
     getRelatedEquipment(r.id, l),
+    getReviewer(r.reviewer_doctor_id, l),
   ]);
 
   return {
@@ -108,6 +109,8 @@ export async function getServiceBySlug(
     blockOrder: (r.block_order as string[] | null) || null,
     blockHeadings: resolveBlockHeadings(r.block_headings, l),
     finalCta: resolveFinalCta(r.final_cta, l),
+    reviewer,
+    lastReviewedAt: r.last_reviewed_at ? new Date(r.last_reviewed_at).toISOString().slice(0, 10) : null,
   };
 }
 
@@ -181,6 +184,22 @@ async function getRelatedEquipment(serviceId: string, l: string): Promise<Equipm
     note: pick(r, "note", l) || "",
     photo: r.photo,
   }));
+}
+
+async function getReviewer(doctorId: string | null, l: string): Promise<import("../types").ServiceReviewer | null> {
+  if (!doctorId) return null;
+  const rows = await sql`
+    SELECT slug, role_uk, role_ru, role_en, name_uk, name_ru, name_en, photo_circle
+    FROM doctors WHERE id = ${doctorId} AND is_published = true LIMIT 1
+  `;
+  if (!rows.length) return null;
+  const r = rows[0];
+  return {
+    name: pick(r, "name", l) || "",
+    slug: r.slug || null,
+    role: pick(r, "role", l) || "",
+    photoCircle: r.photo_circle || null,
+  };
 }
 
 export async function getServicesByCategory(locale: string, categorySlug: string): Promise<ServiceCardData[]> {
