@@ -66,6 +66,8 @@ export async function saveAbout(_prevState: any, formData: FormData) {
   await logChange({ action: "update", entityType: "about", entityId: "1", entityLabel: "Homepage about section", before, after: { ...fields, license_image, director_photo } });
   revalidatePath("/");
   revalidatePath("/about");
+  revalidatePath("/ru/about");
+  revalidatePath("/en/about");
   return { success: true };
 }
 

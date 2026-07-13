@@ -15,6 +15,7 @@ import { JsonLdMedicalWebPage } from "@/components/seo/JsonLdMedicalWebPage";
 import ReviewedByBadge from "@/components/ui/ReviewedByBadge";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { absoluteUrl } from "@/lib/url";
+import { formatReviewDate } from "@/lib/formatDate";
 import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
@@ -100,15 +101,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   return (
     <>
       <JsonLd data={articleSchema as Record<string, unknown>} />
-      <JsonLdMedicalWebPage
-        url={absoluteUrl(`/blog/${slug}`, locale as Locale)}
-        name={post.title}
-        lastReviewed={post.lastReviewedAt ?? undefined}
-        reviewer={post.reviewer ? {
-          name: post.reviewer.name,
-          url: post.reviewer.slug ? absoluteUrl(`/doctors/${post.reviewer.slug}`, locale as Locale) : undefined,
-        } : undefined}
-      />
+      {(post.reviewer || post.lastReviewedAt) && (
+        <JsonLdMedicalWebPage
+          url={absoluteUrl(`/blog/${slug}`, locale as Locale)}
+          name={post.title}
+          lastReviewed={post.lastReviewedAt ?? undefined}
+          reviewer={post.reviewer ? {
+            name: post.reviewer.name,
+            url: post.reviewer.slug ? absoluteUrl(`/doctors/${post.reviewer.slug}`, locale as Locale) : undefined,
+          } : undefined}
+        />
+      )}
       <JsonLdBreadcrumbList items={[
         { name: "GENEVITY", url: "https://genevity.com.ua/" },
         { name: "Блог", url: `https://genevity.com.ua${localePrefix}/blog` },
@@ -138,7 +141,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 role={post.reviewer.role}
                 slug={post.reviewer.slug}
                 photoCircle={post.reviewer.photoCircle}
-                date={post.lastReviewedAt}
+                date={formatReviewDate(post.lastReviewedAt, locale)}
                 label={eeatUi.reviewedBy}
                 updatedLabel={eeatUi.updated}
               />

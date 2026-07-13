@@ -1,5 +1,6 @@
 import { sql } from "../client";
 import type { ServiceReviewer } from "../types";
+import { getReviewer } from "./doctors";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -107,24 +108,6 @@ export async function getBlogPostBySlug(locale: string, slug: string): Promise<B
     relatedServiceSlugs: (r.related_service_slugs as string[]) || [],
     reviewer,
     lastReviewedAt: r.last_reviewed_at ? new Date(r.last_reviewed_at as string).toISOString().slice(0, 10) : null,
-  };
-}
-
-/** Mirrors `getReviewer` in `services.ts` (not exported there) — resolves a
- *  published doctor's public reviewer-badge fields for the requested locale. */
-async function getReviewer(doctorId: string | null, l: string): Promise<ServiceReviewer | null> {
-  if (!doctorId) return null;
-  const rows = await sql`
-    SELECT slug, role_uk, role_ru, role_en, name_uk, name_ru, name_en, photo_circle
-    FROM doctors WHERE id = ${doctorId} AND is_published = true LIMIT 1
-  `;
-  if (!rows.length) return null;
-  const r = rows[0];
-  return {
-    name: pick(r, "name", l) || "",
-    slug: r.slug || null,
-    role: pick(r, "role", l) || "",
-    photoCircle: r.photo_circle || null,
   };
 }
 

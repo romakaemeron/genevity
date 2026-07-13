@@ -40,6 +40,11 @@ const NEW_KEYS: Record<string, { uk: string; ru: string; en: string }> = {
     ru: "Источники",
     en: "Sources",
   },
+  licenseCaption: {
+    uk: "Ліцензія на медичну практику GENEVITY",
+    ru: "Лицензия на медицинскую практику GENEVITY",
+    en: "GENEVITY medical practice license",
+  },
 };
 
 async function main() {

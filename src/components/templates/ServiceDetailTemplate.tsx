@@ -23,6 +23,7 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import ReviewedByBadge from "@/components/ui/ReviewedByBadge";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { absoluteUrl } from "@/lib/url";
+import { formatReviewDate } from "@/lib/formatDate";
 import { useScrollReveal } from "@/lib/useReveal";
 import { renderInlineMarkdown } from "@/lib/inline-markdown";
 
@@ -98,15 +99,17 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
         url={absoluteUrl(`/services/${data.category.slug}/${data.slug}`, locale)}
         priceFrom={data.priceFrom ?? undefined}
       />
-      <JsonLdMedicalWebPage
-        url={absoluteUrl(`/services/${data.category.slug}/${data.slug}`, locale)}
-        name={data.h1 || data.title}
-        lastReviewed={data.lastReviewedAt ?? undefined}
-        reviewer={data.reviewer ? {
-          name: data.reviewer.name,
-          url: data.reviewer.slug ? absoluteUrl(`/doctors/${data.reviewer.slug}`, locale) : undefined,
-        } : undefined}
-      />
+      {(data.reviewer || data.lastReviewedAt) && (
+        <JsonLdMedicalWebPage
+          url={absoluteUrl(`/services/${data.category.slug}/${data.slug}`, locale)}
+          name={data.h1 || data.title}
+          lastReviewed={data.lastReviewedAt ?? undefined}
+          reviewer={data.reviewer ? {
+            name: data.reviewer.name,
+            url: data.reviewer.slug ? absoluteUrl(`/doctors/${data.reviewer.slug}`, locale) : undefined,
+          } : undefined}
+        />
+      )}
       {data.faq?.length > 0 && (
         <FaqSchema items={data.faq.map((f) => ({ question: f.question, answer: f.answer }))} />
       )}
@@ -138,7 +141,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
               role={data.reviewer.role}
               slug={data.reviewer.slug}
               photoCircle={data.reviewer.photoCircle}
-              date={data.lastReviewedAt}
+              date={formatReviewDate(data.lastReviewedAt, locale)}
               label={eeatUi.reviewedBy}
               updatedLabel={eeatUi.updated}
             />

@@ -1,5 +1,5 @@
 import { sql } from "../client";
-import type { ServiceFinalCta, DoctorReview } from "../types";
+import type { ServiceFinalCta, DoctorReview, ServiceReviewer } from "../types";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -153,6 +153,27 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
     seoTitle: pick(r, "seo_title", l),
     seoDescription: pick(r, "seo_desc", l),
     finalCta: resolveFinalCta(r.final_cta, l),
+  };
+}
+
+/**
+ * Resolves a published doctor's public reviewer-badge fields (name, slug,
+ * role, photo) for the requested locale. Used by the E-E-A-T reviewer byline
+ * on services and blog posts.
+ */
+export async function getReviewer(doctorId: string | null, l: string): Promise<ServiceReviewer | null> {
+  if (!doctorId) return null;
+  const rows = await sql`
+    SELECT slug, role_uk, role_ru, role_en, name_uk, name_ru, name_en, photo_circle
+    FROM doctors WHERE id = ${doctorId} AND is_published = true LIMIT 1
+  `;
+  if (!rows.length) return null;
+  const r = rows[0];
+  return {
+    name: pick(r, "name", l) || "",
+    slug: r.slug || null,
+    role: pick(r, "role", l) || "",
+    photoCircle: r.photo_circle || null,
   };
 }
 

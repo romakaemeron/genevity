@@ -8,6 +8,7 @@ import type {
   ServiceFinalCta,
 } from "../types";
 import { getSections, getFaqItems } from "./sections";
+import { getReviewer } from "./doctors";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -184,22 +185,6 @@ async function getRelatedEquipment(serviceId: string, l: string): Promise<Equipm
     note: pick(r, "note", l) || "",
     photo: r.photo,
   }));
-}
-
-async function getReviewer(doctorId: string | null, l: string): Promise<import("../types").ServiceReviewer | null> {
-  if (!doctorId) return null;
-  const rows = await sql`
-    SELECT slug, role_uk, role_ru, role_en, name_uk, name_ru, name_en, photo_circle
-    FROM doctors WHERE id = ${doctorId} AND is_published = true LIMIT 1
-  `;
-  if (!rows.length) return null;
-  const r = rows[0];
-  return {
-    name: pick(r, "name", l) || "",
-    slug: r.slug || null,
-    role: pick(r, "role", l) || "",
-    photoCircle: r.photo_circle || null,
-  };
 }
 
 export async function getServicesByCategory(locale: string, categorySlug: string): Promise<ServiceCardData[]> {

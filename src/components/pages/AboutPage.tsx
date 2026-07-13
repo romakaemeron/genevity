@@ -43,15 +43,10 @@ const STAT_KEYS = [
   { valueKey: "stat_patients_value", labelKey: "stat_patients" },
 ];
 
-const LICENSE_CAPTION: Record<Locale, string> = {
-  ua: "Ліцензія на медичну практику GENEVITY",
-  ru: "Лицензия на медицинскую практику GENEVITY",
-  en: "GENEVITY medical practice license",
-};
-
 export default function AboutPageComponent({ about, locale, doctors, doctorsUi, detailsLabel, gallery = [], breadcrumbLabel, heroImage, ctaBg }: Props) {
   const tLabels = useTranslations("labels");
   const tPage = useTranslations("aboutPage");
+  const tEeat = useTranslations("eeat");
   const { ref: textRef, visible: textVisible } = useScrollReveal();
   const { ref: statsRef, visible: statsVisible } = useScrollReveal();
   const { ref: valuesRef, visible: valuesVisible } = useScrollReveal();
@@ -134,14 +129,14 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
                 <div className="relative w-full aspect-[4/3]">
                   <Image
                     src={about.licenseImage}
-                    alt={LICENSE_CAPTION[locale]}
-                    title={LICENSE_CAPTION[locale]}
+                    alt={tEeat("licenseCaption")}
+                    title={tEeat("licenseCaption")}
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, 50vw"
                   />
                 </div>
-                <figcaption className="body-s text-muted p-4">{LICENSE_CAPTION[locale]}</figcaption>
+                <figcaption className="body-s text-muted p-4">{tEeat("licenseCaption")}</figcaption>
               </figure>
             )}
             {about.directorName && (
