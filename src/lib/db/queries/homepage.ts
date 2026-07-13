@@ -88,6 +88,11 @@ async function getAbout(l: string): Promise<AboutData> {
     text2: pick(r, "text2", l),
     diagnostics: pick(r, "diagnostics", l),
     requisites: pick<string | null>(r, "requisites", l) ?? undefined,
+    licenseImage: r.license_image ?? null,
+    directorPhoto: r.director_photo ?? null,
+    directorName: pick<string | null>(r, "director_name", l),
+    directorRole: pick<string | null>(r, "director_role", l),
+    statsNote: pick<string | null>(r, "stats_note", l),
   };
 }
 

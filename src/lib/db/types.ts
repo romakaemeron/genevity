@@ -54,6 +54,11 @@ export interface AboutData {
   text2: string;
   diagnostics: string;
   requisites?: string;
+  licenseImage?: string | null;
+  directorPhoto?: string | null;
+  directorName?: string | null;
+  directorRole?: string | null;
+  statsNote?: string | null;
 }
 
 export interface SiteSettingsData {
