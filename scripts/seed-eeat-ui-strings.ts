@@ -1,6 +1,7 @@
 /**
  * Seed the ui_strings keys used by the E-E-A-T `ReviewedByBadge` and
- * `MedicalDisclaimer` components. Adds them under a new `eeat` namespace.
+ * `MedicalDisclaimer` components (under `eeat`), and the FAQ page
+ * (under `faq`).
  *
  * Safe to re-run — existing keys are preserved, other namespaces untouched.
  *
@@ -57,10 +58,68 @@ const NEW_KEYS: Record<string, { uk: string; ru: string; en: string }> = {
   },
 };
 
+const FAQ_KEYS: Record<string, { uk: string; ru: string; en: string }> = {
+  title: {
+    uk: "Часті запитання",
+    ru: "Частые вопросы",
+    en: "Frequently asked questions",
+  },
+  heading: {
+    uk: "Часті запитання",
+    ru: "Частые вопросы",
+    en: "Frequently asked questions",
+  },
+  subtitle: {
+    uk: "Відповіді на поширені питання про запис, підготовку, оплату та безпеку.",
+    ru: "Ответы на частые вопросы о записи, подготовке, оплате и безопасности.",
+    en: "Answers to common questions about booking, preparation, payment and safety.",
+  },
+  navLabel: {
+    uk: "Питання та відповіді",
+    ru: "Вопросы и ответы",
+    en: "FAQ",
+  },
+};
+
+const FAQ_CATEGORY_KEYS: Record<string, { uk: string; ru: string; en: string }> = {
+  booking: {
+    uk: "Запис і консультація",
+    ru: "Запись и консультация",
+    en: "Booking & consultation",
+  },
+  preparation: {
+    uk: "Підготовка до візиту",
+    ru: "Подготовка к визиту",
+    en: "Preparing for your visit",
+  },
+  payment: {
+    uk: "Оплата і документи",
+    ru: "Оплата и документы",
+    en: "Payment & documents",
+  },
+  safety: {
+    uk: "Безпека і гарантії",
+    ru: "Безопасность и гарантии",
+    en: "Safety & assurance",
+  },
+  lab: {
+    uk: "Лабораторія і діагностика",
+    ru: "Лаборатория и диагностика",
+    en: "Laboratory & diagnostics",
+  },
+  visit: {
+    uk: "Перший візит",
+    ru: "Первый визит",
+    en: "Your first visit",
+  },
+};
+
 async function main() {
   const rows = await sql`SELECT data FROM ui_strings WHERE id = 1`;
   const tree = typeof rows[0].data === "string" ? JSON.parse(rows[0].data) : rows[0].data;
   tree.eeat = tree.eeat || {};
+  tree.faq = tree.faq || {};
+  tree.faq.categories = tree.faq.categories || {};
 
   let added = 0;
   for (const [key, value] of Object.entries(NEW_KEYS)) {
@@ -69,12 +128,24 @@ async function main() {
       added += 1;
     }
   }
+  for (const [key, value] of Object.entries(FAQ_KEYS)) {
+    if (!tree.faq[key]) {
+      tree.faq[key] = value;
+      added += 1;
+    }
+  }
+  for (const [key, value] of Object.entries(FAQ_CATEGORY_KEYS)) {
+    if (!tree.faq.categories[key]) {
+      tree.faq.categories[key] = value;
+      added += 1;
+    }
+  }
 
   if (added === 0) {
     console.log("↷ all keys already present — no changes");
   } else {
     await sql`UPDATE ui_strings SET data = ${JSON.stringify(tree)}::jsonb WHERE id = 1`;
-    console.log(`✓ added ${added} new eeat keys`);
+    console.log(`✓ added ${added} new eeat/faq keys`);
   }
   await sql.end();
 }

@@ -131,6 +131,20 @@ export interface UiStringsData {
     reviewsHeading: string;
     reviewsCount: string;
   };
+  faq: {
+    title: string;
+    heading: string;
+    subtitle: string;
+    navLabel: string;
+    categories: {
+      booking: string;
+      preparation: string;
+      payment: string;
+      safety: string;
+      lab: string;
+      visit: string;
+    };
+  };
 }
 
 export interface HomepageData {
