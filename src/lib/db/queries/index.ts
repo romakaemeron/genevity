@@ -20,3 +20,5 @@ export type {
 } from "./phase2";
 export { getClinicReviews, getReviewsSummary } from "./reviews";
 export type { GoogleReview, ReviewsSummary } from "./reviews";
+export { getFaqPage } from "./faq";
+export type { FaqPageGroup } from "./faq";
