@@ -60,7 +60,7 @@ async function fetchGbp(): Promise<NormalizedReview[]> {
   const out: NormalizedReview[] = [];
   let pageToken: string | undefined;
   do {
-    const res = await fetch(pageToken ? `${url}?pageToken=${pageToken}` : url, {
+    const res = await fetch(pageToken ? `${url}?pageToken=${encodeURIComponent(pageToken)}` : url, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) throw new Error(`GBP reviews fetch failed: ${res.status}`);
@@ -96,9 +96,15 @@ interface PlacesReviewsResponse {
   reviews?: PlacesReview[];
 }
 
+// NOTE: Places API (New) returns at most ~5 reviews per place and has no
+// paging, unlike GBP (which pages all reviews). When Places is the active
+// provider, the cached-row count/average in getReviewsSummary understates
+// the clinic's true totals, so the clinic AggregateRating caps at ~5 reviews.
+// Follow-up: source the aggregate from the Places place-level `rating` /
+// `userRatingCount` fields instead of the cached review rows.
 async function fetchPlaces(): Promise<NormalizedReview[]> {
   const res = await fetch(
-    `https://places.googleapis.com/v1/places/${process.env.GOOGLE_PLACE_ID}?fields=reviews`,
+    `https://places.googleapis.com/v1/places/${process.env.GOOGLE_PLACE_ID}`,
     { headers: { "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY!, "X-Goog-FieldMask": "reviews" } },
   );
   if (!res.ok) throw new Error(`Places fetch failed: ${res.status}`);
