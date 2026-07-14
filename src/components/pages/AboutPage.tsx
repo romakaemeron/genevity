@@ -46,6 +46,7 @@ const STAT_KEYS = [
 export default function AboutPageComponent({ about, locale, doctors, doctorsUi, detailsLabel, gallery = [], breadcrumbLabel, heroImage, ctaBg }: Props) {
   const tLabels = useTranslations("labels");
   const tPage = useTranslations("aboutPage");
+  const tEeat = useTranslations("eeat");
   const { ref: textRef, visible: textVisible } = useScrollReveal();
   const { ref: statsRef, visible: statsVisible } = useScrollReveal();
   const { ref: valuesRef, visible: valuesVisible } = useScrollReveal();
@@ -114,7 +115,52 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
             </div>
           ))}
         </div>
+        {about.statsNote && (
+          <p className="reveal body-s text-black-40 mt-4 text-center lg:text-left">{about.statsNote}</p>
+        )}
       </section>
+
+      {/* Trust blocks — license photo & medical director */}
+      {(about.licenseImage || about.directorName) && (
+        <section className="cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {about.licenseImage && (
+              <figure className="rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark">
+                <div className="relative w-full aspect-[4/3]">
+                  <Image
+                    src={about.licenseImage}
+                    alt={tEeat("licenseCaption")}
+                    title={tEeat("licenseCaption")}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
+                <figcaption className="body-s text-muted p-4">{tEeat("licenseCaption")}</figcaption>
+              </figure>
+            )}
+            {about.directorName && (
+              <div className="rounded-[var(--radius-card)] bg-champagne-dark p-6 flex items-center gap-5">
+                {about.directorPhoto && (
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-full overflow-hidden">
+                    <Image
+                      src={about.directorPhoto}
+                      alt={about.directorName}
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
+                  </div>
+                )}
+                <div>
+                  <p className="body-strong text-black">{about.directorName}</p>
+                  {about.directorRole && <p className="body-m text-muted mt-1">{about.directorRole}</p>}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Values grid */}
       <section ref={valuesRef as React.RefObject<HTMLElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 ${valuesVisible ? "revealed" : ""}`}>

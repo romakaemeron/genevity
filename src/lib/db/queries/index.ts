@@ -18,3 +18,5 @@ export {
 export type {
   HeroSlide, GalleryItem, PriceCategory, LabService, LabPrepStep, LabCheckup,
 } from "./phase2";
+export { getClinicReviews, getReviewsSummary } from "./reviews";
+export type { GoogleReview, ReviewsSummary } from "./reviews";

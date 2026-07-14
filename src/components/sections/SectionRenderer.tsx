@@ -10,6 +10,7 @@ import ImageGallerySection from "./ImageGallerySection";
 import ShowcaseGallerySection from "./ShowcaseGallerySection";
 import RelatedDoctorsSection from "./RelatedDoctorsSection";
 import CtaSection from "./CtaSection";
+import SourcesSection from "./SourcesSection";
 
 interface Props {
   sections: ContentSection[];
@@ -39,6 +40,8 @@ function renderSection(section: ContentSection, index: number) {
       return <RelatedDoctorsSection {...section} />;
     case "section.cta":
       return <CtaSection {...section} />;
+    case "section.sources":
+      return <SourcesSection section={section} />;
     default:
       return null;
   }

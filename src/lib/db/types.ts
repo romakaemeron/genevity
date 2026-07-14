@@ -54,6 +54,11 @@ export interface AboutData {
   text2: string;
   diagnostics: string;
   requisites?: string;
+  licenseImage?: string | null;
+  directorPhoto?: string | null;
+  directorName?: string | null;
+  directorRole?: string | null;
+  statsNote?: string | null;
 }
 
 export interface SiteSettingsData {
@@ -118,6 +123,13 @@ export interface UiStringsData {
   meta: {
     title: string;
     description: string;
+  };
+  eeat: {
+    reviewedBy: string;
+    updated: string;
+    disclaimer: string;
+    reviewsHeading: string;
+    reviewsCount: string;
   };
 }
 
@@ -230,6 +242,13 @@ export interface SectionCta {
   ctaHref: string;
 }
 
+export interface SectionSources {
+  _type: "section.sources";
+  _key: string;
+  heading: string;
+  items: { label: string; url: string }[];
+}
+
 export type ContentSection =
   | SectionRichText
   | SectionBullets
@@ -241,7 +260,8 @@ export type ContentSection =
   | SectionImageGallery
   | SectionShowcaseGallery
   | SectionRelatedDoctors
-  | SectionCta;
+  | SectionCta
+  | SectionSources;
 
 export interface ServiceCategoryData {
   _id: string;
@@ -291,6 +311,13 @@ export interface ServiceFinalCta {
   buttonText: string | null;
 }
 
+export interface ServiceReviewer {
+  name: string;
+  slug: string | null;
+  role: string;
+  photoCircle: string | null;
+}
+
 export interface ServiceData {
   _id: string;
   title: string;
@@ -319,6 +346,10 @@ export interface ServiceData {
   blockHeadings: ServiceBlockHeadings;
   /** Per-service Final CTA background config. */
   finalCta: ServiceFinalCta;
+  /** Medical reviewer doctor for this page (null = not set). */
+  reviewer: ServiceReviewer | null;
+  /** ISO date (YYYY-MM-DD) the medical content was last reviewed, or null. */
+  lastReviewedAt: string | null;
 }
 
 export interface ServiceCardData {

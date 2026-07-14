@@ -8,6 +8,7 @@ import type {
   ServiceFinalCta,
 } from "../types";
 import { getSections, getFaqItems } from "./sections";
+import { getReviewer } from "./doctors";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -73,12 +74,13 @@ export async function getServiceBySlug(
   if (!rows.length) return null;
   const r = rows[0];
 
-  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment] = await Promise.all([
+  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment, reviewer] = await Promise.all([
     getSections("service", r.id, l),
     getFaqItems("service", r.id, l),
     getRelatedDoctors(r.id, l),
     getRelatedServices(r.id, l),
     getRelatedEquipment(r.id, l),
+    getReviewer(r.reviewer_doctor_id, l),
   ]);
 
   return {
@@ -108,6 +110,8 @@ export async function getServiceBySlug(
     blockOrder: (r.block_order as string[] | null) || null,
     blockHeadings: resolveBlockHeadings(r.block_headings, l),
     finalCta: resolveFinalCta(r.final_cta, l),
+    reviewer,
+    lastReviewedAt: r.last_reviewed_at ? new Date(r.last_reviewed_at).toISOString().slice(0, 10) : null,
   };
 }
 

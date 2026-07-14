@@ -4,6 +4,7 @@ import { useActionState, useRef, useState, useEffect } from "react";
 import { saveAbout } from "../_actions/settings";
 import TranslationTabs, { type LocaleKey } from "./translation-tabs";
 import FormField from "./form-field";
+import ImageUpload from "./image-upload";
 import { FormDirtyTracker, snapshotForm } from "./unsaved-changes";
 import Button from "@/components/ui/Button";
 
@@ -76,6 +77,20 @@ export default function AboutSingletonForm({ about, label = "About section" }: {
               <FormField label="Diagnostics callout" name={`diagnostics_${locale}`} type="textarea" rows={3} defaultValue={about[`diagnostics_${locale}`] || ""} />
               <div className="mt-2 border-t border-line pt-4">
                 <FormField
+                  label="Верифіковані цифри — примітка (під блоком статистики)"
+                  name={`stats_note_${locale}`}
+                  type="textarea"
+                  rows={2}
+                  defaultValue={about[`stats_note_${locale}`] || ""}
+                  hint="Наприклад: «Дані станом на 2026 рік, підтверджені внутрішньою звітністю клініки». Показується лише якщо заповнено."
+                />
+              </div>
+              <div className="mt-2 border-t border-line pt-4">
+                <FormField label="Медичний директор — ПІБ" name={`director_name_${locale}`} defaultValue={about[`director_name_${locale}`] || ""} hint="Картка директора показується лише якщо заповнене ім'я." />
+                <FormField label="Медичний директор — посада" name={`director_role_${locale}`} defaultValue={about[`director_role_${locale}`] || ""} />
+              </div>
+              <div className="mt-2 border-t border-line pt-4">
+                <FormField
                   label="Реквізити компанії (відображаються внизу сторінки «Про нас»)"
                   name={`requisites_${locale}`}
                   type="textarea"
@@ -87,6 +102,22 @@ export default function AboutSingletonForm({ about, label = "About section" }: {
             </div>
           )}
         </TranslationTabs>
+        <div className="mt-4 border-t border-line pt-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <ImageUpload
+            name="license_image"
+            label="Фото ліцензії на медичну практику"
+            currentUrl={about.license_image}
+            aspect="aspect-[4/3]"
+            pickerFolder="about"
+          />
+          <ImageUpload
+            name="director_photo"
+            label="Фото медичного директора"
+            currentUrl={about.director_photo}
+            aspect="aspect-square"
+            pickerFolder="about"
+          />
+        </div>
         <div className="mt-4 flex items-center justify-end gap-3">
           {dirty && <span className="text-xs text-warning">Unsaved changes</span>}
           <Button variant="neutral" size="sm" type="reset" disabled={!dirty} title="Revert unsaved edits to the last-saved values">Cancel changes</Button>

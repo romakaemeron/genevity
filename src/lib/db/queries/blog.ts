@@ -1,4 +1,6 @@
 import { sql } from "../client";
+import type { ServiceReviewer } from "../types";
+import { getReviewer } from "./doctors";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -38,6 +40,9 @@ export interface BlogPost extends BlogPostCard {
   seoDesc: string | null;
   ogImage: string | null;
   relatedServiceSlugs: string[];
+  reviewer: ServiceReviewer | null;
+  /** ISO date (YYYY-MM-DD) the medical content was last reviewed, or null. */
+  lastReviewedAt: string | null;
 }
 
 export async function getBlogCategories(locale: string): Promise<BlogCategory[]> {
@@ -93,6 +98,7 @@ export async function getBlogPostBySlug(locale: string, slug: string): Promise<B
     LIMIT 1`;
   if (!rows.length) return null;
   const r = rows[0];
+  const reviewer = await getReviewer(r.reviewer_doctor_id as string | null, l);
   return {
     ...mapCard(r, l),
     body: pick(r, 'body', l),
@@ -100,6 +106,8 @@ export async function getBlogPostBySlug(locale: string, slug: string): Promise<B
     seoDesc: pick(r, 'seo_desc', l),
     ogImage: r.seo_og_image as string | null,
     relatedServiceSlugs: (r.related_service_slugs as string[]) || [],
+    reviewer,
+    lastReviewedAt: r.last_reviewed_at ? new Date(r.last_reviewed_at as string).toISOString().slice(0, 10) : null,
   };
 }
 
@@ -168,6 +176,8 @@ export async function adminSavePost(data: {
   readTimeMinutes: number;
   authorName: string;
   authorAvatar: string;
+  reviewerDoctorId: string | null;
+  lastReviewedAt: string | null;
 }): Promise<{ ok: boolean; id?: string; error?: string }> {
   try {
     if (data.id) {
@@ -181,7 +191,9 @@ export async function adminSavePost(data: {
         seo_title_uk=${data.seoTitleUk}, seo_title_ru=${data.seoTitleRu}, seo_title_en=${data.seoTitleEn},
         seo_desc_uk=${data.seoDescUk}, seo_desc_ru=${data.seoDescRu}, seo_desc_en=${data.seoDescEn},
         read_time_minutes=${data.readTimeMinutes}, author_name=${data.authorName || null},
-        author_avatar=${data.authorAvatar || null}, updated_at=NOW()
+        author_avatar=${data.authorAvatar || null},
+        reviewer_doctor_id=${data.reviewerDoctorId}, last_reviewed_at=${data.lastReviewedAt ? sql`${data.lastReviewedAt}::date` : sql`NULL`},
+        updated_at=NOW()
         WHERE id=${data.id}`;
       return { ok: true, id: data.id };
     } else {
@@ -193,7 +205,8 @@ export async function adminSavePost(data: {
         cover_image, tags, related_service_slugs, is_draft, published_at,
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
-        read_time_minutes, author_name, author_avatar
+        read_time_minutes, author_name, author_avatar,
+        reviewer_doctor_id, last_reviewed_at
       ) VALUES (
         ${data.slug}, ${data.categoryId}, ${data.authorId},
         ${data.titleUk}, ${data.titleRu}, ${data.titleEn},
@@ -203,7 +216,8 @@ export async function adminSavePost(data: {
         ${data.publishedAt ? sql`${data.publishedAt}::timestamptz` : sql`NULL`},
         ${data.seoTitleUk}, ${data.seoTitleRu}, ${data.seoTitleEn},
         ${data.seoDescUk}, ${data.seoDescRu}, ${data.seoDescEn},
-        ${data.readTimeMinutes}, ${data.authorName || null}, ${data.authorAvatar || null}
+        ${data.readTimeMinutes}, ${data.authorName || null}, ${data.authorAvatar || null},
+        ${data.reviewerDoctorId}, ${data.lastReviewedAt ? sql`${data.lastReviewedAt}::date` : sql`NULL`}
       ) RETURNING id`;
       return { ok: true, id: rows[0].id as string };
     }

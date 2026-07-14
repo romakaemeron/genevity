@@ -23,6 +23,7 @@ export const SECTION_LABELS: Record<string, string> = {
   showcaseGallery: "Showcase Gallery",
   relatedDoctors: "Related Doctors",
   cta: "CTA Block",
+  sources: "Sources (Джерела)",
 };
 
 export const SECTION_TYPES = Object.keys(SECTION_LABELS);
@@ -57,6 +58,8 @@ export function createDefaultData(type: string): any {
       return { heading: emptyLocaleString(), doctorIds: [] };
     case "cta":
       return { heading: emptyLocaleString(), body: emptyLocaleString(), ctaLabel: emptyLocaleString(), ctaHref: "" };
+    case "sources":
+      return { heading: emptyLocaleString(), items: [] };
     default:
       return {};
   }
@@ -83,6 +86,7 @@ export function SectionEditor({ type, data, onChange, doctors }: { type: string 
     case "showcaseGallery": return <ShowcaseGalleryEditor data={data} onChange={onChange} />;
     case "relatedDoctors": return <RelatedDoctorsEditor data={data} onChange={onChange} doctors={doctors || []} />;
     case "cta": return <CtaEditor data={data} onChange={onChange} />;
+    case "sources": return <SourcesEditor data={data} onChange={onChange} />;
     default: return <div className="text-sm text-muted">Unknown section type: {type}</div>;
   }
 }
@@ -601,6 +605,47 @@ function ShowcaseGalleryEditor({ data, onChange }: EditorProps<{
         onPickMultiple={handlePickMultiple}
         preferredFolder="sections"
       />
+    </div>
+  );
+}
+
+function SourcesEditor({ data, onChange }: EditorProps<{ heading: LocaleString; items: { label: LocaleString; url: string }[] }>) {
+  const addItem = () => onChange({ ...data, items: [...(data.items || []), { label: emptyLocaleString(), url: "" }] });
+  const updateItem = (i: number, patch: Partial<{ label: LocaleString; url: string }>) => {
+    const next = [...data.items];
+    next[i] = { ...next[i], ...patch };
+    onChange({ ...data, items: next });
+  };
+  const removeItem = (i: number) => onChange({ ...data, items: data.items.filter((_, idx) => idx !== i) });
+
+  return (
+    <div className="flex flex-col gap-4">
+      <LocaleText label="Heading" value={data.heading} onChange={(v) => onChange({ ...data, heading: v })} />
+      <div className="flex flex-col gap-3">
+        {(data.items || []).map((item, i) => (
+          <div key={i} className="p-3 rounded-lg bg-champagne/50 border border-line flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-medium text-muted uppercase tracking-wider">Source {i + 1}</span>
+              <button type="button" onClick={() => removeItem(i)} className="text-muted hover:text-error transition-colors cursor-pointer">
+                <Trash2 size={14} />
+              </button>
+            </div>
+            <LocaleText label="Label" value={item.label} onChange={(v) => updateItem(i, { label: v })} placeholder="Source name" />
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[11px] font-medium text-muted uppercase tracking-wider">URL</label>
+              <input
+                value={item.url || ""}
+                onChange={(e) => updateItem(i, { url: e.target.value })}
+                placeholder="https://example.com/article"
+                className="px-3 py-2 rounded-lg bg-champagne-dark border border-line text-ink text-sm outline-none focus:border-main focus:ring-1 focus:ring-main/20"
+              />
+            </div>
+          </div>
+        ))}
+        <button type="button" onClick={addItem} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-main hover:bg-main/10 transition-colors cursor-pointer self-start">
+          <Plus size={12} /> Add source
+        </button>
+      </div>
     </div>
   );
 }

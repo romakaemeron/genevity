@@ -80,6 +80,13 @@ export default function SeoFormTab({
   });
   const [ogImageUrl, setOgImageUrl] = useState<string | null>(entity.seo_og_image || null);
 
+  // Uncontrolled <Input>s must keep a STABLE defaultValue. title/desc state is
+  // updated live by OnInputMirror (for the char-count hints + preview); feeding
+  // that live state back into defaultValue makes Base UI warn about a changing
+  // uncontrolled default. Seed defaultValue from the values captured once.
+  const initialTitle = useRef(title).current;
+  const initialDesc = useRef(desc).current;
+
   const initialOgImage = entity.seo_og_image || null;
   const controlledDirty = ogImageUrl !== initialOgImage;
 
@@ -164,7 +171,7 @@ export default function SeoFormTab({
               <FormField
                 label={`Meta title (${LOCALE_LABEL[locale]})`}
                 name={`seo_title_${locale}`}
-                defaultValue={title[locale]}
+                defaultValue={initialTitle[locale]}
                 hint={`${title[locale].length} / 60 characters — over 60 will be truncated by Google`}
               />
               <FormField
@@ -172,7 +179,7 @@ export default function SeoFormTab({
                 name={`seo_desc_${locale}`}
                 type="textarea"
                 rows={3}
-                defaultValue={desc[locale]}
+                defaultValue={initialDesc[locale]}
                 hint={`${desc[locale].length} / 155 characters`}
               />
             </div>

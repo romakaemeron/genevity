@@ -2,7 +2,7 @@
 
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
-import { uploadRawOrKeep, uploadFileOrKeep } from "./upload";
+import { uploadRawOrKeep, uploadFileOrKeep, processUploadOrKeep } from "./upload";
 import { logChange } from "@/lib/audit";
 
 export async function saveHero(_prevState: any, formData: FormData) {
@@ -33,12 +33,20 @@ export async function saveHero(_prevState: any, formData: FormData) {
 export async function saveAbout(_prevState: any, formData: FormData) {
   const fields: Record<string, any> = {};
   for (const suffix of ["uk", "ru", "en"]) {
-    for (const f of ["title", "text1", "text2", "diagnostics", "requisites"]) {
+    for (const f of ["title", "text1", "text2", "diagnostics", "requisites", "director_name", "director_role", "stats_note"]) {
       fields[`${f}_${suffix}`] = formData.get(`${f}_${suffix}`) as string || null;
     }
   }
 
-  const beforeRows = await sql`SELECT title_uk, title_ru, title_en, text1_uk, text1_ru, text1_en, text2_uk, text2_ru, text2_en, diagnostics_uk, diagnostics_ru, diagnostics_en, requisites_uk, requisites_ru, requisites_en FROM about WHERE id = 1`;
+  const licenseFile = formData.get("license_image") as File | null;
+  const currentLicense = (formData.get("license_image_current") as string) || undefined;
+  const license_image = await processUploadOrKeep(licenseFile, "about", currentLicense);
+
+  const directorPhotoFile = formData.get("director_photo") as File | null;
+  const currentDirectorPhoto = (formData.get("director_photo_current") as string) || undefined;
+  const director_photo = await processUploadOrKeep(directorPhotoFile, "about", currentDirectorPhoto);
+
+  const beforeRows = await sql`SELECT title_uk, title_ru, title_en, text1_uk, text1_ru, text1_en, text2_uk, text2_ru, text2_en, diagnostics_uk, diagnostics_ru, diagnostics_en, requisites_uk, requisites_ru, requisites_en, license_image, director_photo, director_name_uk, director_name_ru, director_name_en, director_role_uk, director_role_ru, director_role_en, stats_note_uk, stats_note_ru, stats_note_en FROM about WHERE id = 1`;
   const before = beforeRows[0] ?? null;
 
   await sql`
@@ -47,12 +55,19 @@ export async function saveAbout(_prevState: any, formData: FormData) {
       text1_uk = ${fields.text1_uk}, text1_ru = ${fields.text1_ru}, text1_en = ${fields.text1_en},
       text2_uk = ${fields.text2_uk}, text2_ru = ${fields.text2_ru}, text2_en = ${fields.text2_en},
       diagnostics_uk = ${fields.diagnostics_uk}, diagnostics_ru = ${fields.diagnostics_ru}, diagnostics_en = ${fields.diagnostics_en},
-      requisites_uk = ${fields.requisites_uk}, requisites_ru = ${fields.requisites_ru}, requisites_en = ${fields.requisites_en}
+      requisites_uk = ${fields.requisites_uk}, requisites_ru = ${fields.requisites_ru}, requisites_en = ${fields.requisites_en},
+      license_image = ${license_image}, director_photo = ${director_photo},
+      director_name_uk = ${fields.director_name_uk}, director_name_ru = ${fields.director_name_ru}, director_name_en = ${fields.director_name_en},
+      director_role_uk = ${fields.director_role_uk}, director_role_ru = ${fields.director_role_ru}, director_role_en = ${fields.director_role_en},
+      stats_note_uk = ${fields.stats_note_uk}, stats_note_ru = ${fields.stats_note_ru}, stats_note_en = ${fields.stats_note_en}
     WHERE id = 1
   `;
 
-  await logChange({ action: "update", entityType: "about", entityId: "1", entityLabel: "Homepage about section", before, after: fields });
+  await logChange({ action: "update", entityType: "about", entityId: "1", entityLabel: "Homepage about section", before, after: { ...fields, license_image, director_photo } });
   revalidatePath("/");
+  revalidatePath("/about");
+  revalidatePath("/ru/about");
+  revalidatePath("/en/about");
   return { success: true };
 }
 

@@ -7,7 +7,7 @@ import { FormItem, FormLabel, FormDescription } from "@/components/ui/form";
 interface Props {
   label: string;
   name: string;
-  type?: "text" | "textarea" | "number" | "email" | "url" | "tel";
+  type?: "text" | "textarea" | "number" | "email" | "url" | "tel" | "date";
   defaultValue?: string | number;
   placeholder?: string;
   required?: boolean;

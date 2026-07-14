@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/revalidate-sitemap",
       "schedule": "0 3 * * 1"
+    },
+    {
+      "path": "/api/cron/refresh-reviews",
+      "schedule": "0 4 * * *"
     }
   ],
   "headers": [

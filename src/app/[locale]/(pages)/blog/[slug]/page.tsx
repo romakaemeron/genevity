@@ -1,6 +1,6 @@
 import { permanentRedirect, notFound } from "next/navigation";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
-import { getServicesBySlugs } from "@/lib/db/queries";
+import { getServicesBySlugs, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
@@ -11,6 +11,11 @@ import BlogCard from "@/components/blog/BlogCard";
 import { Link } from "@/i18n/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { JsonLdMedicalWebPage } from "@/components/seo/JsonLdMedicalWebPage";
+import ReviewedByBadge from "@/components/ui/ReviewedByBadge";
+import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
+import { absoluteUrl } from "@/lib/url";
+import { formatReviewDate } from "@/lib/formatDate";
 import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
@@ -59,10 +64,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (!post) notFound();
 
   const l = L[locale as keyof typeof L] ?? L.ua;
-  const [related, relatedServices] = await Promise.all([
+  const [related, relatedServices, uiStrings] = await Promise.all([
     getRelatedBlogPosts(locale, post._id, post.categorySlug ?? null, 3),
     getServicesBySlugs(locale, post.relatedServiceSlugs),
+    getUiStringsData(locale),
   ]);
+  const eeatUi = uiStrings?.eeat;
   const html = post.body ? processBody(post.body) : "";
   const tocItems = parseTocItems(html);
   const localePrefix = locale === "ua" ? "" : `/${locale}`;
@@ -94,6 +101,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   return (
     <>
       <JsonLd data={articleSchema as Record<string, unknown>} />
+      {(post.reviewer || post.lastReviewedAt) && (
+        <JsonLdMedicalWebPage
+          url={absoluteUrl(`/blog/${slug}`, locale as Locale)}
+          name={post.title}
+          lastReviewed={post.lastReviewedAt ?? undefined}
+          reviewer={post.reviewer ? {
+            name: post.reviewer.name,
+            url: post.reviewer.slug ? absoluteUrl(`/doctors/${post.reviewer.slug}`, locale as Locale) : undefined,
+          } : undefined}
+        />
+      )}
       <JsonLdBreadcrumbList items={[
         { name: "GENEVITY", url: "https://genevity.com.ua/" },
         { name: "Блог", url: `https://genevity.com.ua${localePrefix}/blog` },
@@ -116,6 +134,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <p className="body-l text-black-50 leading-relaxed max-w-2xl mb-6">{post.excerpt}</p>
           )}
           <PostMeta post={post} locale={localePrefix} formattedDate={formattedDate} readLabel={l.read} />
+          {post.reviewer && eeatUi && (
+            <div className="mt-6">
+              <ReviewedByBadge
+                name={post.reviewer.name}
+                role={post.reviewer.role}
+                slug={post.reviewer.slug}
+                photoCircle={post.reviewer.photoCircle}
+                date={formatReviewDate(post.lastReviewedAt, locale)}
+                label={eeatUi.reviewedBy}
+                updatedLabel={eeatUi.updated}
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -134,6 +165,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-16 items-start">
             <article className="min-w-0">
               {html && <ArticleBody html={html} />}
+              {eeatUi?.disclaimer && <MedicalDisclaimer text={eeatUi.disclaimer} />}
               {post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-black-10">
                   <Tag className="w-3.5 h-3.5 text-black-40 mt-0.5 shrink-0" />

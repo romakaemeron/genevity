@@ -101,6 +101,18 @@ const R = {
   diagEndocrinologist:        "/services/diagnostics/endocrinologist",
   diagCosmetologist:          "/services/diagnostics/cosmetologist",
   diagUltrasoundDiagnostician:"/services/diagnostics/ultrasound-diagnostician",
+  diagPlasticSurgeon:         "/services/diagnostics/plastic-surgeon",
+
+  // TZ-v8 new service pages
+  apparatusLaserRejuv:   "/services/apparatus-cosmetology/laser-rejuvenation",
+  apparatusPhotorejuv:   "/services/apparatus-cosmetology/photorejuvenation",
+  injectableLipAug:      "/services/injectable-cosmetology/lip-augmentation",
+  injectableJawContour:  "/services/injectable-cosmetology/jaw-contouring",
+  injectableNoseContour: "/services/injectable-cosmetology/nose-contouring",
+  injectableHairMeso:    "/services/injectable-cosmetology/hair-mesotherapy",
+  longevityExosomeIv:    "/services/longevity/exosome-iv-drip",
+  laserBikini:           "/services/laser-hair-removal/laser-bikini",
+  laserLegs:             "/services/laser-hair-removal/laser-legs",
 };
 
 const injectable: NavCategory = {
@@ -115,6 +127,10 @@ const injectable: NavCategory = {
     { key: "prp", label: L("PRP-терапія", "PRP-терапия", "PRP therapy"), href: R.injectablePrp },
     { key: "exosomes", label: L("Екзосоми", "Экзосомы", "Exosomes"), href: R.injectableExosomes },
     { key: "stem-cells", label: L("Терапія стовбуровими клітинами", "Стволовые клетки", "Stem cell therapy"), href: R.injectableStemCells },
+    { key: "lip-augmentation", label: L("Збільшення губ", "Увеличение губ", "Lip augmentation"), href: R.injectableLipAug },
+    { key: "jaw-contouring", label: L("Контурна пластика щелепи", "Контурная пластика челюсти", "Jaw contouring"), href: R.injectableJawContour },
+    { key: "nose-contouring", label: L("Контурна пластика носа", "Контурная пластика носа", "Nose contouring"), href: R.injectableNoseContour },
+    { key: "hair-mesotherapy", label: L("Мезотерапія волосся", "Мезотерапия волос", "Hair mesotherapy"), href: R.injectableHairMeso },
   ],
 };
 
@@ -129,6 +145,8 @@ const apparatusFaceNav: NavCategory = {
     { key: "volnewmer",         label: L("VOLNEWMER",       "VOLNEWMER",       "VOLNEWMER"),       href: R.apparatusVolnewmer },
     { key: "hydrafacial",       label: L("HydraFacial",     "HydraFacial",     "HydraFacial"),     href: R.apparatusHydrafacial },
     { key: "acupulse-co2",      label: L("AcuPulse CO₂",   "AcuPulse CO₂",   "AcuPulse CO₂"),   href: R.apparatusAcupulseCo2 },
+    { key: "laser-rejuvenation",label: L("Лазерне омолодження", "Лазерное омоложение", "Laser rejuvenation"), href: R.apparatusLaserRejuv },
+    { key: "photorejuvenation", label: L("Фотоомолодження",  "Фотоомоложение",  "Photorejuvenation"), href: R.apparatusPhotorejuv },
   ],
 };
 
@@ -162,6 +180,8 @@ const laser: NavCategory = {
   items: [
     { key: "men", label: L("Чоловіча лазерна епіляція", "Мужская лазерная эпиляция", "For men"), href: R.laserMen },
     { key: "women", label: L("Жіноча лазерна епіляція", "Женская лазерная эпиляция", "For women"), href: R.laserWomen },
+    { key: "bikini", label: L("Епіляція бікіні", "Эпиляция бикини", "Bikini"), href: R.laserBikini },
+    { key: "legs", label: L("Епіляція ніг", "Эпиляция ног", "Legs"), href: R.laserLegs },
   ],
 };
 
@@ -175,6 +195,7 @@ const longevity: NavCategory = {
     { key: "hormonal", label: L("Гормональний баланс", "Гормональный баланс", "Hormonal balance"), href: R.longevityHormonal },
     { key: "iv-therapy", label: L("IV-терапія", "IV-терапия", "IV therapy"), href: R.longevityIv },
     { key: "nutraceuticals", label: L("Нутрицевтика", "Нутрицевтика", "Nutraceuticals"), href: R.longevityNutraceuticals },
+    { key: "exosome-iv-drip", label: L("Крапельниця з екзосомами", "Капельница с экзосомами", "Exosome IV drip"), href: R.longevityExosomeIv },
   ],
 };
 
@@ -188,6 +209,7 @@ const diagnosticsNav: NavCategory = {
     { key: "endocrinologist",          label: L("Ендокринолог",          "Эндокринолог",           "Endocrinologist"),           href: R.diagEndocrinologist },
     { key: "cosmetologist",            label: L("Косметолог",            "Косметолог",             "Cosmetologist"),             href: R.diagCosmetologist },
     { key: "ultrasound-diagnostician", label: L("Лікар УЗД",            "Врач УЗД",               "Ultrasound Doctor"),         href: R.diagUltrasoundDiagnostician },
+    { key: "plastic-surgeon",          label: L("Пластичний хірург",     "Пластический хирург",    "Plastic surgeon"),           href: R.diagPlasticSurgeon },
   ],
 };
 

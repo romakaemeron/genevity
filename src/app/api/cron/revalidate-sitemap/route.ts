@@ -5,8 +5,9 @@ const BASE = "https://genevity.com.ua";
 // Vercel Cron calls this every Monday at 03:00 UTC (vercel.json schedule: "0 3 * * 1")
 // It fetches both sitemaps to warm the ISR cache, ensuring Google always gets fresh data.
 export async function GET(req: NextRequest) {
+  const secret = process.env.CRON_SECRET;
   const authHeader = req.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!secret || authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

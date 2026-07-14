@@ -18,6 +18,8 @@ interface Props {
   post: any | null;
   categories: { id: string; title_uk: string }[];
   doctors: { id: string; name_uk: string }[];
+  /** Published doctors as {id, name} — used by the "Reviewed by" selector below. */
+  doctorOptions?: { id: string; name: string }[];
   services: { slug: string; title_uk: string; cat_title: string }[];
   isNew: boolean;
   justSaved?: boolean;
@@ -85,7 +87,7 @@ function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slu
   );
 }
 
-export default function BlogPostForm({ post, categories, doctors, services, isNew, justSaved }: Props) {
+export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved }: Props) {
   const { t } = useAdminLocale();
   const p = post || {};
   const readTimeRef = useRef<HTMLInputElement>(null);
@@ -174,6 +176,26 @@ export default function BlogPostForm({ post, categories, doctors, services, isNe
               <option value="">{t.blogForm.customNoneOption}</option>
               {doctors.map(d => <option key={d.id} value={d.id}>{d.name_uk}</option>)}
             </select>
+          </div>
+        </div>
+
+        {/* Medical reviewer */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label className={labelCls}>{t.blogForm.reviewerDoctor}</label>
+            <select name="reviewer_doctor_id" defaultValue={p.reviewer_doctor_id || ""} className={inputCls}>
+              <option value="">{t.blogForm.noneOption}</option>
+              {doctorOptions.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className={labelCls}>{t.blogForm.reviewedDate}</label>
+            <input
+              type="date"
+              name="last_reviewed_at"
+              defaultValue={p.last_reviewed_at ? new Date(p.last_reviewed_at).toISOString().slice(0, 10) : ""}
+              className={inputCls}
+            />
           </div>
         </div>
 
