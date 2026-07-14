@@ -128,6 +128,8 @@ export interface UiStringsData {
     reviewedBy: string;
     updated: string;
     disclaimer: string;
+    reviewsHeading: string;
+    reviewsCount: string;
   };
 }
 

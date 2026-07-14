@@ -1,5 +1,6 @@
 import { JsonLd } from "./JsonLd";
 import { getSiteSettingsData } from "@/lib/db/queries";
+import { getReviewsSummary } from "@/lib/db/queries/reviews";
 
 const NAMES: Record<string, string> = {
   ua: "GENEVITY — центр довголіття та естетичної медицини",
@@ -24,7 +25,10 @@ interface Props {
 }
 
 export async function OrganizationSchema({ locale = "ua" }: Props) {
-  const s = await getSiteSettingsData("ua");
+  const [s, reviewsSummary] = await Promise.all([
+    getSiteSettingsData("ua"),
+    getReviewsSummary(),
+  ]);
 
   return (
     <JsonLd
@@ -91,6 +95,15 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
           ],
         },
         sameAs: s.instagram ? [`https://www.instagram.com/${s.instagram.replace(/^@/, "")}/`] : [],
+        ...(reviewsSummary.count > 0
+          ? {
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: reviewsSummary.average,
+                reviewCount: reviewsSummary.count,
+              },
+            }
+          : {}),
       }}
     />
   );

@@ -1,4 +1,5 @@
 import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems } from "@/lib/db/queries";
+import { getClinicReviews, getReviewsSummary } from "@/lib/db/queries/reviews";
 import { generatePageMetadata } from "@/lib/seo";
 import { getTranslations , setRequestLocale} from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
@@ -8,12 +9,13 @@ import Hero from "@/components/home/Hero";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 
 // All below-fold sections are dynamically imported — keeps initial bundle minimal
-const About      = dynamic(() => import("@/components/home/About"));
-const Equipment  = dynamic(() => import("@/components/home/Equipment"));
-const Advantages = dynamic(() => import("@/components/home/Advantages"));
-const Doctors    = dynamic(() => import("@/components/home/Doctors"));
-const HomeFaq    = dynamic(() => import("@/components/home/HomeFaq"));
-const Contacts   = dynamic(() => import("@/components/home/Contacts"));
+const About        = dynamic(() => import("@/components/home/About"));
+const Equipment    = dynamic(() => import("@/components/home/Equipment"));
+const Advantages   = dynamic(() => import("@/components/home/Advantages"));
+const Doctors      = dynamic(() => import("@/components/home/Doctors"));
+const ReviewsBlock = dynamic(() => import("@/components/reviews/ReviewsBlock"));
+const HomeFaq      = dynamic(() => import("@/components/home/HomeFaq"));
+const Contacts     = dynamic(() => import("@/components/home/Contacts"));
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import { ChevronRight } from "lucide-react";
@@ -41,12 +43,14 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems] = await Promise.all([
+  const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems, reviews, reviewsSummary] = await Promise.all([
     getHomepageData(locale),
     getTranslations("labels"),
     getHeroSlides(locale),
     getGalleryItems("homepage_about", locale),
     getGalleryItems("advantages_bento", locale),
+    getClinicReviews(),
+    getReviewsSummary(),
   ]);
 
   return (
@@ -74,6 +78,16 @@ export default async function HomePage({
             </Link>
           </div>
         </div>
+        {reviews.length > 0 && (
+          <div id="reviews" className="cv-auto">
+            <ReviewsBlock
+              reviews={reviews}
+              summary={reviewsSummary}
+              heading={data.ui.eeat.reviewsHeading}
+              countLabel={data.ui.eeat.reviewsCount}
+            />
+          </div>
+        )}
         <div id="faq" className="cv-auto">
           <HomeFaq />
         </div>

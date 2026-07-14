@@ -45,6 +45,16 @@ const NEW_KEYS: Record<string, { uk: string; ru: string; en: string }> = {
     ru: "Лицензия на медицинскую практику GENEVITY",
     en: "GENEVITY medical practice license",
   },
+  reviewsHeading: {
+    uk: "Відгуки пацієнтів",
+    ru: "Отзывы пациентов",
+    en: "Patient reviews",
+  },
+  reviewsCount: {
+    uk: "на основі {n} відгуків Google",
+    ru: "на основе {n} отзывов Google",
+    en: "based on {n} Google reviews",
+  },
 };
 
 async function main() {
