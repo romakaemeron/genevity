@@ -1,5 +1,7 @@
-export const FAQ_CATEGORY_KEYS = ["booking", "preparation", "payment", "safety", "lab", "visit"] as const;
-export type FaqCategoryKey = (typeof FAQ_CATEGORY_KEYS)[number];
+import { FAQ_CATEGORY_KEYS, type FaqCategoryKey } from "@/lib/db/queries/faq";
+
+export { FAQ_CATEGORY_KEYS };
+export type { FaqCategoryKey };
 
 export type FaqPageItem = {
   category: FaqCategoryKey;

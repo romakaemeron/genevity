@@ -1,5 +1,9 @@
 import { sql } from "../client";
 
+/** Single source of truth for FAQ category keys, shared by the admin editor/save action and the public FAQ page. */
+export const FAQ_CATEGORY_KEYS = ["booking", "preparation", "payment", "safety", "lab", "visit"] as const;
+export type FaqCategoryKey = (typeof FAQ_CATEGORY_KEYS)[number];
+
 export type FaqPageGroup = {
   category: string;
   items: { question: string; answer: string }[];

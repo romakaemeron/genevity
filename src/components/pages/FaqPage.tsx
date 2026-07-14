@@ -9,6 +9,7 @@ import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import type { Locale } from "@/i18n/routing";
 import type { FaqPageGroup } from "@/lib/db/queries";
+import type { FaqCategoryKey } from "@/lib/db/queries/faq";
 import type { UiStringsData } from "@/lib/db/types";
 
 interface Props {
@@ -17,8 +18,6 @@ interface Props {
   disclaimer?: string;
   locale: Locale;
 }
-
-const CATEGORY_KEYS = ["booking", "preparation", "payment", "safety", "lab", "visit"] as const;
 
 function FaqCategorySection({
   category,
@@ -77,7 +76,7 @@ export default function FaqPage({ groups, faqUi, disclaimer, locale }: Props) {
 
   return (
     <>
-      <FaqSchema items={allItems} />
+      {allItems.length > 0 && <FaqSchema items={allItems} />}
       <section className="bg-champagne">
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
           <Breadcrumbs
@@ -97,9 +96,7 @@ export default function FaqPage({ groups, faqUi, disclaimer, locale }: Props) {
           <FaqCategorySection
             key={group.category}
             category={group.category}
-            label={
-              faqUi.categories[group.category as (typeof CATEGORY_KEYS)[number]] || group.category
-            }
+            label={faqUi.categories[group.category as FaqCategoryKey] || group.category}
             items={group.items}
             openKey={openKey}
             onToggle={(key) => setOpenKey(openKey === key ? null : key)}
