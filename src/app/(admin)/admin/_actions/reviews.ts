@@ -73,6 +73,10 @@ export async function listDoctorsForSelect(): Promise<DoctorOption[]> {
 }
 
 export async function setReviewPublished(id: string, published: boolean) {
+  await sql`
+    UPDATE doctors SET updated_at = now()
+    WHERE id = (SELECT doctor_id FROM doctor_reviews WHERE id = ${id})
+  `;
   await sql`UPDATE doctor_reviews SET is_published = ${published} WHERE id = ${id}`;
   revalidatePath("/");
   revalidatePath("/doctors");
@@ -80,6 +84,11 @@ export async function setReviewPublished(id: string, published: boolean) {
 }
 
 export async function deleteReview(id: string) {
+  // Capture doctor_id and bump its updated_at BEFORE the row disappears.
+  await sql`
+    UPDATE doctors SET updated_at = now()
+    WHERE id = (SELECT doctor_id FROM doctor_reviews WHERE id = ${id})
+  `;
   await sql`DELETE FROM doctor_reviews WHERE id = ${id}`;
   revalidatePath("/");
   revalidatePath("/doctors");
@@ -113,6 +122,10 @@ export async function saveReviewEdit(data: {
         review_text_en    = ${data.reviewTextEn.trim() || null},
         is_published      = ${data.isPublished}
       WHERE id = ${data.id}
+    `;
+    await sql`
+      UPDATE doctors SET updated_at = now()
+      WHERE id = (SELECT doctor_id FROM doctor_reviews WHERE id = ${data.id})
     `;
     revalidatePath("/");
     revalidatePath("/doctors");
@@ -158,6 +171,7 @@ export async function createReview(data: {
         'uk', 0
       )
     `;
+    await sql`UPDATE doctors SET updated_at = now() WHERE id = ${data.doctorId}`;
     revalidatePath("/");
     revalidatePath("/doctors");
     revalidatePath("/admin/reviews");

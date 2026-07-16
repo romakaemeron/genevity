@@ -7,6 +7,27 @@ import { logChange } from "@/lib/audit";
 
 type SectionRow = { id?: string; type: string; data: any };
 
+/**
+ * Maps a `content_sections`/`faq_items` `owner_type` to the parent table whose
+ * `updated_at` must be bumped so `Last-Modified`/304 stays accurate.
+ * Only owner types with a page in the last-modified map are listed —
+ * `static_page` is intentionally absent (static pages aren't tracked there).
+ */
+const OWNER_TYPE_TABLE: Record<string, string> = {
+  service: "services",
+  category: "service_categories",
+};
+
+async function bumpOwnerUpdatedAt(ownerType: string, ownerId: string) {
+  const table = OWNER_TYPE_TABLE[ownerType];
+  if (!table) return;
+  if (table === "services") {
+    await sql`UPDATE services SET updated_at = now() WHERE id = ${ownerId}`;
+  } else if (table === "service_categories") {
+    await sql`UPDATE service_categories SET updated_at = now() WHERE id = ${ownerId}`;
+  }
+}
+
 export async function saveSections(ownerType: string, ownerId: string, sections: SectionRow[]) {
   // Read current state before mutating
   const beforeRows = await sql`
@@ -52,6 +73,7 @@ export async function saveSections(ownerType: string, ownerId: string, sections:
     before: { sections: before },
     after: { sections: after },
   });
+  await bumpOwnerUpdatedAt(ownerType, ownerId);
   revalidatePath("/");
   return { ok: true };
 }
@@ -94,6 +116,7 @@ export async function saveFaq(ownerType: string, ownerId: string, items: FaqRow[
     before: { items: before },
     after: { items },
   });
+  await bumpOwnerUpdatedAt(ownerType, ownerId);
   revalidatePath("/");
   return { ok: true };
 }

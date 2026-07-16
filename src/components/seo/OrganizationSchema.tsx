@@ -35,6 +35,7 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
       data={{
         "@context": "https://schema.org",
         "@type": "MedicalOrganization",
+        "@id": "https://genevity.com.ua/#organization",
         name: NAMES[locale] ?? NAMES.ua,
         url: URLS[locale] ?? URLS.ua,
         logo: {

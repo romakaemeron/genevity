@@ -247,7 +247,10 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                 <h2 className="heading-2 text-black mb-8">{heading(data.blockHeadings.relatedServices, t("alsoInteresting"))}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {data.relatedServices.map((svc) => (
-                    <Link key={svc._id} href={`/services/${(svc as { categorySlug?: string }).categorySlug || data.category.slug}/${svc.slug}`} className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6">
+                    <Link key={svc._id} href={(() => {
+                      const catSlug = (svc as { categorySlug?: string }).categorySlug || data.category.slug;
+                      return svc.slug === catSlug ? `/services/${catSlug}` : `/services/${catSlug}/${svc.slug}`;
+                    })()} className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6">
                       <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>
                       {svc.summary && <p className="body-m text-muted line-clamp-2 mt-2">{renderInlineMarkdown(svc.summary)}</p>}
                       {(svc as { priceFrom?: string }).priceFrom && <p className="body-strong text-main mt-3">{(svc as { priceFrom?: string }).priceFrom}</p>}

@@ -33,7 +33,14 @@ async function withConditionalCaching(
   const ims = request.headers.get("if-modified-since");
   const imsMs = ims ? Date.parse(ims) : NaN;
   if (!Number.isNaN(imsMs) && lastModSec <= imsMs) {
-    return new NextResponse(null, { status: 304, headers: { "Last-Modified": httpDate } });
+    const notModified = new NextResponse(null, { status: 304, headers: { "Last-Modified": httpDate } });
+    // Preserve shared-cache-relevant headers from the pass-through response so
+    // CDNs/proxies key and cache the 304 the same way they would the 200.
+    for (const name of ["cache-control", "vary", "etag"]) {
+      const value = res.headers.get(name);
+      if (value) notModified.headers.set(name, value);
+    }
+    return notModified;
   }
 
   res.headers.set("Last-Modified", httpDate);

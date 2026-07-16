@@ -22,6 +22,10 @@ export async function saveServiceRelations(
     await sql`INSERT INTO service_equipment (service_id, equipment_id, sort_order) VALUES (${serviceId}, ${rel.equipmentIds[i]}, ${i})`;
   }
 
+  // Link changes don't touch services.updated_at on their own — bump it so
+  // Last-Modified/304 reflects the real page change.
+  await sql`UPDATE services SET updated_at = now() WHERE id = ${serviceId}`;
+
   revalidatePath("/");
   return { ok: true };
 }
