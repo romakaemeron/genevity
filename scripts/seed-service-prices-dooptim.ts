@@ -44,9 +44,15 @@ const HEAD = (svc: string) => ({
 });
 
 // ── Prices from the catalog (Розділ 01) ──────────────────────────────────
+// Full per-zone list (16 zones) confirmed against the client price file (2026-07),
+// ordered by descending price.
 const ULTRAFORMER: P[] = [
-  { uk: "Full face (щоки, очі, лоб)", ru: "Full face (щёки, глаза, лоб)", en: "Full face (cheeks, eyes, forehead)", p: "40 000" },
   { uk: "Обличчя, шия, декольте", ru: "Лицо, шея, декольте", en: "Face, neck, décolleté", p: "45 000" },
+  { uk: "Full face (щоки, очі, лоб)", ru: "Full face (щёки, глаза, лоб)", en: "Full face (cheeks, eyes, forehead)", p: "40 000" },
+  { uk: "Внутрішня поверхня стегна", ru: "Внутренняя поверхность бедра", en: "Inner thigh", p: "40 000" },
+  { uk: "Живіт", ru: "Живот", en: "Abdomen", p: "35 000" },
+  { uk: "Внутрішня поверхня плеча", ru: "Внутренняя поверхность плеча", en: "Inner upper arm", p: "25 000" },
+  { uk: "Коліна", ru: "Колени", en: "Knees", p: "22 000" },
   { uk: "Овал обличчя", ru: "Овал лица", en: "Face oval", p: "20 000" },
   { uk: "Щоки", ru: "Щёки", en: "Cheeks", p: "15 000" },
   { uk: "Декольте", ru: "Декольте", en: "Décolleté", p: "14 000" },
@@ -86,17 +92,22 @@ const ACUPULSE: P[] = [
   { uk: "Декольте фракційне шліфування", ru: "Декольте фракционная шлифовка", en: "Décolleté fractional resurfacing", p: "4 500" },
   { uk: "Прицільне шліфування рубця", ru: "Прицельная шлифовка рубца", en: "Targeted scar resurfacing", p: "1 500" },
 ];
-// VOLNEWMER — Full face is confident; per-zone figures flagged for clinic verification.
+// VOLNEWMER — full per-zone list, confirmed against the client price file (2026-07).
 const VOLNEWMER: P[] = [
   { uk: "Full face (щоки, очі, лоб)", ru: "Full face (щёки, глаза, лоб)", en: "Full face (cheeks, eyes, forehead)", p: "75 000" },
   { uk: "Щоки", ru: "Щёки", en: "Cheeks", p: "45 000" },
   { uk: "Шия", ru: "Шея", en: "Neck", p: "22 000" },
   { uk: "Декольте", ru: "Декольте", en: "Décolleté", p: "20 000" },
   { uk: "Очі", ru: "Глаза", en: "Eyes", p: "14 000" },
+  { uk: "Коліна", ru: "Колени", en: "Knees", p: "14 000" },
   { uk: "Лоб", ru: "Лоб", en: "Forehead", p: "10 000" },
   { uk: "Маляри", ru: "Скулы", en: "Cheekbones", p: "10 000" },
   { uk: "Підборідна область", ru: "Подбородочная область", en: "Chin area", p: "10 000" },
   { uk: "Брови", ru: "Брови", en: "Brows", p: "9 500" },
+  { uk: "Руки", ru: "Руки", en: "Arms", p: "40 000" },
+  { uk: "Живіт", ru: "Живот", en: "Abdomen", p: "60 000" },
+  { uk: "Коліни + передня поверхня стегна", ru: "Колени + передняя поверхность бедра", en: "Knees + front of thigh", p: "75 000" },
+  { uk: "Сідниці", ru: "Ягодицы", en: "Buttocks", p: "75 000" },
 ];
 // Hub pages (face / skin) — consultation + a range row, no single device table.
 const HUB_ROWS = (rangeUk: string, rangeRu: string, rangeEn: string) => [
