@@ -6,6 +6,7 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import DoctorProfilePage from "@/components/pages/DoctorProfilePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { medicalSpecialtyFor } from "@/lib/medical-specialty";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
@@ -58,34 +59,28 @@ export default async function DoctorPage({
   const doctor = await getDoctorBySlug(locale, slug);
   if (!doctor) notFound();
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Physician",
+  const doctorUrl = `https://genevity.com.ua${locale === "ua" ? "" : "/" + locale}/doctors/${slug}`;
+  const photo = doctor.photoFull || doctor.photoCard;
+  const photoUrl = photo
+    ? photo.startsWith("http") ? photo : `https://genevity.com.ua${photo}`
+    : null;
+  const description = doctor.seoDescription || doctor.bio.slice(0, 200);
+  const specialty = medicalSpecialtyFor(doctor.role); // valid schema.org MedicalSpecialty enum
+
+  // Single @graph per Технічне завдання №7: ProfilePage + Person/Physician
+  // (valid medicalSpecialty enum, worksFor → #organization) + MedicalOrganization.
+  const person: Record<string, unknown> = {
+    "@type": ["Person", "Physician"],
+    "@id": `${doctorUrl}#person`,
     name: doctor.name,
+    description,
+    url: doctorUrl,
+    ...(photoUrl ? { image: photoUrl } : {}),
     jobTitle: doctor.role,
-    description: doctor.seoDescription || doctor.bio.slice(0, 200),
-    url: `https://genevity.com.ua${locale === "ua" ? "" : "/" + locale}/doctors/${slug}`,
-    ...(doctor.photoFull || doctor.photoCard ? {
-      image: (doctor.photoFull || doctor.photoCard)!.startsWith("http")
-        ? (doctor.photoFull || doctor.photoCard)
-        : `https://genevity.com.ua${doctor.photoFull || doctor.photoCard}`,
-    } : {}),
-    worksFor: {
-      "@type": "MedicalOrganization",
-      name: "GENEVITY",
-      url: "https://genevity.com.ua",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "вул. Гончара, 4",
-        addressLocality: "Дніпро",
-        addressCountry: "UA",
-      },
-    },
+    ...(specialty ? { medicalSpecialty: specialty } : {}),
+    worksFor: { "@id": "https://genevity.com.ua/#organization" },
     ...(doctor.education.length > 0 ? {
-      alumniOf: doctor.education.map((e) => ({
-        "@type": "EducationalOrganization",
-        name: e.institution_uk,
-      })),
+      alumniOf: doctor.education.map((e) => ({ "@type": "EducationalOrganization", name: e.institution_uk })),
     } : {}),
     ...(doctor.certifications.length > 0 ? {
       hasCredential: doctor.certifications.map((c) => ({
@@ -96,7 +91,6 @@ export default async function DoctorPage({
         ...(c.year ? { dateCreated: String(c.year) } : {}),
       })),
     } : {}),
-    ...(doctor.specialties.length > 0 ? { medicalSpecialty: doctor.specialties } : {}),
     ...(doctor.reviews.length > 0 ? {
       aggregateRating: {
         "@type": "AggregateRating",
@@ -107,50 +101,32 @@ export default async function DoctorPage({
       },
       review: doctor.reviews.map((r) => ({
         "@type": "Review",
-        author: { "@type": "Person", name: r.reviewerName },
-        reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
         reviewBody: r.reviewText,
         datePublished: r.reviewedAt,
+        author: { "@type": "Person", name: r.reviewerName },
+        reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
       })),
     } : {}),
   };
 
-  const photo = doctor.photoFull || doctor.photoCard;
-  const photoUrl = photo
-    ? photo.startsWith("http") ? photo : `https://genevity.com.ua${photo}`
-    : null;
-
-  // §1.16.5 ImageObject schema for doctor profile photo
-  const imageSchema = photoUrl
-    ? {
-        "@context": "https://schema.org/",
-        "@type": "ImageObject",
-        contentUrl: photoUrl,
-        creditText: "GENEVITY",
-        caption: doctor.name,
-        creator: { "@type": "Organization", name: "GENEVITY" },
-      }
-    : null;
-
-  const doctorUrl = `https://genevity.com.ua${locale === "ua" ? "" : "/" + locale}/doctors/${slug}`;
-
-  // §1.22.3 ProfilePage schema — required by inweb SEO audit for author/E-E-A-T signals
-  const profilePageSchema = {
+  const graph = {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    url: doctorUrl,
-    name: doctor.name,
-    description: doctor.seoDescription || doctor.bio.slice(0, 200),
-    mainEntity: {
-      "@type": ["Person", "Physician"],
-      name: doctor.name,
-      url: doctorUrl,
-      jobTitle: doctor.role,
-      description: doctor.seoDescription || doctor.bio.slice(0, 200),
-      ...(photoUrl ? { image: photoUrl } : {}),
-      worksFor: { "@type": "MedicalOrganization", name: "GENEVITY", url: "https://genevity.com.ua" },
-      ...(doctor.specialties.length > 0 ? { medicalSpecialty: doctor.specialties } : {}),
-    },
+    "@graph": [
+      { "@type": "ProfilePage", url: doctorUrl, mainEntity: { "@id": `${doctorUrl}#person` } },
+      person,
+      {
+        "@type": "MedicalOrganization",
+        "@id": "https://genevity.com.ua/#organization",
+        name: "GENEVITY",
+        url: "https://genevity.com.ua/",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "вул. Олеся Гончара, 12",
+          addressLocality: "Дніпро",
+          addressCountry: "UA",
+        },
+      },
+    ],
   };
 
   const localePrefix = locale === "ua" ? "" : `/${locale}`;
@@ -163,9 +139,7 @@ export default async function DoctorPage({
         { name: doctorsLabel, url: `https://genevity.com.ua${localePrefix}/doctors` },
         { name: doctor.name, url: doctorUrl },
       ]} />
-      <JsonLd data={schema as Record<string, unknown>} />
-      <JsonLd data={profilePageSchema} />
-      {imageSchema && <JsonLd data={imageSchema} />}
+      <JsonLd data={graph} />
       <MegaMenuHeader variant="solid" position="fixed" />
       <DoctorProfilePage doctor={doctor} locale={locale as Locale} />
     </>

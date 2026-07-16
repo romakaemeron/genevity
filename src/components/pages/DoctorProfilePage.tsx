@@ -170,7 +170,9 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
             <ul className="reveal d1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {doctor.services.map((svc) => (
                 <li key={svc.slug}>
-                  <Link href={`/services/${svc.categorySlug}/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark hover:bg-champagne-darker transition-all">
+                  {/* Hub services (slug === category) live at /services/<category>;
+                      linking to /services/<category>/<slug> would 308-redirect. */}
+                  <Link href={svc.slug === svc.categorySlug ? `/services/${svc.categorySlug}` : `/services/${svc.categorySlug}/${svc.slug}`} className="group flex items-center justify-between gap-3 p-4 rounded-2xl bg-champagne-dark hover:bg-champagne-darker transition-all">
                     <span className="body-m text-black transition-colors">{svc.title}</span>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0 text-black-40 group-hover:translate-x-0.5 group-hover:text-black transition-all duration-200">
                       <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
