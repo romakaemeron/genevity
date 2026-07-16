@@ -167,6 +167,7 @@ function previewText(section: Section): string {
     case "bullets":
     case "steps":
     case "compareTable":
+    case "priceTable":
     case "priceTeaser":
     case "imageGallery":
     case "relatedDoctors":
