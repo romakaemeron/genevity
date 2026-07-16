@@ -39,7 +39,34 @@ const TTL_MS = 300_000; // 5 minutes
  */
 const BUILD_TIME = Number(process.env.APP_BUILD_TIME) || 0;
 
-type Snapshot = { map: Map<string, number>; globalEpoch: number };
+/**
+ * Composed pages: home (`""`) + static/index pages that aggregate many
+ * entities (services grid, doctors list, FAQ items, trust blocks) rather
+ * than mapping to one content row. They have no single `updated_at`, so the
+ * TZ №7 "Last-Modified per page" requirement is satisfied by handing them the
+ * site-wide {@link getComposedEpoch} — the latest change ANYWHERE. That
+ * over-invalidates (a 304 is served only if nothing changed site-wide), which
+ * is strictly safe: these pages emit no stale content, they just 304 less
+ * often. Keys are locale-stripped (see {@link normalizeContentPath}).
+ */
+const COMPOSED_PATHS = new Set<string>([
+  "", // home
+  "about",
+  "contacts",
+  "prices",
+  "stationary",
+  "laboratory",
+  "faq",
+  "doctors", // /doctors index (per-doctor pages are precisely mapped instead)
+  "services", // /services index (categories/services are precisely mapped)
+]);
+
+/** True when `path` (locale-stripped, no slashes) is a composed page. */
+export function isComposedPath(path: string): boolean {
+  return COMPOSED_PATHS.has(path);
+}
+
+type Snapshot = { map: Map<string, number>; globalEpoch: number; composedEpoch: number };
 
 let cache: { snapshot: Snapshot; at: number } | null = null;
 let inflight: Promise<Snapshot> | null = null;
@@ -69,28 +96,54 @@ async function fetchMap(): Promise<Map<string, number>> {
 }
 
 /**
- * Max `updated_at` across global surfaces (header/footer/nav content +
- * Organization JSON-LD source tables) that affect every page's HTML but
- * aren't per-page rows. `ui_strings` and `site_settings` both carry a
- * trigger-maintained `updated_at`, so a single `GREATEST` over both covers
- * a phone-number edit, address change, or UI-string tweak.
+ * Two site-wide max-`updated_at` values in one round-trip:
+ *
+ * - `globalMax` — global surfaces (header/footer/nav + Organization JSON-LD
+ *   source tables) that affect every page's HTML but aren't per-page rows.
+ *   `site_settings` + `ui_strings` both carry a trigger-maintained
+ *   `updated_at`, covering a phone-number edit, address change, or UI-string
+ *   tweak. Folded into every precisely-mapped page's Last-Modified.
+ *
+ * - `contentMax` — the latest change across ALL content tables, used as the
+ *   Last-Modified for composed pages (home/static/index). `doctor_reviews`
+ *   has no `updated_at` column, but a review write bumps its parent
+ *   `doctors.updated_at`, so `doctors` covers it here.
  */
-async function fetchDbGlobalMax(): Promise<number> {
+async function fetchDbMaxes(): Promise<{ globalMax: number; contentMax: number }> {
   const rows = (await sql`
-    SELECT GREATEST(
-      COALESCE((SELECT MAX(updated_at) FROM site_settings), 'epoch'::timestamptz),
-      COALESCE((SELECT MAX(updated_at) FROM ui_strings), 'epoch'::timestamptz)
-    ) AS g
-  `) as { g: string | Date | null }[];
-  const g = rows[0]?.g;
-  if (!g) return 0;
-  const ms = new Date(g).getTime();
-  return Number.isNaN(ms) ? 0 : ms;
+    SELECT
+      GREATEST(
+        COALESCE((SELECT MAX(updated_at) FROM site_settings), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM ui_strings), 'epoch'::timestamptz)
+      ) AS global_max,
+      GREATEST(
+        COALESCE((SELECT MAX(updated_at) FROM site_settings), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM ui_strings), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM static_pages), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM content_sections), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM services), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM service_categories), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM doctors), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM faq_items), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM blog_posts), 'epoch'::timestamptz),
+        COALESCE((SELECT MAX(updated_at) FROM legal_docs), 'epoch'::timestamptz)
+      ) AS content_max
+  `) as { global_max: string | Date | null; content_max: string | Date | null }[];
+  const toMs = (v: string | Date | null | undefined) => {
+    if (!v) return 0;
+    const ms = new Date(v).getTime();
+    return Number.isNaN(ms) ? 0 : ms;
+  };
+  return { globalMax: toMs(rows[0]?.global_max), contentMax: toMs(rows[0]?.content_max) };
 }
 
 async function fetchSnapshot(): Promise<Snapshot> {
-  const [map, dbGlobalMax] = await Promise.all([fetchMap(), fetchDbGlobalMax()]);
-  return { map, globalEpoch: Math.max(BUILD_TIME, dbGlobalMax) };
+  const [map, maxes] = await Promise.all([fetchMap(), fetchDbMaxes()]);
+  return {
+    map,
+    globalEpoch: Math.max(BUILD_TIME, maxes.globalMax),
+    composedEpoch: Math.max(BUILD_TIME, maxes.contentMax),
+  };
 }
 
 async function getSnapshot(): Promise<Snapshot> {
@@ -105,7 +158,7 @@ async function getSnapshot(): Promise<Snapshot> {
       return snapshot;
     } catch {
       // Never break page delivery on a lookup failure.
-      return cache?.snapshot ?? { map: new Map<string, number>(), globalEpoch: 0 };
+      return cache?.snapshot ?? { map: new Map<string, number>(), globalEpoch: 0, composedEpoch: 0 };
     } finally {
       inflight = null;
     }
@@ -124,6 +177,15 @@ export async function getLastModifiedMap(): Promise<Map<string, number>> {
  */
 export async function getGlobalEpoch(): Promise<number> {
   return (await getSnapshot()).globalEpoch;
+}
+
+/**
+ * Epoch ms = latest content change ANYWHERE on the site (all content tables +
+ * global surfaces + build time). Used as the Last-Modified for composed pages
+ * ({@link isComposedPath}). Shares the same cache/TTL/in-flight dedup.
+ */
+export async function getComposedEpoch(): Promise<number> {
+  return (await getSnapshot()).composedEpoch;
 }
 
 /** Strip the locale prefix (ru/en; ua is the unprefixed default) and slashes. */

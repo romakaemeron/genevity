@@ -1,7 +1,13 @@
 import createMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
-import { getGlobalEpoch, getLastModifiedMap, normalizeContentPath } from "@/lib/last-modified";
+import {
+  getComposedEpoch,
+  getGlobalEpoch,
+  getLastModifiedMap,
+  isComposedPath,
+  normalizeContentPath,
+} from "@/lib/last-modified";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -24,11 +30,20 @@ async function withConditionalCaching(
   if (method !== "GET" && method !== "HEAD") return res;
   if (res.status < 200 || res.status >= 300) return res; // skip redirects/errors
 
-  const pageUpdatedAt = (await getLastModifiedMap()).get(normalizeContentPath(pathname));
-  if (!pageUpdatedAt) return res; // unmapped page (home/about) — leave untouched, no invented date
+  const contentPath = normalizeContentPath(pathname);
 
-  const globalEpoch = await getGlobalEpoch();
-  const lastMod = Math.max(pageUpdatedAt, globalEpoch);
+  let lastMod: number;
+  if (isComposedPath(contentPath)) {
+    // Home/static/index pages aggregate many entities — hand them the
+    // site-wide latest-change epoch (safe over-invalidation, never stale).
+    lastMod = await getComposedEpoch();
+  } else {
+    const pageUpdatedAt = (await getLastModifiedMap()).get(contentPath);
+    if (!pageUpdatedAt) return res; // unmapped page — leave untouched, no invented date
+    const globalEpoch = await getGlobalEpoch();
+    lastMod = Math.max(pageUpdatedAt, globalEpoch);
+  }
+  if (!lastMod) return res; // no usable date (cold fail-safe) — don't invent one
   const lastModSec = Math.floor(lastMod / 1000) * 1000; // HTTP dates are second-precision
   const httpDate = new Date(lastModSec).toUTCString();
 
