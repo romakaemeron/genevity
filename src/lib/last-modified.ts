@@ -20,8 +20,17 @@ import { sql } from "@/lib/db/client";
  */
 const TTL_MS = 300_000; // 5 minutes
 
-let cache: { map: Map<string, number>; at: number } | null = null;
-let inflight: Promise<Map<string, number>> | null = null;
+/**
+ * Build-time stamp (ms), injected via `next.config.ts`'s `env.APP_BUILD_TIME`.
+ * Folded into every mapped page's effective Last-Modified so a code/layout/nav
+ * deploy invalidates all cached pages, not just ones with a bumped `updated_at`.
+ */
+const BUILD_TIME = Number(process.env.APP_BUILD_TIME) || 0;
+
+type Snapshot = { map: Map<string, number>; globalEpoch: number };
+
+let cache: { snapshot: Snapshot; at: number } | null = null;
+let inflight: Promise<Snapshot> | null = null;
 
 async function fetchMap(): Promise<Map<string, number>> {
   const rows = (await sql`
@@ -47,25 +56,62 @@ async function fetchMap(): Promise<Map<string, number>> {
   return map;
 }
 
-export async function getLastModifiedMap(): Promise<Map<string, number>> {
+/**
+ * Max `updated_at` across global surfaces (header/footer/nav content +
+ * Organization JSON-LD source tables) that affect every page's HTML but
+ * aren't per-page rows. `ui_strings` and `site_settings` both carry a
+ * trigger-maintained `updated_at`, so a single `GREATEST` over both covers
+ * a phone-number edit, address change, or UI-string tweak.
+ */
+async function fetchDbGlobalMax(): Promise<number> {
+  const rows = (await sql`
+    SELECT GREATEST(
+      COALESCE((SELECT MAX(updated_at) FROM site_settings), 'epoch'::timestamptz),
+      COALESCE((SELECT MAX(updated_at) FROM ui_strings), 'epoch'::timestamptz)
+    ) AS g
+  `) as { g: string | Date | null }[];
+  const g = rows[0]?.g;
+  if (!g) return 0;
+  const ms = new Date(g).getTime();
+  return Number.isNaN(ms) ? 0 : ms;
+}
+
+async function fetchSnapshot(): Promise<Snapshot> {
+  const [map, dbGlobalMax] = await Promise.all([fetchMap(), fetchDbGlobalMax()]);
+  return { map, globalEpoch: Math.max(BUILD_TIME, dbGlobalMax) };
+}
+
+async function getSnapshot(): Promise<Snapshot> {
   const now = Date.now();
-  if (cache && now - cache.at < TTL_MS) return cache.map;
+  if (cache && now - cache.at < TTL_MS) return cache.snapshot;
   if (inflight) return inflight;
 
   inflight = (async () => {
     try {
-      const map = await fetchMap();
-      cache = { map, at: Date.now() };
-      return map;
+      const snapshot = await fetchSnapshot();
+      cache = { snapshot, at: Date.now() };
+      return snapshot;
     } catch {
       // Never break page delivery on a lookup failure.
-      return cache?.map ?? new Map<string, number>();
+      return cache?.snapshot ?? { map: new Map<string, number>(), globalEpoch: 0 };
     } finally {
       inflight = null;
     }
   })();
 
   return inflight;
+}
+
+export async function getLastModifiedMap(): Promise<Map<string, number>> {
+  return (await getSnapshot()).map;
+}
+
+/**
+ * Epoch ms = `max(build time, latest site_settings/ui_strings update)`.
+ * Shares the same cache/TTL/in-flight dedup as {@link getLastModifiedMap}.
+ */
+export async function getGlobalEpoch(): Promise<number> {
+  return (await getSnapshot()).globalEpoch;
 }
 
 /** Strip the locale prefix (ru/en; ua is the unprefixed default) and slashes. */

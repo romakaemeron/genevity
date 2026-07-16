@@ -1,7 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
-import { getLastModifiedMap, normalizeContentPath } from "@/lib/last-modified";
+import { getGlobalEpoch, getLastModifiedMap, normalizeContentPath } from "@/lib/last-modified";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -24,9 +24,11 @@ async function withConditionalCaching(
   if (method !== "GET" && method !== "HEAD") return res;
   if (res.status < 200 || res.status >= 300) return res; // skip redirects/errors
 
-  const lastMod = (await getLastModifiedMap()).get(normalizeContentPath(pathname));
-  if (!lastMod) return res;
+  const pageUpdatedAt = (await getLastModifiedMap()).get(normalizeContentPath(pathname));
+  if (!pageUpdatedAt) return res; // unmapped page (home/about) — leave untouched, no invented date
 
+  const globalEpoch = await getGlobalEpoch();
+  const lastMod = Math.max(pageUpdatedAt, globalEpoch);
   const lastModSec = Math.floor(lastMod / 1000) * 1000; // HTTP dates are second-precision
   const httpDate = new Date(lastModSec).toUTCString();
 

@@ -214,6 +214,21 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
       WHERE id = ${id}
     `;
     await logChange({ action: "update", entityType: "doctor", entityId: id!, entityLabel: name_uk, before, after });
+
+    // Service/blog pages embed this doctor's name/role/photo (reviewer byline +
+    // reviewedBy JSON-LD, author byline, related-doctor cards) but only the
+    // `doctors` row's updated_at gets bumped above — those pages' own
+    // `updated_at` stays stale, so a cached copy would 304 with outdated
+    // content. Bump every row that references this doctor.
+    await sql`
+      UPDATE services SET updated_at = now()
+      WHERE reviewer_doctor_id = ${id}
+         OR id IN (SELECT service_id FROM service_doctors WHERE doctor_id = ${id})
+    `;
+    await sql`
+      UPDATE blog_posts SET updated_at = now()
+      WHERE author_id = ${id} OR reviewer_doctor_id = ${id}
+    `;
   }
 
   revalidatePath("/");
@@ -261,6 +276,23 @@ export async function saveDoctorFinalCtaData(doctorId: string, finalCta: DoctorF
 
 export async function deleteDoctor(id: string) {
   const rows = await sql`SELECT name_uk FROM doctors WHERE id = ${id}`;
+
+  // Bump referencing service/blog rows before the doctor row disappears —
+  // `reviewer_doctor_id` FKs SET NULL on delete (which itself bumps
+  // `services`/`blog_posts.updated_at` via the trigger), but the
+  // `service_doctors` junction CASCADE-deletes without touching
+  // `services.updated_at`, so a related-doctor card removal wouldn't
+  // otherwise invalidate that page's cached Last-Modified.
+  await sql`
+    UPDATE services SET updated_at = now()
+    WHERE reviewer_doctor_id = ${id}
+       OR id IN (SELECT service_id FROM service_doctors WHERE doctor_id = ${id})
+  `;
+  await sql`
+    UPDATE blog_posts SET updated_at = now()
+    WHERE author_id = ${id} OR reviewer_doctor_id = ${id}
+  `;
+
   await sql`DELETE FROM doctors WHERE id = ${id}`;
   await logChange({ action: "delete", entityType: "doctor", entityId: id, entityLabel: rows[0]?.name_uk ?? id });
   revalidatePath("/");
