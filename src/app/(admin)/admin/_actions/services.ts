@@ -57,6 +57,9 @@ export async function createDraftService(_prevState: any, formData: FormData) {
     INSERT INTO services (id, slug, category_id, title_uk)
     VALUES (${newId}, ${slug}, ${category_id}, ${title_uk})
   `;
+  // Bump the category hub's updated_at so its child-card list (title/price)
+  // doesn't 304 stale — the hub is keyed on service_categories.updated_at.
+  await sql`UPDATE service_categories SET updated_at = now() WHERE id = ${category_id}`;
   revalidatePath("/");
   redirect(`/admin/pages/services/${newId}`);
 }
@@ -140,6 +143,8 @@ export async function saveService(_prevState: any, formData: FormData) {
         ${seo_og_image}, ${seo_noindex}, ${reviewer_doctor_id}, ${last_reviewed_at})
     `;
     await logChange({ action: "create", entityType: "service", entityId: newId, entityLabel: fields.title_uk ?? slug, after: logAfter });
+    // Bump the category hub's updated_at so the new service's card shows up fresh.
+    await sql`UPDATE service_categories SET updated_at = now() WHERE id = ${category_id}`;
     revalidatePath("/");
     revalidatePath("/sitemap-images");
     redirect(`/admin/pages/services/${newId}`);
@@ -162,6 +167,13 @@ export async function saveService(_prevState: any, formData: FormData) {
       WHERE id = ${id}
     `;
     await logChange({ action: "update", entityType: "service", entityId: id!, entityLabel: fields.title_uk ?? slug, before: logBefore, after: logAfter });
+    // Bump the affected category hub(s)' updated_at. If the service moved
+    // between categories, bump both the old and the new hub.
+    const oldCategoryId = logBefore?.category_id as string | undefined;
+    await sql`UPDATE service_categories SET updated_at = now() WHERE id = ${category_id}`;
+    if (oldCategoryId && oldCategoryId !== category_id) {
+      await sql`UPDATE service_categories SET updated_at = now() WHERE id = ${oldCategoryId}`;
+    }
     revalidatePath("/");
     revalidatePath("/sitemap-images");
     return { success: true };
@@ -310,11 +322,17 @@ export async function deleteFinalCta(serviceId: string) {
 }
 
 export async function deleteService(id: string) {
-  const rows = await sql`SELECT title_uk FROM services WHERE id = ${id}`;
+  const rows = await sql`SELECT title_uk, category_id FROM services WHERE id = ${id}`;
+  const category_id = rows[0]?.category_id as string | undefined;
   await sql`DELETE FROM content_sections WHERE owner_type = 'service' AND owner_id = ${id}`;
   await sql`DELETE FROM faq_items WHERE owner_type = 'service' AND owner_id = ${id}`;
   await sql`DELETE FROM services WHERE id = ${id}`;
   await logChange({ action: "delete", entityType: "service", entityId: id, entityLabel: rows[0]?.title_uk ?? id });
+  // Bump the (now-former) category hub's updated_at so the deleted card
+  // disappears from the cached hub page promptly.
+  if (category_id) {
+    await sql`UPDATE service_categories SET updated_at = now() WHERE id = ${category_id}`;
+  }
   revalidatePath("/");
   redirect("/admin/pages");
 }
