@@ -4,6 +4,14 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig = {
+  // Build-time stamp folded into Last-Modified (see src/lib/last-modified.ts)
+  // so a code/layout/nav deploy invalidates every cached page's 304, even
+  // though a deploy bumps no row's `updated_at`. `Date.now()` here is
+  // evaluated at build time and is identical across all instances of a
+  // given deployment.
+  env: {
+    APP_BUILD_TIME: String(Date.now()),
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [65, 75],

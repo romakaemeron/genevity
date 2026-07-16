@@ -15,6 +15,7 @@
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Loader2 } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import SearchSelect from "@/components/ui/SearchSelect";
 import {
@@ -328,6 +329,24 @@ export default function BookingForm({
           submitLabel || t("submit")
         )}
       </Button>
+
+      {/* Privacy consent — YMYL/medical-site requirement (E-E-A-T). The
+          message carries a <link> tag rendered as an in-app Link to the
+          privacy-policy legal doc; opens in a new tab so the form isn't lost. */}
+      <p className="text-[12px] text-stone leading-snug text-center">
+        {t.rich("privacyNote", {
+          link: (chunks) => (
+            <Link
+              href="/legal/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-main transition-colors"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
     </form>
   );
 }

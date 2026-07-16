@@ -181,7 +181,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                     {relatedServices.map(svc => (
                       <Link
                         key={svc._id}
-                        href={`/services/${svc.categorySlug}/${svc.slug}`}
+                        href={svc.slug === svc.categorySlug ? `/services/${svc.categorySlug}` : `/services/${svc.categorySlug}/${svc.slug}`}
                         className="group flex flex-col h-full rounded-[var(--radius-card)] bg-champagne-dark hover:bg-champagne-darker transition-all duration-300 p-6"
                       >
                         <h3 className="body-strong text-black group-hover:text-main transition-colors text-lg">{svc.title}</h3>

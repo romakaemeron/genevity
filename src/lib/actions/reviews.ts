@@ -44,6 +44,7 @@ export async function submitPublicReview(data: {
          ${locale === "en" ? text : null},
          ${locale}, false)
     `;
+    await sql`UPDATE doctors SET updated_at = now() WHERE id = ${doctorId}`;
     revalidatePath("/admin/reviews");
     return { ok: true };
   } catch {

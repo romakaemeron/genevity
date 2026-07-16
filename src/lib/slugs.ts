@@ -4,6 +4,7 @@ import { localizedPath } from "./seo";
 /** Single source of truth for URL composition across the site. */
 
 export function serviceHref(locale: Locale, categorySlug: string, serviceSlug: string) {
+  if (serviceSlug === categorySlug) return categoryHref(locale, categorySlug);
   return localizedPath(`/services/${categorySlug}/${serviceSlug}`, locale);
 }
 

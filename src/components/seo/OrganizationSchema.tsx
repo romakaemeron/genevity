@@ -35,6 +35,7 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
       data={{
         "@context": "https://schema.org",
         "@type": "MedicalOrganization",
+        "@id": "https://genevity.com.ua/#organization",
         name: NAMES[locale] ?? NAMES.ua,
         url: URLS[locale] ?? URLS.ua,
         logo: {
@@ -74,12 +75,13 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
           },
         ],
         hasMap: s.mapsUrl || "https://maps.app.goo.gl/3VATqzUMmo6u51Yj7",
+        // Valid schema.org MedicalSpecialty enum values (https://schema.org/MedicalSpecialty)
         medicalSpecialty: [
-          "Dermatology",
+          "Dermatologic",
           "PlasticSurgery",
-          "CosmeticDermatology",
-          "Endocrinology",
-          "Gynecology",
+          "Endocrine",
+          "Gynecologic",
+          "Gastroenterologic",
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",

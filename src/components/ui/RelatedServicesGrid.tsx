@@ -29,7 +29,7 @@ export default async function RelatedServicesGrid({ title, services, categorySlu
         {services.map((svc) => (
           <Link
             key={svc._id}
-            href={`/services/${categorySlug}/${svc.slug}`}
+            href={svc.slug === categorySlug ? `/services/${categorySlug}` : `/services/${categorySlug}/${svc.slug}`}
             className="group flex flex-col rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-shadow"
           >
             {svc.heroImage && (

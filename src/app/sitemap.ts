@@ -51,8 +51,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(localeUrls(`/services/${cat.slug}`));
   }
 
-  // Service detail pages
+  // Service detail pages. Skip self-referential hub services (slug === category):
+  // /services/<cat>/<cat> 308-redirects to /services/<cat>, already listed above.
   for (const svc of services) {
+    if (svc.slug === svc.categorySlug) continue;
     entries.push(localeUrls(`/services/${svc.categorySlug}/${svc.slug}`));
   }
 

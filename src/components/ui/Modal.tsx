@@ -54,7 +54,7 @@ export default function Modal({ open, onClose, children, maxWidth = "sm:max-w-lg
       <div className="fixed inset-0 z-[1001] overflow-y-auto" onClick={onClose}>
         <div className="flex min-h-full items-center justify-center p-4 sm:p-8">
           <div
-            className={`modal-panel relative w-full ${maxWidth} bg-champagne rounded-[var(--radius-card)] shadow-xl`}
+            className={`modal-panel relative w-full ${maxWidth} bg-champagne rounded-[var(--radius-card)] shadow-xl overflow-hidden`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sticky top-0 z-10 h-0 pointer-events-none">

@@ -70,6 +70,7 @@ export async function GET() {
         FROM services s
         JOIN service_categories sc ON sc.id = s.category_id
         WHERE s.hero_image IS NOT NULL AND s.hero_image != ''
+          AND s.slug <> sc.slug
       `,
       sql`SELECT image_url, alt_uk FROM hero_slides WHERE image_url IS NOT NULL AND image_url != '' ORDER BY sort_order`,
       sql`SELECT image_url, alt_uk, owner_key FROM gallery_items WHERE image_url IS NOT NULL AND image_url != '' ORDER BY sort_order`,
