@@ -3,6 +3,7 @@ import RichTextSection from "./RichTextSection";
 import BulletsSection from "./BulletsSection";
 import StepsSection from "./StepsSection";
 import CompareTableSection from "./CompareTableSection";
+import PriceTableSection from "./PriceTableSection";
 import IndicationsContraindicationsSection from "./IndicationsContraindicationsSection";
 import PriceTeaserSection from "./PriceTeaserSection";
 import CalloutSection from "./CalloutSection";
@@ -26,6 +27,8 @@ function renderSection(section: ContentSection, index: number) {
       return <StepsSection {...section} />;
     case "section.compareTable":
       return <CompareTableSection {...section} />;
+    case "section.priceTable":
+      return <PriceTableSection {...section} />;
     case "section.indicationsContraindications":
       return <IndicationsContraindicationsSection {...section} />;
     case "section.priceTeaser":

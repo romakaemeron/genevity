@@ -200,6 +200,14 @@ export interface SectionCompareTable {
   rows: { label: string; values: string[] }[];
 }
 
+export interface SectionPriceTable {
+  _type: "section.priceTable";
+  _key: string;
+  heading: string;
+  rows: { label: string; price: string }[];
+  note?: string;
+}
+
 export interface SectionIndicationsContraindications {
   _type: "section.indicationsContraindications";
   _key: string;
@@ -268,6 +276,7 @@ export type ContentSection =
   | SectionBullets
   | SectionSteps
   | SectionCompareTable
+  | SectionPriceTable
   | SectionIndicationsContraindications
   | SectionPriceTeaser
   | SectionCallout

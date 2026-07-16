@@ -16,6 +16,7 @@ export const SECTION_LABELS: Record<string, string> = {
   bullets: "Bullet List",
   steps: "Steps",
   compareTable: "Compare Table",
+  priceTable: "Price Table",
   indicationsContraindications: "Indications / Contraindications",
   priceTeaser: "Price Teaser",
   callout: "Callout",
@@ -38,6 +39,8 @@ export function createDefaultData(type: string): any {
       return { heading: emptyLocaleString(), steps: [] };
     case "compareTable":
       return { heading: emptyLocaleString(), columns: emptyLocaleArray(), rows: [] };
+    case "priceTable":
+      return { heading: emptyLocaleString(), rows: [], note: emptyLocaleString() };
     case "indicationsContraindications":
       return {
         title: emptyLocaleString(),
@@ -79,6 +82,7 @@ export function SectionEditor({ type, data, onChange, doctors }: { type: string 
     case "bullets": return <BulletsEditor data={data} onChange={onChange} />;
     case "steps": return <StepsEditor data={data} onChange={onChange} />;
     case "compareTable": return <CompareTableEditor data={data} onChange={onChange} />;
+    case "priceTable": return <PriceTableEditor data={data} onChange={onChange} />;
     case "indicationsContraindications": return <IndicationsEditor data={data} onChange={onChange} />;
     case "priceTeaser": return <PriceTeaserEditor data={data} onChange={onChange} />;
     case "callout": return <CalloutEditor data={data} onChange={onChange} />;
@@ -270,6 +274,41 @@ function CompareTableEditor({ data, onChange }: EditorProps<{ heading: LocaleStr
           <Plus size={12} /> Add row
         </button>
       </div>
+    </div>
+  );
+}
+
+function PriceTableEditor({ data, onChange }: EditorProps<{ heading: LocaleString; rows: { label: LocaleString; price: LocaleString }[]; note?: LocaleString }>) {
+  const rows = data.rows || [];
+  const addRow = () => onChange({ ...data, rows: [...rows, { label: emptyLocaleString(), price: emptyLocaleString() }] });
+  const removeRow = (i: number) => onChange({ ...data, rows: rows.filter((_, idx) => idx !== i) });
+  const updateRow = (i: number, v: Partial<{ label: LocaleString; price: LocaleString }>) => {
+    const next = [...rows];
+    next[i] = { ...next[i], ...v };
+    onChange({ ...data, rows: next });
+  };
+
+  return (
+    <div className="flex flex-col gap-4">
+      <LocaleText label="Heading" value={data.heading} onChange={(v) => onChange({ ...data, heading: v })} />
+      <div className="flex flex-col gap-3">
+        {rows.map((row, i) => (
+          <div key={i} className="p-3 rounded-lg bg-champagne/50 border border-line flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-medium text-muted uppercase tracking-wider">Row {i + 1}</span>
+              <button type="button" onClick={() => removeRow(i)} className="text-muted hover:text-error transition-colors cursor-pointer">
+                <Trash2 size={14} />
+              </button>
+            </div>
+            <LocaleText label="Procedure / zone" value={row.label} onChange={(v) => updateRow(i, { label: v })} />
+            <LocaleText label="Price" value={row.price} onChange={(v) => updateRow(i, { price: v })} placeholder="2 000 грн" />
+          </div>
+        ))}
+        <button type="button" onClick={addRow} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-main hover:bg-main/10 transition-colors cursor-pointer self-start">
+          <Plus size={12} /> Add row
+        </button>
+      </div>
+      <LocaleText label="Note (optional)" multiline rows={2} value={data.note || emptyLocaleString()} onChange={(v) => onChange({ ...data, note: v })} placeholder="Ціни вказані за одну процедуру…" />
     </div>
   );
 }

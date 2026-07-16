@@ -23,23 +23,23 @@ const FIXED = new Set(["equipment", "doctors", "relatedServices", "faq", "finalC
 const S = (uk: string, ru: string, en: string) => ({ _type: "localeString", uk, ru, en });
 
 type P = { uk: string; ru: string; en: string; p: string };
-const NOTE = {
-  uk: "Ціни вказані за одну процедуру. Точну вартість лікар підтверджує на консультації.",
-  ru: "Цены указаны за одну процедуру. Точную стоимость врач подтверждает на консультации.",
-  en: "Prices are per single procedure. The exact cost is confirmed by the doctor at your consultation.",
-};
+const NOTE = S(
+  "Ціни вказані за одну процедуру. Точну вартість лікар підтверджує на консультації.",
+  "Цены указаны за одну процедуру. Точную стоимость врач подтверждает на консультации.",
+  "Prices are per single procedure. The exact cost is confirmed by the doctor at your consultation.",
+);
 const CONSULT: P = { uk: "Консультація дерматолога-косметолога", ru: "Консультация дерматолога-косметолога", en: "Dermatologist-cosmetologist consultation", p: "950" };
 
-function items(rows: P[]) {
-  return {
-    _type: "localeStringArray",
-    uk: [...rows.map((r) => `${r.uk} — ${r.p} грн`), NOTE.uk],
-    ru: [...rows.map((r) => `${r.ru} — ${r.p} грн`), NOTE.ru],
-    en: [...rows.map((r) => `${r.en} — ${r.p} UAH`), NOTE.en],
-  };
+/** A price value localises only its currency suffix (грн / UAH). */
+const price = (p: string) => S(`${p} грн`, `${p} грн`, `${p} UAH`);
+
+/** Build priceTable rows from the per-zone table (+ trailing consultation). */
+function rows(list: P[]) {
+  return list.map((r) => ({ label: S(r.uk, r.ru, r.en), price: price(r.p) }));
 }
 
 const HEAD = (svc: string) => ({
+  _type: "localeString",
   uk: `Вартість ${svc} у Дніпрі`, ru: `Стоимость ${svc} в Днепре`, en: `${svc} pricing in Dnipro`,
 });
 
@@ -98,26 +98,27 @@ const VOLNEWMER: P[] = [
   { uk: "Підборідна область", ru: "Подбородочная область", en: "Chin area", p: "10 000" },
   { uk: "Брови", ru: "Брови", en: "Brows", p: "9 500" },
 ];
-// Hub pages (face / skin) — consultation + a range note, no single device table.
-const HUB_ITEMS = (rangeUk: string, rangeRu: string, rangeEn: string) => ({
-  _type: "localeStringArray",
-  uk: [`${CONSULT.uk} — ${CONSULT.p} грн`, `Апаратні процедури — ${rangeUk} залежно від процедури та зони`, NOTE.uk],
-  ru: [`${CONSULT.ru} — ${CONSULT.p} грн`, `Аппаратные процедуры — ${rangeRu} в зависимости от процедуры и зоны`, NOTE.ru],
-  en: [`${CONSULT.en} — ${CONSULT.p} UAH`, `Device procedures — ${rangeEn} depending on the procedure and area`, NOTE.en],
-});
+// Hub pages (face / skin) — consultation + a range row, no single device table.
+const HUB_ROWS = (rangeUk: string, rangeRu: string, rangeEn: string) => [
+  { label: S(CONSULT.uk, CONSULT.ru, CONSULT.en), price: price(CONSULT.p) },
+  {
+    label: S("Апаратні процедури", "Аппаратные процедуры", "Device procedures"),
+    price: S(rangeUk, rangeRu, rangeEn),
+  },
+];
 
-function priceItemsWithConsult(rows: P[]) {
-  return items([...rows, CONSULT]);
+function rowsWithConsult(list: P[]) {
+  return rows([...list, CONSULT]);
 }
 
 const PRICE_SECTIONS: Record<string, Record<string, unknown>> = {
-  "ultraformer-mpt": { heading: HEAD("Ultraformer MPT"), items: priceItemsWithConsult(ULTRAFORMER) },
-  "hydrafacial": { heading: HEAD("HydraFacial"), items: priceItemsWithConsult(HYDRAFACIAL) },
-  "emface": { heading: HEAD("EMFACE"), items: priceItemsWithConsult(EMFACE) },
-  "acupulse-co2": { heading: HEAD("лазерного шліфування AcuPulse CO₂"), items: priceItemsWithConsult(ACUPULSE) },
-  "volnewmer": { heading: HEAD("VOLNEWMER"), items: priceItemsWithConsult(VOLNEWMER) },
-  "face": { heading: S("Вартість апаратних процедур для обличчя", "Стоимость аппаратных процедур для лица", "Facial device procedure pricing"), items: HUB_ITEMS("від 5 000 до 45 000 грн", "от 5 000 до 45 000 грн", "from 5,000 to 45,000 UAH") },
-  "skin": { heading: S("Вартість апаратної корекції шкіри", "Стоимость аппаратной коррекции кожи", "Device skin-correction pricing"), items: HUB_ITEMS("від 1 500 грн", "от 1 500 грн", "from 1,500 UAH") },
+  "ultraformer-mpt": { heading: HEAD("Ultraformer MPT"), rows: rowsWithConsult(ULTRAFORMER) },
+  "hydrafacial": { heading: HEAD("HydraFacial"), rows: rowsWithConsult(HYDRAFACIAL) },
+  "emface": { heading: HEAD("EMFACE"), rows: rowsWithConsult(EMFACE) },
+  "acupulse-co2": { heading: HEAD("лазерного шліфування AcuPulse CO₂"), rows: rowsWithConsult(ACUPULSE) },
+  "volnewmer": { heading: HEAD("VOLNEWMER"), rows: rowsWithConsult(VOLNEWMER) },
+  "face": { heading: S("Вартість апаратних процедур для обличчя", "Стоимость аппаратных процедур для лица", "Facial device procedure pricing"), rows: HUB_ROWS("від 5 000 до 45 000 грн залежно від зони", "от 5 000 до 45 000 грн в зависимости от зоны", "from 5,000 to 45,000 UAH by area") },
+  "skin": { heading: S("Вартість апаратної корекції шкіри", "Стоимость аппаратной коррекции кожи", "Device skin-correction pricing"), rows: HUB_ROWS("від 1 500 грн", "от 1 500 грн", "from 1,500 UAH") },
 };
 
 async function main() {
@@ -131,10 +132,10 @@ async function main() {
     const svc = await sql`SELECT id, block_order FROM services WHERE slug=${slug}`;
     if (!svc.length) { console.warn(`✗ no service ${slug}`); continue; }
     const ownerId = svc[0].id as string;
-    const data = { _seed: SEED, body: null, ...secData };
+    const data = { _seed: SEED, note: NOTE, ...secData };
     const ins = await sql`
       INSERT INTO content_sections (owner_type, owner_id, sort_order, section_type, data)
-      VALUES ('service', ${ownerId}, 20, 'bullets'::section_type, ${sql.json(data)})
+      VALUES ('service', ${ownerId}, 20, 'priceTable'::section_type, ${sql.json(data)})
       RETURNING id`;
     const key = `section:${ins[0].id}`;
 

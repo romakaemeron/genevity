@@ -20,33 +20,23 @@ const SEED = "dooptim-price-exion";
 const SLUG = "exion-face";
 const FIXED = new Set(["equipment", "doctors", "relatedServices", "faq", "finalCTA"]);
 
-const HEADING = {
-  _type: "localeString",
-  uk: "Вартість EXION Face у Дніпрі",
-  ru: "Стоимость EXION Face в Днепре",
-  en: "EXION Face pricing in Dnipro",
-};
+const S = (uk: string, ru: string, en: string) => ({ _type: "localeString", uk, ru, en });
+const price = (p: string) => S(`${p} грн`, `${p} грн`, `${p} UAH`);
+
+const HEADING = S("Вартість EXION Face у Дніпрі", "Стоимость EXION Face в Днепре", "EXION Face pricing in Dnipro");
 
 // Catalog "RF-ЛІФТИНГ + УЛЬТРАЗВУК" (monopolar RF + ultrasound = EXION Face tech).
-type P = { uk: string; ru: string; en: string; p: string };
-const ROWS: P[] = [
-  { uk: "1 зона (RF + ультразвук)", ru: "1 зона (RF + ультразвук)", en: "1 area (RF + ultrasound)", p: "2 000" },
-  { uk: "2 зони", ru: "2 зоны", en: "2 areas", p: "3 500" },
-  { uk: "3 зони", ru: "3 зоны", en: "3 areas", p: "5 000" },
-  { uk: "Консультація дерматолога-косметолога", ru: "Консультация дерматолога-косметолога", en: "Dermatologist-cosmetologist consultation", p: "950" },
+const ROWS = [
+  { label: S("1 зона (RF + ультразвук)", "1 зона (RF + ультразвук)", "1 area (RF + ultrasound)"), price: price("2 000") },
+  { label: S("2 зони", "2 зоны", "2 areas"), price: price("3 500") },
+  { label: S("3 зони", "3 зоны", "3 areas"), price: price("5 000") },
+  { label: S("Консультація дерматолога-косметолога", "Консультация дерматолога-косметолога", "Dermatologist-cosmetologist consultation"), price: price("950") },
 ];
-const NOTE = {
-  uk: "Ціни вказані за одну процедуру. Точну вартість лікар підтверджує на консультації.",
-  ru: "Цены указаны за одну процедуру. Точную стоимость врач подтверждает на консультации.",
-  en: "Prices are per single procedure. The exact cost is confirmed by the doctor at your consultation.",
-};
-
-const items = {
-  _type: "localeStringArray",
-  uk: [...ROWS.map((r) => `${r.uk} — ${r.p} грн`), NOTE.uk],
-  ru: [...ROWS.map((r) => `${r.ru} — ${r.p} грн`), NOTE.ru],
-  en: [...ROWS.map((r) => `${r.en} — ${r.p} UAH`), NOTE.en],
-};
+const NOTE = S(
+  "Ціни вказані за одну процедуру. Точну вартість лікар підтверджує на консультації.",
+  "Цены указаны за одну процедуру. Точную стоимость врач подтверждает на консультации.",
+  "Prices are per single procedure. The exact cost is confirmed by the doctor at your consultation.",
+);
 
 async function main() {
   await sql`
@@ -58,10 +48,10 @@ async function main() {
   const svc = await sql`SELECT id, block_order FROM services WHERE slug=${SLUG}`;
   if (!svc.length) { console.error(`✗ no service ${SLUG}`); process.exit(1); }
   const ownerId = svc[0].id as string;
-  const data = { _seed: SEED, body: null, heading: HEADING, items };
+  const data = { _seed: SEED, heading: HEADING, rows: ROWS, note: NOTE };
   const ins = await sql`
     INSERT INTO content_sections (owner_type, owner_id, sort_order, section_type, data)
-    VALUES ('service', ${ownerId}, 20, 'bullets'::section_type, ${sql.json(data)})
+    VALUES ('service', ${ownerId}, 20, 'priceTable'::section_type, ${sql.json(data)})
     RETURNING id`;
   const key = `section:${ins[0].id}`;
 
