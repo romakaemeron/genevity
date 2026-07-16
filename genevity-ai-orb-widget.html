@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Genevity — AI Orb Widget (final)</title>
+<style>
+  /* ===================================================================
+     GENEVITY AI ORB — FINAL WIDGET
+     Motion: Serene  ·  Palette: Soft Taupe  ·  Glass: tuned config
+     Self-contained, ~zero dependencies. Drop the .ai-orb-widget block,
+     the <template>, and the <script> into any page.
+  =================================================================== */
+  :root {
+    --color-champagne: #FAF9F6;
+    --color-ink:       #2A2520;
+    --color-muted:     #6B6359;
+    --color-line:      #E6E0D6;
+    --color-success:   #5A8A6A;
+    --shadow-md: 0 8px 24px -10px rgba(42, 37, 32, 0.18);
+    --shadow-lg: 0 18px 40px -14px rgba(42, 37, 32, 0.26);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  /* demo backdrop only — not part of the widget */
+  body {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #F5F0E8 0%, transparent 60%),
+      var(--color-champagne);
+    color: var(--color-ink);
+    font: 15px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .demo { max-width: 760px; margin: 0 auto; padding: 80px 28px; }
+  .demo h1 { font-family: "Newsreader", Georgia, serif; font-weight: 400; font-size: 36px; margin: 0 0 8px; }
+  .demo p { color: var(--color-muted); max-width: 56ch; }
+
+  /* ---- The widget ---- */
+  .ai-orb-widget {
+    position: fixed; right: 24px; bottom: 24px; z-index: 60;
+    display: flex; align-items: center; gap: 0;
+    border: 0; padding: 0; background: transparent; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 180ms cubic-bezier(.2,.7,.2,1); font: inherit;
+  }
+  .ai-orb-widget:active { transform: scale(0.97); }
+
+  .ai-orb-widget .label {
+    background: var(--color-champagne); color: var(--color-ink);
+    border: 1px solid var(--color-line); border-right: none;
+    border-radius: 999px 0 0 999px; box-shadow: var(--shadow-md);
+    height: 60px; display: flex; align-items: center; gap: 12px; padding: 0 22px;
+    max-width: 320px; opacity: 1; transform: translateX(8px);
+    overflow: hidden; white-space: nowrap;
+    transition: max-width 420ms cubic-bezier(.6,0,.2,1), opacity 240ms ease,
+                transform 420ms cubic-bezier(.6,0,.2,1), padding 420ms cubic-bezier(.6,0,.2,1);
+  }
+  .ai-orb-widget.is-collapsed .label {
+    max-width: 0; opacity: 0; padding-left: 0; padding-right: 0; transform: translateX(24px); pointer-events: none;
+  }
+  .ai-orb-widget:hover .label, .ai-orb-widget:focus-visible .label {
+    max-width: 320px; opacity: 1; padding-left: 22px; padding-right: 22px; transform: translateX(8px); pointer-events: auto;
+  }
+  .ai-orb-widget .label .title { font-weight: 600; font-size: 14px; letter-spacing: -0.005em; }
+  .ai-orb-widget .label .sub { color: var(--color-muted); font-size: 12.5px; }
+  .ai-orb-widget .label .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--color-success);
+    box-shadow: 0 0 0 4px rgba(90,138,106,0.18);
+  }
+
+  .ai-orb-widget .orb {
+    position: relative; width: 84px; height: 84px; border-radius: 50%;
+    box-shadow: var(--shadow-lg); isolation: isolate; flex: 0 0 auto;
+  }
+  .ai-orb-widget .orb canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border-radius: 50%; }
+
+  /* ---- The tuned glass disc + logo (final, locked values) ---- */
+  .ai-orb-widget .icon {
+    position: absolute; top: 50%; left: 50%;
+    width: 65%; aspect-ratio: 1; transform: translate(-50%, -50%);
+    border-radius: 50%; display: grid; place-items: center; z-index: 1;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px) saturate(100%);
+    -webkit-backdrop-filter: blur(2px) saturate(100%);
+    border: 1px solid rgba(245, 240, 232, 0.60);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 6px 18px -6px rgba(42,37,32,0.22);
+    color: #553D00;
+  }
+  .ai-orb-widget .icon svg   { width: 75%; height: 75%; }
+  .ai-orb-widget .icon svg g { opacity: 1.00; }
+
+  @media (prefers-reduced-motion: reduce) { .ai-orb-widget, .ai-orb-widget .label { transition: none; } }
+  @media (max-width: 480px) { .ai-orb-widget { right: 16px; bottom: 16px; } .ai-orb-widget .orb { width: 72px; height: 72px; } }
+</style>
+</head>
+<body>
+
+<main class="demo">
+  <h1>Genevity AI Orb</h1>
+  <p>Фінальний віджет: рух Serene, палітра Soft Taupe, налаштоване скло. Наведіть на віджет у правому
+  нижньому куті, щоб розгорнути підпис. Цей текст — лише демонстраційне тло.</p>
+</main>
+
+<!-- ===== WIDGET MARKUP (copy this) ===== -->
+<template id="genevityLogo">
+  <svg viewBox="0 0 510 1231" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="Genevity">
+    <g opacity="1">
+      <path d="M478.616 773.3C443.806 698.75 379.676 648.63 311.556 602.52L286.626 618.68L286.656 618.71C355.146 662.91 419.856 710.32 457.276 783.62C490.786 853.97 500.326 940.87 468.886 1013.51C429.956 1094.97 366.916 1163.85 294.706 1217.78L303.586 1230.11C375.156 1178.9 437.316 1112.8 480.136 1035.22C522.976 955.25 515.806 854.1 478.616 773.31V773.3Z"/>
+      <path d="M316.446 567.41C329.576 558.37 342.436 549.15 354.846 539.56C415.656 494.33 471.096 431.87 492.616 358.02C499.976 332.69 501.576 310.24 501.096 302.66C500.436 292.69 493.066 283.9 484.006 280.92C478.056 278.63 469.976 279.75 463.996 279.48H236.766L241.926 295.75H463.996C466.996 295.91 476.726 295.3 478.716 296.25C482.726 297.58 484.966 301.33 484.486 305.21C483.766 328.12 480.656 333.51 473.406 355.01C465.036 379.94 452.626 403.51 436.996 424.85C391.786 486.53 325.296 527.12 257.866 566.85H257.836C185.206 518.67 108.956 465.04 73.7356 382.01C36.3956 294.07 53.3556 198.98 113.656 125.68C140.016 93.63 171.756 66.95 205.716 42.92L175.076 0C132.366 31.01 93.3256 65.59 64.8656 113.53C22.6056 184.78 5.89561 271.71 28.0856 352.4C59.1556 465.48 142.766 526.66 230.516 582.92C181.876 611.73 134.206 641.49 95.2156 679.87C23.8556 747.29 -11.4044 839.97 3.28562 936.78H56.7856C43.6056 876.08 54.0256 809.88 87.6156 757.15C118.656 708.25 162.796 671.33 210.456 637.98C227.466 626.05 244.926 614.59 262.386 603.19H262.416C270.896 597.66 279.376 592.14 287.796 586.61C297.416 580.26 307.006 573.88 316.446 567.4V567.41Z"/>
+    </g>
+  </svg>
+</template>
+
+<button class="ai-orb-widget" id="aiOrbWidget" type="button" aria-label="Відкрити AI асистента">
+  <span class="label">
+    <span class="dot" aria-hidden="true"></span>
+    <span><span class="title">AI Асистент</span><br /><span class="sub">Запитати про послуги</span></span>
+  </span>
+  <span class="orb"><canvas id="widgetOrb"></canvas><span class="icon" data-icon></span></span>
+</button>
+
+<!-- ===== WIDGET SCRIPT (copy this) ===== -->
+<script>
+(() => {
+  // Inject the logo
+  const tpl = document.getElementById('genevityLogo');
+  document.querySelectorAll('[data-icon]').forEach(s => s.appendChild(tpl.content.cloneNode(true)));
+
+  // Serene motion (locked) + Soft Taupe palette (locked)
+  const M = { speed:0.060, scale:1.00, warp:0.70, breathe:0.04, grain:0.05 };
+  const VERT = `attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos,0.0,1.0); }`;
+  const FRAG = `
+    precision mediump float;
+    uniform vec2 u_res; uniform float u_time;
+    uniform float u_speed,u_scale,u_warp,u_breathe,u_grain;
+    float hash11(float p){ p=fract(p*0.1031); p*=p+33.33; p*=p+p; return fract(p); }
+    vec2 hash22(vec2 p){ p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))); return -1.0+2.0*fract(sin(p)*43758.5453); }
+    float snoise(vec2 p){
+      const float K1=0.366025404,K2=0.211324865;
+      vec2 i=floor(p+(p.x+p.y)*K1); vec2 a=p-i+(i.x+i.y)*K2;
+      vec2 o=(a.x>a.y)?vec2(1.0,0.0):vec2(0.0,1.0);
+      vec2 b=a-o+K2; vec2 c=a-1.0+2.0*K2;
+      vec3 h=max(0.5-vec3(dot(a,a),dot(b,b),dot(c,c)),0.0);
+      vec3 n=h*h*h*h*vec3(dot(a,hash22(i)),dot(b,hash22(i+o)),dot(c,hash22(i+1.0)));
+      return dot(n,vec3(70.0));
+    }
+    float fbm(vec2 p){ float v=0.0,a=0.5; for(int i=0;i<4;i++){ v+=a*snoise(p); p*=2.02; a*=0.5; } return v; }
+    vec3 paletteSoft(float t){
+      vec3 c1=vec3(0.980,0.976,0.965),c2=vec3(0.769,0.722,0.675),c3=vec3(0.545,0.482,0.420),c4=vec3(0.353,0.302,0.259);
+      vec3 col=mix(c1,c2,smoothstep(-0.30,0.10,t));
+      col=mix(col,c3,smoothstep(0.00,0.35,t));
+      col=mix(col,c4,smoothstep(0.25,0.65,t));
+      return col;
+    }
+    void main(){
+      vec2 uv=(gl_FragCoord.xy-0.5*u_res)/min(u_res.x,u_res.y);
+      float t=u_time*u_speed;
+      float breathe=1.0+u_breathe*sin(u_time*0.6);
+      vec2 q=uv*u_scale*breathe;
+      vec2 w=vec2(fbm(q+vec2(t,0.0)),fbm(q+vec2(0.0,t)));
+      float n=fbm(q+u_warp*w+t*0.4);
+      vec3 col=paletteSoft(n);
+      float r=length(uv);
+      col*=1.0-0.35*smoothstep(0.30,0.50,r);
+      float g=hash11(dot(gl_FragCoord.xy,vec2(12.9898,78.233))+fract(u_time));
+      col+=(g-0.5)*u_grain;
+      float orb=smoothstep(0.500,0.485,r);
+      gl_FragColor=vec4(col*orb,orb);
+    }`;
+  function makeOrb(canvas){
+    const gl=canvas.getContext('webgl',{premultipliedAlpha:true,antialias:true,alpha:true}); if(!gl) return;
+    const c=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh;};
+    const prog=gl.createProgram(); gl.attachShader(prog,c(gl.VERTEX_SHADER,VERT)); gl.attachShader(prog,c(gl.FRAGMENT_SHADER,FRAG));
+    gl.linkProgram(prog); gl.useProgram(prog);
+    const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    const a=gl.getAttribLocation(prog,'a_pos'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+    const U={res:gl.getUniformLocation(prog,'u_res'),time:gl.getUniformLocation(prog,'u_time'),
+      speed:gl.getUniformLocation(prog,'u_speed'),scale:gl.getUniformLocation(prog,'u_scale'),
+      warp:gl.getUniformLocation(prog,'u_warp'),breathe:gl.getUniformLocation(prog,'u_breathe'),grain:gl.getUniformLocation(prog,'u_grain')};
+    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
+    function resize(){const d=Math.min(window.devicePixelRatio||1,2);const w=Math.round(canvas.clientWidth*d),h=Math.round(canvas.clientHeight*d);
+      if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
+    new ResizeObserver(resize).observe(canvas); resize();
+    let raf=0,last=performance.now(),el=0,run=true;
+    function frame(now){const dt=Math.min(now-last,100);last=now;el+=dt;resize();gl.useProgram(prog);
+      gl.uniform2f(U.res,canvas.width,canvas.height);gl.uniform1f(U.time,el*0.001);
+      gl.uniform1f(U.speed,M.speed);gl.uniform1f(U.scale,M.scale);gl.uniform1f(U.warp,M.warp);
+      gl.uniform1f(U.breathe,M.breathe);gl.uniform1f(U.grain,M.grain);
+      gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+      if(run)raf=requestAnimationFrame(frame);}
+    const start=()=>{if(!raf){last=performance.now();raf=requestAnimationFrame(frame);}};
+    const stop=()=>{if(raf){cancelAnimationFrame(raf);raf=0;}};
+    new IntersectionObserver(([e])=>{e.isIntersecting&&run?start():stop();},{threshold:0.01}).observe(canvas);
+    document.addEventListener('visibilitychange',()=>{document.hidden?stop():run&&start();});
+    start();
+  }
+  makeOrb(document.getElementById('widgetOrb'));
+
+  // Widget behavior: auto-collapse label, re-open on click
+  const w=document.getElementById('aiOrbWidget');
+  setTimeout(()=>w.classList.add('is-collapsed'),4400);
+  w.addEventListener('click',()=>{ w.classList.remove('is-collapsed'); /* TODO: open your chat here */ console.log('[Genevity AI Orb] open chat'); });
+})();
+</script>
+</body>
+</html>

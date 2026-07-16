@@ -17,6 +17,18 @@ import { sql } from "@/lib/db/client";
  *   services/injectable-cosmetology/botulinum-therapy
  *   services/injectable-cosmetology          (category hub)
  *   blog/<slug> · legal/<slug>
+ *
+ * Accuracy: the emitted Last-Modified is max(this page's updated_at, globalEpoch).
+ * Every write path that changes a mapped page's content bumps the relevant
+ * parent updated_at (see the review/sections/relations/services/doctors admin
+ * actions), and globalEpoch folds in build time + site_settings/ui_strings — so
+ * a 304 is only returned for genuinely-unchanged content.
+ *
+ * Known low-stakes residuals (accepted): a page that embeds a *copy* of another
+ * entity edited in isolation can briefly lag — e.g. a related-service card's
+ * price/title on a sibling service, an equipment card, or a category-gallery
+ * image. These are rare, low-visibility, and self-heal on the referencing row's
+ * next edit or on any deploy (build time advances globalEpoch → all pages fresh).
  */
 const TTL_MS = 300_000; // 5 minutes
 
