@@ -44,9 +44,15 @@ const HEAD = (svc: string) => ({
 });
 
 // ── Prices from the catalog (Розділ 01) ──────────────────────────────────
+// Full per-zone list (16 zones) confirmed against the client price file (2026-07),
+// ordered by descending price.
 const ULTRAFORMER: P[] = [
-  { uk: "Full face (щоки, очі, лоб)", ru: "Full face (щёки, глаза, лоб)", en: "Full face (cheeks, eyes, forehead)", p: "40 000" },
   { uk: "Обличчя, шия, декольте", ru: "Лицо, шея, декольте", en: "Face, neck, décolleté", p: "45 000" },
+  { uk: "Full face (щоки, очі, лоб)", ru: "Full face (щёки, глаза, лоб)", en: "Full face (cheeks, eyes, forehead)", p: "40 000" },
+  { uk: "Внутрішня поверхня стегна", ru: "Внутренняя поверхность бедра", en: "Inner thigh", p: "40 000" },
+  { uk: "Живіт", ru: "Живот", en: "Abdomen", p: "35 000" },
+  { uk: "Внутрішня поверхня плеча", ru: "Внутренняя поверхность плеча", en: "Inner upper arm", p: "25 000" },
+  { uk: "Коліна", ru: "Колени", en: "Knees", p: "22 000" },
   { uk: "Овал обличчя", ru: "Овал лица", en: "Face oval", p: "20 000" },
   { uk: "Щоки", ru: "Щёки", en: "Cheeks", p: "15 000" },
   { uk: "Декольте", ru: "Декольте", en: "Décolleté", p: "14 000" },
