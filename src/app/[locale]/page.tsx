@@ -1,4 +1,4 @@
-import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems } from "@/lib/db/queries";
+import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems, getMediaMentions } from "@/lib/db/queries";
 import { getClinicReviews, getReviewsSummary } from "@/lib/db/queries/reviews";
 import { generatePageMetadata } from "@/lib/seo";
 import { getTranslations , setRequestLocale} from "next-intl/server";
@@ -15,6 +15,7 @@ const Advantages   = dynamic(() => import("@/components/home/Advantages"));
 const Doctors      = dynamic(() => import("@/components/home/Doctors"));
 const ReviewsBlock = dynamic(() => import("@/components/reviews/ReviewsBlock"));
 const HomeFaq      = dynamic(() => import("@/components/home/HomeFaq"));
+const MediaCoverage = dynamic(() => import("@/components/home/MediaCoverage"));
 const Contacts     = dynamic(() => import("@/components/home/Contacts"));
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
@@ -43,7 +44,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems, reviews, reviewsSummary] = await Promise.all([
+  const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems, reviews, reviewsSummary, mediaMentions] = await Promise.all([
     getHomepageData(locale),
     getTranslations("labels"),
     getHeroSlides(locale),
@@ -51,6 +52,7 @@ export default async function HomePage({
     getGalleryItems("advantages_bento", locale),
     getClinicReviews(),
     getReviewsSummary(),
+    getMediaMentions(locale),
   ]);
 
   return (
@@ -91,6 +93,11 @@ export default async function HomePage({
         <div id="faq" className="cv-auto">
           <HomeFaq />
         </div>
+        {mediaMentions.length > 0 && (
+          <div id="media" className="cv-auto">
+            <MediaCoverage mentions={mediaMentions} locale={locale} />
+          </div>
+        )}
         <div id="contacts" className="cv-auto">
           <Contacts data={{ settings: data.settings, ui: data.ui.contacts }} />
         </div>
