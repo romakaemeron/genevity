@@ -8,6 +8,7 @@ import {
   LayoutDashboard, FileText, Stethoscope, Cpu,
   StickyNote, MessageSquare, Image as ImageIcon, Settings, LogOut,
   BookOpen, DollarSign, Users, ScrollText, Star, BarChart2, HelpCircle,
+  Newspaper,
 } from "lucide-react";
 import { logout } from "../_actions/auth";
 import Button from "@/components/ui/Button";
@@ -63,6 +64,7 @@ const navSections: NavSectionDef[] = [
       { key: "blog",      href: "/admin/blog",      icon: BookOpen,                          minRole: "marketing" },
       { key: "pricing",   href: "/admin/pricing",   icon: DollarSign,                        minRole: "marketing" },
       { key: "faq",       href: "/admin/faq",       icon: HelpCircle,                        minRole: "marketing" },
+      { key: "press",     href: "/admin/press",     icon: Newspaper,                         minRole: "marketing" },
     ],
   },
   {
