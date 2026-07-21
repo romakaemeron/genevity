@@ -22,3 +22,8 @@ export { getClinicReviews, getReviewsSummary } from "./reviews";
 export type { GoogleReview, ReviewsSummary } from "./reviews";
 export { getFaqPage } from "./faq";
 export type { FaqPageGroup } from "./faq";
+export {
+  getMediaMentions,
+  adminGetAllMentions, adminGetMentionById, adminSaveMention, adminDeleteMention,
+} from "./media";
+export type { MediaMentionPublic, MediaMentionAdmin, MediaMentionInput } from "./media";
