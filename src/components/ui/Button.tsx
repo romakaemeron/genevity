@@ -28,6 +28,8 @@ interface ButtonProps {
   disabled?: boolean;
   title?: string;
   ariaLabel?: string;
+  target?: string;
+  rel?: string;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -70,6 +72,8 @@ export default function Button({
   disabled = false,
   title,
   ariaLabel,
+  target,
+  rel,
 }: ButtonProps) {
   const sizeClass = icon
     ? size === "xs" ? "w-7 h-7 p-0"
@@ -95,7 +99,7 @@ export default function Button({
 
   if (href) {
     return (
-      <Link href={href} className={combinedClasses} title={title} aria-label={ariaLabel}>
+      <Link href={href} className={combinedClasses} title={title} aria-label={ariaLabel} target={target} rel={rel}>
         {children}
       </Link>
     );
