@@ -91,7 +91,7 @@ export default function MediaPage({
                         onError={(e) => { e.currentTarget.style.display = "none"; }} />
                       <span className="body-s font-medium text-main/70">{m.publisherName}</span>
                     </div>
-                    <h2 className="body-strong line-clamp-3 text-main">{m.title}</h2>
+                    <h2 className="body-strong line-clamp-3 text-black transition-colors group-hover:text-main">{m.title}</h2>
                     <div className="mt-auto flex items-center justify-between gap-3 pt-2">
                       {date && <time className="body-s text-main/50">{date}</time>}
                       <Button
