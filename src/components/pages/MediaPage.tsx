@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import Button from "@/components/ui/Button";
@@ -11,12 +11,21 @@ import type { MediaMentionPublic } from "@/lib/db/queries/media";
  * 404 their og:image). */
 function CardThumb({ src }: { src: string | null }) {
   const [errored, setErrored] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  // The <img> is server-rendered, so it can finish (and fail) loading before
+  // React hydrates and attaches onError — that event would be lost. After mount,
+  // check for an already-broken image (complete but zero natural size) so the
+  // logo fallback still shows.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) setErrored(true);
+  }, [src]);
   const showImg = src && !errored;
   return (
     <div className="aspect-[16/9] w-full overflow-hidden bg-champagne-darker">
       {showImg ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt="" loading="lazy" onError={() => setErrored(true)}
+        <img ref={imgRef} src={src} alt="" loading="lazy" onError={() => setErrored(true)}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-main px-6">
