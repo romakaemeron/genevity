@@ -77,5 +77,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
+  // Media/press mentions
+  entries.push(localeUrls("/media"));
+
   return entries;
 }
