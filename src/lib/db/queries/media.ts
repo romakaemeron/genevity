@@ -90,8 +90,8 @@ function toAdmin(r: Record<string, unknown>): MediaMentionAdmin {
 
 export async function adminGetAllMentions(): Promise<MediaMentionAdmin[]> {
   const rows = await sql`
-    SELECT *, published_at::text AS published_at FROM media_mentions
-    ORDER BY published_at DESC NULLS LAST, sort_order`;
+    SELECT *, media_mentions.published_at::text AS published_at FROM media_mentions
+    ORDER BY media_mentions.published_at DESC NULLS LAST, sort_order`;
   return rows.map(toAdmin);
 }
 
