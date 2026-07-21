@@ -6,10 +6,12 @@ import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import Button from "@/components/ui/Button";
 import type { MediaMentionPublic } from "@/lib/db/queries/media";
 
-/** Thumbnail that falls back to a soft gradient when the image is missing or
- * fails to load (some outlets hotlink-protect or 404 their og:image). */
-function CardThumb({ src }: { src: string | null }) {
+/** Thumbnail that falls back to the publisher logo on a brand-brown background
+ * when the image is missing or fails to load (some outlets hotlink-protect or
+ * 404 their og:image). */
+function CardThumb({ src, logo }: { src: string | null; logo: string }) {
   const [errored, setErrored] = useState(false);
+  const [logoErrored, setLogoErrored] = useState(false);
   const showImg = src && !errored;
   return (
     <div className="aspect-[16/9] w-full overflow-hidden bg-champagne-darker">
@@ -18,7 +20,13 @@ function CardThumb({ src }: { src: string | null }) {
         <img src={src} alt="" loading="lazy" onError={() => setErrored(true)}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
       ) : (
-        <div className="h-full w-full bg-gradient-to-br from-rosegold/40 to-champagne" />
+        <div className="flex h-full w-full items-center justify-center bg-main">
+          {!logoErrored && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logo} alt="" loading="lazy" onError={() => setLogoErrored(true)}
+              className="h-16 w-16 object-contain" />
+          )}
+        </div>
       )}
     </div>
   );
@@ -68,7 +76,7 @@ export default function MediaPage({
             return (
               <motion.li key={m.id} variants={fadeInUp}>
                 <div className="group relative flex h-full flex-col overflow-hidden rounded-[16px] bg-champagne-dark transition-colors hover:bg-champagne-darker">
-                  <CardThumb src={m.imageUrl} />
+                  <CardThumb src={m.imageUrl} logo={m.logo} />
                   <div className="flex flex-1 flex-col gap-3 p-card">
                     <div className="flex items-center gap-2">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -88,7 +96,7 @@ export default function MediaPage({
                         size="sm"
                         className="ml-auto after:absolute after:inset-0 after:content-['']"
                       >
-                        {t.read} →
+                        {t.read}
                       </Button>
                     </div>
                   </div>
