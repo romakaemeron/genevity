@@ -6,12 +6,11 @@ import { fadeInUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import Button from "@/components/ui/Button";
 import type { MediaMentionPublic } from "@/lib/db/queries/media";
 
-/** Thumbnail that falls back to the publisher logo on a brand-brown background
+/** Thumbnail that falls back to the GENEVITY logo on a brand-brown background
  * when the image is missing or fails to load (some outlets hotlink-protect or
  * 404 their og:image). */
-function CardThumb({ src, logo }: { src: string | null; logo: string }) {
+function CardThumb({ src }: { src: string | null }) {
   const [errored, setErrored] = useState(false);
-  const [logoErrored, setLogoErrored] = useState(false);
   const showImg = src && !errored;
   return (
     <div className="aspect-[16/9] w-full overflow-hidden bg-champagne-darker">
@@ -20,12 +19,10 @@ function CardThumb({ src, logo }: { src: string | null; logo: string }) {
         <img src={src} alt="" loading="lazy" onError={() => setErrored(true)}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
       ) : (
-        <div className="flex h-full w-full items-center justify-center bg-main">
-          {!logoErrored && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={logo} alt="" loading="lazy" onError={() => setLogoErrored(true)}
-              className="h-16 w-16 object-contain" />
-          )}
+        <div className="flex h-full w-full items-center justify-center bg-main px-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/LogoFullLight.svg" alt="GENEVITY" loading="lazy"
+            className="h-9 w-auto opacity-90" />
         </div>
       )}
     </div>
@@ -76,7 +73,7 @@ export default function MediaPage({
             return (
               <motion.li key={m.id} variants={fadeInUp}>
                 <div className="group relative flex h-full flex-col overflow-hidden rounded-[16px] bg-champagne-dark transition-colors hover:bg-champagne-darker">
-                  <CardThumb src={m.imageUrl} logo={m.logo} />
+                  <CardThumb src={m.imageUrl} />
                   <div className="flex flex-1 flex-col gap-3 p-card">
                     <div className="flex items-center gap-2">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
