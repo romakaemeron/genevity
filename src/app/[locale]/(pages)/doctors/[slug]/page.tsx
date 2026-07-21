@@ -80,14 +80,14 @@ export default async function DoctorPage({
     ...(specialty ? { medicalSpecialty: specialty } : {}),
     worksFor: { "@id": "https://genevity.com.ua/#organization" },
     ...(doctor.education.length > 0 ? {
-      alumniOf: doctor.education.map((e) => ({ "@type": "EducationalOrganization", name: e.institution_uk })),
+      alumniOf: doctor.education.map((e) => ({ "@type": "EducationalOrganization", name: e.institution })),
     } : {}),
     ...(doctor.certifications.length > 0 ? {
       hasCredential: doctor.certifications.map((c) => ({
         "@type": "EducationalOccupationalCredential",
-        name: c.title_uk,
+        name: c.title,
         credentialCategory: "certification",
-        ...(c.issuer_uk ? { recognizedBy: { "@type": "Organization", name: c.issuer_uk } } : {}),
+        ...(c.issuer ? { recognizedBy: { "@type": "Organization", name: c.issuer } } : {}),
         ...(c.year ? { dateCreated: String(c.year) } : {}),
       })),
     } : {}),
