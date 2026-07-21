@@ -66,7 +66,8 @@ export default function MediaPage({
                     <div className="flex items-center gap-2">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={m.logo} alt="" width={20} height={20}
-                        loading="lazy" className="h-5 w-5 rounded-sm" />
+                        loading="lazy" className="h-5 w-5 rounded-sm"
+                        onError={(e) => { e.currentTarget.style.display = "none"; }} />
                       <span className="body-s font-medium text-main/70">{m.publisherName}</span>
                     </div>
                     <h2 className="body-strong line-clamp-3 text-main">{m.title}</h2>

@@ -23,7 +23,7 @@ export type { GoogleReview, ReviewsSummary } from "./reviews";
 export { getFaqPage } from "./faq";
 export type { FaqPageGroup } from "./faq";
 export {
-  getMediaMentions, getMediaMentionCount,
+  getMediaMentions,
   adminGetAllMentions, adminGetMentionById, adminSaveMention, adminDeleteMention,
 } from "./media";
 export type { MediaMentionPublic, MediaMentionAdmin, MediaMentionInput } from "./media";

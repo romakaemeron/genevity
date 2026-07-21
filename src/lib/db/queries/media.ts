@@ -66,11 +66,6 @@ export async function getMediaMentions(locale: string): Promise<MediaMentionPubl
   }));
 }
 
-export async function getMediaMentionCount(): Promise<number> {
-  const rows = await sql`SELECT COUNT(*)::int AS n FROM media_mentions`;
-  return (rows[0]?.n as number) ?? 0;
-}
-
 function toAdmin(r: Record<string, unknown>): MediaMentionAdmin {
   return {
     id: r.id as string,
