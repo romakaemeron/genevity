@@ -65,10 +65,10 @@ export function parseBlogPostForm(
   const isDraft = formData.get("isDraft") === "true";
   const rawDate = str(formData.get("publishedAt"));
 
-  let publishedAt: string | null = rawDate ? new Date(rawDate).toISOString() : null;
   if (rawDate && Number.isNaN(new Date(rawDate).getTime())) {
     return { ok: false, error: "Некоректна дата публікації" };
   }
+  let publishedAt: string | null = rawDate ? new Date(rawDate).toISOString() : null;
   if (!isDraft && !publishedAt) publishedAt = new Date().toISOString();
 
   const candidate = {
@@ -96,7 +96,12 @@ export function parseBlogPostForm(
     seoDescUk: str(formData.get("seoDescUk")),
     seoDescRu: str(formData.get("seoDescRu")),
     seoDescEn: str(formData.get("seoDescEn")),
-    readTimeMinutes: Number.parseInt(str(formData.get("readTimeMinutes")), 10) || 5,
+    readTimeMinutes: (() => {
+      const raw = str(formData.get("readTimeMinutes"));
+      if (!raw) return 5;
+      const n = Number.parseInt(raw, 10);
+      return Number.isNaN(n) ? 5 : n;
+    })(),
     authorName: str(formData.get("authorName")),
     authorAvatar: str(formData.get("authorAvatar")),
     reviewerDoctorId: str(formData.get("reviewer_doctor_id")) || null,
@@ -107,5 +112,11 @@ export function parseBlogPostForm(
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "Некоректні дані форми" };
   }
+  // Intentionally return `candidate`, not `parsed.data`: the schema only validates
+  // a subset of fields (id, slug, titleUk, readTimeMinutes, isDraft, publishedAt)
+  // and is a looseObject, so parsed.data would carry the same values back anyway.
+  // `candidate` is returned directly so every BlogPostInput field (including the
+  // ones outside the schema, e.g. titleRu/titleEn/tags/SEO fields) is guaranteed
+  // present on the success path without relying on zod to pass them through.
   return { ok: true, data: candidate };
 }

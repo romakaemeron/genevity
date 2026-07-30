@@ -43,4 +43,19 @@ check("empty UK title rejected", noTitle.ok === false);
 const tags = parseBlogPostForm(fd({ ...base, tags: " ботокс , , омолодження " }), "");
 check("tags trimmed and emptied", tags.ok === true && tags.data.tags.length === 2);
 
+let badDateThrew = false;
+let badDate: ReturnType<typeof parseBlogPostForm> | undefined;
+try {
+  badDate = parseBlogPostForm(fd({ ...base, publishedAt: "not-a-date" }), "");
+} catch {
+  badDateThrew = true;
+}
+check("malformed publishedAt rejected without throwing", !badDateThrew && badDate?.ok === false);
+
+const zeroReadTime = parseBlogPostForm(fd({ ...base, readTimeMinutes: "0" }), "");
+check("readTimeMinutes 0 rejected", zeroReadTime.ok === false);
+
+const emptyReadTime = parseBlogPostForm(fd({ ...base, readTimeMinutes: "" }), "");
+check("readTimeMinutes empty defaults to 5", emptyReadTime.ok === true && emptyReadTime.data.readTimeMinutes === 5);
+
 process.exit(failures === 0 ? 0 : 1);
