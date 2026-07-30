@@ -221,7 +221,14 @@ export async function adminSavePost(data: {
       ) RETURNING id`;
       return { ok: true, id: rows[0].id as string };
     }
-  } catch (e) { return { ok: false, error: String(e) }; }
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "23505") {
+      return { ok: false, error: "duplicate_slug" };
+    }
+    console.error("adminSavePost failed:", e);
+    return { ok: false, error: "save_failed" };
+  }
 }
 
 export async function adminDeletePost(id: string) {

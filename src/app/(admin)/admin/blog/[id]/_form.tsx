@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
 import { savePost, deletePost } from "../_actions";
@@ -90,6 +90,7 @@ function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slu
 export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved }: Props) {
   const { t } = useAdminLocale();
   const p = post || {};
+  const [state, formAction] = useActionState(savePost, null as any);
   const readTimeRef = useRef<HTMLInputElement>(null);
   const coverFileRef = useRef<HTMLInputElement>(null);
 
@@ -144,7 +145,7 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         )}
       </div>
 
-      <form action={savePost} className="flex flex-col gap-6">
+      <form action={formAction} className="flex flex-col gap-6">
         {!isNew && <input type="hidden" name="id" value={p.id} />}
         <input type="hidden" name="bodyUk" value={bodyUk} />
         <input type="hidden" name="bodyRu" value={bodyRu} />
@@ -358,6 +359,10 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
             <SeoPreview title={seoTitleUk} desc={seoDescUk} slug={slug} t={t} />
           </div>
         </details>
+
+        {state?.error && (
+          <div className="p-4 bg-error-light text-error rounded-xl text-sm">{state.error}</div>
+        )}
 
         <div className="flex items-center gap-4">
           <SubmitBtn isNew={isNew} />
