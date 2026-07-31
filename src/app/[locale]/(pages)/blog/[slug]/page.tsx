@@ -1,4 +1,6 @@
 import { permanentRedirect, notFound } from "next/navigation";
+import { draftMode } from "next/headers";
+import PreviewBanner from "@/components/blog/PreviewBanner";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
 import { getServicesBySlugs, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
@@ -39,7 +41,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   if (IS_PRODUCTION) return {};
   const { locale, slug } = await params;
-  const post = await getBlogPostBySlug(locale, slug);
+  const post = await getBlogPostBySlug(locale, slug, {
+    includeDrafts: (await draftMode()).isEnabled,
+  });
   if (!post) return {};
   return generatePageMetadata({
     title: post.seoTitle || post.title,
@@ -60,7 +64,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (IS_PRODUCTION) permanentRedirect("/");
 
   const { locale, slug } = await params;
-  const post = await getBlogPostBySlug(locale, slug);
+  const isPreview = (await draftMode()).isEnabled;
+  const post = await getBlogPostBySlug(locale, slug, { includeDrafts: isPreview });
   if (!post) notFound();
 
   const l = L[locale as keyof typeof L] ?? L.ua;
@@ -100,6 +105,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   return (
     <>
+      {isPreview && <PreviewBanner locale={locale} postId={post._id} />}
       <JsonLd data={articleSchema as Record<string, unknown>} />
       {(post.reviewer || post.lastReviewedAt) && (
         <JsonLdMedicalWebPage

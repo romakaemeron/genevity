@@ -139,9 +139,19 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">{isNew ? t.blogForm.newPost : t.blogForm.editPost}</h1>
         {!isNew && (
-          <button type="button" onClick={() => { if (confirm(t.blogForm.deletePost)) deletePost(p.id); }} className="text-sm text-red-500 hover:text-red-600">
-            {t.blogForm.delete}
-          </button>
+          <div className="flex items-center gap-4">
+            <a
+              href={`/api/admin/preview?id=${p.id}`}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-main hover:underline"
+            >
+              {t.blogForm.preview}
+            </a>
+            <button type="button" onClick={() => { if (confirm(t.blogForm.deletePost)) deletePost(p.id); }} className="text-sm text-red-500 hover:text-red-600">
+              {t.blogForm.delete}
+            </button>
+          </div>
         )}
       </div>
 
