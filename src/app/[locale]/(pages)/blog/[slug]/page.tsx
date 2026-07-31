@@ -1,6 +1,6 @@
 import { permanentRedirect, notFound } from "next/navigation";
 import { draftMode } from "next/headers";
-import PreviewBanner from "@/components/blog/PreviewBanner";
+import PreviewBanner, { PREVIEW_BANNER_HEIGHT } from "@/components/blog/PreviewBanner";
 import { BLOG_HIDDEN_ON_PRODUCTION } from "@/lib/blog-visibility";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
 import { getServicesBySlugs, getUiStringsData } from "@/lib/db/queries";
@@ -126,9 +126,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         { name: "Блог", url: `https://genevity.com.ua${localePrefix}/blog` },
         { name: post.title, url: articleUrl },
       ]} />
-      <MegaMenuHeader variant="solid" position="fixed" />
+      <MegaMenuHeader variant="solid" position="fixed" topOffset={isPreview ? PREVIEW_BANNER_HEIGHT : 0} />
 
-      <div className="bg-champagne pt-28 pb-8">
+      <div
+        className="bg-champagne pt-28 pb-8"
+        style={isPreview ? { paddingTop: `calc(7rem + ${PREVIEW_BANNER_HEIGHT}px)` } : undefined}
+      >
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12">
           <Link href="/blog" className="inline-flex items-center gap-1.5 text-black-40 hover:text-main transition-colors text-sm mb-6">
             <ArrowLeft className="w-3.5 h-3.5" /> {l.back}
