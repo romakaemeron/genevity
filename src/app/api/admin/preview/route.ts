@@ -3,6 +3,8 @@ import { draftMode } from "next/headers";
 import { getSession } from "@/app/(admin)/admin/_actions/auth";
 import { adminGetPostById } from "@/lib/db/queries/blog";
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 /**
  * Enable Next.js Draft Mode for an admin editor and send them to the article.
  *
@@ -17,6 +19,9 @@ export async function GET(req: NextRequest) {
 
   const id = req.nextUrl.searchParams.get("id");
   if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 });
+  // blog_posts.id is a `uuid` column — a malformed id would otherwise throw
+  // Postgres' "invalid input syntax for type uuid" and surface as a 500.
+  if (!UUID_RE.test(id)) return NextResponse.json({ error: "post not found" }, { status: 404 });
 
   const post = await adminGetPostById(id);
   if (!post) return NextResponse.json({ error: "post not found" }, { status: 404 });

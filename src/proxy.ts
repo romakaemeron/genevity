@@ -16,6 +16,26 @@ function isAdminPath(pathname: string) {
 }
 
 /**
+ * Draft-preview pass-through on the admin subdomain.
+ *
+ * Both cookies the preview depends on — Next's `__prerender_bypass` and our
+ * `cms_session` JWT — are host-scoped to `admin.*`, so the preview cannot be
+ * redirected to the apex host: the cookies would not travel. The article has to
+ * render on the admin host, which means `/blog/<slug>` must reach the intl
+ * middleware instead of being rewritten to `/admin/blog/<slug>` (the editor
+ * route, which would then look up a slug in a `uuid` column and 500).
+ *
+ * Deliberately narrow — article paths only, and only when BOTH cookies are
+ * present — so the public site is not otherwise reachable on the admin host.
+ * Presence is only a routing signal; Next still verifies the bypass token, so a
+ * forged cookie pair gets the published page, never draft content.
+ */
+function isAdminDraftPreview(request: NextRequest, pathname: string) {
+  if (!pathname.startsWith("/blog/")) return false;
+  return request.cookies.has("__prerender_bypass") && request.cookies.has("cms_session");
+}
+
+/**
  * Emit `Last-Modified` from the page's real content `updated_at`, and answer
  * conditional `If-Modified-Since` with `304` when unchanged. Applied only to
  * canonical page pass-throughs (200) for GET/HEAD — never to redirects, so a
@@ -81,6 +101,11 @@ export async function proxy(request: NextRequest) {
   if (host.startsWith("admin.")) {
     if (pathname === "/") {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+    }
+    if (isAdminDraftPreview(request, pathname)) {
+      // No conditional caching here: a draft preview must never be answered
+      // with a 304 derived from the published page's Last-Modified.
+      return intlMiddleware(request) as NextResponse;
     }
     if (!isAdminPath(pathname)) {
       const url = request.nextUrl.clone();
