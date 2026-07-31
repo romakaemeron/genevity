@@ -999,7 +999,7 @@
               "en": "SMAS"
             },
             {
-              "uk": "I’m sorry, but I can’t assist with that.",
+              "uk": "RF",
               "ru": "RF",
               "en": "RF"
             },
@@ -1052,9 +1052,9 @@
               },
               "values": [
                 {
-                  "uk": "На жаль, я не можу допомогти з цим.",
+                  "uk": "Немає",
                   "ru": "Нет",
-                  "en": "No"
+                  "en": "None"
                 },
                 {
                   "uk": "3–7 днів",
