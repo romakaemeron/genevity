@@ -378,6 +378,9 @@ const uk = {
     saveChanges: "Зберегти зміни",
     saved: "Збережено",
     minWords: (min: number, words: number) => `${min} хв · ${words} слів`,
+    translateTo: (lang: string) => `Перекласти на ${lang}`,
+    translating: "Перекладаю…",
+    translateFailed: "Не вдалося перекласти",
   },
 };
 
@@ -758,6 +761,9 @@ const ru: typeof uk = {
     saveChanges: "Сохранить изменения",
     saved: "Сохранено",
     minWords: (min: number, words: number) => `${min} мин · ${words} слов`,
+    translateTo: (lang: string) => `Перевести на ${lang}`,
+    translating: "Перевожу…",
+    translateFailed: "Не удалось перевести",
   },
 };
 
@@ -1138,6 +1144,9 @@ const en: typeof uk = {
     saveChanges: "Save Changes",
     saved: "Saved",
     minWords: (min: number, words: number) => `${min} min · ${words} words`,
+    translateTo: (lang: string) => `Translate to ${lang}`,
+    translating: "Translating…",
+    translateFailed: "Translation failed",
   },
 };
 

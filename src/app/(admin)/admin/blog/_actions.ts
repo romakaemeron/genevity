@@ -5,6 +5,7 @@ import { processUploadOrKeep } from "../_actions/upload";
 import { parseBlogPostForm } from "./_schema";
 import { redirect } from "next/navigation";
 import { revalidateBlog } from "@/lib/revalidate-blog";
+import { translateHeadline, translateHtml } from "@/lib/translate";
 
 export type BlogActionState = { error?: string } | null;
 
@@ -40,6 +41,50 @@ export async function savePost(
   // redirect() throws a control-flow signal — it must sit outside any try/catch
   // above, or it would be swallowed and reported as a save failure.
   redirect(`/admin/blog/${result.id}?saved=1`);
+}
+
+export interface TranslateSource {
+  title: string;
+  excerpt: string;
+  body: string;
+  seoTitle: string;
+  seoDesc: string;
+}
+
+export type TranslateResult = { ok: true; data: TranslateSource } | { ok: false; error: string };
+
+/**
+ * Translate the Ukrainian version of a post into RU or EN and hand the result
+ * back to the form. Nothing is written to the database — the editor reviews and
+ * saves explicitly. Individual fields come back as "" when their translation
+ * failed; the form keeps whatever it already had for those.
+ */
+export async function translatePost(
+  target: "ru" | "en",
+  source: TranslateSource,
+): Promise<TranslateResult> {
+  await requireSession();
+
+  if (!source.title.trim() && !source.body.trim()) {
+    return { ok: false, error: "Спочатку заповніть українську версію" };
+  }
+
+  try {
+    const [title, excerpt, body, seoTitle, seoDesc] = await Promise.all([
+      translateHeadline(source.title, target),
+      translateHeadline(source.excerpt, target),
+      translateHtml(source.body, target),
+      translateHeadline(source.seoTitle, target),
+      translateHeadline(source.seoDesc, target),
+    ]);
+    if (!title && !excerpt && !body && !seoTitle && !seoDesc) {
+      return { ok: false, error: "Не вдалося перекласти. Спробуйте ще раз" };
+    }
+    return { ok: true, data: { title, excerpt, body, seoTitle, seoDesc } };
+  } catch (e) {
+    console.error("translatePost failed:", e);
+    return { ok: false, error: "Не вдалося перекласти. Спробуйте ще раз" };
+  }
 }
 
 export async function deletePost(id: string) {

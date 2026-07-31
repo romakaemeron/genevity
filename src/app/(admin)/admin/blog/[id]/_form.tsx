@@ -3,7 +3,7 @@
 import { useActionState, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
-import { savePost, deletePost } from "../_actions";
+import { savePost, deletePost, translatePost } from "../_actions";
 import MediaPicker from "../../_components/media-picker";
 import RichTextEditor from "../../_components/rich-text-editor";
 import { processBody } from "@/components/blog/ArticleBody";
@@ -43,6 +43,8 @@ function calcReadTime(html: string) {
   const text = html.replace(/<[^>]*>/g, ' ').trim();
   return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / WORDS_PER_MIN));
 }
+
+type Lang = "Uk" | "Ru" | "En";
 
 const inputCls = "w-full bg-champagne-dark rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none";
 const labelCls = "block text-xs font-semibold text-black-50 uppercase tracking-wider mb-1";
@@ -102,8 +104,21 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
   const [bodyEn, setBodyEn] = useState(() => processBody(p.body_en || ""));
   const [slug, setSlug] = useState(p.slug || "");
   const [slugTouched, setSlugTouched] = useState(!isNew || Boolean(p.slug));
-  const [seoTitleUk, setSeoTitleUk] = useState(p.seo_title_uk || "");
-  const [seoDescUk, setSeoDescUk] = useState(p.seo_desc_uk || "");
+  // Controlled so the RU/EN translation can write into them.
+  const [titles, setTitles] = useState<Record<Lang, string>>({
+    Uk: p.title_uk || "", Ru: p.title_ru || "", En: p.title_en || "",
+  });
+  const [excerpts, setExcerpts] = useState<Record<Lang, string>>({
+    Uk: p.excerpt_uk || "", Ru: p.excerpt_ru || "", En: p.excerpt_en || "",
+  });
+  const [seoTitles, setSeoTitles] = useState<Record<Lang, string>>({
+    Uk: p.seo_title_uk || "", Ru: p.seo_title_ru || "", En: p.seo_title_en || "",
+  });
+  const [seoDescs, setSeoDescs] = useState<Record<Lang, string>>({
+    Uk: p.seo_desc_uk || "", Ru: p.seo_desc_ru || "", En: p.seo_desc_en || "",
+  });
+  const [translating, setTranslating] = useState<"ru" | "en" | null>(null);
+  const [translateError, setTranslateError] = useState<string | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(p.cover_image || null);
   const [activeLang, setActiveLang] = useState<"Uk" | "Ru" | "En">("Uk");
 
@@ -123,6 +138,40 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
     bodySetters[lang](html);
     if (lang === activeLang && readTimeRef.current) {
       readTimeRef.current.value = String(calcReadTime(html));
+    }
+  }
+
+  /**
+   * Fill the RU or EN fields from the Ukrainian version. Nothing is saved — the
+   * editor reviews and submits. Empty results (a field that failed to translate)
+   * are skipped so a partial failure never wipes existing text.
+   */
+  async function handleTranslate(target: "ru" | "en") {
+    setTranslating(target);
+    setTranslateError(null);
+    try {
+      const res = await translatePost(target, {
+        title: titles.Uk,
+        excerpt: excerpts.Uk,
+        body: bodyUk,
+        seoTitle: seoTitles.Uk,
+        seoDesc: seoDescs.Uk,
+      });
+      if (!res.ok) {
+        setTranslateError(res.error);
+        return;
+      }
+      const key: Lang = target === "ru" ? "Ru" : "En";
+      const keep = (next: string, prev: string) => next || prev;
+      setTitles(prev => ({ ...prev, [key]: keep(res.data.title, prev[key]) }));
+      setExcerpts(prev => ({ ...prev, [key]: keep(res.data.excerpt, prev[key]) }));
+      setSeoTitles(prev => ({ ...prev, [key]: keep(res.data.seoTitle, prev[key]) }));
+      setSeoDescs(prev => ({ ...prev, [key]: keep(res.data.seoDesc, prev[key]) }));
+      if (res.data.body) handleBodyChange(key, res.data.body);
+    } catch {
+      setTranslateError(t.blogForm.translateFailed);
+    } finally {
+      setTranslating(null);
     }
   }
 
@@ -241,10 +290,12 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
               <label className={labelCls}>{t.blogForm.titleLabel(lang)}</label>
               <input
                 name={`title${lang}`}
-                defaultValue={p[`title_${lang.toLowerCase()}`] || ""}
-                onChange={lang === "Uk" && !slugTouched
-                  ? e => setSlug(slugifyUk(e.target.value))
-                  : undefined}
+                value={titles[lang]}
+                onChange={e => {
+                  const v = e.target.value;
+                  setTitles(prev => ({ ...prev, [lang]: v }));
+                  if (lang === "Uk" && !slugTouched) setSlug(slugifyUk(v));
+                }}
                 className={inputCls}
               />
             </div>
@@ -302,7 +353,14 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
           {LANGS.map(lang => (
             <div key={lang}>
               <label className={labelCls}>{t.blogForm.excerpt(lang)} <span className="font-normal normal-case text-black-40">{t.blogForm.excerptNote}</span></label>
-              <textarea name={`excerpt${lang}`} rows={3} defaultValue={p[`excerpt_${lang.toLowerCase()}`] || ""} className={`${inputCls} resize-y`} placeholder={t.blogForm.excerptPlaceholder} />
+              <textarea
+                name={`excerpt${lang}`}
+                rows={3}
+                value={excerpts[lang]}
+                onChange={e => { const v = e.target.value; setExcerpts(prev => ({ ...prev, [lang]: v })); }}
+                className={`${inputCls} resize-y`}
+                placeholder={t.blogForm.excerptPlaceholder}
+              />
             </div>
           ))}
         </div>
@@ -311,6 +369,21 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         <div>
           <div className="flex items-center justify-between mb-3">
             <label className={labelCls}>{t.blogForm.articleBody}</label>
+            <div className="flex items-center gap-2 ml-auto mr-3">
+              {(["ru", "en"] as const).map(target => (
+                <button
+                  key={target}
+                  type="button"
+                  onClick={() => handleTranslate(target)}
+                  disabled={translating !== null}
+                  className="px-3 py-1.5 rounded-lg bg-champagne-dark hover:bg-champagne-darker text-xs font-medium disabled:opacity-50 transition-colors"
+                >
+                  {translating === target
+                    ? t.blogForm.translating
+                    : t.blogForm.translateTo(target.toUpperCase())}
+                </button>
+              ))}
+            </div>
             <div className="flex rounded-lg overflow-hidden border border-line">
               {LANGS.map(lang => (
                 <button
@@ -324,6 +397,10 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
               ))}
             </div>
           </div>
+
+          {translateError && (
+            <p className="mb-3 text-xs text-error">{translateError}</p>
+          )}
 
           {LANGS.map(lang => (
             <div key={lang} className={activeLang === lang ? "block" : "hidden"}>
@@ -383,15 +460,26 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
               <div key={lang} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className={labelCls}>{t.blogForm.seoTitle(lang)} <span className="font-normal normal-case text-black-40">{t.blogForm.seoTitleNote}</span></label>
-                  <input name={`seoTitle${lang}`} defaultValue={p[`seo_title_${lang.toLowerCase()}`] || ""} onChange={lang === "Uk" ? e => setSeoTitleUk(e.target.value) : undefined} className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none" />
+                  <input
+                    name={`seoTitle${lang}`}
+                    value={seoTitles[lang]}
+                    onChange={e => { const v = e.target.value; setSeoTitles(prev => ({ ...prev, [lang]: v })); }}
+                    className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none"
+                  />
                 </div>
                 <div>
                   <label className={labelCls}>{t.blogForm.seoDesc(lang)} <span className="font-normal normal-case text-black-40">{t.blogForm.seoDescNote}</span></label>
-                  <textarea name={`seoDesc${lang}`} rows={2} defaultValue={p[`seo_desc_${lang.toLowerCase()}`] || ""} onChange={lang === "Uk" ? e => setSeoDescUk(e.target.value) : undefined} className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none resize-none" />
+                  <textarea
+                    name={`seoDesc${lang}`}
+                    rows={2}
+                    value={seoDescs[lang]}
+                    onChange={e => { const v = e.target.value; setSeoDescs(prev => ({ ...prev, [lang]: v })); }}
+                    className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none resize-none"
+                  />
                 </div>
               </div>
             ))}
-            <SeoPreview title={seoTitleUk} desc={seoDescUk} slug={slug} t={t} />
+            <SeoPreview title={seoTitles.Uk} desc={seoDescs.Uk} slug={slug} t={t} />
           </div>
         </details>
 
