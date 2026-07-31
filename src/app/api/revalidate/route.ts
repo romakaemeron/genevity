@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db/client";
+import { revalidateBlog } from "@/lib/revalidate-blog";
 
 /**
  * On-demand ISR invalidation for the custom Neon CMS.
@@ -35,7 +36,8 @@ type Entity =
   | "priceItem"
   | "priceCategory"
   | "navigation"
-  | "siteSettings";
+  | "siteSettings"
+  | "blogPost";
 
 interface Body {
   entity?: Entity;
@@ -89,6 +91,10 @@ async function pathsForEntity(entity: Entity, slug?: string): Promise<string[]> 
     case "navigation":
     case "siteSettings":
       return forEachLocale("/");
+    case "blogPost":
+      // Handled ahead of this switch — the blog's dynamic [locale] route needs
+      // the route-pattern form of revalidatePath, not concrete URL strings.
+      return [];
     default:
       return [];
   }
@@ -111,6 +117,11 @@ export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as Body;
     const entity = body.entity ?? body._type;
+
+    if (entity === "blogPost") {
+      revalidateBlog();
+      return NextResponse.json({ revalidated: true, scope: "blog", now: Date.now() });
+    }
 
     const paths = new Set<string>();
     // The homepage embeds service/doctor/price teasers, so it is always stale.

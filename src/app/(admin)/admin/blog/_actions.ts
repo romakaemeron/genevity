@@ -4,6 +4,7 @@ import { requireSession } from "../_actions/auth";
 import { processUploadOrKeep } from "../_actions/upload";
 import { parseBlogPostForm } from "./_schema";
 import { redirect } from "next/navigation";
+import { revalidateBlog } from "@/lib/revalidate-blog";
 
 export type BlogActionState = { error?: string } | null;
 
@@ -34,6 +35,8 @@ export async function savePost(
     return { error: ERRORS[result.error ?? ""] ?? ERRORS.save_failed };
   }
 
+  revalidateBlog();
+
   // redirect() throws a control-flow signal — it must sit outside any try/catch
   // above, or it would be swallowed and reported as a save failure.
   redirect(`/admin/blog/${result.id}?saved=1`);
@@ -42,5 +45,6 @@ export async function savePost(
 export async function deletePost(id: string) {
   await requireSession();
   await adminDeletePost(id);
+  revalidateBlog();
   redirect("/admin/blog");
 }
