@@ -37,6 +37,9 @@ import { revalidatePath } from "next/cache";
  * too. Both calls are harmless insurance in case that ever changes.
  */
 export function revalidateBlog() {
+  // The route-group segments below are load-bearing and unenforced by the type
+  // system: `npm run build && npx tsx scripts/check-blog-tags.ts` asserts these
+  // patterns still exist in the build output. Run it if the blog moves.
   revalidatePath("/[locale]/(pages)/blog", "page");
   revalidatePath("/[locale]/(pages)/blog/[slug]", "page");
   // Sitemaps are route handlers; their tag is the route path with no type. The

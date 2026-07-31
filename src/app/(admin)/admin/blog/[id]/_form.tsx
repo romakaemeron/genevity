@@ -1,9 +1,10 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
-import { savePost, deletePost, translatePost } from "../_actions";
+import { savePost, deletePost, translatePost, type BlogActionState } from "../_actions";
+import { toDatetimeLocalValue, fromDatetimeLocalValue } from "@/lib/local-datetime";
 import MediaPicker from "../../_components/media-picker";
 import RichTextEditor from "../../_components/rich-text-editor";
 import { processBody } from "@/components/blog/ArticleBody";
@@ -95,7 +96,7 @@ function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slu
 export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved, previewAvailable = true }: Props) {
   const { t } = useAdminLocale();
   const p = post || {};
-  const [state, formAction] = useActionState(savePost, null as any);
+  const [state, formAction] = useActionState<BlogActionState, FormData>(savePost, null);
   const readTimeRef = useRef<HTMLInputElement>(null);
   const coverFileRef = useRef<HTMLInputElement>(null);
 
@@ -117,6 +118,16 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
   const [seoDescs, setSeoDescs] = useState<Record<Lang, string>>({
     Uk: p.seo_desc_uk || "", Ru: p.seo_desc_ru || "", En: p.seo_desc_en || "",
   });
+  // Local wall-clock string for the datetime-local widget; converted to an
+  // absolute instant only when submitted (see @/lib/local-datetime).
+  // Filled in an effect rather than at init: the local rendering of an instant
+  // depends on the *browser's* zone, which SSR (UTC on Vercel) cannot know — a
+  // value computed during render would hydrate mismatched.
+  const initialInstant: string | null = p.published_at ? new Date(p.published_at).toISOString() : null;
+  const [publishedAtLocal, setPublishedAtLocal] = useState("");
+  useEffect(() => {
+    setPublishedAtLocal(toDatetimeLocalValue(initialInstant ? new Date(initialInstant) : new Date()));
+  }, [initialInstant]);
   const [translating, setTranslating] = useState<"ru" | "en" | null>(null);
   const [translateError, setTranslateError] = useState<string | null>(null);
   const [bodyFailed, setBodyFailed] = useState(false);
@@ -231,7 +242,16 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         <div className="flex flex-wrap gap-4 items-center bg-champagne-dark rounded-xl p-4">
           <label className="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="isDraft" value="false" defaultChecked={!p.is_draft} /> {t.blogForm.published}</label>
           <label className="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="isDraft" value="true" defaultChecked={p.is_draft !== false} /> {t.blogForm.draft}</label>
-          <input type="datetime-local" name="publishedAt" defaultValue={p.published_at ? new Date(p.published_at).toISOString().slice(0, 16) : new Date().toISOString().slice(0, 16)} className="ml-auto bg-white border border-line rounded-lg px-3 py-1.5 text-sm" />
+          {/* Shown in the editor's own wall-clock time; submitted as an absolute
+              instant via the hidden field, so a naive local string is never
+              re-read as UTC on the server. */}
+          <input
+            type="datetime-local"
+            value={publishedAtLocal}
+            onChange={e => setPublishedAtLocal(e.target.value)}
+            className="ml-auto bg-white border border-line rounded-lg px-3 py-1.5 text-sm"
+          />
+          <input type="hidden" name="publishedAt" value={fromDatetimeLocalValue(publishedAtLocal)} />
         </div>
 
         {/* Slug + Category + Doctor */}
@@ -505,7 +525,9 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
 
         <div className="flex items-center gap-4">
           <SubmitBtn isNew={isNew} />
-          {justSaved && (
+          {/* `?saved=1` stays in the URL after a failed re-save (the error path
+              never navigates), so the tick must yield to the error banner. */}
+          {justSaved && !state?.error && (
             <span className="inline-flex items-center gap-1.5 text-sm text-success font-medium animate-in fade-in slide-in-from-left-2 duration-300">
               <Check size={15} /> {t.blogForm.saved}
             </span>

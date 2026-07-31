@@ -16,33 +16,37 @@ function isAdminPath(pathname: string) {
 }
 
 /**
- * Draft-preview pass-through on the admin subdomain.
+ * Draft-preview pass-through.
  *
- * Both cookies the preview depends on — Next's `__prerender_bypass` and our
- * `cms_session` JWT — are host-scoped to `admin.*`, so the preview cannot be
- * redirected to the apex host: the cookies would not travel. The article has to
- * render on the admin host, which means `/blog/<slug>` must reach the intl
- * middleware instead of being rewritten to `/admin/blog/<slug>` (the editor
- * route, which would then look up a slug in a `uuid` column and 500).
+ * Keyed on the draft-preview condition itself — an article path plus BOTH the
+ * cookies a preview depends on, Next's `__prerender_bypass` and our `cms_session`
+ * JWT — and deliberately NOT on the host. On the admin subdomain those cookies
+ * are host-scoped, so the preview cannot be redirected to the apex host and the
+ * article has to render on the admin host; but on a Vercel preview deployment
+ * there is only ONE host, so `/admin/blog/…` and `/blog/<slug>` share an origin
+ * and the same escalation exists there. Both cases must get the CSP below.
  *
- * Deliberately narrow — article paths only, and only when BOTH cookies are
- * present — so the public site is not otherwise reachable on the admin host.
- * Presence is only a routing signal; Next still verifies the bypass token, so a
- * forged cookie pair gets the published page, never draft content.
+ * Narrow by construction: article paths only, and only for a request that
+ * already carries an authenticated CMS session, so ordinary public article views
+ * (no cookies) are untouched. Presence is only a routing signal; Next still
+ * verifies the bypass token, so a forged cookie pair gets the published page,
+ * never draft content.
  */
-function isAdminDraftPreview(request: NextRequest, pathname: string) {
-  if (!pathname.startsWith("/blog/")) return false;
+function isDraftPreview(request: NextRequest, pathname: string) {
+  // Article paths, with or without a locale prefix — `previewRewritePath` is the
+  // authority on the shape and returns null for anything else.
+  if (!/\/blog\//.test(pathname)) return false;
   return request.cookies.has("__prerender_bypass") && request.cookies.has("cms_session");
 }
 
 /**
- * Map an admin-host preview URL onto the internal locale-prefixed article route,
+ * Map a preview URL onto the internal locale-prefixed article route,
  * or `null` if it is not an article URL. Done here rather than by delegating to
  * `intlMiddleware` because the preview response has to carry a nonce injected
- * into the *request* headers (see `adminPreviewResponse`), which requires
+ * into the *request* headers (see `previewResponse`), which requires
  * building the rewrite ourselves.
  */
-function adminPreviewRewritePath(pathname: string): string | null {
+function previewRewritePath(pathname: string): string | null {
   const m = /^\/(?:([a-z]{2})\/)?blog\/([^/]+)\/?$/.exec(pathname);
   if (!m) return null;
   const [, maybeLocale, slug] = m;
@@ -55,24 +59,27 @@ function adminPreviewRewritePath(pathname: string): string | null {
 }
 
 /**
- * Render a draft preview on the admin origin under a restrictive CSP.
+ * Render a draft preview under a restrictive CSP.
  *
  * This is the only branch where the public article template — which injects the
- * post body via `dangerouslySetInnerHTML` with no sanitizer — renders on the
- * authenticated CMS origin. A CMS user without super-admin rights can store
- * arbitrary HTML in a post body, so without this header an `<img onerror=…>`
+ * post body via `dangerouslySetInnerHTML` with no sanitizer — renders for a
+ * request that carries a CMS session. A CMS user without super-admin rights can
+ * store arbitrary HTML in a post body, so without this header an `<img onerror=…>`
  * payload would execute same-origin when a reviewer opens the preview and could
  * drive admin server actions as them (`cms_session` is httpOnly but SameSite=lax
- * and rides along on same-origin requests).
+ * and rides along on same-origin requests). On a single-host preview deployment
+ * the admin and the article are literally the same origin, so this applies
+ * regardless of which host served the request.
  *
  * `script-src` grants no `'unsafe-inline'`, which is what blocks inline event
  * handlers and `javascript:` URLs; Next's own inline bootstrap is allowed via a
  * per-request nonce, which Next picks up by parsing the CSP off the *request*
  * headers. `'self'` covers Next's chunk files so hydration still works.
  *
- * Scoped to this branch only — the public site's headers are untouched.
+ * Scoped to this branch only — an article view without the preview cookies, and
+ * the rest of the admin, keep their existing headers.
  */
-function adminPreviewResponse(request: NextRequest, rewritePath: string): NextResponse {
+function previewResponse(request: NextRequest, rewritePath: string): NextResponse {
   const nonce = crypto.randomUUID().replace(/-/g, "");
   const csp = [
     "default-src 'none'",
@@ -164,14 +171,18 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
+  // Draft preview — checked before the host branches, because on a single-host
+  // preview deployment the article and the admin share an origin and the CSP is
+  // needed there too (the admin-host routing below is unchanged otherwise).
+  if (isDraftPreview(request, pathname)) {
+    const rewritePath = previewRewritePath(pathname);
+    if (rewritePath) return previewResponse(request, rewritePath);
+  }
+
   // Admin subdomain → always treat as /admin/* (no i18n)
   if (host.startsWith("admin.")) {
     if (pathname === "/") {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
-    }
-    if (isAdminDraftPreview(request, pathname)) {
-      const rewritePath = adminPreviewRewritePath(pathname);
-      if (rewritePath) return adminPreviewResponse(request, rewritePath);
     }
     if (!isAdminPath(pathname)) {
       const url = request.nextUrl.clone();

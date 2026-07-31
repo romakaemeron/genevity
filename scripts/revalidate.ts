@@ -30,6 +30,9 @@ const PROD_URL = "https://genevity.com.ua";
 const ENTITIES = [
   "service", "serviceCategory", "staticPage", "doctor",
   "priceItem", "priceCategory", "navigation", "siteSettings",
+  // Keep in sync with the Entity union in src/app/api/revalidate/route.ts —
+  // an entity the endpoint accepts but this list omits is unreachable from the CLI.
+  "blogPost",
 ] as const;
 type Entity = (typeof ENTITIES)[number];
 

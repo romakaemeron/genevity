@@ -11,7 +11,7 @@ const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 // z.looseObject = the v4 replacement for the deprecated .passthrough():
 // unknown keys (the RU/EN fields, tags, SEO, …) pass through untouched, while
 // the keys listed here are validated.
-const schema = z.looseObject({
+const baseSchema = z.looseObject({
   id: z.uuid().optional(),
   slug: z.string().min(1, "Вкажіть slug").max(120, "Slug задовгий (максимум 120 символів)")
     .regex(SLUG_RE, "Slug може містити лише малі латинські літери, цифри та дефіси"),
@@ -20,8 +20,21 @@ const schema = z.looseObject({
   isDraft: z.boolean(),
   /** ISO string or null. Validated against isDraft in refine below. */
   publishedAt: z.string().nullable(),
-}).refine(
-  (d) => d.isDraft || !d.publishedAt || new Date(d.publishedAt).getTime() <= Date.now(),
+});
+
+/**
+ * Slack on the "not in the future" check.
+ *
+ * The form now submits an absolute instant (see @/lib/local-datetime), so the
+ * old timezone-shifted rejections are gone — but an editor's clock can still sit
+ * a little ahead of the server's, and "publish now" must never fail because of
+ * a few seconds of skew.
+ */
+const FUTURE_TOLERANCE_MS = 5 * 60 * 1000;
+
+const schema = baseSchema.refine(
+  (d) => d.isDraft || !d.publishedAt
+    || new Date(d.publishedAt).getTime() <= Date.now() + FUTURE_TOLERANCE_MS,
   { message: "Заплановану публікацію не підтримано: вкажіть поточну або минулу дату, або збережіть як чернетку" },
 );
 
