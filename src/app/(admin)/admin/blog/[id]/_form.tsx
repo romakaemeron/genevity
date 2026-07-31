@@ -13,6 +13,7 @@ import faviconSrc from "@/app/android-chrome-192x192.png";
 import RelatedServicesPicker from "../_components/related-services-picker";
 import Button from "@/components/ui/Button";
 import { useAdminLocale } from "../../_i18n/context";
+import { slugifyUk } from "@/lib/slugify-uk";
 
 interface Props {
   post: any | null;
@@ -100,6 +101,7 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
   const [bodyRu, setBodyRu] = useState(() => processBody(p.body_ru || ""));
   const [bodyEn, setBodyEn] = useState(() => processBody(p.body_en || ""));
   const [slug, setSlug] = useState(p.slug || "");
+  const [slugTouched, setSlugTouched] = useState(!isNew || Boolean(p.slug));
   const [seoTitleUk, setSeoTitleUk] = useState(p.seo_title_uk || "");
   const [seoDescUk, setSeoDescUk] = useState(p.seo_desc_uk || "");
   const [coverPreview, setCoverPreview] = useState<string | null>(p.cover_image || null);
@@ -178,7 +180,14 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className={labelCls}>{t.blogForm.slug}</label>
-            <input name="slug" value={slug} onChange={e => setSlug(e.target.value)} required className={inputCls} placeholder="my-article-slug" />
+            <input
+              name="slug"
+              value={slug}
+              onChange={e => { setSlugTouched(true); setSlug(e.target.value); }}
+              required
+              className={inputCls}
+              placeholder="my-article-slug"
+            />
           </div>
           <div>
             <label className={labelCls}>{t.blogForm.category}</label>
@@ -228,7 +237,17 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         {/* Titles */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {LANGS.map(lang => (
-            <div key={lang}><label className={labelCls}>{t.blogForm.titleLabel(lang)}</label><input name={`title${lang}`} defaultValue={p[`title_${lang.toLowerCase()}`] || ""} className={inputCls} /></div>
+            <div key={lang}>
+              <label className={labelCls}>{t.blogForm.titleLabel(lang)}</label>
+              <input
+                name={`title${lang}`}
+                defaultValue={p[`title_${lang.toLowerCase()}`] || ""}
+                onChange={lang === "Uk" && !slugTouched
+                  ? e => setSlug(slugifyUk(e.target.value))
+                  : undefined}
+                className={inputCls}
+              />
+            </div>
           ))}
         </div>
 
