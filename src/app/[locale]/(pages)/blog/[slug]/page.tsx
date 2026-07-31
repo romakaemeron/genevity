@@ -1,6 +1,7 @@
 import { permanentRedirect, notFound } from "next/navigation";
 import { draftMode } from "next/headers";
 import PreviewBanner from "@/components/blog/PreviewBanner";
+import { BLOG_HIDDEN_ON_PRODUCTION } from "@/lib/blog-visibility";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
 import { getServicesBySlugs, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
@@ -22,8 +23,10 @@ import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 
-// Blog is visible on dev/preview only — hidden on production until launch
-const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
+// Blog is visible on dev/preview only — hidden on production until launch.
+// The constant is shared with the draft-preview endpoint and the editor's
+// preview link so the three cannot drift apart.
+const IS_PRODUCTION = BLOG_HIDDEN_ON_PRODUCTION;
 
 export const revalidate = 86400;
 

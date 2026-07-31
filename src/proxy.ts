@@ -36,6 +36,73 @@ function isAdminDraftPreview(request: NextRequest, pathname: string) {
 }
 
 /**
+ * Map an admin-host preview URL onto the internal locale-prefixed article route,
+ * or `null` if it is not an article URL. Done here rather than by delegating to
+ * `intlMiddleware` because the preview response has to carry a nonce injected
+ * into the *request* headers (see `adminPreviewResponse`), which requires
+ * building the rewrite ourselves.
+ */
+function adminPreviewRewritePath(pathname: string): string | null {
+  const m = /^\/(?:([a-z]{2})\/)?blog\/([^/]+)\/?$/.exec(pathname);
+  if (!m) return null;
+  const [, maybeLocale, slug] = m;
+  if (maybeLocale) {
+    return (routing.locales as readonly string[]).includes(maybeLocale)
+      ? `/${maybeLocale}/blog/${slug}`
+      : null;
+  }
+  return `/${routing.defaultLocale}/blog/${slug}`;
+}
+
+/**
+ * Render a draft preview on the admin origin under a restrictive CSP.
+ *
+ * This is the only branch where the public article template — which injects the
+ * post body via `dangerouslySetInnerHTML` with no sanitizer — renders on the
+ * authenticated CMS origin. A CMS user without super-admin rights can store
+ * arbitrary HTML in a post body, so without this header an `<img onerror=…>`
+ * payload would execute same-origin when a reviewer opens the preview and could
+ * drive admin server actions as them (`cms_session` is httpOnly but SameSite=lax
+ * and rides along on same-origin requests).
+ *
+ * `script-src` grants no `'unsafe-inline'`, which is what blocks inline event
+ * handlers and `javascript:` URLs; Next's own inline bootstrap is allowed via a
+ * per-request nonce, which Next picks up by parsing the CSP off the *request*
+ * headers. `'self'` covers Next's chunk files so hydration still works.
+ *
+ * Scoped to this branch only — the public site's headers are untouched.
+ */
+function adminPreviewResponse(request: NextRequest, rewritePath: string): NextResponse {
+  const nonce = crypto.randomUUID().replace(/-/g, "");
+  const csp = [
+    "default-src 'none'",
+    `script-src 'self' 'nonce-${nonce}'`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob: https:",
+    "font-src 'self' data:",
+    "media-src 'self' https:",
+    "connect-src 'self'",
+    "frame-src https:",
+    "object-src 'none'",
+    "base-uri 'none'",
+    "form-action 'none'",
+    "frame-ancestors 'none'",
+  ].join("; ");
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("content-security-policy", csp);
+
+  const url = request.nextUrl.clone();
+  url.pathname = rewritePath;
+
+  // No conditional caching here: a draft preview must never be answered with a
+  // 304 derived from the published page's Last-Modified.
+  const res = NextResponse.rewrite(url, { request: { headers: requestHeaders } });
+  res.headers.set("Content-Security-Policy", csp);
+  return res;
+}
+
+/**
  * Emit `Last-Modified` from the page's real content `updated_at`, and answer
  * conditional `If-Modified-Since` with `304` when unchanged. Applied only to
  * canonical page pass-throughs (200) for GET/HEAD — never to redirects, so a
@@ -103,9 +170,8 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
     if (isAdminDraftPreview(request, pathname)) {
-      // No conditional caching here: a draft preview must never be answered
-      // with a 304 derived from the published page's Last-Modified.
-      return intlMiddleware(request) as NextResponse;
+      const rewritePath = adminPreviewRewritePath(pathname);
+      if (rewritePath) return adminPreviewResponse(request, rewritePath);
     }
     if (!isAdminPath(pathname)) {
       const url = request.nextUrl.clone();

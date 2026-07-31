@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { draftMode } from "next/headers";
 import { getSession } from "@/app/(admin)/admin/_actions/auth";
 import { adminGetPostById } from "@/lib/db/queries/blog";
+import { BLOG_HIDDEN_ON_PRODUCTION } from "@/lib/blog-visibility";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -15,6 +16,13 @@ export async function GET(req: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.redirect(new URL("/admin/login", req.url));
+  }
+
+  // The blog is hidden on production, so the article page an editor would land
+  // on just redirects away. Refuse before enabling Draft Mode — otherwise the
+  // bypass cookie would be left set with no banner and no way to clear it.
+  if (BLOG_HIDDEN_ON_PRODUCTION) {
+    return NextResponse.json({ error: "preview unavailable" }, { status: 404 });
   }
 
   const id = req.nextUrl.searchParams.get("id");

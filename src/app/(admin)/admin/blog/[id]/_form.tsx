@@ -23,6 +23,8 @@ interface Props {
   services: { slug: string; title_uk: string; cat_title: string }[];
   isNew: boolean;
   justSaved?: boolean;
+  /** False while the blog is gated off on production — preview is a dead end there. */
+  previewAvailable?: boolean;
 }
 
 function SubmitBtn({ isNew }: { isNew: boolean }) {
@@ -87,7 +89,7 @@ function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slu
   );
 }
 
-export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved }: Props) {
+export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved, previewAvailable = true }: Props) {
   const { t } = useAdminLocale();
   const p = post || {};
   const [state, formAction] = useActionState(savePost, null as any);
@@ -140,14 +142,18 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         <h1 className="text-xl font-semibold">{isNew ? t.blogForm.newPost : t.blogForm.editPost}</h1>
         {!isNew && (
           <div className="flex items-center gap-4">
-            <a
-              href={`/api/admin/preview?id=${p.id}`}
-              target="_blank"
-              rel="noreferrer"
-              className="text-sm text-main hover:underline"
-            >
-              {t.blogForm.preview}
-            </a>
+            {previewAvailable ? (
+              <a
+                href={`/api/admin/preview?id=${p.id}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-main hover:underline"
+              >
+                {t.blogForm.preview}
+              </a>
+            ) : (
+              <span className="text-sm text-black-40">{t.blogForm.previewUnavailable}</span>
+            )}
             <button type="button" onClick={() => { if (confirm(t.blogForm.deletePost)) deletePost(p.id); }} className="text-sm text-red-500 hover:text-red-600">
               {t.blogForm.delete}
             </button>
