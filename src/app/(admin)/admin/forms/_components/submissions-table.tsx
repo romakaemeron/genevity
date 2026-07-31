@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useAdminLocale } from "../../_i18n/context";
+import ExportMenu from "./export-menu";
 
 /* ── Reusable CopyButton ── */
 function CopyButton({ text, className }: { text: string; className?: string }) {
@@ -659,6 +660,9 @@ export default function SubmissionsTable({ submissions: initial, compact, noPoll
                 {paused ? t.submissionsTable.pause : lastPoll ? new Date(lastPoll).toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : t.submissionsTable.live}
               </span>
             </button>}
+
+            {/* Excel export — selection, preset periods, or the full table */}
+            <ExportMenu selectedIds={selectedIds} />
           </div>
         </div>
       )}
