@@ -84,18 +84,35 @@ export async function getBlogPosts(locale: string, categorySlug?: string, limit 
   return rows.map(r => mapCard(r, l));
 }
 
-export async function getBlogPostBySlug(locale: string, slug: string): Promise<BlogPost | null> {
+export async function getBlogPostBySlug(
+  locale: string,
+  slug: string,
+  opts: { includeDrafts?: boolean } = {},
+): Promise<BlogPost | null> {
   const l = lang(locale);
-  const rows = await sql`
-    SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
-           d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug,
-           COALESCE(d.photo_circle, d.photo_card) as doctor_avatar,
-           d.circle_focal_point as doctor_focal_point, d.circle_scale as doctor_scale
-    FROM blog_posts bp
-    LEFT JOIN blog_categories bc ON bc.id = bp.category_id
-    LEFT JOIN doctors d ON d.id = bp.author_id
-    WHERE bp.slug = ${slug} AND bp.is_draft = false AND bp.published_at <= NOW()
-    LIMIT 1`;
+  // Two full statements rather than an interpolated WHERE fragment — the `sql`
+  // tagged-template client does not accept SQL fragments as values.
+  const rows = opts.includeDrafts
+    ? await sql`
+        SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug,
+               COALESCE(d.photo_circle, d.photo_card) as doctor_avatar,
+               d.circle_focal_point as doctor_focal_point, d.circle_scale as doctor_scale
+        FROM blog_posts bp
+        LEFT JOIN blog_categories bc ON bc.id = bp.category_id
+        LEFT JOIN doctors d ON d.id = bp.author_id
+        WHERE bp.slug = ${slug}
+        LIMIT 1`
+    : await sql`
+        SELECT bp.*, bc.slug as cat_slug, bc.title_uk as cat_title_uk, bc.title_ru as cat_title_ru, bc.title_en as cat_title_en,
+               d.name_uk as doctor_name_uk, d.name_ru as doctor_name_ru, d.name_en as doctor_name_en, d.slug as author_slug,
+               COALESCE(d.photo_circle, d.photo_card) as doctor_avatar,
+               d.circle_focal_point as doctor_focal_point, d.circle_scale as doctor_scale
+        FROM blog_posts bp
+        LEFT JOIN blog_categories bc ON bc.id = bp.category_id
+        LEFT JOIN doctors d ON d.id = bp.author_id
+        WHERE bp.slug = ${slug} AND bp.is_draft = false AND bp.published_at <= NOW()
+        LIMIT 1`;
   if (!rows.length) return null;
   const r = rows[0];
   const reviewer = await getReviewer(r.reviewer_doctor_id as string | null, l);
@@ -221,7 +238,14 @@ export async function adminSavePost(data: {
       ) RETURNING id`;
       return { ok: true, id: rows[0].id as string };
     }
-  } catch (e) { return { ok: false, error: String(e) }; }
+  } catch (e) {
+    const code = (e as { code?: string }).code;
+    if (code === "23505") {
+      return { ok: false, error: "duplicate_slug" };
+    }
+    console.error("adminSavePost failed:", e);
+    return { ok: false, error: "save_failed" };
+  }
 }
 
 export async function adminDeletePost(id: string) {

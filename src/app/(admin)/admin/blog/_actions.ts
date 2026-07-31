@@ -1,65 +1,107 @@
 "use server";
 import { adminSavePost, adminDeletePost } from "@/lib/db/queries/blog";
+import { requireSession } from "../_actions/auth";
 import { processUploadOrKeep } from "../_actions/upload";
-import { revalidatePath } from "next/cache";
+import { parseBlogPostForm } from "./_schema";
 import { redirect } from "next/navigation";
+import { revalidateBlog } from "@/lib/revalidate-blog";
+import { translateHeadline, translateHtml } from "@/lib/translate";
 
-export async function savePost(formData: FormData) {
-  const id = formData.get('id') as string | null;
+export type BlogActionState = { error?: string } | null;
 
-  const coverFile = formData.get('coverImage') as File | null;
-  const coverCurrent = (formData.get('coverImage_current') as string) || undefined;
+const ERRORS: Record<string, string> = {
+  duplicate_slug: "Стаття з таким slug уже існує — оберіть інший",
+  save_failed: "Не вдалося зберегти статтю. Спробуйте ще раз",
+};
+
+export async function savePost(
+  _prevState: BlogActionState,
+  formData: FormData,
+): Promise<BlogActionState> {
+  await requireSession();
+
+  const coverFile = formData.get("coverImage") as File | null;
+  const coverCurrent = (formData.get("coverImage_current") as string) || undefined;
   const coverImage = await processUploadOrKeep(
     coverFile && coverFile.size > 0 ? coverFile : null,
-    'blog',
+    "blog",
     coverCurrent,
   );
 
-  const data = {
-    id: id || undefined,
-    slug: (formData.get('slug') as string).trim(),
-    categoryId: (formData.get('categoryId') as string) || null,
-    authorId: (formData.get('authorId') as string) || null,
-    titleUk: formData.get('titleUk') as string,
-    titleRu: formData.get('titleRu') as string,
-    titleEn: formData.get('titleEn') as string,
-    excerptUk: formData.get('excerptUk') as string,
-    excerptRu: formData.get('excerptRu') as string,
-    excerptEn: formData.get('excerptEn') as string,
-    bodyUk: formData.get('bodyUk') as string,
-    bodyRu: formData.get('bodyRu') as string,
-    bodyEn: formData.get('bodyEn') as string,
-    coverImage: coverImage || '',
-    tags: ((formData.get('tags') as string) || '').split(',').map(t => t.trim()).filter(Boolean),
-    relatedServiceSlugs: ((formData.get('relatedServiceSlugs') as string) || '').split(',').map(t => t.trim()).filter(Boolean),
-    isDraft: formData.get('isDraft') === 'true',
-    publishedAt: (formData.get('publishedAt') as string) || null,
-    seoTitleUk: formData.get('seoTitleUk') as string,
-    seoTitleRu: formData.get('seoTitleRu') as string,
-    seoTitleEn: formData.get('seoTitleEn') as string,
-    seoDescUk: formData.get('seoDescUk') as string,
-    seoDescRu: formData.get('seoDescRu') as string,
-    seoDescEn: formData.get('seoDescEn') as string,
-    readTimeMinutes: parseInt(formData.get('readTimeMinutes') as string) || 5,
-    authorName: (formData.get('authorName') as string) || '',
-    authorAvatar: (formData.get('authorAvatar') as string) || '',
-    reviewerDoctorId: (formData.get('reviewer_doctor_id') as string) || null,
-    lastReviewedAt: (formData.get('last_reviewed_at') as string) || null,
-  };
-  const result = await adminSavePost(data);
-  revalidatePath('/blog');
-  revalidatePath(`/blog/${data.slug}`);
-  revalidatePath('/ru/blog');
-  revalidatePath(`/ru/blog/${data.slug}`);
-  revalidatePath('/en/blog');
-  revalidatePath(`/en/blog/${data.slug}`);
-  revalidatePath('/admin/blog');
-  if (result.ok) redirect(`/admin/blog/${result.id}?saved=1`);
+  const parsed = parseBlogPostForm(formData, coverImage || "");
+  if (!parsed.ok) return { error: parsed.error };
+
+  const result = await adminSavePost(parsed.data);
+  if (!result.ok) {
+    return { error: ERRORS[result.error ?? ""] ?? ERRORS.save_failed };
+  }
+
+  revalidateBlog();
+
+  // redirect() throws a control-flow signal — it must sit outside any try/catch
+  // above, or it would be swallowed and reported as a save failure.
+  redirect(`/admin/blog/${result.id}?saved=1`);
+}
+
+export interface TranslateSource {
+  title: string;
+  excerpt: string;
+  body: string;
+  seoTitle: string;
+  seoDesc: string;
+}
+
+export type TranslateResult =
+  /**
+   * `bodyFailed` disambiguates the two reasons `data.body` can be empty: there
+   * was nothing to translate, or the translation was rejected for mangling the
+   * markup. Only the second deserves a warning, and the form cannot tell them
+   * apart on its own.
+   */
+  | { ok: true; data: TranslateSource; bodyFailed: boolean }
+  | { ok: false; error: string };
+
+/**
+ * Translate the Ukrainian version of a post into RU or EN and hand the result
+ * back to the form. Nothing is written to the database — the editor reviews and
+ * saves explicitly. Individual fields come back as "" when their translation
+ * failed; the form keeps whatever it already had for those.
+ */
+export async function translatePost(
+  target: "ru" | "en",
+  source: TranslateSource,
+): Promise<TranslateResult> {
+  await requireSession();
+
+  if (!source.title.trim() && !source.body.trim()) {
+    return { ok: false, error: "Спочатку заповніть українську версію" };
+  }
+
+  try {
+    const [title, excerpt, body, seoTitle, seoDesc] = await Promise.all([
+      translateHeadline(source.title, target),
+      translateHeadline(source.excerpt, target),
+      translateHtml(source.body, target),
+      translateHeadline(source.seoTitle, target),
+      translateHeadline(source.seoDesc, target),
+    ]);
+    if (!title && !excerpt && !body && !seoTitle && !seoDesc) {
+      return { ok: false, error: "Не вдалося перекласти. Спробуйте ще раз" };
+    }
+    return {
+      ok: true,
+      data: { title, excerpt, body, seoTitle, seoDesc },
+      bodyFailed: Boolean(source.body.trim()) && !body,
+    };
+  } catch (e) {
+    console.error("translatePost failed:", e);
+    return { ok: false, error: "Не вдалося перекласти. Спробуйте ще раз" };
+  }
 }
 
 export async function deletePost(id: string) {
+  await requireSession();
   await adminDeletePost(id);
-  revalidatePath('/blog');
-  revalidatePath('/admin/blog');
-  redirect('/admin/blog');
+  revalidateBlog();
+  redirect("/admin/blog");
 }

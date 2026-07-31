@@ -6,9 +6,12 @@ import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import BlogCard from "@/components/blog/BlogCard";
 import { Link } from "@/i18n/navigation";
 import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
+import { BLOG_HIDDEN_ON_PRODUCTION } from "@/lib/blog-visibility";
 
-// Blog is visible on dev/preview only — hidden on production until launch
-const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
+// Blog is visible on dev/preview only — hidden on production until launch.
+// Same gate as the article page and the preview endpoint; keep it imported so
+// the three can never drift apart.
+const IS_PRODUCTION = BLOG_HIDDEN_ON_PRODUCTION;
 
 export const revalidate = 86400;
 

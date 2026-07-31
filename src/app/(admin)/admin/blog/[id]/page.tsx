@@ -3,6 +3,7 @@ import { adminGetPostById } from "@/lib/db/queries/blog";
 import { getDoctorOptions } from "@/lib/db/queries/doctors";
 import { sql } from "@/lib/db/client";
 import BlogPostForm from "./_form";
+import { BLOG_HIDDEN_ON_PRODUCTION } from "@/lib/blog-visibility";
 
 export default async function AdminBlogPostPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ saved?: string }> }) {
   await requireSession();
@@ -27,6 +28,9 @@ export default async function AdminBlogPostPage({ params, searchParams }: { para
       services={services as any[]}
       isNew={isNew}
       justSaved={saved === "1"}
+      // Preview renders the public article, which is hidden on production until
+      // the blog launches — so the link would be a dead end there.
+      previewAvailable={!BLOG_HIDDEN_ON_PRODUCTION}
     />
   );
 }

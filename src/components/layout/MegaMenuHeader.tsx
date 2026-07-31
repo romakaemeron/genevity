@@ -18,6 +18,10 @@ type Props = {
   variant?: "transparent" | "transparent-dark" | "solid";
   position?: "absolute" | "fixed";
   hideUntilScrollPastId?: string;
+  /** Push the header (and its mobile panel) down by this many px — used only
+   *  when a PreviewBanner is rendered above it. Omitted/0 in the normal
+   *  public case, which keeps all existing header behaviour unchanged. */
+  topOffset?: number;
 };
 
 function ChevronRight({ className = "" }: { className?: string }) {
@@ -40,6 +44,7 @@ export default function MegaMenuHeader({
   variant = "solid",
   position = "fixed",
   hideUntilScrollPastId,
+  topOffset = 0,
 }: Props = {}) {
   const tNav = useTranslations("nav_mega");
   const tLabels = useTranslations("labels");
@@ -124,12 +129,15 @@ export default function MegaMenuHeader({
   // Slide-in CSS: sentinel variant uses inline transition; fixed-on-mount uses CSS animation class
   const headerStyle: React.CSSProperties | undefined = hideUntilScrollPastId
     ? {
+        top: topOffset,
         transform: revealed ? "none" : "translateY(-100%)",
         opacity: revealed ? "1" : "0",
         transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.5s cubic-bezier(0.16,1,0.3,1)",
         pointerEvents: revealed ? "auto" : "none",
       }
-    : undefined;
+    : topOffset
+      ? { top: topOffset }
+      : undefined;
 
   const headerAnimClass = (position === "fixed" && !hideUntilScrollPastId) ? "header-fixed-appear" : "";
 
@@ -232,6 +240,7 @@ export default function MegaMenuHeader({
     {/* Mobile menu is OUTSIDE <header> to avoid transform stacking-context trapping fixed children */}
     <div
         className={`lg:hidden fixed inset-x-0 top-16 bottom-0 z-[998] overflow-hidden bg-champagne transition-opacity duration-220 ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        style={topOffset ? { top: topOffset + 64 } : undefined}
         aria-hidden={!mobileOpen}
       >
         <div className="relative h-full overflow-hidden">

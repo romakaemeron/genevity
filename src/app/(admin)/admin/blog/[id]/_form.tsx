@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import Image from "next/image";
-import { savePost, deletePost } from "../_actions";
+import { savePost, deletePost, translatePost, type BlogActionState } from "../_actions";
+import { toDatetimeLocalValue, fromDatetimeLocalValue } from "@/lib/local-datetime";
 import MediaPicker from "../../_components/media-picker";
 import RichTextEditor from "../../_components/rich-text-editor";
 import { processBody } from "@/components/blog/ArticleBody";
@@ -13,6 +14,7 @@ import faviconSrc from "@/app/android-chrome-192x192.png";
 import RelatedServicesPicker from "../_components/related-services-picker";
 import Button from "@/components/ui/Button";
 import { useAdminLocale } from "../../_i18n/context";
+import { slugifyUk } from "@/lib/slugify-uk";
 
 interface Props {
   post: any | null;
@@ -23,6 +25,8 @@ interface Props {
   services: { slug: string; title_uk: string; cat_title: string }[];
   isNew: boolean;
   justSaved?: boolean;
+  /** False while the blog is gated off on production — preview is a dead end there. */
+  previewAvailable?: boolean;
 }
 
 function SubmitBtn({ isNew }: { isNew: boolean }) {
@@ -40,6 +44,8 @@ function calcReadTime(html: string) {
   const text = html.replace(/<[^>]*>/g, ' ').trim();
   return Math.max(1, Math.round(text.split(/\s+/).filter(Boolean).length / WORDS_PER_MIN));
 }
+
+type Lang = "Uk" | "Ru" | "En";
 
 const inputCls = "w-full bg-champagne-dark rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none";
 const labelCls = "block text-xs font-semibold text-black-50 uppercase tracking-wider mb-1";
@@ -87,9 +93,10 @@ function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slu
   );
 }
 
-export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved }: Props) {
+export default function BlogPostForm({ post, categories, doctors, doctorOptions = [], services, isNew, justSaved, previewAvailable = true }: Props) {
   const { t } = useAdminLocale();
   const p = post || {};
+  const [state, formAction] = useActionState<BlogActionState, FormData>(savePost, null);
   const readTimeRef = useRef<HTMLInputElement>(null);
   const coverFileRef = useRef<HTMLInputElement>(null);
 
@@ -97,8 +104,33 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
   const [bodyRu, setBodyRu] = useState(() => processBody(p.body_ru || ""));
   const [bodyEn, setBodyEn] = useState(() => processBody(p.body_en || ""));
   const [slug, setSlug] = useState(p.slug || "");
-  const [seoTitleUk, setSeoTitleUk] = useState(p.seo_title_uk || "");
-  const [seoDescUk, setSeoDescUk] = useState(p.seo_desc_uk || "");
+  const [slugTouched, setSlugTouched] = useState(!isNew || Boolean(p.slug));
+  // Controlled so the RU/EN translation can write into them.
+  const [titles, setTitles] = useState<Record<Lang, string>>({
+    Uk: p.title_uk || "", Ru: p.title_ru || "", En: p.title_en || "",
+  });
+  const [excerpts, setExcerpts] = useState<Record<Lang, string>>({
+    Uk: p.excerpt_uk || "", Ru: p.excerpt_ru || "", En: p.excerpt_en || "",
+  });
+  const [seoTitles, setSeoTitles] = useState<Record<Lang, string>>({
+    Uk: p.seo_title_uk || "", Ru: p.seo_title_ru || "", En: p.seo_title_en || "",
+  });
+  const [seoDescs, setSeoDescs] = useState<Record<Lang, string>>({
+    Uk: p.seo_desc_uk || "", Ru: p.seo_desc_ru || "", En: p.seo_desc_en || "",
+  });
+  // Local wall-clock string for the datetime-local widget; converted to an
+  // absolute instant only when submitted (see @/lib/local-datetime).
+  // Filled in an effect rather than at init: the local rendering of an instant
+  // depends on the *browser's* zone, which SSR (UTC on Vercel) cannot know — a
+  // value computed during render would hydrate mismatched.
+  const initialInstant: string | null = p.published_at ? new Date(p.published_at).toISOString() : null;
+  const [publishedAtLocal, setPublishedAtLocal] = useState("");
+  useEffect(() => {
+    setPublishedAtLocal(toDatetimeLocalValue(initialInstant ? new Date(initialInstant) : new Date()));
+  }, [initialInstant]);
+  const [translating, setTranslating] = useState<"ru" | "en" | null>(null);
+  const [translateError, setTranslateError] = useState<string | null>(null);
+  const [bodyFailed, setBodyFailed] = useState(false);
   const [coverPreview, setCoverPreview] = useState<string | null>(p.cover_image || null);
   const [activeLang, setActiveLang] = useState<"Uk" | "Ru" | "En">("Uk");
 
@@ -121,6 +153,48 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
     }
   }
 
+  /**
+   * Fill the RU or EN fields from the Ukrainian version. Nothing is saved — the
+   * editor reviews and submits. Empty results (a field that failed to translate)
+   * are skipped so a partial failure never wipes existing text.
+   */
+  async function handleTranslate(target: "ru" | "en") {
+    const key: Lang = target === "ru" ? "Ru" : "En";
+    // Overwriting a hand-written version is not undoable — React state, no
+    // browser undo — and the buttons sit right next to the language tabs.
+    if (bodyValues[key].trim() && !confirm(t.blogForm.translateConfirm(key))) return;
+
+    setTranslating(target);
+    setTranslateError(null);
+    setBodyFailed(false);
+    try {
+      const res = await translatePost(target, {
+        title: titles.Uk,
+        excerpt: excerpts.Uk,
+        body: bodyUk,
+        seoTitle: seoTitles.Uk,
+        seoDesc: seoDescs.Uk,
+      });
+      if (!res.ok) {
+        setTranslateError(res.error);
+        return;
+      }
+      const keep = (next: string, prev: string) => next || prev;
+      setTitles(prev => ({ ...prev, [key]: keep(res.data.title, prev[key]) }));
+      setExcerpts(prev => ({ ...prev, [key]: keep(res.data.excerpt, prev[key]) }));
+      setSeoTitles(prev => ({ ...prev, [key]: keep(res.data.seoTitle, prev[key]) }));
+      setSeoDescs(prev => ({ ...prev, [key]: keep(res.data.seoDesc, prev[key]) }));
+      if (res.data.body) handleBodyChange(key, res.data.body);
+      // The other fields visibly repopulate; without this the editor has no way
+      // to notice the body quietly stayed behind.
+      setBodyFailed(res.bodyFailed);
+    } catch {
+      setTranslateError(t.blogForm.translateFailed);
+    } finally {
+      setTranslating(null);
+    }
+  }
+
   function handleCoverFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file) setCoverPreview(URL.createObjectURL(file));
@@ -138,13 +212,27 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">{isNew ? t.blogForm.newPost : t.blogForm.editPost}</h1>
         {!isNew && (
-          <button type="button" onClick={() => { if (confirm(t.blogForm.deletePost)) deletePost(p.id); }} className="text-sm text-red-500 hover:text-red-600">
-            {t.blogForm.delete}
-          </button>
+          <div className="flex items-center gap-4">
+            {previewAvailable ? (
+              <a
+                href={`/api/admin/preview?id=${p.id}`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-main hover:underline"
+              >
+                {t.blogForm.preview}
+              </a>
+            ) : (
+              <span className="text-sm text-black-40">{t.blogForm.previewUnavailable}</span>
+            )}
+            <button type="button" onClick={() => { if (confirm(t.blogForm.deletePost)) deletePost(p.id); }} className="text-sm text-red-500 hover:text-red-600">
+              {t.blogForm.delete}
+            </button>
+          </div>
         )}
       </div>
 
-      <form action={savePost} className="flex flex-col gap-6">
+      <form action={formAction} className="flex flex-col gap-6">
         {!isNew && <input type="hidden" name="id" value={p.id} />}
         <input type="hidden" name="bodyUk" value={bodyUk} />
         <input type="hidden" name="bodyRu" value={bodyRu} />
@@ -154,14 +242,30 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         <div className="flex flex-wrap gap-4 items-center bg-champagne-dark rounded-xl p-4">
           <label className="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="isDraft" value="false" defaultChecked={!p.is_draft} /> {t.blogForm.published}</label>
           <label className="flex items-center gap-2 cursor-pointer text-sm"><input type="radio" name="isDraft" value="true" defaultChecked={p.is_draft !== false} /> {t.blogForm.draft}</label>
-          <input type="datetime-local" name="publishedAt" defaultValue={p.published_at ? new Date(p.published_at).toISOString().slice(0, 16) : new Date().toISOString().slice(0, 16)} className="ml-auto bg-white border border-line rounded-lg px-3 py-1.5 text-sm" />
+          {/* Shown in the editor's own wall-clock time; submitted as an absolute
+              instant via the hidden field, so a naive local string is never
+              re-read as UTC on the server. */}
+          <input
+            type="datetime-local"
+            value={publishedAtLocal}
+            onChange={e => setPublishedAtLocal(e.target.value)}
+            className="ml-auto bg-white border border-line rounded-lg px-3 py-1.5 text-sm"
+          />
+          <input type="hidden" name="publishedAt" value={fromDatetimeLocalValue(publishedAtLocal)} />
         </div>
 
         {/* Slug + Category + Doctor */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className={labelCls}>{t.blogForm.slug}</label>
-            <input name="slug" value={slug} onChange={e => setSlug(e.target.value)} required className={inputCls} placeholder="my-article-slug" />
+            <input
+              name="slug"
+              value={slug}
+              onChange={e => { setSlugTouched(true); setSlug(e.target.value); }}
+              required
+              className={inputCls}
+              placeholder="my-article-slug"
+            />
           </div>
           <div>
             <label className={labelCls}>{t.blogForm.category}</label>
@@ -211,7 +315,19 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         {/* Titles */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {LANGS.map(lang => (
-            <div key={lang}><label className={labelCls}>{t.blogForm.titleLabel(lang)}</label><input name={`title${lang}`} defaultValue={p[`title_${lang.toLowerCase()}`] || ""} className={inputCls} /></div>
+            <div key={lang}>
+              <label className={labelCls}>{t.blogForm.titleLabel(lang)}</label>
+              <input
+                name={`title${lang}`}
+                value={titles[lang]}
+                onChange={e => {
+                  const v = e.target.value;
+                  setTitles(prev => ({ ...prev, [lang]: v }));
+                  if (lang === "Uk" && !slugTouched) setSlug(slugifyUk(v));
+                }}
+                className={inputCls}
+              />
+            </div>
           ))}
         </div>
 
@@ -266,7 +382,14 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
           {LANGS.map(lang => (
             <div key={lang}>
               <label className={labelCls}>{t.blogForm.excerpt(lang)} <span className="font-normal normal-case text-black-40">{t.blogForm.excerptNote}</span></label>
-              <textarea name={`excerpt${lang}`} rows={3} defaultValue={p[`excerpt_${lang.toLowerCase()}`] || ""} className={`${inputCls} resize-y`} placeholder={t.blogForm.excerptPlaceholder} />
+              <textarea
+                name={`excerpt${lang}`}
+                rows={3}
+                value={excerpts[lang]}
+                onChange={e => { const v = e.target.value; setExcerpts(prev => ({ ...prev, [lang]: v })); }}
+                className={`${inputCls} resize-y`}
+                placeholder={t.blogForm.excerptPlaceholder}
+              />
             </div>
           ))}
         </div>
@@ -275,6 +398,22 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         <div>
           <div className="flex items-center justify-between mb-3">
             <label className={labelCls}>{t.blogForm.articleBody}</label>
+            <div className="flex items-center gap-2 ml-auto mr-3">
+              {(["ru", "en"] as const).map(target => (
+                <button
+                  key={target}
+                  type="button"
+                  onClick={() => handleTranslate(target)}
+                  disabled={translating !== null}
+                  aria-busy={translating === target}
+                  className="px-3 py-1.5 rounded-lg bg-champagne-dark hover:bg-champagne-darker text-xs font-medium disabled:opacity-50 transition-colors"
+                >
+                  {translating === target
+                    ? t.blogForm.translating
+                    : t.blogForm.translateTo(target.toUpperCase())}
+                </button>
+              ))}
+            </div>
             <div className="flex rounded-lg overflow-hidden border border-line">
               {LANGS.map(lang => (
                 <button
@@ -288,6 +427,16 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
               ))}
             </div>
           </div>
+
+          {translateError && (
+            <p className="mb-3 text-xs text-error">{translateError}</p>
+          )}
+          {bodyFailed && (
+            <div className="mb-3 flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs">
+              <AlertTriangle size={13} className="text-amber-500 mt-0.5 shrink-0" />
+              <span className="text-amber-700">{t.blogForm.translateBodyFailed}</span>
+            </div>
+          )}
 
           {LANGS.map(lang => (
             <div key={lang} className={activeLang === lang ? "block" : "hidden"}>
@@ -347,21 +496,38 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
               <div key={lang} className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className={labelCls}>{t.blogForm.seoTitle(lang)} <span className="font-normal normal-case text-black-40">{t.blogForm.seoTitleNote}</span></label>
-                  <input name={`seoTitle${lang}`} defaultValue={p[`seo_title_${lang.toLowerCase()}`] || ""} onChange={lang === "Uk" ? e => setSeoTitleUk(e.target.value) : undefined} className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none" />
+                  <input
+                    name={`seoTitle${lang}`}
+                    value={seoTitles[lang]}
+                    onChange={e => { const v = e.target.value; setSeoTitles(prev => ({ ...prev, [lang]: v })); }}
+                    className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none"
+                  />
                 </div>
                 <div>
                   <label className={labelCls}>{t.blogForm.seoDesc(lang)} <span className="font-normal normal-case text-black-40">{t.blogForm.seoDescNote}</span></label>
-                  <textarea name={`seoDesc${lang}`} rows={2} defaultValue={p[`seo_desc_${lang.toLowerCase()}`] || ""} onChange={lang === "Uk" ? e => setSeoDescUk(e.target.value) : undefined} className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none resize-none" />
+                  <textarea
+                    name={`seoDesc${lang}`}
+                    rows={2}
+                    value={seoDescs[lang]}
+                    onChange={e => { const v = e.target.value; setSeoDescs(prev => ({ ...prev, [lang]: v })); }}
+                    className="w-full bg-white rounded-lg px-3 py-2 text-sm border border-line focus:ring-1 focus:ring-main outline-none resize-none"
+                  />
                 </div>
               </div>
             ))}
-            <SeoPreview title={seoTitleUk} desc={seoDescUk} slug={slug} t={t} />
+            <SeoPreview title={seoTitles.Uk} desc={seoDescs.Uk} slug={slug} t={t} />
           </div>
         </details>
 
+        {state?.error && (
+          <div className="p-4 bg-error-light text-error rounded-xl text-sm">{state.error}</div>
+        )}
+
         <div className="flex items-center gap-4">
           <SubmitBtn isNew={isNew} />
-          {justSaved && (
+          {/* `?saved=1` stays in the URL after a failed re-save (the error path
+              never navigates), so the tick must yield to the error banner. */}
+          {justSaved && !state?.error && (
             <span className="inline-flex items-center gap-1.5 text-sm text-success font-medium animate-in fade-in slide-in-from-left-2 duration-300">
               <Check size={15} /> {t.blogForm.saved}
             </span>

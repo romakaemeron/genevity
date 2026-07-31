@@ -1,4 +1,7 @@
 import { permanentRedirect, notFound } from "next/navigation";
+import { draftMode } from "next/headers";
+import PreviewBanner, { PREVIEW_BANNER_HEIGHT } from "@/components/blog/PreviewBanner";
+import { BLOG_HIDDEN_ON_PRODUCTION } from "@/lib/blog-visibility";
 import { getBlogPostBySlug, getRelatedBlogPosts } from "@/lib/db/queries/blog";
 import { getServicesBySlugs, getUiStringsData } from "@/lib/db/queries";
 import { generatePageMetadata } from "@/lib/seo";
@@ -20,8 +23,10 @@ import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 
-// Blog is visible on dev/preview only — hidden on production until launch
-const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
+// Blog is visible on dev/preview only — hidden on production until launch.
+// The constant is shared with the draft-preview endpoint and the editor's
+// preview link so the three cannot drift apart.
+const IS_PRODUCTION = BLOG_HIDDEN_ON_PRODUCTION;
 
 export const revalidate = 86400;
 
@@ -39,7 +44,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   if (IS_PRODUCTION) return {};
   const { locale, slug } = await params;
-  const post = await getBlogPostBySlug(locale, slug);
+  const post = await getBlogPostBySlug(locale, slug, {
+    includeDrafts: (await draftMode()).isEnabled,
+  });
   if (!post) return {};
   return generatePageMetadata({
     title: post.seoTitle || post.title,
@@ -60,7 +67,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (IS_PRODUCTION) permanentRedirect("/");
 
   const { locale, slug } = await params;
-  const post = await getBlogPostBySlug(locale, slug);
+  const isPreview = (await draftMode()).isEnabled;
+  const post = await getBlogPostBySlug(locale, slug, { includeDrafts: isPreview });
   if (!post) notFound();
 
   const l = L[locale as keyof typeof L] ?? L.ua;
@@ -100,6 +108,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   return (
     <>
+      {isPreview && <PreviewBanner locale={locale} postId={post._id} />}
       <JsonLd data={articleSchema as Record<string, unknown>} />
       {(post.reviewer || post.lastReviewedAt) && (
         <JsonLdMedicalWebPage
@@ -117,9 +126,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         { name: "Блог", url: `https://genevity.com.ua${localePrefix}/blog` },
         { name: post.title, url: articleUrl },
       ]} />
-      <MegaMenuHeader variant="solid" position="fixed" />
+      <MegaMenuHeader variant="solid" position="fixed" topOffset={isPreview ? PREVIEW_BANNER_HEIGHT : 0} />
 
-      <div className="bg-champagne pt-28 pb-8">
+      <div
+        className="bg-champagne pt-28 pb-8"
+        style={isPreview ? { paddingTop: `calc(7rem + ${PREVIEW_BANNER_HEIGHT}px)` } : undefined}
+      >
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12">
           <Link href="/blog" className="inline-flex items-center gap-1.5 text-black-40 hover:text-main transition-colors text-sm mb-6">
             <ArrowLeft className="w-3.5 h-3.5" /> {l.back}
