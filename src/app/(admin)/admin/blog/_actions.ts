@@ -51,7 +51,15 @@ export interface TranslateSource {
   seoDesc: string;
 }
 
-export type TranslateResult = { ok: true; data: TranslateSource } | { ok: false; error: string };
+export type TranslateResult =
+  /**
+   * `bodyFailed` disambiguates the two reasons `data.body` can be empty: there
+   * was nothing to translate, or the translation was rejected for mangling the
+   * markup. Only the second deserves a warning, and the form cannot tell them
+   * apart on its own.
+   */
+  | { ok: true; data: TranslateSource; bodyFailed: boolean }
+  | { ok: false; error: string };
 
 /**
  * Translate the Ukrainian version of a post into RU or EN and hand the result
@@ -80,7 +88,11 @@ export async function translatePost(
     if (!title && !excerpt && !body && !seoTitle && !seoDesc) {
       return { ok: false, error: "Не вдалося перекласти. Спробуйте ще раз" };
     }
-    return { ok: true, data: { title, excerpt, body, seoTitle, seoDesc } };
+    return {
+      ok: true,
+      data: { title, excerpt, body, seoTitle, seoDesc },
+      bodyFailed: Boolean(source.body.trim()) && !body,
+    };
   } catch (e) {
     console.error("translatePost failed:", e);
     return { ok: false, error: "Не вдалося перекласти. Спробуйте ще раз" };

@@ -381,6 +381,9 @@ const uk = {
     translateTo: (lang: string) => `Перекласти на ${lang}`,
     translating: "Перекладаю…",
     translateFailed: "Не вдалося перекласти",
+    translateBodyFailed: "Текст статті не перекладено — структура розмітки не збереглася. Інші поля заповнено. Перекладіть текст вручну.",
+    translateConfirm: (lang: string) =>
+      `Версія ${lang} вже має текст статті. Переклад замінить заголовок, анонс, SEO і весь текст. Продовжити?`,
   },
 };
 
@@ -764,6 +767,9 @@ const ru: typeof uk = {
     translateTo: (lang: string) => `Перевести на ${lang}`,
     translating: "Перевожу…",
     translateFailed: "Не удалось перевести",
+    translateBodyFailed: "Текст статьи не переведён — структура разметки не сохранилась. Остальные поля заполнены. Переведите текст вручную.",
+    translateConfirm: (lang: string) =>
+      `В версии ${lang} уже есть текст статьи. Перевод заменит заголовок, анонс, SEO и весь текст. Продолжить?`,
   },
 };
 
@@ -1147,6 +1153,9 @@ const en: typeof uk = {
     translateTo: (lang: string) => `Translate to ${lang}`,
     translating: "Translating…",
     translateFailed: "Translation failed",
+    translateBodyFailed: "The article body was not translated — the markup structure was not preserved. The other fields are filled in. Translate the body manually.",
+    translateConfirm: (lang: string) =>
+      `The ${lang} version already has an article body. Translating will replace its title, excerpt, SEO fields and the entire body. Continue?`,
   },
 };
 

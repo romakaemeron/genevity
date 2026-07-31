@@ -27,20 +27,49 @@ export async function translateHeadline(text: string, target: "ru" | "en"): Prom
 }
 
 /**
- * Fingerprint of the markup skeleton: every tag in document order, plus the
- * src/href values that must survive verbatim. Two documents with the same
- * signature have the same elements in the same nesting, so only text changed.
+ * Attributes whose *value* must survive verbatim, because the value itself
+ * carries structure or a target that translation must never touch. Everything
+ * else is compared by name only — notably alt/title, whose values are supposed
+ * to change (translating them is the point), and style/class, where harmless
+ * reformatting would otherwise trip the check.
  */
-function tagSignature(html: string): string {
+/** Longest body we will send in one shot; see translateHtml. */
+const MAX_BODY_CHARS = 50_000;
+
+const PINNED_ATTRS = new Set(["src", "href", "colspan", "rowspan", "data-type", "data-checked"]);
+
+const TAG_RE = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)([^>]*)>/g;
+const ATTR_RE = /([a-zA-Z_:][-\w:.]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'`=<>]+)))?/g;
+
+/**
+ * Fingerprint of the markup skeleton. For every tag, in document order: whether
+ * it opens or closes, its name, the full set of attribute names on it, and the
+ * values of the PINNED_ATTRS above.
+ *
+ * Two documents with the same signature therefore have the same elements in the
+ * same order and nesting, each carrying the same attributes, with images/links
+ * pointing at the same targets and table spans and Tiptap node types intact.
+ * What they may differ in is text content and the values of non-pinned
+ * attributes such as alt and title — exactly what a translation should change.
+ *
+ * Exported so the guarantee can be exercised directly.
+ */
+export function tagSignature(html: string): string {
   const parts: string[] = [];
-  const tag = /<(\/?)([a-zA-Z][a-zA-Z0-9]*)([^>]*)>/g;
   let m: RegExpExecArray | null;
-  while ((m = tag.exec(html)) !== null) {
-    const [, closing, name, attrs] = m;
-    const urls = [...attrs.matchAll(/\b(src|href)\s*=\s*["']([^"']*)["']/g)]
-      .map(a => `${a[1].toLowerCase()}=${a[2]}`)
-      .join(",");
-    parts.push(`${closing}${name.toLowerCase()}${urls ? `[${urls}]` : ""}`);
+  TAG_RE.lastIndex = 0;
+  while ((m = TAG_RE.exec(html)) !== null) {
+    const [, closing, name, rawAttrs] = m;
+    const attrs: string[] = [];
+    let a: RegExpExecArray | null;
+    ATTR_RE.lastIndex = 0;
+    while ((a = ATTR_RE.exec(rawAttrs)) !== null) {
+      const attr = a[1].toLowerCase();
+      const value = a[2] ?? a[3] ?? a[4] ?? "";
+      attrs.push(PINNED_ATTRS.has(attr) ? `${attr}=${value}` : attr);
+    }
+    attrs.sort();
+    parts.push(`${closing}${name.toLowerCase()}[${attrs.join(",")}]`);
   }
   return parts.join(">");
 }
@@ -65,6 +94,12 @@ function stripFence(text: string): string {
 export async function translateHtml(html: string, target: "ru" | "en"): Promise<string> {
   const src = html.trim();
   if (!src) return "";
+  // Past this length the answer risks being truncated by the output limit, which
+  // would read as structure drift and burn a pointless retry. Refuse up front.
+  if (src.length > MAX_BODY_CHARS) {
+    console.error(`translateHtml: body of ${src.length} chars exceeds the ${MAX_BODY_CHARS} limit`);
+    return "";
+  }
   const want = tagSignature(src);
 
   const basePrompt =

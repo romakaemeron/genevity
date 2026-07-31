@@ -119,6 +119,7 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
   });
   const [translating, setTranslating] = useState<"ru" | "en" | null>(null);
   const [translateError, setTranslateError] = useState<string | null>(null);
+  const [bodyFailed, setBodyFailed] = useState(false);
   const [coverPreview, setCoverPreview] = useState<string | null>(p.cover_image || null);
   const [activeLang, setActiveLang] = useState<"Uk" | "Ru" | "En">("Uk");
 
@@ -147,8 +148,14 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
    * are skipped so a partial failure never wipes existing text.
    */
   async function handleTranslate(target: "ru" | "en") {
+    const key: Lang = target === "ru" ? "Ru" : "En";
+    // Overwriting a hand-written version is not undoable — React state, no
+    // browser undo — and the buttons sit right next to the language tabs.
+    if (bodyValues[key].trim() && !confirm(t.blogForm.translateConfirm(key))) return;
+
     setTranslating(target);
     setTranslateError(null);
+    setBodyFailed(false);
     try {
       const res = await translatePost(target, {
         title: titles.Uk,
@@ -161,13 +168,15 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
         setTranslateError(res.error);
         return;
       }
-      const key: Lang = target === "ru" ? "Ru" : "En";
       const keep = (next: string, prev: string) => next || prev;
       setTitles(prev => ({ ...prev, [key]: keep(res.data.title, prev[key]) }));
       setExcerpts(prev => ({ ...prev, [key]: keep(res.data.excerpt, prev[key]) }));
       setSeoTitles(prev => ({ ...prev, [key]: keep(res.data.seoTitle, prev[key]) }));
       setSeoDescs(prev => ({ ...prev, [key]: keep(res.data.seoDesc, prev[key]) }));
       if (res.data.body) handleBodyChange(key, res.data.body);
+      // The other fields visibly repopulate; without this the editor has no way
+      // to notice the body quietly stayed behind.
+      setBodyFailed(res.bodyFailed);
     } catch {
       setTranslateError(t.blogForm.translateFailed);
     } finally {
@@ -376,6 +385,7 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
                   type="button"
                   onClick={() => handleTranslate(target)}
                   disabled={translating !== null}
+                  aria-busy={translating === target}
                   className="px-3 py-1.5 rounded-lg bg-champagne-dark hover:bg-champagne-darker text-xs font-medium disabled:opacity-50 transition-colors"
                 >
                   {translating === target
@@ -400,6 +410,12 @@ export default function BlogPostForm({ post, categories, doctors, doctorOptions 
 
           {translateError && (
             <p className="mb-3 text-xs text-error">{translateError}</p>
+          )}
+          {bodyFailed && (
+            <div className="mb-3 flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs">
+              <AlertTriangle size={13} className="text-amber-500 mt-0.5 shrink-0" />
+              <span className="text-amber-700">{t.blogForm.translateBodyFailed}</span>
+            </div>
           )}
 
           {LANGS.map(lang => (
