@@ -11,6 +11,13 @@ const cases: [string, string][] = [
   ["  Подвійні   пробіли  ", "podviini-probily"],
   ["Anti-age 2026", "anti-age-2026"],
   ["!!!", ""],
+  // зг → zgh (Resolution No. 55): must not collapse to z+h, which would be
+  // indistinguishable from ж → zh.
+  ["Розгон", "rozghon"],
+  ["розгляд", "rozghliad"],
+  // Control case: ж alone must still map to plain "zh", proving зг → zgh
+  // and ж → zh no longer collide.
+  ["Жанна", "zhanna"],
 ];
 
 let failures = 0;

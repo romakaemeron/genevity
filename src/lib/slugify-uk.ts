@@ -20,10 +20,21 @@ const INITIAL: Record<string, string> = {
 
 export function slugifyUk(input: string): string {
   const lower = input.toLowerCase().trim();
+  const chars = Array.from(lower);
   let out = "";
   let atWordStart = true;
 
-  for (const ch of lower) {
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    // "зг" → "zgh" (Resolution No. 55): a two-letter special case, distinct
+    // from plain з→z + г→h, so it never collides with ж→"zh" (e.g. Розгон →
+    // Rozghon, not Rozhon).
+    if (ch === "з" && chars[i + 1] === "г") {
+      out += "zgh";
+      i++;
+      atWordStart = false;
+      continue;
+    }
     if (/[a-z0-9]/.test(ch)) {
       out += ch;
       atWordStart = false;
