@@ -61,6 +61,13 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
       if (!res.ok) throw new Error(`Export failed: ${res.status}`);
 
       const count = Number(res.headers.get("X-Row-Count") ?? 0);
+
+      // An empty workbook reads as "the export broke". Say so instead.
+      if (!count) {
+        toast.info(t.submissionsTable.exportEmpty, { id: toastId });
+        return;
+      }
+
       const blob = await res.blob();
 
       // Filename is chosen server-side; pull it out of Content-Disposition so
@@ -77,10 +84,7 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
       a.remove();
       URL.revokeObjectURL(url);
 
-      toast.success(
-        count ? t.submissionsTable.exportDone(count) : t.submissionsTable.exportEmpty,
-        { id: toastId },
-      );
+      toast.success(t.submissionsTable.exportDone(count), { id: toastId });
       setOpen(false);
     } catch (err) {
       console.error("[forms/export]", err);
@@ -124,7 +128,7 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
 
         {selectedIds.length > 0 && (
           <>
-            <DropdownMenuItem onSelect={() => download({ ids: selectedIds })}>
+            <DropdownMenuItem onClick={() => download({ ids: selectedIds })}>
               <Download size={13} className="mr-2 opacity-60" />
               {t.submissionsTable.exportSelected(selectedIds.length)}
             </DropdownMenuItem>
@@ -133,13 +137,13 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
         )}
 
         {presets.map((p) => (
-          <DropdownMenuItem key={p.label} onSelect={() => download(p.body)}>
+          <DropdownMenuItem key={p.label} onClick={() => download(p.body)}>
             {p.label}
           </DropdownMenuItem>
         ))}
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={() => download({})} className="font-medium">
+        <DropdownMenuItem onClick={() => download({})} className="font-medium">
           {t.submissionsTable.exportAll}
         </DropdownMenuItem>
 
