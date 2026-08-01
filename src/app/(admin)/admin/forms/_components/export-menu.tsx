@@ -10,6 +10,15 @@ import {
 import { cn } from "@/lib/utils";
 import { useAdminLocale } from "../../_i18n/context";
 
+/**
+ * Date fields default to a text caret, which reads as "type here" on a control
+ * that is really a picker. Cursor covers the field and the calendar glyph.
+ */
+const DATE_INPUT_CLASS =
+  "h-7 w-full px-1.5 rounded-md border border-border bg-background text-[11px] tabular-nums " +
+  "outline-none focus:border-ring cursor-pointer " +
+  "[&::-webkit-calendar-picker-indicator]:cursor-pointer";
+
 /** Kyiv-local `YYYY-MM-DD` — the clinic's day, not the viewer's. */
 function kyivToday(): string {
   return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Kyiv" }).format(new Date());
@@ -128,7 +137,7 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
 
         {selectedIds.length > 0 && (
           <>
-            <DropdownMenuItem onClick={() => download({ ids: selectedIds })}>
+            <DropdownMenuItem onClick={() => download({ ids: selectedIds })} className="cursor-pointer">
               <Download size={13} className="mr-2 opacity-60" />
               {t.submissionsTable.exportSelected(selectedIds.length)}
             </DropdownMenuItem>
@@ -137,13 +146,13 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
         )}
 
         {presets.map((p) => (
-          <DropdownMenuItem key={p.label} onClick={() => download(p.body)}>
+          <DropdownMenuItem key={p.label} onClick={() => download(p.body)} className="cursor-pointer">
             {p.label}
           </DropdownMenuItem>
         ))}
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => download({})} className="font-medium">
+        <DropdownMenuItem onClick={() => download({})} className="font-medium cursor-pointer">
           {t.submissionsTable.exportAll}
         </DropdownMenuItem>
 
@@ -159,17 +168,17 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
             {t.submissionsTable.exportCustom}
           </p>
           <div className="flex items-center gap-1.5">
-            <label className="flex-1 flex flex-col gap-0.5">
+            <label className="flex-1 flex flex-col gap-0.5 cursor-pointer">
               <span className="text-[10px] text-muted-foreground">{t.submissionsTable.exportFrom}</span>
               <input
                 type="date"
                 value={from}
                 max={to}
                 onChange={(e) => setFrom(e.target.value)}
-                className="h-7 w-full px-1.5 rounded-md border border-border bg-background text-[11px] tabular-nums outline-none focus:border-ring"
+                className={DATE_INPUT_CLASS}
               />
             </label>
-            <label className="flex-1 flex flex-col gap-0.5">
+            <label className="flex-1 flex flex-col gap-0.5 cursor-pointer">
               <span className="text-[10px] text-muted-foreground">{t.submissionsTable.exportTo}</span>
               <input
                 type="date"
@@ -177,7 +186,7 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
                 min={from}
                 max={today}
                 onChange={(e) => setTo(e.target.value)}
-                className="h-7 w-full px-1.5 rounded-md border border-border bg-background text-[11px] tabular-nums outline-none focus:border-ring"
+                className={DATE_INPUT_CLASS}
               />
             </label>
           </div>
@@ -187,7 +196,7 @@ export default function ExportMenu({ selectedIds }: { selectedIds: string[] }) {
             onClick={() => download({ from, to })}
             className={cn(
               "inline-flex items-center justify-center gap-1.5 h-7 w-full rounded-md text-xs font-medium",
-              "bg-foreground text-background hover:opacity-90 transition-opacity",
+              "bg-foreground text-background hover:opacity-90 transition-opacity cursor-pointer",
               "disabled:opacity-40 disabled:pointer-events-none",
             )}
           >
