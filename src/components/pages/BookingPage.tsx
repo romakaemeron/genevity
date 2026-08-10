@@ -80,7 +80,7 @@ export default function BookingPage({ locale, ui, phone, hours, address }: Props
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-14">
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
         <AppointmentWizard address={address} phone={phone} aside={contactCard} />
       </section>
     </>

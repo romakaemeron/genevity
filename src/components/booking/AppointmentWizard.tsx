@@ -250,7 +250,7 @@ export default function AppointmentWizard({
       buildIcs({
         start: selectedSlot.start,
         end: selectedSlot.end,
-        title: `GENEVITY — ${service?.title ?? t("anyService")}`,
+        title: `GENEVITY — ${service?.title ?? "запис"}`,
         description: doctor ? `${doctor.name}${doctor.role ? `, ${doctor.role}` : ""}` : undefined,
         location: address,
         uid: `genevity-${bookingId ?? Date.now()}@genevity.com.ua`,
@@ -344,7 +344,7 @@ export default function AppointmentWizard({
 
   const railRows: { label: string; value: string; on: boolean }[] = [
     { label: t("stepService"),
-      value: serviceId === null ? t("railNotChosen") : (service?.title ?? t("anyService")),
+      value: service?.title ?? t("railNotChosen"),
       on: serviceId !== null },
     { label: t("stepDoctor"), value: doctor?.name ?? t("railNotChosen"), on: Boolean(doctor) },
     { label: t("stepWhen"),
@@ -395,7 +395,7 @@ export default function AppointmentWizard({
         <div className="bk-rise">
           <h2 className="heading-3 text-black">{t("startHeading")}</h2>
 
-          <div className="inline-flex gap-1 p-0.5 rounded-[var(--radius-pill)] bg-champagne-darker mt-5 mb-6">
+          <div className="inline-flex gap-1 p-0.5 rounded-[var(--radius-pill)] bg-champagne-dark mt-5 mb-6">
             {(["service", "doctor"] as EntryMode[]).map((m) => (
               <button
                 key={m}
@@ -527,7 +527,7 @@ export default function AppointmentWizard({
 
           <div className="rounded-[var(--radius-card)] border border-line bg-white overflow-hidden">
             {([
-              [t("stepService"), service?.title ?? t("anyService"), () => go("service")],
+              [t("stepService"), service?.title ?? "—", () => go("service")],
               [t("stepDoctor"), doctor ? `${doctor.name} · ${doctor.role}` : "—", () => go("doctor")],
               [t("stepWhen"), selectedSlot ? `${formatKyivDateLong(selectedSlot.start, locale)}, ${kyivTime(selectedSlot.start)}` : "—", () => go("when")],
               [t("nameLabel"), name || "—", () => go("contact")],
@@ -562,7 +562,9 @@ export default function AppointmentWizard({
       )}
 
       {/* ── Nav ── */}
-      <div className="flex items-center justify-between gap-4 mt-8 pt-6 border-t border-line">
+      {/* Sticky so the way forward is always in reach — the service list runs to
+          230 cards and the page, not a nested container, does the scrolling. */}
+      <div className="sticky bottom-0 z-10 flex items-center justify-between gap-4 mt-8 pt-4 pb-4 border-t border-line bg-champagne/95 backdrop-blur-sm supports-[backdrop-filter]:bg-champagne/80">
         <div className={stepIndex > 0 ? "" : "invisible"}>
           <Button variant="outline" size="sm" onClick={() => stepIndex > 0 && go(steps[stepIndex - 1])} disabled={pending}>
             <ChevronLeft className="w-3.5 h-3.5" />
@@ -682,20 +684,10 @@ function ServiceGrid({
         />
       </div>
 
-      <button type="button" onClick={() => onSelect(0)} aria-pressed={selected === 0} className={`${cardCls(selected === 0)} w-full mb-3`}>
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="bk-eyebrow">{t("notSureEyebrow")}</p>
-            <p className="body-strong text-black text-[16px] mt-1.5">{t("anyService")}</p>
-          </div>
-          <Tick on={selected === 0} />
-        </div>
-      </button>
-
       {services.length === 0 ? (
         <p className="body-m text-muted py-8 text-center">{t("serviceNoMatch")}</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[520px] overflow-y-auto pr-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {services.map((s) => {
             const on = selected === s.id;
             return (

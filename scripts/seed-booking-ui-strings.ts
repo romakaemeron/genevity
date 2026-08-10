@@ -295,6 +295,7 @@ const OVERWRITE = new Set([
 
 /** Keys from the parked six-step version that no longer exist. */
 const REMOVE = [
+  "anyService", "notSureEyebrow",
   "startByDoctor", "startByDoctorHint", "startByService", "startByServiceHint",
   "serviceHint", "confirmNote2",
   "stepDate", "stepTime", "dateHeading", "timeHeading", "anyDoctor",
