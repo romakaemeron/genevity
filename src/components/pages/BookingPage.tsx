@@ -3,10 +3,9 @@
 /**
  * /booking — the online appointment page (TZ #10 §2).
  *
- * Two columns on desktop: the flow, and a sticky aside with the clinic's
- * contact details. Built entirely from the site's own tokens and components —
- * the booking design contributed the layout and card composition, not a
- * separate palette or type scale.
+ * The wizard owns the two-column layout because it owns the booking state that
+ * the summary rail mirrors; this passes the clinic's contact card in as the
+ * slot underneath it.
  */
 
 import { useTranslations } from "next-intl";
@@ -37,6 +36,34 @@ export default function BookingPage({ locale, ui, phone, hours, address }: Props
   const tLabels = useTranslations("labels");
   const tBooking = useTranslations("booking");
 
+  const contactCard = (
+    <div className="rounded-[var(--radius-card)] bg-champagne-dark p-5">
+      <div className="flex flex-col gap-3.5">
+        {phone && (
+          <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex gap-3 items-center group">
+            <Phone className="w-4 h-4 text-main shrink-0" aria-hidden="true" />
+            <span className="body-strong text-black group-hover:text-main transition-colors">{phone}</span>
+          </a>
+        )}
+        {hours && (
+          <p className="flex gap-3 items-center">
+            <Clock className="w-4 h-4 text-main shrink-0" aria-hidden="true" />
+            <span className="body-m text-muted">{hours}</span>
+          </p>
+        )}
+        {address && (
+          <p className="flex gap-3 items-start">
+            <MapPin className="w-4 h-4 text-main shrink-0 mt-0.5" aria-hidden="true" />
+            <span className="body-m text-muted">{address}</span>
+          </p>
+        )}
+      </div>
+      <div className="border-t border-black-10 mt-4 pt-4">
+        <p className="body-s text-muted">{tBooking("asideNote")}</p>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <section className="bg-champagne">
@@ -53,36 +80,8 @@ export default function BookingPage({ locale, ui, phone, hours, address }: Props
         </div>
       </section>
 
-      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-10 lg:gap-14 items-start">
-          <AppointmentWizard address={address} phone={phone} />
-
-          <aside className="lg:sticky lg:top-28 rounded-[var(--radius-card)] bg-champagne-dark p-6 w-full">
-            <div className="flex flex-col gap-4">
-              {phone && (
-                <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex gap-3 items-center group">
-                  <Phone className="w-4 h-4 text-main shrink-0" aria-hidden="true" />
-                  <span className="body-strong text-black group-hover:text-main transition-colors">{phone}</span>
-                </a>
-              )}
-              {hours && (
-                <p className="flex gap-3 items-center">
-                  <Clock className="w-4 h-4 text-main shrink-0" aria-hidden="true" />
-                  <span className="body-m text-muted">{hours}</span>
-                </p>
-              )}
-              {address && (
-                <p className="flex gap-3 items-start">
-                  <MapPin className="w-4 h-4 text-main shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="body-m text-muted">{address}</span>
-                </p>
-              )}
-            </div>
-            <div className="border-t border-black-10 mt-5 pt-5">
-              <p className="body-s text-muted">{tBooking("asideNote")}</p>
-            </div>
-          </aside>
-        </div>
+      <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-14">
+        <AppointmentWizard address={address} phone={phone} aside={contactCard} />
       </section>
     </>
   );

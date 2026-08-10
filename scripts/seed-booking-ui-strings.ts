@@ -131,6 +131,13 @@ const BOOKING: Record<string, L> = {
     en: "Booking takes about a minute. The time is confirmed by our administrator — if your plans change, let us know in advance.",
   },
 
+  // Live summary rail
+  railTitle:      { uk: "Ваш запис",    ru: "Ваша запись",   en: "Your visit" },
+  railPatient:    { uk: "Пацієнт",      ru: "Пациент",       en: "Patient" },
+  railTotal:      { uk: "Разом",        ru: "Итого",         en: "Total" },
+  railNotChosen:  { uk: "не обрано",    ru: "не выбрано",    en: "not selected" },
+  railNotFilled:  { uk: "не заповнено", ru: "не заполнено",  en: "not filled in" },
+
   // Steps
   stepDoctor:  { uk: "Лікар",         ru: "Врач",           en: "Doctor" },
   stepService: { uk: "Послуга",       ru: "Услуга",         en: "Service" },

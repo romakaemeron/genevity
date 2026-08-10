@@ -78,8 +78,8 @@ function duration(mins: number, h: string, m: string): string {
 }
 
 export default function AppointmentWizard({
-  address, phone,
-}: { address: string; phone: string }) {
+  address, phone, aside,
+}: { address: string; phone: string; aside?: React.ReactNode }) {
   const t = useTranslations("booking");
   const locale = useLocale();
 
@@ -90,7 +90,8 @@ export default function AppointmentWizard({
 
   const [doctorId, setDoctorId] = useState<number | null>(null);
   const [services, setServices] = useState<ServiceOption[] | null>(null);
-  const [serviceId, setServiceId] = useState<number>(0);
+  // null = nothing picked yet; 0 is the explicit "just a consultation" choice.
+  const [serviceId, setServiceId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
 
   const [slots, setSlots] = useState<BookingSlot[] | null>(null);
@@ -141,13 +142,19 @@ export default function AppointmentWizard({
     setErrors({});
   }, []);
 
-  // Scrolling is a side effect of having changed step, so it lives here rather
-  // than in the handler — which would mean reading a ref during render for
-  // every step-change closure built below.
-  const firstRender = useRef(true);
+  // Scroll to the top of the flow when the step actually changes — a side
+  // effect of the change, so it belongs in an effect rather than in every
+  // step-change closure (which would read a ref during render).
+  //
+  // Compares against the previous value rather than using a "first render"
+  // flag: React runs effects twice in development, which would consume the
+  // flag on the first pass and scroll the page on load.
+  const prevStep = useRef<Step | null>(null);
   useEffect(() => {
-    if (firstRender.current) { firstRender.current = false; return; }
-    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (prevStep.current !== null && prevStep.current !== step) {
+      topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    prevStep.current = step;
   }, [step]);
 
   function chooseMode(next: EntryMode) {
@@ -183,7 +190,7 @@ export default function AppointmentWizard({
   const contactValid = name.trim().length >= 2 && phoneLocal.replace(/\D+/g, "").length >= 9;
   const canAdvance =
     step === "doctor" ? doctorId != null
-    : step === "service" ? services != null
+    : step === "service" ? serviceId !== null
     : step === "when" ? Boolean(slotStart)
     : step === "contact" ? contactValid
     : true;
@@ -208,7 +215,7 @@ export default function AppointmentWizard({
         name: name.trim(),
         phone: phoneLocal.replace(/\D+/g, ""),
         employeeId: doctorId,
-        serviceId,
+        serviceId: serviceId ?? 0,
         start: selectedSlot.start,
         end: selectedSlot.end,
         comment: comment.trim(),
@@ -230,7 +237,7 @@ export default function AppointmentWizard({
 
   function restart() {
     setMode("service"); setStep("service");
-    setDoctorId(null); setServiceId(0); setQuery("");
+    setDoctorId(null); setServiceId(null); setQuery("");
     setSlots(null); setDateKey(null); setSlotStart(null); setWeekStart(0);
     setName(""); setPhoneLocal(""); setComment("");
     setErrors({}); setBookingId(null);
@@ -335,8 +342,22 @@ export default function AppointmentWizard({
     morning: t("morning"), afternoon: t("afternoon"), evening: t("evening"),
   };
 
+  const railRows: { label: string; value: string; on: boolean }[] = [
+    { label: t("stepService"),
+      value: serviceId === null ? t("railNotChosen") : (service?.title ?? t("anyService")),
+      on: serviceId !== null },
+    { label: t("stepDoctor"), value: doctor?.name ?? t("railNotChosen"), on: Boolean(doctor) },
+    { label: t("stepWhen"),
+      value: selectedSlot
+        ? `${formatKyivDateLong(selectedSlot.start, locale)}, ${kyivTime(selectedSlot.start)}`
+        : t("railNotChosen"),
+      on: Boolean(selectedSlot) },
+    { label: t("railPatient"), value: name.trim() || t("railNotFilled"), on: Boolean(name.trim()) },
+  ];
+
   return (
-    <div ref={topRef} className="min-w-0">
+    <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-10 lg:gap-14 items-start">
+    <div ref={topRef} className="min-w-0 scroll-mt-28">
       {/* Stepper */}
       <ol className="flex items-center gap-2 flex-wrap mb-8">
         {steps.map((s, i) => {
@@ -374,14 +395,14 @@ export default function AppointmentWizard({
         <div className="bk-rise">
           <h2 className="heading-3 text-black">{t("startHeading")}</h2>
 
-          <div className="inline-flex gap-1 p-1 rounded-[var(--radius-pill)] bg-champagne-darker mt-5 mb-6">
+          <div className="inline-flex gap-1 p-0.5 rounded-[var(--radius-pill)] bg-champagne-darker mt-5 mb-6">
             {(["service", "doctor"] as EntryMode[]).map((m) => (
               <button
                 key={m}
                 type="button"
                 onClick={() => chooseMode(m)}
                 aria-pressed={mode === m}
-                className={`px-5 py-2.5 rounded-[var(--radius-pill)] text-[14px] cursor-pointer transition-colors duration-200 ${
+                className={`px-4 py-1.5 rounded-[var(--radius-pill)] text-[13px] cursor-pointer transition-colors duration-200 ${
                   mode === m ? "bg-champagne text-black shadow-sm" : "text-muted hover:text-black"
                 }`}
               >
@@ -551,7 +572,7 @@ export default function AppointmentWizard({
         <div className="flex items-center gap-4">
           {hint && <span className="hidden sm:inline body-s text-black-40">{hint}</span>}
           {step === "confirm" ? (
-            <Button variant="primary" size="lg" onClick={submit} disabled={pending}>
+            <Button variant="primary" size="sm" onClick={submit} disabled={pending}>
               {pending && <Loader2 className="w-4 h-4 animate-spin" />}
               {pending ? t("sending") : t("confirm")}
             </Button>
@@ -563,6 +584,38 @@ export default function AppointmentWizard({
           )}
         </div>
       </div>
+    </div>
+
+      <aside className="lg:sticky lg:top-28 flex flex-col gap-4 w-full order-first lg:order-last">
+        <div className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+          <p className="bk-eyebrow">{t("railTitle")}</p>
+          <div className="mt-4 flex flex-col gap-3.5">
+            {railRows.map((r) => (
+              <div key={r.label} className={`flex gap-3 items-start transition-opacity ${r.on ? "opacity-100" : "opacity-55"}`}>
+                <span
+                  className={`w-2 h-2 rounded-full mt-1.5 shrink-0 border transition-colors ${
+                    r.on ? "bg-main border-main" : "border-black-20"
+                  }`}
+                  aria-hidden="true"
+                />
+                <span className="min-w-0">
+                  <span className="block body-s text-black-40">{r.label}</span>
+                  <span className={`block body-m mt-0.5 first-letter:uppercase break-words ${r.on ? "text-black" : "text-black-40"}`}>
+                    {r.value}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+          {service && service.price > 0 && (
+            <div className="bk-fade mt-5 pt-4 border-t border-line flex items-baseline justify-between gap-3">
+              <span className="body-s text-muted">{t("railTotal")}</span>
+              <span className="body-strong text-main text-[18px]">{money(service.price, locale)}</span>
+            </div>
+          )}
+        </div>
+        {aside}
+      </aside>
     </div>
   );
 }
@@ -594,10 +647,13 @@ function Tick({ on }: { on: boolean }) {
   );
 }
 
+/** Cards carry no border at rest — the surface does the work, and hover just
+ *  deepens it. Only the selected card gets an outline, so selection stays the
+ *  one thing an outline means here. */
 const cardCls = (on: boolean) =>
-  `text-left rounded-[var(--radius-card)] border p-5 cursor-pointer transition-all duration-200 ${
-    on ? "border-main bg-white shadow-[0_10px_30px_-18px_rgba(94,80,69,.55)]"
-       : "border-line bg-champagne-dark hover:border-stone-light hover:-translate-y-0.5"
+  `text-left rounded-[var(--radius-card)] border p-5 cursor-pointer transition-colors duration-200 ${
+    on ? "border-main bg-white"
+       : "border-transparent bg-champagne-dark hover:bg-champagne-darker"
   }`;
 
 function ServiceGrid({
@@ -605,7 +661,7 @@ function ServiceGrid({
 }: {
   services: ServiceOption[];
   all: ServiceOption[] | null;
-  selected: number;
+  selected: number | null;
   onSelect: (id: number) => void;
   query: string;
   onQuery: (q: string) => void;
@@ -711,7 +767,7 @@ function DoctorList({
                     white-space that no stylesheet rule can override. */}
                 {d.nextSlot && (
                   <span
-                    className="inline-block mt-2.5 px-3 py-1 rounded-[var(--radius-pill)] bg-success-light text-success text-[12px] font-medium leading-[1.5]"
+                    className="inline-flex w-fit items-center mt-2.5 px-3 py-1 rounded-[var(--radius-pill)] bg-success-light text-success text-[12px] font-medium leading-[1.5]"
                     style={{ whiteSpace: "nowrap" }}
                   >
                     {t("nextAvailable")} {formatDayMonth(d.nextSlot, locale)}, {kyivTime(d.nextSlot)}
