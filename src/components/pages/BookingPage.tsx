@@ -1,37 +1,27 @@
 "use client";
 
-/* ─────────────────────────────────────────────────────────────────────────
- * DORMANT — NOT ROUTED. Built for Inweb TZ #10 §2 (online appointment form),
- * then parked at the client's request pending a decision on how automated
- * booking should work. Nothing imports this: the /booking route was removed
- * and the nav link with it, so the site behaves exactly as before (the short
- * name/phone CTA form in BookingCTA/BookingForm is the live path).
- *
- * To re-enable: recreate src/app/[locale]/(pages)/booking/page.tsx rendering
- * BookingPage, re-add the `booking` entry to navConfig, and re-insert the
- * `booking` row in static_pages (see git history for all three).
- * ───────────────────────────────────────────────────────────────────────── */
-
 /**
- * /booking — the online appointment page (TZ #10 §2).
+ * /booking — online appointment page (TZ #10 §2).
  *
- * Thin shell: hero + the wizard + a "prefer to call?" fallback, so a visitor
- * who doesn't want to work through six steps still has the phone number in
- * front of them.
+ * Thin shell around the wizard, plus a "prefer to call?" aside. Booking online
+ * is the happy path, but a visitor who'd rather speak to someone should never
+ * have to hunt for the number.
  */
 
 import { useTranslations } from "next-intl";
-import { Clock, Phone } from "lucide-react";
+import { Clock, Phone, ShieldCheck } from "lucide-react";
 import dynamic from "next/dynamic";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import type { Locale } from "@/i18n/routing";
 
-// Client-only: the wizard derives its dates and slots from the current time,
-// so pre-rendering it on the server would only invite a hydration mismatch.
-// It's fully interactive and below the fold — nothing here needs to be indexed.
+// Client-only: the wizard reads live availability and builds its calendar from
+// the current time, so there's nothing useful to prerender and a server pass
+// would only invite a hydration mismatch.
 const AppointmentWizard = dynamic(() => import("@/components/booking/AppointmentWizard"), {
   ssr: false,
-  loading: () => <div className="min-h-[420px] rounded-[var(--radius-card)] bg-champagne-dark animate-pulse" />,
+  loading: () => (
+    <div className="min-h-[460px] rounded-[var(--radius-card)] bg-champagne-dark animate-pulse" />
+  ),
 });
 
 interface Props {
@@ -43,6 +33,7 @@ interface Props {
 
 export default function BookingPage({ locale, ui, phone, hours }: Props) {
   const tLabels = useTranslations("labels");
+  const tEeat = useTranslations("eeat");
 
   return (
     <>
@@ -61,17 +52,15 @@ export default function BookingPage({ locale, ui, phone, hours }: Props) {
       </section>
 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-10 lg:gap-14 items-start">
           <AppointmentWizard />
 
-          <aside className="rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-4 lg:sticky lg:top-28">
+          <aside className="rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-5 lg:sticky lg:top-28">
             {phone && (
               <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-start gap-3 group">
                 <Phone className="w-4 h-4 text-main mt-1 shrink-0" aria-hidden="true" />
-                <span>
-                  <span className="block body-strong text-black group-hover:text-main transition-colors">
-                    {phone}
-                  </span>
+                <span className="block body-strong text-black group-hover:text-main transition-colors">
+                  {phone}
                 </span>
               </a>
             )}
@@ -81,6 +70,10 @@ export default function BookingPage({ locale, ui, phone, hours }: Props) {
                 <span className="body-m text-muted">{hours}</span>
               </p>
             )}
+            <p className="flex items-start gap-3 border-t border-black-10 pt-5">
+              <ShieldCheck className="w-4 h-4 text-main mt-0.5 shrink-0" aria-hidden="true" />
+              <span className="body-s text-muted">{tEeat("disclaimer")}</span>
+            </p>
           </aside>
         </div>
       </section>
