@@ -234,6 +234,15 @@ const uk = {
     title: "Прайс",
     addNew: "Нова категорія",
   },
+  cachePage: {
+    title: "Кеш сайту",
+    description:
+      "Сторінки сайту кешуються на добу. Натисніть, щоб одразу показати відвідувачам зміни, внесені поза адмінкою — напряму в базі даних або нічним оновленням відгуків Google.",
+    action: "Оновити кеш",
+    running: "Оновлюємо…",
+    done: "Кеш оновлено",
+    failed: "Не вдалося оновити кеш",
+  },
   settingsPage: {
     title: "Налаштування",
     subtitle: "Загальні параметри сайту",
@@ -639,6 +648,15 @@ const ru: typeof uk = {
     title: "Прайс",
     addNew: "Новая категория",
   },
+  cachePage: {
+    title: "Кеш сайта",
+    description:
+      "Страницы сайта кешируются на сутки. Нажмите, чтобы сразу показать посетителям изменения, внесённые вне админки — напрямую в базе данных или ночным обновлением отзывов Google.",
+    action: "Обновить кеш",
+    running: "Обновляем…",
+    done: "Кеш обновлён",
+    failed: "Не удалось обновить кеш",
+  },
   settingsPage: {
     title: "Настройки",
     subtitle: "Общие параметры сайта",
@@ -1043,6 +1061,15 @@ const en: typeof uk = {
   pricingPage: {
     title: "Pricing",
     addNew: "New Category",
+  },
+  cachePage: {
+    title: "Site cache",
+    description:
+      "Public pages are cached for 24 hours. Use this to publish changes made outside the admin straight away — seed scripts, direct database edits, or the nightly Google reviews refresh.",
+    action: "Refresh cache",
+    running: "Refreshing…",
+    done: "Cache refreshed",
+    failed: "Could not refresh the cache",
   },
   settingsPage: {
     title: "Settings",

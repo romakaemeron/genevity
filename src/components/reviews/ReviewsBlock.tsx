@@ -1,26 +1,31 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import Button from "@/components/ui/Button";
+import { useScrollReveal } from "@/lib/useReveal";
 import type { GoogleReview, ReviewsSummary } from "@/lib/db/queries/reviews";
 import { formatReviewDate } from "@/lib/formatDate";
 
 /**
- * Compact Google-reviews trust block for the homepage (TZ #10 §1).
+ * Google-reviews trust block for the homepage (TZ #10 §1).
  *
- * Top row: the clinic's overall Google rating, how many ratings it's based on,
- * and a link out to the Google profile. Below it, the 5 newest reviews —
- * author, stars, text, publication date and profile photo when Google gives
- * us one.
+ * Header carries the clinic's overall Google rating and how many ratings it's
+ * based on; the reviews themselves scroll horizontally with arrow controls,
+ * matching the Doctors and Media Coverage sliders, and the link out to the
+ * Google profile sits below as an outline button.
  *
- * Server-rendered on purpose: the review text ships in the HTML rather than
- * being fetched client-side, and the API data itself comes from the
- * `google_reviews` / `google_place_stats` cache refreshed by the daily cron —
- * never from Google on a page view.
+ * The API data comes from the `google_reviews` / `google_place_stats` cache
+ * refreshed by the daily cron — never from Google on a page view. This is a
+ * client component for the scrolling only; Next still server-renders it, so
+ * the review text ships in the HTML.
  */
 
-function Stars({ rating, className = "" }: { rating: number; className?: string }) {
+function Stars({ rating }: { rating: number }) {
   const filled = Math.round(rating);
   return (
-    <span className={`inline-flex items-center gap-0.5 text-main ${className}`} aria-label={`${rating} / 5`}>
+    <span className="inline-flex items-center gap-0.5 text-main" aria-label={`${rating} / 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
         <svg
           key={i}
@@ -57,43 +62,85 @@ export default function ReviewsBlock({
   allReviewsLabel: string;
   locale: string;
 }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const { ref: headerRef, visible } = useScrollReveal();
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+    setHasOverflow(el.scrollWidth > el.clientWidth + 4);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState]);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cards = Array.from(el.children) as HTMLElement[];
+    if (!cards.length) return;
+    const scrollPad = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
+    const currentScroll = el.scrollLeft;
+    let currentIdx = 0;
+    let minDist = Infinity;
+    for (let i = 0; i < cards.length; i++) {
+      const dist = Math.abs(cards[i].offsetLeft - scrollPad - currentScroll);
+      if (dist < minDist) { minDist = dist; currentIdx = i; }
+    }
+    const nextIdx = Math.max(0, Math.min(cards.length - 1, currentIdx + (dir === "left" ? -1 : 1)));
+    el.scrollTo({ left: cards[nextIdx].offsetLeft - scrollPad, behavior: "smooth" });
+  };
+
   if (!reviews.length) return null;
   // The spec asks for the 5 most recent; the query already sorts newest first.
   const latest = reviews.slice(0, 5);
 
   return (
-    <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-block">
-      {/* Overall rating */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-        <div>
-          <h2 className="heading-2 text-black">{heading}</h2>
-          <p className="body-m text-muted mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+    <section>
+      <div
+        ref={headerRef as React.RefObject<HTMLDivElement>}
+        className={`max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col gap-2 mb-10 ${visible ? "revealed" : ""}`}
+      >
+        <h2 className="reveal heading-2 text-black">{heading}</h2>
+        <div className="reveal d1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+          <p className="body-m text-muted flex flex-wrap items-center gap-x-2 gap-y-1">
             <Stars rating={summary.average} />
             <span className="body-strong text-main">{summary.average.toFixed(1)}</span>
             <span>{countLabel.replace("{n}", String(summary.count))}</span>
           </p>
+          <div className={`flex gap-2 shrink-0 ${hasOverflow ? "" : "hidden"}`}>
+            <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
+              <ChevronLeft size={18} />
+            </Button>
+            <Button variant="secondary" icon size="sm" onClick={() => scroll("right")} disabled={!canScrollRight}>
+              <ChevronRight size={18} />
+            </Button>
+          </div>
         </div>
-        {summary.profileUrl && (
-          <a
-            href={summary.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="body-m text-main hover:text-black transition-colors inline-flex items-center gap-1.5 shrink-0"
-          >
-            {allReviewsLabel}
-            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-          </a>
-        )}
       </div>
 
-      {/* Latest 5 reviews, newest first */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
         {latest.map((r) => {
           const date = formatReviewDate(r.reviewTime, locale);
           return (
             <article
               key={r.id}
-              className="rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-3"
+              className="shrink-0 rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-3"
+              style={{ width: "min(360px, 82vw)", scrollSnapAlign: "start" }}
             >
               <div className="flex items-center gap-3">
                 {r.authorPhoto ? (
@@ -125,6 +172,21 @@ export default function ReviewsBlock({
           );
         })}
       </div>
+
+      {summary.profileUrl && (
+        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] mt-6">
+          <Button
+            variant="outline"
+            size="sm"
+            href={summary.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            {allReviewsLabel}
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Button>
+        </div>
+      )}
     </section>
   );
 }
