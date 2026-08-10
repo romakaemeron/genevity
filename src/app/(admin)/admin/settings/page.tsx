@@ -1,6 +1,7 @@
 import { sql } from "@/lib/db/client";
 import { requireSession } from "../_actions/auth";
 import SiteSettingsForm from "./_components/site-settings-form";
+import CachePurge from "./_components/cache-purge";
 import {
   AdminPageHeader, AdminSectionHeading, AdminList, AdminListItem,
 } from "../_components/admin-list";
@@ -20,6 +21,11 @@ export default async function SettingsPage() {
         title={t.settingsPage.title}
         subtitle={t.settingsPage.subtitle}
       />
+
+      <AdminSectionHeading>{t.cachePage.title}</AdminSectionHeading>
+      <div className="mb-10">
+        <CachePurge />
+      </div>
 
       <AdminSectionHeading>{t.settingsPage.homepage}</AdminSectionHeading>
       <div className="mb-10">

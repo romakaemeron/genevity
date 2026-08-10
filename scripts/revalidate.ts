@@ -16,6 +16,7 @@
  * with "/". The homepage (all locales) and /sitemap.xml are always included.
  *
  * Options:
+ *   --all          purge every cached page (same as the admin's "Оновити кеш")
  *   --url <base>   deployment to hit (default: $REVALIDATE_URL, else production)
  *   --dry-run      print what would be sent, call nothing
  *
@@ -67,18 +68,21 @@ async function main() {
 
   let baseUrl = env.REVALIDATE_URL || PROD_URL;
   let dryRun = false;
+  let all = false;
   const rawTargets: string[] = [];
 
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--url") { baseUrl = argv[++i]; continue; }
     if (argv[i] === "--dry-run") { dryRun = true; continue; }
+    if (argv[i] === "--all") { all = true; continue; }
     rawTargets.push(argv[i]);
   }
 
-  if (!rawTargets.length) {
+  if (!rawTargets.length && !all) {
     console.error("No targets given.\n");
     console.error("  npx tsx scripts/revalidate.ts service:couperose-treatment");
     console.error("  npx tsx scripts/revalidate.ts serviceCategory:apparatus-cosmetology /faq");
+    console.error("  npx tsx scripts/revalidate.ts --all      # purge every page");
     console.error(`\nEntities: ${ENTITIES.join(", ")}`);
     process.exit(1);
   }
@@ -88,6 +92,23 @@ async function main() {
     console.error("REVALIDATE_SECRET is not set (.env.local or environment).");
     console.error("Set the same value on the deployment: vercel env add REVALIDATE_SECRET");
     process.exit(1);
+  }
+
+  // --all short-circuits: one request that expires the root-layout tag, which
+  // every prerendered page and route handler carries.
+  if (all) {
+    console.log(`→ ${baseUrl}/api/revalidate${dryRun ? "  (dry run)" : ""}\n`);
+    if (dryRun) { console.log('  all → {"all":true}'); return; }
+    const res = await fetch(`${baseUrl}/api/revalidate`, {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-revalidate-secret": secret! },
+      body: JSON.stringify({ all: true }),
+    });
+    const text = await res.text();
+    if (!res.ok) { console.error(`  ✗ all — HTTP ${res.status} ${text.slice(0, 200)}`); process.exit(1); }
+    console.log("  ✓ all — entire site purged");
+    console.log("\nDone. Pages re-render on the next request.");
+    return;
   }
 
   const targets = rawTargets.map(parseTarget);
