@@ -21,7 +21,15 @@ export default function robots(): MetadataRoute.Robots {
         // SEO audit §1.4.1: do NOT block AI crawlers.
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/_next/data/", "/studio/"],
+        disallow: [
+          "/admin/",
+          "/api/",
+          "/_next/data/",
+          "/studio/",
+          // App Router RSC payload requests (?_rsc=…) are duplicates of the
+          // HTML page — Google was picking them up as separate URLs.
+          "/*?_rsc=",
+        ],
       },
     ],
     sitemap: [`${BASE}/sitemap.xml`, `${BASE}/sitemap-images.xml`],

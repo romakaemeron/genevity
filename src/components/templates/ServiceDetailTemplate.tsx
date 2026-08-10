@@ -22,6 +22,7 @@ import { JsonLdMedicalWebPage } from "@/components/seo/JsonLdMedicalWebPage";
 import BookingCTA from "@/components/ui/BookingCTA";
 import ReviewedByBadge from "@/components/ui/ReviewedByBadge";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
+import ServiceReviews from "@/components/reviews/ServiceReviews";
 import { absoluteUrl } from "@/lib/url";
 import { formatReviewDate } from "@/lib/formatDate";
 import { useScrollReveal } from "@/lib/useReveal";
@@ -33,7 +34,7 @@ interface Props {
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
   equipmentUi?: { title: string; details: string; suitsTitle: string; resultsTitle: string };
-  eeatUi?: { reviewedBy: string; updated: string; disclaimer: string };
+  eeatUi?: { reviewedBy: string; updated: string; disclaimer: string; serviceReviewsHeading?: string };
 }
 
 /** Replace Unicode subscript digits U+2080–U+2089 with small non-overflowing spans */
@@ -55,7 +56,14 @@ function H({ text }: { text: string }) {
   );
 }
 
-export const SERVICE_FIXED_BLOCKS = ["faq", "doctors", "equipment", "relatedServices", "finalCTA"] as const;
+/** Used only if `eeat.serviceReviewsHeading` hasn't been seeded yet. */
+const REVIEWS_HEADING_FALLBACK: Record<string, string> = {
+  ua: "Відгуки про послугу",
+  ru: "Отзывы об услуге",
+  en: "Reviews of this service",
+};
+
+export const SERVICE_FIXED_BLOCKS = ["faq", "reviews", "doctors", "equipment", "relatedServices", "finalCTA"] as const;
 export type ServiceFixedBlockKey = typeof SERVICE_FIXED_BLOCKS[number];
 export type ServiceBlockKey = ServiceFixedBlockKey | `section:${string}`;
 
@@ -208,6 +216,20 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           case "faq":
             return data.faq?.length > 0 ? (
               <FaqBlock key="faq" heading={heading(data.blockHeadings.faq, t("faq"))} items={data.faq} openIndex={openFaq} onToggle={(i) => setOpenFaq(openFaq === i ? null : i)} className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-20 lg:mt-24" />
+            ) : null;
+
+          case "reviews":
+            return data.reviews?.length > 0 ? (
+              <div key="reviews" className="mt-20 lg:mt-24">
+                <ServiceReviews
+                  reviews={data.reviews}
+                  locale={locale}
+                  heading={heading(
+                    data.blockHeadings.reviews,
+                    eeatUi?.serviceReviewsHeading || REVIEWS_HEADING_FALLBACK[locale] || REVIEWS_HEADING_FALLBACK.ua,
+                  )}
+                />
+              </div>
             ) : null;
 
           case "doctors":

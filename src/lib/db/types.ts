@@ -21,6 +21,13 @@ export interface DoctorReview {
   reviewedAt: string;
 }
 
+/** A review shown on a service page — a DoctorReview plus the doctor who
+ *  performed the procedure ("Лікар, який надав послугу"). */
+export interface ServiceReview extends DoctorReview {
+  doctorName: string;
+  doctorSlug: string | null;
+}
+
 export interface DoctorItem {
   _id: string;
   slug: string | null;
@@ -130,6 +137,14 @@ export interface UiStringsData {
     disclaimer: string;
     reviewsHeading: string;
     reviewsCount: string;
+    reviewsAll: string;
+    serviceReviewsHeading: string;
+  };
+  /** Online appointment wizard (/booking). Keys mirror scripts/seed-inweb-10-11-ui-strings.ts. */
+  booking: {
+    title: string;
+    subtitle: string;
+    navLabel: string;
   };
   faq: {
     title: string;
@@ -309,6 +324,7 @@ export interface ServiceCategoryData {
  *  ui_strings label". */
 export interface ServiceBlockHeadings {
   faq?: string;
+  reviews?: string;
   doctors?: string;
   equipment?: string;
   relatedServices?: string;
@@ -373,6 +389,8 @@ export interface ServiceData {
   reviewer: ServiceReviewer | null;
   /** ISO date (YYYY-MM-DD) the medical content was last reviewed, or null. */
   lastReviewedAt: string | null;
+  /** Up to 10 most recent published reviews bound to this service. */
+  reviews: ServiceReview[];
 }
 
 export interface ServiceCardData {

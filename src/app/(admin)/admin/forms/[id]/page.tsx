@@ -124,6 +124,27 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
         </Row>
       </section>
 
+      {/* Appointment details — filled by the online booking wizard (/booking).
+          The short CTA form leaves both fields empty, so the section hides. */}
+      {(r.preferred_time || r.message) && (
+        <section className="mb-8 rounded-[var(--radius-card)] bg-white border border-line p-5">
+          <h2 className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">Запис на прийом</h2>
+          {r.preferred_time && (
+            <Row label="Бажаний час">
+              <Value>{r.preferred_time as string}</Value>
+              <p className="text-[12px] text-muted mt-1">
+                Обрано пацієнтом — потребує підтвердження по телефону.
+              </p>
+            </Row>
+          )}
+          {r.message && (
+            <Row label="Коментар">
+              <span className="text-[14px] text-ink whitespace-pre-wrap break-words">{r.message as string}</span>
+            </Row>
+          )}
+        </section>
+      )}
+
       {/* Form context */}
       <section className="mb-8 rounded-[var(--radius-card)] bg-white border border-line p-5">
         <h2 className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">Контекст форми</h2>

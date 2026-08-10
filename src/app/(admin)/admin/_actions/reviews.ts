@@ -21,12 +21,20 @@ export interface ReviewRow {
   isPublished: boolean;
   reviewLocale: string;
   sortOrder: number;
+  /** Service this review is shown on (TZ #10 §4). Null = doctor page only. */
+  serviceId: string | null;
 }
 
 export interface DoctorOption {
   id: string;
   name: string;
   slug: string;
+}
+
+export interface ServiceOption {
+  id: string;
+  name: string;
+  category: string;
 }
 
 export async function listAllReviews(): Promise<ReviewRow[]> {
@@ -41,7 +49,7 @@ export async function listAllReviews(): Promise<ReviewRow[]> {
       COALESCE(dr.submitted_at, NOW())::text AS submitted_at,
       dr.is_published,
       COALESCE(dr.review_locale, 'uk') AS review_locale,
-      dr.sort_order
+      dr.sort_order, dr.service_id
     FROM doctor_reviews dr
     JOIN doctors d ON d.id = dr.doctor_id
     ORDER BY dr.is_published ASC, dr.submitted_at DESC NULLS LAST, dr.reviewed_at DESC
@@ -64,12 +72,27 @@ export async function listAllReviews(): Promise<ReviewRow[]> {
     isPublished: r.is_published as boolean,
     reviewLocale: r.review_locale as string,
     sortOrder: r.sort_order as number,
+    serviceId: (r.service_id as string | null) ?? null,
   }));
 }
 
 export async function listDoctorsForSelect(): Promise<DoctorOption[]> {
   const rows = await sql`SELECT id, name_uk AS name, slug FROM doctors ORDER BY sort_order, name_uk`;
   return rows.map((r) => ({ id: r.id as string, name: r.name as string, slug: r.slug as string }));
+}
+
+/** Services offered as the "shown on service page" target, grouped by category. */
+export async function listServicesForSelect(): Promise<ServiceOption[]> {
+  const rows = await sql`
+    SELECT s.id, s.title_uk AS name, c.title_uk AS category
+    FROM services s JOIN service_categories c ON c.id = s.category_id
+    ORDER BY c.sort_order, s.sort_order
+  `;
+  return rows.map((r) => ({
+    id: r.id as string,
+    name: r.name as string,
+    category: (r.category as string) || "",
+  }));
 }
 
 export async function setReviewPublished(id: string, published: boolean) {
@@ -80,6 +103,7 @@ export async function setReviewPublished(id: string, published: boolean) {
   await sql`UPDATE doctor_reviews SET is_published = ${published} WHERE id = ${id}`;
   revalidatePath("/");
   revalidatePath("/doctors");
+  revalidatePath("/services", "layout");
   revalidatePath("/admin/reviews");
 }
 
@@ -92,6 +116,7 @@ export async function deleteReview(id: string) {
   await sql`DELETE FROM doctor_reviews WHERE id = ${id}`;
   revalidatePath("/");
   revalidatePath("/doctors");
+  revalidatePath("/services", "layout");
   revalidatePath("/admin/reviews");
 }
 
@@ -107,6 +132,7 @@ export async function saveReviewEdit(data: {
   reviewTextRu: string;
   reviewTextEn: string;
   isPublished: boolean;
+  serviceId: string | null;
 }): Promise<{ ok: boolean; error?: string }> {
   try {
     await sql`
@@ -120,7 +146,8 @@ export async function saveReviewEdit(data: {
         review_text       = ${data.reviewText.trim()},
         review_text_ru    = ${data.reviewTextRu.trim() || null},
         review_text_en    = ${data.reviewTextEn.trim() || null},
-        is_published      = ${data.isPublished}
+        is_published      = ${data.isPublished},
+        service_id        = ${data.serviceId || null}
       WHERE id = ${data.id}
     `;
     await sql`
@@ -129,6 +156,7 @@ export async function saveReviewEdit(data: {
     `;
     revalidatePath("/");
     revalidatePath("/doctors");
+    revalidatePath("/services", "layout");
     revalidatePath("/admin/reviews");
     return { ok: true };
   } catch (e) {
@@ -148,6 +176,7 @@ export async function createReview(data: {
   reviewTextRu: string;
   reviewTextEn: string;
   isPublished: boolean;
+  serviceId: string | null;
 }): Promise<{ ok: boolean; error?: string }> {
   try {
     await sql`
@@ -155,7 +184,7 @@ export async function createReview(data: {
         doctor_id, reviewer_name, rating, reviewed_at,
         procedure_tag, procedure_tag_ru, procedure_tag_en,
         review_text, review_text_ru, review_text_en,
-        is_published, review_locale, sort_order
+        is_published, review_locale, sort_order, service_id
       ) VALUES (
         ${data.doctorId},
         ${data.reviewerName.trim()},
@@ -168,12 +197,13 @@ export async function createReview(data: {
         ${data.reviewTextRu.trim() || null},
         ${data.reviewTextEn.trim() || null},
         ${data.isPublished},
-        'uk', 0
+        'uk', 0, ${data.serviceId || null}
       )
     `;
     await sql`UPDATE doctors SET updated_at = now() WHERE id = ${data.doctorId}`;
     revalidatePath("/");
     revalidatePath("/doctors");
+    revalidatePath("/services", "layout");
     revalidatePath("/admin/reviews");
     return { ok: true };
   } catch (e) {

@@ -36,6 +36,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
     ({ uk: a.uk || b.uk, ru: a.ru || b.ru, en: a.en || b.en });
   const uiDefaults = {
     faq: leafAll(["labels", "faq"]),
+    reviews: leafAll(["eeat", "serviceReviewsHeading"]),
     doctors: leafAll(["doctors", "title"]),
     equipment: mergeLeaf(leafAll(["equipment", "title"]), leafAll(["labels", "equipment"])),
     relatedServices: leafAll(["labels", "alsoInteresting"]),

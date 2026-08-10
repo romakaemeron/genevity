@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import {
   setReviewPublished, deleteReview, saveReviewEdit, createReview,
-  type ReviewRow, type DoctorOption,
+  type ReviewRow, type DoctorOption, type ServiceOption,
 } from "../../_actions/reviews";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -79,23 +79,26 @@ interface FormState {
   procedureTag: string; procedureTagRu: string; procedureTagEn: string;
   reviewText: string; reviewTextRu: string; reviewTextEn: string;
   isPublished: boolean;
+  /** Service page this review appears on (TZ #10 §4). "" = none. */
+  serviceId: string;
 }
 
 function emptyForm(today: string): FormState {
   return { reviewerName: "", rating: 5, reviewedAt: today,
     procedureTag: "", procedureTagRu: "", procedureTagEn: "",
-    reviewText: "", reviewTextRu: "", reviewTextEn: "", isPublished: true };
+    reviewText: "", reviewTextRu: "", reviewTextEn: "", isPublished: true, serviceId: "" };
 }
 
 function rowToForm(r: ReviewRow): FormState {
   return { reviewerName: r.reviewerName, rating: r.rating, reviewedAt: r.reviewedAt.slice(0, 10),
     procedureTag: r.procedureTag ?? "", procedureTagRu: r.procedureTagRu ?? "", procedureTagEn: r.procedureTagEn ?? "",
     reviewText: r.reviewText, reviewTextRu: r.reviewTextRu ?? "", reviewTextEn: r.reviewTextEn ?? "",
-    isPublished: r.isPublished };
+    isPublished: r.isPublished, serviceId: r.serviceId ?? "" };
 }
 
-function ReviewFormFields({ form, set, showPublish = true }: {
-  form: FormState; set: (k: keyof FormState, v: string | number | boolean) => void; showPublish?: boolean;
+function ReviewFormFields({ form, set, services, showPublish = true }: {
+  form: FormState; set: (k: keyof FormState, v: string | number | boolean) => void;
+  services: ServiceOption[]; showPublish?: boolean;
 }) {
   const { t } = useAdminLocale();
   return (
@@ -119,6 +122,21 @@ function ReviewFormFields({ form, set, showPublish = true }: {
           <LangField label="RU" name="procedure_tag_ru" value={form.procedureTagRu} onChange={(v) => set("procedureTagRu", v)} />
           <LangField label="EN" name="procedure_tag_en" value={form.procedureTagEn} onChange={(v) => set("procedureTagEn", v)} />
         </div>
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Показувати на сторінці послуги
+        </label>
+        <select value={form.serviceId} onChange={(e) => set("serviceId", e.target.value)}
+          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring/40">
+          <option value="">— не прив&apos;язано (лише сторінка лікаря) —</option>
+          {services.map((s) => (
+            <option key={s.id} value={s.id}>{s.category ? `${s.category} — ${s.name}` : s.name}</option>
+          ))}
+        </select>
+        <p className="text-[10px] text-muted-foreground">
+          Відгук з&apos;явиться в каруселі «Відгуки» на цій сторінці послуги (останні 10).
+        </p>
       </div>
       <div className="rounded-xl bg-champagne-dark p-3 flex flex-col gap-3">
         <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t.reviewsTable.review}</p>
@@ -163,7 +181,7 @@ function ReviewDialog({ open, title, onClose, busy, error, onSave, saveLabel, ch
 }
 
 /* ─── Edit modal ─────────────────────────────────────────────────────────── */
-function EditModal({ row, onClose, onSaved }: { row: ReviewRow; onClose: () => void; onSaved: (u: ReviewRow) => void }) {
+function EditModal({ row, services, onClose, onSaved }: { row: ReviewRow; services: ServiceOption[]; onClose: () => void; onSaved: (u: ReviewRow) => void }) {
   const [form, setFormState] = useState<FormState>(() => rowToForm(row));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -175,24 +193,25 @@ function EditModal({ row, onClose, onSaved }: { row: ReviewRow; onClose: () => v
   async function handleSave() {
     if (!form.reviewText.trim()) { setError("Review text (UK) is required"); return; }
     setBusy(true); setError(null);
-    const res = await saveReviewEdit({ id: row.id, ...form });
+    const res = await saveReviewEdit({ id: row.id, ...form, serviceId: form.serviceId || null });
     setBusy(false);
     if (!res.ok) { setError(res.error ?? "Save error"); return; }
     onSaved({ ...row, ...form, procedureTag: form.procedureTag || null, procedureTagRu: form.procedureTagRu || null,
-      procedureTagEn: form.procedureTagEn || null, reviewTextRu: form.reviewTextRu || null, reviewTextEn: form.reviewTextEn || null });
+      procedureTagEn: form.procedureTagEn || null, reviewTextRu: form.reviewTextRu || null, reviewTextEn: form.reviewTextEn || null,
+      serviceId: form.serviceId || null });
     onClose();
   }
 
   return (
     <ReviewDialog open title={`${t.reviewsTable.editTitle} — ${row.doctorName}`} onClose={onClose} busy={busy} error={error} onSave={handleSave} saveLabel={t.reviewsTable.saveReview}>
-      <ReviewFormFields form={form} set={set} />
+      <ReviewFormFields form={form} set={set} services={services} />
     </ReviewDialog>
   );
 }
 
 /* ─── Add modal ──────────────────────────────────────────────────────────── */
-function AddModal({ doctors, today, onClose, onCreated }: {
-  doctors: DoctorOption[]; today: string; onClose: () => void; onCreated: (r: ReviewRow) => void;
+function AddModal({ doctors, services, today, onClose, onCreated }: {
+  doctors: DoctorOption[]; services: ServiceOption[]; today: string; onClose: () => void; onCreated: (r: ReviewRow) => void;
 }) {
   const [doctorId, setDoctorId] = useState(doctors[0]?.id ?? "");
   const [form, setFormState] = useState<FormState>(() => emptyForm(today));
@@ -207,14 +226,15 @@ function AddModal({ doctors, today, onClose, onCreated }: {
     if (!form.reviewerName.trim()) { setError("Patient name is required"); return; }
     if (!form.reviewText.trim()) { setError("Review text (UK) is required"); return; }
     setBusy(true); setError(null);
-    const res = await createReview({ doctorId, ...form });
+    const res = await createReview({ doctorId, ...form, serviceId: form.serviceId || null });
     setBusy(false);
     if (!res.ok) { setError(res.error ?? "Save error"); return; }
     const doctor = doctors.find((d) => d.id === doctorId)!;
     onCreated({ id: Math.random().toString(), doctorId, doctorName: doctor.name, doctorSlug: doctor.slug,
       ...form, procedureTag: form.procedureTag || null, procedureTagRu: form.procedureTagRu || null,
       procedureTagEn: form.procedureTagEn || null, reviewTextRu: form.reviewTextRu || null, reviewTextEn: form.reviewTextEn || null,
-      reviewedAt: form.reviewedAt, submittedAt: new Date().toISOString(), sortOrder: 0, reviewLocale: "uk" });
+      reviewedAt: form.reviewedAt, submittedAt: new Date().toISOString(), sortOrder: 0, reviewLocale: "uk",
+      serviceId: form.serviceId || null });
     onClose();
   }
 
@@ -227,7 +247,7 @@ function AddModal({ doctors, today, onClose, onCreated }: {
           {doctors.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)}
         </select>
       </div>
-      <ReviewFormFields form={form} set={set} />
+      <ReviewFormFields form={form} set={set} services={services} />
     </ReviewDialog>
   );
 }
@@ -327,9 +347,9 @@ function RowActions({ row, onEdit, onPublishChange, onDeleteOne }: {
 /* ─── Main table ─────────────────────────────────────────────────────────── */
 type TabFilter = "all" | "pending" | "published";
 
-interface Props { rows: ReviewRow[]; doctors: DoctorOption[]; }
+interface Props { rows: ReviewRow[]; doctors: DoctorOption[]; services: ServiceOption[]; }
 
-export default function ReviewsTable({ rows: initial, doctors }: Props) {
+export default function ReviewsTable({ rows: initial, doctors, services }: Props) {
   const { t } = useAdminLocale();
   const [rows, setRows] = useState(initial);
   const [filter, setFilter] = useState<TabFilter>("all");
@@ -716,11 +736,11 @@ export default function ReviewsTable({ rows: initial, doctors }: Props) {
       </Card>
 
       {editingRow && (
-        <EditModal row={editingRow} onClose={() => setEditingRow(null)}
+        <EditModal row={editingRow} services={services} onClose={() => setEditingRow(null)}
           onSaved={(updated) => { setRows((p) => p.map((r) => r.id === updated.id ? updated : r)); setEditingRow(null); }} />
       )}
       {showAdd && (
-        <AddModal doctors={doctors} today={today} onClose={() => setShowAdd(false)}
+        <AddModal doctors={doctors} services={services} today={today} onClose={() => setShowAdd(false)}
           onCreated={(row) => { setRows((p) => [row, ...p]); setShowAdd(false); }} />
       )}
     </>

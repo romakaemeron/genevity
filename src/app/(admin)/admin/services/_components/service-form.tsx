@@ -31,6 +31,7 @@ interface Props {
   /** Global ui_strings labels for all locales — used as placeholders in per-service override inputs. */
   uiDefaults?: {
     faq?: { uk: string; ru: string; en: string };
+    reviews?: { uk: string; ru: string; en: string };
     doctors?: { uk: string; ru: string; en: string };
     equipment?: { uk: string; ru: string; en: string };
     relatedServices?: { uk: string; ru: string; en: string };
@@ -329,6 +330,7 @@ export default function ServiceForm({
                   serviceLabel={svc.title_uk || svc.slug}
                   blocks={[
                     { key: "faq",             label: "FAQ",              globalDefault: uiDefaults.faq },
+                    { key: "reviews",         label: "Patient reviews",  globalDefault: uiDefaults.reviews },
                     { key: "doctors",         label: "Doctors",          globalDefault: uiDefaults.doctors },
                     { key: "equipment",       label: "Equipment",        globalDefault: uiDefaults.equipment },
                     { key: "relatedServices", label: "Related services", globalDefault: uiDefaults.relatedServices },
@@ -448,6 +450,7 @@ function buildServiceBlocks(
   return [
     ...sectionBlocks,
     { key: "faq",             label: "FAQ",                    description: "Frequently asked questions. Managed on the FAQ tab.",                              hasContent: faq.length > 0 },
+    { key: "reviews",         label: "Patient reviews",        description: "Carousel of reviews tagged with this service. Tag them on the Reviews page.",      hasContent: true },
     { key: "doctors",         label: "Related doctors",        description: "Doctors who perform this procedure. Managed on the Relations tab.",                hasContent: relations.doctorIds.length > 0 },
     { key: "equipment",       label: "Related equipment",      description: "Devices used for this procedure. Managed on the Relations tab.",                   hasContent: relations.equipmentIds.length > 0 },
     { key: "relatedServices", label: "Related services",       description: '"Also interesting" grid of other services. Managed on the Relations tab.',         hasContent: relations.relatedServiceIds.length > 0 },
