@@ -250,6 +250,7 @@ export async function uploadServiceImage(formData: FormData): Promise<{ url: str
 export type LocaleString = { uk?: string; ru?: string; en?: string };
 export type ServiceBlockHeadingsInput = {
   faq?: LocaleString;
+  reviews?: LocaleString;
   doctors?: LocaleString;
   equipment?: LocaleString;
   relatedServices?: LocaleString;
@@ -277,14 +278,14 @@ function cleanLocaleString(v: LocaleString | undefined): LocaleString | undefine
   return Object.keys(out).length > 0 ? out : undefined;
 }
 
-/** Persist per-service heading overrides for the four reorderable blocks
- *  (faq, doctors, equipment, relatedServices). Lives on the Layout tab. */
+/** Persist per-service heading overrides for the reorderable blocks
+ *  (faq, reviews, doctors, equipment, relatedServices). Lives on the Layout tab. */
 export async function saveServiceOverrides(
   serviceId: string,
   headings: ServiceBlockHeadingsInput,
 ) {
   const cleanedHeadings: ServiceBlockHeadingsInput = {};
-  for (const k of ["faq", "doctors", "equipment", "relatedServices"] as const) {
+  for (const k of ["faq", "reviews", "doctors", "equipment", "relatedServices"] as const) {
     const cleaned = cleanLocaleString(headings[k]);
     if (cleaned) cleanedHeadings[k] = cleaned;
   }

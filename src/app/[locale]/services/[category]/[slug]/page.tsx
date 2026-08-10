@@ -9,6 +9,7 @@ import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { setRequestLocale } from "next-intl/server";
 import { getAllServiceSlugs } from "@/lib/db/queries";
 import { routing } from "@/i18n/routing";
+import { getPriceRange } from "@/lib/price-range";
 
 export const revalidate = 86400;
 
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (!data) return {};
   return generatePageMetadata({
     title: data.seoTitle || data.h1 || data.title,
-    description: data.seoDescription || data.summary || `${data.title} у центрі GENEVITY, Дніпро`,
+    description:
+      data.seoDescription || data.summary || `${data.title} у центрі GENEVITY, Дніпро`,
     locale: locale as Locale,
     path: `/services/${category}/${slug}`,
   });
@@ -50,6 +52,12 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
   const servicesLabel = locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Послуги";
   const serviceUrl = `https://genevity.com.ua${localePrefix}/services/${category}/${slug}`;
 
+  // SEO TZ #11 §6 — "Діапазон цін". Only pages that actually show a price
+  // block get the AggregateOffer; the range is read straight from those rows.
+  const priceRange = getPriceRange(data.sections || []);
+  const metaDescription =
+    data.seoDescription || data.summary || `${data.title} у центрі GENEVITY, Дніпро`;
+
   return (
     <>
       <JsonLdBreadcrumbList items={[
@@ -66,6 +74,22 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
         caption: data.title,
         creator: { "@type": "Organization", name: "GENEVITY" },
       }} />
+      {priceRange && (
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: data.seoTitle || data.h1 || data.title,
+          description: metaDescription,
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: priceRange.currency,
+            lowPrice: priceRange.lowPrice,
+            highPrice: priceRange.highPrice,
+            offerCount: priceRange.offerCount,
+            url: serviceUrl,
+          },
+        }} />
+      )}
       <MegaMenuHeader variant="solid" position="fixed" />
       <ServiceDetailTemplate
         data={data}

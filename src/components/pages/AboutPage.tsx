@@ -13,6 +13,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import PhotoSlideshow from "@/components/ui/PhotoSlideshow";
+import Requisites from "@/components/pages/Requisites";
 
 const Doctors = dynamic(() => import("@/components/home/Doctors"));
 const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
@@ -222,15 +223,9 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
         </div>
       </div>
 
-      {/* Requisites */}
+      {/* Requisites — localized per locale, rendered as label/value rows */}
       {about.requisites && (
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16">
-          <div className="border-t border-black-10 pt-10">
-            <pre className="body-s text-black-40 whitespace-pre-wrap font-sans leading-relaxed">
-              {about.requisites}
-            </pre>
-          </div>
-        </div>
+        <Requisites raw={about.requisites} heading={tPage("requisitesHeading")} />
       )}
     </>
   );

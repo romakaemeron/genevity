@@ -50,7 +50,7 @@ export default async function HomePage({
     getHeroSlides(locale),
     getGalleryItems("homepage_about", locale),
     getGalleryItems("advantages_bento", locale),
-    getClinicReviews(),
+    getClinicReviews(5),
     getReviewsSummary(),
     getMediaMentions(locale),
   ]);
@@ -84,9 +84,16 @@ export default async function HomePage({
           <div id="reviews" className="cv-auto">
             <ReviewsBlock
               reviews={reviews}
-              summary={reviewsSummary}
+              // Fall back to the CMS "maps_url" so the "all reviews" link works
+              // before the Places refresh has cached a googleMapsUri.
+              summary={{
+                ...reviewsSummary,
+                profileUrl: reviewsSummary.profileUrl || data.settings.mapsUrl || null,
+              }}
               heading={data.ui.eeat.reviewsHeading}
               countLabel={data.ui.eeat.reviewsCount}
+              allReviewsLabel={data.ui.eeat.reviewsAll}
+              locale={locale}
             />
           </div>
         )}

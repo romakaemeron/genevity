@@ -6,6 +6,7 @@ import type {
   EquipmentItem,
   ServiceBlockHeadings,
   ServiceFinalCta,
+  ServiceReview,
 } from "../types";
 import { getSections, getFaqItems } from "./sections";
 import { getReviewer } from "./doctors";
@@ -32,6 +33,7 @@ function resolveBlockHeadings(raw: unknown, l: string): ServiceBlockHeadings {
   const src = raw as Record<string, unknown>;
   return {
     faq: pickLocalized(src.faq, l),
+    reviews: pickLocalized(src.reviews, l),
     doctors: pickLocalized(src.doctors, l),
     equipment: pickLocalized(src.equipment, l),
     relatedServices: pickLocalized(src.relatedServices, l),
@@ -74,13 +76,14 @@ export async function getServiceBySlug(
   if (!rows.length) return null;
   const r = rows[0];
 
-  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment, reviewer] = await Promise.all([
+  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment, reviewer, reviews] = await Promise.all([
     getSections("service", r.id, l),
     getFaqItems("service", r.id, l),
     getRelatedDoctors(r.id, l),
     getRelatedServices(r.id, l),
     getRelatedEquipment(r.id, l),
     getReviewer(r.reviewer_doctor_id, l),
+    getServiceReviews(r.id, l),
   ]);
 
   return {
@@ -112,7 +115,61 @@ export async function getServiceBySlug(
     finalCta: resolveFinalCta(r.final_cta, l),
     reviewer,
     lastReviewedAt: r.last_reviewed_at ? new Date(r.last_reviewed_at).toISOString().slice(0, 10) : null,
+    reviews,
   };
+}
+
+/**
+ * Published patient reviews bound to one service (TZ #10 §4).
+ *
+ * Reviews are attached to a service explicitly via `doctor_reviews.service_id`
+ * — set by admins in /admin/reviews — so a page only ever shows feedback about
+ * the procedure it describes. Capped at the 10 most recent, newest first, per
+ * the spec.
+ */
+export async function getServiceReviews(
+  serviceId: string,
+  locale: string,
+  limit = 10,
+): Promise<ServiceReview[]> {
+  const l = lang(locale);
+  const rows = await sql`
+    SELECT dr.id, dr.reviewer_name,
+           dr.procedure_tag, dr.procedure_tag_ru, dr.procedure_tag_en,
+           dr.rating,
+           dr.review_text, dr.review_text_ru, dr.review_text_en,
+           dr.reviewed_at::text AS reviewed_at,
+           d.slug AS doctor_slug,
+           d.name_uk, d.name_ru, d.name_en
+    FROM doctor_reviews dr
+    JOIN doctors d ON d.id = dr.doctor_id
+    WHERE dr.service_id = ${serviceId}
+      AND dr.is_published = true
+      AND d.is_published = true
+    ORDER BY dr.reviewed_at DESC, dr.sort_order
+    LIMIT ${limit}
+  `;
+  // doctor_reviews stores Ukrainian in the *bare* column (review_text) with
+  // only ru/en suffixed, unlike every other table — so the generic `pick()`
+  // (which looks for `<field>_uk`) doesn't apply here. Falls back to Ukrainian
+  // whenever a translation is missing, so a card is never rendered empty.
+  const tr = (r: Record<string, unknown>, field: string): string => {
+    const uk = (r[field] as string | null) || "";
+    if (l === "ru") return ((r[`${field}_ru`] as string | null) || "") || uk;
+    if (l === "en") return ((r[`${field}_en`] as string | null) || "") || uk;
+    return uk;
+  };
+
+  return rows.map((r) => ({
+    _id: r.id as string,
+    reviewerName: (r.reviewer_name as string) || "",
+    procedureTag: tr(r, "procedure_tag") || null,
+    rating: Number(r.rating),
+    reviewText: tr(r, "review_text"),
+    reviewedAt: r.reviewed_at as string,
+    doctorName: pick(r, "name", l) || "",
+    doctorSlug: (r.doctor_slug as string | null) || null,
+  }));
 }
 
 async function getRelatedDoctors(serviceId: string, l: string): Promise<DoctorItem[]> {

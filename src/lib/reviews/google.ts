@@ -87,28 +87,45 @@ async function fetchGbp(): Promise<NormalizedReview[]> {
 interface PlacesReview {
   name?: string;
   rating?: number;
+  /** Google's translation into the request language. */
   text?: { text?: string; languageCode?: string };
+  /** Exactly what the reviewer wrote, in the language they wrote it. */
+  originalText?: { text?: string; languageCode?: string };
   authorAttribution?: { displayName?: string; uri?: string; photoUri?: string };
   publishTime?: string;
 }
 
 interface PlacesReviewsResponse {
   reviews?: PlacesReview[];
+  rating?: number;
+  userRatingCount?: number;
+  googleMapsUri?: string;
 }
 
-// NOTE: Places API (New) returns at most ~5 reviews per place and has no
-// paging, unlike GBP (which pages all reviews). When Places is the active
-// provider, the cached-row count/average in getReviewsSummary understates
-// the clinic's true totals, so the clinic AggregateRating caps at ~5 reviews.
-// Follow-up: source the aggregate from the Places place-level `rating` /
-// `userRatingCount` fields instead of the cached review rows.
+// NOTE: Places API (New) returns at most 5 reviews per place and has no
+// paging, unlike GBP (which pages all reviews). So the *aggregate* must come
+// from the place-level `rating` / `userRatingCount` fields rather than from
+// the cached review rows — those are persisted into google_place_stats here
+// and read back by getReviewsSummary.
 async function fetchPlaces(): Promise<NormalizedReview[]> {
   const res = await fetch(
     `https://places.googleapis.com/v1/places/${process.env.GOOGLE_PLACE_ID}`,
-    { headers: { "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY!, "X-Goog-FieldMask": "reviews" } },
+    {
+      headers: {
+        "X-Goog-Api-Key": process.env.GOOGLE_MAPS_API_KEY!,
+        "X-Goog-FieldMask": "reviews,rating,userRatingCount,googleMapsUri",
+      },
+    },
   );
   if (!res.ok) throw new Error(`Places fetch failed: ${res.status}`);
   const json = (await res.json()) as PlacesReviewsResponse;
+
+  await savePlaceStats({
+    rating: typeof json.rating === "number" ? json.rating : null,
+    userRatingCount: typeof json.userRatingCount === "number" ? json.userRatingCount : null,
+    mapsUri: json.googleMapsUri ?? null,
+  });
+
   return (json.reviews ?? [])
     .map((rv, i): NormalizedReview => ({
       source: "places",
@@ -116,11 +133,33 @@ async function fetchPlaces(): Promise<NormalizedReview[]> {
       authorName: rv.authorAttribution?.displayName ?? "",
       authorPhoto: rv.authorAttribution?.photoUri ?? null,
       rating: Number(rv.rating ?? 0),
-      text: rv.text?.text ?? "",
+      // Prefer the review as written. Google auto-translates `text` (our
+      // reviewers write Ukrainian, and it was coming back as English), which
+      // reads as fake on a Ukrainian clinic's site.
+      text: rv.originalText?.text ?? rv.text?.text ?? "",
       replyText: null,
       reviewTime: rv.publishTime ?? null,
     }))
     .filter((r) => r.rating >= 1);
+}
+
+/** Persist the place-level aggregate into the single-row stats table. Null
+ *  fields are left untouched so a partial API response never wipes a good
+ *  cached value. */
+async function savePlaceStats(stats: {
+  rating: number | null;
+  userRatingCount: number | null;
+  mapsUri: string | null;
+}): Promise<void> {
+  await sql`
+    INSERT INTO google_place_stats (id, rating, user_rating_count, maps_uri, updated_at)
+    VALUES (1, ${stats.rating}, ${stats.userRatingCount}, ${stats.mapsUri}, now())
+    ON CONFLICT (id) DO UPDATE SET
+      rating            = COALESCE(EXCLUDED.rating, google_place_stats.rating),
+      user_rating_count = COALESCE(EXCLUDED.user_rating_count, google_place_stats.user_rating_count),
+      maps_uri          = COALESCE(EXCLUDED.maps_uri, google_place_stats.maps_uri),
+      updated_at        = now()
+  `;
 }
 
 async function upsert(reviews: NormalizedReview[]): Promise<number> {
