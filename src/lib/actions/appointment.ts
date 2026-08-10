@@ -56,15 +56,23 @@ export interface ServiceOption {
   category: string | null;
 }
 
+/**
+ * Bookable services.
+ *
+ * `employeeId` is accepted and forwarded, but RoApp ignores it — the same 232
+ * services come back for every specialist, and even for an id that doesn't
+ * exist (verified against the live account). Services simply aren't linked to
+ * employees in this account yet. Pass 0 to ask for the catalogue outright.
+ */
 export async function getDoctorServices(employeeId: number): Promise<{
   ok: boolean;
   services: ServiceOption[];
 }> {
-  if (!Number.isInteger(employeeId) || employeeId <= 0) {
+  if (!Number.isInteger(employeeId) || employeeId < 0) {
     return { ok: false, services: [] };
   }
   try {
-    const services = await listServicesGrouped(employeeId);
+    const services = await listServicesGrouped(employeeId || undefined);
     return {
       ok: true,
       services: services.map((s) => ({

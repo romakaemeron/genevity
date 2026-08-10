@@ -36,6 +36,32 @@ const BOOKING: Record<string, L> = {
   },
   navLabel: { uk: "Онлайн-запис", ru: "Онлайн-запись", en: "Book online" },
 
+  startHeading: {
+    uk: "З чого почнемо?",
+    ru: "С чего начнём?",
+    en: "Where would you like to start?",
+  },
+  startByDoctor: {
+    uk: "Обрати лікаря",
+    ru: "Выбрать врача",
+    en: "Choose a doctor",
+  },
+  startByDoctorHint: {
+    uk: "Якщо ви вже знаєте, до кого хочете потрапити.",
+    ru: "Если вы уже знаете, к кому хотите попасть.",
+    en: "If you already know who you want to see.",
+  },
+  startByService: {
+    uk: "Обрати послугу",
+    ru: "Выбрать услугу",
+    en: "Choose a service",
+  },
+  startByServiceHint: {
+    uk: "Якщо знаєте процедуру, але не лікаря.",
+    ru: "Если знаете процедуру, но не врача.",
+    en: "If you know the procedure but not the doctor.",
+  },
+
   // Steps
   stepDoctor:  { uk: "Лікар",         ru: "Врач",           en: "Doctor" },
   stepService: { uk: "Послуга",       ru: "Услуга",         en: "Service" },
@@ -56,9 +82,9 @@ const BOOKING: Record<string, L> = {
 
   serviceHeading: { uk: "Оберіть послугу", ru: "Выберите услугу", en: "Choose a service" },
   serviceHint: {
-    uk: "Від послуги залежить тривалість візиту. Якщо не впевнені — оберіть консультацію, лікар підбере все на місці.",
-    ru: "От услуги зависит длительность визита. Если не уверены — выберите консультацию, врач подберёт всё на месте.",
-    en: "The service determines how long your visit takes. Not sure? Pick a consultation and the doctor will advise.",
+    uk: "Якщо не впевнені — оберіть консультацію, і лікар підбере все на місці.",
+    ru: "Если не уверены — выберите консультацию, и врач подберёт всё на месте.",
+    en: "Not sure? Pick a consultation and the doctor will advise at your visit.",
   },
   serviceSearch: { uk: "Пошук послуги", ru: "Поиск услуги", en: "Search services" },
   serviceNoMatch: {
@@ -184,6 +210,7 @@ const BOOKING: Record<string, L> = {
 
 /** Keys whose meaning changed when the wizard was rebuilt on RoApp. */
 const OVERWRITE = new Set([
+  "serviceHint",
   "subtitle", "stepDoctor", "stepService", "stepConfirm", "doctorHeading",
   "serviceHeading", "anyService", "confirm", "sending", "successTitle",
   "successText", "commentPlaceholder", "privacyNote", "summaryHeading",

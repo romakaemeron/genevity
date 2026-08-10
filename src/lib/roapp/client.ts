@@ -113,14 +113,26 @@ interface PagedPublic<T> {
   data: T[];
 }
 
-/** Every service a given specialist performs (paged; ~230 for a dermatologist). */
-export async function listServices(employeeId: number): Promise<RoappService[]> {
+/**
+ * Bookable services (paged, 232 at the time of writing out of a 601-item
+ * catalogue — the rest aren't enabled for online booking).
+ *
+ * `employeeId` is forwarded but RoApp ignores it: the identical list comes back
+ * for every specialist and even for a non-existent id. Services aren't linked
+ * to employees in this account, so no per-doctor filtering is possible yet —
+ * including on RoApp's own booking page, which uses this same endpoint. If the
+ * clinic links them in RoApp, this starts filtering with no code change.
+ */
+export async function listServices(employeeId?: number): Promise<RoappService[]> {
   const out: RoappService[] = [];
   let page = 1;
   let totalPages = 1;
+  // The API rejects employee_id=0 ("Input should be greater than 0") but is
+  // happy with the parameter omitted, which returns the same list.
+  const scope = employeeId && employeeId > 0 ? `&employee_id=${employeeId}` : "";
   do {
     const res = await getPublic<PagedPublic<RoappService>>(
-      `/locations/${LOCATION_ID}/services?page=${page}&pageSize=50&employee_id=${employeeId}`,
+      `/locations/${LOCATION_ID}/services?page=${page}&pageSize=50${scope}`,
       CACHE_SERVICES,
     );
     out.push(...(res.data ?? []));
@@ -243,7 +255,7 @@ async function pagedV2<T>(path: string): Promise<T[]> {
 
 /** Attach category titles to a specialist's services. Degrades to no grouping. */
 export async function listServicesGrouped(
-  employeeId: number,
+  employeeId?: number,
 ): Promise<RoappServiceWithCategory[]> {
   const services = await listServices(employeeId);
   let categories: Map<number, string>;

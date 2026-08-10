@@ -21,6 +21,7 @@ import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import {
   Check, ChevronLeft, ChevronRight, Loader2, Search, Clock, CalendarX,
+  Stethoscope, ListChecks,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import AvailabilityCalendar from "./AvailabilityCalendar";
@@ -36,8 +37,23 @@ import {
   kyivDateKey, kyivTime, formatKyivDateLong, periodOf, type SlotPeriod,
 } from "@/lib/booking-time";
 
-const STEPS = ["doctor", "service", "when", "contact", "confirm"] as const;
-type Step = (typeof STEPS)[number];
+type Step = "doctor" | "service" | "when" | "contact" | "confirm";
+
+/**
+ * The visitor decides where to start — by specialist or by procedure — and the
+ * order of the first two steps follows. Both routes converge on date & time.
+ *
+ * Worth knowing: RoApp returns the same 232 bookable services regardless of
+ * `employee_id` (verified — even a non-existent id returns the identical list),
+ * because services aren't linked to employees in the account. So neither order
+ * can narrow the other yet. Once the clinic links them in RoApp, service-first
+ * will filter the specialist list for free and this shape already supports it.
+ */
+type EntryMode = "doctor" | "service";
+const STEP_ORDER: Record<EntryMode, readonly Step[]> = {
+  doctor: ["doctor", "service", "when", "contact", "confirm"],
+  service: ["service", "doctor", "when", "contact", "confirm"],
+};
 
 const fieldCls =
   "w-full px-4 py-3 rounded-[var(--radius-button)] bg-champagne-dark border border-line text-ink text-[15px] outline-none transition-colors duration-150 ease-out placeholder:text-stone hover:border-stone-light focus:border-main focus:ring-2 focus:ring-main/15";
@@ -67,6 +83,7 @@ export default function AppointmentWizard() {
   const t = useTranslations("booking");
   const locale = useLocale();
 
+  const [mode, setMode] = useState<EntryMode | null>(null);
   const [step, setStep] = useState<Step>("doctor");
   const [doctors, setDoctors] = useState<BookingDoctor[] | null>(null);
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
@@ -98,6 +115,10 @@ export default function AppointmentWizard() {
       setDoctors(r.doctors);
       if (!r.ok) setFallbackUrl(r.fallbackUrl ?? null);
     });
+    // Services are the same list for every specialist, so fetch them once up
+    // front rather than on each doctor pick — it also makes service-first
+    // instant instead of waiting on a five-page fetch.
+    getDoctorServices(0).then((r) => { if (alive) setServices(r.services); });
     return () => { alive = false; };
   }, [locale]);
 
@@ -111,18 +132,16 @@ export default function AppointmentWizard() {
   );
 
   /**
-   * Load a specialist's catalogue and availability.
+   * Load a specialist's availability.
    *
-   * Also preselects the first day that has slots, straight off the response —
-   * the common case is "soonest possible", and it means the slot panel is never
-   * empty on arrival. The visitor can still browse the whole calendar.
+   * Preselects the first day that has slots straight off the response — the
+   * common case is "soonest possible", so the slot panel is never empty on
+   * arrival. The visitor can still browse the whole calendar.
    */
   const loadForDoctor = useCallback((id: number) => {
-    setServices(null);
     setSlots(null);
     setDateKey(null);
     setSlotStart(null);
-    getDoctorServices(id).then((r) => setServices(r.services));
     getDoctorSlots(id).then((r) => {
       setSlots(r.slots);
       if (r.slots.length) setDateKey(kyivDateKey(r.slots[0].start));
@@ -157,7 +176,8 @@ export default function AppointmentWizard() {
     [daySlots, slotStart],
   );
 
-  const stepIndex = STEPS.indexOf(step);
+  const steps = STEP_ORDER[mode ?? "doctor"];
+  const stepIndex = steps.indexOf(step);
   const contactValid = name.trim().length >= 2 && phoneLocal.replace(/\D+/g, "").length >= 9;
   const canAdvance =
     step === "doctor" ? doctorId != null
@@ -174,9 +194,19 @@ export default function AppointmentWizard() {
 
   function chooseDoctor(id: number) {
     setDoctorId(id);
+    loadForDoctor(id);
+  }
+
+  /** Start over from the entry-point screen. */
+  function restart() {
+    setMode(null);
+    setDoctorId(null);
     setServiceId(0);
     setServiceQuery("");
-    loadForDoctor(id);
+    setSlots(null);
+    setDateKey(null);
+    setSlotStart(null);
+    setErrors({});
   }
 
   function chooseDate(key: string) {
@@ -219,10 +249,9 @@ export default function AppointmentWizard() {
   }
 
   function reset() {
-    setDoctorId(null); setServiceId(0); setServiceQuery("");
-    setSlots(null); setDateKey(null); setSlotStart(null);
+    restart();
     setName(""); setPhoneLocal(""); setComment("");
-    setErrors({}); setDone(false); setStep("doctor");
+    setDone(false); setStep("doctor");
   }
 
   if (done) {
@@ -262,6 +291,29 @@ export default function AppointmentWizard() {
     );
   }
 
+  /* ── Entry point: start by specialist, or by procedure ── */
+  if (mode === null) {
+    return (
+      <div className="flex flex-col gap-6" ref={topRef}>
+        <h2 className="heading-3 text-black">{t("startHeading")}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <EntryCard
+            icon={<Stethoscope className="w-6 h-6" aria-hidden="true" />}
+            title={t("startByDoctor")}
+            hint={t("startByDoctorHint")}
+            onClick={() => { setMode("doctor"); setStep("doctor"); }}
+          />
+          <EntryCard
+            icon={<ListChecks className="w-6 h-6" aria-hidden="true" />}
+            title={t("startByService")}
+            hint={t("startByServiceHint")}
+            onClick={() => { setMode("service"); setStep("service"); }}
+          />
+        </div>
+      </div>
+    );
+  }
+
   const stepLabels: Record<Step, string> = {
     doctor: t("stepDoctor"), service: t("stepService"), when: t("stepWhen"),
     contact: t("stepContact"), confirm: t("stepConfirm"),
@@ -273,7 +325,7 @@ export default function AppointmentWizard() {
   return (
     <div className="flex flex-col gap-8" ref={topRef}>
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-2">
-        {STEPS.map((s, i) => {
+        {steps.map((s, i) => {
           const isCurrent = s === step;
           const isPast = i < stepIndex;
           return (
@@ -297,7 +349,7 @@ export default function AppointmentWizard() {
                 </span>
                 <span className="hidden sm:inline">{stepLabels[s]}</span>
               </button>
-              {i < STEPS.length - 1 && <span className="text-black-20" aria-hidden="true">·</span>}
+              {i < steps.length - 1 && <span className="text-black-20" aria-hidden="true">·</span>}
             </li>
           );
         })}
@@ -549,8 +601,8 @@ export default function AppointmentWizard() {
       <div className="flex items-center justify-between gap-3 border-t border-line pt-6">
         <Button
           variant="outline" size="sm"
-          onClick={() => stepIndex > 0 && go(STEPS[stepIndex - 1])}
-          disabled={stepIndex === 0 || pending}
+          onClick={() => (stepIndex > 0 ? go(steps[stepIndex - 1]) : restart())}
+          disabled={pending}
         >
           <ChevronLeft className="w-3.5 h-3.5" />
           {t("back")}
@@ -563,7 +615,7 @@ export default function AppointmentWizard() {
         ) : (
           <Button
             variant="primary" size="sm"
-            onClick={() => canAdvance && go(STEPS[stepIndex + 1])}
+            onClick={() => canAdvance && go(steps[stepIndex + 1])}
             disabled={!canAdvance}
           >
             {t("next")}
@@ -599,5 +651,23 @@ function SummaryRow({
         </button>
       )}
     </div>
+  );
+}
+
+/** One of the two ways in — deliberately large, since this is the first choice
+ *  the visitor makes and both routes are equally valid. */
+function EntryCard({
+  icon, title, hint, onClick,
+}: { icon: React.ReactNode; title: string; hint: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="text-left p-6 rounded-[var(--radius-card)] border border-line bg-champagne-dark hover:border-main hover:bg-main/[0.04] transition-colors duration-150 cursor-pointer flex flex-col gap-3"
+    >
+      <span className="text-main">{icon}</span>
+      <span className="block body-strong text-black text-[16px]">{title}</span>
+      <span className="block body-s text-muted">{hint}</span>
+    </button>
   );
 }
