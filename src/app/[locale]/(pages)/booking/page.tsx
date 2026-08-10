@@ -42,6 +42,7 @@ export default async function OnlineBookingPage({ params }: { params: Promise<{ 
         ui={uiStrings.booking}
         phone={settings.phone1}
         hours={settings.hours}
+        address={settings.address}
       />
     </>
   );

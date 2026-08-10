@@ -37,20 +37,25 @@ export function formatKyivDateLong(iso: string, locale: string): string {
   }).format(new Date(iso));
 }
 
-/** "серпень 2026" — calendar month heading. */
-export function formatMonth(year: number, month: number, locale: string): string {
+/** "серпень 2026" for a "YYYY-MM-DD" key — the week strip's heading. */
+export function formatMonthYear(dateKey: string, locale: string): string {
   return new Intl.DateTimeFormat(tag(locale), {
     timeZone: "UTC", month: "long", year: "numeric",
-  }).format(new Date(Date.UTC(year, month, 1)));
+  }).format(new Date(`${dateKey}T00:00:00Z`));
 }
 
-/** Monday-first short weekday initials, matching the clinic's RoApp setting. */
-export function weekdayLabels(locale: string): string[] {
-  const fmt = new Intl.DateTimeFormat(tag(locale), { timeZone: "UTC", weekday: "short" });
-  // 2024-01-01 was a Monday.
-  return Array.from({ length: 7 }, (_, i) =>
-    fmt.format(new Date(Date.UTC(2024, 0, 1 + i))),
-  );
+/** "пн" for a "YYYY-MM-DD" key. */
+export function weekdayShort(dateKey: string, locale: string): string {
+  return new Intl.DateTimeFormat(tag(locale), {
+    timeZone: "UTC", weekday: "short",
+  }).format(new Date(`${dateKey}T00:00:00Z`));
+}
+
+/** "11 серпня" — compact date for summaries and chips. */
+export function formatDayMonth(iso: string, locale: string): string {
+  return new Intl.DateTimeFormat(tag(locale), {
+    timeZone: KYIV, day: "numeric", month: "long",
+  }).format(new Date(iso));
 }
 
 export type SlotPeriod = "morning" | "afternoon" | "evening";

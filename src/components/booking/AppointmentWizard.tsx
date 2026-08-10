@@ -3,26 +3,23 @@
 /**
  * Online appointment booking (Inweb TZ #10 §2), backed by RoApp.
  *
- * Five steps — specialist, service, date & time, contacts, confirmation. Date
- * and time are one step because they're one decision: you pick a day *in order
- * to* pick an hour, and splitting them doubles the back-and-forth when a
- * specialist's schedule is sparse.
+ * Five steps, with the first two ordered by where the visitor chose to start —
+ * a service or a specialist. Date and time are one step because they're one
+ * decision; splitting them doubles the back-and-forth when a schedule is sparse.
  *
  * Every slot shown is genuinely free: RoApp computes them from the specialist's
- * work schedule minus their existing bookings. The slot is re-checked
- * server-side immediately before writing, because RoApp has no slot locking.
+ * work schedule minus their bookings. The slot is re-checked server-side
+ * immediately before writing, because RoApp has no slot locking — which is also
+ * why nothing here claims a slot is held or reserved.
  *
- * If RoApp is unreachable the wizard doesn't dead-end — it points at the
- * clinic's own booking page instead.
+ * If RoApp is unreachable the flow doesn't dead-end; it offers the phone number
+ * and the clinic's own booking page.
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import {
-  Check, ChevronLeft, ChevronRight, Loader2, Search, Clock, CalendarX,
-  Stethoscope, ListChecks,
-} from "lucide-react";
+import { Check, ChevronLeft, ChevronRight, Loader2, Search } from "lucide-react";
 import Button from "@/components/ui/Button";
 import AvailabilityCalendar from "./AvailabilityCalendar";
 import {
@@ -34,29 +31,29 @@ import {
 } from "@/lib/actions/appointment";
 import type { BookingDoctor, BookingSlot } from "@/lib/roapp/types";
 import {
-  kyivDateKey, kyivTime, formatKyivDateLong, periodOf, type SlotPeriod,
+  kyivDateKey, kyivTime, formatKyivDateLong, formatDayMonth, periodOf, type SlotPeriod,
 } from "@/lib/booking-time";
+import { buildIcs, downloadIcs } from "@/lib/booking-ics";
 
 type Step = "doctor" | "service" | "when" | "contact" | "confirm";
+type EntryMode = "service" | "doctor";
 
 /**
- * The visitor decides where to start — by specialist or by procedure — and the
- * order of the first two steps follows. Both routes converge on date & time.
+ * The visitor picks where to start and the first two steps follow.
  *
  * Worth knowing: RoApp returns the same 232 bookable services regardless of
- * `employee_id` (verified — even a non-existent id returns the identical list),
+ * `employee_id` — verified, even a non-existent id returns the identical list —
  * because services aren't linked to employees in the account. So neither order
- * can narrow the other yet. Once the clinic links them in RoApp, service-first
- * will filter the specialist list for free and this shape already supports it.
+ * narrows the other yet. This shape already supports it: the moment the clinic
+ * links them in RoApp, both directions start filtering with no code change.
  */
-type EntryMode = "doctor" | "service";
 const STEP_ORDER: Record<EntryMode, readonly Step[]> = {
   doctor: ["doctor", "service", "when", "contact", "confirm"],
   service: ["service", "doctor", "when", "contact", "confirm"],
 };
 
 const fieldCls =
-  "w-full px-4 py-3 rounded-[var(--radius-button)] bg-champagne-dark border border-line text-ink text-[15px] outline-none transition-colors duration-150 ease-out placeholder:text-stone hover:border-stone-light focus:border-main focus:ring-2 focus:ring-main/15";
+  "w-full px-4 py-3 rounded-[var(--radius-button)] bg-champagne-dark border border-line text-ink text-[15px] outline-none transition-colors duration-150 placeholder:text-stone hover:border-stone-light focus:border-main focus:ring-2 focus:ring-main/15";
 
 /** Group typed digits as `XX XXX XX XX`, stripping any pasted country code. */
 function formatPhoneLocal(raw: string): string {
@@ -67,46 +64,51 @@ function formatPhoneLocal(raw: string): string {
   return [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(" ");
 }
 
-function priceLabel(v: number): string {
-  return `${new Intl.NumberFormat("uk-UA").format(v)} грн`;
+function money(v: number, locale: string): string {
+  const n = new Intl.NumberFormat("uk-UA").format(v);
+  return locale === "en" ? `${n} UAH` : `${n} грн`;
 }
 
-function durationLabel(mins: number, hourShort: string, minShort: string): string {
-  const h = Math.floor(mins / 60);
-  const m = mins % 60;
-  if (h && m) return `${h} ${hourShort} ${m} ${minShort}`;
-  if (h) return `${h} ${hourShort}`;
-  return `${m} ${minShort}`;
+function duration(mins: number, h: string, m: string): string {
+  const hh = Math.floor(mins / 60);
+  const mm = mins % 60;
+  if (hh && mm) return `${hh} ${h} ${mm} ${m}`;
+  if (hh) return `${hh} ${h}`;
+  return `${mm} ${m}`;
 }
 
-export default function AppointmentWizard() {
+export default function AppointmentWizard({
+  address, phone,
+}: { address: string; phone: string }) {
   const t = useTranslations("booking");
   const locale = useLocale();
 
-  const [mode, setMode] = useState<EntryMode | null>(null);
-  const [step, setStep] = useState<Step>("doctor");
+  const [mode, setMode] = useState<EntryMode>("service");
+  const [step, setStep] = useState<Step>("service");
   const [doctors, setDoctors] = useState<BookingDoctor[] | null>(null);
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
 
   const [doctorId, setDoctorId] = useState<number | null>(null);
   const [services, setServices] = useState<ServiceOption[] | null>(null);
   const [serviceId, setServiceId] = useState<number>(0);
-  const [serviceQuery, setServiceQuery] = useState("");
+  const [query, setQuery] = useState("");
 
   const [slots, setSlots] = useState<BookingSlot[] | null>(null);
   const [dateKey, setDateKey] = useState<string | null>(null);
   const [slotStart, setSlotStart] = useState<string | null>(null);
+  const [weekStart, setWeekStart] = useState(0);
 
   const [name, setName] = useState("");
   const [phoneLocal, setPhoneLocal] = useState("");
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState<{ name?: string; phone?: string; generic?: string }>({});
-  const [done, setDone] = useState(false);
+  const [bookingId, setBookingId] = useState<number | null>(null);
   const [pending, startTransition] = useTransition();
   const topRef = useRef<HTMLDivElement>(null);
 
   const hourShort = t("hourShort");
   const minShort = t("minShort");
+  const done = bookingId !== null;
 
   useEffect(() => {
     let alive = true;
@@ -115,69 +117,69 @@ export default function AppointmentWizard() {
       setDoctors(r.doctors);
       if (!r.ok) setFallbackUrl(r.fallbackUrl ?? null);
     });
-    // Services are the same list for every specialist, so fetch them once up
-    // front rather than on each doctor pick — it also makes service-first
-    // instant instead of waiting on a five-page fetch.
+    // The catalogue is the same for every specialist, so fetch it once up front.
     getDoctorServices(0).then((r) => { if (alive) setServices(r.services); });
     return () => { alive = false; };
   }, [locale]);
 
-  const doctor = useMemo(
-    () => doctors?.find((d) => d.id === doctorId) ?? null,
-    [doctors, doctorId],
-  );
-  const service = useMemo(
-    () => services?.find((s) => s.id === serviceId) ?? null,
-    [services, serviceId],
-  );
+  const doctor = useMemo(() => doctors?.find((d) => d.id === doctorId) ?? null, [doctors, doctorId]);
+  const service = useMemo(() => services?.find((s) => s.id === serviceId) ?? null, [services, serviceId]);
 
-  /**
-   * Load a specialist's availability.
-   *
-   * Preselects the first day that has slots straight off the response — the
-   * common case is "soonest possible", so the slot panel is never empty on
-   * arrival. The visitor can still browse the whole calendar.
-   */
-  const loadForDoctor = useCallback((id: number) => {
-    setSlots(null);
-    setDateKey(null);
-    setSlotStart(null);
+  const loadSlots = useCallback((id: number) => {
+    setSlots(null); setDateKey(null); setSlotStart(null); setWeekStart(0);
     getDoctorSlots(id).then((r) => {
       setSlots(r.slots);
       if (r.slots.length) setDateKey(kyivDateKey(r.slots[0].start));
     });
   }, []);
 
-  const groupedServices = useMemo(() => {
+  const steps = STEP_ORDER[mode];
+  const stepIndex = steps.indexOf(step);
+
+  const go = useCallback((next: Step) => {
+    setStep(next);
+    setErrors({});
+  }, []);
+
+  // Scrolling is a side effect of having changed step, so it lives here rather
+  // than in the handler — which would mean reading a ref during render for
+  // every step-change closure built below.
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
+
+  function chooseMode(next: EntryMode) {
+    setMode(next);
+    setStep(STEP_ORDER[next][0]);
+  }
+
+  function chooseDoctor(id: number) {
+    setDoctorId(id);
+    loadSlots(id);
+  }
+
+  const filteredServices = useMemo(() => {
     if (!services) return [];
-    const q = serviceQuery.trim().toLowerCase();
-    const filtered = q ? services.filter((s) => s.title.toLowerCase().includes(q)) : services;
-    const groups = new Map<string, ServiceOption[]>();
-    for (const s of filtered) {
-      const key = s.category ?? "￿"; // uncategorised sorts last
-      groups.set(key, [...(groups.get(key) ?? []), s]);
-    }
-    return Array.from(groups.entries()).sort((a, b) => a[0].localeCompare(b[0], "uk"));
-  }, [services, serviceQuery]);
+    const q = query.trim().toLowerCase();
+    return q ? services.filter((s) => s.title.toLowerCase().includes(q)) : services;
+  }, [services, query]);
 
   const daySlots = useMemo(
     () => (slots && dateKey ? slots.filter((s) => kyivDateKey(s.start) === dateKey) : []),
     [slots, dateKey],
   );
-
   const slotsByPeriod = useMemo(() => {
     const out: Record<SlotPeriod, BookingSlot[]> = { morning: [], afternoon: [], evening: [] };
     for (const s of daySlots) out[periodOf(s.start)].push(s);
     return out;
   }, [daySlots]);
-
   const selectedSlot = useMemo(
     () => daySlots.find((s) => s.start === slotStart) ?? null,
     [daySlots, slotStart],
   );
 
-  const steps = STEP_ORDER[mode ?? "doctor"];
-  const stepIndex = steps.indexOf(step);
   const contactValid = name.trim().length >= 2 && phoneLocal.replace(/\D+/g, "").length >= 9;
   const canAdvance =
     step === "doctor" ? doctorId != null
@@ -186,35 +188,14 @@ export default function AppointmentWizard() {
     : step === "contact" ? contactValid
     : true;
 
-  const go = useCallback((next: Step) => {
-    setStep(next);
-    setErrors({});
-    topRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }, []);
+  const hint = canAdvance ? "" :
+    step === "doctor" ? t("hintPickDoctor")
+    : step === "service" ? t("hintPickService")
+    : step === "when" ? t("hintPickWhen")
+    : step === "contact" ? t("hintContact")
+    : "";
 
-  function chooseDoctor(id: number) {
-    setDoctorId(id);
-    loadForDoctor(id);
-  }
-
-  /** Start over from the entry-point screen. */
-  function restart() {
-    setMode(null);
-    setDoctorId(null);
-    setServiceId(0);
-    setServiceQuery("");
-    setSlots(null);
-    setDateKey(null);
-    setSlotStart(null);
-    setErrors({});
-  }
-
-  function chooseDate(key: string) {
-    setDateKey(key);
-    setSlotStart(null);
-  }
-
-  function handleSubmit() {
+  function submit() {
     const next: typeof errors = {};
     if (name.trim().length < 2) next.name = t("errorName");
     if (phoneLocal.replace(/\D+/g, "").length < 9) next.phone = t("errorPhone");
@@ -234,81 +215,113 @@ export default function AppointmentWizard() {
         pageUrl: typeof window !== "undefined" ? window.location.href : undefined,
         locale,
       });
-      if (res.ok) { setDone(true); return; }
+      if (res.ok) { setBookingId(res.bookingId ?? 0); return; }
       if (res.errorKey === "name") { setErrors({ name: t("errorName") }); go("contact"); }
       else if (res.errorKey === "phone") { setErrors({ phone: t("errorPhone") }); go("contact"); }
       else if (res.errorKey === "slotTaken") {
-        // Someone took it first — refresh availability and send them back.
         setErrors({ generic: t("errorSlotTaken") });
         setSlotStart(null);
-        getDoctorSlots(doctorId).then((r) => setSlots(r.slots));
+        loadSlots(doctorId);
         go("when");
       } else if (res.errorKey === "unavailable") setErrors({ generic: t("errorUnavailable") });
       else setErrors({ generic: t("errorGeneric") });
     });
   }
 
-  function reset() {
-    restart();
+  function restart() {
+    setMode("service"); setStep("service");
+    setDoctorId(null); setServiceId(0); setQuery("");
+    setSlots(null); setDateKey(null); setSlotStart(null); setWeekStart(0);
     setName(""); setPhoneLocal(""); setComment("");
-    setDone(false); setStep("doctor");
+    setErrors({}); setBookingId(null);
   }
 
-  if (done) {
+  function addToCalendar() {
+    if (!selectedSlot) return;
+    downloadIcs(
+      "genevity-appointment.ics",
+      buildIcs({
+        start: selectedSlot.start,
+        end: selectedSlot.end,
+        title: `GENEVITY — ${service?.title ?? t("anyService")}`,
+        description: doctor ? `${doctor.name}${doctor.role ? `, ${doctor.role}` : ""}` : undefined,
+        location: address,
+        uid: `genevity-${bookingId ?? Date.now()}@genevity.com.ua`,
+      }),
+    );
+  }
+
+  /* ── RoApp unreachable ── */
+  if (doctors !== null && doctors.length === 0) {
     return (
-      <div className="rounded-[var(--radius-card)] bg-champagne-dark p-8 sm:p-12 text-center">
-        <span className="w-14 h-14 rounded-full bg-main text-champagne inline-flex items-center justify-center mb-5">
-          <Check className="w-7 h-7" strokeWidth={2.5} />
-        </span>
-        <h2 className="heading-3 text-black mb-3">{t("successTitle")}</h2>
-        {selectedSlot && (
-          <p className="body-l text-main mb-3 first-letter:uppercase">
-            {formatKyivDateLong(selectedSlot.start, locale)}, {kyivTime(selectedSlot.start)}
-            {doctor ? ` · ${doctor.name}` : ""}
-          </p>
-        )}
-        <p className="body-m text-muted max-w-md mx-auto">{t("successText")}</p>
-        <div className="mt-7">
-          <Button variant="outline" size="sm" onClick={reset}>{t("successAgain")}</Button>
+      <div ref={topRef} className="bk-rise rounded-[var(--radius-card)] bg-champagne-dark p-8">
+        <h2 className="heading-3 text-black">{t("unavailableTitle")}</h2>
+        <p className="body-m text-muted mt-3 mb-6 max-w-md">{t("unavailableText")}</p>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="primary" size="sm" href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</Button>
+          {fallbackUrl && (
+            <Button variant="outline" size="sm" href={fallbackUrl} target="_blank" rel="noopener noreferrer">
+              {t("unavailableCta")}
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Button>
+          )}
         </div>
       </div>
     );
   }
 
-  if (doctors !== null && doctors.length === 0) {
+  /* ── Confirmed ── */
+  if (done) {
     return (
-      <div className="rounded-[var(--radius-card)] bg-champagne-dark p-8 text-center">
-        <CalendarX className="w-8 h-8 text-main mx-auto mb-4" aria-hidden="true" />
-        <h2 className="heading-3 text-black mb-3">{t("unavailableTitle")}</h2>
-        <p className="body-m text-muted max-w-md mx-auto mb-6">{t("unavailableText")}</p>
-        {fallbackUrl && (
-          <Button variant="outline" size="sm" href={fallbackUrl} target="_blank" rel="noopener noreferrer">
-            {t("unavailableCta")}
-            <ChevronRight className="w-3.5 h-3.5" />
-          </Button>
-        )}
-      </div>
-    );
-  }
+      <div ref={topRef} className="bk-rise">
+        <div className="relative w-[76px] h-[76px] mb-7">
+          <span className="absolute inset-0 rounded-full bg-success opacity-35" style={{ animation: "bkHalo 2.4s ease-out infinite" }} />
+          <span className="absolute inset-0 rounded-full bg-success flex items-center justify-center" style={{ animation: "bkPop .5s cubic-bezier(.2,.8,.2,1) both" }}>
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+              <path d="M9 17.5 14.5 23 25 12" stroke="#FAF9F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="64" style={{ animation: "bkDraw .6s .25s cubic-bezier(.2,.8,.2,1) both" }} />
+            </svg>
+          </span>
+        </div>
 
-  /* ── Entry point: start by specialist, or by procedure ── */
-  if (mode === null) {
-    return (
-      <div className="flex flex-col gap-6" ref={topRef}>
-        <h2 className="heading-3 text-black">{t("startHeading")}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <EntryCard
-            icon={<Stethoscope className="w-6 h-6" aria-hidden="true" />}
-            title={t("startByDoctor")}
-            hint={t("startByDoctorHint")}
-            onClick={() => { setMode("doctor"); setStep("doctor"); }}
-          />
-          <EntryCard
-            icon={<ListChecks className="w-6 h-6" aria-hidden="true" />}
-            title={t("startByService")}
-            hint={t("startByServiceHint")}
-            onClick={() => { setMode("service"); setStep("service"); }}
-          />
+        <h2 className="heading-2 text-black">{t("successTitle")}</h2>
+        {selectedSlot && (
+          <p className="body-l text-main mt-3 mb-7 first-letter:uppercase">
+            {formatKyivDateLong(selectedSlot.start, locale)}, {kyivTime(selectedSlot.start)}
+            {doctor ? ` · ${doctor.name}` : ""}
+          </p>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+          {bookingId ? (
+            <div className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+              <p className="bk-eyebrow">{t("bookingNumber")}</p>
+              <p className="heading-3 text-black text-[26px] mt-2.5">GN-{bookingId}</p>
+            </div>
+          ) : null}
+          <div className="rounded-[var(--radius-card)] border border-line bg-white p-5">
+            <p className="bk-eyebrow">{t("addressLabel")}</p>
+            <p className="body-m text-black mt-2.5">{address}</p>
+          </div>
+        </div>
+
+        <div className="mt-8 max-w-2xl">
+          <p className="bk-eyebrow mb-4">{t("whatNext")}</p>
+          {([1, 2, 3] as const).map((n) => (
+            <div key={n} className="flex gap-4 items-start py-3.5 border-t border-line">
+              <span className="w-6 h-6 rounded-full border border-main/45 text-main inline-flex items-center justify-center body-s shrink-0">
+                {n}
+              </span>
+              <div>
+                <p className="body-m text-black">{t(`next${n}Title`)}</p>
+                <p className="body-s text-muted mt-0.5">{t(`next${n}Body`)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button variant="primary" size="sm" onClick={addToCalendar}>{t("addToCalendar")}</Button>
+          <Button variant="outline" size="sm" onClick={restart}>{t("successAgain")}</Button>
         </div>
       </div>
     );
@@ -323,311 +336,240 @@ export default function AppointmentWizard() {
   };
 
   return (
-    <div className="flex flex-col gap-8" ref={topRef}>
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-2">
+    <div ref={topRef} className="min-w-0">
+      {/* Stepper */}
+      <ol className="flex items-center gap-2 flex-wrap mb-8">
         {steps.map((s, i) => {
-          const isCurrent = s === step;
-          const isPast = i < stepIndex;
+          const current = s === step;
+          const past = i < stepIndex;
           return (
             <li key={s} className="flex items-center gap-2">
               <button
                 type="button"
-                disabled={i > stepIndex}
-                onClick={() => i <= stepIndex && go(s)}
+                disabled={!past && !current}
+                onClick={() => (past || current) && go(s)}
                 className={`flex items-center gap-2 text-[13px] transition-colors ${
-                  isCurrent ? "text-main body-strong"
-                  : isPast ? "text-black-70 hover:text-main cursor-pointer"
+                  current ? "text-main body-strong"
+                  : past ? "text-black-70 hover:text-main cursor-pointer"
                   : "text-black-40 cursor-default"
                 }`}
               >
-                <span className={`w-6 h-6 rounded-full inline-flex items-center justify-center text-[11px] shrink-0 ${
-                  isCurrent ? "bg-main text-champagne"
-                  : isPast ? "bg-main/15 text-main"
+                <span className={`w-6 h-6 rounded-full inline-flex items-center justify-center text-[11px] shrink-0 transition-colors ${
+                  current ? "bg-main text-champagne"
+                  : past ? "bg-main/15 text-main"
                   : "bg-champagne-darker text-black-40"
                 }`}>
-                  {isPast ? <Check className="w-3 h-3" strokeWidth={3} /> : i + 1}
+                  {past ? <Check className="w-3 h-3" strokeWidth={3} /> : i + 1}
                 </span>
                 <span className="hidden sm:inline">{stepLabels[s]}</span>
               </button>
-              {i < steps.length - 1 && <span className="text-black-20" aria-hidden="true">·</span>}
+              {i < steps.length - 1 && <span className="w-4 h-px bg-black-10" aria-hidden="true" />}
             </li>
           );
         })}
       </ol>
 
-      <div className="min-h-[340px]">
-        {step === "doctor" && (
-          doctors === null ? <StepLoader /> : (
-            <fieldset>
-              <legend className="heading-3 text-black mb-5">{t("doctorHeading")}</legend>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {doctors.map((d) => (
-                  <button
-                    key={d.id}
-                    type="button"
-                    onClick={() => chooseDoctor(d.id)}
-                    aria-pressed={doctorId === d.id}
-                    className={`text-left flex items-center gap-4 p-4 rounded-[var(--radius-card)] border transition-colors duration-150 cursor-pointer ${
-                      doctorId === d.id
-                        ? "border-main bg-main/[0.06]"
-                        : "border-line bg-champagne-dark hover:border-stone-light"
-                    }`}
-                  >
-                    {d.photo ? (
-                      <Image
-                        src={d.photo} alt="" width={52} height={52}
-                        className="w-[52px] h-[52px] rounded-full object-cover shrink-0"
-                        style={{ objectPosition: d.photoFocalPoint }}
-                      />
-                    ) : (
-                      <span className="w-[52px] h-[52px] rounded-full bg-champagne-darker shrink-0 inline-flex items-center justify-center body-strong text-main text-lg">
-                        {d.name.charAt(0)}
-                      </span>
-                    )}
-                    <span className="min-w-0 flex-1">
-                      <span className="block body-strong text-black text-[15px] leading-tight">{d.name}</span>
-                      <span className="block body-s text-muted mt-1">{d.role}</span>
-                      {d.nextSlot && (
-                        <span className="block body-s text-main mt-1.5 first-letter:uppercase">
-                          {t("nextAvailable")} {formatKyivDateLong(d.nextSlot, locale)}, {kyivTime(d.nextSlot)}
-                        </span>
-                      )}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </fieldset>
-          )
-        )}
+      {/* ── Step 1 ── */}
+      {stepIndex === 0 && (
+        <div className="bk-rise">
+          <h2 className="heading-3 text-black">{t("startHeading")}</h2>
 
-        {step === "service" && (
-          services === null ? <StepLoader /> : (
-            <fieldset>
-              <legend className="heading-3 text-black mb-2">{t("serviceHeading")}</legend>
-              <p className="body-s text-muted mb-4">{t("serviceHint")}</p>
-
-              <div className="relative mb-4">
-                <Search className="w-4 h-4 text-stone absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true" />
-                <input
-                  type="search" value={serviceQuery}
-                  onChange={(e) => setServiceQuery(e.target.value)}
-                  placeholder={t("serviceSearch")} aria-label={t("serviceSearch")}
-                  className={`${fieldCls} pl-11`}
-                />
-              </div>
-
+          <div className="inline-flex gap-1 p-1 rounded-[var(--radius-pill)] bg-champagne-darker mt-5 mb-6">
+            {(["service", "doctor"] as EntryMode[]).map((m) => (
               <button
+                key={m}
                 type="button"
-                onClick={() => { setServiceId(0); setSlotStart(null); }}
-                aria-pressed={serviceId === 0}
-                className={`w-full text-left px-4 py-3.5 mb-3 rounded-[var(--radius-card)] border transition-colors duration-150 cursor-pointer ${
-                  serviceId === 0 ? "border-main bg-main/[0.06]" : "border-line bg-champagne-dark hover:border-stone-light"
+                onClick={() => chooseMode(m)}
+                aria-pressed={mode === m}
+                className={`px-5 py-2.5 rounded-[var(--radius-pill)] text-[14px] cursor-pointer transition-colors duration-200 ${
+                  mode === m ? "bg-champagne text-black shadow-sm" : "text-muted hover:text-black"
                 }`}
               >
-                <span className="body-strong text-black text-[15px]">{t("anyService")}</span>
+                {m === "service" ? t("startWithService") : t("startWithDoctor")}
               </button>
+            ))}
+          </div>
 
-              <div className="max-h-[420px] overflow-y-auto pr-1 flex flex-col gap-5">
-                {groupedServices.length === 0 && (
-                  <p className="body-m text-muted py-6 text-center">{t("serviceNoMatch")}</p>
-                )}
-                {groupedServices.map(([category, items]) => (
-                  <div key={category}>
-                    <p className="body-s text-black-50 uppercase tracking-wider mb-2">
-                      {category === "￿" ? t("otherServices") : category}
-                    </p>
-                    <div className="flex flex-col gap-1.5">
-                      {items.map((s) => (
-                        <button
-                          key={s.id}
-                          type="button"
-                          onClick={() => { setServiceId(s.id); setSlotStart(null); }}
-                          aria-pressed={serviceId === s.id}
-                          className={`w-full text-left flex items-center gap-3 px-4 py-3 rounded-[var(--radius-button)] border transition-colors duration-150 cursor-pointer ${
-                            serviceId === s.id ? "border-main bg-main/[0.06]" : "border-line bg-champagne-dark hover:border-stone-light"
-                          }`}
-                        >
-                          <span className="flex-1 min-w-0 body-m text-black">{s.title}</span>
-                          <span className="body-s text-black-40 whitespace-nowrap">
-                            {durationLabel(s.durationMinutes, hourShort, minShort)}
-                          </span>
-                          {s.price > 0 && (
-                            <span className="body-s text-main whitespace-nowrap">{priceLabel(s.price)}</span>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </fieldset>
-          )
-        )}
+          {mode === "service"
+            ? <ServiceGrid services={filteredServices} all={services} selected={serviceId} onSelect={setServiceId} query={query} onQuery={setQuery} t={t} locale={locale} hourShort={hourShort} minShort={minShort} />
+            : <DoctorList doctors={doctors} selected={doctorId} onSelect={chooseDoctor} t={t} locale={locale} />}
+        </div>
+      )}
 
-        {step === "when" && (
-          slots === null ? <StepLoader /> : slots.length === 0 ? (
-            <div className="text-center py-10">
-              <CalendarX className="w-8 h-8 text-main mx-auto mb-4" aria-hidden="true" />
+      {/* ── Step 2 ── */}
+      {stepIndex === 1 && (
+        <div className="bk-rise">
+          <h2 className="heading-3 text-black">
+            {mode === "service" ? t("step2DoctorTitle") : t("step2ServiceTitle")}
+          </h2>
+          <p className="body-m text-muted mt-3 mb-6 max-w-xl">
+            {mode === "service" ? t("step2DoctorSub") : t("step2ServiceSub")}
+          </p>
+          {mode === "service"
+            ? <DoctorList doctors={doctors} selected={doctorId} onSelect={chooseDoctor} t={t} locale={locale} />
+            : <ServiceGrid services={filteredServices} all={services} selected={serviceId} onSelect={setServiceId} query={query} onQuery={setQuery} t={t} locale={locale} hourShort={hourShort} minShort={minShort} />}
+        </div>
+      )}
+
+      {/* ── Step 3: date & time ── */}
+      {step === "when" && (
+        <div className="bk-rise">
+          <h2 className="heading-3 text-black">{t("whenHeading")}</h2>
+          {doctor && <p className="body-m text-muted mt-3 mb-6">{t("whenSub")} {doctor.name}</p>}
+
+          {slots === null ? <Loader /> : slots.length === 0 ? (
+            <div className="rounded-[var(--radius-card)] bg-champagne-dark p-8">
               <p className="body-l text-black mb-2">{t("noSlotsTitle")}</p>
               <p className="body-m text-muted">{t("noSlotsText")}</p>
             </div>
           ) : (
-            <fieldset>
-              <legend className="heading-3 text-black mb-5">{t("whenHeading")}</legend>
-              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,340px)_1fr] gap-6 items-start">
-                <AvailabilityCalendar
-                  slots={slots} selectedDate={dateKey} onSelectDate={chooseDate}
-                  locale={locale} legend={t("calendarLegend")}
-                />
-                <div>
-                  {!dateKey ? (
-                    <p className="body-m text-muted py-4">{t("pickDayFirst")}</p>
-                  ) : (
-                    <>
-                      <p className="body-strong text-black mb-4 first-letter:uppercase">
-                        {daySlots[0] ? formatKyivDateLong(daySlots[0].start, locale) : ""}
-                      </p>
-                      <div className="flex flex-col gap-5">
-                        {(Object.keys(slotsByPeriod) as SlotPeriod[]).map((period) =>
-                          slotsByPeriod[period].length === 0 ? null : (
-                            <div key={period}>
-                              <p className="body-s text-black-50 mb-2.5">{periodLabels[period]}</p>
-                              <div className="flex flex-wrap gap-2">
-                                {slotsByPeriod[period].map((s) => (
-                                  <button
-                                    key={s.start}
-                                    type="button"
-                                    onClick={() => setSlotStart(s.start)}
-                                    aria-pressed={slotStart === s.start}
-                                    className={`px-4 py-2 rounded-[var(--radius-pill)] border text-[14px] transition-colors duration-150 cursor-pointer ${
-                                      slotStart === s.start
-                                        ? "border-main bg-main text-champagne"
-                                        : "border-line bg-champagne-dark text-ink hover:border-stone-light"
-                                    }`}
-                                  >
-                                    {kyivTime(s.start)}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          ),
-                        )}
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-              {errors.generic && (
-                <p className="body-s text-error mt-4 bg-error-light rounded-[var(--radius-sm)] px-3 py-2">
-                  {errors.generic}
-                </p>
-              )}
-            </fieldset>
-          )
-        )}
-
-        {step === "contact" && (
-          <fieldset>
-            <legend className="heading-3 text-black mb-5">{t("contactHeading")}</legend>
-            <div className="flex flex-col gap-4 max-w-lg">
-              <div>
-                <label htmlFor="appt-name" className="block body-s text-black-70 mb-1.5">{t("nameLabel")}</label>
-                <input
-                  id="appt-name" type="text" autoComplete="name" value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className={fieldCls} aria-invalid={Boolean(errors.name)}
-                />
-                {errors.name && <p className="body-s text-error mt-1.5">{errors.name}</p>}
-              </div>
-              <div>
-                <label htmlFor="appt-phone" className="block body-s text-black-70 mb-1.5">{t("phoneLabel")}</label>
-                <div className="flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border border-line focus-within:border-main focus-within:ring-2 focus-within:ring-main/15 transition-colors">
-                  <span className="px-4 py-3 text-ink text-[15px] border-r border-line select-none">+380</span>
-                  <input
-                    id="appt-phone" type="tel" inputMode="numeric" autoComplete="tel"
-                    placeholder="XX XXX XX XX" value={phoneLocal}
-                    onChange={(e) => setPhoneLocal(formatPhoneLocal(e.target.value))}
-                    className="flex-1 min-w-0 px-4 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone"
-                    aria-invalid={Boolean(errors.phone)}
-                  />
-                </div>
-                {errors.phone && <p className="body-s text-error mt-1.5">{errors.phone}</p>}
-              </div>
-              <div>
-                <label htmlFor="appt-comment" className="block body-s text-black-70 mb-1.5">{t("commentLabel")}</label>
-                <textarea
-                  id="appt-comment" rows={3} value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  placeholder={t("commentPlaceholder")}
-                  className={`${fieldCls} resize-y`}
-                />
-              </div>
-            </div>
-          </fieldset>
-        )}
-
-        {step === "confirm" && (
-          <div>
-            <h2 className="heading-3 text-black mb-5">{t("summaryHeading")}</h2>
-            <dl className="rounded-[var(--radius-card)] bg-champagne-dark divide-y divide-black-10 max-w-lg">
-              <SummaryRow label={t("stepDoctor")} value={doctor?.name ?? "—"} onChange={() => go("doctor")} changeLabel={t("change")} />
-              <SummaryRow label={t("stepService")} value={service?.title ?? t("anyService")} onChange={() => go("service")} changeLabel={t("change")} />
-              <SummaryRow
-                label={t("stepWhen")}
-                value={selectedSlot ? `${formatKyivDateLong(selectedSlot.start, locale)}, ${kyivTime(selectedSlot.start)}` : "—"}
-                onChange={() => go("when")} changeLabel={t("change")}
+            <>
+              <AvailabilityCalendar
+                slots={slots} selectedDate={dateKey}
+                onSelectDate={(k) => { setDateKey(k); setSlotStart(null); }}
+                weekStart={weekStart} onWeekStart={setWeekStart}
+                locale={locale} legend={t("calendarLegend")}
               />
-              <SummaryRow label={t("nameLabel")} value={name} onChange={() => go("contact")} changeLabel={t("change")} />
-              <SummaryRow label={t("phoneLabel")} value={`+380 ${phoneLocal}`} onChange={() => go("contact")} changeLabel={t("change")} />
-              {comment && <SummaryRow label={t("commentLabel")} value={comment} />}
-            </dl>
+              <div className="mt-5 rounded-[var(--radius-card)] border border-line bg-white p-5 sm:p-6">
+                {!dateKey || daySlots.length === 0 ? (
+                  <p className="body-m text-muted">{t("pickDayFirst")}</p>
+                ) : (
+                  (Object.keys(slotsByPeriod) as SlotPeriod[]).map((period) =>
+                    slotsByPeriod[period].length === 0 ? null : (
+                      <div key={period} className="mb-5 last:mb-0">
+                        <p className="bk-eyebrow mb-3">{periodLabels[period]}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {slotsByPeriod[period].map((s) => {
+                            const sel = slotStart === s.start;
+                            return (
+                              <button
+                                key={s.start} type="button" onClick={() => setSlotStart(s.start)} aria-pressed={sel}
+                                className={`px-4 py-2 rounded-[var(--radius-pill)] border text-[14px] cursor-pointer transition-colors duration-150 ${
+                                  sel ? "border-main bg-main text-champagne"
+                                      : "border-line bg-champagne-dark text-ink hover:border-stone-light"
+                                }`}
+                              >
+                                {kyivTime(s.start)}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ),
+                  )
+                )}
+              </div>
+            </>
+          )}
+          {errors.generic && <ErrorNote>{errors.generic}</ErrorNote>}
+        </div>
+      )}
+
+      {/* ── Step 4: contacts ── */}
+      {step === "contact" && (
+        <div className="bk-rise">
+          <h2 className="heading-3 text-black">{t("contactHeading")}</h2>
+          <p className="body-m text-muted mt-3 mb-6 max-w-xl">{t("contactSub")}</p>
+
+          <div className="rounded-[var(--radius-card)] border border-line bg-white p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <label className="block">
+              <span className="bk-eyebrow block mb-2.5">{t("nameLabel")}</span>
+              <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={fieldCls} aria-invalid={Boolean(errors.name)} />
+              {errors.name && <span className="block body-s text-error mt-1.5">{errors.name}</span>}
+            </label>
+            <label className="block">
+              <span className="bk-eyebrow block mb-2.5">{t("phoneLabel")}</span>
+              <div className="flex items-stretch rounded-[var(--radius-button)] bg-champagne-dark border border-line focus-within:border-main focus-within:ring-2 focus-within:ring-main/15 transition-colors">
+                <span className="px-4 py-3 text-ink text-[15px] border-r border-line select-none">+380</span>
+                <input
+                  value={phoneLocal} onChange={(e) => setPhoneLocal(formatPhoneLocal(e.target.value))}
+                  type="tel" inputMode="numeric" autoComplete="tel" placeholder="XX XXX XX XX"
+                  className="flex-1 min-w-0 px-4 py-3 bg-transparent text-ink text-[15px] outline-none placeholder:text-stone"
+                  aria-invalid={Boolean(errors.phone)}
+                />
+              </div>
+              {errors.phone && <span className="block body-s text-error mt-1.5">{errors.phone}</span>}
+            </label>
+            <label className="block sm:col-span-2">
+              <span className="bk-eyebrow block mb-2.5">{t("commentLabel")}</span>
+              <textarea rows={3} value={comment} onChange={(e) => setComment(e.target.value)} placeholder={t("commentPlaceholder")} className={`${fieldCls} resize-y`} />
+            </label>
+          </div>
+        </div>
+      )}
+
+      {/* ── Step 5: confirm ── */}
+      {step === "confirm" && (
+        <div className="bk-rise">
+          <h2 className="heading-3 text-black">{t("summaryHeading")}</h2>
+          <p className="body-m text-muted mt-3 mb-6">{t("summarySub")}</p>
+
+          <div className="rounded-[var(--radius-card)] border border-line bg-white overflow-hidden">
+            {([
+              [t("stepService"), service?.title ?? t("anyService"), () => go("service")],
+              [t("stepDoctor"), doctor ? `${doctor.name} · ${doctor.role}` : "—", () => go("doctor")],
+              [t("stepWhen"), selectedSlot ? `${formatKyivDateLong(selectedSlot.start, locale)}, ${kyivTime(selectedSlot.start)}` : "—", () => go("when")],
+              [t("nameLabel"), name || "—", () => go("contact")],
+              [t("phoneLabel"), `+380 ${phoneLocal}`, () => go("contact")],
+              ...(comment ? [[t("commentLabel"), comment, () => go("contact")]] : []),
+            ] as [string, string, () => void][]).map(([label, value, edit], i) => (
+              <div key={i} className="grid grid-cols-[minmax(0,104px)_1fr_auto] sm:grid-cols-[180px_1fr_auto] gap-4 items-center px-5 sm:px-6 py-4 border-b border-line last:border-b-0">
+                <span className="bk-eyebrow leading-[1.3]">{label}</span>
+                <span className="body-m text-black first-letter:uppercase break-words">{value}</span>
+                <button type="button" onClick={edit} className="body-s text-main hover:underline cursor-pointer shrink-0">
+                  {t("change")}
+                </button>
+              </div>
+            ))}
             {service && service.price > 0 && (
-              <p className="body-s text-muted mt-3 flex items-center gap-2 max-w-lg">
-                <Clock className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-                {durationLabel(service.durationMinutes, hourShort, minShort)} · {priceLabel(service.price)}
-              </p>
-            )}
-            <p className="body-s text-muted mt-4 max-w-lg">{t("confirmNote")}</p>
-            <p className="body-s text-black-40 mt-2 max-w-lg">{t("privacyNote")}</p>
-            {errors.generic && (
-              <p className="body-s text-error mt-3 bg-error-light rounded-[var(--radius-sm)] px-3 py-2 max-w-lg">
-                {errors.generic}
-              </p>
+              <div className="flex items-center justify-between px-5 sm:px-6 py-5 bg-champagne-dark">
+                <span className="body-s text-muted">
+                  {t("durationLabel")} · {duration(service.durationMinutes, hourShort, minShort)}
+                </span>
+                <span className="body-strong text-main text-[18px]">{money(service.price, locale)}</span>
+              </div>
             )}
           </div>
-        )}
-      </div>
 
-      <div className="flex items-center justify-between gap-3 border-t border-line pt-6">
-        <Button
-          variant="outline" size="sm"
-          onClick={() => (stepIndex > 0 ? go(steps[stepIndex - 1]) : restart())}
-          disabled={pending}
-        >
-          <ChevronLeft className="w-3.5 h-3.5" />
-          {t("back")}
-        </Button>
-        {step === "confirm" ? (
-          <Button variant="primary" size="lg" onClick={handleSubmit} disabled={pending}>
-            {pending && <Loader2 className="w-4 h-4 animate-spin" />}
-            {pending ? t("sending") : t("confirm")}
+          <div className="mt-5 flex gap-3 items-start px-5 py-4 rounded-[var(--radius-card)] border border-dashed border-main/35">
+            <span className="w-2 h-2 rounded-full bg-main mt-1.5 shrink-0" aria-hidden="true" />
+            <p className="body-s text-muted max-w-lg">{t("confirmNote")}</p>
+          </div>
+          <p className="body-s text-black-40 mt-3 max-w-lg">{t("privacyNote")}</p>
+          {errors.generic && <ErrorNote>{errors.generic}</ErrorNote>}
+        </div>
+      )}
+
+      {/* ── Nav ── */}
+      <div className="flex items-center justify-between gap-4 mt-8 pt-6 border-t border-line">
+        <div className={stepIndex > 0 ? "" : "invisible"}>
+          <Button variant="outline" size="sm" onClick={() => stepIndex > 0 && go(steps[stepIndex - 1])} disabled={pending}>
+            <ChevronLeft className="w-3.5 h-3.5" />
+            {t("back")}
           </Button>
-        ) : (
-          <Button
-            variant="primary" size="sm"
-            onClick={() => canAdvance && go(steps[stepIndex + 1])}
-            disabled={!canAdvance}
-          >
-            {t("next")}
-            <ChevronRight className="w-3.5 h-3.5" />
-          </Button>
-        )}
+        </div>
+        <div className="flex items-center gap-4">
+          {hint && <span className="hidden sm:inline body-s text-black-40">{hint}</span>}
+          {step === "confirm" ? (
+            <Button variant="primary" size="lg" onClick={submit} disabled={pending}>
+              {pending && <Loader2 className="w-4 h-4 animate-spin" />}
+              {pending ? t("sending") : t("confirm")}
+            </Button>
+          ) : (
+            <Button variant="primary" size="sm" onClick={() => canAdvance && go(steps[stepIndex + 1])} disabled={!canAdvance}>
+              {t("next")}
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function StepLoader() {
+/* ── Pieces ─────────────────────────────────────────────────────────────── */
+
+function Loader() {
   return (
     <div className="flex items-center justify-center py-20 text-muted">
       <Loader2 className="w-5 h-5 animate-spin" />
@@ -635,39 +577,151 @@ function StepLoader() {
   );
 }
 
-function SummaryRow({
-  label, value, onChange, changeLabel,
-}: { label: string; value: string; onChange?: () => void; changeLabel?: string }) {
+function ErrorNote({ children }: { children: React.ReactNode }) {
+  return <p className="mt-4 px-4 py-3 rounded-[var(--radius-sm)] bg-error-light text-error body-s">{children}</p>;
+}
+
+function Tick({ on }: { on: boolean }) {
   return (
-    <div className="flex items-start gap-4 px-5 py-3">
-      <dt className="body-s text-black-50 w-28 sm:w-32 shrink-0 pt-0.5">{label}</dt>
-      <dd className="body-m text-black flex-1 min-w-0 break-words first-letter:uppercase">{value}</dd>
-      {onChange && (
-        <button
-          type="button" onClick={onChange}
-          className="body-s text-main hover:underline shrink-0 cursor-pointer pt-0.5"
-        >
-          {changeLabel}
-        </button>
+    <span
+      className={`shrink-0 w-5 h-5 rounded-full inline-flex items-center justify-center border transition-colors ${
+        on ? "bg-main border-main text-champagne" : "border-black-20"
+      }`}
+      aria-hidden="true"
+    >
+      {on && <Check className="w-3 h-3" strokeWidth={3} />}
+    </span>
+  );
+}
+
+const cardCls = (on: boolean) =>
+  `text-left rounded-[var(--radius-card)] border p-5 cursor-pointer transition-all duration-200 ${
+    on ? "border-main bg-white shadow-[0_10px_30px_-18px_rgba(94,80,69,.55)]"
+       : "border-line bg-champagne-dark hover:border-stone-light hover:-translate-y-0.5"
+  }`;
+
+function ServiceGrid({
+  services, all, selected, onSelect, query, onQuery, t, locale, hourShort, minShort,
+}: {
+  services: ServiceOption[];
+  all: ServiceOption[] | null;
+  selected: number;
+  onSelect: (id: number) => void;
+  query: string;
+  onQuery: (q: string) => void;
+  t: (k: string) => string;
+  locale: string;
+  hourShort: string;
+  minShort: string;
+}) {
+  if (all === null) return <Loader />;
+  return (
+    <div className="bk-fade">
+      <div className="relative mb-4 max-w-md">
+        <Search className="w-4 h-4 text-stone absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true" />
+        <input
+          type="search" value={query} onChange={(e) => onQuery(e.target.value)}
+          placeholder={t("serviceSearch")} aria-label={t("serviceSearch")}
+          className={`${fieldCls} pl-11`}
+        />
+      </div>
+
+      <button type="button" onClick={() => onSelect(0)} aria-pressed={selected === 0} className={`${cardCls(selected === 0)} w-full mb-3`}>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="bk-eyebrow">{t("notSureEyebrow")}</p>
+            <p className="body-strong text-black text-[16px] mt-1.5">{t("anyService")}</p>
+          </div>
+          <Tick on={selected === 0} />
+        </div>
+      </button>
+
+      {services.length === 0 ? (
+        <p className="body-m text-muted py-8 text-center">{t("serviceNoMatch")}</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[520px] overflow-y-auto pr-1">
+          {services.map((s) => {
+            const on = selected === s.id;
+            return (
+              <button key={s.id} type="button" onClick={() => onSelect(s.id)} aria-pressed={on} className={cardCls(on)}>
+                <div className="flex justify-between items-start gap-3">
+                  <p className="bk-eyebrow">{s.category ?? t("otherServices")}</p>
+                  <Tick on={on} />
+                </div>
+                <p className="body-strong text-black text-[16px] mt-2 leading-snug">{s.title}</p>
+                <div className="mt-3 flex items-center gap-3 body-s text-muted">
+                  <span>{duration(s.durationMinutes, hourShort, minShort)}</span>
+                  {s.price > 0 && (
+                    <>
+                      <span className="w-[3px] h-[3px] rounded-full bg-stone-lighter" aria-hidden="true" />
+                      <span className="body-strong text-black">{money(s.price, locale)}</span>
+                    </>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+        </div>
       )}
     </div>
   );
 }
 
-/** One of the two ways in — deliberately large, since this is the first choice
- *  the visitor makes and both routes are equally valid. */
-function EntryCard({
-  icon, title, hint, onClick,
-}: { icon: React.ReactNode; title: string; hint: string; onClick: () => void }) {
+function DoctorList({
+  doctors, selected, onSelect, t, locale,
+}: {
+  doctors: BookingDoctor[] | null;
+  selected: number | null;
+  onSelect: (id: number) => void;
+  t: (k: string) => string;
+  locale: string;
+}) {
+  if (doctors === null) return <Loader />;
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="text-left p-6 rounded-[var(--radius-card)] border border-line bg-champagne-dark hover:border-main hover:bg-main/[0.04] transition-colors duration-150 cursor-pointer flex flex-col gap-3"
-    >
-      <span className="text-main">{icon}</span>
-      <span className="block body-strong text-black text-[16px]">{title}</span>
-      <span className="block body-s text-muted">{hint}</span>
-    </button>
+    <div className="bk-fade flex flex-col gap-3">
+      {doctors.map((d) => {
+        const on = selected === d.id;
+        return (
+          <button key={d.id} type="button" onClick={() => onSelect(d.id)} aria-pressed={on} className={cardCls(on)}>
+            <div className="flex gap-4 items-start">
+              {d.photo ? (
+                <Image
+                  src={d.photo} alt="" width={64} height={64}
+                  className="w-12 h-12 rounded-full object-cover shrink-0"
+                  style={{ objectPosition: d.photoFocalPoint }}
+                />
+              ) : (
+                <span className={`shrink-0 w-12 h-12 rounded-full inline-flex items-center justify-center body-strong text-[15px] transition-colors ${
+                  on ? "bg-main text-champagne" : "bg-champagne-darker text-main"
+                }`}>
+                  {d.name.split(" ").slice(0, 2).map((w) => w[0]).join("")}
+                </span>
+              )}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline justify-between gap-4">
+                  <span className="body-strong text-black text-[16px] leading-snug">{d.name}</span>
+                  <Tick on={on} />
+                </div>
+                <p className="body-s text-muted mt-1">{d.role}</p>
+                {/* Deliberately not using .body-s here: the site's .body-*
+                    classes set `text-wrap: balance`, which resets the wrap mode
+                    and makes the browser balance this short label into a narrow
+                    column — one word per line. Balancing is for prose; a chip is
+                    one unbreakable label, so it gets its own type and an inline
+                    white-space that no stylesheet rule can override. */}
+                {d.nextSlot && (
+                  <span
+                    className="inline-block mt-2.5 px-3 py-1 rounded-[var(--radius-pill)] bg-success-light text-success text-[12px] font-medium leading-[1.5]"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {t("nextAvailable")} {formatDayMonth(d.nextSlot, locale)}, {kyivTime(d.nextSlot)}
+                  </span>
+                )}
+              </div>
+            </div>
+          </button>
+        );
+      })}
+    </div>
   );
 }
