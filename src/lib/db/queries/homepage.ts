@@ -228,6 +228,8 @@ async function getUiStrings(l: string): Promise<UiStringsData> {
       reviewsHeading: pick2("eeat", "reviewsHeading"),
       reviewsCount: pick2("eeat", "reviewsCount"),
       reviewsAll: pick2("eeat", "reviewsAll"),
+      reviewsMore: pick2("eeat", "reviewsMore"),
+      reviewsLess: pick2("eeat", "reviewsLess"),
       serviceReviewsHeading: pick2("eeat", "serviceReviewsHeading"),
     },
     booking: {

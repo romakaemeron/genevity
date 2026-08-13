@@ -46,12 +46,96 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
+/**
+ * One review card. The text is clamped to six lines so the cards stay a
+ * readable size in the slider; the toggle underneath appears only when the
+ * text is actually cut off, measured after paint.
+ */
+function ReviewCard({
+  review,
+  locale,
+  moreLabel,
+  lessLabel,
+}: {
+  review: GoogleReview;
+  locale: string;
+  moreLabel: string;
+  lessLabel: string;
+}) {
+  const r = review;
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [clamped, setClamped] = useState(false);
+  const date = formatReviewDate(r.reviewTime, locale);
+
+  useEffect(() => {
+    // Only meaningful while collapsed — expanded, scrollHeight === clientHeight.
+    if (expanded) return;
+    const el = textRef.current;
+    if (!el) return;
+    const check = () => setClamped(el.scrollHeight > el.clientHeight + 2);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [expanded]);
+
+  return (
+    <article
+      className="shrink-0 rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-3"
+      style={{ width: "min(360px, 82vw)", scrollSnapAlign: "start" }}
+    >
+      <div className="flex items-center gap-3">
+        {r.authorPhoto ? (
+          <Image
+            src={r.authorPhoto}
+            alt={r.authorName}
+            width={40}
+            height={40}
+            className="rounded-full w-10 h-10 object-cover shrink-0"
+            unoptimized
+          />
+        ) : (
+          <span className="w-10 h-10 shrink-0 rounded-full bg-champagne-darker inline-flex items-center justify-center body-strong text-main">
+            {r.authorName.charAt(0) || "G"}
+          </span>
+        )}
+        <div className="min-w-0">
+          <p className="body-strong text-black text-sm">{r.authorName}</p>
+          <Stars rating={r.rating} />
+        </div>
+      </div>
+      {r.text && (
+        <p ref={textRef} className={`body-m text-muted ${expanded ? "" : "line-clamp-6"}`}>
+          {r.text}
+        </p>
+      )}
+      {r.text && (clamped || expanded) && (
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          className="self-start body-s text-main underline underline-offset-4 decoration-main/40 hover:decoration-main transition-colors cursor-pointer"
+          aria-expanded={expanded}
+        >
+          {expanded ? lessLabel : moreLabel}
+        </button>
+      )}
+      {date && (
+        <time dateTime={r.reviewTime ?? undefined} className="body-s text-black-40 mt-auto pt-1">
+          {date}
+        </time>
+      )}
+    </article>
+  );
+}
+
 export default function ReviewsBlock({
   reviews,
   summary,
   heading,
   countLabel,
   allReviewsLabel,
+  moreLabel,
+  lessLabel,
   locale,
 }: {
   reviews: GoogleReview[];
@@ -60,6 +144,9 @@ export default function ReviewsBlock({
   /** "на основі {n} відгуків Google" — `{n}` is substituted. */
   countLabel: string;
   allReviewsLabel: string;
+  /** "Читати повністю" / "Згорнути" on a clamped review. */
+  moreLabel: string;
+  lessLabel: string;
   locale: string;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -134,43 +221,15 @@ export default function ReviewsBlock({
       </div>
 
       <div ref={scrollerRef} className="doctors-scroller scrollbar-hide">
-        {latest.map((r) => {
-          const date = formatReviewDate(r.reviewTime, locale);
-          return (
-            <article
-              key={r.id}
-              className="shrink-0 rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-3"
-              style={{ width: "min(360px, 82vw)", scrollSnapAlign: "start" }}
-            >
-              <div className="flex items-center gap-3">
-                {r.authorPhoto ? (
-                  <Image
-                    src={r.authorPhoto}
-                    alt={r.authorName}
-                    width={40}
-                    height={40}
-                    className="rounded-full w-10 h-10 object-cover shrink-0"
-                    unoptimized
-                  />
-                ) : (
-                  <span className="w-10 h-10 shrink-0 rounded-full bg-champagne-darker inline-flex items-center justify-center body-strong text-main">
-                    {r.authorName.charAt(0) || "G"}
-                  </span>
-                )}
-                <div className="min-w-0">
-                  <p className="body-strong text-black text-sm">{r.authorName}</p>
-                  <Stars rating={r.rating} />
-                </div>
-              </div>
-              {r.text && <p className="body-m text-muted line-clamp-6">{r.text}</p>}
-              {date && (
-                <time dateTime={r.reviewTime ?? undefined} className="body-s text-black-40 mt-auto pt-1">
-                  {date}
-                </time>
-              )}
-            </article>
-          );
-        })}
+        {latest.map((r) => (
+          <ReviewCard
+            key={r.id}
+            review={r}
+            locale={locale}
+            moreLabel={moreLabel}
+            lessLabel={lessLabel}
+          />
+        ))}
       </div>
 
       {summary.profileUrl && (

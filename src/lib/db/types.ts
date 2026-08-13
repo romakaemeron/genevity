@@ -138,6 +138,8 @@ export interface UiStringsData {
     reviewsHeading: string;
     reviewsCount: string;
     reviewsAll: string;
+    reviewsMore: string;
+    reviewsLess: string;
     serviceReviewsHeading: string;
   };
   /** Online appointment wizard (/booking). Keys mirror scripts/seed-inweb-10-11-ui-strings.ts. */
