@@ -23,6 +23,18 @@ import { ChevronRight } from "lucide-react";
 
 export const revalidate = 86400;
 
+/** Labels for the "expand a clamped Google review" toggle, until eeat.reviewsMore/Less are seeded. */
+const REVIEW_MORE_FALLBACK: Record<string, string> = {
+  uk: "Читати повністю",
+  ru: "Читать полностью",
+  en: "Read full review",
+};
+const REVIEW_LESS_FALLBACK: Record<string, string> = {
+  uk: "Згорнути",
+  ru: "Свернуть",
+  en: "Show less",
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -93,6 +105,9 @@ export default async function HomePage({
               heading={data.ui.eeat.reviewsHeading}
               countLabel={data.ui.eeat.reviewsCount}
               allReviewsLabel={data.ui.eeat.reviewsAll}
+              // Fallbacks keep the toggle labelled if the DB seed hasn't run yet.
+              moreLabel={data.ui.eeat.reviewsMore || REVIEW_MORE_FALLBACK[locale] || REVIEW_MORE_FALLBACK.uk}
+              lessLabel={data.ui.eeat.reviewsLess || REVIEW_LESS_FALLBACK[locale] || REVIEW_LESS_FALLBACK.uk}
               locale={locale}
             />
           </div>
