@@ -2,6 +2,7 @@ import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db/client";
 import { revalidateBlog } from "@/lib/revalidate-blog";
+import { revalidateWholeSite } from "@/lib/revalidate-site";
 
 /**
  * On-demand ISR invalidation for the custom Neon CMS.
@@ -15,9 +16,10 @@ import { revalidateBlog } from "@/lib/revalidate-blog";
  * closed — if the env var is not configured it refuses every request rather
  * than accepting anonymous ones.
  *
- * Body — either form, or both at once:
+ * Body — any of these, or several at once:
  *   { "entity": "service", "slug": "couperose-treatment" }
  *   { "paths": ["/services/apparatus-cosmetology", "/sitemap.xml"] }
+ *   { "all": true }   — purge every page (same as the admin's "Оновити кеш")
  *
  * Driven from the CLI by scripts/revalidate.ts.
  */
@@ -45,6 +47,8 @@ interface Body {
   _type?: Entity;
   slug?: string;
   paths?: string[];
+  /** Purge the entire site. Mirrors the /admin/settings button. */
+  all?: boolean;
 }
 
 /** Prefix a path with every locale: "/services" → ["/services", "/ru/services", "/en/services"] */
@@ -117,6 +121,11 @@ export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as Body;
     const entity = body.entity ?? body._type;
+
+    if (body.all === true) {
+      revalidateWholeSite();
+      return NextResponse.json({ revalidated: true, scope: "all", now: Date.now() });
+    }
 
     if (entity === "blogPost") {
       revalidateBlog();
