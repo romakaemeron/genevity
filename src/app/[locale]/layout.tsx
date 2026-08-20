@@ -4,8 +4,8 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import Footer from "@/components/layout/Footer";
+import RootHtml, { htmlLang } from "@/components/layout/RootHtml";
 import ImageProtection from "@/components/ui/ImageProtection";
-import HtmlLangSetter from "@/components/ui/HtmlLangSetter";
 import { WebSiteSchema } from "@/components/seo/WebSiteSchema";
 import { getLegalDocs, getSiteSettingsData } from "@/lib/db/queries";
 import { SiteSettingsProvider } from "@/components/providers/SiteSettingsProvider";
@@ -113,8 +113,7 @@ export default async function LocaleLayout({
   ]);
 
   return (
-    <>
-      <HtmlLangSetter locale={locale} />
+    <RootHtml lang={htmlLang(locale)}>
       <noscript>
         <iframe
           src="https://www.googletagmanager.com/ns.html?id=GTM-PGGK275D"
@@ -132,6 +131,6 @@ export default async function LocaleLayout({
           <Footer legalDocs={legalDocs} settings={settings} />
         </SiteSettingsProvider>
       </NextIntlClientProvider>
-    </>
+    </RootHtml>
   );
 }
