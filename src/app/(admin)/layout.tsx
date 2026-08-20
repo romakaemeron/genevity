@@ -8,6 +8,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { AdminLocaleProvider } from "./admin/_i18n/context";
 import { getAdminLocale } from "./admin/_i18n/server";
+import RootHtml, { htmlLang } from "@/components/layout/RootHtml";
 
 export const metadata = {
   title: "GENEVITY CMS",
@@ -43,16 +44,19 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   // Not authenticated — login page rendered without sidebar shell
   if (!session) {
     return (
-      <div className="font-body" data-admin-root="true">
-        <HideWidgets />
-        {children}
-      </div>
+      <RootHtml lang="uk" chrome={false}>
+        <div className="font-body" data-admin-root="true">
+          <HideWidgets />
+          {children}
+        </div>
+      </RootHtml>
     );
   }
 
   const [counts, locale] = await Promise.all([getCounts(), getAdminLocale()]);
 
   return (
+    <RootHtml lang={htmlLang(locale)} chrome={false}>
     <div className="font-body" data-admin-root="true">
       <HideWidgets />
       <AdminLocaleProvider initialLocale={locale}>
@@ -72,5 +76,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       </AdminLocaleProvider>
       <Toaster position="bottom-right" richColors />
     </div>
+    </RootHtml>
   );
 }

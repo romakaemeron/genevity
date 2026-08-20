@@ -2,16 +2,34 @@
 
 ## 🚨 CRITICAL: BRANCH POLICY — READ BEFORE ANY WORK 🚨
 
-**v2 is now LIVE on `main` / `genevity.com.ua`. Work on `develop`; merge to `main` only with explicit per-merge confirmation.**
+**v2 is LIVE on `main` / `genevity.com.ua`. Work on `develop`. Small, self-contained changes may ship to `main` via PR — the RoApp direct booking may not.**
 
 - **ALL work happens on the `develop` branch.** Never commit/push directly to `main`.
 - `main` is protected on GitHub (direct pushes blocked, PR required, force-push disabled) and auto-deploys to production (`genevity.com.ua`).
 - `develop` auto-deploys to a Vercel preview URL (`genevity-git-develop-*.vercel.app`). Use this for everything: content, features, schema changes, experiments.
-- Merging `develop` → `main` is allowed via PR, but **treat `main` carefully: ask the user to confirm before each merge** — a merge ships everything on `develop` to production, not just the latest change.
-- Before any `git push`, `git commit`, or branch-changing command: verify you are on `develop` with `git branch --show-current`. If it says `main`, STOP and switch.
-- Never push directly to `main` (`git push origin main`) — always go through a PR.
 
-**Sanity:** single `production` dataset shared by both branches (intentional — the landing and v2 read the same content). Schema additions are safe since Sanity is schemaless at the API level. If a v2 change would break the live landing, coordinate before merging.
+### What may ship to `main`
+
+**Allowed —** small, self-contained side features and fixes: SEO/schema markup, metatags, copy and content, styling, analytics, bugfixes, admin-only tooling. Confirm with the user before each merge, then ship it.
+
+**Not allowed —** the **RoApp direct booking** (online appointments written straight into RoApp: `src/lib/roapp/*`, `src/components/booking/*`, the `/booking` wizard and its API routes). It stays on `develop` until the client explicitly signs it off — a merge would make real patient appointments live.
+
+### How to merge
+
+Do **not** merge the whole `develop` branch: it carries the RoApp booking work. Cherry-pick the specific commits onto a branch cut from `origin/main`, open a PR against `main`, and merge that.
+
+```
+git checkout -b fix/<slug> origin/main
+git cherry-pick <sha>
+npm run build          # verify before opening the PR
+gh pr create --base main
+```
+
+- Before any `git push`, `git commit`, or branch-changing command: verify the branch with `git branch --show-current`. If it says `main`, STOP and switch.
+- Never push directly to `main` (`git push origin main`) — always go through a PR.
+- After merging, verify on the live domain, not just the preview.
+
+**Sanity:** single `production` dataset shared by both branches (intentional — the landing and v2 read the same content). Schema additions are safe since Sanity is schemaless at the API level.
 
 ## Project Overview
 Medical clinic website for GENEVITY (Дніпро, Україна). Aesthetic medicine & longevity center.
