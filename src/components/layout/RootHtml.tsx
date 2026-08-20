@@ -42,6 +42,8 @@ export default function RootHtml({
 }) {
   return (
     <html lang={lang} className={cn(tenorSans.variable, mulish.variable)}>
+      {/* eslint-disable-next-line @next/next/no-head-element -- App Router root
+          layouts render <head> directly; next/head is Pages Router only. */}
       <head>
         {chrome && <link rel="preconnect" href="https://www.googletagmanager.com" />}
         {chrome && <link rel="dns-prefetch" href="https://widgets.binotel.com" />}
