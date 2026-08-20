@@ -9,6 +9,7 @@ import { JsonLdBreadcrumbList } from "@/components/seo/JsonLdBreadcrumbList";
 import { medicalSpecialtyFor } from "@/lib/medical-specialty";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
+import { postalAddress } from "@/lib/schema-address";
 
 export const revalidate = 300;
 
@@ -119,12 +120,7 @@ export default async function DoctorPage({
         "@id": "https://genevity.com.ua/#organization",
         name: "GENEVITY",
         url: "https://genevity.com.ua/",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "вул. Олеся Гончара, 12",
-          addressLocality: "Дніпро",
-          addressCountry: "UA",
-        },
+        address: postalAddress(locale, { region: false }),
       },
     ],
   };

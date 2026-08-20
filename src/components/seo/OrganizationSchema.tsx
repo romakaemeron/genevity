@@ -1,4 +1,5 @@
 import { JsonLd } from "./JsonLd";
+import { postalAddress } from "@/lib/schema-address";
 import { getSiteSettingsData } from "@/lib/db/queries";
 import { getReviewsSummary } from "@/lib/db/queries/reviews";
 
@@ -20,13 +21,19 @@ const URLS: Record<string, string> = {
   en: "https://genevity.com.ua/en",
 };
 
+const CATALOG_NAMES: Record<string, string> = {
+  ua: "Послуги GENEVITY",
+  ru: "Услуги GENEVITY",
+  en: "GENEVITY services",
+};
+
 interface Props {
   locale?: string;
 }
 
 export async function OrganizationSchema({ locale = "ua" }: Props) {
   const [s, reviewsSummary] = await Promise.all([
-    getSiteSettingsData("ua"),
+    getSiteSettingsData(locale),
     getReviewsSummary(),
   ]);
 
@@ -50,14 +57,7 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
         description: DESCRIPTIONS[locale] ?? DESCRIPTIONS.ua,
         email: "info@genevity.com.ua",
         telephone: (s.phone1 || "+380730000150").replace(/\s/g, ""),
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: s.address || "вул. Олеся Гончара, 12",
-          addressLocality: "Дніпро",
-          addressRegion: "Дніпропетровська область",
-          postalCode: "49000",
-          addressCountry: "UA",
-        },
+        address: postalAddress(locale),
         geo: {
           "@type": "GeoCoordinates",
           latitude: 48.4647,
@@ -85,7 +85,7 @@ export async function OrganizationSchema({ locale = "ua" }: Props) {
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Послуги GENEVITY",
+          name: CATALOG_NAMES[locale] ?? CATALOG_NAMES.ua,
           itemListElement: [
             { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "EMFACE" } },
             { "@type": "Offer", itemOffered: { "@type": "MedicalProcedure", name: "VOLNEWMER" } },
