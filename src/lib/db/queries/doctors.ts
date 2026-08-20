@@ -30,6 +30,20 @@ function resolveFinalCta(raw: unknown, l: string): ServiceFinalCta {
   };
 }
 
+/**
+ * Real reviewer names stay as written; only the anonymous placeholder is
+ * translated, so an EN/RU page never shows a Ukrainian author label.
+ */
+const ANONYMOUS_UK = "Анонімний пацієнт";
+const ANONYMOUS: Record<string, string> = {
+  ua: ANONYMOUS_UK,
+  ru: "Анонимный пациент",
+  en: "Anonymous patient",
+};
+function localizeReviewer(name: string, l: string): string {
+  return name === ANONYMOUS_UK ? ANONYMOUS[l] ?? ANONYMOUS_UK : name;
+}
+
 export interface EducationEntry {
   institution_uk: string; institution_ru: string; institution_en: string;
   degree_uk: string; degree_ru: string; degree_en: string;
@@ -138,7 +152,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
       };
       return {
         _id: rv.id as string,
-        reviewerName: rv.reviewer_name as string,
+        reviewerName: localizeReviewer(rv.reviewer_name as string, l),
         procedureTag: pick(rv.procedure_tag, rv.procedure_tag_ru, rv.procedure_tag_en) || null,
         rating: rv.rating as number,
         reviewText: pick(rv.review_text, rv.review_text_ru, rv.review_text_en),

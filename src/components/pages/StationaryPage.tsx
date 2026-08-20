@@ -18,6 +18,13 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { postalAddress } from "@/lib/schema-address";
+
+const CLINIC_NAMES: Record<string, string> = {
+  ua: "GENEVITY — Денний стаціонар",
+  ru: "GENEVITY — Дневной стационар",
+  en: "GENEVITY — Day hospital",
+};
 
 const Doctors = dynamic(() => import("@/components/home/Doctors"));
 const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
@@ -76,7 +83,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
   return (
     <>
       {faq.length > 0 && <FaqSchema items={faq.map((f) => ({ question: f.question, answer: f.answer }))} />}
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "MedicalClinic", name: "GENEVITY — Денний стаціонар", url: "https://genevity.com.ua/stationary", parentOrganization: { "@type": "MedicalBusiness", name: "GENEVITY", url: "https://genevity.com.ua" }, address: { "@type": "PostalAddress", streetAddress: "вул. Олеся Гончара, 12", addressLocality: "Дніпро", addressCountry: "UA" }, telephone: "+380730000150" }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "MedicalClinic", name: CLINIC_NAMES[locale] ?? CLINIC_NAMES.ua, url: `https://genevity.com.ua${locale === "ua" ? "" : `/${locale}`}/stationary`, parentOrganization: { "@type": "MedicalBusiness", name: "GENEVITY", url: "https://genevity.com.ua" }, address: postalAddress(locale, { region: false }), telephone: "+380730000150" }} />
 
       {/* Hero — above fold, no animation */}
       <section className="relative overflow-hidden bg-champagne">
