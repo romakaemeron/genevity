@@ -84,6 +84,12 @@ export default function RootHtml({
   );
 }
 
+/**
+ * Font CSS variables, for trees that render outside a root layout — the
+ * not-found boundary is rendered without one, so it has to bring its own.
+ */
+export const fontVariables = cn(tenorSans.variable, mulish.variable);
+
 /** `ua` is the CMS/router code; `uk` is the ISO 639-1 tag browsers and crawlers expect. */
 export function htmlLang(locale: string): string {
   return locale === "ua" ? "uk" : locale;
