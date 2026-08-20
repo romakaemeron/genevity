@@ -31,6 +31,12 @@ function RevealSection({ children, className }: { children: React.ReactNode; cla
   );
 }
 
+const CERT_CAPTIONS: Record<string, string> = {
+  ua: "Документ про кваліфікацію лікаря",
+  ru: "Документ о квалификации врача",
+  en: "Qualification certificate of",
+};
+
 export default function DoctorProfilePage({ doctor, locale }: Props) {
   const tLabels = useTranslations("labels");
   const photo = doctor.photoFull || doctor.photoCard || doctor.photoCircle;
@@ -44,7 +50,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
     .map((c) => ({
       "@type": "ImageObject", "@id": c.url, url: c.url, contentUrl: c.url,
       name: c[`alt_${locale === "ua" ? "uk" : locale}` as keyof typeof c] ?? c.alt_uk,
-      description: `Документ про кваліфікацію лікаря ${doctor.name}`,
+      description: `${CERT_CAPTIONS[locale] ?? CERT_CAPTIONS.ua} ${doctor.name}`,
       representativeOfPage: false,
     }));
 
