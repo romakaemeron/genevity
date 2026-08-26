@@ -12,9 +12,28 @@ const nextConfig = {
   env: {
     APP_BUILD_TIME: String(Date.now()),
   },
+  // Image Optimization is metered per unique (source image × width × quality ×
+  // format) combination, and the account has a hard monthly cap — once it is
+  // exhausted `/_next/image` answers OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED
+  // (HTTP 402) and photos vanish from the page one by one as edge cache entries
+  // go stale. Everything below exists to keep that combination count small:
+  //
+  //   - one format, not two (AVIF's extra ~15% saving is not worth doubling the
+  //     bill; every browser we care about takes WebP)
+  //   - one quality — 75, the Next.js default. Add a value here ONLY together
+  //     with the `quality` prop that uses it, or that prop 400s
+  //     (INVALID_IMAGE_OPTIMIZE_REQUEST) instead of falling back.
+  //   - a trimmed width ladder. The defaults offer 16 widths; these 9 cover
+  //     every `sizes` used in the app with at most one step of overshoot.
+  //
+  // Note that admin-uploaded photos are ALREADY resized and WebP-encoded by
+  // src/app/(admin)/admin/_actions/upload.ts, so the optimizer is only
+  // re-cutting widths here — never rescuing an unprocessed 12MP original.
   images: {
-    formats: ["image/avif", "image/webp"],
-    qualities: [65, 75],
+    formats: ["image/webp"],
+    qualities: [75],
+    deviceSizes: [640, 828, 1080, 1920, 2560],
+    imageSizes: [64, 128, 256, 384],
     remotePatterns: [
       {
         protocol: "https",

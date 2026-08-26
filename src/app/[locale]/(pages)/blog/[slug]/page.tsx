@@ -263,7 +263,7 @@ function AvatarCircle({ name, avatar, focalPoint, scale, size = 7 }: { name: str
     return (
       <span className="relative rounded-full overflow-hidden shrink-0 bg-champagne-dark" style={{ width: px, height: px }}>
         <span className="absolute inset-0" style={{ transform: `scale(${sc})`, transformOrigin: fp }}>
-          <Image src={avatar} alt={name} title={name} fill sizes="256px" quality={92} className="object-cover" style={{ objectPosition: fp }} />
+          <Image src={avatar} alt={name} title={name} fill sizes="256px" className="object-cover" style={{ objectPosition: fp }} />
         </span>
       </span>
     );

@@ -160,7 +160,6 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                   className="object-cover"
                   style={{ objectPosition: "var(--focal)" }}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-                  quality={65}
                   priority={i === 0}
                 />
                 <div

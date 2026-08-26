@@ -30,6 +30,14 @@ function CardInner({ doctor, detailsLabel, experienceLabel, slug, onClick, prior
             className="object-cover"
             style={{ objectPosition: cardPosition }}
             sizes="300px"
+            // Served straight from Blob, bypassing /_next/image. The admin
+            // pipeline already caps card photos at 900px WebP q88 (~23-66KB
+            // each), which is smaller than most optimizer output would be, so
+            // the only thing optimization bought here was width-stepping — not
+            // worth it for the page that burns the most transformations on the
+            // site (11 doctors x every locale). Also makes these cards immune
+            // to the 402 that empties them when the monthly quota runs out.
+            unoptimized
             priority={priority}
           />
         ) : (
