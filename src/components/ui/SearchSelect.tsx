@@ -486,7 +486,6 @@ export default function SearchSelect(props: Props) {
                                 title={o.label}
                                 fill
                                 sizes="256px"
-                                quality={92}
                                 className="object-cover"
                                 style={{ objectPosition: o.rightImageFocalPoint || "50% 50%" }}
                               />
