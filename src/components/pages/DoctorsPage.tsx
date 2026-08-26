@@ -16,14 +16,17 @@ interface Props {
   detailsLabel: string;
 }
 
+// Keyed by doctor slug: doctor `_id` is a database UUID, so the filters must
+// not be built on ids that change between environments.
 const categories = [
-  { key: "all", ids: [] as string[] },
-  { key: "cosmetology", ids: ["doctor-0", "doctor-1"] },
-  { key: "endocrinology", ids: ["doctor-2", "doctor-3"] },
-  { key: "diagnostics", ids: ["doctor-4", "doctor-5"] },
-  { key: "gynecology", ids: ["doctor-6"] },
-  { key: "gastro", ids: ["doctor-8", "doctor-9"] },
-  { key: "other", ids: ["doctor-7", "doctor-11"] },
+  { key: "all", slugs: [] as string[] },
+  { key: "cosmetology", slugs: ["beliyanushkin-viktor", "sepkina-hanna", "polunina-veronika"] },
+  { key: "endocrinology", slugs: ["poleshko-kateryna", "pastarush-larysa"] },
+  { key: "diagnostics", slugs: ["fedorenko-svitlana"] },
+  { key: "gynecology", slugs: ["kroshka-iryna", "yesayants-anna"] },
+  { key: "gastro", slugs: ["minchuk-yevheniia", "tolstykova-tetiana"] },
+  { key: "plastic_surgery", slugs: ["detsyk-dmytro", "harmash-serhii"] },
+  { key: "other", slugs: ["kyrylenko-anzhela", "danylevsky-kostiantyn"] },
 ];
 
 export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detailsLabel }: Props) {
@@ -35,8 +38,18 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
     if (activeFilter === "all") return doctors;
     const cat = categories.find((c) => c.key === activeFilter);
     if (!cat) return doctors;
-    return doctors.filter((d) => cat.ids.includes(d._id));
+    return doctors.filter((d) => d.slug && cat.slugs.includes(d.slug));
   }, [activeFilter, doctors]);
+
+  // Only offer a filter that actually has published doctors behind it, so an
+  // unpublished specialist can never leave the visitor on an empty grid.
+  const visibleCategories = useMemo(
+    () =>
+      categories.filter(
+        (cat) => cat.key === "all" || doctors.some((d) => d.slug && cat.slugs.includes(d.slug)),
+      ),
+    [doctors],
+  );
 
   return (
     <>
@@ -68,7 +81,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
 
       <section className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-16 lg:pb-20">
         <div className="flex flex-wrap gap-2 mb-10">
-          {categories.map((cat) => (
+          {visibleCategories.map((cat) => (
             <button
               key={cat.key}
               onClick={() => setActiveFilter(cat.key)}

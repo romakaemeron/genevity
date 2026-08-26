@@ -1,0 +1,1792 @@
+[
+  {
+    "table": "gallery_items",
+    "id": "30a60f06-923d-4c0b-b753-6f4a093e93cb",
+    "column": "image_url",
+    "before": "/images/interior/SEMI1737-HDR.webp"
+  },
+  {
+    "table": "gallery_items",
+    "id": "0544467e-f579-4760-80ed-12b7e2ea0d57",
+    "column": "image_url",
+    "before": "/images/interior/SEMI1276-HDR.webp"
+  },
+  {
+    "table": "gallery_items",
+    "id": "b1b9586f-ee4a-4131-879e-bbf543a1388f",
+    "column": "image_url",
+    "before": "/images/interior/SEMI1281-HDR.webp"
+  },
+  {
+    "table": "static_pages",
+    "id": "576dd68e-a88d-465d-88c2-6d5c9405b482",
+    "column": "hero_image",
+    "before": "/clinic/semi1287-hdr.webp"
+  },
+  {
+    "table": "content_sections",
+    "id": "9c168301-04f0-4b04-a72e-4d314d6ce3ba",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Splendor X by Lumenis is a next-generation laser hair removal system combining Nd:YAG 1064 nm and Alexandrite 755 nm lasers in one device. The unique BLEND X® technology synchronously delivers both wavelengths in adjustable proportions, ensuring effective destruction of hair follicles on all skin types and tones - Fitzpatrick I through VI.\n\nAdvantages of Splendor X laser hair removal over traditional methods (sugaring, wax, electrolysis):\n- Permanent results: after a full course 80-95% of hair is eliminated permanently\n- Safe for tanned and dark skin due to the Nd:YAG 1064 nm component\n- Cooled handpiece prevents burns and reduces discomfort\n- Large zones (back, legs) treated in 20-30 minutes\n\nSplendor X is suitable for all body zones: face (upper lip, chin, cheeks), underarms, bikini (standard and deep), legs (knees, calves, thighs), arms, back, chest. Facial and intimate zones are treated with the same safety settings as large body areas.\n\nAt GENEVITY the procedure is performed by certified doctors on original Lumenis equipment. A pre-course consultation determines skin and hair type, rules out contraindications, and calculates the required number of sessions.",
+        "ru": "Splendor X от Lumenis - лазерный аппарат нового поколения для эпиляции, сочетающий Nd:YAG 1064 нм и Alexandrite 755 нм лазеры в одной системе. Уникальная технология BLEND X® позволяет синхронно подавать оба излучения в настраиваемых пропорциях, что обеспечивает эффективное уничтожение волосяных фолликулов при любом типе и цвете кожи - от I до VI по Фицпатрику.\n\nПреимущества лазерной эпиляции Splendor X перед традиционными методами (шугаринг, восковая депиляция, электроэпиляция):\n- Постоянный результат: после полного курса 80-95% волос удаляется навсегда\n- Безопасность для загорелой и тёмной кожи благодаря Nd:YAG 1064 нм компоненте\n- Охлаждаемый наконечник исключает ожоги и снижает дискомфорт\n- Обработка крупных зон (спина, ноги) за 20-30 минут\n\nSplendor X подходит для всех зон тела: лицо (верхняя губа, подбородок, щёки), подмышки, бикини (классическое и глубокое), ноги (колени, голени, бёдра), руки, спина, грудь. Зоны на лице и интимные зоны обрабатываются с теми же настройками безопасности, что и крупные участки тела.\n\nВ GENEVITY процедура выполняется сертифицированными врачами на оригинальном оборудовании Lumenis. Перед курсом проводится консультация с определением типа кожи и волос, исключением противопоказаний и расчётом количества необходимых сеансов.",
+        "uk": "Splendor X від Lumenis - лазерний апарат нового покоління для епіляції, що поєднує Nd:YAG 1064 нм та Alexandrite 755 нм лазери в одній системі. Унікальна технологія BLEND X® дозволяє синхронно подавати обидва випромінювання в налаштованих пропорціях, що забезпечує ефективне знищення волосяних фолікулів при будь-якому типі та кольорі шкіри - від I до VI за Фіцпатріком.\n\nПереваги лазерної епіляції Splendor X перед традиційними методами (шугаринг, воскова депіляція, електроепіляція):\n- Постійний результат: після повного курсу 80-95% волосся видаляється назавжди\n- Безпека для засмаглої та темної шкіри завдяки Nd:YAG 1064 нм компоненті\n- Охолоджуваний наконечник виключає опіки та знижує дискомфорт\n- Обробка великих зон (спина, ноги) за 20-30 хвилин\n\nSplendor X підходить для всіх зон тіла: обличчя (верхня губа, підборіддя, щоки), пахви, бікіні (класичне та глибоке), ноги (коліна, гомілки, стегна), руки, спина, груди. Зони на обличчі та інтимні зони обробляються тими самими налаштуваннями безпеки, що й великі ділянки тіла.\n\nВ GENEVITY процедура виконується сертифікованими лікарями на оригінальному обладнанні Lumenis. Перед курсом проводиться консультація з визначенням типу шкіри та волосся, виключенням протипоказань та розрахунком кількості необхідних сеансів."
+      },
+      "heading": {
+        "en": "Splendor X - Laser Hair Removal for All Skin Types at GENEVITY",
+        "ru": "Splendor X - лазерная эпиляция для всех типов кожи в GENEVITY",
+        "uk": "Splendor X - лазерна епіляція для всіх типів шкіри в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "057f07f6-6aaa-4a46-91d7-092c261e4389",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Апарат Splendor X та клініка GENEVITY",
+        "ru": "Аппарат Splendor X и клиника GENEVITY",
+        "en": "Splendor X Device and GENEVITY Clinic"
+      },
+      "images": [
+        {
+          "url": "/images/interior/SEMI1276-HDR.webp",
+          "alt": "Кабінет GENEVITY"
+        },
+        {
+          "url": "/images/interior/SEMI1662-HDR.webp",
+          "alt": "Клініка GENEVITY"
+        },
+        {
+          "url": "/images/interior/SEMI7509.webp",
+          "alt": "Процедурний кабінет GENEVITY"
+        }
+      ]
+    }
+  },
+  {
+    "table": "service_categories",
+    "id": "ecc57f42-24cd-419e-bb32-f427795283f1",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_apparatus-cosmetology",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "service_categories",
+    "id": "d27fd778-3ed8-4754-8eef-d1595fde232a",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_injectable-cosmetology",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "service_categories",
+    "id": "fec530cc-215b-491c-a211-00665dcf033e",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_laser-hair-removal",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "service_categories",
+    "id": "179fa263-cb91-4c4c-85f9-9958dfbd9660",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_podology",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "content_sections",
+    "id": "c8af37a4-6c75-488d-a7a0-0d36170b33d4",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Biorevitalisation is an injectable procedure delivering native (non-crosslinked) hyaluronic acid directly into the mid and deep dermis. Unlike fillers that shape contours, facial skin biorevitalisation aims to restore the skin's natural water balance: hyaluronic acid binds water molecules in the tissue, increasing turgor, elasticity, and natural radiance.\n\nBiorevitalisation is indicated for the first signs of dehydration and photoageing: when the skin loses firmness, looks dull, and fine lines become visible. It is effective for preparing skin for more intensive treatments and for recovery after laser resurfacing or chemical peels.\n\nResults accumulate: after the first session the skin is noticeably more hydrated and glowing; after a full course (3-4 sessions at 3-4 week intervals), a lasting improvement in skin quality is achieved that persists for 6-9 months. One to two maintenance sessions per year are recommended.",
+        "ru": "Биоревитализация - это инъекционная процедура введения нативной (нестабилизированной) гиалуроновой кислоты непосредственно в средние и глубокие слои дермы. В отличие от филлеров, которые моделируют форму, биоревитализация кожи лица направлена на восстановление естественного водного баланса: гиалуроновая кислота связывает молекулы воды в тканях, повышая тургор, эластичность и естественное сияние кожи.\n\nПроцедура биоревитализации показана при первых признаках обезвоживания и фотостарения: когда кожа теряет упругость, тускнеет, а мелкие морщины становятся заметными. Она эффективна для подготовки кожи к более интенсивным процедурам и для восстановления после лазерных шлифовок или химических пилингов.\n\nРезультаты биоревитализации накапливаются: после первого сеанса кожа становится более увлажнённой и сияющей, после полного курса (3-4 процедуры с интервалом 3-4 недели) происходит стойкое улучшение качества кожи, сохраняющееся 6-9 месяцев. Для поддержания эффекта рекомендуется 1-2 поддерживающие процедуры в год.",
+        "uk": "Біоревіталізація - це ін'єкційна процедура введення нативної (нестабілізованої) гіалуронової кислоти безпосередньо в середні та глибокі шари дерми. На відміну від філерів, які моделюють форму, біоревіталізація шкіри обличчя спрямована на відновлення природного водного балансу: гіалуронова кислота зв'язує молекули води у тканинах, підвищуючи тургор, еластичність і природне сяяння шкіри.\n\nПроцедура біоревіталізації показана при першіх ознаках зневоднення та фотостаріння: коли шкіра втрачає пружність, тьмяніє, а дрібні зморшки стають помітними. Вона ефективна для підготовки шкіри до більш інтенсивних процедур і для відновлення після лазерних шліфовок або хімічних пілінгів.\n\nРезультати біоревіталізації накопичуються: після першого сеансу шкіра стає більш зволоженою та сяючою, після повного курсу (3-4 процедури з інтервалом 3-4 тижні) відбувається стійке покращення якості шкіри, яке зберігається 6-9 місяців. Для підтримання ефекту рекомендується 1-2 підтримуючі процедури на рік.\n\nЦіна біоревіталізації в Дніпрі залежить від виробника і об'єму препарату, кількості зон (обличчя, шия, декольте, руки) та методики введення. В GENEVITY використовуються препарати з підтвердженою клінічною ефективністю, а лікар підбирає оптимальну схему після діагностики шкіри."
+      },
+      "heading": {
+        "en": "Facial Biorevitalisation - Deep Hydration and Skin Restoration",
+        "ru": "Биоревитализация лица - глубокое увлажнение и восстановление кожи",
+        "uk": "Біоревіталізація обличчя - глибоке зволоження та відновлення шкіри"
+      },
+      "heroImage": null,
+      "calloutBody": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "9dbb4969-b8fd-484c-a0b1-0cd99164cef1",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Мезотерапія обличчя - ін'єкційне живлення та омолодження шкіри",
+        "ru": "Мезотерапия лица - инъекционное питание и омоложение кожи",
+        "en": "Facial Mesotherapy - Injectable Skin Nourishment and Rejuvenation"
+      },
+      "body": {
+        "uk": "Мезотерапія обличчя - це введення мікродоз активних речовин (вітамінів, мінералів, амінокислот, пептидів, ліполітиків) безпосередньо в мезодерму - середній шар шкіри, де відбуваються основні метаболічні процеси. Ін'єкції мезотерапії обходять роговий шар епідерміса і доставляють активні компоненти саме туди, де вони найефективніші - до фібробластів, відповідальних за синтез колагену та еластину.\n\nПроцедура мезотерапії для обличчя використовується для вирішення широкого спектра задач: зволоження та відновлення тьмяної шкіри, корекція пігментації, боротьба з акне та постакне, ліфтинг та підтяжка овалу, а також корекція локальних жирових відкладень (мезотерапія для схуднення в зоні підборіддя та щік). Склад «мезококтейлю» підбирається лікарем індивідуально залежно від проблем та типу шкіри.\n\nВиди мезотерапії: класична (мікроін'єкції голкою), безін'єкційна (електропорація, ультрафонофорез) і апаратна. В GENEVITY застосовується класична ін'єкційна мезотерапія сертифікованими препаратами - вона забезпечує найвищу біодоступність активних речовин.\n\nПідготовка до мезотерапії: за 5-7 днів відмовтеся від аспірину та розріджуючих кров препаратів. Реабілітація після процедури мезотерапії: можлива легка гіперемія та дрібні папули протягом 24-48 годин.",
+        "ru": "Мезотерапия лица - это введение микродоз активных веществ (витаминов, минералов, аминокислот, пептидов, липолитиков) непосредственно в мезодерму - средний слой кожи, где происходят основные метаболические процессы. Инъекции мезотерапии обходят роговой слой эпидермиса и доставляют активные компоненты именно туда, где они наиболее эффективны - к фибробластам, отвечающим за синтез коллагена и эластина.\n\nПроцедура мезотерапии для лица используется для решения широкого спектра задач: увлажнение и восстановление тусклой кожи, коррекция пигментации, борьба с акне и постакне, лифтинг и подтяжка овала, а также коррекция локальных жировых отложений. Состав «мезококтейля» подбирается врачом индивидуально в зависимости от проблем и типа кожи.\n\nВ GENEVITY применяется классическая инъекционная мезотерапия сертифицированными препаратами - она обеспечивает наивысшую биодоступность активных веществ. Подготовка: за 5-7 дней откажитесь от аспирина. Реабилитация: возможна лёгкая гиперемия и мелкие папулы в течение 24-48 часов.",
+        "en": "Facial mesotherapy involves injecting micro-doses of active substances (vitamins, minerals, amino acids, peptides, lipolytics) directly into the mesoderm - the middle skin layer where key metabolic processes occur. Mesotherapy injections bypass the stratum corneum and deliver active components exactly where they are most effective - to fibroblasts responsible for collagen and elastin synthesis.\n\nFacial mesotherapy addresses a wide range of concerns: hydrating and restoring dull skin, correcting pigmentation, treating acne and post-acne, lifting and tightening the oval, and reducing localised fat deposits (chin and cheek mesotherapy). The 'meso-cocktail' composition is selected by the doctor individually based on skin problems and type.\n\nGENEVITY uses classic injection mesotherapy with certified products - this ensures the highest bioavailability of active ingredients. Preparation: discontinue aspirin 5-7 days before. Recovery: mild redness and small papules possible for 24-48 hours."
+      },
+      "calloutBody": {
+        "uk": "Склад мезококтейлю підбирається індивідуально під тип шкіри та конкретні завдання - від зволоження до корекції пігментації.",
+        "ru": "Состав мезококтейля подбирается индивидуально под тип кожи и конкретные задачи - от увлажнения до коррекции пигментации.",
+        "en": "The meso-cocktail composition is selected individually to suit the skin type and specific goals - from hydration to pigmentation correction."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "34b47cf1-4d12-4d44-8eee-fee3122b1f5d",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Екзосоми для обличчя - регенеративна терапія нового покоління",
+        "ru": "Экзосомы для лица - регенеративная терапия нового поколения",
+        "en": "Facial Exosomes - Next-Generation Regenerative Therapy"
+      },
+      "body": {
+        "uk": "Екзосоми - це наноскопічні позаклітинні везикули (30-150 нм), що виробляються клітинами організму і слугують природними носіями інформації між клітинами. Вони містять мікроРНК, фактори росту, сигнальні білки та ліпіди, які активують процеси відновлення в клітинах-реципієнтах. Застосування екзосом у косметології - це якісно новий рівень регенеративної терапії, що перевершує PRP за концентрацією біоактивних молекул.\n\nЕфекти екзосомальної терапії для обличчя: відновлення пошкоджених тканин, зменшення запалення, стимуляція синтезу колагену та еластину, корекція пігментації, а також ефективне лікування акне через регуляцію сального залозистого апарату. Екзосоми проникають у глибокі шари дерми і перепрограмують фібробласти на активний синтез позаклітинного матриксу.\n\nЯк проходить процедура введення екзосом: на підготовчому етапі лікар оцінює стан шкіри і призначає кількість сеансів. Підготовка до процедури: відмовтеся від ретиноїдів за 5 днів, не засмагайте 2 тижні. Препарат вводиться мікроін'єкціями або в поєднанні з мікроголковою терапією (дермаролер, дермапен). Рекомендації після процедури: 24-48 годин уникайте прямого сонця, фізичного навантаження і алкоголю.\n\nПорівняння екзосомальної терапії з іншими методами омолодження: на відміну від PRP, екзосоми діють на клітинному рівні через молекулярні сигнали, забезпечуючи більш тривалий і глибший ефект відновлення. На відміну від філерів - не заповнюють, а відновлюють. Можливі побічні ефекти та ризики: мінімальні, оскільки препарати проходять жорсткий контроль якості. Можлива помірна гіперемія та набряклість протягом 24-48 годин.",
+        "ru": "Экзосомы - это наноскопические внеклеточные везикулы (30-150 нм), вырабатываемые клетками организма и служащие естественными носителями информации между клетками. Они содержат микроРНК, факторы роста, сигнальные белки и липиды, которые активируют процессы восстановления в клетках-реципиентах. Применение экзосом в косметологии - это качественно новый уровень регенеративной терапии, превосходящей PRP по концентрации биоактивных молекул.\n\nЭффекты экзосомальной терапии для лица: восстановление повреждённых тканей, уменьшение воспаления, стимуляция синтеза коллагена и эластина, коррекция пигментации, а также эффективное лечение акне. Экзосомы проникают в глубокие слои дермы и перепрограммируют фибробласты на активный синтез внеклеточного матрикса.\n\nКак проходит процедура введения экзосом: подготовка - откажитесь от ретиноидов за 5 дней, не загорайте 2 недели. Препарат вводится микроинъекциями или в сочетании с микроигольной терапией. Рекомендации после процедуры: 24-48 часов избегайте прямого солнца, физической нагрузки и алкоголя.",
+        "en": "Exosomes are nanoscopic extracellular vesicles (30-150 nm) produced by body cells that serve as natural information carriers between cells. They contain microRNA, growth factors, signalling proteins, and lipids that activate restoration processes in recipient cells. Exosome use in cosmetology represents a qualitatively new level of regenerative therapy, surpassing PRP in bioactive molecule concentration.\n\nExosomal therapy effects for the face: restoration of damaged tissue, reduction of inflammation, stimulation of collagen and elastin synthesis, pigmentation correction, and effective acne treatment through regulation of the sebaceous glandular apparatus. Exosomes penetrate deep into the dermis and reprogramme fibroblasts for active extracellular matrix synthesis.\n\nProcedure: preparation - discontinue retinoids 5 days before, avoid tanning 2 weeks prior. The product is delivered via micro-injections or combined with microneedling therapy. Post-procedure: avoid direct sun, exercise, and alcohol for 24-48 hours."
+      },
+      "calloutBody": {
+        "uk": "Екзосомальна терапія - клінічно доведена альтернатива PRP з більш тривалим регенеративним ефектом.",
+        "ru": "Экзосомальная терапия - клинически доказанная альтернатива PRP с более длительным регенеративным эффектом.",
+        "en": "Exosome therapy is a clinically proven PRP alternative with a longer-lasting regenerative effect."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "7cd8ec9b-55fe-4517-92cd-0350cb059a8b",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Омолодження стовбуровими клітинами - найглибший рівень відновлення",
+        "ru": "Омоложение стволовыми клетками - самый глубокий уровень восстановления",
+        "en": "Stem Cell Rejuvenation - The Deepest Level of Restoration"
+      },
+      "body": {
+        "uk": "Омолодження стовбуровими клітинами - це ін'єкційна процедура з використанням мезенхімальних стовбурових клітин (МСК), які є попередниками фібробластів і мають унікальну здатність до диференціювання та секреції паракринних факторів. МСК виробляють широкий спектр цитокінів, факторів росту та екзосом, що запускають регенеративні каскади в тканинах.\n\nПереваги процедури омолодження стовбуровими клітинами: відновлення архітектури позаклітинного матриксу, стимуляція неоколагеногенезу та вироблення власної гіалуронової кислоти, зменшення глибоких зморшок та рубців, а також системний омолоджуючий ефект - покращення якості та кольору шкіри по всій ділянці введення.\n\nЯк проходить процедура: на підготовчому етапі проводиться забір або підготовка аутологічного матеріалу (власних клітин) або використовуються алогенні клітини від сертифікованого банку донорів. Введення здійснюється шляхом мікроін'єкцій або інфузії в зону відновлення. Відновлення після процедури: 48-72 год уникайте фізичного навантаження, прямого сонця і алкоголю.\n\nМожливі ризики та побічні ефекти: при використанні власних клітин ризики мінімальні. При алогенних клітинах можлива локальна запальна реакція, що минає самостійно. Всі процедури проводяться в стерильних умовах медичного класу. Частота проведення: не частіше 1 разу на 6-12 місяців для оптимального ефекту.",
+        "ru": "Омоложение стволовыми клетками - это инъекционная процедура с использованием мезенхимальных стволовых клеток (МСК), которые являются предшественниками фибробластов и обладают уникальной способностью к дифференцировке и секреции паракринных факторов. МСК производят широкий спектр цитокинов, факторов роста и экзосом, запускающих регенеративные каскады в тканях.\n\nПреимущества процедуры: восстановление архитектуры внеклеточного матрикса, стимуляция неоколлагеногенеза и выработки собственной гиалуроновой кислоты, уменьшение глубоких морщин и рубцов.\n\nКак проходит процедура: подготовка - аутологичный или аллогенный материал от сертифицированного банка доноров. Введение - микроинъекции или инфузия. Восстановление: 48-72 ч избегайте нагрузок и прямого солнца.",
+        "en": "Stem cell rejuvenation is an injectable procedure using mesenchymal stem cells (MSCs), which are fibroblast precursors with a unique ability to differentiate and secrete paracrine factors. MSCs produce a wide spectrum of cytokines, growth factors, and exosomes that trigger regenerative cascades in tissues.\n\nBenefits: restoration of extracellular matrix architecture, stimulation of neocollagenogenesis and endogenous hyaluronic acid production, reduction of deep wrinkles and scars, and systemic rejuvenation of skin quality and tone.\n\nProcedure: preparation - autologous or allogeneic material from a certified donor bank. Injection via micro-injections or infusion. Recovery: 48-72 hours avoid exercise, direct sun, and alcohol."
+      },
+      "calloutBody": {
+        "uk": "Стовбурові клітини не просто зволожують - вони відновлюють шкіру на рівні архітектури тканин, формуючи нову колагенову сітку.",
+        "ru": "Стволовые клетки не просто увлажняют - они восстанавливают кожу на уровне архитектуры тканей, формируя новую коллагеновую сеть.",
+        "en": "Stem cells do not simply hydrate - they restore skin at the tissue architecture level, forming a new collagen network."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "430d73b6-9d44-4bb1-a4c2-75a2794e26ce",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Збільшення губ - об'єм і форма філерами гіалуронової кислоти",
+        "ru": "Увеличение губ - объём и форма филлерами гиалуроновой кислоты",
+        "en": "Lip Augmentation - Volume and Shape with Hyaluronic Acid Fillers"
+      },
+      "body": {
+        "uk": "Збільшення губ - це введення філера на основі гіалуронової кислоти для додання об'єму, корекції форми та зволоження. Гіалуронова кислота - природний компонент шкіри, тому препарат добре інтегрується в тканини та виглядає природно і на дотик, і візуально.\n\nПроцедура вирішує різні задачі: додати помірний об'єм, підкреслити контур, зробити губи симетричними, скоригувати «кисетні» зморшки над верхньою губою або просто повернути зволоженість сухим губам. Щільність філера та техніку лікар підбирає під анатомію та побажання пацієнта.\n\nУ GENEVITY працюють за принципом природного результату: завдання - гармонійні губи, які пасують обличчю, а не максимальний об'єм. Лікар моделює форму поступово й узгоджує проміжний результат із пацієнтом під час процедури.\n\nЕфект помітний одразу, остаточну форму оцінюють після спадання набряку - на 10-14 день. Філери на основі гіалуронової кислоти оборотні: за потреби їх можна розчинити ін'єкцією гіалуронідази. Збереження результату - 6-12 місяців.",
+        "ru": "Увеличение губ - это введение филлера на основе гиалуроновой кислоты для придания объёма, коррекции формы и увлажнения. Гиалуроновая кислота - естественный компонент кожи, поэтому препарат хорошо интегрируется в ткани и выглядит естественно и на ощупь, и визуально.\n\nПроцедура решает разные задачи: добавить умеренный объём, подчеркнуть контур, сделать губы симметричными, скорректировать «кисетные» морщины над верхней губой или просто вернуть увлажнённость сухим губам. Плотность филлера и технику врач подбирает под анатомию и пожелания пациента.\n\nВ GENEVITY работают по принципу естественного результата: задача - гармоничные губы, которые подходят лицу, а не максимальный объём. Врач моделирует форму постепенно и согласовывает промежуточный результат с пациентом во время процедуры.\n\nЭффект заметен сразу, окончательную форму оценивают после спадания отёка - на 10-14 день. Филлеры на основе гиалуроновой кислоты обратимы: при необходимости их можно растворить инъекцией гиалуронидазы. Сохранение результата - 6-12 месяцев.",
+        "en": "Lip augmentation is the injection of a hyaluronic acid-based filler to add volume, refine shape, and hydrate. Hyaluronic acid is a natural skin component, so the product integrates well into the tissue and looks and feels natural.\n\nThe procedure addresses different goals: adding moderate volume, defining the contour, making the lips symmetrical, correcting the fine 'barcode' lines above the upper lip, or simply restoring moisture to dry lips. The filler density and technique are selected to match the anatomy and the patient's wishes.\n\nGENEVITY works on the principle of a natural result: the goal is harmonious lips that suit the face, not maximum volume. The doctor sculpts the shape gradually and confirms the intermediate result with the patient during the procedure.\n\nThe effect is visible immediately; the final shape is assessed after the swelling subsides, on days 10-14. Hyaluronic acid fillers are reversible: if needed they can be dissolved with a hyaluronidase injection. The result lasts 6-12 months."
+      },
+      "calloutBody": {
+        "uk": "Об'єм видно одразу, остаточну форму - після спадання набряку на 10-14 день. Філер оборотний, результат тримається 6-12 місяців.",
+        "ru": "Объём виден сразу, окончательную форму - после спадания отёка на 10-14 день. Филлер обратим, результат держится 6-12 месяцев.",
+        "en": "Volume is visible immediately; the final shape after swelling subsides on days 10-14. The filler is reversible and the result lasts 6-12 months."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "3a41c44a-532d-4bdd-9ea4-a6a408ae58d8",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Контурна пластика кутів щелепи - чітка лінія обличчя філерами",
+        "ru": "Контурная пластика углов челюсти - чёткая линия лица филлерами",
+        "en": "Jaw Angle Contouring - a Sharp Facial Line with Fillers"
+      },
+      "body": {
+        "uk": "Контурна пластика кутів щелепи - це введення щільного філера гіалуронової кислоти в зону кута нижньої щелепи для формування чіткої лінії обличчя. Процедура підкреслює овал, додає профілю виразності та структурує нижню третину обличчя без хірургічного втручання.\n\nЗ віком або через анатомічні особливості кут щелепи може бути згладженим, а овал - нечітким. Щільний філер відновлює кістковий об'єм у потрібних точках: лінія щелепи стає окресленою, підборіддя й шия візуально розділяються, обличчя виглядає підтягнутішим.\n\nПроцедура підходить і чоловікам, і жінкам, але задачі різні: чоловікам зазвичай формують ширший, маскулінний кут, жінкам - м'якший і витягнутий овал. Лікар працює за анатомічним протоколом, враховуючи розташування судин і пропорції обличчя.\n\nУ GENEVITY використовують сертифіковані щільні філери з тривалим ефектом. Результат помітний одразу й остаточно формується після спадання набряку. Збереження - 12-18 місяців завдяки щільності гелю та невеликій мімічній рухливості зони. Філер оборотний - за потреби розчиняється гіалуронідазою.",
+        "ru": "Контурная пластика углов челюсти - это введение плотного филлера гиалуроновой кислоты в зону угла нижней челюсти для формирования чёткой линии лица. Процедура подчёркивает овал, добавляет профилю выразительности и структурирует нижнюю треть лица без хирургического вмешательства.\n\nС возрастом или из-за анатомических особенностей угол челюсти может быть сглаженным, а овал - нечётким. Плотный филлер восстанавливает костный объём в нужных точках: линия челюсти становится очерченной, подбородок и шея визуально разделяются, лицо выглядит более подтянутым.\n\nПроцедура подходит и мужчинам, и женщинам, но задачи разные: мужчинам обычно формируют более широкий, маскулинный угол, женщинам - более мягкий и вытянутый овал. Врач работает по анатомическому протоколу, учитывая расположение сосудов и пропорции лица.\n\nВ GENEVITY используют сертифицированные плотные филлеры с длительным эффектом. Результат заметен сразу и окончательно формируется после спадания отёка. Сохранение - 12-18 месяцев благодаря плотности геля и небольшой мимической подвижности зоны. Филлер обратим - при необходимости растворяется гиалуронидазой.",
+        "en": "Jaw angle contouring is the injection of a dense hyaluronic acid filler into the angle of the lower jaw to create a defined facial line. The procedure emphasises the oval, adds definition to the profile, and structures the lower third of the face without surgery.\n\nWith age or due to anatomy, the jaw angle can be flattened and the oval indistinct. A dense filler restores bone volume at key points: the jawline becomes defined, the chin and neck are visually separated, and the face looks firmer.\n\nThe procedure suits both men and women, but the goals differ: men are usually given a wider, more masculine angle, women a softer, more elongated oval. The doctor works to an anatomical protocol, taking vessel location and facial proportions into account.\n\nGENEVITY uses certified dense fillers with a long-lasting effect. The result is visible immediately and settles fully after the swelling subsides. It lasts 12-18 months thanks to the gel's density and the low mobility of the zone. The filler is reversible - it can be dissolved with hyaluronidase if needed."
+      },
+      "calloutBody": {
+        "uk": "Чітка лінія щелепи видна одразу, остаточно - після спадання набряку. У кістковій зоні результат тримається 12-18 місяців.",
+        "ru": "Чёткая линия челюсти видна сразу, окончательно - после спадания отёка. В костной зоне результат держится 12-18 месяцев.",
+        "en": "A defined jawline is visible immediately, fully after swelling subsides. In this bony zone the result lasts 12-18 months."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "8719375c-18c6-45a4-af5d-ed2afe44c7cb",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Контурна пластика носа - безопераційна корекція форми філерами",
+        "ru": "Контурная пластика носа - безоперационная коррекция формы филлерами",
+        "en": "Nose Contouring - Non-Surgical Reshaping with Fillers"
+      },
+      "body": {
+        "uk": "Контурна пластика носа - це безопераційна корекція форми за допомогою філера гіалуронової кислоти. Метод дозволяє вирівняти спинку носа, підняти опущений кінчик, згладити горбинку візуально та скоригувати легку асиметрію без розрізів і наркозу.\n\nВажливо розуміти межі методу: філер додає об'єм, але не зменшує ніс. Горбинку не «прибирають», а гармонізують профіль - заповнюють зону над і під нею, завдяки чому лінія спинки виглядає рівною. Для зменшення розміру носа потрібна хірургічна ринопластика.\n\nЗона носа анатомічно складна й насичена судинами, тому процедуру виконують лише досвідчені лікарі, які досконало знають анатомію. У GENEVITY працюють за безпечним протоколом із повільним введенням і контролем кожного кроку - це мінімізує ризики.\n\nРезультат видно одразу на кушетці. Період відновлення мінімальний, можливі лише невеликий набряк або синець. Ефект тримається 12-18 місяців, а філер за потреби повністю розчиняється гіалуронідазою - це робить метод оборотним і керованим.",
+        "ru": "Контурная пластика носа - это безоперационная коррекция формы с помощью филлера гиалуроновой кислоты. Метод позволяет выровнять спинку носа, приподнять опущенный кончик, визуально сгладить горбинку и скорректировать лёгкую асимметрию без разрезов и наркоза.\n\nВажно понимать границы метода: филлер добавляет объём, но не уменьшает нос. Горбинку не «убирают», а гармонизируют профиль - заполняют зону над и под ней, благодаря чему линия спинки выглядит ровной. Для уменьшения размера носа нужна хирургическая ринопластика.\n\nЗона носа анатомически сложная и насыщена сосудами, поэтому процедуру выполняют только опытные врачи, в совершенстве знающие анатомию. В GENEVITY работают по безопасному протоколу с медленным введением и контролем каждого шага - это минимизирует риски.\n\nРезультат виден сразу на кушетке. Период восстановления минимальный, возможны лишь небольшой отёк или синяк. Эффект держится 12-18 месяцев, а филлер при необходимости полностью растворяется гиалуронидазой - это делает метод обратимым и управляемым.",
+        "en": "Nose contouring is a non-surgical reshaping of the nose using a hyaluronic acid filler. The method can straighten the bridge, lift a drooping tip, visually smooth a bump, and correct mild asymmetry without incisions or general anaesthesia.\n\nIt is important to understand the method's limits: filler adds volume but cannot reduce the nose. A bump is not 'removed' - the profile is harmonised by filling the area above and below it so the bridge line looks straight. Reducing the size of the nose requires surgical rhinoplasty.\n\nThe nasal area is anatomically complex and rich in vessels, so the procedure is performed only by experienced doctors with a thorough knowledge of anatomy. GENEVITY follows a safe protocol with slow injection and control at every step, which minimises risk.\n\nThe result is visible immediately on the couch. Recovery is minimal - only slight swelling or a small bruise is possible. The effect lasts 12-18 months, and the filler can be fully dissolved with hyaluronidase if needed, making the method reversible and controllable."
+      },
+      "calloutBody": {
+        "uk": "Результат видно одразу. Метод додає об'єм і гармонізує профіль, але не зменшує ніс - для цього потрібна хірургія. Ефект - 12-18 місяців.",
+        "ru": "Результат виден сразу. Метод добавляет объём и гармонизирует профиль, но не уменьшает нос - для этого нужна хирургия. Эффект - 12-18 месяцев.",
+        "en": "The result is visible immediately. The method adds volume and harmonises the profile but does not reduce the nose - that requires surgery. Effect: 12-18 months."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "073f7b60-bce8-4931-8ab8-8c373ed44303",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Мезотерапія волосся - живлення фолікулів зсередини",
+        "ru": "Мезотерапия волос - питание фолликулов изнутри",
+        "en": "Hair Mesotherapy - Nourishing the Follicles from Within"
+      },
+      "body": {
+        "uk": "Мезотерапія волосся - це ін'єкційне введення активних речовин безпосередньо у шкіру голови, до зони волосяних фолікулів. На відміну від шампунів і сироваток, які діють на поверхні, коктейль доставляється прямо до коренів у концентрації, потрібній для відповіді.\n\nСклад коктейля лікар формує індивідуально: вітаміни групи B, амінокислоти й пептиди для росту, мікроелементи (цинк, мідь, силіцій), судинні компоненти для покращення мікроциркуляції. Це покращує живлення фолікулів, продовжує фазу росту і допомагає утримати волосся, схильне до випадіння.\n\nМезотерапію застосовують при дифузному випадінні, виснаженому й тонкому волоссі, після стресів, пологів або суворих дієт. На ранніх стадіях андрогенної алопеції вона входить у комплексну терапію разом з іншими методами та призначеннями трихолога.\n\nУ GENEVITY процедуру проводять сертифіковані лікарі після діагностики стану шкіри голови та волосся. Мезотерапія - курсовий метод: перші зміни помітні після 3-4 сеансів, а стійкий результат дає повний курс із 6-10 процедур із подальшою підтримкою.",
+        "ru": "Мезотерапия волос - это инъекционное введение активных веществ непосредственно в кожу головы, к зоне волосяных фолликулов. В отличие от шампуней и сывороток, которые действуют на поверхности, коктейль доставляется прямо к корням в концентрации, нужной для ответа.\n\nСостав коктейля врач формирует индивидуально: витамины группы B, аминокислоты и пептиды для роста, микроэлементы (цинк, медь, кремний), сосудистые компоненты для улучшения микроциркуляции. Это улучшает питание фолликулов, продлевает фазу роста и помогает удержать волосы, склонные к выпадению.\n\nМезотерапию применяют при диффузном выпадении, истощённых и тонких волосах, после стрессов, родов или строгих диет. На ранних стадиях андрогенной алопеции она входит в комплексную терапию вместе с другими методами и назначениями трихолога.\n\nВ GENEVITY процедуру проводят сертифицированные врачи после диагностики состояния кожи головы и волос. Мезотерапия - курсовой метод: первые изменения заметны после 3-4 сеансов, а стойкий результат даёт полный курс из 6-10 процедур с последующей поддержкой.",
+        "en": "Hair mesotherapy is the injection of active substances directly into the scalp, into the zone of the hair follicles. Unlike shampoos and serums that work on the surface, the cocktail is delivered straight to the roots at the concentration needed for a response.\n\nThe doctor formulates the cocktail individually: B vitamins, amino acids and peptides for growth, trace elements (zinc, copper, silicon), and vascular components to improve microcirculation. This improves follicle nourishment, prolongs the growth phase, and helps retain hair prone to shedding.\n\nMesotherapy is used for diffuse hair loss, depleted and thin hair, and after stress, childbirth, or strict diets. In the early stages of androgenic alopecia it is part of combined therapy alongside other methods and a trichologist's prescriptions.\n\nAt GENEVITY the procedure is performed by certified doctors after assessing the scalp and hair. Mesotherapy is a course-based method: first changes appear after 3-4 sessions, while a lasting result comes from a full course of 6-10 procedures with subsequent maintenance."
+      },
+      "calloutBody": {
+        "uk": "Перші зміни - після 3-4 сеансів. Стійкий результат дає курс із 6-10 процедур. Ефект підтримують повторними сеансами.",
+        "ru": "Первые изменения - после 3-4 сеансов. Стойкий результат даёт курс из 6-10 процедур. Эффект поддерживают повторными сеансами.",
+        "en": "First changes after 3-4 sessions. A lasting result comes from a course of 6-10 procedures. The effect is maintained with repeat sessions."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "5242602e-d16f-47d5-9c9c-c9dff6c7769f",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "EMFACE is the world's first procedure that simultaneously targets skin and facial muscles - no injections, no surgery. The technology combines synchronised radiofrequency (RF) energy and HIFES™ muscle stimulation, delivering a lifting effect previously only achievable with botulinum toxin or surgical tightening.\n\nThe RF component heats the dermis to a therapeutic temperature, stimulating new collagen and elastin production. Synchronised HIFES™ muscle stimulation triggers contractions in the facial muscles, firming and lifting the facial contour without a single needle.\n\nClinical studies by the manufacturer showed: after a course of 4 sessions, patients experienced a 26% increase in collagen density, 37% improvement in muscle tone, and a visible 23% reduction in wrinkles. The procedure uses applicators placed on the forehead, cheeks, and chin; each session lasts 20 minutes.\n\nEMFACE is suitable for preventive and corrective rejuvenation at any age. At GENEVITY the procedure is performed by doctors with medical qualifications, ensuring safety and individually calibrated settings.",
+        "ru": "EMFACE - первая в мире процедура, которая одновременно воздействует на кожу и мышцы лица без инъекций и хирургического вмешательства. Технология сочетает синхронизированную радиочастотную (RF) энергию и HIFES™-стимуляцию мышц, достигая лифтингового эффекта, который раньше был возможен только с ботулотоксином или хирургическим натяжением.\n\nРадиочастотная составляющая нагревает дерму до терапевтической температуры, стимулируя выработку нового коллагена и эластина. Синхронная мышечная стимуляция HIFES™ вызывает сокращение мимических мышц, укрепляя и подтягивая овал лица без единого укола.\n\nКлинические исследования производителя показали: после курса из 4 сеансов у пациентов отмечается увеличение плотности коллагена на 26%, повышение тонуса мышц на 37% и видимое уменьшение морщин на 23%. Процедура выполняется с помощью аппаратного метода - аппликаторы накладываются на лоб, щёки и подбородок, сеанс длится 20 минут.\n\nEMFACE подходит для профилактического и коррекционного омоложения в любом возрасте. В GENEVITY процедуру выполняют врачи-косметологи с медицинским образованием, что гарантирует безопасность и правильный подбор параметров индивидуально для каждого пациента.",
+        "uk": "EMFACE - перша у світі процедура, яка одночасно впливає на шкіру та м'язи обличчя без ін'єкцій і хірургічного втручання. Технологія поєднує синхронізовану радіочастотну (RF) енергію та HIFES™-стимуляцію м'язів, досягаючи ліфтингового ефекту, який раніше був можливий лише з ботулотоксином або хірургічним натяжінням.\n\nРадіочастотна складова нагріває дерму до терапевтичної температури, стимулюючи вироблення нового колагену та еластину. Синхронна м'язова стимуляція HIFES™ викликає скорочення мімічних м'язів, зміцнюючи та підтягуючи овал обличчя без жодного уколу.\n\nКлінічні дослідження виробника показали: після курсу з 4 сеансів у пацієнтів відзначається збільшення щільності колагену на 26%, підвищення тонусу м'язів на 37% та видиме зменшення зморшок на 23%. Процедура виконується за допомогою апаратного методу - аплікатори накладаються на лоб, щоки та підборіддя, сеанс триває 20 хвилин.\n\nEMFACE підходить для профілактичного та корекційного омолодження в будь-якому віці. У GENEVITY процедуру виконують лікарі-косметологи з медичною освітою, що гарантує безпеку та правильний підбір параметрів індивідуально для кожного пацієнта."
+      },
+      "heading": {
+        "en": "EMFACE - Non-Invasive Facial Rejuvenation at GENEVITY",
+        "ru": "EMFACE - безинъекционное омоложение лица в GENEVITY",
+        "uk": "EMFACE - безін'єкційне омолодження обличчя в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "b88786dc-6979-4477-bd72-30114aca86f4",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Ultraformer MPT is a device-based lifting procedure using micro- and macro-focused ultrasound (HIFU) that acts directly on the SMAS layer - the fibromuscular apparatus of the face. This technology reproduces an effect comparable to surgical SMAS lifting, but without incisions, anaesthesia, or significant downtime.\n\nUltraformer MPT (Multi-Point Technology) differs from previous HIFU devices in its ability to deliver ultrasound energy precisely to three tissue levels: superficial (1.5 mm), dermal (3 mm) and SMAS (4.5 mm) - allowing treatment at multiple depths in a single session.\n\nFocused ultrasound creates micro-coagulation points within the tissue, triggering a natural regenerative response: active collagen regeneration and contraction of existing fibres. A visible lifting effect is noticeable after the first session, with the full result forming over 2-3 months.\n\nUltraformer MPT is the gold standard for non-surgical SMAS lifting of the face in Dnipro and Ukraine. At GENEVITY the procedure is performed by certified cosmetic doctors, ensuring precise depth targeting and minimal discomfort.",
+        "ru": "Ultraformer MPT - аппаратная процедура лифтинга на основе микро- и макрофокусированного ультразвука (HIFU), которая воздействует непосредственно на СМАС-слой - фиброзно-мышечный аппарат лица. Эта технология воспроизводит эффект, аналогичный хирургическому СМАС-лифтингу, но без разрезов, без наркоза и с минимальным восстановительным периодом.\n\nUltraformer MPT (Multi-Point Technology) отличается от предыдущих поколений HIFU-аппаратов способностью точно доставлять ультразвуковую энергию на три уровня: поверхностный (1,5 мм), дермальный (3 мм) и на уровень СМАС (4,5 мм). Это позволяет решать задачи разной глубины в рамках одного сеанса.\n\nПод воздействием сфокусированного ультразвука в тканях образуются точечные тепловые повреждения (тепловые коагуляционные точки), которые запускают естественную регенеративную реакцию: активное восстановление коллагена и сокращение имеющихся волокон. Эффект лифтинга заметен уже после первой процедуры, но максимальный результат формируется через 2-3 месяца.\n\nUltraformer MPT - золотой стандарт безоперационного ультраформер СМАС-лифтинга для лица в Днепре и Украине. В GENEVITY процедуру выполняют сертифицированные врачи-косметологи, что гарантирует точность воздействия на нужную глубину и минимальный дискомфорт.",
+        "uk": "Ultraformer MPT - апаратна процедура ліфтингу на основі мікро- та макрофокусованого ультразвуку (HIFU), яка впливає безпосередньо на СМАС-шар - фіброзно-м'язовий апарат обличчя. Ця технологія відтворює ефект, аналогічний хірургічному СМАС-ліфтингу, але без розрізів, без наркозу та з мінімальним відновлювальним періодом.\n\nUltraformer MPT (Multi-Point Technology) відрізняється від попередніх поколінь HIFU-апаратів здатністю точно доставляти ультразвукову енергію на три рівні: поверхневий (1,5 мм), дермальний (3 мм) та на рівень СМАС (4,5 мм). Це дозволяє вирішувати завдання різної глибини в рамках одного сеансу.\n\nПід дією сфокусованого ультразвуку в тканинах утворюються точкові теплові ушкодження (теплові коагуляційні точки), які запускають природну регенеративну відповідь: активне відновлення колагену та скорочення наявних волокон. Ефект ліфтингу видний вже після першої процедури, але максимальний результат формується через 2-3 місяці.\n\nUltraformer MPT - золотий стандарт безопераційного ультраформер СМАС-ліфтингу для обличчя в Дніпрі та Україні. У GENEVITY процедуру виконують сертифіковані лікарі-косметологи, що гарантує точність впливу на потрібну глибину та мінімальний дискомфорт."
+      },
+      "heading": {
+        "en": "Ultraformer MPT - Ultrasound SMAS Lifting at GENEVITY",
+        "ru": "Ultraformer MPT - СМАС-лифтинг ультразвуком в GENEVITY",
+        "uk": "Ultraformer MPT - СМАС-ліфтинг ультразвуком в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "6e630194-e907-4e39-90a6-de31ffa67775",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Ultraformer MPT for Body is a device-based HIFU lifting adapted for large body areas: abdomen, inner thighs, upper arms, and saddlebag zones. The micro- and macro-focused ultrasound (MMFU) technology delivers thermal impulses directly into the subcutaneous fat layer (4.5 mm) and dermis (3.0 mm), triggering neocollagenesis and collagen fibre contraction.\n\nUnlike cosmetic RF devices, the Ultraformer MPT for body acts deeper and with greater precision. Thermal coagulation points form strictly at the target depth without damaging the surface skin layers - the absence of recovery period is explained by this principle.\n\nThe primary effect is tightening and firming of skin that has lost tone after weight loss, pregnancy or natural ageing. The body Ultraformer is an effective solution for areas with pronounced laxity where RF and massage-based treatments deliver only superficial results.\n\nA course consists of 1-3 sessions depending on the zone and degree of ptosis. Results build over 2-3 months and last up to 18 months. At GENEVITY the procedure is performed by certified doctors who individually select cartridges and depth for each zone.",
+        "ru": "Ultraformer MPT для тела - это аппаратный HIFU-лифтинг, адаптированный для крупных участков тела: живота, внутренней поверхности бёдер, рук и зоны «галифе». Технология микро- и макрофокусированного ультразвука (MMFU) позволяет доставлять тепловой импульс непосредственно в подкожно-жировой слой (4,5 мм) и дерму (3,0 мм), запуская неоколлагенез и сокращение коллагеновых волокон.\n\nВ отличие от косметических RF-аппаратов, Ultraformer MPT для тела (ультраформер по телу) действует глубже и точнее. Тепловые коагуляционные точки формируются строго на заданной глубине без повреждения поверхностных слоёв кожи - отсутствие реабилитационного периода объясняется именно этим принципом.\n\nОсновной эффект - подтяжка и уплотнение кожи, потерявшей тонус после похудения, беременности или естественного старения. Ультраформер для тела является эффективным решением для участков с выраженной дряблостью, где RF и массажные процедуры дают лишь поверхностный результат.\n\nКурс состоит из 1-3 сеансов в зависимости от зоны и степени птоза. Эффект нарастает 2-3 месяца и сохраняется до 18 месяцев. В GENEVITY процедуру выполняют сертифицированные врачи с подбором картриджей и глубины для каждой зоны индивидуально.",
+        "uk": "Ultraformer MPT для тіла - це апаратний HIFU-ліфтинг, адаптований для великих ділянок тіла: живота, внутрішньої поверхні стегон, рук та зони «галіфе». Технологія мікро- та макрофокусованого ультразвуку (MMFU) дозволяє доставляти тепловий імпульс безпосередньо в підшкірно-жировий шар (4,5 мм) та дерму (3,0 мм), запускаючи неоколагенез та скорочення колагенових волокон.\n\nНа відміну від косметичних RF-апаратів, Ultraformer MPT для тіла (ультраформер по тілу) діє глибше та точніше. Теплові коагуляційні точки формуються строго на заданій глибині без пошкодження поверхневих шарів шкіри - відсутність реабілітаційного періоду після процедури пояснюється саме цим принципом.\n\nОсновний ефект - підтяжка та ущільнення шкіри, яка втратила тонус після схуднення, вагітності або природного старіння. Ультраформер для тіла є ефективним рішенням для ділянок з вираженою в'ялістю, де RF та масажні процедури дають лише поверхневий результат.\n\nКурс складається з 1-3 сеансів залежно від зони та ступеня птозу. Ефект наростає 2-3 місяці та зберігається до 18 місяців. У GENEVITY процедуру виконують сертифіковані лікарі з підбором картриджів та глибини для кожної зони індивідуально."
+      },
+      "heading": {
+        "en": "Ultraformer MPT for Body - HIFU Skin Lifting at GENEVITY",
+        "ru": "Ultraformer MPT для тела - HIFU-лифтинг кожи в GENEVITY",
+        "uk": "Ultraformer MPT для тіла - HIFU-ліфтинг шкіри в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "3d06e952-6ad2-415f-ba87-bc04f6d0e470",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Exion Face is a next-generation device procedure from BTL that combines monopolar radiofrequency (RF) energy with ultrasound stimulation for deep facial rejuvenation. Its unique AI-driven feedback technology enables the device to monitor tissue temperature in real time and automatically adjust treatment intensity.\n\nThe monopolar RF component penetrates 4-6 mm deep, stimulating collagen, elastin and hyaluronic acid production in the dermis. The ultrasound component provides micro-massage of the tissue, improving microcirculation and lymphatic drainage. The combined effect is visible wrinkle reduction, improved firmness and increased skin hydration.\n\nExion is suitable for all skin types. A course consists of 4-6 sessions spaced 1-2 weeks apart; results last 12-18 months.\n\nAt GENEVITY, Exion Face is used both as a standalone procedure and in combination with injectable methods (biorevitalisation, mesotherapy) for a synergistic outcome.",
+        "ru": "Exion Face - аппаратная процедура нового поколения от компании BTL, которая сочетает монополярную радиочастотную (RF) энергию с ультразвуковой стимуляцией для глубокого омоложения кожи лица. Уникальная технология AI-управляемой обратной связи позволяет аппарату в реальном времени контролировать температуру тканей и автоматически корректировать интенсивность воздействия.\n\nМонополярная RF-составляющая Exion проникает на глубину 4-6 мм, стимулируя выработку коллагена, эластина и гиалуроновой кислоты в дерме. Ультразвуковая компонента обеспечивает микромассаж тканей, улучшая микроциркуляцию и лимфодренаж. Совокупный эффект - видимое уменьшение морщин, повышение упругости и увлажнённости кожи.\n\nExion подходит для всех типов кожи. Курс состоит из 4-6 сеансов с интервалом 1-2 недели, эффект сохраняется 12-18 месяцев.\n\nВ GENEVITY Exion Face используется как самостоятельная процедура и в сочетании с инъекционными методами (биоревитализация, мезотерапия) для синергетического результата.",
+        "uk": "Exion Face - апаратна процедура нового покоління від компанії BTL, яка поєднує монополярну радіочастотну (RF) енергію з ультразвуковою стимуляцією для глибокого омолодження шкіри обличчя. Унікальна технологія AI-керованого зворотного зв'язку дозволяє апарату в режимі реального часу контролювати температуру тканин та автоматично коригувати інтенсивність впливу.\n\nМонополярна RF-складова Exion проникає на глибину 4-6 мм, стимулюючи вироблення колагену, еластину та гіалуронової кислоти в дермі. Ультразвукова компонента забезпечує мікромасаж тканин, покращуючи мікроциркуляцію та лімфодренаж. Сукупний ефект - видиме зменшення зморшок, підвищення пружності та зволоженості шкіри.\n\nExion підходить для всіх типів шкіри. Курс складається з 4-6 сеансів з інтервалом 1-2 тижні, ефект зберігається 12-18 місяців.\n\nУ GENEVITY Exion Face використовується як самостійна процедура та у поєднанні з ін'єкційними методами (біоревіталізація, мезотерапія) для синергетичного результату."
+      },
+      "heading": {
+        "en": "Exion Face - Monopolar RF + Ultrasound Rejuvenation at GENEVITY",
+        "ru": "Exion Face - монополярный RF + ультразвук для омоложения в GENEVITY",
+        "uk": "Exion Face - монополярна RF + ультразвук для омолодження в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "cb31c782-53cb-4dd7-ba1f-686aae08b455",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Exion Body is a BTL device-based procedure for non-invasive body contouring that combines monopolar radiofrequency (RF) energy with ultrasound stimulation. A real-time AI system monitors tissue temperature and automatically adjusts treatment parameters, eliminating overheating risk.\n\nExion Body technology (exion rf body) delivers RF energy up to 8 mm deep, heating the subcutaneous fat layer and activating collagen synthesis in the dermis. Simultaneous ultrasound stimulation improves microcirculation and facilitates natural clearance of lipolysed fat through the lymphatic system.\n\nExion Body is effective for areas with localised fat deposits and lax skin: abdomen, thighs, arms, buttocks, knees, submental zone. Courses consist of 4-6 sessions, 1-2 weeks apart.\n\nAt GENEVITY, Exion Body is used both standalone and in combination with EMSCULPT NEO for maximum results: fat reduction + skin tightening + muscle growth in one programme.",
+        "ru": "Exion Body - аппаратная процедура от компании BTL для неинвазивной коррекции контуров тела, сочетающая монополярную радиочастотную (RF) энергию с ультразвуковой стимуляцией. AI-система в реальном времени контролирует температуру тканей и автоматически регулирует параметры воздействия, исключая риск перегрева.\n\nТехнология Exion Body (exion rf body) доставляет RF-энергию на глубину до 8 мм, прогревая подкожно-жировой слой и активируя синтез коллагена в дерме. Одновременная ультразвуковая стимуляция улучшает микроциркуляцию и способствует естественному выведению лизированного жира через лимфатическую систему.\n\nExion Body эффективен для коррекции участков с локальными жировыми отложениями и дряблой кожей: живот, бёдра, руки, ягодицы, колени, зона под подбородком. Процедура выполняется курсами по 4-6 сеансов с интервалом 1-2 недели.\n\nВ GENEVITY Exion Body используется как отдельно, так и в комбинации с EMSCULPT NEO для достижения максимального результата: уменьшение жира + подтяжка кожи + рост мышц в одной программе.",
+        "uk": "Exion Body - апаратна процедура від компанії BTL для неінвазивної корекції контурів тіла, яка поєднує монополярну радіочастотну (RF) енергію з ультразвуковою стимуляцією. AI-система в режимі реального часу контролює температуру тканин та автоматично регулює параметри впливу, виключаючи ризик перегріву.\n\nТехнологія Exion Body (exion rf body) доставляє RF-енергію на глибину до 8 мм, прогріваючи підшкірно-жировий шар і активуючи синтез колагену в дермі. Одночасна ультразвукова стимуляція покращує мікроциркуляцію та сприяє природному виведенню ліполізованого жиру через лімфатичну систему.\n\nExion Body ефективний для корекції ділянок з локальними жировими відкладеннями та в'ялою шкірою: живіт, стегна, руки, сідниці, коліна, зона під підборіддям. Процедура виконується курсами по 4-6 сеансів з інтервалом 1-2 тижні.\n\nВ GENEVITY Exion Body використовується як окремо, так і в комбінації з EMSCULPT NEO для досягнення максимального результату: зменшення жиру + підтяжка шкіри + ріст м'язів в одній програмі."
+      },
+      "heading": {
+        "en": "Exion Body - RF + Ultrasound Body Tightening at GENEVITY",
+        "ru": "Exion Body - RF + ультразвук для подтяжки тела в GENEVITY",
+        "uk": "Exion Body - RF + ультразвук для підтяжки тіла в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "3acd064f-ddfa-4179-bea4-69f36814ef8b",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Volnewmer is an innovative device for contactless radiofrequency facial therapy that delivers RF energy to the deep layers of the dermis and hypodermis without damaging the skin surface. Its microwave-range technology evenly heats tissue to a depth of up to 6 mm, triggering natural collagen synthesis and collagen fibre contraction.\n\nVolnewmer is primarily indicated for skin laxity correction and mid-face lifting. Unlike superficial RF procedures, Volnewmer acts directly on the dermis and SMAS layer, delivering lasting lifting results without injectables or surgery.\n\nVolnewmer results are long-lasting: active new collagen production and fibre remodelling continues for 3-6 months after the course. Optimal results are achieved after a series of 3-5 sessions, 2-4 weeks apart.\n\nAt GENEVITY, Volnewmer is performed by licensed doctors who individually calibrate the power parameters and treatment depth according to each patient's skin condition and goals.",
+        "ru": "Volnewmer - инновационный аппарат для бесконтактной радиочастотной терапии лица, который доставляет RF-энергию в глубокие слои дермы и гиподермы без повреждения поверхности кожи. Технология микроволнового диапазона позволяет равномерно прогреть ткани на глубине до 6 мм, запуская естественные процессы синтеза коллагена и сокращения коллагеновых волокон.\n\nПроцедура Volnewmer показана прежде всего для коррекции дряблости кожи и лифтинга средней трети лица. В отличие от поверхностных RF-процедур, Volnewmer воздействует непосредственно на дерму и СМАС-слой, позволяя добиться стойкого лифтинга без введения препаратов и без хирургического вмешательства.\n\nЭффект от процедуры Volnewmer стойкий: активная выработка нового коллагена и ремоделирование имеющихся волокон продолжается 3-6 месяцев после завершения курса. Оптимальный результат достигается после серии из 3-5 сеансов с интервалом 2-4 недели.\n\nВ GENEVITY процедуру Volnewmer выполняют врачи с медицинским образованием, индивидуально подбирая параметры мощности и глубину воздействия в соответствии с состоянием кожи и задачами пациента.",
+        "uk": "Volnewmer - інноваційний апарат для безконтактної радіочастотної терапії обличчя, що доставляє RF-енергію в глибокі шари дерми та гіподерми без пошкодження поверхні шкіри. Технологія мікрохвильового діапазону дозволяє рівномірно прогріти тканини на глибині до 6 мм, запускаючи природні процеси синтезу колагену та скорочення колагенових волокон.\n\nПроцедура Volnewmer показана насамперед для корекції в'ялості шкіри та ліфтингу середньої третини обличчя. На відміну від поверхневих RF-процедур, Volnewmer впливає безпосередньо на дерму та СМАС-шар, дозволяючи домогтися стійкого ліфтингу без введення препаратів і без хірургічного втручання.\n\nЕфект від процедури Volnewmer стійкий: активне вироблення нового колагену та ремоделювання наявних волокон триває 3-6 місяців після завершення курсу. Оптимальний результат досягається після серії з 3-5 сеансів з інтервалом 2-4 тижні.\n\nВ GENEVITY процедуру Volnewmer виконують лікарі з медичною освітою, індивідуально підбираючи параметри потужності та глибину впливу відповідно до стану шкіри та завдань пацієнта."
+      },
+      "heading": {
+        "en": "Volnewmer - Needle-Free RF Facial Therapy at GENEVITY",
+        "ru": "Volnewmer - безыгольная RF-терапия лица в GENEVITY",
+        "uk": "Volnewmer - безголкова RF-терапія обличчя в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "12bf98ff-88a2-498e-a523-3197ebcba301",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "EMSCULPT NEO is the world's only device that simultaneously burns fat and builds muscle using HIFEM® and RF technologies. In a single 30-minute session, the device induces over 20,000 supramaximal muscle contractions - an effect unachievable by any workout.\n\nThe EMSCULPT NEO RF component heats and destroys fat cells (adipocyte apoptosis) before each HIFEM® pulse, creating a synergistic effect. Manufacturer clinical studies: −30% fat reduction, +25% muscle volume in the treatment zone after a standard 4-session course.\n\nEMSCULPT NEO is suitable for body contouring in both men and women. The device treats the abdomen (including the erector spinae), buttocks, thighs, arms and calves. It is more effective than lipolytic injections for localised fat deposits and is second only to surgical liposuction in total fat volume removed.\n\nA key advantage - EMSCULPT NEO not only eliminates fat but also sculpts contour through increased muscle volume. This makes it indispensable for patients who want to reshape their body, not just lose weight. At GENEVITY the procedure is performed by certified BTL specialists using original equipment.",
+        "ru": "EMSCULPT NEO - единственный аппарат в мире, который одновременно сжигает жир и наращивает мышечную массу с помощью технологий HIFEM® и RF. За один 30-минутный сеанс аппарат вызывает более 20 000 сверхинтенсивных сокращений мышц - эффект, недостижимый никакой тренировкой.\n\nРадиочастотная составляющая EMSCULPT NEO разогревает и разрушает жировые клетки (апоптоз адипоцитов) перед каждым HIFEM®-импульсом, что обеспечивает синергетический эффект. Клинические исследования производителя: −30% жировых отложений, +25% мышечного объёма в зоне обработки после стандартного курса из 4 сеансов.\n\nEMSCULPT NEO подходит для коррекции тела как у мужчин, так и у женщин. Аппарат обрабатывает живот (включая разгибатель спины), ягодицы, бёдра, руки и икры. Процедура эффективнее липолитических инъекций при локальных отложениях и уступает только хирургической липосакции по объёму удалённого жира.\n\nВажное преимущество - EMSCULPT NEO не только избавляет от жира, но и формирует рельеф благодаря увеличению мышечного объёма. Это делает процедуру незаменимой для пациентов, которые хотят не просто похудеть, а изменить форму тела. В GENEVITY процедура выполняется сертифицированными специалистами с использованием оригинального оборудования BTL.",
+        "uk": "EMSCULPT NEO - єдиний апарат у світі, який одночасно спалює жир та нарощує м'язову масу за допомогою технологій HIFEM® та RF. За один 30-хвилинний сеанс апарат викликає понад 20 000 надінтенсивних скорочень м'язів - ефект, недосяжний жодним тренуванням.\n\nРадіочастотна складова EMSCULPT NEO розігріває та руйнує жирові клітини (апоптоз адипоцитів) перед кожним HIFEM®-пульсом, що забезпечує синергетичний ефект. Клінічні дослідження виробника: −30% жирових відкладень, +25% м'язового об'єму в зоні обробки після стандартного курсу з 4 сеансів.\n\nEMSCULPT NEO підходить для корекції тіла як у чоловіків, так і у жінок. Апарат обробляє живіт (включаючи м'яз-розгинач хребта), сідниці, стегна, руки та литки. Процедура є ефективнішою за ліполітичні ін'єкції при локальних відкладеннях та поступається тільки хірургічній ліпосакції за об'ємом видаленого жиру.\n\nВажлива перевага - EMSCULPT NEO не лише позбавляє від жиру, а й формує рельєф завдяки збільшенню м'язового об'єму. Це робить процедуру незамінною для пацієнтів, які хочуть не просто схуднути, а змінити форму тіла. У GENEVITY процедура виконується сертифікованими спеціалістами з використанням оригінального обладнання BTL."
+      },
+      "heading": {
+        "en": "EMSCULPT NEO - Fat Burning and Muscle Building at GENEVITY",
+        "ru": "EMSCULPT NEO - сжигание жира и рост мышц в GENEVITY",
+        "uk": "EMSCULPT NEO - спалювання жиру та ріст м'язів в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "348d0b92-1b63-4a06-bcf0-b5b78bb82930",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "HydraFacial is a device-based comprehensive facial care procedure that simultaneously cleanses, exfoliates, extracts impurities and infuses the skin with active serums. The Vortex Fusion® technology uses a spiral fluid flow to simultaneously introduce nutrients and remove dead cells and pore contents without mechanical irritation.\n\nThe HydraFacial facial cleansing procedure consists of 3 essential steps:\n1. Cleanse + Peel - gentle exfoliation and resurfacing using gluconolactone and salicylic acids\n2. Extract + Hydrate - vacuum-based extraction of clogged pores with simultaneous hyaluronic acid infusion\n3. Fuse + Protect - enrichment with antioxidants, peptides and hyaluronic acid via Vortex Fusion® technology\n\nHydraFacial is suitable for all skin types and all seasons, including summer. The procedure is completely safe for sensitive skin, redness-prone skin and patients with mild rosacea.\n\nAt GENEVITY HydraFacial is performed by cosmetic doctors who select boosters (Living Defense, Growth Factor, Britenol or CTGF) according to each patient's skin type and concerns. Combination with LED therapy and biorevitalisation is available for an enhanced effect.",
+        "ru": "HydraFacial - аппаратная процедура для комплексного ухода за кожей лица, которая одновременно очищает, отшелушивает, извлекает загрязнения и насыщает кожу активными сыворотками. Технология Vortex Fusion® использует спиральный поток жидкости для одновременного введения питательных веществ и выведения отмерших клеток и содержимого пор без механического раздражения.\n\nЧистка лица HydraFacial состоит из 3 обязательных этапов:\n1. Cleanse + Peel - мягкое отшелушивание и ресёрфейсинг с помощью глюконолактоновой и салициловой кислот\n2. Extract + Hydrate - извлечение закупоренных пор вакуумным отсасыванием и одновременное введение гиалуроновой кислоты\n3. Fuse + Protect - насыщение антиоксидантами, пептидами и гиалуроновой кислотой через технологию Vortex Fusion®\n\nHydraFacial подходит для любого типа кожи и любого сезона, включая лето. Процедура полностью безопасна для чувствительной кожи, кожи со склонностью к покраснениям и для пациентов с розацеа лёгкой степени.\n\nВ GENEVITY HydraFacial выполняется врачами-косметологами с подбором бустеров (Living Defense, Growth Factor, Britenol или CTGF) в соответствии с типом и запросом кожи. Возможно сочетание с LED-терапией и биоревитализацией для усиленного эффекта.",
+        "uk": "HydraFacial - апаратна процедура для комплексного догляду за шкірою обличчя, яка одночасно очищає, відлущує, видобуває забруднення та насичує шкіру активними сироватками. Технологія Vortex Fusion® використовує спіральний потік рідини для одночасного введення живильних речовин та виведення відмерлих клітин та вмісту пор без механічного подразнення.\n\nЧистка обличчя HydraFacial складається з 3 обов'язкових етапів:\n1. Cleanse + Peel - м'яке відлущення та ресурфейсинг за допомогою глюконолактонової кислоти та саліцилової кислоти\n2. Extract + Hydrate - видобування закупорених пор вакуумним відсмоктуванням та одночасне введення гіалуронової кислоти\n3. Fuse + Protect - насичення антиоксидантами, пептидами та гіалуроновою кислотою через технологію Vortex Fusion®\n\nHydraFacial підходить для будь-якого типу шкіри та будь-якого сезону, включаючи літо. Процедура повністю безпечна для чутливої шкіри, шкіри зі схильністю до почервоніння та для пацієнтів з розацеа легкого ступеня.\n\nВ GENEVITY HydraFacial виконується лікарями-косметологами з підбором бустерів (Living Defense, Growth Factor, Britenol або CTGF) відповідно до типу та запиту шкіри. Можливе поєднання з LED-терапією та біоревіталізацією для посиленого ефекту."
+      },
+      "heading": {
+        "en": "HydraFacial - Deep Facial Cleansing and Hydration at GENEVITY",
+        "ru": "HydraFacial - глубокое очищение и увлажнение лица в GENEVITY",
+        "uk": "HydraFacial - глибоке очищення та зволоження обличчя в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "1acdebed-8e7b-4923-8b82-4e94838b8ea2",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "AcuPulse CO₂ by Lumenis is the gold standard for laser skin resurfacing, using fractional and ablative CO₂ laser modes (10,600 nm). It is the most effective non-surgical method for deep correction of wrinkles, post-acne scars and pigmentation - where RF and HIFU device procedures deliver limited results.\n\nThe AcuPulse CO₂ laser removes micro-columns of tissue, triggering an intense regeneration process. New skin forms more evenly, with improved firmness and texture. CO₂ laser resurfacing is effective for: wrinkles (superficial and deep), post-acne scars (including ice-pick and rolling scars), hyperpigmentation and uneven skin tone, stretch marks and hypertrophic scars, rejuvenation of the décolletage and hands.\n\nCO₂ laser skin resurfacing at GENEVITY is performed in two modes:\n- Fractional AcuPulse (FRAC3®): less deep resurfacing, 3-5 days recovery - ideal for texture and tone improvement\n- Full ablative mode: deeper resurfacing for pronounced wrinkles and scars, 7-14 days recovery\n\nAt GENEVITY the procedure is performed by doctors with laser medicine experience. A mandatory pre-procedure consultation assesses skin condition and selects the appropriate mode. Patients receive a detailed post-procedure care plan.",
+        "ru": "AcuPulse CO₂ от Lumenis - золотой стандарт лазерной шлифовки кожи, использующий фракционный и абляционный режимы CO₂ лазера (10 600 нм). Процедура является наиболее эффективным нехирургическим методом для глубокой коррекции морщин, рубцов постакне и пигментации - там, где аппаратные RF и HIFU-процедуры дают ограниченный эффект.\n\nAcuPulse CO₂ лазер удаляет микроколонки ткани, запуская интенсивный процесс регенерации. Новая кожа образуется более ровной, упругой и с улучшенной текстурой. Лазерная шлифовка CO₂ эффективна для: морщин (поверхностных и глубоких), рубцов постакне (в том числе «ледоруб» и «трамвайные рельсы»), гиперпигментации и неровного тона кожи, растяжек и гипертрофических рубцов, омоложения зоны декольте и рук.\n\nCO₂ лазерная шлифовка лица в GENEVITY выполняется в двух режимах:\n- Фракционный AcuPulse (FRAC3®): менее глубокая шлифовка, реабилитация 3-5 дней - идеально для восстановления текстуры и тона\n- Полноаблятивный режим: более глубокая шлифовка для выраженных морщин и рубцов, реабилитация 7-14 дней\n\nВ GENEVITY процедуру выполняют врачи с опытом лазерной медицины. Перед процедурой - обязательная консультация для оценки состояния кожи и выбора режима. Пациентам предоставляется детальный план ухода в реабилитационном периоде.",
+        "uk": "AcuPulse CO₂ від Lumenis - золотий стандарт лазерного шліфування шкіри, що використовує фракційний та абляційний режими CO₂ лазера (10 600 нм). Процедура є найбільш ефективним нехірургічним методом для глибокої корекції зморшок, шрамів постакне та пігментації - там, де апаратні RF та HIFU-процедури дають обмежений ефект.\n\nAcuPulse CO₂ лазер видаляє мікроколонки тканини, запускаючи інтенсивний процес регенерації. Нова шкіра утворюється більш рівномірною, пружною та з покращеною текстурою. Лазерне шліфування CO₂ ефективне для: зморшок (поверхневих та глибоких), рубців постакне (у тому числі «льодоколи» та «трамвайні рейки»), гіперпігментації та нерівного тону шкіри, розтяжок та гіпертрофічних рубців, омолодження зони декольте та рук.\n\nCO₂ лазерна шліфовка обличчя в GENEVITY виконується у двох режимах:\n- Фракційний AcuPulse (FRAC3®): менш глибоке шліфування, реабілітація 3-5 днів - ідеально для відновлення текстури та тону\n- Повноабляційний режим: глибше шліфування для виражених зморшок та рубців, реабілітація 7-14 днів\n\nВ GENEVITY процедуру виконують лікарі з досвідом лазерної медицини. Перед процедурою - обов'язкова консультація для оцінки стану шкіри та вибору режиму. Пацієнтам надається детальний план догляду в реабілітаційному періоді."
+      },
+      "heading": {
+        "en": "AcuPulse CO₂ - CO₂ Laser Skin Resurfacing at GENEVITY",
+        "ru": "AcuPulse CO₂ - лазерная шлифовка лица в GENEVITY",
+        "uk": "AcuPulse CO₂ - лазерне шліфування обличчя в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "c7960676-b076-4cec-8a7a-8b2555052ceb",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Фотоомолодження - вирівнювання тону світлом IPL",
+        "ru": "Фотоомоложение - выравнивание тона светом IPL",
+        "en": "Photorejuvenation - Evening Out Skin Tone with IPL Light"
+      },
+      "body": {
+        "uk": "Фотоомолодження - це вплив на шкіру широкосмуговим імпульсним світлом (IPL) для корекції пігментації та судинних недосконалостей. У GENEVITY процедуру виконують на платформі M22 Stellar Black із точними фільтрами, що дозволяють працювати прицільно з конкретною задачею.\n\nСвітлова енергія поглинається мішенню: меланіном у пігментних плямах або гемоглобіном у розширених судинах. Мішень нагрівається і руйнується, не пошкоджуючи навколишню шкіру. Плями темнішають і відходять упродовж кількох днів, судинні зірочки бліднуть, а загальний тон обличчя стає рівнішим і світлішим.\n\nОкрім видимих недосконалостей, IPL м'яко стимулює оновлення шкіри: вона стає більш гладкою та сяючою. Це делікатна процедура без періоду відновлення - повертатися до звичного ритму можна одразу, дотримуючись фотозахисту.\n\nФотоомолодження у GENEVITY проводять сертифіковані лікарі після оцінки фототипу та характеру пігментації. Найкращий результат дає курс із кількох процедур, а ефект підтримують повторними сеансами раз на рік.",
+        "ru": "Фотоомоложение - это воздействие на кожу широкополосным импульсным светом (IPL) для коррекции пигментации и сосудистых несовершенств. В GENEVITY процедуру выполняют на платформе M22 Stellar Black с точными фильтрами, позволяющими работать прицельно с конкретной задачей.\n\nСветовая энергия поглощается мишенью: меланином в пигментных пятнах или гемоглобином в расширенных сосудах. Мишень нагревается и разрушается, не повреждая окружающую кожу. Пятна темнеют и отходят в течение нескольких дней, сосудистые звёздочки бледнеют, а общий тон лица становится ровнее и светлее.\n\nПомимо видимых несовершенств, IPL мягко стимулирует обновление кожи: она становится более гладкой и сияющей. Это деликатная процедура без периода восстановления - возвращаться к привычному ритму можно сразу, соблюдая фотозащиту.\n\nФотоомоложение в GENEVITY проводят сертифицированные врачи после оценки фототипа и характера пигментации. Лучший результат даёт курс из нескольких процедур, а эффект поддерживают повторными сеансами раз в год.",
+        "en": "Photorejuvenation uses intense pulsed light (IPL) to correct pigmentation and vascular imperfections. At GENEVITY the procedure is performed on the M22 Stellar Black platform with precise filters that allow targeted work on a specific concern.\n\nThe light energy is absorbed by its target: melanin in pigment spots or haemoglobin in dilated vessels. The target heats up and breaks down without damaging the surrounding skin. Spots darken and flake away over several days, vascular lesions fade, and the overall complexion becomes more even and brighter.\n\nBeyond visible imperfections, IPL gently stimulates skin renewal, making it smoother and more radiant. This is a delicate procedure with no downtime - you can return to your routine immediately while following sun protection.\n\nPhotorejuvenation at GENEVITY is performed by certified doctors after assessing the phototype and the nature of the pigmentation. The best result comes from a course of several procedures, with the effect maintained by annual sessions."
+      },
+      "calloutBody": {
+        "uk": "Пігментні плями темнішають і відходять за 5-7 днів. Рівний тон і сяйво наростають упродовж курсу. Без періоду відновлення.",
+        "ru": "Пигментные пятна темнеют и отходят за 5-7 дней. Ровный тон и сияние нарастают в течение курса. Без периода восстановления.",
+        "en": "Pigment spots darken and flake away in 5-7 days. Even tone and radiance build over the course. No downtime."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "639e2829-5e56-421c-977c-efb689a2d49d",
+    "column": "data",
+    "before": {
+      "images": [
+        {
+          "alt": "Кабінет косметолога GENEVITY",
+          "url": "/images/interior/SEMI1276-HDR.webp"
+        },
+        {
+          "alt": "Клініка GENEVITY - інтер'єр",
+          "url": "/images/interior/SEMI1662-HDR.webp"
+        },
+        {
+          "alt": "Процедурний кабінет GENEVITY",
+          "url": "/images/interior/SEMI7509.webp"
+        }
+      ],
+      "heading": {
+        "en": "Our Clinic and Treatment Rooms",
+        "ru": "Наша клиника и процедурные кабинеты",
+        "uk": "Наша клініка та процедурні кабінети"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "ec6c8803-79ae-4bc4-946d-e4c23bf15c07",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "IV терапія - внутрішньовенні вітамінні крапельниці в GENEVITY",
+        "ru": "IV терапия - внутривенные витаминные капельницы в GENEVITY",
+        "en": "IV Therapy - Intravenous Vitamin Drips at GENEVITY"
+      },
+      "body": {
+        "uk": "Внутрішньовенна терапія (IV терапія) - це введення вітамінів, мінералів, амінокислот та інших корисних речовин безпосередньо в кров через внутрішньовенну крапельницю. На відміну від пероральних добавок, де засвоюваність активних речовин залежить від стану кишківника і не перевищує 30-50%, внутрішньовенна вітамінна терапія забезпечує 100% біодоступність.\n\nВнутрішньовенна крапельниця підходить для вирішення різних завдань:\n- Відновлення після хвороби, операції або фізичного виснаження\n- Антиоксидантний захист та уповільнення процесів старіння\n- Імунна підтримка в сезон респіраторних захворювань\n- Детоксикація при хронічному навантаженні\n- Підвищення продуктивності та когнітивних функцій\n- Косметичне освітлення шкіри (глутатіон)\n\nВартість внутрішньовенної терапії залежить від складу коктейлю. У GENEVITY доступні протоколи: Myers Cocktail (магній, кальцій, вітаміни В1-В12, С), Glutathione (антиоксидант та освітлення), Anti-age (NAD+, коензим Q10), Immune (цинк, селен, вітамін С у високих дозах), Energy (амінокислоти, В-комплекс), детоксикаційні крапельниці.\n\nВнутрішньовенна вітамінна терапія крапельниця для виведення токсинів та відновлення виконується виключно лікарями в умовах медичного центру з контролем стану пацієнта протягом усієї процедури.",
+        "ru": "Внутривенная терапия (IV терапия) - это введение витаминов, минералов, аминокислот и других полезных веществ непосредственно в кровь через внутривенную капельницу. В отличие от пероральных добавок, где усвояемость активных веществ зависит от состояния кишечника и не превышает 30-50%, внутривенная витаминная терапия обеспечивает 100% биодоступность.\n\nВнутривенная капельница подходит для решения различных задач:\n- Восстановление после болезни, операции или физического истощения\n- Антиоксидантная защита и замедление процессов старения\n- Иммунная поддержка в сезон респираторных заболеваний\n- Детоксикация при хронической нагрузке\n- Повышение продуктивности и когнитивных функций\n- Косметическое осветление кожи (глутатион)\n\nСтоимость внутривенной терапии зависит от состава коктейля. В GENEVITY доступны протоколы: Myers Cocktail (магний, кальций, витамины В1-В12, С), Glutathione (антиоксидант и осветление), Anti-age (NAD+, коэнзим Q10), Immune (цинк, селен, витамин С в высоких дозах), Energy (аминокислоты, В-комплекс), детоксикационные капельницы.\n\nВнутривенная витаминная терапия капельница для выведения токсинов и восстановления выполняется исключительно врачами в условиях медицинского центра с контролем состояния пациента в течение всей процедуры.",
+        "en": "Intravenous therapy (IV therapy) is the delivery of vitamins, minerals, amino acids and other beneficial compounds directly into the bloodstream via an IV drip. Unlike oral supplements where absorption depends on gut condition and does not exceed 30-50%, intravenous vitamin therapy provides 100% bioavailability.\n\nIntravenous drip is suitable for various goals:\n- Recovery after illness, surgery or physical exhaustion\n- Antioxidant protection and slowing of ageing processes\n- Immune support during respiratory illness season\n- Detoxification under chronic load\n- Productivity and cognitive function enhancement\n- Cosmetic skin brightening (glutathione)\n\nIV therapy pricing depends on the cocktail composition. GENEVITY offers: Myers Cocktail (magnesium, calcium, vitamins B1-B12, C), Glutathione (antioxidant and brightening), Anti-age (NAD+, Coenzyme Q10), Immune (zinc, selenium, high-dose vitamin C), Energy (amino acids, B-complex), detoxification drips.\n\nIntravenous vitamin therapy and detox drips are performed exclusively by doctors in a medical centre setting with patient monitoring throughout the procedure."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "68990a5d-e4b2-4dfc-9633-8d6a9ec99785",
+    "column": "data",
+    "before": {
+      "tone": "success",
+      "body": {
+        "uk": "IV терапія - 100% засвоєння активних речовин. Там, де таблетки засвоюються на 30%, крапельниця дає повний ефект за одну процедуру.",
+        "ru": "IV терапия - 100% усвоение активных веществ. Там, где таблетки усваиваются на 30%, капельница даёт полный эффект за одну процедуру.",
+        "en": "IV therapy - 100% absorption of active compounds. Where tablets absorb at 30%, a drip delivers full effect in one procedure."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "aa9c5c38-176f-4252-b695-9590afac120a",
+    "column": "data",
+    "before": {
+      "indicationsHeading": {
+        "uk": "Показання до IV терапії",
+        "ru": "Показания к IV терапии",
+        "en": "Indications for IV Therapy"
+      },
+      "indications": [
+        {
+          "uk": "Хронічна втома та синдром вигорання",
+          "ru": "Хроническая усталость и синдром выгорания",
+          "en": "Chronic fatigue and burnout syndrome"
+        },
+        {
+          "uk": "Відновлення після хвороби, операції або фізичних навантажень",
+          "ru": "Восстановление после болезни, операции или физических нагрузок",
+          "en": "Recovery after illness, surgery or physical exertion"
+        },
+        {
+          "uk": "Дефіцит вітамінів та мінералів при порушенні всмоктування в кишківнику",
+          "ru": "Дефицит витаминов и минералов при нарушении всасывания в кишечнике",
+          "en": "Vitamin and mineral deficiency with impaired intestinal absorption"
+        },
+        {
+          "uk": "Імунопрофілактика в сезон респіраторних захворювань",
+          "ru": "Иммунопрофилактика в сезон респираторных заболеваний",
+          "en": "Immune prophylaxis during respiratory illness season"
+        },
+        {
+          "uk": "Інтенсивна підготовка до важливої події (марафон, змагання, захист, конференція)",
+          "ru": "Интенсивная подготовка к важному событию (марафон, соревнования, защита, конференция)",
+          "en": "Intensive preparation for an important event (marathon, competition, presentation, conference)"
+        }
+      ],
+      "contraindicationsHeading": {
+        "uk": "Протипоказання до IV терапії",
+        "ru": "Противопоказания к IV терапии",
+        "en": "Contraindications to IV Therapy"
+      },
+      "contraindications": [
+        {
+          "uk": "Ниркова недостатність та важкі захворювання нирок",
+          "ru": "Почечная недостаточность и тяжёлые заболевания почек",
+          "en": "Renal insufficiency and severe kidney disease"
+        },
+        {
+          "uk": "Алергія на компоненти коктейлю (уточнюється на консультації)",
+          "ru": "Аллергия на компоненты коктейля (уточняется на консультации)",
+          "en": "Allergy to cocktail components (clarified at consultation)"
+        },
+        {
+          "uk": "Гострі тромботичні стани",
+          "ru": "Острые тромботические состояния",
+          "en": "Acute thrombotic conditions"
+        },
+        {
+          "uk": "Порушення серцевого ритму (для деяких протоколів)",
+          "ru": "Нарушения сердечного ритма (для некоторых протоколов)",
+          "en": "Cardiac arrhythmias (for certain protocols)"
+        },
+        {
+          "uk": "Вагітність (для деяких складів - окрема консультація)",
+          "ru": "Беременность (для некоторых составов - отдельная консультация)",
+          "en": "Pregnancy (for some formulations - separate consultation required)"
+        }
+      ]
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "4e3e82ed-706a-4b0d-a391-c965eecf8b1c",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Як проходить процедура IV терапії",
+        "ru": "Как проходит процедура IV терапии",
+        "en": "How IV Therapy Procedure Works"
+      },
+      "steps": [
+        {
+          "title": {
+            "uk": "Консультація та підбір протоколу",
+            "ru": "Консультация и подбор протокола",
+            "en": "Consultation and protocol selection"
+          },
+          "body": {
+            "uk": "Лікар збирає анамнез, оцінює мету (відновлення, імунітет, антиейдж, детокс), перевіряє протипоказання та підбирає склад коктейлю.",
+            "ru": "Врач собирает анамнез, оценивает цель (восстановление, иммунитет, антиэйдж, детокс), проверяет противопоказания и подбирает состав коктейля.",
+            "en": "The doctor takes history, assesses the goal (recovery, immunity, anti-age, detox), checks contraindications and selects the cocktail composition."
+          }
+        },
+        {
+          "title": {
+            "uk": "Підготовка та встановлення катетера",
+            "ru": "Подготовка и установка катетера",
+            "en": "Preparation and catheter insertion"
+          },
+          "body": {
+            "uk": "Медсестра встановлює внутрішньовенний катетер. Процедура майже безболісна - тонка голка 24G.",
+            "ru": "Медсестра устанавливает внутривенный катетер. Процедура почти безболезненна - тонкая игла 24G.",
+            "en": "The nurse inserts an intravenous catheter. The procedure is nearly painless - thin 24G needle."
+          }
+        },
+        {
+          "title": {
+            "uk": "Інфузія (30-60 хвилин)",
+            "ru": "Инфузия (30-60 минут)",
+            "en": "Infusion (30-60 minutes)"
+          },
+          "body": {
+            "uk": "Пацієнт відпочиває у зручному кріслі. Лікар контролює стан протягом усієї інфузії. Можна читати, слухати музику.",
+            "ru": "Пациент отдыхает в удобном кресле. Врач контролирует состояние в течение всей инфузии. Можно читать, слушать музыку.",
+            "en": "The patient rests in a comfortable chair. The doctor monitors condition throughout the infusion. Reading or listening to music is allowed."
+          }
+        },
+        {
+          "title": {
+            "uk": "Завершення та рекомендації",
+            "ru": "Завершение и рекомендации",
+            "en": "Completion and recommendations"
+          },
+          "body": {
+            "uk": "Катетер знімається, місце пункції оброблюється. Лікар надає рекомендації щодо режиму та харчування після процедури.",
+            "ru": "Катетер снимается, место пункции обрабатывается. Врач даёт рекомендации по режиму и питанию после процедуры.",
+            "en": "The catheter is removed and the puncture site treated. The doctor provides recommendations on regimen and nutrition after the procedure."
+          }
+        }
+      ]
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "fc64249f-0fe0-425c-a2f9-19cbe659087c",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Переваги IV терапії в GENEVITY",
+        "ru": "Преимущества IV терапии в GENEVITY",
+        "en": "IV Therapy Benefits at GENEVITY"
+      },
+      "items": [
+        {
+          "uk": "100% біодоступність - ефект набагато вищий, ніж від пероральних добавок",
+          "ru": "100% биодоступность - эффект намного выше, чем от пероральных добавок",
+          "en": "100% bioavailability - far superior to oral supplements"
+        },
+        {
+          "uk": "Індивідуальний підбір складу під конкретну мету та стан здоров'я",
+          "ru": "Индивидуальный подбор состава под конкретную цель и состояние здоровья",
+          "en": "Individually selected composition for each specific goal and health status"
+        },
+        {
+          "uk": "Виконується лікарем з моніторингом стану - максимальна безпека",
+          "ru": "Выполняется врачом с мониторингом состояния - максимальная безопасность",
+          "en": "Performed by a doctor with condition monitoring - maximum safety"
+        },
+        {
+          "uk": "Ефект помітний вже після першої процедури: підвищення енергії, ясність розуму",
+          "ru": "Эффект заметен уже после первой процедуры: повышение энергии, ясность ума",
+          "en": "Effect noticeable after the first procedure: increased energy, mental clarity"
+        },
+        {
+          "uk": "⚠ IV терапія - доповнення до здорового способу життя, а не замінник правильного харчування та сну",
+          "ru": "⚠ IV терапия - дополнение к здоровому образу жизни, а не замена правильного питания и сна",
+          "en": "⚠ IV therapy supplements a healthy lifestyle - it does not replace proper nutrition and sleep"
+        }
+      ]
+    }
+  },
+  {
+    "table": "services",
+    "id": "48c5ab2c-5d46-4b1e-a53d-4c2c73ced5e6",
+    "column": "h1_uk",
+    "before": "IV терапія в Дніпрі"
+  },
+  {
+    "table": "services",
+    "id": "48c5ab2c-5d46-4b1e-a53d-4c2c73ced5e6",
+    "column": "h1_ru",
+    "before": "IV терапия в Днепре"
+  },
+  {
+    "table": "services",
+    "id": "48c5ab2c-5d46-4b1e-a53d-4c2c73ced5e6",
+    "column": "seo_title_uk",
+    "before": "IV терапія у Дніпрі - внутрішньовенна вітамінна терапія"
+  },
+  {
+    "table": "services",
+    "id": "48c5ab2c-5d46-4b1e-a53d-4c2c73ced5e6",
+    "column": "seo_title_ru",
+    "before": "IV терапия в Днепре - внутривенная витаминная терапия"
+  },
+  {
+    "table": "services",
+    "id": "48c5ab2c-5d46-4b1e-a53d-4c2c73ced5e6",
+    "column": "seo_desc_uk",
+    "before": "IV терапія в Дніпрі 🤍 GENEVITY 💫 Внутрішньовенна вітамінна терапія для відновлення та зміцнення організму 💫 Доступні ціни на вітамінну терапію 🧬 Досвідчені лікарі."
+  },
+  {
+    "table": "services",
+    "id": "48c5ab2c-5d46-4b1e-a53d-4c2c73ced5e6",
+    "column": "seo_desc_ru",
+    "before": "IV терапия в Днепре 🤍 GENEVITY 💫 Внутривенная витаминная терапия для восстановления и укрепления организма 💫 Доступные цены на витаминную терапию 🧬 Врачи с опытом."
+  },
+  {
+    "table": "faq_items",
+    "id": "82766f4a-9419-4731-9699-f13135d8b619",
+    "column": "question_uk",
+    "before": "Чи безпечна IV терапія?"
+  },
+  {
+    "table": "faq_items",
+    "id": "82766f4a-9419-4731-9699-f13135d8b619",
+    "column": "question_ru",
+    "before": "Безопасна ли IV терапия?"
+  },
+  {
+    "table": "faq_items",
+    "id": "245cee8d-36bd-4459-8bdb-73656b5f8ccc",
+    "column": "question_uk",
+    "before": "Скільки триває одна процедура IV терапії?"
+  },
+  {
+    "table": "faq_items",
+    "id": "245cee8d-36bd-4459-8bdb-73656b5f8ccc",
+    "column": "question_ru",
+    "before": "Сколько длится одна процедура IV терапии?"
+  },
+  {
+    "table": "faq_items",
+    "id": "2b88c8af-6df8-4da6-8714-ec4e206ef858",
+    "column": "question_uk",
+    "before": "Як часто можна проходити IV терапію?"
+  },
+  {
+    "table": "faq_items",
+    "id": "2b88c8af-6df8-4da6-8714-ec4e206ef858",
+    "column": "question_ru",
+    "before": "Как часто можно проходить IV терапию?"
+  },
+  {
+    "table": "faq_items",
+    "id": "56a3e140-065c-4d81-909b-45460325127c",
+    "column": "question_uk",
+    "before": "Чи можна поєднувати IV терапію з іншими методами лікування?"
+  },
+  {
+    "table": "faq_items",
+    "id": "56a3e140-065c-4d81-909b-45460325127c",
+    "column": "question_ru",
+    "before": "Можно ли сочетать IV терапию с другими методами лечения?"
+  },
+  {
+    "table": "faq_items",
+    "id": "56a3e140-065c-4d81-909b-45460325127c",
+    "column": "answer_uk",
+    "before": "Так. IV терапія добре поєднується з програмами Longevity, Гормональний баланс та косметологічними процедурами. Лікар врахує всі призначення при підборі складу коктейлю."
+  },
+  {
+    "table": "faq_items",
+    "id": "56a3e140-065c-4d81-909b-45460325127c",
+    "column": "answer_ru",
+    "before": "Да. IV терапия хорошо сочетается с программами Longevity, Гормональный баланс и косметологическими процедурами. Врач учтёт все назначения при подборе состава коктейля."
+  },
+  {
+    "table": "services",
+    "id": "e2f74932-5bcc-457c-9e34-0ce6460aae9c",
+    "column": "block_order",
+    "before": [
+      "430d73b6-9d44-4bb1-a4c2-75a2794e26ce",
+      "97b869cc-3b73-4cfe-9d4e-1b8e6e9b9bb7",
+      "45e0d758-1f73-4b45-aab8-3926275b24a8",
+      "efaa1119-279f-4f49-af25-11546dc403e2",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "93b0e6f8-086b-4c7b-bc3d-c1d644f7051c",
+    "column": "block_order",
+    "before": [
+      "8719375c-18c6-45a4-af5d-ed2afe44c7cb",
+      "a750d8bb-6488-4069-a69e-76df16943299",
+      "0d314234-c3d7-4ddd-9fdf-f7adf40fe0ae",
+      "8841e8aa-0c8e-4e62-8a94-2d9a5cc1ff37",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "43d461e6-bf19-40e5-9b01-d2a135064e2d",
+    "column": "block_order",
+    "before": [
+      "af77dec8-95d8-4134-8787-8328275faee6",
+      "3c73a6cb-96f7-4b32-a2fa-ca144b5c2d7e",
+      "ed909463-da5c-4430-adbb-32666f9dae7a",
+      "faq",
+      "doctors",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "dcad0f22-28ff-4fbc-bff9-091d149cb796",
+    "column": "block_order",
+    "before": [
+      "2d58f0c8-6c82-42de-8752-87c9e056406c",
+      "b7727a8f-d409-4734-bfdb-9ca9d40218a2",
+      "ed18c061-bbfb-41c1-a3ac-3a3eca96bec4",
+      "953f3e46-0fd9-41e5-8b64-2ec70b528713",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "5d014c3c-b568-42e3-a2fd-fcae0711f47c",
+    "column": "block_order",
+    "before": [
+      "073f7b60-bce8-4931-8ab8-8c373ed44303",
+      "8d631c71-9e03-409c-aa23-47af1d2b289b",
+      "161b6681-ca3e-4f07-9eec-b3c26652bfb2",
+      "6ba748b8-a1c1-4e4f-b3c9-fb8652ef4c4b",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "fed43997-6b91-403a-97a1-0540843f06cc",
+    "column": "block_order",
+    "before": [
+      "3a41c44a-532d-4bdd-9ea4-a6a408ae58d8",
+      "e0fbbbbc-3a39-4a4f-abb3-3e7e4338b121",
+      "9648f165-a3cb-4ad6-9024-9580642b439c",
+      "b8d0fec2-d663-45a4-8b32-7f9d26eb9939",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "3f8f98ba-0e89-45d5-b3c7-13e095b64eac",
+    "column": "block_order",
+    "before": [
+      "3aa79e98-d207-4cf5-bf86-2aa87be033cc",
+      "76d712ff-2493-45b9-8503-166db9e3b962",
+      "5725e029-4d16-4950-b9d5-3894aa70b60f",
+      "395eb288-dc34-4f06-859a-a220ad1d4056",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "c6572356-b214-4ec5-b2b0-0266421d28a0",
+    "column": "block_order",
+    "before": [
+      "f3822c9b-ba19-453d-b258-984644d6d1c1",
+      "95f1496c-4bd3-49aa-b897-f2ad8f157578",
+      "ab795279-7a5b-4c50-9785-d06ae659da06",
+      "faq",
+      "doctors",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "36d25a88-b01a-49a3-b9ef-f31189943c94",
+    "column": "block_order",
+    "before": [
+      "3ab24ba4-e0a4-497a-905a-a64dfd8ac862",
+      "ac70bcae-ab86-412b-a5be-c58b4546f3b9",
+      "3f26231c-e33d-416d-b98a-19edbcfd2c4b",
+      "1d65a5d5-e8fe-4329-88f1-8c8526c52267",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "8c0bbb00-5652-49f1-b7bb-18f6b64f74d7",
+    "column": "block_order",
+    "before": [
+      "8906f7b2-b452-463c-8a8a-74d1d0ca3ebb",
+      "6fc9050b-ce18-485f-8c84-e8d8fe480267",
+      "91af4531-5506-4c5b-a0ce-de41a5dbaf82",
+      "696b713b-e637-4691-af32-6fd1bcf746bc",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "services",
+    "id": "5e80a0b1-ee3b-4491-aaf9-c915069e515a",
+    "column": "block_order",
+    "before": [
+      "c7960676-b076-4cec-8a7a-8b2555052ceb",
+      "d22b57d5-2654-438b-85b4-ed9f504f448b",
+      "65cbd7c6-8e73-4570-8333-1f3d75c0ff66",
+      "dfa724dd-1305-4943-a360-e0b362b56890",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "content_sections",
+    "id": "f3822c9b-ba19-453d-b258-984644d6d1c1",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Навіщо потрібна консультація пластичного хірурга",
+        "ru": "Зачем нужна консультация пластического хирурга",
+        "en": "Why You Need a Plastic Surgeon Consultation"
+      },
+      "body": {
+        "uk": "Консультація пластичного хірурга - перший і ключовий етап на шляху до естетичної чи реконструктивної операції. На прийомі лікар оцінює анатомічні особливості, стан здоров'я та очікування пацієнта, пояснює реальні можливості й обмеження методів і допомагає ухвалити зважене рішення.\n\nУ GENEVITY консультують пластичні хірурги вищої категорії з досвідом естетичної та реконструктивної хірургії. Лікар детально розповідає про хід операції, анестезію, період відновлення та можливі ризики, а також пропонує альтернативи, якщо безопераційні методи здатні дати потрібний результат.\n\n**На консультації ви отримаєте:**\n- Чесну оцінку, чи показана операція саме у вашому випадку\n- Пояснення доступних методик і очікуваного результату\n- Інформацію про підготовку, анестезію та відновлення\n- Індивідуальний план і відповіді на всі запитання",
+        "ru": "Консультация пластического хирурга - первый и ключевой этап на пути к эстетической или реконструктивной операции. На приёме врач оценивает анатомические особенности, состояние здоровья и ожидания пациента, объясняет реальные возможности и ограничения методов и помогает принять взвешенное решение.\n\nВ GENEVITY консультируют пластические хирурги высшей категории с опытом эстетической и реконструктивной хирургии. Врач подробно рассказывает о ходе операции, анестезии, периоде восстановления и возможных рисках, а также предлагает альтернативы, если безоперационные методы способны дать нужный результат.\n\n**На консультации вы получите:**\n- Честную оценку, показана ли операция именно в вашем случае\n- Объяснение доступных методик и ожидаемого результата\n- Информацию о подготовке, анестезии и восстановлении\n- Индивидуальный план и ответы на все вопросы",
+        "en": "A plastic surgeon consultation is the first and most important step on the way to aesthetic or reconstructive surgery. At the appointment the doctor assesses your anatomy, health, and expectations, explains the real possibilities and limits of each method, and helps you reach an informed decision.\n\nAt GENEVITY consultations are given by top-category plastic surgeons experienced in aesthetic and reconstructive surgery. The doctor explains the operation in detail - anaesthesia, recovery period, and possible risks - and offers alternatives when non-surgical methods can achieve the desired result.\n\n**At the consultation you will get:**\n- An honest assessment of whether surgery is indicated in your case\n- An explanation of the available techniques and the expected outcome\n- Information about preparation, anaesthesia, and recovery\n- An individual plan and answers to all your questions"
+      },
+      "calloutBody": null,
+      "heroImage": null
+    }
+  },
+  {
+    "table": "service_doctors",
+    "serviceId": "c6572356-b214-4ec5-b2b0-0266421d28a0",
+    "doctorId": "dfc09295-b020-432f-82c0-0874993b1320",
+    "action": "delete"
+  },
+  {
+    "table": "service_doctors",
+    "serviceId": "c6572356-b214-4ec5-b2b0-0266421d28a0",
+    "doctorId": "e2dd119d-e621-420b-91ad-b19eea354662",
+    "action": "delete"
+  },
+  {
+    "table": "service_categories",
+    "id": "4c0e5a48-50fb-451f-a7f9-c839fc1fbf51",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_skincare",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "gallery_items",
+    "id": "5632f162-d195-42b6-8573-0d101b126453",
+    "column": "image_url",
+    "before": "/images/interior/SEMI1276-HDR.webp"
+  },
+  {
+    "table": "gallery_items",
+    "id": "c62bf398-931c-45dd-9353-ecd455622b2c",
+    "column": "image_url",
+    "before": "/images/interior/SEMI1281-HDR.webp"
+  },
+  {
+    "table": "gallery_items",
+    "id": "626a6313-8bc3-4cdb-aa4e-b09521d7d266",
+    "column": "image_url",
+    "before": "/images/interior/SEMI1662-HDR.webp"
+  },
+  {
+    "table": "gallery_items",
+    "id": "ae700d6d-87da-43b6-a130-2c9f9fecee3c",
+    "column": "image_url",
+    "before": "/images/interior/SEMI7509.webp"
+  },
+  {
+    "table": "content_sections",
+    "id": "7ed23eb1-f72d-4149-a627-9b6027dc0d1f",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "EMSCULPT NEO by BTL - the world's only technology simultaneously building muscle and destroying fat. In 30 minutes, HIFES stimulation causes 20,000 supramaximal contractions. RF heating raises fat cell temperature to destruction point.\n\nFDA-proven results: +25% muscle volume, -30% fat tissue.\n\nIndications: weak muscle tone, stubborn local fat, diastasis recti. \n\nCourse: 4 sessions, 5-7 days apart. Works for men and women.",
+        "ru": "EMSCULPT NEO от BTL - единственная технология, одновременно наращивающая мышцы и разрушающая жир. За 30-минутный сеанс мышца выполняет 20 000 сокращений. RF-нагрев разрушает жировые клетки.\n\nРезультаты: +25% мышечного объёма, -30% жировой ткани.\n\nПоказания: слабый тонус мышц, локальные жировые отложения, диастаз. \n\nКурс: 4 сеанса, 5-7 дней между ними.",
+        "uk": "EMSCULPT NEO від BTL - єдина у світі технологія, що одночасно нарощує м'язи та руйнує жирові клітини. Під час 30-хвилинного сеансу HIFES-електромагнітна стимуляція змушує м'яз виконати 20 000 супрамаксимальних скорочень - більше, ніж будь-яке тренування в залі. Паралельно RF-нагрівання піднімає температуру жирових клітин до точки їх деструкції.\n\nКлінічно доведені результати (за FDA-дослідженнями): +25% до об'єму м'язів, -30% жирової тканини в зоні обробки.\n\nПоказання: недостатній тонус м'язів живота, сідниць, стегон і рук; локальні жирові відкладення стійкі до дієти та спорту; діастаз прямих м'язів живота; бажання поліпшити рельєф без інтенсивних тренувань або після вагітності.\n\nКурс: 4 сеанси з інтервалом 5-7 днів. Ефект оцінюється через 1-3 місяці після курсу. Підходить і чоловікам, і жінкам."
+      },
+      "heading": {
+        "en": "EMSCULPT NEO - Build Muscle and Burn Fat Simultaneously",
+        "ru": "EMSCULPT NEO - накачивание мышц и сжигание жира одновременно",
+        "uk": "EMSCULPT NEO - накачування м'язів та спалювання жиру одночасно"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "01609dd5-4673-4d0d-ad47-3b9b77eaf29f",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Ultraformer MPT for body - the same HIFU technology used for face lifting, adapted for body zones. Heats collagen at 3-4.5 mm depth, triggering contraction and neocollagenesis.\n\n**Indications:** loose skin post-weight loss or pregnancy, inner thigh/arm ptosis, abdominal skin laxity, cellulite grades 1-2. **Result:** gradual tightening over 2-3 months, lasting 12-18 months.",
+        "ru": "Ultraformer MPT по телу - микрофокусированный ультразвук (HIFU) для подтяжки кожи тела. Нагревает коллаген на глубине 3-4,5 мм.\n\n**Показания:** вялая кожа после похудения, птоз, целлюлит. **Зоны:** живот, бёдра, руки, декольте.\n\n**Результат:** подтяжка в течение 2-3 месяцев, сохраняется 12-18 месяцев.",
+        "uk": "Ultraformer MPT по тілу - та сама технологія мікрофокусованого ультразвуку (HIFU), що підтягує обличчя, але адаптована для зон тіла. Ультразвукові промені нагрівають колаген на глибині 3-4,5 мм, запускаючи його скорочення та активний неоколагеногенез. Результат - помітне підтягування та ущільнення шкіри.\n\n**Показання:** млява шкіра після схуднення або вагітності, птоз внутрішньої поверхні стегон і плечей, ліфтинг живота, зони декольте та шиї, целюліт 1-2 ступеня. **Зони обробки:** живіт, стегна, внутрішня поверхня рук і ніг, декольте, коліна.\n\n**Результат:** поступове підтягування впродовж 2-3 місяців після процедури, максимальний ефект - через 3 місяці. Зберігається 12-18 місяців. Зазвичай 1 сеанс на рік."
+      },
+      "heading": {
+        "en": "Ultraformer MPT for Body - Ultrasound Skin Lifting",
+        "ru": "Ultraformer MPT для тела - ультразвуковой лифтинг кожи",
+        "uk": "Ultraformer MPT для тіла - ультразвуковий ліфтинг шкіри"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "0dc7d8e5-4967-47e9-b996-e64a6ac3a504",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Exion Body by BTL uses monopolar RF with AI control for uniform heating of skin and subcutaneous layer. Effectively smooths cellulite, improves firmness and texture on all body zones.\n\n**Indications:** any-grade cellulite, reduced skin firmness, uneven texture. **Course:** 4-8 sessions. Visible results from session 3-4. Works standalone or as a complement to EMSCULPT NEO.",
+        "ru": "Exion Body от BTL - монополярный RF с AI-контролем для коррекции текстуры и целлюлита.\n\n**Показания:** целлюлит, сниженная упругость, неровная текстура. **Курс:** 4-8 сеансов. Результаты - после 3-4 сеансов.",
+        "uk": "Exion Body від BTL використовує монополярний RF з AI-контролем для рівномірного нагрівання шкіри та підшкірного шару по всьому тілу. Апарат ефективно вирівнює «апельсинову шкірку», підвищує пружність та покращує текстуру на всіх зонах тіла.\n\n**Показання:** целюліт будь-якого ступеня, знижена пружність шкіри, нерівна текстура живота, стегон, сідниць та рук. **Зони:** будь-які ділянки тіла, включаючи чутливі.\n\n**Курс:** 4-8 сеансів залежно від зони та ступеня вираженості проблеми. Процедура комфортна - пацієнт відчуває рівномірне тепло. Результати видно вже після 3-4 сеансів. Підходить як самостійний курс і як доповнення до EMSCULPT NEO."
+      },
+      "heading": {
+        "en": "Exion Body - RF Correction of Skin Texture and Cellulite",
+        "ru": "Exion Body - RF-коррекция текстуры и целлюлита",
+        "uk": "Exion Body - RF-корекція текстури та целюліту"
+      }
+    }
+  },
+  {
+    "table": "service_categories",
+    "id": "b5de43f4-ded2-4cf1-9e0b-cea73219f76e",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_longevity",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "service_categories",
+    "id": "bb562d71-478f-40d1-8658-db44429023ca",
+    "column": "hero_image",
+    "before": null
+  },
+  {
+    "table": "gallery_items",
+    "ownerKey": "category_diagnostics",
+    "action": "restore",
+    "before": []
+  },
+  {
+    "table": "content_sections",
+    "id": "1b716421-e40f-4a35-a5b7-5361e9adc406",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Лазерне інтимне омолодження AcuPulse CO₂ в GENEVITY",
+        "ru": "Лазерное интимное омоложение AcuPulse CO₂ в GENEVITY",
+        "en": "AcuPulse CO₂ Intimate Rejuvenation at GENEVITY"
+      },
+      "body": {
+        "uk": "Лазерне омолодження піхви AcuPulse CO₂ - медична процедура відновлення слизової оболонки піхви та прилеглих тканин за допомогою фракційного CO₂ лазера (10 600 нм). Технологія доставляє контрольовану теплову енергію в тканини, стимулюючи вироблення нового колагену та відновлення зволоженості, еластичності та тонусу вагінальних стінок.\n\nLO₂-омолодження (CO₂ омолодження) показане насамперед жінкам, які відчувають наслідки вікових гормональних змін: сухість, дискомфорт під час статевого акту, зниження чутливості. Процедура також ефективна для CO₂-звуження вагінальних м'язів після пологів та при функціональному недотриманні м'язового тонусу.\n\nЛазерне омолодження CO₂ виконується спеціальним вагінальним насадком, який рівномірно обробляє слизову оболонку. Процедура займає 15-20 хвилин, проводиться в амбулаторних умовах без госпіталізації. Реабілітаційний період - 3-5 днів статевого спокою.\n\nКурс лазерного вагінального омолодження складається з 3 сеансів з інтервалом 4-6 тижнів. Ефект зберігається 12-18 місяців, після чого рекомендована підтримуюча процедура 1 раз на рік. У GENEVITY процедуру виконують лікарі-гінекологи та лікарі-косметологи зі спеціалізацією в інтимній естетиці.",
+        "ru": "Лазерное омоложение влагалища AcuPulse CO₂ - медицинская процедура восстановления слизистой оболочки влагалища и прилегающих тканей с помощью фракционного CO₂ лазера (10 600 нм). Технология доставляет контролируемую тепловую энергию в ткани, стимулируя выработку нового коллагена и восстановление увлажнённости, эластичности и тонуса вагинальных стенок.\n\nCO₂-омоложение показано прежде всего женщинам, испытывающим последствия возрастных гормональных изменений: сухость, дискомфорт во время полового акта, снижение чувствительности. Процедура также эффективна для CO₂-сужения вагинальных мышц после родов и при функциональном снижении мышечного тонуса.\n\nЛазерное омоложение CO₂ выполняется специальной вагинальной насадкой, которая равномерно обрабатывает слизистую оболочку. Процедура занимает 15-20 минут, проводится амбулаторно без госпитализации. Реабилитационный период - 3-5 дней полового покоя.\n\nКурс лазерного вагинального омоложения состоит из 3 сеансов с интервалом 4-6 недель. Эффект сохраняется 12-18 месяцев, после чего рекомендована поддерживающая процедура 1 раз в год. В GENEVITY процедуру выполняют врачи-гинекологи и врачи-косметологи со специализацией в интимной эстетике.",
+        "en": "AcuPulse CO₂ vaginal rejuvenation is a medical procedure for restoring the vaginal mucosa and surrounding tissues using a fractional CO₂ laser (10,600 nm). The technology delivers controlled thermal energy to the tissue, stimulating new collagen production and restoring moisture, elasticity and tone of the vaginal walls.\n\nCO₂ rejuvenation is primarily indicated for women experiencing the effects of age-related hormonal changes: dryness, discomfort during intercourse, and reduced sensitivity. The procedure is also effective for CO₂ vaginal muscle tightening after childbirth and when functional muscle tone is reduced.\n\nCO₂ laser rejuvenation is performed with a specialised vaginal attachment that evenly treats the mucous membrane. The procedure takes 15-20 minutes and is performed on an outpatient basis without hospitalisation. Recovery period: 3-5 days of sexual rest.\n\nA vaginal laser rejuvenation course consists of 3 sessions, 4-6 weeks apart. Results last 12-18 months, after which a maintenance session once a year is recommended. At GENEVITY the procedure is performed by gynaecologists and cosmetic doctors specialising in intimate aesthetics."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "1a5e4372-3660-4b14-ac97-8b104f642b43",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Чоловіча лазерна епіляція в GENEVITY - зони, ціна, результат",
+        "ru": "Мужская лазерная эпиляция в GENEVITY - зоны, цена, результат",
+        "en": "Men's Laser Hair Removal at GENEVITY - Zones, Price, Results"
+      },
+      "body": {
+        "uk": "Лазерна епіляція для чоловіків у GENEVITY виконується на апараті Splendor X (Lumenis) з технологією BLEND X®. Чоловіча лазерна епіляція відрізняється від жіночої більшою щільністю та товщиною волосяних стержнів, а також більшою площею зон обробки - особливо для спини, грудей та плечей.\n\nЧоловіча лазерна епіляція лазерна епіляція для чоловіків затребувана насамперед для зон: спина та плечі (найпопулярніша зона), груди та живіт, борода та шия (корекція лінії росту), пахви, руки, ноги. Середня тривалість сеансу для великих зон - 30-60 хвилин.\n\nКурс лазерної епіляції для чоловіків складається з 6-8 сеансів для тіла та 8-12 для обличчя (борода, шия). Щільне чоловіче волосся вимагає більшої кількості сеансів, ніж жіноче, однак і результат після повного курсу - більш виражений: 80-95% постійного видалення.\n\nВажлива перевага для чоловіків - відсутність вростаючого волосся після гоління у зоні бороди та шиї. Лазерна епіляція вирішує цю проблему кардинально: через 6-8 сеансів волосся в зоні гоління або зникає повністю (якщо пацієнт обирає видалення), або значно рідшає та стає м'якшим (якщо мета - корекція лінії).\n\nВ GENEVITY чоловіча лазерна епіляція виконується в комфортних умовах сертифікованими лікарями. Конфіденційність гарантована.",
+        "ru": "Лазерная эпиляция для мужчин в GENEVITY выполняется на аппарате Splendor X (Lumenis) с технологией BLEND X®. Мужская лазерная эпиляция отличается от женской большей плотностью и толщиной волосяных стержней, а также большей площадью зон обработки - особенно для спины, груди и плеч.\n\nЧоловіча лазерна лазерная эпиляция для мужчин востребована прежде всего для зон: спина и плечи (самая популярная зона), грудь и живот, борода и шея (коррекция линии роста), подмышки, руки, ноги. Средняя продолжительность сеанса для крупных зон - 30-60 минут.\n\nКурс лазерной эпиляции для мужчин состоит из 6-8 сеансов для тела и 8-12 для лица (борода, шея). Густые мужские волосы требуют большего количества сеансов, чем женские, однако и результат после полного курса более выражен: 80-95% постоянного удаления.\n\nВажное преимущество для мужчин - отсутствие вросших волос после бритья в зоне бороды и шеи. Лазерная эпиляция решает эту проблему кардинально: после 6-8 сеансов волосы в зоне бритья либо исчезают полностью (если пациент выбирает удаление), либо значительно редеют и становятся мягче (если цель - коррекция линии).\n\nВ GENEVITY мужская лазерная эпиляция выполняется в комфортных условиях сертифицированными врачами. Конфиденциальность гарантирована.",
+        "en": "Men's laser hair removal at GENEVITY is performed using the Splendor X (Lumenis) device with BLEND X® technology. Men's laser hair removal differs from women's due to higher hair density and thickness, as well as larger treatment areas - especially back, chest and shoulders.\n\nMen's laser hair removal is most in demand for: back and shoulders (the most popular zone), chest and abdomen, beard and neck (hairline correction), underarms, arms, legs. Average session duration for large zones: 30-60 minutes.\n\nA men's laser hair removal course consists of 6-8 sessions for body zones and 8-12 for facial zones (beard, neck). Dense male hair requires more sessions than female hair, but the result after a full course is more pronounced: 80-95% permanent removal.\n\nKey benefit for men - no ingrown hairs after shaving in the beard and neck zone. Laser hair removal solves this radically: after 6-8 sessions, hair in the shaving zone either disappears completely (if the patient chooses full removal) or thins significantly and softens (if the goal is hairline correction).\n\nAt GENEVITY men's laser hair removal is performed in a comfortable environment by certified doctors. Confidentiality is guaranteed."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "6b7c09c2-aac8-48d4-8b37-5dd19bd9a012",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Лазерна епіляція для жінок у GENEVITY - ціна, зони, результат",
+        "ru": "Лазерная эпиляция для женщин в GENEVITY - цена, зоны, результат",
+        "en": "Laser Hair Removal for Women at GENEVITY - Pricing, Zones, Results"
+      },
+      "body": {
+        "uk": "Жіноча лазерна епіляція в GENEVITY виконується на апараті Splendor X (Lumenis) - єдиному лазері з технологією BLEND X®, яка поєднує Alexandrite 755 нм та Nd:YAG 1064 нм. Це дозволяє ефективно видаляти волосся на будь-якому типі шкіри, включаючи засмаглу (типи IV-VI за Фіцпатріком), що є критично важливим для жінок активного способу життя.\n\nЛазерна епіляція для жінок ціна залежить від обраної зони. У GENEVITY доступні всі зони жіночої лазерної епіляції: верхня губа, підборіддя, щоки, пахви, класичне та глибоке бікіні, гомілки, коліна, стегна, руки (передпліччя та повні руки), спина та живіт. Ціни на лазерну епіляцію для жінок уточнюються на консультації.\n\nРезультат після повного курсу - 80-95% постійного видалення волосся. Курс складається з 6-10 сеансів (кількість залежить від зони та типу волосся) з інтервалом 4-8 тижнів. Інтервали пов'язані з фазами росту волосся: лазер ефективний лише в анагенній (активній) фазі, тому процедури проводяться суворо за розкладом.\n\nВ GENEVITY лазерну епіляцію для жінок виконують сертифіковані лікарі, що гарантує безпеку та ефективність навіть для найчутливіших зон.",
+        "ru": "Женская лазерная эпиляция в GENEVITY выполняется на аппарате Splendor X (Lumenis) - единственном лазере с технологией BLEND X®, сочетающей Alexandrite 755 нм и Nd:YAG 1064 нм. Это позволяет эффективно удалять волосы на любом типе кожи, включая загорелую (типы IV-VI по Фицпатрику), что критически важно для женщин активного образа жизни.\n\nЛазерная эпиляция для женщин цена зависит от выбранной зоны. В GENEVITY доступны все зоны женской лазерной эпиляции: верхняя губа, подбородок, щёки, подмышки, классическое и глубокое бикини, голени, колени, бёдра, руки (предплечья и полные руки), спина и живот. Цены на лазерную эпиляцию для женщин уточняются на консультации.\n\nРезультат после полного курса - 80-95% постоянного удаления волос. Курс состоит из 6-10 сеансов (количество зависит от зоны и типа волос) с интервалом 4-8 недель. Интервалы связаны с фазами роста волос: лазер эффективен только в анагенной (активной) фазе, поэтому процедуры проводятся строго по расписанию.\n\nВ GENEVITY лазерную эпиляцию для женщин выполняют сертифицированные врачи, что гарантирует безопасность и эффективность даже для самых чувствительных зон.",
+        "en": "Women's laser hair removal at GENEVITY is performed using the Splendor X (Lumenis) device - the only laser with BLEND X® technology combining Alexandrite 755 nm and Nd:YAG 1064 nm. This enables effective hair removal on all skin types, including tanned skin (Fitzpatrick types IV-VI), which is essential for active women.\n\nLaser hair removal for women pricing depends on the selected zone. GENEVITY offers all women's laser hair removal zones: upper lip, chin, cheeks, underarms, standard and deep bikini, calves, knees, thighs, arms (forearms and full arms), back and abdomen. Pricing is confirmed at consultation.\n\nAfter a full course: 80-95% permanent hair removal. A course consists of 6-10 sessions (depending on zone and hair type), 4-8 weeks apart. Intervals align with hair growth phases: the laser is effective only during the anagen (active) phase, so sessions must follow a strict schedule.\n\nAt GENEVITY women's laser hair removal is performed by certified doctors, ensuring safety and efficacy even for the most sensitive zones."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "a0b0e295-a597-4d08-becf-635ad42b916a",
+    "column": "data",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "3ab24ba4-e0a4-497a-905a-a64dfd8ac862",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Лазерна епіляція бікіні - комфортне видалення волосся надовго",
+        "ru": "Лазерная эпиляция бикини - комфортное удаление волос надолго",
+        "en": "Bikini Laser Hair Removal - Comfortable, Long-Lasting Results"
+      },
+      "body": {
+        "uk": "Лазерна епіляція зони бікіні - це довготривале видалення небажаного волосся за допомогою лазера. У GENEVITY процедуру виконують на апараті Splendor X від Lumenis - це сучасне рішення з технологією подвійної довжини хвилі (александрит + Nd:YAG).\n\nПринцип дії - селективний фототермоліз: лазерний промінь поглинається меланіном у волосині, нагріває фолікул і виводить його з фази росту. Завдяки двом довжинам хвилі апарат ефективно працює з різними типами шкіри й кольором волосся, а вбудована система охолодження робить процедуру комфортною навіть у чутливій зоні бікіні.\n\nЗона бікіні делікатна, тому особливо важливі правильні налаштування та досвід спеціаліста. У GENEVITY процедуру проводять у комфортних умовах із дотриманням конфіденційності. Доступні різні формати - від класичного бікіні до глибокого, які підбирають за побажаннями.\n\nЛазерна епіляція працює лише на волоссі у фазі росту, тому потрібен курс процедур. Зазвичай це 6-8 сеансів з інтервалом 4-6 тижнів, після чого ріст волосся зменшується до 90%, а волосся, що залишається, стає тоншим і світлішим.",
+        "ru": "Лазерная эпиляция зоны бикини - это долгосрочное удаление нежелательных волос с помощью лазера. В GENEVITY процедуру выполняют на аппарате Splendor X от Lumenis - это современное решение с технологией двойной длины волны (александрит + Nd:YAG).\n\nПринцип действия - селективный фототермолиз: лазерный луч поглощается меланином в волоске, нагревает фолликул и выводит его из фазы роста. Благодаря двум длинам волны аппарат эффективно работает с разными типами кожи и цветом волос, а встроенная система охлаждения делает процедуру комфортной даже в чувствительной зоне бикини.\n\nЗона бикини деликатная, поэтому особенно важны правильные настройки и опыт специалиста. В GENEVITY процедуру проводят в комфортных условиях с соблюдением конфиденциальности. Доступны разные форматы - от классического бикини до глубокого, которые подбирают по пожеланиям.\n\nЛазерная эпиляция работает только на волосах в фазе роста, поэтому нужен курс процедур. Обычно это 6-8 сеансов с интервалом 4-6 недель, после чего рост волос сокращается до 90%, а остающиеся волосы становятся тоньше и светлее.",
+        "en": "Bikini laser hair removal provides long-term removal of unwanted hair with a laser. At GENEVITY the procedure is performed on the Splendor X device by Lumenis - a modern solution with dual-wavelength technology (alexandrite + Nd:YAG).\n\nIt works by selective photothermolysis: the laser beam is absorbed by melanin in the hair, heats the follicle, and takes it out of the growth phase. Thanks to the two wavelengths, the device works effectively with different skin types and hair colours, while the built-in cooling makes the procedure comfortable even in the sensitive bikini area.\n\nThe bikini area is delicate, so correct settings and the specialist's experience are especially important. At GENEVITY the procedure is carried out in comfortable conditions with full confidentiality. Different formats are available - from classic to deep bikini - selected to your preference.\n\nLaser hair removal only works on hair in the growth phase, so a course is needed. This is usually 6-8 sessions at 4-6 week intervals, after which hair growth is reduced by up to 90%, and any remaining hair becomes thinner and lighter."
+      },
+      "calloutBody": {
+        "uk": "Для стійкого результату потрібен курс 6-8 процедур з інтервалом 4-6 тижнів. Ріст волосся зменшується до 90%.",
+        "ru": "Для стойкого результата нужен курс 6-8 процедур с интервалом 4-6 недель. Рост волос сокращается до 90%.",
+        "en": "A lasting result needs a course of 6-8 procedures at 4-6 week intervals. Hair growth is reduced by up to 90%."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "91de4d9b-9d57-4a11-abd1-b3b330cbe058",
+    "action": "delete"
+  },
+  {
+    "table": "services",
+    "id": "36d25a88-b01a-49a3-b9ef-f31189943c94",
+    "column": "block_order",
+    "before": [
+      "section:3ab24ba4-e0a4-497a-905a-a64dfd8ac862",
+      "section:ac70bcae-ab86-412b-a5be-c58b4546f3b9",
+      "section:3f26231c-e33d-416d-b98a-19edbcfd2c4b",
+      "section:1d65a5d5-e8fe-4329-88f1-8c8526c52267",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "content_sections",
+    "id": "3aa79e98-d207-4cf5-bf86-2aa87be033cc",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Лазерна епіляція ніг - гладка шкіра великих зон надовго",
+        "ru": "Лазерная эпиляция ног - гладкая кожа больших зон надолго",
+        "en": "Legs Laser Hair Removal - Smooth Skin on Large Areas, Long-Term"
+      },
+      "body": {
+        "uk": "Лазерна епіляція ніг - це довготривале видалення волосся на гомілках, стегнах або повністю на ногах за допомогою лазера. У GENEVITY процедуру виконують на апараті Splendor X від Lumenis із технологією подвійної довжини хвилі (александрит + Nd:YAG).\n\nЛазерний промінь поглинається меланіном у волосині й нагріває фолікул, виводячи його з фази росту. Ноги - велика за площею зона, тому тут особливо важливі великий розмір плями та швидкість апарата: обробка проходить швидше й рівномірніше, ніж на старіших системах.\n\nЛазерна епіляція позбавляє від щоденного гоління, вростання волосся та подразнення, які часто з'являються на ногах після бритви чи воску. Завдяки двом довжинам хвилі апарат коректно працює з різними типами шкіри й кольором волосся, а охолодження робить процедуру комфортною.\n\nОскільки лазер діє лише на волосся у фазі росту, потрібен курс - зазвичай 6-8 процедур з інтервалом 4-6 тижнів. Після курсу ріст волосся зменшується до 90%, шкіра ніг залишається гладкою тривалий час, а підтримувальні сеанси проводять за потреби.",
+        "ru": "Лазерная эпиляция ног - это долгосрочное удаление волос на голенях, бёдрах или полностью на ногах с помощью лазера. В GENEVITY процедуру выполняют на аппарате Splendor X от Lumenis с технологией двойной длины волны (александрит + Nd:YAG).\n\nЛазерный луч поглощается меланином в волоске и нагревает фолликул, выводя его из фазы роста. Ноги - большая по площади зона, поэтому здесь особенно важны большой размер пятна и скорость аппарата: обработка проходит быстрее и равномернее, чем на более старых системах.\n\nЛазерная эпиляция избавляет от ежедневного бритья, врастания волос и раздражения, которые часто появляются на ногах после бритвы или воска. Благодаря двум длинам волны аппарат корректно работает с разными типами кожи и цветом волос, а охлаждение делает процедуру комфортной.\n\nПоскольку лазер действует только на волосы в фазе роста, нужен курс - обычно 6-8 процедур с интервалом 4-6 недель. После курса рост волос сокращается до 90%, кожа ног остаётся гладкой длительное время, а поддерживающие сеансы проводят при необходимости.",
+        "en": "Legs laser hair removal provides long-term hair removal on the lower legs, thighs, or the whole legs using a laser. At GENEVITY the procedure is performed on the Splendor X device by Lumenis with dual-wavelength technology (alexandrite + Nd:YAG).\n\nThe laser beam is absorbed by melanin in the hair and heats the follicle, taking it out of the growth phase. The legs are a large area, so a large spot size and the device's speed matter especially here: treatment is faster and more even than on older systems.\n\nLaser hair removal frees you from daily shaving, ingrown hairs, and the irritation that often appears on the legs after a razor or wax. Thanks to the two wavelengths, the device works correctly with different skin types and hair colours, and the cooling makes the procedure comfortable.\n\nSince the laser acts only on hair in the growth phase, a course is needed - usually 6-8 procedures at 4-6 week intervals. After the course hair growth is reduced by up to 90%, the leg skin stays smooth for a long time, and maintenance sessions are performed as needed."
+      },
+      "calloutBody": {
+        "uk": "Великий розмір плями Splendor X прискорює обробку ніг. Для стійкого результату - курс 6-8 процедур, ріст волосся зменшується до 90%.",
+        "ru": "Большой размер пятна Splendor X ускоряет обработку ног. Для стойкого результата - курс 6-8 процедур, рост волос сокращается до 90%.",
+        "en": "The large Splendor X spot size speeds up treating the legs. A lasting result needs a course of 6-8 procedures; hair growth is reduced by up to 90%."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "6d0e4552-149b-4e9b-aa2d-839c68960131",
+    "action": "delete"
+  },
+  {
+    "table": "services",
+    "id": "3f8f98ba-0e89-45d5-b3c7-13e095b64eac",
+    "column": "block_order",
+    "before": [
+      "section:3aa79e98-d207-4cf5-bf86-2aa87be033cc",
+      "section:76d712ff-2493-45b9-8503-166db9e3b962",
+      "section:5725e029-4d16-4950-b9d5-3894aa70b60f",
+      "section:395eb288-dc34-4f06-859a-a220ad1d4056",
+      "faq",
+      "doctors",
+      "equipment",
+      "relatedServices",
+      "finalCTA"
+    ]
+  },
+  {
+    "table": "content_sections",
+    "id": "f875f44f-a0cd-4101-81ca-6f5a38352727",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Check-up 40 - комплексне обстеження організму в GENEVITY",
+        "ru": "Check-up 40 - комплексное обследование организма в GENEVITY",
+        "en": "Check-up 40 - Comprehensive Body Screening at GENEVITY"
+      },
+      "body": {
+        "uk": "Програма «Check-up 40» - це систематизований медичний скринінг для чоловіків та жінок після 40 років, спрямований на раннє виявлення захворювань до появи симптомів. Чек ап після 40 дозволяє отримати повну картину стану здоров'я організму та визначити ризики розвитку серцево-судинних, ендокринних, онкологічних та інших захворювань, характерних для вікової групи 40+.\n\nПрограма check up 40 років у GENEVITY охоплює: загальноклінічні аналізи крові та сечі, розгорнуту біохімію (глюкоза, холестерин, тригліцериди, АЛТ, АСТ, креатинін та ін.), гормональний профіль (ТТГ, гормони щитоподібної залози, статеві гормони), онкомаркери (залежно від статі), ЕКГ, УЗД органів черевної порожнини, консультацію терапевта за результатами.\n\nЧек ап 40 років - не разова подія, а рекомендована щорічна практика. Дослідження показують: регулярний скринінг після 40 знижує ризик смерті від онкологічних захворювань на 25-35%, оскільки дозволяє виявити пухлини на стадії, коли лікування найбільш ефективне.\n\nВ GENEVITY програма «Check-up 40» реалізується у форматі «один день - повне обстеження»: пацієнт проходить усі обстеження за один візит, а результати видаються в організованому вигляді з коментарями лікаря. Чек ап організму в 40 років - це інвестиція в здоров'я, яка може врятувати роки та якість життя.",
+        "ru": "Программа «Check-up 40» - это систематизированный медицинский скрининг для мужчин и женщин после 40 лет, направленный на раннее выявление заболеваний до появления симптомов. Чек ап после 40 позволяет получить полную картину состояния здоровья организма и определить риски развития сердечно-сосудистых, эндокринных, онкологических и других заболеваний, характерных для возрастной группы 40+.\n\nПрограмма check up 40 лет в GENEVITY охватывает: общеклинические анализы крови и мочи, развёрнутую биохимию (глюкоза, холестерин, триглицериды, АЛТ, АСТ, креатинин и др.), гормональный профиль (ТТГ, гормоны щитовидной железы, половые гормоны), онкомаркеры (в зависимости от пола), ЭКГ, УЗИ органов брюшной полости, консультацию терапевта по результатам.\n\nЧек ап 40 лет - не разовое событие, а рекомендованная ежегодная практика. Исследования показывают: регулярный скрининг после 40 снижает риск смерти от онкологических заболеваний на 25-35%, так как позволяет выявить опухоли на стадии, когда лечение наиболее эффективно.\n\nВ GENEVITY программа «Check-up 40» реализуется в формате «один день - полное обследование»: пациент проходит все исследования за один визит, а результаты выдаются в организованном виде с комментариями врача. Чек ап организма в 40 лет - это инвестиция в здоровье, которая может сохранить годы и качество жизни.",
+        "en": "The 'Check-up 40' programme is a systematic medical screening for men and women over 40, aimed at early detection of diseases before symptoms appear. Check-up at 40 provides a complete picture of your body's health status and identifies the risk of cardiovascular, endocrine, oncological and other conditions common in the 40+ age group.\n\nThe check-up 40 programme at GENEVITY includes: general blood and urine tests, comprehensive biochemistry (glucose, cholesterol, triglycerides, ALT, AST, creatinine, etc.), hormonal profile (TSH, thyroid hormones, sex hormones), tumour markers (gender-specific), ECG, abdominal ultrasound, and a doctor's consultation with results review.\n\nCheck-up at 40 is not a one-time event - it is a recommended annual practice. Research shows that regular screening after 40 reduces cancer mortality risk by 25-35%, as it enables detection of tumours at the stage when treatment is most effective.\n\nAt GENEVITY the 'Check-up 40' programme is delivered in a 'one day - full assessment' format: the patient completes all examinations in a single visit, with results presented in organised form with the doctor's commentary. Body check-up at 40 is an investment in health that can preserve years and quality of life."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "63097460-d86a-40af-9421-b62004733863",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Програма Longevity - персоналізоване довголіття в GENEVITY",
+        "ru": "Программа Longevity - персонализированное долголетие в GENEVITY",
+        "en": "Longevity Programme - Personalised Longevity at GENEVITY"
+      },
+      "body": {
+        "uk": "Програма довголіття GENEVITY Longevity - це науково обґрунтований підхід до уповільнення біологічного старіння та підвищення якості та тривалості активного довголіття. На відміну від стандартної медицини, яка лікує вже наявні хвороби, програма здорового довголіття спрямована на превентивне збереження функцій організму: серцево-судинної, нейрокогнітивної, ендокринної та опорно-рухової систем.\n\nПрограма довголіття в GENEVITY будується на чотирьох ключових компонентах:\n\n1. Діагностика біологічного віку - комплексний аналіз маркерів старіння: теломерна довжина, рівень запалення (hs-CRP, IL-6), метаболічний профіль, гормональний статус\n2. Персоналізоване харчування - складання раціону на основі генетичних тестів та метаболоміки; виключення проінфламаторних факторів\n3. Фізична активність та відновлення - індивідуальна програма тренувань на основі VO₂max, м'язової маси та складу тіла (аналіз InBody)\n4. Ментальне здоров'я та нейропротекція - робота зі стресом, сном, когнітивним резервом\n\nProgramme довголіття - це не дієта та не курс добавок. Це системна зміна способу життя під медичним супроводом лікарів GENEVITY, з регулярним контролем біомаркерів та коригуванням плану.",
+        "ru": "Программа долголетия GENEVITY Longevity - это научно обоснованный подход к замедлению биологического старения и повышению качества и продолжительности активного долголетия. В отличие от стандартной медицины, которая лечит уже имеющиеся болезни, программа здорового долголетия направлена на превентивное сохранение функций организма: сердечно-сосудистой, нейрокогнитивной, эндокринной и опорно-двигательной систем.\n\nПрограмма долголетия в GENEVITY строится на четырёх ключевых компонентах:\n\n1. Диагностика биологического возраста - комплексный анализ маркеров старения: теломерная длина, уровень воспаления (hs-CRP, IL-6), метаболический профиль, гормональный статус\n2. Персонализированное питание - составление рациона на основе генетических тестов и метаболомики; исключение провоспалительных факторов\n3. Физическая активность и восстановление - индивидуальная программа тренировок на основе VO₂max, мышечной массы и состава тела (анализ InBody)\n4. Ментальное здоровье и нейропротекция - работа со стрессом, сном, когнитивным резервом\n\nПрограмма долголетия - это не диета и не курс добавок. Это системное изменение образа жизни под медицинским сопровождением врачей GENEVITY с регулярным контролем биомаркеров и корректировкой плана.",
+        "en": "The GENEVITY Longevity Programme is a science-based approach to slowing biological ageing and improving the quality and duration of active longevity. Unlike standard medicine, which treats existing conditions, the healthy longevity programme focuses on preventive preservation of bodily functions: cardiovascular, neurocognitive, endocrine and musculoskeletal systems.\n\nThe GENEVITY longevity programme is built on four key components:\n\n1. Biological age diagnostics - comprehensive analysis of ageing biomarkers: telomere length, inflammation markers (hs-CRP, IL-6), metabolic profile, hormonal status\n2. Personalised nutrition - diet based on genetic tests and metabolomics; elimination of pro-inflammatory factors\n3. Physical activity and recovery - individual training programme based on VO₂max, muscle mass and body composition (InBody analysis)\n4. Mental health and neuroprotection - stress management, sleep optimisation, cognitive reserve building\n\nThe longevity programme is not a diet or supplement course. It is a systematic lifestyle change under the medical supervision of GENEVITY doctors, with regular biomarker monitoring and plan adjustment."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "8e5e919a-2635-43df-97b1-00a4ccd82166",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Програма гормональний баланс - відновлення та корекція в GENEVITY",
+        "ru": "Программа гормональный баланс - восстановление и коррекция в GENEVITY",
+        "en": "Hormonal Balance Programme - Restoration and Correction at GENEVITY"
+      },
+      "body": {
+        "uk": "Гормональний баланс - це стан, при якому всі ендокринні залози виробляють гормони у кількості, необхідній для оптимального функціонування організму. Коли цей баланс порушується - виникають симптоми, які часто помилково приписують стресу або втомі: хронічна безсоння, різкі перепади настрою, набір ваги без зміни харчування, зниження лібідо, випадіння волосся, тривожність.\n\nПрограма відновлення гормонального балансу у GENEVITY - це медично супроводжений процес діагностики та корекції гормональних порушень. Програма гормональний баланс охоплює:\n\n- Комплексну гормональну діагностику: ТТГ, Т3, Т4 вільний, кортизол, ДГЕА, тестостерон, естрадіол, прогестерон, ЛГ, ФСГ, пролактин, інсулін, IGF-1\n- Виявлення симптомів гормонального дисбалансу та їх взаємозв'язку з результатами аналізів\n- Індивідуальний план корекції: харчування, нутрицевтики, фізична активність, за показаннями - гормональна терапія\n- Регулярний моніторинг та коригування плану\n\nПереваги програми гормонального балансу в GENEVITY: мультидисциплінарний підхід (ендокринолог + косметолог + нутриціолог), диференціювання між гормональними проблемами та дефіцитом мікронутрієнтів, корекція без призначення гормонів там, де це можливо.",
+        "ru": "Гормональный баланс - это состояние, при котором все эндокринные железы вырабатывают гормоны в количестве, необходимом для оптимального функционирования организма. Когда этот баланс нарушается - возникают симптомы, которые часто ошибочно приписывают стрессу или усталости: хроническая бессонница, резкие перепады настроения, набор веса без изменения питания, снижение либидо, выпадение волос, тревожность.\n\nПрограмма восстановления гормонального баланса в GENEVITY - это медицински сопровождаемый процесс диагностики и коррекции гормональных нарушений. Программа гормональный баланс охватывает:\n\n- Комплексную гормональную диагностику: ТТГ, Т3, Т4 свободный, кортизол, ДГЭА, тестостерон, эстрадиол, прогестерон, ЛГ, ФСГ, пролактин, инсулин, IGF-1\n- Выявление симптомов гормонального дисбаланса и их взаимосвязи с результатами анализов\n- Индивидуальный план коррекции: питание, нутрицевтики, физическая активность, по показаниям - гормональная терапия\n- Регулярный мониторинг и корректировка плана\n\nПреимущества программы гормонального баланса в GENEVITY: мультидисциплинарный подход (эндокринолог + косметолог + нутрициолог), дифференцирование между гормональными проблемами и дефицитом микронутриентов, коррекция без назначения гормонов там, где это возможно.",
+        "en": "Hormonal balance is the state in which all endocrine glands produce hormones in the quantity needed for optimal body function. When this balance is disrupted, symptoms arise that are often mistakenly attributed to stress or fatigue: chronic insomnia, sharp mood swings, weight gain without dietary changes, reduced libido, hair loss, anxiety.\n\nThe GENEVITY hormonal balance restoration programme is a medically supervised process of diagnosing and correcting hormonal disorders. The hormonal balance programme includes:\n\n- Comprehensive hormonal diagnostics: TSH, T3, free T4, cortisol, DHEA, testosterone, oestradiol, progesterone, LH, FSH, prolactin, insulin, IGF-1\n- Identification of hormonal imbalance symptoms and their relationship to test results\n- Individual correction plan: nutrition, nutraceuticals, physical activity, hormone therapy if indicated\n- Regular monitoring and plan adjustment\n\nAdvantages of GENEVITY's hormonal balance programme: multidisciplinary approach (endocrinologist + aesthetics doctor + nutritionist), differentiation between hormonal issues and micronutrient deficiency, correction without hormones where possible."
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "ec6c8803-79ae-4bc4-946d-e4c23bf15c07",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Intravenous therapy (IV therapy) is the delivery of vitamins, minerals, amino acids and other beneficial compounds directly into the bloodstream via an IV drip. Unlike oral supplements where absorption depends on gut condition and does not exceed 30-50%, intravenous vitamin therapy provides 100% bioavailability.\n\nIntravenous drip is suitable for various goals:\n- Recovery after illness, surgery or physical exhaustion\n- Antioxidant protection and slowing of ageing processes\n- Immune support during respiratory illness season\n- Detoxification under chronic load\n- Productivity and cognitive function enhancement\n- Cosmetic skin brightening (glutathione)\n\nIV therapy pricing depends on the cocktail composition. GENEVITY offers: Myers Cocktail (magnesium, calcium, vitamins B1-B12, C), Glutathione (antioxidant and brightening), Anti-age (NAD+, Coenzyme Q10), Immune (zinc, selenium, high-dose vitamin C), Energy (amino acids, B-complex), detoxification drips.\n\nIntravenous vitamin therapy and detox drips are performed exclusively by doctors in a medical centre setting with patient monitoring throughout the procedure.",
+        "ru": "Внутривенная терапия (IV-терапия) - это введение витаминов, минералов, аминокислот и других полезных веществ непосредственно в кровь через внутривенную капельницу. В отличие от пероральных добавок, где усвояемость активных веществ зависит от состояния кишечника и не превышает 30-50%, внутривенная витаминная терапия обеспечивает 100% биодоступность.\n\nВнутривенная капельница подходит для решения различных задач:\n- Восстановление после болезни, операции или физического истощения\n- Антиоксидантная защита и замедление процессов старения\n- Иммунная поддержка в сезон респираторных заболеваний\n- Детоксикация при хронической нагрузке\n- Повышение продуктивности и когнитивных функций\n- Косметическое осветление кожи (глутатион)\n\nСтоимость внутривенной терапии зависит от состава коктейля. В GENEVITY доступны протоколы: Myers Cocktail (магний, кальций, витамины В1-В12, С), Glutathione (антиоксидант и осветление), Anti-age (NAD+, коэнзим Q10), Immune (цинк, селен, витамин С в высоких дозах), Energy (аминокислоты, В-комплекс), детоксикационные капельницы.\n\nВнутривенная витаминная терапия капельница для выведения токсинов и восстановления выполняется исключительно врачами в условиях медицинского центра с контролем состояния пациента в течение всей процедуры.",
+        "uk": "Внутрішньовенна терапія (IV-терапія) - це введення вітамінів, мінералів, амінокислот та інших корисних речовин безпосередньо в кров через внутрішньовенну крапельницю. На відміну від пероральних добавок, де засвоюваність активних речовин залежить від стану кишківника і не перевищує 30-50%, внутрішньовенна вітамінна терапія забезпечує 100% біодоступність.\n\nВнутрішньовенна крапельниця підходить для вирішення різних завдань:\n- Відновлення після хвороби, операції або фізичного виснаження\n- Антиоксидантний захист та уповільнення процесів старіння\n- Імунна підтримка в сезон респіраторних захворювань\n- Детоксикація при хронічному навантаженні\n- Підвищення продуктивності та когнітивних функцій\n- Косметичне освітлення шкіри (глутатіон)\n\nВартість внутрішньовенної терапії залежить від складу коктейлю. У GENEVITY доступні протоколи: Myers Cocktail (магній, кальцій, вітаміни В1-В12, С), Glutathione (антиоксидант та освітлення), Anti-age (NAD+, коензим Q10), Immune (цинк, селен, вітамін С у високих дозах), Energy (амінокислоти, В-комплекс), детоксикаційні крапельниці.\n\nВнутрішньовенна вітамінна терапія крапельниця для виведення токсинів та відновлення виконується виключно лікарями в умовах медичного центру з контролем стану пацієнта протягом усієї процедури."
+      },
+      "heading": {
+        "en": "IV Therapy - Intravenous Vitamin Drips at GENEVITY",
+        "ru": "IV-терапия - внутривенные витаминные капельницы в GENEVITY",
+        "uk": "IV-терапія - внутрішньовенні вітамінні крапельниці в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "7e88f564-08f6-4780-94e6-3b7711646125",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Nutraceuticals is the science of using biologically active food substances and dietary supplements with proven health effects. Unlike pharmaceutical drugs, nutraceuticals work gently and systemically.\n\nNutraceutical selection at GENEVITY is based on lab diagnostics: the physician analyses vitamin, mineral, inflammation marker and metabolic indicator levels before making any recommendation. This approach eliminates guesswork.",
+        "ru": "Нутрицевтика - наука об использовании биологически активных веществ пищи и пищевых добавок с доказанным влиянием на здоровье. В отличие от фармакологических препаратов, нутрицевтики действуют мягко и системно.\n\nПодбор нутрицевтиков в GENEVITY основан на лабораторной диагностике: врач анализирует уровень витаминов, минералов, маркеров воспаления. Такой подход исключает назначения «вслепую».",
+        "uk": "Нутрицевтика - це наука про використання біологічно активних речовин їжі та харчових добавок з доведеним впливом на здоров'я. На відміну від фармакологічних препаратів, нутрицевтики діють м'яко та системно: вони компенсують дефіцити, підтримують фізіологічні процеси та знижують ризики хронічних захворювань.\n\nПідбір нутрицевтиків у GENEVITY ґрунтується на лабораторній діагностиці: перш ніж рекомендувати будь-яку добавку, лікар аналізує рівень вітамінів, мінералів, маркерів запалення та метаболічних показників. Такий підхід виключає «лікування навмання» та дозволяє призначати саме те, чого бракує організму конкретної людини."
+      },
+      "heading": {
+        "en": "What Are Nutraceuticals?",
+        "ru": "Что такое нутрицевтика?",
+        "uk": "Що таке нутрицевтика?"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "2d58f0c8-6c82-42de-8752-87c9e056406c",
+    "column": "data",
+    "before": {
+      "heading": {
+        "uk": "Крапельниця з екзосомами - регенеративна терапія для всього організму",
+        "ru": "Капельница с экзосомами - регенеративная терапия для всего организма",
+        "en": "Exosome IV Drip - Regenerative Therapy for the Whole Body"
+      },
+      "body": {
+        "uk": "Омолоджувальна крапельниця з екзосомами - це внутрішньовенна регенеративна процедура в межах longevity-напрямку GENEVITY. Екзосоми - це нанорозмірні везикули, які клітини використовують для обміну сигналами: вони переносять білки, ліпіди та молекули, що регулюють відновлення тканин.\n\nНа відміну від локальних ін'єкцій у шкіру, внутрішньовенне введення працює системно. Завдання процедури - підтримати загальну регенерацію, покращити самопочуття та енергію, опосередковано вплинути на якість шкіри й тонус. Це частина комплексного підходу до здоров'я та активного довголіття, а не разова естетична маніпуляція.\n\nПроцедуру проводять у денному стаціонарі GENEVITY - у комфортних окремих палатах під наглядом лікаря. Перед призначенням обов'язкові консультація та оцінка стану здоров'я; за потреби лікар спирається на дані лабораторної діагностики, щоб протокол був доказовим і безпечним.\n\nЕкзосомна терапія - сучасний і відносно новий напрямок, тому особливо важливі якість і сертифікація препарату та медичний контроль. У GENEVITY застосовують перевірені препарати, а схему й кратність визначає лікар індивідуально.",
+        "ru": "Омолаживающая капельница с экзосомами - это внутривенная регенеративная процедура в рамках longevity-направления GENEVITY. Экзосомы - это наноразмерные везикулы, которые клетки используют для обмена сигналами: они переносят белки, липиды и молекулы, регулирующие восстановление тканей.\n\nВ отличие от локальных инъекций в кожу, внутривенное введение работает системно. Задача процедуры - поддержать общую регенерацию, улучшить самочувствие и энергию, опосредованно повлиять на качество кожи и тонус. Это часть комплексного подхода к здоровью и активному долголетию, а не разовая эстетическая манипуляция.\n\nПроцедуру проводят в дневном стационаре GENEVITY - в комфортных отдельных палатах под наблюдением врача. Перед назначением обязательны консультация и оценка состояния здоровья; при необходимости врач опирается на данные лабораторной диагностики, чтобы протокол был доказательным и безопасным.\n\nЭкзосомная терапия - современное и относительно новое направление, поэтому особенно важны качество и сертификация препарата и медицинский контроль. В GENEVITY применяют проверенные препараты, а схему и кратность определяет врач индивидуально.",
+        "en": "The rejuvenating exosome IV drip is an intravenous regenerative procedure within GENEVITY's longevity programme. Exosomes are nano-sized vesicles that cells use to exchange signals: they carry proteins, lipids, and molecules that regulate tissue repair.\n\nUnlike local injections into the skin, intravenous delivery works systemically. The goal of the procedure is to support overall regeneration, improve wellbeing and energy, and indirectly influence skin quality and tone. It is part of a comprehensive approach to health and active longevity, not a one-off aesthetic manipulation.\n\nThe procedure is carried out in GENEVITY's day stationary - in comfortable private rooms under a doctor's supervision. A consultation and health assessment are mandatory beforehand; where needed, the doctor draws on laboratory diagnostics so that the protocol is evidence-based and safe.\n\nExosome therapy is a modern and relatively new field, so the quality and certification of the product and medical oversight are especially important. GENEVITY uses verified products, and the regimen and frequency are determined by the doctor individually."
+      },
+      "calloutBody": {
+        "uk": "Крапельниця з екзосомами - частина комплексної longevity-програми. Призначається лише після консультації та оцінки стану здоров'я.",
+        "ru": "Капельница с экзосомами - часть комплексной longevity-программы. Назначается только после консультации и оценки состояния здоровья.",
+        "en": "The exosome drip is part of a comprehensive longevity programme. It is prescribed only after a consultation and a health assessment."
+      },
+      "heroImage": null
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "79efa6a5-47d9-4ff3-8bbd-ed4dcdf94d17",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "InBody bioimpedance analysis is a 5-minute painless test showing exact body composition: fat percentage, segmental muscle mass, visceral fat level, water balance, and basal metabolic rate.\n\nOrdinary scales only show total weight. InBody shows what it consists of. GENEVITY uses InBody as the baseline diagnostic tool before any body correction programme, Longevity, or Check-Up 40+.",
+        "ru": "Биоимпедансный анализ InBody - 5-минутное безболезненное исследование: процент жира, мышечная масса по сегментам, висцеральный жир, водный баланс, базальный метаболизм.\n\nОбычные весы показывают только вес. InBody показывает состав. GENEVITY использует InBody как базовый инструмент диагностики перед программами коррекции тела, Longevity и Check-Up 40+.",
+        "uk": "Біоімпедансний аналіз на апараті InBody - це 5-хвилинне безболісне дослідження, яке показує точний склад тіла: відсоток жирової тканини, м'язову масу по кожному сегменту, рівень вісцерального жиру, водний баланс та базальний метаболізм.\n\nЗвичайні ваги показують лише загальну вагу. InBody показує, що саме складає цю вагу - жир, м'язи чи вода. Два пацієнти з однаковою вагою можуть мати принципово різний склад тіла і потребувати різних підходів.\n\nGENEVITY використовує InBody як базовий діагностичний інструмент перед будь-якою програмою корекції фігури, Longevity або Check-Up 40+."
+      },
+      "heading": {
+        "en": "InBody at GENEVITY - What It Measures and Why You Need It",
+        "ru": "InBody в GENEVITY - что измеряет и зачем нужен",
+        "uk": "InBody в GENEVITY - що вимірює і навіщо потрібен"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "5cfa8604-ee81-4f0a-9a73-ecd63c987a3c",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Ultrasound diagnostics - one of the safest and most informative examination methods. No radiation, no pain, report on the day of examination.\n\nAt GENEVITY, ultrasound is performed by an experienced ultrasound diagnostician using modern equipment.",
+        "ru": "УЗИ - безопасный и информативный метод диагностики. Без облучения, без боли, заключение в день исследования.\n\nВ GENEVITY УЗИ проводит врач ультразвуковой диагностики с клиническим опытом на современном оборудовании.",
+        "uk": "Ультразвукова діагностика - один із найбезпечніших та найінформативніших методів обстеження. Без рентгенівського опромінення, без болю, з результатом у день обстеження.\n\nУ GENEVITY УЗД проводить лікар ультразвукової діагностики з клінічним досвідом. Дослідження виконується на сучасному обладнанні та включає розгорнутий письмовий висновок."
+      },
+      "heading": {
+        "en": "Ultrasound at GENEVITY - Modern Organ Diagnostics",
+        "ru": "УЗИ в GENEVITY - современная диагностика органов",
+        "uk": "УЗД в GENEVITY - сучасна діагностика органів"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "b930c4b2-29c8-411e-9d90-464c7600766e",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "A medical cosmetologist at GENEVITY holds a full medical degree with dermatocosmetology specialisation. Unlike a non-medical cosmetologist, they can prescribe medications, perform injectable procedures, and treat skin conditions.\n\nA consultation before the first cosmetic procedure is an essential step to select exactly what your skin needs.",
+        "ru": "Врач-косметолог в GENEVITY - врач с медицинским образованием и специализацией в дерматокосметологии. Может назначать препараты, проводить инъекции и лечить кожные заболевания.\n\nКонсультация перед первой процедурой - обязательный шаг для правильного подбора.",
+        "uk": "Лікар-косметолог у GENEVITY - це лікар з повною медичною освітою та спеціалізацією у дерматокосметології. На відміну від косметолога без медичної освіти, лікар може призначати рецептурні препарати, проводити ін'єкційні процедури та лікувати шкірні захворювання.\n\nКонсультація перед першою косметологічною процедурою - обов'язковий крок, який дозволяє підібрати саме те, що потрібно вашій шкірі, і уникнути помилок, що потім складно виправити."
+      },
+      "heading": {
+        "en": "Medical Cosmetologist Consultation at GENEVITY",
+        "ru": "Консультация врача-косметолога в GENEVITY",
+        "uk": "Консультація лікаря-косметолога в GENEVITY"
+      }
+    }
+  },
+  {
+    "table": "media_assets",
+    "id": "fa20b8fb-4e74-4997-909c-44e4df164667",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "d1f8f333-ccef-44df-8510-ccca7bd8c167",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "ef211932-4eb8-4e09-838e-06cbf6b204d9",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "e6a90244-5b34-4943-9291-c771a1a1b373",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "72f9ba67-a334-4179-a5e1-fc07e299db0f",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "4a438824-9f76-4bec-8268-341f44a1fcc0",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "76b9a281-aee6-495a-9184-36706ce4c96a",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "21fb08e1-17fb-4183-b129-75e44c26f1d2",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "05845306-d6fa-4d13-8be6-d39801dcef1d",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "4a576f17-6289-412f-b456-ecce2475a2c6",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "5163965e-8858-4885-a78c-d8f41c913724",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "95c779a0-7fa6-43c4-a854-16c65d0892e9",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "5c01f4b5-336f-4ff5-a9dc-610a8198d0c7",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "47b3c039-a87c-4efe-bc51-bfebdbe7fab1",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "119cf610-a8a8-4442-97c9-8e31052b78df",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "19cbb222-eb9a-4c10-9d7a-32e30fcdcc74",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "68022d99-ab97-4ea8-b650-f3b7c14849d0",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "3d8790b6-10c6-4851-b467-1aa25e8f2165",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "a5637fdc-5096-4413-945f-d87541f6f033",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "e6a0b0dd-ea2b-48fd-9bdd-7efbed0349ff",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "e05b1a66-4c26-4db6-b0fb-cac2424a4350",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "41d17570-f91a-43f4-a260-fb1ef79b3303",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "5b278bdd-1b6c-4636-8734-5dbaf9a62d81",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "17ac2e1e-1d2d-4990-ae1e-b1696f130363",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "d4195c3c-b5ba-4d3f-a9d9-0b75ae41569e",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "1de19957-a569-4ab8-8759-932ad8aff2e4",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "0edecee6-613e-4670-a3be-53fccb378a42",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "7bf1ec15-cd3e-41a2-b0f9-d9b371f2f77e",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "116c4e78-c24a-4405-ad65-ef3311943b23",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "344c72d8-54fc-414a-a8c3-b0d904a5c7a9",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "7fbab4da-1d87-40e2-b018-cd8a055647da",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "2c0abec0-a979-44ce-9205-91e43e4d3cc5",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "29614f74-7994-489a-9aab-032627330fb2",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "6d65c449-b8a5-4c9c-89ce-50ec110357ed",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "f5b98111-7d1d-4126-bd7e-af2560f79428",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "f2b6f824-f5f7-4d41-8209-1db66836fb9a",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "c2706a6e-e8de-4e4c-9506-518b815f646c",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "d68e2253-2782-46ed-953d-2b629e51d78b",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "d3b5f2f7-9165-4cfa-a4f1-7d072f1a07c1",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "9b7f6f12-bd5a-4681-8e1d-a2aa8ebf8a7e",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "109b84f3-515c-45fe-91ef-8de990081314",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "5d5b0010-7b88-41aa-a3bb-99a961e923f6",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "7820b841-8756-4218-b059-e57fe43a855f",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "584de320-ae78-4bf0-85bd-44cf8e41a7e2",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "2baa92ba-37e1-4dd8-a574-025c97733dc2",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "61fd9180-de5d-4383-903d-7c5be41cf859",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "958fa4c3-c599-4cf3-abcc-f664b0171b5c",
+    "action": "delete"
+  },
+  {
+    "table": "media_assets",
+    "id": "5aa29acb-067e-4c79-98fd-9478f31060be",
+    "action": "delete"
+  }
+]
