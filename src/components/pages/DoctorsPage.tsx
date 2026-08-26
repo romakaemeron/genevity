@@ -25,7 +25,9 @@ const categories = [
   { key: "diagnostics", slugs: ["fedorenko-svitlana"] },
   { key: "gynecology", slugs: ["kroshka-iryna", "yesayants-anna"] },
   { key: "gastro", slugs: ["minchuk-yevheniia", "tolstykova-tetiana"] },
-  { key: "plastic_surgery", slugs: ["detsyk-dmytro", "harmash-serhii"] },
+  // Sverhun is an ENT surgeon as well, but there is no otolaryngology chip and
+  // it is his rhino/oto/mentoplasty work that this filter is for.
+  { key: "plastic_surgery", slugs: ["detsyk-dmytro", "harmash-serhii", "sverhun-valerii"] },
   { key: "other", slugs: ["kyrylenko-anzhela", "danylevsky-kostiantyn"] },
 ];
 

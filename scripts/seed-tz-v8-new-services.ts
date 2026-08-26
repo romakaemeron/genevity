@@ -1087,7 +1087,7 @@ const services: ServiceSeed[] = [
           { uk: "Мамопластика — збільшення, зменшення або підтяжка грудей", ru: "Маммопластика — увеличение, уменьшение или подтяжка груди", en: "Mammoplasty — breast augmentation, reduction, or lift" },
           { uk: "Абдомінопластика — корекція передньої черевної стінки", ru: "Абдоминопластика — коррекция передней брюшной стенки", en: "Abdominoplasty — correction of the anterior abdominal wall" },
           { uk: "Ліпосакція та корекція контурів тіла", ru: "Липосакция и коррекция контуров тела", en: "Liposuction and body contouring" },
-          { uk: "Ринопластика та отопластика", ru: "Ринопластика и отопластика", en: "Rhinoplasty and otoplasty" },
+          { uk: "Ринопластика, отопластика та корекція мочки вуха", ru: "Ринопластика, отопластика и коррекция мочки уха", en: "Rhinoplasty, otoplasty and earlobe correction" },
           { uk: "Корекція рубців, шрамів і наслідків травм", ru: "Коррекция рубцов, шрамов и последствий травм", en: "Correction of scars and the consequences of injuries" },
           { uk: "Видалення новоутворень шкіри спільно з онкологом", ru: "Удаление новообразований кожи совместно с онкологом", en: "Removal of skin growths together with an oncologist" },
         ],
