@@ -11,6 +11,7 @@ import {
   type NavLeaf,
 } from "./navConfig";
 import { resolveNavLabel } from "./navLabel";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface LegalLink {
   _id: string;
@@ -96,7 +97,7 @@ export default function Footer({ legalDocs = [], settings }: { legalDocs?: Legal
           <div className="flex flex-col gap-5">
             <Link href="/" className="block" style={{ width: "fit-content" }}>   
               <Image
-                src="/brand/LogoFullDark.svg"
+                src="/brand/LogoFullDark.svg" unoptimized={isPreOptimized("/brand/LogoFullDark.svg")}
                 alt="GENEVITY"
                 width={180}
                 height={48}

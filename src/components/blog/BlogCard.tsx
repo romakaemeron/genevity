@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { BlogPostCard } from "@/lib/db/queries/blog";
 import { Clock } from "lucide-react";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   post: BlogPostCard;
@@ -15,7 +16,7 @@ export default function BlogCard({ post, locale }: Props) {
     <Link href={`/blog/${post.slug}`} className="group flex flex-col bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden hover:bg-champagne-darker transition-colors duration-300">
       <div className="relative aspect-[16/9] bg-champagne-darker overflow-hidden">
         {post.coverImage ? (
-          <Image src={post.coverImage} alt={post.title} title={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+          <Image src={post.coverImage} unoptimized={isPreOptimized(post.coverImage)} alt={post.title} title={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-black-20 body-s">GENEVITY</div>
         )}

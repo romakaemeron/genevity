@@ -44,6 +44,7 @@ import {
   formatFullDate,
   type SlotPeriod,
 } from "@/lib/booking-slots";
+import { isPreOptimized } from "@/lib/image-src";
 
 const STEPS = ["doctor", "service", "date", "time", "contact", "confirm"] as const;
 type Step = (typeof STEPS)[number];
@@ -87,7 +88,7 @@ function OptionCard({
       {image !== undefined && (
         image ? (
           <Image
-            src={image}
+            src={image} unoptimized={isPreOptimized(image)}
             alt=""
             width={44}
             height={44}

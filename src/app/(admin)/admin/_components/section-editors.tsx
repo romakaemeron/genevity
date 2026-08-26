@@ -8,6 +8,7 @@ import { uploadSectionImage } from "../_actions/sections";
 import type { LocaleKey } from "./translation-tabs";
 import MediaPicker from "./media-picker";
 import PhotoPositionEditor from "./photo-position-editor";
+import { isPreOptimized } from "@/lib/image-src";
 
 /** Registry: each section type has a label, a default data factory, and an editor component */
 
@@ -398,7 +399,7 @@ function ImageGalleryEditor({ data, onChange }: EditorProps<{ heading: LocaleStr
           {data.images.map((img, i) => (
             <div key={i} className="flex flex-col gap-1">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-champagne-dark border border-line">
-                <Image src={img.url} alt={img.alt?.[altActive] || ""} fill className="object-cover" sizes="200px" />
+                <Image src={img.url} unoptimized={isPreOptimized(img.url)} alt={img.alt?.[altActive] || ""} fill className="object-cover" sizes="200px" />
                 <button
                   type="button"
                   onClick={() => removeImage(i)}

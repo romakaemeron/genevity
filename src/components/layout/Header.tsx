@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import LocaleSelector from "@/components/ui/LocaleSelector";
+import { isPreOptimized } from "@/lib/image-src";
 
 export default function Header() {
   const t = useTranslations("nav");
@@ -37,7 +38,7 @@ export default function Header() {
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center">
-            <Image src="/brand/LogoFullDark.svg" alt="GENEVITY" width={130} height={30} className="h-8 lg:h-7 w-auto" priority />
+            <Image src="/brand/LogoFullDark.svg" unoptimized={isPreOptimized("/brand/LogoFullDark.svg")} alt="GENEVITY" width={130} height={30} className="h-8 lg:h-7 w-auto" priority />
           </Link>
 
           <div className="hidden lg:flex items-center gap-12">

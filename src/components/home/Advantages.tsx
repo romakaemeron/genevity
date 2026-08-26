@@ -7,6 +7,7 @@ import { useScrollReveal } from "@/lib/useReveal";
 import { Users, Microscope, Clock, Award, ChevronRight, Dna } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { GalleryItem } from "@/lib/db/queries/phase2";
+import { isPreOptimized } from "@/lib/image-src";
 
 const FALLBACK_IMAGE = "/images/bento/SEMI7144.webp";
 const smallCards: { icon: typeof Users; key: string; href?: string }[] = [
@@ -32,7 +33,7 @@ export default function Advantages({ bentoImage }: { bentoImage?: GalleryItem | 
           <div className="reveal d1 group relative rounded-[var(--radius-card)] overflow-hidden bg-black">
             <div className="relative aspect-[4/3] lg:aspect-auto lg:h-full min-h-[320px]">
               <Image
-                src={imgSrc}
+                src={imgSrc} unoptimized={isPreOptimized(imgSrc)}
                 alt={imgAlt}
                 title={imgTitle}
                 fill

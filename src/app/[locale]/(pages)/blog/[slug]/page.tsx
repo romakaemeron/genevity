@@ -22,6 +22,7 @@ import { formatReviewDate } from "@/lib/formatDate";
 import { ArrowLeft, Clock, Calendar, Tag, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
+import { isPreOptimized } from "@/lib/image-src";
 
 // Blog is visible on dev/preview only — hidden on production until launch.
 // The constant is shared with the draft-preview endpoint and the editor's
@@ -165,7 +166,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       {post.coverImage && (
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12 pb-2">
           <div className="relative w-full aspect-[16/9] max-h-[480px] overflow-hidden rounded-[var(--radius-card)] bg-champagne-dark">
-            <Image src={post.coverImage} alt={post.title} title={post.title} fill priority className="object-cover" sizes="(max-width: 1280px) 100vw, 1280px" />
+            <Image src={post.coverImage} unoptimized={isPreOptimized(post.coverImage)} alt={post.title} title={post.title} fill priority className="object-cover" sizes="(max-width: 1280px) 100vw, 1280px" />
           </div>
         </div>
       )}
@@ -263,7 +264,7 @@ function AvatarCircle({ name, avatar, focalPoint, scale, size = 7 }: { name: str
     return (
       <span className="relative rounded-full overflow-hidden shrink-0 bg-champagne-dark" style={{ width: px, height: px }}>
         <span className="absolute inset-0" style={{ transform: `scale(${sc})`, transformOrigin: fp }}>
-          <Image src={avatar} alt={name} title={name} fill sizes="256px" className="object-cover" style={{ objectPosition: fp }} />
+          <Image src={avatar} unoptimized={isPreOptimized(avatar)} alt={name} title={name} fill sizes="256px" className="object-cover" style={{ objectPosition: fp }} />
         </span>
       </span>
     );

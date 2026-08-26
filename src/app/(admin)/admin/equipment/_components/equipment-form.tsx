@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Maximize2, X } from "lucide-react";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import Button from "@/components/ui/Button";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Equipment {
   id: string;
@@ -84,7 +85,7 @@ export default function EquipmentForm({ equipment: eq }: { equipment?: Equipment
             {/* Large preview */}
             <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-champagne-darker">
               {photoUrl ? (
-                <Image src={photoUrl} alt={eq?.name || ""} fill className="object-cover" sizes="400px" />
+                <Image src={photoUrl} unoptimized={isPreOptimized(photoUrl)} alt={eq?.name || ""} fill className="object-cover" sizes="400px" />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-xs text-muted">No photo yet</div>
               )}

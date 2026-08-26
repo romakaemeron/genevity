@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { logout } from "../_actions/auth";
 import Button from "@/components/ui/Button";
+import { isPreOptimized } from "@/lib/image-src";
 
 type Role = "admin" | "marketing" | "support";
 
@@ -105,7 +106,7 @@ export default function Sidebar({ userName, role, counts = {} }: SidebarProps) {
       {/* Logo */}
       <div className="px-5 py-5 border-b border-white/10">
         <div className="flex items-center gap-2">
-          <Image src="/brand/LogoFullLight.svg" alt="GENEVITY" width={180} height={40} className="h-8 w-auto" priority />
+          <Image src="/brand/LogoFullLight.svg" unoptimized={isPreOptimized("/brand/LogoFullLight.svg")} alt="GENEVITY" width={180} height={40} className="h-8 w-auto" priority />
           <span className="text-[10px] font-medium text-champagne bg-main/20 px-1.5 py-0.5 rounded">CMS</span>
         </div>
       </div>

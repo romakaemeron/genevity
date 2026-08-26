@@ -3,6 +3,7 @@
 import Image from "next/image";
 import BookingCTA from "@/components/ui/BookingCTA";
 import type { DoctorItem } from "@/lib/db/types";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface DoctorModalProps {
   doctor: DoctorItem;
@@ -21,7 +22,7 @@ export default function DoctorModal({ doctor, cta, experience }: DoctorModalProp
       {photoModal && (
         <div className="w-full aspect-[16/10] relative skeleton">
           <Image
-            src={photoModal}
+            src={photoModal} unoptimized={isPreOptimized(photoModal)}
             alt={name}
             title={name}
             fill

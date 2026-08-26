@@ -7,6 +7,7 @@ import { MapPin, ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import type { HeroData } from "@/lib/db/types";
 import type { HeroSlide } from "@/lib/db/queries/phase2";
+import { isPreOptimized } from "@/lib/image-src";
 
 const AUTOPLAY_MS = 6000;
 const CROSSFADE_MS = 1200;
@@ -153,7 +154,7 @@ export default function Hero({ data, slides }: { data: HeroData; slides: HeroSli
                 style={{ transform: "scale(var(--focal-scale, 1))", transformOrigin: "var(--focal, 50% 50%)" }}
               >
                 <Image
-                  src={s.src}
+                  src={s.src} unoptimized={isPreOptimized(s.src)}
                   alt={s.alt || ""}
                   title={s.alt || undefined}
                   fill

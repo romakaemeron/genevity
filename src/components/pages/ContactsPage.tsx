@@ -9,6 +9,7 @@ import type { GalleryItem } from "@/lib/db/queries/phase2";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   settings: SiteSettingsData;
@@ -113,7 +114,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi, ct
       {/* CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-16 pb-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[280px] flex items-center">
-          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — клініка довголіття та естетичної медицини"} fill className="object-cover" sizes="100vw" />
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} unoptimized={isPreOptimized(ctaBg?.imageUrl || "/clinic/acupulse.webp")} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — клініка довголіття та естетичної медицини"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import type { EquipmentItem } from "@/lib/db/types";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface EquipmentModalProps {
   item: EquipmentItem;
@@ -65,7 +66,7 @@ export default function EquipmentModal({ item, suitsTitle, resultsTitle }: Equip
       <div className="relative lg:w-[45%] shrink-0 bg-champagne-dark overflow-hidden">
         <div className="relative w-full h-64 lg:h-full lg:min-h-[480px]">
           <Image
-            src={item.photo}
+            src={item.photo} unoptimized={isPreOptimized(item.photo)}
             alt={item.name}
             title={item.name}
             fill

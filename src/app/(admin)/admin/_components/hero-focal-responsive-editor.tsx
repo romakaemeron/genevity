@@ -21,6 +21,7 @@ import Image from "next/image";
 import { Monitor, Tablet, Smartphone, MapPin, Copy as CopyIcon, Minus, Plus } from "lucide-react";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
+import { isPreOptimized } from "@/lib/image-src";
 
 type Breakpoint = "desktop" | "tablet" | "mobile";
 export type HeroFocalBP = { pos: string; scale: number };
@@ -335,7 +336,7 @@ export default function HeroFocalResponsiveEditor({
                   }}
                 >
                   <Image
-                    src={imageUrl}
+                    src={imageUrl} unoptimized={isPreOptimized(imageUrl)}
                     alt=""
                     fill
                     className="object-cover"

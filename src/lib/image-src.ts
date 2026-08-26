@@ -21,8 +21,9 @@
  * Everything else — blog covers, media mentions, arbitrary CMS uploads — keeps
  * going through the optimizer, where the resizing is worth paying for.
  */
-export function isPreOptimized(src: string | null | undefined): boolean {
-  if (!src) return false;
+export function isPreOptimized(src: unknown): boolean {
+  // Non-strings are static imports (StaticImageData) — always optimizer-bound.
+  if (typeof src !== "string" || !src) return false;
   const local = /^\/(images|clinic|doctors)\//.test(src) && src.toLowerCase().endsWith(".webp");
   if (local) return true;
   if (src.includes(".public.blob.vercel-storage.com/doctors/")) return true;
