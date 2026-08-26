@@ -814,6 +814,11 @@ const plasticSurgery: CategorySeed = {
           ru: "Отопластика — коррекция формы и положения ушей",
           en: "Otoplasty — correction of ear shape and position",
         },
+        {
+          uk: "Корекція мочки вуха — відновлення форми при розривах та розтягненні",
+          ru: "Коррекция мочки уха — восстановление формы при разрывах и растяжении",
+          en: "Earlobe correction — reshaping torn or stretched earlobes",
+        },
       ],
     },
     {
