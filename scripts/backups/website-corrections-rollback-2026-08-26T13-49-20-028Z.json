@@ -1,0 +1,21 @@
+[
+  {
+    "table": "content_sections",
+    "id": "0dc7d8e5-4967-47e9-b996-e64a6ac3a504",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Exion Body by BTL uses monopolar RF with AI control for uniform heating of skin and subcutaneous layer. Effectively smooths cellulite, improves firmness and texture on all body zones.\n\n**Indications:** any-grade cellulite, reduced skin firmness, uneven texture. **Course:** 4-8 sessions. Visible results from session 3-4. Works standalone or as a complement to EMSCULPT NEO.",
+        "ru": "Exion Body от BTL - монополярный RF с AI-контролем для коррекции текстуры и целлюлита.\n\n**Показания:** целлюлит, сниженная упругость, неровная текстура. **Курс:** 4-8 сеансов. Результаты - после 3-4 сеансов.",
+        "uk": "Exion Body від BTL використовує монополярний RF з AI-контролем для рівномірного нагрівання шкіри та підшкірного шару по всьому тілу. Апарат ефективно вирівнює «апельсинову шкірку», підвищує пружність та покращує текстуру на всіх зонах тіла.\n\n**Показання:** целюліт будь-якого ступеня, знижена пружність шкіри, нерівна текстура живота, стегон, сідниць та рук. **Зони:** будь-які ділянки тіла, включаючи чутливі.\n\n**Курс:** 4-8 сеансів залежно від зони та ступеня вираженості проблеми. Процедура комфортна - пацієнт відчуває рівномірне тепло. Результати видно вже після 3-4 сеансів. Підходить як самостійний курс і як доповнення до EMSCULPT NEO."
+      },
+      "heading": {
+        "en": "Exion Body - RF Correction of Skin Texture and Cellulite",
+        "ru": "Exion Body - RF-коррекция текстуры и целлюлита",
+        "uk": "Exion Body - RF-корекція текстури та целюліту"
+      },
+      "heroImage": "/images/equipment/exion-body.webp",
+      "heroImageFocalPoint": "50% 45%"
+    }
+  }
+]

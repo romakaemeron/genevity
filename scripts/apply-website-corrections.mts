@@ -392,7 +392,7 @@ async function pravka17_bodyPage() {
   log("\n── Правка №17 — «Апаратна косметологія для тіла»: фото апаратів у блоках");
   await setHeroImage("apparatus-cosmetology", "body", IMG.emsculptScreen, { matchHeading: "EMSCULPT", focal: "50% 45%" });
   await setHeroImage("apparatus-cosmetology", "body", IMG.ultraformerMptHandpieces, { matchHeading: "Ultraformer", focal: "50% 45%" });
-  await setHeroImage("apparatus-cosmetology", "body", IMG.exionBody, { matchHeading: "Exion", focal: "50% 45%" });
+  await setHeroImage("apparatus-cosmetology", "body", IMG.exionUnit, { matchHeading: "Exion", focal: "50% 45%" });
 }
 
 async function pravka18_longevityHub() {
@@ -515,6 +515,18 @@ async function pravka12_blockOrder() {
   }
 }
 
+/** Правка №16 — сторінка «Апаратна косметологія для обличчя» як зразок: у блоці,
+ *  що описує конкретний апарат, має стояти фото цього апарата. Сторінка «Корекція
+ *  шкіри» побудована так само (три блоки — три апарати), але фото не мала. Як і на
+ *  сторінці /face, тут використовується те саме фото апарата, що й на його сторінці. */
+async function pravka16_skinPage() {
+  log("\n── Правка №16 — «Корекція шкіри»: фото апарата у кожному блоці");
+  const focal = { focal: "50% 45%" };
+  await setHeroImage("apparatus-cosmetology", "skin", IMG.hydrafacial, { matchHeading: "Hydrafacial", ...focal });
+  await setHeroImage("apparatus-cosmetology", "skin", IMG.acupulse, { matchHeading: "AcuPulse", ...focal });
+  await setHeroImage("apparatus-cosmetology", "skin", IMG.m22, { matchHeading: "M22", ...focal });
+}
+
 /** Загальна перевірка фото (доповнення до правки №15): сторінки, де фото були
  *  відсутні, а зміст сторінки однозначно вказує на конкретний апарат/кабінет.
  *  Решта сторінок без фото перелічена у звіті — для них потрібні фото клієнта. */
@@ -567,6 +579,7 @@ await pravka17_bodyPage();
 await pravka18_longevityHub();
 await pravka19_diagnosticsHub();
 await pravka21_remainingPages();
+await pravka16_skinPage();
 await generalPhotoSweep();
 await registerMedia();
 
