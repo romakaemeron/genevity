@@ -6,6 +6,7 @@ import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, FileText, Download } from "lucide-react";
 import Button from "@/components/ui/Button";
 import type { CertificateImage } from "@/lib/db/queries/doctors";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   images: CertificateImage[];
@@ -128,7 +129,7 @@ function Lightbox({
         <div className="relative w-full h-full" onClick={(e) => e.stopPropagation()}>
           <Image
             key={cert.url}
-            src={cert.url}
+            src={cert.url} unoptimized={isPreOptimized(cert.url)}
             alt={cert.alt_uk}
             title={cert.alt_uk}
             fill
@@ -251,7 +252,7 @@ export default function CertificateGallery({ images, title }: Props) {
                 aria-label={cert.alt_uk}
               >
                 <Image
-                  src={cert.url}
+                  src={cert.url} unoptimized={isPreOptimized(cert.url)}
                   alt={cert.alt_uk}
                   title={cert.alt_uk}
                   width={0}

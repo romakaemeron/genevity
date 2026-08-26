@@ -15,6 +15,7 @@ import RelatedServicesPicker from "../_components/related-services-picker";
 import Button from "@/components/ui/Button";
 import { useAdminLocale } from "../../_i18n/context";
 import { slugifyUk } from "@/lib/slugify-uk";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   post: any | null;
@@ -62,7 +63,7 @@ function SeoPreview({ title, desc, slug, t }: { title: string; desc: string; slu
         <div className="max-w-[580px]">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-5 h-5 rounded-full overflow-hidden shrink-0 bg-champagne-dark">
-              <Image src={faviconSrc} alt="" width={20} height={20} className="w-full h-full object-cover" />
+              <Image src={faviconSrc} unoptimized={isPreOptimized(faviconSrc)} alt="" width={20} height={20} className="w-full h-full object-cover" />
             </div>
             <div>
               <div className="text-[12px] text-[#202124] font-medium leading-none">GENEVITY</div>

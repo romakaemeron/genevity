@@ -177,7 +177,7 @@ export default function CirclePhotoEditor({
                 style={{ transform: `scale(${scale})`, transformOrigin: posString }}
               >
                 <Image
-                  src={photoUrl}
+                  src={photoUrl} unoptimized={isPreOptimized(photoUrl)}
                   alt={alt}
                   fill
                   className="object-cover pointer-events-none"

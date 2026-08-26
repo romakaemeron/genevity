@@ -5,6 +5,7 @@ import { useActionState, useState, useRef } from "react";
 import { createUser, updateUserProfile, updateUserRole, resetUserPassword, deleteUser } from "../../../_actions/super";
 import { ChevronDown, Plus, Pencil, Trash2, X, Eye, EyeOff } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { isPreOptimized } from "@/lib/image-src";
 
 const ROLE_LABELS: Record<string, { label: string; color: string; desc: string }> = {
   admin:     { label: "Admin",     color: "bg-error/15 text-error",     desc: "Full access — content, settings, users, logs" },
@@ -58,7 +59,7 @@ function UserAvatar({ user, size = 36 }: { user: User; size?: number }) {
   if (user.avatar) {
     return (
       <Image
-        src={user.avatar}
+        src={user.avatar} unoptimized={isPreOptimized(user.avatar)}
         alt={user.name}
         width={size}
         height={size}
@@ -180,7 +181,7 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
                   {avatarPreview ? (
                     <img src={avatarPreview} alt="preview" className="w-full h-full object-cover" />
                   ) : user.avatar ? (
-                    <Image src={user.avatar} alt={user.name} width={64} height={64} className="w-full h-full object-cover" />
+                    <Image src={user.avatar} unoptimized={isPreOptimized(user.avatar)} alt={user.name} width={64} height={64} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full bg-main/20 flex items-center justify-center text-main text-xl font-semibold">
                       {user.name.charAt(0).toUpperCase()}

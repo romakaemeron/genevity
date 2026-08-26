@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import Image from "next/image";
 import { login } from "../_actions/auth";
+import { isPreOptimized } from "@/lib/image-src";
 
 export default function LoginPage() {
   const [state, formAction, pending] = useActionState(login, null);
@@ -12,7 +13,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="text-center mb-6">
           <Image
-            src="/brand/LogoFullDark.svg"
+            src="/brand/LogoFullDark.svg" unoptimized={isPreOptimized("/brand/LogoFullDark.svg")}
             alt="GENEVITY"
             width={180}
             height={40}

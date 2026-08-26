@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ShieldCheck } from "lucide-react";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   name: string;
@@ -16,7 +17,7 @@ export default function ReviewedByBadge({ name, role, slug, photoCircle, date, l
   const inner = (
     <span className="inline-flex items-center gap-3 rounded-[var(--radius-card)] bg-champagne-dark px-4 py-3">
       {photoCircle ? (
-        <Image src={photoCircle} alt={name} width={40} height={40} className="rounded-full object-cover w-10 h-10" />
+        <Image src={photoCircle} unoptimized={isPreOptimized(photoCircle)} alt={name} width={40} height={40} className="rounded-full object-cover w-10 h-10" />
       ) : (
         <ShieldCheck className="w-5 h-5 text-main" />
       )}

@@ -130,7 +130,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
               <figure className="rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark">
                 <div className="relative w-full aspect-[4/3]">
                   <Image
-                    src={about.licenseImage}
+                    src={about.licenseImage} unoptimized={isPreOptimized(about.licenseImage)}
                     alt={tEeat("licenseCaption")}
                     title={tEeat("licenseCaption")}
                     fill
@@ -146,7 +146,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
                 {about.directorPhoto && (
                   <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-full overflow-hidden">
                     <Image
-                      src={about.directorPhoto}
+                      src={about.directorPhoto} unoptimized={isPreOptimized(about.directorPhoto)}
                       alt={about.directorName}
                       fill
                       className="object-cover"

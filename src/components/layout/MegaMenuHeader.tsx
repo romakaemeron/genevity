@@ -11,6 +11,7 @@ import SearchModal from "@/components/ui/SearchModal";
 import MegaMenuPanel from "./MegaMenuPanel";
 import { navTop, type NavTop } from "./navConfig";
 import { resolveNavLabel } from "./navLabel";
+import { isPreOptimized } from "@/lib/image-src";
 
 type MobileView = "top" | string; // "top" = main nav, string = itemKey for sub-panel
 
@@ -156,7 +157,7 @@ export default function MegaMenuHeader({
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           <Link href="/" className="flex items-center shrink-0 hover:opacity-80 transition-opacity duration-300" onClick={closeMobile}>
-            <Image src={logoSrc} alt="GENEVITY" width={180} height={40} className="h-8 lg:h-9 w-auto" priority />
+            <Image src={logoSrc} unoptimized={isPreOptimized(logoSrc)} alt="GENEVITY" width={180} height={40} className="h-8 lg:h-9 w-auto" priority />
           </Link>
 
           {/* Desktop Nav */}

@@ -28,6 +28,7 @@ import Image from "next/image";
 // Next.js bundles and serves it via its static image pipeline. Replaces the
 // placeholder "G" circle we used to show.
 import faviconSrc from "@/app/android-chrome-192x192.png";
+import { isPreOptimized } from "@/lib/image-src";
 
 const LOCALE_LABEL: Record<LocaleKey, string> = { uk: "UA", ru: "RU", en: "EN" };
 const BASE_URL = "https://genevity.com.ua";
@@ -243,7 +244,7 @@ export default function SeoFormTab({
             <div className="max-w-[600px]">
               <div className="flex items-center gap-2 text-xs text-[#202124]">
                 <div className="w-6 h-6 rounded-full bg-champagne-dark border border-line overflow-hidden flex items-center justify-center shrink-0">
-                  <Image src={faviconSrc} alt="" width={24} height={24} className="w-full h-full object-cover" />
+                  <Image src={faviconSrc} unoptimized={isPreOptimized(faviconSrc)} alt="" width={24} height={24} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col gap-px">
                   <span className="text-[13px] text-[#202124]">GENEVITY</span>

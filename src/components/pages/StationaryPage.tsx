@@ -19,6 +19,7 @@ import Button from "@/components/ui/Button";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { postalAddress } from "@/lib/schema-address";
+import { isPreOptimized } from "@/lib/image-src";
 
 const CLINIC_NAMES: Record<string, string> = {
   ua: "GENEVITY — Денний стаціонар",
@@ -103,7 +104,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
               {data.heroImage && (
                 <div className="flex-1 mt-8 lg:mt-0">
                   <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                    <Image src={data.heroImage} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                    <Image src={data.heroImage} unoptimized={isPreOptimized(data.heroImage)} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                   </div>
                 </div>
               )}
@@ -128,7 +129,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
             >
               {i === 0 && (
                 <>
-                  <Image src={comfortBg?.imageUrl || "/clinic/semi1256-hdr.webp"} alt={comfortBg?.alt || feat.label} title={comfortBg?.title || feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  <Image src={comfortBg?.imageUrl || "/clinic/semi1256-hdr.webp"} unoptimized={isPreOptimized(comfortBg?.imageUrl || "/clinic/semi1256-hdr.webp")} alt={comfortBg?.alt || feat.label} title={comfortBg?.title || feat.label} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                   <div className="absolute inset-0 bg-black/55" />
                 </>
               )}
@@ -255,7 +256,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       {/* Final CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
-          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — денний стаціонар"} fill className="object-cover" sizes="100vw" />
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} unoptimized={isPreOptimized(ctaBg?.imageUrl || "/clinic/acupulse.webp")} alt={ctaBg?.alt || "GENEVITY"} title={ctaBg?.title || "GENEVITY — денний стаціонар"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center px-4 py-8 sm:p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

@@ -19,6 +19,7 @@ import Button from "@/components/ui/Button";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { postalAddress } from "@/lib/schema-address";
+import { isPreOptimized } from "@/lib/image-src";
 
 const CLINIC_NAMES: Record<string, string> = {
   ua: "GENEVITY — Лабораторія",
@@ -80,7 +81,7 @@ export default function LaboratoryPageComponent({
               </div>
               <div className="flex-1 mt-8 lg:mt-0">
                 <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                  <Image src={data.heroImage || "/clinic/semi1256-hdr.webp"} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  <Image src={data.heroImage || "/clinic/semi1256-hdr.webp"} unoptimized={isPreOptimized(data.heroImage || "/clinic/semi1256-hdr.webp")} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                 </div>
               </div>
             </div>

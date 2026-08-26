@@ -15,6 +15,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Check, ChevronDown, Search, X } from "lucide-react";
+import { isPreOptimized } from "@/lib/image-src";
 
 export interface SearchOption {
   value: string;
@@ -481,7 +482,7 @@ export default function SearchSelect(props: Props) {
                                     Next fetches a tiny variant that the
                                     browser upscales into mush. */}
                               <Image
-                                src={o.rightImage}
+                                src={o.rightImage} unoptimized={isPreOptimized(o.rightImage)}
                                 alt={o.label}
                                 title={o.label}
                                 fill

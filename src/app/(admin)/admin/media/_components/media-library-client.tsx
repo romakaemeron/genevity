@@ -7,6 +7,7 @@ import { Search, Upload, Check, Copy, Trash2, Folder as FolderIcon } from "lucid
 import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import { uploadMediaAsset, deleteMediaAsset, renameFolder } from "../../_actions/media";
+import { isPreOptimized } from "@/lib/image-src";
 
 export interface MediaAsset {
   id: string;
@@ -114,7 +115,7 @@ export default function MediaLibraryClient({ assets, folders }: Props) {
                 fill
                 className="object-cover"
                 sizes="200px"
-                unoptimized={a.url.endsWith(".svg")}
+                unoptimized={a.url.endsWith(".svg") || isPreOptimized(a.url)}
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                 <p className="text-[10px] text-white truncate">{a.title}</p>

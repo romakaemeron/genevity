@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useAdminLocale } from "../_i18n/context";
 import LocaleSelector from "./locale-selector";
+import { isPreOptimized } from "@/lib/image-src";
 
 type Role = "admin" | "marketing" | "support";
 
@@ -108,7 +109,7 @@ export default function AdminSidebar({ userName, role, counts = {} }: Props) {
       <SidebarHeader className="px-4 py-4 border-b border-sidebar-border">
         <div className="flex items-center gap-2">
           <Image
-            src="/brand/LogoFullLight.svg"
+            src="/brand/LogoFullLight.svg" unoptimized={isPreOptimized("/brand/LogoFullLight.svg")}
             alt="GENEVITY"
             width={160}
             height={36}

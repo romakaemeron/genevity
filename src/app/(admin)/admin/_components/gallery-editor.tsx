@@ -8,6 +8,7 @@ import { MiniTabs } from "./locale-inputs";
 import type { LocaleKey } from "./translation-tabs";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
 import MediaPicker from "./media-picker";
+import { isPreOptimized } from "@/lib/image-src";
 
 export interface GalleryItemInput {
   id?: string;
@@ -113,7 +114,7 @@ export default function GalleryEditor({ ownerKey, initial }: Props) {
             <DragHandle {...getHandleProps(i)} />
             <div className="relative w-20 h-16 rounded overflow-hidden bg-champagne-dark shrink-0 cursor-pointer" onClick={() => fileInputRefs.current[i]?.click()}>
               {item.image_url ? (
-                <Image src={item.image_url} alt="" fill className="object-cover" sizes="80px" />
+                <Image src={item.image_url} unoptimized={isPreOptimized(item.image_url)} alt="" fill className="object-cover" sizes="80px" />
               ) : (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-muted text-[10px] gap-0.5">
                   <Upload size={12} />

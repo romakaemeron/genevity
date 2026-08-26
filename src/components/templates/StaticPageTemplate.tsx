@@ -15,6 +15,7 @@ import Button from "@/components/ui/Button";
 import Doctors from "@/components/home/Doctors";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { useScrollReveal } from "@/lib/useReveal";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   data: StaticPageData; locale: Locale; heroImage?: string;
@@ -51,7 +52,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
       {heroVariant === "dark" && heroImage ? (
         <section className="relative overflow-hidden bg-ink">
           <div className="absolute inset-0">
-            <Image src={heroImage} alt={data.title} title={data.title} fill className="object-cover" sizes="100vw" priority />
+            <Image src={heroImage} unoptimized={isPreOptimized(heroImage)} alt={data.title} title={data.title} fill className="object-cover" sizes="100vw" priority />
           </div>
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(42,37,32,0.85) 0%, rgba(42,37,32,0.5) 50%, rgba(42,37,32,0.2) 100%)" }} />
           <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(42,37,32,0.6) 0%, transparent 40%)" }} />
@@ -88,7 +89,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
                 {heroImage && (
                   <div className="flex-1 mt-8 lg:mt-0">
                     <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[60vh] rounded-[var(--radius-card)] overflow-hidden">
-                      <Image src={heroImage} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                      <Image src={heroImage} unoptimized={isPreOptimized(heroImage)} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                     </div>
                   </div>
                 )}
@@ -113,7 +114,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
                       {"heading" in section && section.heading && <h2 className="reveal heading-2 text-black max-w-2xl">{section.heading as string}</h2>}
                       <div className="reveal d1 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                         <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark">
-                          <Image src={photos[0]} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                          <Image src={photos[0]} unoptimized={isPreOptimized(photos[0])} alt={data.title} title={data.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                         </div>
                         <div className="flex flex-col gap-6 justify-center">
                           {"body" in section && section.body && (() => {
@@ -135,7 +136,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
                   {isMidpoint && (
                     <RevealDiv className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden hidden lg:block">
                       <div className="reveal">
-                        <Image src={photos[1]} alt={`${data.title} — GENEVITY`} title={`${data.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
+                        <Image src={photos[1]} unoptimized={isPreOptimized(photos[1])} alt={`${data.title} — GENEVITY`} title={`${data.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
                       </div>
                     </RevealDiv>
                   )}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { SectionRelatedDoctors } from "@/lib/db/types";
+import { isPreOptimized } from "@/lib/image-src";
 
 export default function RelatedDoctorsSection({ heading, doctors }: SectionRelatedDoctors) {
   return (
@@ -12,7 +13,7 @@ export default function RelatedDoctorsSection({ heading, doctors }: SectionRelat
               {doc.photoCard && (
                 <div className="relative w-24 h-24 rounded-full overflow-hidden bg-champagne-dark">
                   <Image
-                    src={doc.photoCard}
+                    src={doc.photoCard} unoptimized={isPreOptimized(doc.photoCard)}
                     alt={doc.name}
                     title={doc.name}
                     fill

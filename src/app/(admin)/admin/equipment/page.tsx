@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Plus, Cpu } from "lucide-react";
 import { AdminPageHeader, AdminPrimaryButton, AdminList, AdminListItem } from "../_components/admin-list";
 import { getAdminStrings } from "../_i18n/server";
+import { isPreOptimized } from "@/lib/image-src";
 
 const categoryLabels: Record<string, string> = {
   face: "Face", body: "Body", skin: "Skin", intimate: "Intimate", laser: "Laser",
@@ -33,7 +34,7 @@ export default async function EquipmentListPage() {
             leading={
               <div className="w-12 h-12 rounded-xl bg-champagne overflow-hidden shrink-0">
                 {item.photo ? (
-                  <Image src={item.photo} alt={item.name} width={48} height={48} className="w-full h-full object-cover" />
+                  <Image src={item.photo} unoptimized={isPreOptimized(item.photo)} alt={item.name} width={48} height={48} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-muted"><Cpu size={20} /></div>
                 )}
