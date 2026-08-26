@@ -127,20 +127,49 @@ export async function getServiceBySlug(
  * the procedure it describes. Capped at the 10 most recent, newest first, per
  * the spec.
  */
+/** Shared projection for both review queries below. A fixed literal, never
+ *  built from input — `sql.unsafe` only splices this constant. */
+const REVIEW_COLUMNS = `
+  dr.id, dr.reviewer_name,
+  dr.procedure_tag, dr.procedure_tag_ru, dr.procedure_tag_en,
+  dr.rating,
+  dr.review_text, dr.review_text_ru, dr.review_text_en,
+  dr.reviewed_at::text AS reviewed_at,
+  d.slug AS doctor_slug,
+  d.name_uk, d.name_ru, d.name_en
+`;
+
+function mapReview(r: Record<string, unknown>, l: string): ServiceReview {
+  // doctor_reviews stores Ukrainian in the *bare* column (review_text) with
+  // only ru/en suffixed, unlike every other table — so the generic `pick()`
+  // (which looks for `<field>_uk`) doesn't apply here. Falls back to Ukrainian
+  // whenever a translation is missing, so a card is never rendered empty.
+  const tr = (field: string): string => {
+    const uk = (r[field] as string | null) || "";
+    if (l === "ru") return ((r[`${field}_ru`] as string | null) || "") || uk;
+    if (l === "en") return ((r[`${field}_en`] as string | null) || "") || uk;
+    return uk;
+  };
+
+  return {
+    _id: r.id as string,
+    reviewerName: (r.reviewer_name as string) || "",
+    procedureTag: tr("procedure_tag") || null,
+    rating: Number(r.rating),
+    reviewText: tr("review_text"),
+    reviewedAt: r.reviewed_at as string,
+    doctorName: pick(r, "name", l) || "",
+    doctorSlug: (r.doctor_slug as string | null) || null,
+  };
+}
+
 export async function getServiceReviews(
   serviceId: string,
   locale: string,
   limit = 10,
 ): Promise<ServiceReview[]> {
-  const l = lang(locale);
   const rows = await sql`
-    SELECT dr.id, dr.reviewer_name,
-           dr.procedure_tag, dr.procedure_tag_ru, dr.procedure_tag_en,
-           dr.rating,
-           dr.review_text, dr.review_text_ru, dr.review_text_en,
-           dr.reviewed_at::text AS reviewed_at,
-           d.slug AS doctor_slug,
-           d.name_uk, d.name_ru, d.name_en
+    SELECT ${sql.unsafe(REVIEW_COLUMNS)}
     FROM doctor_reviews dr
     JOIN doctors d ON d.id = dr.doctor_id
     WHERE dr.service_id = ${serviceId}
@@ -149,27 +178,40 @@ export async function getServiceReviews(
     ORDER BY dr.reviewed_at DESC, dr.sort_order
     LIMIT ${limit}
   `;
-  // doctor_reviews stores Ukrainian in the *bare* column (review_text) with
-  // only ru/en suffixed, unlike every other table — so the generic `pick()`
-  // (which looks for `<field>_uk`) doesn't apply here. Falls back to Ukrainian
-  // whenever a translation is missing, so a card is never rendered empty.
-  const tr = (r: Record<string, unknown>, field: string): string => {
-    const uk = (r[field] as string | null) || "";
-    if (l === "ru") return ((r[`${field}_ru`] as string | null) || "") || uk;
-    if (l === "en") return ((r[`${field}_en`] as string | null) || "") || uk;
-    return uk;
-  };
+  return rows.map((r) => mapReview(r, lang(locale)));
+}
 
-  return rows.map((r) => ({
-    _id: r.id as string,
-    reviewerName: (r.reviewer_name as string) || "",
-    procedureTag: tr(r, "procedure_tag") || null,
-    rating: Number(r.rating),
-    reviewText: tr(r, "review_text"),
-    reviewedAt: r.reviewed_at as string,
-    doctorName: pick(r, "name", l) || "",
-    doctorSlug: (r.doctor_slug as string | null) || null,
-  }));
+/**
+ * Published patient reviews for a whole category hub (TZ #10-3 §4).
+ *
+ * A hub such as /services/gynaecology describes a direction rather than one
+ * procedure, so it aggregates the reviews of every service filed under it —
+ * the same shape as the reference the spec points at
+ * (onclinic.ua/ru/kharkov/services/gynecology). Still capped at the 10 most
+ * recent overall, newest first.
+ *
+ * Reviews carry a `service_id`, never a category id, so the category is
+ * reached through `services.category_id`. A review attached to a service in
+ * some other category can therefore never leak onto this hub.
+ */
+export async function getCategoryReviews(
+  categorySlug: string,
+  locale: string,
+  limit = 10,
+): Promise<ServiceReview[]> {
+  const rows = await sql`
+    SELECT ${sql.unsafe(REVIEW_COLUMNS)}
+    FROM doctor_reviews dr
+    JOIN doctors d ON d.id = dr.doctor_id
+    JOIN services s ON s.id = dr.service_id
+    JOIN service_categories c ON c.id = s.category_id
+    WHERE c.slug = ${categorySlug}
+      AND dr.is_published = true
+      AND d.is_published = true
+    ORDER BY dr.reviewed_at DESC, dr.sort_order
+    LIMIT ${limit}
+  `;
+  return rows.map((r) => mapReview(r, lang(locale)));
 }
 
 async function getRelatedDoctors(serviceId: string, l: string): Promise<DoctorItem[]> {

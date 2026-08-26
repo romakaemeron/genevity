@@ -20,6 +20,10 @@ interface Props {
   reviews: ServiceReview[];
   locale: string;
   heading: string;
+  /** Show which procedure each review is about. Off on a service page, where
+   *  every card is about the one procedure the page describes; on for a
+   *  category hub, where the cards come from several different services. */
+  showProcedureTag?: boolean;
 }
 
 /** "Лікар, який надав послугу" — the byline under each review. */
@@ -52,8 +56,8 @@ function Stars({ n }: { n: number }) {
   );
 }
 
-function ReviewCard({ review, locale }: { review: ServiceReview; locale: string }) {
-  const { reviewerName, rating, reviewText, reviewedAt, doctorName, doctorSlug } = review;
+function ReviewCard({ review, locale, showProcedureTag }: { review: ServiceReview; locale: string; showProcedureTag?: boolean }) {
+  const { reviewerName, rating, reviewText, reviewedAt, doctorName, doctorSlug, procedureTag } = review;
   const initial = reviewerName.charAt(0).toUpperCase();
   const dateStr = new Date(reviewedAt).toLocaleDateString(
     locale === "ua" ? "uk-UA" : locale === "ru" ? "ru-RU" : "en-US",
@@ -78,7 +82,14 @@ function ReviewCard({ review, locale }: { review: ServiceReview; locale: string 
           </div>
           <div className="flex flex-col gap-1 min-w-0">
             <span className="body-strong text-black text-sm leading-none">{reviewerName}</span>
-            <time dateTime={reviewedAt} className="body-s text-black-40">{dateStr}</time>
+            <div className="flex items-center gap-2 flex-wrap">
+              {showProcedureTag && procedureTag && (
+                <span className="text-[11px] px-2 py-0.5 rounded-full bg-champagne border border-champagne-darker text-black-50">
+                  {procedureTag}
+                </span>
+              )}
+              <time dateTime={reviewedAt} className="body-s text-black-40">{dateStr}</time>
+            </div>
           </div>
         </div>
         {doctorName && (
@@ -98,7 +109,7 @@ function ReviewCard({ review, locale }: { review: ServiceReview; locale: string 
   );
 }
 
-export default function ServiceReviews({ reviews, locale, heading }: Props) {
+export default function ServiceReviews({ reviews, locale, heading, showProcedureTag }: Props) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -166,7 +177,7 @@ export default function ServiceReviews({ reviews, locale, heading }: Props) {
             className="shrink-0"
             style={{ width: "min(320px, 80vw)", scrollSnapAlign: "start" }}
           >
-            <ReviewCard review={review} locale={locale} />
+            <ReviewCard review={review} locale={locale} showProcedureTag={showProcedureTag} />
           </div>
         ))}
       </div>
