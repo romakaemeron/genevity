@@ -4,7 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
-import type { ServiceCategoryData, ServiceCardData, DoctorItem } from "@/lib/db/types";
+import type { ServiceCategoryData, ServiceCardData, DoctorItem, ServiceReview } from "@/lib/db/types";
+import ServiceReviews from "@/components/reviews/ServiceReviews";
 import type { Locale } from "@/i18n/routing";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import SectionRenderer from "@/components/sections/SectionRenderer";
@@ -31,7 +32,17 @@ interface Props {
   doctors?: DoctorItem[];
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
+  /** Reviews of every service filed under this category, newest first (TZ #10-3 §4). */
+  reviews?: ServiceReview[];
 }
+
+/** A hub covers a direction rather than one procedure, so "Відгуки про
+ *  послугу" would be wrong here — these cards come from several services. */
+const REVIEWS_HEADING: Record<string, string> = {
+  ua: "Відгуки пацієнтів",
+  ru: "Отзывы пациентов",
+  en: "Patient Reviews",
+};
 
 const DEFAULT_IMAGES = [
   "/clinic/semi1737-hdr.webp",
@@ -50,7 +61,7 @@ function RevealSection({ children, className, id }: { children: React.ReactNode;
   );
 }
 
-export default function CategoryHubTemplate({ category, services, locale, heroImage, heroVariant = "dark", images, doctors, doctorsUi, detailsLabel }: Props) {
+export default function CategoryHubTemplate({ category, services, locale, heroImage, heroVariant = "dark", images, doctors, doctorsUi, detailsLabel, reviews }: Props) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const t = useTranslations("labels");
   const faq = category.faq || [];
@@ -209,6 +220,19 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
             <Link href="/doctors"><Button variant="outline" size="sm">{t("allDoctors")}<ChevronRight className="w-3.5 h-3.5" /></Button></Link>
           </div>
+        </div>
+      )}
+
+      {/* ===== REVIEWS ===== */}
+      {reviews && reviews.length > 0 && (
+        <div className="mt-16 lg:mt-20">
+          {/* Tags on: cards here come from different services in the category. */}
+          <ServiceReviews
+            reviews={reviews}
+            locale={locale}
+            heading={REVIEWS_HEADING[locale] ?? REVIEWS_HEADING.ua}
+            showProcedureTag
+          />
         </div>
       )}
 
