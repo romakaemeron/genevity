@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { Upload, X, ImageIcon } from "lucide-react";
 import MediaPicker from "./media-picker";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   name: string;
@@ -145,7 +146,7 @@ export default function ImageUpload({
               className="object-cover"
               sizes="200px"
               style={objectPosition ? { objectPosition } : undefined}
-              unoptimized={preview.startsWith("blob:") || preview.endsWith(".svg")}
+              unoptimized={preview.startsWith("blob:") || preview.endsWith(".svg") || isPreOptimized(preview)}
             />
             <button
               type="button"
