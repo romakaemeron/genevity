@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { isPreOptimized } from "@/lib/image-src";
 
 export interface SlideItem {
   src: string;
@@ -43,7 +44,7 @@ function SlideImages({ items, current, sizes }: { items: SlideItem[]; current: n
     <>
       {items.map((item, i) => (
         <div key={i} className="absolute inset-0 transition-opacity duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]" style={{ opacity: i === current ? 1 : 0 }}>
-          <Image src={item.src} alt={item.alt} title={item.title || item.alt || undefined} fill className="object-cover" sizes={sizes} priority={i === 0} />
+          <Image src={item.src} unoptimized={isPreOptimized(item.src)} alt={item.alt} title={item.title || item.alt || undefined} fill className="object-cover" sizes={sizes} priority={i === 0} />
         </div>
       ))}
     </>

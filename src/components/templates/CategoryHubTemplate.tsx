@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import Doctors from "@/components/home/Doctors";
 import { useScrollReveal } from "@/lib/useReveal";
 import { renderInlineMarkdown } from "@/lib/inline-markdown";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   category: ServiceCategoryData;
@@ -76,7 +77,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
         ) : (
           <>
             <div className="absolute inset-0">
-              <Image src={heroImage?.src || photos[0]} alt={category.title} title={category.title} fill className="object-cover" style={{ objectPosition: heroImage?.position || "center" }} sizes="100vw" priority />
+              <Image src={heroImage?.src || photos[0]} unoptimized={isPreOptimized(heroImage?.src || photos[0])} alt={category.title} title={category.title} fill className="object-cover" style={{ objectPosition: heroImage?.position || "center" }} sizes="100vw" priority />
             </div>
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(42,37,32,0.85) 0%, rgba(42,37,32,0.6) 40%, rgba(42,37,32,0.2) 70%, transparent 100%)" }} />
             <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(42,37,32,0.7) 0%, transparent 40%)" }} />
@@ -103,7 +104,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
               {heroVariant === "light" && (
                 <div className="flex-1 mt-8 lg:mt-0">
                   <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[70vh] rounded-[var(--radius-card)] overflow-hidden">
-                    <Image src={heroImage?.src || photos[0]} alt={category.title} title={category.title} fill className="object-cover" style={{ objectPosition: heroImage?.position || "center", transform: heroImage?.flip ? "scaleX(-1)" : undefined }} sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                    <Image src={heroImage?.src || photos[0]} unoptimized={isPreOptimized(heroImage?.src || photos[0])} alt={category.title} title={category.title} fill className="object-cover" style={{ objectPosition: heroImage?.position || "center", transform: heroImage?.flip ? "scaleX(-1)" : undefined }} sizes="(max-width: 1024px) 100vw, 50vw" priority />
                   </div>
                 </div>
               )}
@@ -127,7 +128,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                       {"heading" in section && section.heading && <h2 className="reveal heading-2 text-black max-w-2xl">{section.heading as string}</h2>}
                       <div className="reveal d1 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                         <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark">
-                          <Image src={photos[1] || photos[0]} alt={category.title} title={category.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                          <Image src={photos[1] || photos[0]} unoptimized={isPreOptimized(photos[1] || photos[0])} alt={category.title} title={category.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                         </div>
                         <div className="flex flex-col gap-6 justify-center">
                           {"body" in section && section.body && (() => {
@@ -151,7 +152,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
 
                   {isBeforeLastThree && photos.length > 2 && (
                     <div className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden">
-                      <Image src={photos[2] || photos[0]} alt={`${category.title} — GENEVITY`} title={`${category.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
+                      <Image src={photos[2] || photos[0]} unoptimized={isPreOptimized(photos[2] || photos[0])} alt={`${category.title} — GENEVITY`} title={`${category.title} — GENEVITY`} fill className="object-cover" sizes="100vw" />
                     </div>
                   )}
                 </div>
@@ -215,7 +216,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
         <RevealSection className="mt-16 lg:mt-20">
           <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[320px] flex items-center">
-            <Image src={photos[photos.length > 4 ? 4 : 0]} alt="GENEVITY клініка" title="GENEVITY — клініка довголіття та естетичної медицини" fill className="object-cover" sizes="100vw" />
+            <Image src={photos[photos.length > 4 ? 4 : 0]} unoptimized={isPreOptimized(photos[photos.length > 4 ? 4 : 0])} alt="GENEVITY клініка" title="GENEVITY — клініка довголіття та естетичної медицини" fill className="object-cover" sizes="100vw" />
             <div className="absolute inset-0 bg-black/60" />
             <div className="relative z-10 w-full text-center p-8 lg:p-14">
               <h2 className="heading-2 text-champagne mb-4">{t("bookCta")}</h2>
