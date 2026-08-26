@@ -1,0 +1,53 @@
+[
+  {
+    "table": "content_sections",
+    "id": "adc3cee8-4baa-4262-b644-690876699eae",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "Hydrafacial is a non-traumatic procedure performing 6 actions in one 30-60-minute session: cleansing, exfoliation, vacuum comedone extraction, serum infusion, hydration, and protection. Unique Vortex-Fusion technology simultaneously extracts impurities and delivers actives into the skin.\n\n**Indications:** all skin types including sensitive and acne-prone. Enlarged pores, dull tone, dehydration, surface pigmentation, post-acne, fine wrinkles. Safe in summer - no increased photosensitivity.\n\n**Result:** visible immediately - fresh, hydrated, glowing skin. Course of 4-6 sessions recommended.",
+        "ru": "Hydrafacial - нетравматическая процедура: очищение, эксфолиация, вакуумное удаление комедонов, сыворотки, увлажнение и защита - за один сеанс 30-60 минут.\n\n**Показания:** все типы кожи, расширенные поры, тусклый тон, постакне. Безопасна летом. **Противопоказания:** активные воспаления, герпес.\n\n**Результат:** виден сразу - свежая, увлажнённая, сияющая кожа.",
+        "uk": "Hydrafacial - нетравматична процедура, яка за один 30-60-хвилинний сеанс виконує 6 дій: очищення, ексфоліацію, безболісне вакуумне видалення комедонів, насичення активними сироватками, зволоження та захист шкіри. Унікальна вихрова технологія Vortex-Fusion одночасно відсмоктує забруднення і доставляє активні компоненти вглиб шкіри.\n\n**Показання до Hydrafacial:** всі типи шкіри включаючи чутливу та схильну до акне. Збільшені пори, тьмяний тон, зневоднення, поверхнева пігментація, постакне, дрібні зморшки. Підходить влітку - не підвищує фоточутливість шкіри.\n\n**Протипоказання:** активні запалення на шкірі (папули, пустули), герпес у стадії загострення, розацеа в активній фазі.\n\n**Результат:** видно одразу - шкіра свіжа, зволожена, сяюча. Рекомендується курс 4-6 процедур з інтервалом 2-4 тижні та підтримуючий сеанс раз на місяць."
+      },
+      "heading": {
+        "en": "Hydrafacial - Deep Facial Cleansing and Hydration",
+        "ru": "Hydrafacial - глубокое очищение и увлажнение кожи лица",
+        "uk": "Hydrafacial - глибоке очищення та зволоження шкіри обличчя"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "7b4a2d46-b8ff-467b-ba5b-cda96796971a",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "AcuPulse CO₂ by Lumenis is the gold standard for post-acne, scar, and wrinkle treatment. The fractional CO₂ laser (10,600 nm) vaporises micro-columns in the dermis, triggering regeneration: scar tissue is replaced with normal tissue, wrinkles smooth out.\n\n**Indications:** post-acne, atrophic scars, fine-to-medium wrinkles, uneven texture, pigmentation, photoageing. **Rehabilitation:** 5-10 days. Results last 2-5 years.",
+        "ru": "AcuPulse CO₂ от Lumenis - золотой стандарт лечения постакне, рубцов и морщин. Фракционный CO₂ лазер (10 600 нм) запускает регенерацию: рубцовая ткань замещается нормальной.\n\n**Показания:** постакне, рубцы, морщины, пигментация, неровная текстура. **Реабилитация:** 5-10 дней. Результат - 2-5 лет.",
+        "uk": "AcuPulse CO₂ від Lumenis - апарат фракційного вуглекислотного (CO₂) лазера, золотий стандарт лікування постакне, рубців та виражених зморшок. Лазер (10 600 нм) випаровує мікростовпці тканини в дермі, запускаючи активну регенерацію: фібробласти виробляють новий колаген, рубцева тканина замінюється на нормальну, зморшки вирівнюються.\n\n**Показання до лазерного шліфування CO₂:**\n- Постакне та рубці атрофічного типу\n- Зморшки - дрібні та середні\n- Нерівна текстура, розширені пори\n- Пігментація, фотостаріння\n- Шліфовка шиї, декольте, зони навколо очей\n\n**Процедура:** під місцевою анестезією. Тривалість 30-90 хвилин залежно від зони. **Реабілітація:** 5-10 днів (гіперемія, набряк, лущення). Результат стабільний і зберігається 2-5 років. Кількість процедур: 1-3 залежно від глибини проблеми."
+      },
+      "heading": {
+        "en": "AcuPulse CO₂ - Facial Laser Resurfacing for Scars and Wrinkles",
+        "ru": "AcuPulse CO₂ - лазерная шлифовка лица для лечения рубцов и морщин",
+        "uk": "AcuPulse CO₂ - лазерне шліфування обличчя для лікування рубців та зморшок"
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "19c24d43-305a-4e93-8eb6-b8969fd335bc",
+    "column": "data",
+    "before": {
+      "body": {
+        "en": "M22 Stellar Black by Lumenis - advanced IPL (OPT technology) + Nd:YAG laser. IPL removes pigmentation spots (freckles, melasma, solar lentigo), diffuse redness, spider veins. Nd:YAG treats deeper vascular lesions and stubborn pigmentation.\n\n**Suitable for:** pigmentation of any origin, spider veins, rosacea, photoageing, post-acne remission.\n\n**Procedure:** 20-45 min. Minimal recovery: mild redness 24-48 h. Course: 3-5 sessions, 3-4 weeks apart. Avoid tanning 2-4 weeks before.",
+        "ru": "M22 Stellar Black от Lumenis - IPL (OPT-технология) + Nd:YAG лазер. IPL удаляет пигментные пятна, купероз, сосудистые звёздочки. Nd:YAG - для глубоких сосудистых поражений.\n\n**Кому подходит:** пигментация, купероз, фотостарение, постакне. **Процедура:** 20-45 мин, реабилитация 24-48 ч. Курс: 3-5 процедур.",
+        "uk": "M22 Stellar Black від Lumenis - передова мультимодульна платформа, що поєднує вдосконалений IPL (OPT-технологія) з Nd:YAG лазером. IPL ефективно видаляє пігментні плями (веснянки, хлоазма, сонячне лентиго, постзапальна гіперпігментація), дифузне почервоніння та судинні зірочки. Nd:YAG застосовується для глибших судинних уражень та стійкої пігментації.\n\n**Кому підходить M22 Stellar Black:**\n- Пігментні плями різного походження\n- Судинні зірочки, телеангіектазії, купероз\n- Дифузне почервоніння та рівномірний тон шкіри\n- Акне та постакне у фазі ремісії\n- Фотостаріння - нерівний тон, дрібні зморшки\n\n**Процедура:** 20-45 хвилин. Реабілітація мінімальна - легке почервоніння 24-48 годин. Курс: 3-5 процедур з інтервалом 3-4 тижні. Перед курсом необхідно уникати засмаги 2-4 тижні."
+      },
+      "heading": {
+        "en": "M22 Stellar Black - IPL and Nd:YAG for Pigmentation, Rosacea and Rejuvenation",
+        "ru": "M22 Stellar Black - IPL и Nd:YAG для пигментации, купероза и омоложения",
+        "uk": "M22 Stellar Black - IPL та Nd:YAG для пігментації, судинних зірочок та омолодження"
+      }
+    }
+  }
+]

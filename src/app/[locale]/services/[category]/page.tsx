@@ -16,13 +16,18 @@ export async function generateStaticParams() {
   );
 }
 
-/** Map category slugs to relevant doctor IDs */
-const categoryDoctorIds: Record<string, string[]> = {
-  "injectable-cosmetology": ["doctor-0", "doctor-1"],
-  "apparatus-cosmetology": ["doctor-0", "doctor-1"],
-  "intimate-rejuvenation": ["doctor-6", "doctor-0"],
-  "laser-hair-removal": ["doctor-1", "doctor-0"],
-  "longevity": ["doctor-2", "doctor-3", "doctor-8", "doctor-9"],
+/** Map category slugs to the doctors shown on the hub, keyed by doctor slug
+ *  (`_id` is a database UUID and must not be hardcoded). */
+const categoryDoctorSlugs: Record<string, string[]> = {
+  "injectable-cosmetology": ["beliyanushkin-viktor", "sepkina-hanna", "polunina-veronika"],
+  "apparatus-cosmetology": ["beliyanushkin-viktor", "sepkina-hanna"],
+  "intimate-rejuvenation": ["kroshka-iryna", "beliyanushkin-viktor"],
+  "laser-hair-removal": ["sepkina-hanna", "beliyanushkin-viktor"],
+  "longevity": ["poleshko-kateryna", "minchuk-yevheniia", "tolstykova-tetiana"],
+  "plastic-surgery": ["detsyk-dmytro", "harmash-serhii"],
+  "diagnostics": ["fedorenko-svitlana", "poleshko-kateryna"],
+  "podology": ["kyrylenko-anzhela"],
+  "gynaecology": ["kroshka-iryna"],
 };
 
 const DEFAULT_HERO = { src: "/clinic/semi1737-hdr.webp", position: "center" };
@@ -85,8 +90,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ local
         heroVariant="light"
         images={category.gallery?.length ? category.gallery : DEFAULT_PHOTOS}
         doctors={
-          categoryDoctorIds[slug]
-            ? doctors.filter((d) => categoryDoctorIds[slug].includes(d._id))
+          categoryDoctorSlugs[slug]
+            ? (() => {
+                const picked = doctors.filter((d) => d.slug && categoryDoctorSlugs[slug].includes(d.slug));
+                return picked.length ? picked : doctors.slice(0, 4);
+              })()
             : doctors.slice(0, 4)
         }
         doctorsUi={uiStrings?.doctors}
