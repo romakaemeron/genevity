@@ -27,6 +27,7 @@ import { absoluteUrl } from "@/lib/url";
 import { formatReviewDate } from "@/lib/formatDate";
 import { useScrollReveal } from "@/lib/useReveal";
 import { renderInlineMarkdown } from "@/lib/inline-markdown";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   data: ServiceData;
@@ -189,6 +190,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                   <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden bg-champagne-dark lg:order-2 order-1">
                     <Image
                       src={richHeroImage}
+                      unoptimized={isPreOptimized(richHeroImage)}
                       alt={data.title}
                       title={data.title}
                       fill
@@ -292,7 +294,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
             return (
               <div key="finalCTA" className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pb-20">
                 <div className={`mt-20 lg:mt-24 rounded-[var(--radius-card)] px-4 py-6 sm:p-8 lg:p-12 text-center relative overflow-hidden ${hasCustomImage || cta.bgType === "color" ? "" : "bg-main"}`} style={cardStyle}>
-                  {hasCustomImage && (<><Image src={cta.bgImage!} alt="" fill className="object-cover" sizes="100vw" style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined} /><div className="absolute inset-0 bg-black/40" /></>)}
+                  {hasCustomImage && (<><Image src={cta.bgImage!} unoptimized={isPreOptimized(cta.bgImage)} alt="" fill className="object-cover" sizes="100vw" style={cta.bgFocalPoint ? { objectPosition: cta.bgFocalPoint } : undefined} /><div className="absolute inset-0 bg-black/40" /></>)}
                   <div className="relative">
                     <h2 className="heading-2 text-champagne mb-4">{data.finalCta.heading || heading(data.blockHeadings.finalCTA, t("bookCta"))}</h2>
                     <p className="body-l text-white-60 mb-8 max-w-2xl mx-auto">{data.finalCta.subtitle || t("ctaSubtitle")}</p>

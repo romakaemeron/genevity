@@ -15,6 +15,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Minus, Plus, Pencil, Check } from "lucide-react";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   name: string;
@@ -144,7 +145,7 @@ export default function CirclePhotoEditor({
               className="absolute inset-0"
               style={{ transform: `scale(${scale})`, transformOrigin: posString }}
             >
-              <Image src={photoUrl} alt={alt} fill sizes="256px" className="object-cover" style={{ objectPosition: posString }} />
+              <Image src={photoUrl} unoptimized={isPreOptimized(photoUrl)} alt={alt} fill sizes="256px" className="object-cover" style={{ objectPosition: posString }} />
             </div>
           </div>
           <p className="text-[11px] text-muted font-mono">

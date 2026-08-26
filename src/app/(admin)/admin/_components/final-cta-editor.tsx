@@ -14,6 +14,7 @@ import {
   uploadServiceImage,
   type ServiceFinalCtaInput,
 } from "../_actions/services";
+import { isPreOptimized } from "@/lib/image-src";
 
 const COLOR_TOKENS = [
   { name: "color-main",         label: "Taupe (default)", swatch: "#8B7B6B" },
@@ -224,7 +225,7 @@ export default function FinalCtaEditor({ serviceId, serviceLabel, initial, onDel
                     >
                       {cta.bgImage ? (
                         <>
-                          <Image src={cta.bgImage} alt="" fill className="object-cover" sizes="256px" style={{ objectPosition: cta.bgFocalPoint }} />
+                          <Image src={cta.bgImage} unoptimized={isPreOptimized(cta.bgImage)} alt="" fill className="object-cover" sizes="256px" style={{ objectPosition: cta.bgFocalPoint }} />
                           <div className="absolute inset-0 bg-black/30" />
                           <button
                             type="button"

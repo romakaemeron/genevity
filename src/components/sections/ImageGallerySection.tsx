@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { SectionImageGallery } from "@/lib/db/types";
+import { isPreOptimized } from "@/lib/image-src";
 
 export default function ImageGallerySection({ heading, images }: SectionImageGallery) {
   return (
@@ -14,6 +15,7 @@ export default function ImageGallerySection({ heading, images }: SectionImageGal
             >
               <Image
                 src={img.url}
+                unoptimized={isPreOptimized(img.url)}
                 alt={img.alt || ""}
                 title={img.alt || undefined}
                 fill
