@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { DoctorItem } from "@/lib/db/types";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Props {
   title: string;
@@ -22,6 +23,7 @@ export default function RelatedDoctorsStrip({ title, doctors }: Props) {
               <div className="relative w-16 h-16 rounded-full overflow-hidden shrink-0 bg-champagne-darker">
                 <Image
                   src={doc.photoCard}
+                  unoptimized={isPreOptimized(doc.photoCard)}
                   alt={doc.name}
                   title={doc.name}
                   fill

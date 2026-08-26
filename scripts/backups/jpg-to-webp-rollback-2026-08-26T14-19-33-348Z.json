@@ -1,0 +1,2828 @@
+[
+  {
+    "table": "content_sections",
+    "id": "06ff13ad-b61a-4aba-b0c7-ed7ff251f17b",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "f8d354f7-2c9e-42b3-b4e8-a77420643092",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "e671d9b7-2fd5-4b0e-8f4a-e17eaf45fa5e",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення "
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable ",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "400b5310-dc09-491a-8fe8-b5a8933e186e",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "8a1efac6-d3e8-4d5e-9201-e3a06e4c73c1",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "fc313c1d-4c3f-4df4-b071-f6cf8dcf02dd",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "91de4d9b-9d57-4a11-abd1-b3b330cbe058",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Splendor X hair-removal laser at GENEVITY",
+            "ru": "Лазер Splendor X для эпиляции в GENEVITY",
+            "uk": "Лазер Splendor X для епіляції в GENEVITY"
+          },
+          "url": "/images/equipment/splendor-x.webp",
+          "span": "1",
+          "title": {
+            "en": "Splendor X",
+            "ru": "Splendor X",
+            "uk": "Splendor X"
+          },
+          "subtitle": {
+            "en": "Hair-removal laser for every skin type",
+            "ru": "Лазер для эпиляции всех фототипов",
+            "uk": "Лазер для епіляції всіх фототипів"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "19683d08-c636-48ea-a2e0-30f83b5819c1",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "6d0e4552-149b-4e9b-aa2d-839c68960131",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Splendor X hair-removal laser at GENEVITY",
+            "ru": "Лазер Splendor X для эпиляции в GENEVITY",
+            "uk": "Лазер Splendor X для епіляції в GENEVITY"
+          },
+          "url": "/images/equipment/splendor-x.webp",
+          "span": "1",
+          "title": {
+            "en": "Splendor X",
+            "ru": "Splendor X",
+            "uk": "Splendor X"
+          },
+          "subtitle": {
+            "en": "Hair-removal laser for every skin type",
+            "ru": "Лазер для эпиляции всех фототипов",
+            "uk": "Лазер для епіляції всіх фототипів"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "91b78b3f-6674-43a7-8fbd-8b8aea3f5a1f",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "1e0d1d53-ad45-4378-ba12-dd4d67e85f5b",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "b70cf1e6-1cd9-45d7-9eb2-9feabf35dd58",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "1320e674-bf13-41fd-91a3-4459fdc7d66f",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "e3a4d0ca-afc0-4e90-858d-1e4e2fa2dc0e",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "82e0511f-7028-47e6-8dfd-bc5c69d8543d",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "b6e52618-0db4-4a01-a6ce-e932774fb01d",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "a0b0e295-a597-4d08-becf-635ad42b916a",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Splendor X hair-removal laser at GENEVITY",
+            "ru": "Лазер Splendor X для эпиляции в GENEVITY",
+            "uk": "Лазер Splendor X для епіляції в GENEVITY"
+          },
+          "url": "/images/equipment/splendor-x.webp",
+          "span": "1",
+          "title": {
+            "en": "Splendor X",
+            "ru": "Splendor X",
+            "uk": "Splendor X"
+          },
+          "subtitle": {
+            "en": "Hair-removal laser for every skin type",
+            "ru": "Лазер для эпиляции всех фототипов",
+            "uk": "Лазер для епіляції всіх фототипів"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "1fb01d71-228f-48aa-9bb3-b9912f43096e",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "50e78a50-bef5-403b-97aa-fb7068c6a70a",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "content_sections",
+    "id": "7517c07c-f124-4aac-a2ab-36530d3df2e2",
+    "before": {
+      "images": [
+        {
+          "alt": {
+            "en": "Genevity clinic reception desk with logo, marble counter and chandelier",
+            "ru": "Рецепция клиники Genevity - логотип на стене, мраморный стол, люстра",
+            "uk": "Рецепція клініки Genevity - логотип на стіні, мармуровий стіл, люстра"
+          },
+          "url": "/images/interior/SEMI7509.jpg",
+          "span": "1",
+          "title": {
+            "en": "Reception",
+            "ru": "Рецепция",
+            "uk": "Рецепція"
+          },
+          "subtitle": {
+            "en": "Your journey to beauty begins here",
+            "ru": "Ваше путешествие к красоте начинается здесь",
+            "uk": "Ваша подорож до краси починається тут"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity day stationary room with recliner chairs, crystal chandelier and ambient lighting",
+            "ru": "Дневной стационар Genevity - кресла для отдыха, хрустальная люстра, уютное освещение",
+            "uk": "Денний стаціонар Genevity - крісла для відпочинку, кришталева люстра, затишне освітлення"
+          },
+          "url": "/images/interior/SEMI1737-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Day Stationary",
+            "ru": "Дневной стационар",
+            "uk": "Денний стаціонар"
+          },
+          "subtitle": {
+            "en": "Recovery in luxurious calm",
+            "ru": "Восстановление в роскошном спокойствии",
+            "uk": "Відновлення у розкішному спокої"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic hallway with ornate coffered ceiling and artwork on the walls",
+            "ru": "Коридор клиники Genevity с кессонированным потолком и картинами на стенах",
+            "uk": "Коридор клініки Genevity з кесонованою стелею та картинами на стінах"
+          },
+          "url": "/images/interior/SEMI1281-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Clinic Ambiance",
+            "ru": "Атмосфера клиники",
+            "uk": "Атмосфера клініки"
+          },
+          "subtitle": {
+            "en": "Aesthetics in every interior detail",
+            "ru": "Эстетика в каждой детали интерьера",
+            "uk": "Естетика у кожній деталі інтер'єру"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity treatment room with medical equipment cart and procedure bed",
+            "ru": "Процедурный кабинет Genevity с медицинским оборудованием и кушеткой",
+            "uk": "Процедурний кабінет Genevity з медичним обладнанням та кушеткою"
+          },
+          "url": "/images/interior/EMFACE и EMSculpt.jpg",
+          "span": "1",
+          "title": {
+            "en": "Treatment Room",
+            "ru": "Процедурный кабинет",
+            "uk": "Процедурний кабінет"
+          },
+          "subtitle": {
+            "en": "Advanced equipment for precise results",
+            "ru": "Современное оборудование для точных результатов",
+            "uk": "Сучасне обладнання для точних результатів"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity beauty suite with marble floor, procedure chair and large windows",
+            "ru": "Кабинет Genevity с мраморным полом, процедурным креслом и большими окнами",
+            "uk": "Кабінет Genevity з мармуровою підлогою, процедурним кріслом та великими вікнами"
+          },
+          "url": "/clinic/hydrafacial.webp",
+          "span": "1",
+          "title": {
+            "en": "Beauty Suite",
+            "ru": "Кабинет красоты",
+            "uk": "Кабінет краси"
+          },
+          "subtitle": {
+            "en": "Comfort and clinical precision in one space",
+            "ru": "Комфорт и медицинская точность в одном пространстве",
+            "uk": "Комфорт і медична точність в одному просторі"
+          },
+          "focalPoint": "50% 50%"
+        },
+        {
+          "alt": {
+            "en": "Genevity clinic entrance hall with tall glass surfaces, light walls and marble floor",
+            "ru": "Входная зона клиники Genevity - светлое пространство со стеклянными поверхностями и мраморным полом",
+            "uk": "Вхідна зона клініки Genevity - світлий простір зі скляними поверхнями та мармуровою підлогою"
+          },
+          "url": "/images/interior/SEMI1276-HDR.jpg",
+          "span": "1",
+          "title": {
+            "en": "Entrance Hall",
+            "ru": "Входная зона",
+            "uk": "Вхідна зона"
+          },
+          "subtitle": {
+            "en": "A first impression that's always impeccable",
+            "ru": "Первое впечатление - всегда безупречное",
+            "uk": "Перше враження - завжди бездоганне"
+          },
+          "focalPoint": "50% 50%"
+        }
+      ],
+      "heading": {
+        "en": "The Clinic Atmosphere",
+        "ru": "Атмосфера клиники",
+        "uk": "Атмосфера клініки"
+      },
+      "subtitle": {
+        "en": "",
+        "ru": "",
+        "uk": ""
+      }
+    }
+  },
+  {
+    "table": "gallery_items",
+    "id": "fa94cea1-a937-43f1-9198-8b32d8cce829",
+    "column": "image_url",
+    "before": "/images/interior/SEMI7509.jpg"
+  }
+]

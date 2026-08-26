@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Plus, ArrowUpRight, Settings } from "lucide-react";
 import { AdminPageHeader, AdminPrimaryButton } from "../_components/admin-list";
 import { getAdminStrings } from "../_i18n/server";
+import { isPreOptimized } from "@/lib/image-src";
 
 export default async function DoctorsListPage() {
   await requireSession();
@@ -46,6 +47,7 @@ export default async function DoctorsListPage() {
               {doc.photo_card ? (
                 <Image
                   src={doc.photo_card}
+                  unoptimized={isPreOptimized(doc.photo_card)}
                   alt={`Лікар ${doc.role_uk} ${doc.name_uk} — GENEVITY Дніпро`}
                   fill
                   className="object-cover"

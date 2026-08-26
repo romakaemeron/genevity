@@ -11,6 +11,7 @@ import Button from "@/components/ui/Button";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
 import MediaPicker from "./media-picker";
 import HeroFocalResponsiveEditor, { type HeroFocalValue, type HeroFocalBP } from "./hero-focal-responsive-editor";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface Slide {
   id?: string;
@@ -162,7 +163,7 @@ export default function HeroSlidesEditor({ initial, heroContent }: Props) {
             onClick={() => fileInputRefs.current[i]?.click()}
           >
             {slide.image_url ? (
-              <Image src={slide.image_url} alt="" fill className="object-cover" sizes="128px" />
+              <Image src={slide.image_url} unoptimized={isPreOptimized(slide.image_url)} alt="" fill className="object-cover" sizes="128px" />
             ) : (
               <div className="absolute inset-0 flex flex-col items-center justify-center text-muted text-xs gap-1">
                 <Upload size={14} />

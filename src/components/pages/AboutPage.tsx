@@ -14,6 +14,7 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
 import PhotoSlideshow from "@/components/ui/PhotoSlideshow";
 import Requisites from "@/components/pages/Requisites";
+import { isPreOptimized } from "@/lib/image-src";
 
 const Doctors = dynamic(() => import("@/components/home/Doctors"));
 const StripeGallery = dynamic(() => import("@/components/ui/StripeGallery"));
@@ -83,7 +84,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
                     withLightbox
                   />
                 ) : (
-                  <Image src="/clinic/semi1737-hdr.webp" alt="GENEVITY — центр довголіття та естетичної медицини" title="GENEVITY — центр довголіття та естетичної медицини" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
+                  <Image src="/clinic/semi1737-hdr.webp" unoptimized alt="GENEVITY — центр довголіття та естетичної медицини" title="GENEVITY — центр довголіття та естетичної медицини" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" priority />
                 )}
               </div>
             </div>
@@ -101,7 +102,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
             </div>
           </div>
           <div className="relative w-full aspect-[4/3] lg:aspect-auto rounded-[var(--radius-card)] overflow-hidden">
-            <Image src={heroImage || "/clinic/semi1287-hdr.webp"} alt={about.title} title={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+            <Image src={heroImage || "/clinic/semi1287-hdr.webp"} unoptimized={isPreOptimized(heroImage || "/clinic/semi1287-hdr.webp")} alt={about.title} title={about.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
           </div>
         </div>
       </section>
@@ -213,7 +214,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
       {/* Final CTA */}
       <div ref={ctaRef as React.RefObject<HTMLDivElement>} className={`cv-auto max-w-container mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-20 ${ctaVisible ? "revealed" : ""}`}>
         <div className="reveal relative rounded-[var(--radius-card)] overflow-hidden min-h-[300px] flex items-center">
-          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} alt={ctaBg?.alt || "GENEVITY — апаратна косметологія"} title={ctaBg?.title || "GENEVITY — апаратна косметологія"} fill className="object-cover" sizes="100vw" />
+          <Image src={ctaBg?.imageUrl || "/clinic/acupulse.webp"} unoptimized={isPreOptimized(ctaBg?.imageUrl || "/clinic/acupulse.webp")} alt={ctaBg?.alt || "GENEVITY — апаратна косметологія"} title={ctaBg?.title || "GENEVITY — апаратна косметологія"} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative z-10 w-full text-center px-4 py-8 sm:p-8 lg:p-14">
             <h2 className="heading-2 text-champagne mb-4">{tLabels("bookCta")}</h2>

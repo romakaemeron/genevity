@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useLayoutEffect } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface GalleryItem {
   src: string;
@@ -150,6 +151,7 @@ function Stripe({
         >
           <Image
             src={item.src}
+            unoptimized={isPreOptimized(item.src)}
             alt={item.alt}
             title={item.title || item.alt || undefined}
             fill
@@ -274,7 +276,7 @@ export default function StripeGallery({ title, subtitle, items, height = "600px"
               className="absolute inset-0 transition-opacity duration-400"
               style={{ opacity: i === activeIndex ? 1 : 0 }}
             >
-              <Image src={item.src} alt={item.alt} title={item.title || item.alt} fill className="object-cover" sizes="100vw" />
+              <Image src={item.src} unoptimized={isPreOptimized(item.src)} alt={item.alt} title={item.title || item.alt} fill className="object-cover" sizes="100vw" />
             </div>
           ))}
         </div>

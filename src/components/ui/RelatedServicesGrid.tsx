@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { isPreOptimized } from "@/lib/image-src";
 
 interface ServiceCard {
   _id: string;
@@ -36,6 +37,7 @@ export default async function RelatedServicesGrid({ title, services, categorySlu
               <div className="relative aspect-[16/10] bg-champagne-dark">
                 <Image
                   src={svc.heroImage}
+                  unoptimized={isPreOptimized(svc.heroImage)}
                   alt={svc.title}
                   title={svc.title}
                   fill
