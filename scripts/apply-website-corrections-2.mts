@@ -14,9 +14,12 @@
  *     and every AcuPulse shot we hold is already used on another page
  *   - plastic-surgery hub: the photo is a pin.it link (third-party image,
  *     unclear licensing)
- *   - Rejuran / Juvederm / PolyPhil / gynaecology: the supplied images are
- *     AI-generated and carry a misspelt wordmark ("GENE VITI", "GENEVITTI")
- *     on the robe and uniform
+ *
+ * Rejuran / Juvederm / PolyPhil / gynaecology use the AI-generated images the
+ * client supplied. They carry a misspelt wordmark on the robe and uniform
+ * ("GENE VITI", "GENEVITTI"); this was raised with the client, who chose to
+ * publish them as provided. Swapping in corrected artwork later is a one-line
+ * change to the IMG map plus a re-run.
  *
  *   npx tsx scripts/apply-website-corrections-2.mts          # dry run
  *   npx tsx scripts/apply-website-corrections-2.mts --apply
@@ -41,6 +44,10 @@ const IMG = {
   rfLifting: "/images/procedures/rf-lifting-face.webp",
   prpTubes: "/images/procedures/prp-tubes.webp",
   prpDraw: "/images/procedures/prp-blood-draw.webp",
+  rejuran: "/images/procedures/rejuran-treatment.webp",
+  juvederm: "/images/procedures/juvederm-treatment.webp",
+  polyphil: "/images/procedures/polyphil-treatment.webp",
+  gynaecology: "/images/procedures/gynaecology-consultation.webp",
 } as const;
 
 async function serviceId(cat: string, slug: string): Promise<string | null> {
@@ -169,6 +176,17 @@ await setCategoryHero("intimate-rejuvenation", IMG.acupulse);
 await setCategoryGallery("intimate-rejuvenation", [
   { url: IMG.acupulse, alt: ["Лазер AcuPulse CO₂ для інтимного омолодження в GENEVITY", "Лазер AcuPulse CO₂ для интимного омоложения в GENEVITY", "The AcuPulse CO₂ laser for intimate rejuvenation at GENEVITY"] },
   { url: IMG.rfLifting, alt: ["Процедура RF-ліфтингу в клініці GENEVITY", "Процедура RF-лифтинга в клинике GENEVITY", "An RF lifting treatment at the GENEVITY clinic"] },
+]);
+
+log("\n── Ін'єкційні сторінки, що показували лише загальні фото клініки");
+await setHeroImage("injectable-cosmetology", "rejuran", IMG.rejuran);
+await setHeroImage("injectable-cosmetology", "juvederm", IMG.juvederm);
+await setHeroImage("injectable-cosmetology", "polyphil", IMG.polyphil);
+
+log("\n── Розділ «Гінекологія»");
+await setCategoryHero("gynaecology", IMG.gynaecology);
+await setCategoryGallery("gynaecology", [
+  { url: IMG.gynaecology, alt: ["Консультація гінеколога в клініці GENEVITY", "Консультация гинеколога в клинике GENEVITY", "A gynaecology consultation at the GENEVITY clinic"] },
 ]);
 
 log("\n── Полуніна Вероніка у блоці «Команда лікарів»");
