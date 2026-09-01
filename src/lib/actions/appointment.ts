@@ -15,6 +15,7 @@
 
 import { sql } from "@/lib/db/client";
 import { sendEmail } from "@/lib/email";
+import { sendTelegram, escapeHtml as tgEscape } from "@/lib/telegram";
 import {
   listEmployees,
   listServicesGrouped,
@@ -187,6 +188,35 @@ function splitName(full: string): { firstName: string; lastName: string } {
     : { firstName: parts[0], lastName: parts.slice(1).join(" ") };
 }
 
+/** "11 серпня 2026, 14:00" — the clinic reads Kyiv time, RoApp stores UTC. */
+function kyivDateTime(iso: string): string {
+  return new Date(iso).toLocaleString("uk-UA", {
+    day: "2-digit", month: "long", year: "numeric",
+    hour: "2-digit", minute: "2-digit", timeZone: "Europe/Kyiv",
+  });
+}
+
+/** "+380 67 123 45 67" — spaced, no brackets, so Telegram's clients recognise
+ *  it as a phone number and make it tappable-to-call. The bracketed `pretty`
+ *  form used in email and the admin portal defeats that detection. */
+function telegramPhone(e164: string): string {
+  const d = e164.replace(/\D+/g, "");
+  if (d.length !== 12 || !d.startsWith("380")) return `+${d}`;
+  const n = d.slice(3);
+  return `+380 ${n.slice(0, 2)} ${n.slice(2, 5)} ${n.slice(5, 7)} ${n.slice(7, 9)}`;
+}
+
+/** RoApp's name for a specialist. Best-effort: the notification is more useful
+ *  with it, but never worth failing a booking over. */
+async function doctorNameOf(employeeId: number): Promise<string | null> {
+  try {
+    const employees = await listEmployees();
+    return employees.find((e) => e.id === employeeId)?.name ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export async function submitAppointment(
   input: AppointmentInput,
 ): Promise<AppointmentResult> {
@@ -204,11 +234,23 @@ export async function submitAppointment(
   }
   // Never write an appointment in the past, whatever the client sends.
   if (new Date(input.start).getTime() < Date.now() - 60_000) {
+    await notifyBookingFailure({
+      name,
+      phone: telegramPhone(phone.e164),
+      start: input.start,
+      reason: "Обраний час уже минув (застаріла сторінка)",
+    });
     return { ok: false, errorKey: "slotTaken" };
   }
 
   if (!isRoappConfigured()) {
     console.error("[appointment] ROAPP_API_KEY missing — cannot write booking");
+    await notifyBookingFailure({
+      name,
+      phone: telegramPhone(phone.e164),
+      start: input.start,
+      reason: "Інтеграцію з RoApp не налаштовано (немає ROAPP_API_KEY)",
+    });
     return { ok: false, errorKey: "unavailable" };
   }
 
@@ -225,10 +267,22 @@ export async function submitAppointment(
       periodDays: 7,
     });
     if (!slots.some((s) => s.dateStart === input.start)) {
+      await notifyBookingFailure({
+        name,
+        phone: telegramPhone(phone.e164),
+        start: input.start,
+        reason: "Слот зайняли, поки пацієнт заповнював форму",
+      });
       return { ok: false, errorKey: "slotTaken" };
     }
   } catch (e) {
     console.error("[appointment] slot re-check failed:", e);
+    await notifyBookingFailure({
+      name,
+      phone: telegramPhone(phone.e164),
+      start: input.start,
+      reason: "RoApp не відповів на перевірку вільного часу",
+    });
     return { ok: false, errorKey: "unavailable" };
   }
 
@@ -264,6 +318,12 @@ export async function submitAppointment(
     }));
   } catch (e) {
     console.error("[appointment] RoApp write failed:", e);
+    await notifyBookingFailure({
+      name,
+      phone: telegramPhone(phone.e164),
+      start: input.start,
+      reason: "RoApp відхилив запис",
+    });
     return {
       ok: false,
       errorKey: e instanceof RoappError && e.status === 409 ? "slotTaken" : "unavailable",
@@ -288,15 +348,29 @@ export async function submitAppointment(
     console.error("[appointment] form_submissions mirror failed:", e);
   }
 
-  await notifyAdmin({
-    name,
-    phone: phone.pretty,
-    serviceTitle,
-    start: input.start,
-    comment,
-    bookingId,
-    locale: input.locale,
-  });
+  // Both notifications run after the write, so neither can lose an appointment;
+  // allSettled keeps a failing channel from suppressing the other one.
+  const doctorName = await doctorNameOf(input.employeeId);
+  await Promise.allSettled([
+    notifyAdmin({
+      name,
+      phone: phone.pretty,
+      serviceTitle,
+      start: input.start,
+      comment,
+      bookingId,
+      locale: input.locale,
+    }),
+    notifyTelegram({
+      name,
+      phone: telegramPhone(phone.e164),
+      doctorName,
+      serviceTitle,
+      start: input.start,
+      comment,
+      bookingId,
+    }),
+  ]);
 
   return { ok: true, bookingId };
 }
@@ -359,4 +433,77 @@ function escapeHtml(s: string): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+/* ── Telegram ──────────────────────────────────────────────────────────── */
+
+/**
+ * Notify the clinic's Telegram group about a confirmed appointment.
+ *
+ * Ukrainian only: this goes to the front desk, not to patients, and the clinic
+ * works in Ukrainian regardless of which locale the visitor booked in.
+ *
+ * The phone is deliberately plain text rather than a link — Telegram's HTML
+ * mode rejects `tel:` hrefs, but its mobile clients auto-detect a spaced
+ * international number and make it tappable-to-call on their own.
+ */
+async function notifyTelegram(s: {
+  name: string;
+  phone: string;
+  doctorName: string | null;
+  serviceTitle: string | null;
+  start: string;
+  comment: string | null;
+  bookingId: number;
+}) {
+  const rows: [string, string][] = [
+    ["Час візиту", kyivDateTime(s.start)],
+    ["Пацієнт", s.name],
+    ["Телефон", s.phone],
+    ...(s.doctorName ? ([["Лікар", s.doctorName]] as [string, string][]) : []),
+    ["Послуга", s.serviceTitle || "Потрібна консультація"],
+    ...(s.comment ? ([["Коментар", s.comment]] as [string, string][]) : []),
+    ["Запис у RoApp", `#${s.bookingId}`],
+  ];
+  const text = [
+    "🗓 <b>Новий онлайн-запис</b>",
+    "",
+    ...rows.map(([label, value]) => `<b>${label}:</b> ${tgEscape(value)}`),
+    "",
+    "<i>Запис уже створено в RoApp — підтвердьте його дзвінком пацієнту.</i>",
+  ].join("\n");
+
+  const result = await sendTelegram({ text });
+  if (!result.ok) console.warn("[appointment] telegram notify failed:", result.reason);
+}
+
+/**
+ * Notify when a visitor tried to book and got nothing.
+ *
+ * Worth the noise: whatever went wrong, someone wanted an appointment and left
+ * without one, and the clinic can still call them back. Only fired once the
+ * name and phone have passed validation — a half-filled form isn't a lost lead.
+ *
+ * `slotTaken` is a genuine race (RoApp has no slot locking), so this will fire
+ * occasionally in normal operation, not only when something is broken.
+ */
+async function notifyBookingFailure(s: {
+  name: string;
+  phone: string;
+  start: string;
+  reason: string;
+}) {
+  const text = [
+    "⚠️ <b>Онлайн-запис не вдався</b>",
+    "",
+    `<b>Пацієнт:</b> ${tgEscape(s.name)}`,
+    `<b>Телефон:</b> ${tgEscape(s.phone)}`,
+    `<b>Бажаний час:</b> ${tgEscape(kyivDateTime(s.start))}`,
+    `<b>Причина:</b> ${tgEscape(s.reason)}`,
+    "",
+    "<i>Запису в RoApp НЕМАЄ. Зателефонуйте пацієнту, щоб записати вручну.</i>",
+  ].join("\n");
+
+  const result = await sendTelegram({ text });
+  if (!result.ok) console.warn("[appointment] telegram failure notify failed:", result.reason);
 }
