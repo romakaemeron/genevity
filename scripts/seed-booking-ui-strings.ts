@@ -286,6 +286,19 @@ const BOOKING: Record<string, L> = {
   },
   close: { uk: "Закрити", ru: "Закрыть", en: "Close" },
 
+  // WhatsApp consent. Names what will be sent and by whom — an opt-in that
+  // doesn't say what you're agreeing to isn't much of one.
+  whatsappOptIn: {
+    uk: "Надіслати підтвердження у WhatsApp",
+    ru: "Отправить подтверждение в WhatsApp",
+    en: "Send me a WhatsApp confirmation",
+  },
+  whatsappOptInHint: {
+    uk: "Надішлемо дату, час, лікаря та адресу на цей номер. Одне повідомлення, без розсилок.",
+    ru: "Отправим дату, время, врача и адрес на этот номер. Одно сообщение, без рассылок.",
+    en: "We'll send the date, time, doctor and address to this number. One message, no marketing.",
+  },
+
   unavailableTitle: {
     uk: "Онлайн-запис тимчасово недоступний",
     ru: "Онлайн-запись временно недоступна",

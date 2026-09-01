@@ -103,6 +103,9 @@ export default function AppointmentWizard({
   const [name, setName] = useState("");
   const [phoneLocal, setPhoneLocal] = useState("");
   const [comment, setComment] = useState("");
+  // Unticked by default: WhatsApp requires explicit opt-in, and a pre-ticked
+  // box is not consent under either their policy or GDPR.
+  const [whatsappOptIn, setWhatsappOptIn] = useState(false);
   const [errors, setErrors] = useState<{ name?: string; phone?: string; generic?: string }>({});
   const [bookingId, setBookingId] = useState<number | null>(null);
   const [slotTaken, setSlotTaken] = useState(false);
@@ -223,6 +226,7 @@ export default function AppointmentWizard({
         start: selectedSlot.start,
         end: selectedSlot.end,
         comment: comment.trim(),
+        whatsappOptIn,
         pageUrl: typeof window !== "undefined" ? window.location.href : undefined,
         locale,
       });
@@ -247,7 +251,7 @@ export default function AppointmentWizard({
     setMode("service"); setStep("service");
     setDoctorId(null); setServiceId(null); setQuery("");
     setSlots(null); setDateKey(null); setSlotStart(null); setWeekStart(0);
-    setName(""); setPhoneLocal(""); setComment("");
+    setName(""); setPhoneLocal(""); setComment(""); setWhatsappOptIn(false);
     setErrors({}); setBookingId(null); setSlotTaken(false);
   }
 
@@ -522,6 +526,19 @@ export default function AppointmentWizard({
             <label className="block sm:col-span-2">
               <span className="bk-eyebrow block mb-2.5">{t("commentLabel")}</span>
               <textarea rows={3} value={comment} onChange={(e) => setComment(e.target.value)} placeholder={t("commentPlaceholder")} className={`${fieldCls} resize-y`} />
+            </label>
+
+            <label className="sm:col-span-2 flex items-start gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={whatsappOptIn}
+                onChange={(e) => setWhatsappOptIn(e.target.checked)}
+                className="mt-0.5 w-[18px] h-[18px] shrink-0 rounded-[5px] border border-line-dark accent-main cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-main/40"
+              />
+              <span className="min-w-0">
+                <span className="block body-m text-black group-hover:text-main transition-colors">{t("whatsappOptIn")}</span>
+                <span className="block body-s text-black-40 mt-0.5">{t("whatsappOptInHint")}</span>
+              </span>
             </label>
           </div>
         </div>

@@ -14,8 +14,10 @@
  */
 
 import { sql } from "@/lib/db/client";
+import { getSiteSettingsData } from "@/lib/db/queries/homepage";
 import { sendEmail } from "@/lib/email";
 import { sendTelegram, escapeHtml as tgEscape } from "@/lib/telegram";
+import { sendWhatsAppTemplate, type WhatsAppOutcome } from "@/lib/whatsapp";
 import {
   listEmployees,
   listServicesGrouped,
@@ -124,6 +126,8 @@ export interface AppointmentInput {
   comment: string;
   pageUrl?: string;
   locale?: string;
+  /** Patient consented to a WhatsApp confirmation. Unticked by default. */
+  whatsappOptIn?: boolean;
 }
 
 export interface AppointmentResult {
@@ -187,6 +191,23 @@ function splitName(full: string): { firstName: string; lastName: string } {
     ? { firstName: parts[0], lastName: "" }
     : { firstName: parts[0], lastName: parts.slice(1).join(" ") };
 }
+
+/** The clinic's address for the patient's message, from the CMS so it can't
+ *  drift from the address shown everywhere else on the site. */
+async function clinicAddress(locale: string): Promise<string> {
+  try {
+    const settings = await getSiteSettingsData(locale);
+    return settings.address || "м. Дніпро, вул. Олеся Гончара, 12";
+  } catch {
+    return "м. Дніпро, вул. Олеся Гончара, 12";
+  }
+}
+
+/** The approved Meta template. Its text lives in docs/whatsapp-setup.md. */
+const WA_TEMPLATE = process.env.WHATSAPP_TEMPLATE_NAME || "booking_confirmation";
+
+/** Locales the template is approved in; anything else falls back to Ukrainian. */
+const WA_LANGUAGES: Record<string, string> = { ua: "uk", ru: "ru", en: "en" };
 
 /** "11 серпня 2026, 14:00" — the clinic reads Kyiv time, RoApp stores UTC. */
 function kyivDateTime(iso: string): string {
@@ -330,6 +351,33 @@ export async function submitAppointment(
     };
   }
 
+  // Confirm to the patient. Runs before the clinic's own notifications so the
+  // Telegram alert can carry the outcome — "no WhatsApp, phone them" is an
+  // instruction the front desk acts on, and it's useless an hour later. The
+  // booking is already written, so nothing here can cost the appointment; the
+  // 6s cap in the client bounds what the visitor waits for.
+  const doctorName = await doctorNameOf(input.employeeId);
+  let whatsapp: WhatsAppOutcome = "skipped";
+  if (input.whatsappOptIn) {
+    const address = await clinicAddress(input.locale ?? "ua");
+    const res = await sendWhatsAppTemplate({
+      to: phone.e164,
+      template: WA_TEMPLATE,
+      language: WA_LANGUAGES[input.locale ?? "ua"] ?? "uk",
+      bodyParams: [
+        name,
+        kyivDateTime(input.start),
+        doctorName ?? "—",
+        serviceTitle ?? "Консультація",
+        address,
+      ],
+    });
+    whatsapp = res.outcome;
+    if (res.outcome !== "sent") {
+      console.warn(`[appointment] whatsapp ${res.outcome}:`, res.reason);
+    }
+  }
+
   // Mirror into our own inbox. A failure here must not lose the appointment —
   // it already exists in RoApp, which is the system the clinic actually works
   // from — so it's logged and swallowed.
@@ -337,11 +385,12 @@ export async function submitAppointment(
     await sql`
       INSERT INTO form_submissions (
         form_type, name, phone, message, direction, preferred_time,
-        page_url, status, form_label
+        page_url, status, form_label, whatsapp_opt_in, whatsapp_status
       ) VALUES (
         'appointment', ${name}, ${phone.pretty}, ${comment},
         ${serviceTitle}, ${input.start},
-        ${pageUrl}, 'new', ${`Онлайн-запис (RoApp #${bookingId})`}
+        ${pageUrl}, 'new', ${`Онлайн-запис (RoApp #${bookingId})`},
+        ${Boolean(input.whatsappOptIn)}, ${whatsapp}
       )
     `;
   } catch (e) {
@@ -350,7 +399,6 @@ export async function submitAppointment(
 
   // Both notifications run after the write, so neither can lose an appointment;
   // allSettled keeps a failing channel from suppressing the other one.
-  const doctorName = await doctorNameOf(input.employeeId);
   await Promise.allSettled([
     notifyAdmin({
       name,
@@ -369,6 +417,7 @@ export async function submitAppointment(
       start: input.start,
       comment,
       bookingId,
+      whatsapp,
     }),
   ]);
 
@@ -438,6 +487,20 @@ function escapeHtml(s: string): string {
 /* ── Telegram ──────────────────────────────────────────────────────────── */
 
 /**
+ * What the front desk should do about the patient's WhatsApp confirmation.
+ *
+ * Phrased as an instruction rather than a status: "unreachable" is a patient to
+ * phone, "failed" is an integration to fix, and the person reading the alert
+ * only cares about the first.
+ */
+const WHATSAPP_NOTE: Record<WhatsAppOutcome, string> = {
+  sent: "✅ підтвердження надіслано",
+  unreachable: "⚠️ немає WhatsApp — підтвердьте дзвінком",
+  failed: "⚠️ не вдалося надіслати — підтвердьте дзвінком",
+  skipped: "— пацієнт не давав згоди",
+};
+
+/**
  * Notify the clinic's Telegram group about a confirmed appointment.
  *
  * Ukrainian only: this goes to the front desk, not to patients, and the clinic
@@ -455,6 +518,7 @@ async function notifyTelegram(s: {
   start: string;
   comment: string | null;
   bookingId: number;
+  whatsapp: WhatsAppOutcome;
 }) {
   const rows: [string, string][] = [
     ["Час візиту", kyivDateTime(s.start)],
@@ -464,6 +528,7 @@ async function notifyTelegram(s: {
     ["Послуга", s.serviceTitle || "Потрібна консультація"],
     ...(s.comment ? ([["Коментар", s.comment]] as [string, string][]) : []),
     ["Запис у RoApp", `#${s.bookingId}`],
+    ["WhatsApp", WHATSAPP_NOTE[s.whatsapp]],
   ];
   const text = [
     "🗓 <b>Новий онлайн-запис</b>",
