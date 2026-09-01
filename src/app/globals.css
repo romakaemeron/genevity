@@ -1018,9 +1018,14 @@ body.modal-open .genevity-ai-widget {
 @keyframes bkPop  { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.06); } 100% { transform: scale(1); opacity: 1; } }
 @keyframes bkDraw { from { stroke-dashoffset: 64; } to { stroke-dashoffset: 0; } }
 @keyframes bkHalo { 0%, 100% { transform: scale(1); opacity: .5; } 50% { transform: scale(1.25); opacity: 0; } }
+@keyframes bkModalIn { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes bkDrain { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 
 .bk-rise { animation: bkRise .5s cubic-bezier(.2,.8,.2,1) both; }
 .bk-fade { animation: bkFade .4s both; }
+.bk-modal-in { animation: bkModalIn .28s cubic-bezier(.2,.8,.2,1) both; }
+/* Duration is set inline, so it always matches the modal's own dismiss timer. */
+.bk-drain { animation: bkDrain linear both; }
 
 /* Small caps label above a group — the booking design's structural device. */
 .bk-eyebrow {
@@ -1033,5 +1038,5 @@ body.modal-open .genevity-ai-widget {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bk-rise, .bk-fade { animation: none; }
+  .bk-rise, .bk-fade, .bk-modal-in { animation: none; }
 }

@@ -22,6 +22,7 @@ import Image from "next/image";
 import { Check, ChevronLeft, ChevronRight, Loader2, Search } from "lucide-react";
 import Button from "@/components/ui/Button";
 import AvailabilityCalendar from "./AvailabilityCalendar";
+import SlotTakenModal from "./SlotTakenModal";
 import {
   getBookingDoctors,
   getDoctorServices,
@@ -104,6 +105,7 @@ export default function AppointmentWizard({
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState<{ name?: string; phone?: string; generic?: string }>({});
   const [bookingId, setBookingId] = useState<number | null>(null);
+  const [slotTaken, setSlotTaken] = useState(false);
   const [pending, startTransition] = useTransition();
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -136,6 +138,8 @@ export default function AppointmentWizard({
 
   const steps = STEP_ORDER[mode];
   const stepIndex = steps.indexOf(step);
+
+  const closeSlotTaken = useCallback(() => setSlotTaken(false), []);
 
   const go = useCallback((next: Step) => {
     setStep(next);
@@ -226,10 +230,14 @@ export default function AppointmentWizard({
       if (res.errorKey === "name") { setErrors({ name: t("errorName") }); go("contact"); }
       else if (res.errorKey === "phone") { setErrors({ phone: t("errorPhone") }); go("contact"); }
       else if (res.errorKey === "slotTaken") {
-        setErrors({ generic: t("errorSlotTaken") });
         setSlotStart(null);
         loadSlots(doctorId);
+        // `go` clears errors, so the note has to be set after it, not before —
+        // otherwise the step change silently swallows the only explanation the
+        // visitor gets. The modal announces it; the note keeps it on screen.
         go("when");
+        setErrors({ generic: t("errorSlotTaken") });
+        setSlotTaken(true);
       } else if (res.errorKey === "unavailable") setErrors({ generic: t("errorUnavailable") });
       else setErrors({ generic: t("errorGeneric") });
     });
@@ -240,7 +248,7 @@ export default function AppointmentWizard({
     setDoctorId(null); setServiceId(null); setQuery("");
     setSlots(null); setDateKey(null); setSlotStart(null); setWeekStart(0);
     setName(""); setPhoneLocal(""); setComment("");
-    setErrors({}); setBookingId(null);
+    setErrors({}); setBookingId(null); setSlotTaken(false);
   }
 
   function addToCalendar() {
@@ -618,6 +626,15 @@ export default function AppointmentWizard({
         </div>
         {aside}
       </aside>
+
+      <SlotTakenModal
+        open={slotTaken}
+        title={t("slotTakenTitle")}
+        text={t("slotTakenText")}
+        ctaLabel={t("slotTakenCta")}
+        closeLabel={t("close")}
+        onClose={closeSlotTaken}
+      />
     </div>
   );
 }

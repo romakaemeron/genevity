@@ -267,6 +267,25 @@ const BOOKING: Record<string, L> = {
     en: "We couldn't complete the booking. Please try again or give us a call.",
   },
 
+  // The slot-taken modal. `errorSlotTaken` stays as the note that persists on
+  // the calendar step after the modal has dismissed itself.
+  slotTakenTitle: {
+    uk: "Цей час уже зайняли",
+    ru: "Это время уже заняли",
+    en: "That time has just been taken",
+  },
+  slotTakenText: {
+    uk: "Поки ви заповнювали дані, слот зайняв інший пацієнт. Ми вже оновили список вільних годин.",
+    ru: "Пока вы заполняли данные, слот занял другой пациент. Мы уже обновили список свободных часов.",
+    en: "Another patient booked it while you were filling in your details. The list of free times is already refreshed.",
+  },
+  slotTakenCta: {
+    uk: "Обрати інший час",
+    ru: "Выбрать другое время",
+    en: "Choose another time",
+  },
+  close: { uk: "Закрити", ru: "Закрыть", en: "Close" },
+
   unavailableTitle: {
     uk: "Онлайн-запис тимчасово недоступний",
     ru: "Онлайн-запись временно недоступна",
