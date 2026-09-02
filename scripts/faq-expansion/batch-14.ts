@@ -1,0 +1,66 @@
+import { seed, type Batch } from "./run";
+
+const batches: Batch[] = [
+  {
+    type: "faq_page",
+    slug: "faq",
+    category: "payment",
+    items: [
+      { q: { uk: "Чи можна дізнатися вартість до візиту?", ru: "Можно ли узнать стоимость до визита?", en: "Can I find out the price before my visit?" },
+        a: { uk: "Орієнтовні ціни є в розділі «Ціни» на сайті, і адміністратор назве їх під час запису. Точну суму лікар озвучує після консультації — коли зрозуміло, який обсяг роботи потрібен саме у вашому випадку.", ru: "Ориентировочные цены есть в разделе «Цены» на сайте, и администратор назовёт их при записи. Точную сумму врач озвучивает после консультации — когда понятно, какой объём работы нужен именно в вашем случае.", en: "Indicative prices are listed in the Prices section and the administrator can quote them when you book. The exact figure is given by the physician after the consultation, once the scope of work is clear." } },
+      { q: { uk: "Чи потрібна передоплата за процедуру?", ru: "Нужна ли предоплата за процедуру?", en: "Is a deposit required?" },
+        a: { uk: "Для більшості послуг передоплата не потрібна — розрахунок відбувається після прийому. Для окремих процедур, що потребують попереднього замовлення препаратів, адміністратор попередить про умови під час запису.", ru: "Для большинства услуг предоплата не нужна — расчёт происходит после приёма. Для отдельных процедур, требующих предварительного заказа препаратов, администратор предупредит об условиях при записи.", en: "For most services no deposit is needed — payment is made after the appointment. For treatments requiring products to be ordered in advance, the administrator will explain the terms when you book." } },
+      { q: { uk: "Чи входить консультація у вартість процедури?", ru: "Входит ли консультация в стоимость процедуры?", en: "Is the consultation included in the treatment price?" },
+        a: { uk: "Умови залежать від напряму та обраної послуги. Уточніть це в адміністратора під час запису — ми завжди озвучуємо структуру вартості заздалегідь, без несподіванок у день візиту.", ru: "Условия зависят от направления и выбранной услуги. Уточните это у администратора при записи — мы всегда озвучиваем структуру стоимости заранее, без неожиданностей в день визита.", en: "It depends on the service. Check with the administrator when booking — we always explain how the price is structured in advance, with no surprises on the day." } },
+      { q: { uk: "Чи можна оплатити курс процедур частинами?", ru: "Можно ли оплатить курс процедур частями?", en: "Can a course of treatments be paid for in instalments?" },
+        a: { uk: "Курсові протоколи зазвичай оплачують посеансно — ви платите за кожну процедуру окремо. Для пакетних програм можливі інші умови: їх обговорює адміністратор після того, як лікар складе план курсу.", ru: "Курсовые протоколы обычно оплачивают посеансно — вы платите за каждую процедуру отдельно. Для пакетных программ возможны другие условия: их обсуждает администратор после того, как врач составит план курса.", en: "Courses are usually paid session by session. Package programmes may have different terms, which the administrator will discuss once the physician has drawn up your treatment plan." } },
+    ],
+  },
+  {
+    type: "faq_page",
+    slug: "faq",
+    category: "safety",
+    items: [
+      { q: { uk: "Які препарати ви використовуєте?", ru: "Какие препараты вы используете?", en: "Which products do you use?" },
+        a: { uk: "Лише сертифіковані препарати від офіційних постачальників, із контролем термінів придатності та умов зберігання. Лікар називає препарат і його характеристики перед процедурою — ви завжди знаєте, що саме вам вводять.", ru: "Только сертифицированные препараты от официальных поставщиков, с контролем сроков годности и условий хранения. Врач называет препарат и его характеристики перед процедурой — вы всегда знаете, что именно вам вводят.", en: "Only certified products from official suppliers, with controlled expiry dates and storage. The physician names the product and its characteristics before the treatment — you always know what is being used." } },
+      { q: { uk: "Хто виконує процедури в центрі?", ru: "Кто выполняет процедуры в центре?", en: "Who performs the treatments at the centre?" },
+        a: { uk: "Усі медичні маніпуляції виконують лікарі з профільною освітою та сертифікацією від виробників обладнання. Апаратні та ін'єкційні методики в GENEVITY не передають немедичному персоналу.", ru: "Все медицинские манипуляции выполняют врачи с профильным образованием и сертификацией от производителей оборудования. Аппаратные и инъекционные методики в GENEVITY не передают немедицинскому персоналу.", en: "All medical procedures are performed by physicians with specialist training and manufacturer certification. Device and injectable treatments at GENEVITY are never delegated to non-medical staff." } },
+      { q: { uk: "Що робити, якщо після процедури щось турбує?", ru: "Что делать, если после процедуры что-то беспокоит?", en: "What if something concerns me after a treatment?" },
+        a: { uk: "Зателефонуйте нам — лікар оцінить ситуацію та за потреби запросить на позаплановий огляд. Не чекайте наступного запису й не шукайте відповіді в інтернеті: більшість питань вирішуються за кілька хвилин розмови.", ru: "Позвоните нам — врач оценит ситуацию и при необходимости пригласит на внеплановый осмотр. Не ждите следующей записи и не ищите ответы в интернете: большинство вопросов решаются за несколько минут разговора.", en: "Call us — the physician will assess the situation and, if needed, see you outside the scheduled plan. Do not wait for your next appointment or search online: most questions are resolved in a few minutes on the phone." } },
+      { q: { uk: "Як ви оцінюєте протипоказання перед процедурою?", ru: "Как вы оцениваете противопоказания перед процедурой?", en: "How are contraindications assessed before a treatment?" },
+        a: { uk: "Лікар збирає анамнез, уточнює хронічні захворювання, препарати, які ви приймаєте, попередні процедури та алергії. За потреби призначає аналізи або консультацію профільного спеціаліста. Це стандарт для кожного пацієнта, а не формальність.", ru: "Врач собирает анамнез, уточняет хронические заболевания, препараты, которые вы принимаете, предыдущие процедуры и аллергии. При необходимости назначает анализы или консультацию профильного специалиста. Это стандарт для каждого пациента, а не формальность.", en: "The physician takes your history, asking about chronic conditions, current medication, previous treatments and allergies, and orders tests or a specialist opinion if needed. This is standard for every patient, not a formality." } },
+    ],
+  },
+  {
+    type: "faq_page",
+    slug: "faq",
+    category: "lab",
+    items: [
+      { q: { uk: "Як підготуватися до здачі аналізів?", ru: "Как подготовиться к сдаче анализов?", en: "How should I prepare for laboratory tests?" },
+        a: { uk: "Більшість аналізів здають натще — останній прийом їжі за 8–12 годин, вода дозволена. За добу уникайте алкоголю та інтенсивних тренувань. Для окремих гормонів має значення день циклу — адміністратор підкаже під час запису.", ru: "Большинство анализов сдают натощак — последний приём пищи за 8–12 часов, вода разрешена. За сутки избегайте алкоголя и интенсивных тренировок. Для отдельных гормонов имеет значение день цикла — администратор подскажет при записи.", en: "Most tests require fasting — last meal 8–12 hours before, water allowed. Avoid alcohol and intensive exercise for 24 hours. Some hormone tests depend on the day of your cycle; the administrator will advise when booking." } },
+      { q: { uk: "Чи можна здати аналізи без направлення лікаря?", ru: "Можно ли сдать анализы без направления врача?", en: "Can I have tests without a referral?" },
+        a: { uk: "Так, більшість досліджень можна замовити самостійно. Але якщо ви не впевнені, що саме потрібно, консультація заощадить час і кошти — лікар призначить лише доречні аналізи й пояснить результати.", ru: "Да, большинство исследований можно заказать самостоятельно. Но если вы не уверены, что именно нужно, консультация сэкономит время и средства — врач назначит только уместные анализы и объяснит результаты.", en: "Yes, most tests can be ordered directly. If you are unsure what you need, though, a consultation saves time and money — the physician orders only relevant tests and interprets the results." } },
+      { q: { uk: "Як я отримаю результати аналізів?", ru: "Как я получу результаты анализов?", en: "How will I receive my results?" },
+        a: { uk: "Результати надсилаємо на email або в месенджер — залежно від того, що вам зручніше. Оригінали можна забрати на ресепшені центру. Термін готовності залежить від виду дослідження й повідомляється під час здачі.", ru: "Результаты отправляем на email или в мессенджер — в зависимости от того, что вам удобнее. Оригиналы можно забрать на ресепшене центра. Срок готовности зависит от вида исследования и сообщается при сдаче.", en: "Results are sent by email or messenger, whichever suits you. Printed originals can be collected at reception. Turnaround depends on the test and is confirmed when you attend." } },
+      { q: { uk: "Чи можна здати аналізи для іншої клініки або страхової?", ru: "Можно ли сдать анализы для другой клиники или страховой?", en: "Can I have tests done for another clinic or an insurer?" },
+        a: { uk: "Так. Ми видаємо результати у формі, придатній для передання будь-якому лікарю чи страховій компанії. Якщо потрібні додаткові документи — договір, чек, довідка — попередьте адміністратора заздалегідь.", ru: "Да. Мы выдаём результаты в форме, пригодной для передачи любому врачу или страховой компании. Если нужны дополнительные документы — договор, чек, справка — предупредите администратора заранее.", en: "Yes. Results are issued in a format you can pass to any physician or insurer. If you need additional paperwork — a contract, receipt or certificate — tell the administrator in advance." } },
+    ],
+  },
+  {
+    type: "faq_page",
+    slug: "faq",
+    category: "visit",
+    items: [
+      { q: { uk: "Чи є паркування біля центру?", ru: "Есть ли парковка возле центра?", en: "Is there parking near the centre?" },
+        a: { uk: "Центр розташований на вул. Олеся Гончара, 12 — у центральній частині міста, де доступне вуличне паркування поблизу. Якщо ви їдете вперше, зателефонуйте нам: адміністратор підкаже найзручніший маршрут і орієнтири.", ru: "Центр расположен на ул. Олеся Гончара, 12 — в центральной части города, где доступна уличная парковка поблизости. Если вы едете впервые, позвоните нам: администратор подскажет самый удобный маршрут и ориентиры.", en: "The centre is at 12 Oles Honchar Street, in the city centre, where street parking is available nearby. If it is your first visit, call us — the administrator will suggest the easiest route and landmarks." } },
+      { q: { uk: "Чи можна прийти з дитиною?", ru: "Можно ли прийти с ребёнком?", en: "Can I bring a child with me?" },
+        a: { uk: "Так, але попередьте адміністратора заздалегідь. Під час процедур дитина не може перебувати в кабінеті, тому варто продумати, з ким вона буде в зоні очікування. Для тривалих протоколів краще спланувати візит окремо.", ru: "Да, но предупредите администратора заранее. Во время процедур ребёнок не может находиться в кабинете, поэтому стоит продумать, с кем он будет в зоне ожидания. Для длительных протоколов лучше спланировать визит отдельно.", en: "Yes, but please let the administrator know in advance. Children cannot be in the treatment room, so consider who will be with them in the waiting area. For longer protocols it is better to plan the visit separately." } },
+      { q: { uk: "Якою мовою ви спілкуєтеся з пацієнтами?", ru: "На каком языке вы общаетесь с пациентами?", en: "Which languages do you speak with patients?" },
+        a: { uk: "Українською та російською, а сайт доступний також англійською. Якщо вам потрібна консультація англійською — повідомте адміністратора під час запису, і ми підберемо лікаря та зручний час.", ru: "На украинском и русском, а сайт доступен также на английском. Если вам нужна консультация на английском — сообщите администратору при записи, и мы подберём врача и удобное время.", en: "Ukrainian and Russian, and the website is also available in English. If you would like a consultation in English, mention it when booking and we will arrange a physician and a suitable time." } },
+      { q: { uk: "Що робити, якщо я запізнююся на прийом?", ru: "Что делать, если я опаздываю на приём?", en: "What should I do if I am running late?" },
+        a: { uk: "Зателефонуйте нам якнайшвидше. Невелике запізнення зазвичай не проблема, але при значному ми можемо запропонувати перенести візит — щоб не скорочувати час прийому та не затримувати наступних пацієнтів.", ru: "Позвоните нам как можно скорее. Небольшое опоздание обычно не проблема, но при значительном мы можем предложить перенести визит — чтобы не сокращать время приёма и не задерживать следующих пациентов.", en: "Call us as soon as you can. A short delay is usually fine, but if it is significant we may suggest rescheduling, so your appointment is not cut short and other patients are not kept waiting." } },
+    ],
+  },
+];
+
+seed(batches);

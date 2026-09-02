@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useScrollReveal } from "@/lib/useReveal";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 
-const QUESTION_KEYS = ["q1", "q2", "q3", "q4", "q5"] as const;
+const QUESTION_KEYS = ["q1", "q2", "q3", "q4", "q5", "q6", "q7"] as const;
 
 function FaqItem({ question, answer, isOpen, onToggle }: {
   question: string; answer: string; isOpen: boolean; onToggle: () => void;
