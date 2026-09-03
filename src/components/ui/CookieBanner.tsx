@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { Link } from "@/i18n/navigation";
+import Button from "@/components/ui/Button";
 
 /**
  * Cookie notice. Acknowledgement only — it informs and dismisses, it does not
@@ -98,13 +99,9 @@ export default function CookieBanner({ lang }: { lang: string }) {
             {t.link}
           </Link>
         </p>
-        <button
-          type="button"
-          onClick={dismiss}
-          className="shrink-0 rounded-[var(--radius-button)] bg-main text-champagne body-m px-6 py-2.5 hover:opacity-90 transition-opacity cursor-pointer"
-        >
+        <Button variant="primary" size="md" onClick={dismiss} className="shrink-0">
           {t.button}
-        </button>
+        </Button>
       </div>
     </div>
   );
