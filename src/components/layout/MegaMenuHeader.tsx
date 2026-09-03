@@ -83,6 +83,14 @@ export default function MegaMenuHeader({
     return () => observer.disconnect();
   }, [hideUntilScrollPastId]);
 
+  // Floating widgets (call button, Binotel chat, AI orb) sit above the
+  // full-screen mobile menu, so take them out while it is open.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    document.body.classList.add("nav-open");
+    return () => document.body.classList.remove("nav-open");
+  }, [mobileOpen]);
+
   const scheduleClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setActiveMega(null), 120);
@@ -328,7 +336,7 @@ export default function MegaMenuHeader({
                     <ChevronRight className="text-black-40 w-3 h-3" />
                   </Link>
 
-                  <div className="flex flex-col gap-8 mt-8">
+                  <div className="flex flex-col gap-7 mt-8">
                     {item.mega!.categories.map((cat, ci) => (
                       <div
                         key={cat.key}
@@ -339,48 +347,28 @@ export default function MegaMenuHeader({
                         }}
                       >
                         {cat.href ? (
-                          <Link href={cat.href} onClick={closeMobile} className="inline-flex items-center gap-1.5 heading-3 text-black">
+                          <Link href={cat.href} onClick={closeMobile} className={`inline-flex items-center gap-1.5 text-black ${cat.compact ? "body-strong" : "heading-3"}`}>
                             <span>{navLabel(cat.key, cat.label)}</span>
                             <ChevronRight className="text-black-40 w-3 h-3" />
                           </Link>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 heading-3 text-black cursor-default select-none">
+                          <span className={`inline-flex items-center gap-1.5 text-black cursor-default select-none ${cat.compact ? "body-strong" : "heading-3"}`}>
                             <span>{navLabel(cat.key, cat.label)}</span>
                           </span>
                         )}
-                        <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
-                          {cat.items.map((leaf) => (
-                            <li key={leaf.key}>
-                              <Link href={leaf.href} onClick={closeMobile} className="body-l text-black-60 hover:text-main transition-colors">
-                                {navLabel(leaf.key, leaf.label)}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
+                        {cat.items.length > 0 && (
+                          <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
+                            {cat.items.map((leaf) => (
+                              <li key={leaf.key}>
+                                <Link href={leaf.href} onClick={closeMobile} className="body-l text-black-60 hover:text-main transition-colors">
+                                  {navLabel(leaf.key, leaf.label)}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     ))}
-                    {item.mega!.extra && (
-                      <div
-                        className="flex flex-col gap-4"
-                        style={{
-                          animation: isActive ? `grid-enter 0.3s ${0.08 + item.mega!.categories.length * 0.04}s both` : "none",
-                          opacity: isActive ? 1 : 0,
-                        }}
-                      >
-                        <span className="inline-flex items-center gap-1.5 heading-3 text-black cursor-default select-none">
-                          {tNav("more")}
-                        </span>
-                        <ul className="flex flex-col gap-4 pl-3 border-l border-black-10">
-                          {item.mega!.extra.items.map((leaf) => (
-                            <li key={leaf.key}>
-                              <Link href={leaf.href} onClick={closeMobile} className="body-l text-black-60 hover:text-main transition-colors">
-                                {navLabel(leaf.key, leaf.label)}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

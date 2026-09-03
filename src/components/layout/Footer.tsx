@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
 import { MapPin, Phone, Clock } from "@/components/ui/Icons";
 import {
-  serviceCategoriesForFooter,
+  footerServiceColumns,
   infoLinksForFooter,
   type NavCategory,
   type NavLeaf,
@@ -79,11 +79,12 @@ function LinkListColumn({ headingKey, items }: { headingKey: string; items: NavL
 export default function Footer({ legalDocs = [], settings }: { legalDocs?: LegalLink[]; settings?: FooterSettings }) {
   const t = useTranslations("footer");
 
-  const [injectable, apparatus, intimate, laser, longevity] = serviceCategoriesForFooter;
+  const { injectable, apparatusFace, apparatusBody, skin, laser, longevity, intimate } = footerServiceColumns;
   const moreServicesItems: NavLeaf[] = [
     { key: "care", label: { ua: "", ru: "", en: "" }, href: "/services/skincare" },
     { key: "podology", label: { ua: "", ru: "", en: "" }, href: "/services/podology" },
     { key: "diagnostics", label: { ua: "", ru: "", en: "" }, href: "/services/diagnostics" },
+    { key: "nav-gynaecology", label: { ua: "Гінекологія", ru: "Гинекология", en: "Gynaecology" }, href: "/services/gynaecology" },
     { key: "plastic", label: { ua: "", ru: "", en: "" }, href: "/services/plastic-surgery" },
   ];
 
@@ -91,7 +92,7 @@ export default function Footer({ legalDocs = [], settings }: { legalDocs?: Legal
     <footer className="border-t border-black-10 mt-[var(--spacing-block)]">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] py-14 lg:py-20">
         {/* Main grid: brand + contacts on the left, service columns on the right */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr_1fr] gap-10 lg:gap-12">
           {/* Col 1: Brand + contacts */}
           <div className="flex flex-col gap-5">
             <Link href="/" className="block" style={{ width: "fit-content" }}>   
@@ -141,19 +142,25 @@ export default function Footer({ legalDocs = [], settings }: { legalDocs?: Legal
           {/* Col 2: Ін'єкційна (full list) */}
           {injectable && <CategoryColumn cat={injectable} />}
 
-          {/* Col 3: Апаратна + Лазерна (stacked) */}
+          {/* Col 3: Апаратна (обличчя + тіло) */}
           <div className="flex flex-col gap-8">
-            {apparatus && <CategoryColumn cat={apparatus} />}
+            {apparatusFace && <CategoryColumn cat={apparatusFace} />}
+            {apparatusBody && <CategoryColumn cat={apparatusBody} />}
+          </div>
+
+          {/* Col 4: Корекція шкіри + Лазерна епіляція */}
+          <div className="flex flex-col gap-8">
+            {skin && <CategoryColumn cat={skin} />}
             {laser && <CategoryColumn cat={laser} />}
           </div>
 
-          {/* Col 4: Longevity + Інтимне (stacked) */}
+          {/* Col 5: Longevity + Інтимне (stacked) */}
           <div className="flex flex-col gap-8">
             {longevity && <CategoryColumn cat={longevity} />}
             {intimate && <CategoryColumn cat={intimate} />}
           </div>
 
-          {/* Col 5: More services + Info (stacked) */}
+          {/* Col 6: More services + Info (stacked) */}
           <div className="flex flex-col gap-8">
             <LinkListColumn headingKey="more" items={moreServicesItems} />
             <LinkListColumn headingKey="info" items={infoLinksForFooter} />
