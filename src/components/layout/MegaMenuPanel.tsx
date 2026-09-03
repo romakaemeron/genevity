@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations, useLocale } from "next-intl";
-import { sectionCount, t as localizeNavLabel, type NavCategory, type NavTop } from "./navConfig";
+import { t as localizeNavLabel, type NavCategory, type NavTop } from "./navConfig";
 import { resolveNavLabel } from "./navLabel";
 
 type Props = {
@@ -105,13 +105,14 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
                   <span className={isActive ? "body-strong" : "body-m"}>
                     {resolveNavLabel(tNav, section.key, section.label, locale)}
                   </span>
-                  <span
-                    className={`body-s tabular-nums transition-colors ${
-                      isActive ? "text-main" : "text-black-40"
+                  {/* Affordance: the row opens a list rather than just navigating. */}
+                  <ArrowRight
+                    className={`shrink-0 transition-all duration-200 ${
+                      isActive
+                        ? "text-main translate-x-0.5"
+                        : "text-black-40 group-hover:text-main group-hover:translate-x-0.5"
                     }`}
-                  >
-                    {sectionCount(section)}
-                  </span>
+                  />
                 </Link>
               );
             })}
