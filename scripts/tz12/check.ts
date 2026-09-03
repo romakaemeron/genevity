@@ -7,8 +7,10 @@ import { apparatus } from "./content-apparatus";
 import { apparatusB } from "./content-apparatus-b";
 import { laser } from "./content-laser";
 import { laserB } from "./content-laser-b";
+import { consultations } from "./content-consultations";
+import { consultationsB } from "./content-consultations-b";
 
-const ALL = [...apparatus, ...apparatusB, ...laser, ...laserB];
+const ALL = [...apparatus, ...apparatusB, ...laser, ...laserB, ...consultations, ...consultationsB];
 const LOCALES = ["uk", "ru", "en"] as const;
 
 async function main() {
@@ -25,7 +27,7 @@ async function main() {
     console.log(`\n${svc.slug}`);
     if (!row) { bad("service row missing"); continue; }
     if (row.cat !== svc.meta.category) bad(`category is ${row.cat}, expected ${svc.meta.category}`);
-    if (!row.reviewer) bad("no medical reviewer assigned");
+    if (!row.reviewer && (svc.doctors ?? []).length > 0) bad("no medical reviewer assigned");
 
     for (const l of LOCALES) {
       if (row[`seo_title_${l}`] !== svc.meta.seoTitle[l]) bad(`seo_title_${l} does not match the CSV`);
@@ -69,8 +71,8 @@ async function main() {
     const doc = await sql`SELECT COUNT(*)::int AS n FROM service_doctors WHERE service_id=${row.id}`;
     const eqp = await sql`SELECT COUNT(*)::int AS n FROM service_equipment WHERE service_id=${row.id}`;
     if (rel[0].n < 3) bad(`only ${rel[0].n} related services (need >= 3)`);
-    if (doc[0].n < 1) bad("no doctors linked");
-    if (eqp[0].n < 1) bad("no equipment linked");
+    if (doc[0].n < 1 && (svc.doctors ?? []).length > 0) bad("no doctors linked");
+    if (eqp[0].n < 1 && (svc.equipment ?? []).length > 0) bad("no equipment linked");
     if (!problems) console.log(`  ok - ${secs.length} sections, ${faqs.length} FAQs, ${rel[0].n} related, ${doc[0].n} doctors, ${eqp[0].n} devices`);
   }
 

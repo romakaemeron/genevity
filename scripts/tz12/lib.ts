@@ -44,6 +44,8 @@ export interface ServiceSeed {
   procedureLength?: L;
   effectDuration?: L;
   sessionsRecommended?: L;
+  priceFrom?: L;
+  priceUnit?: L;
   sections: AnySection[];
   faqs: { question: L; answer: L }[];
   related?: string[];        // service slugs
@@ -96,6 +98,8 @@ export async function seedService(svc: ServiceSeed) {
       procedure_length_uk=${svc.procedureLength?.uk ?? null}, procedure_length_ru=${svc.procedureLength?.ru ?? null}, procedure_length_en=${svc.procedureLength?.en ?? null},
       effect_duration_uk=${svc.effectDuration?.uk ?? null}, effect_duration_ru=${svc.effectDuration?.ru ?? null}, effect_duration_en=${svc.effectDuration?.en ?? null},
       sessions_recommended_uk=${svc.sessionsRecommended?.uk ?? null}, sessions_recommended_ru=${svc.sessionsRecommended?.ru ?? null}, sessions_recommended_en=${svc.sessionsRecommended?.en ?? null},
+      price_from_uk=${svc.priceFrom?.uk ?? null}, price_from_ru=${svc.priceFrom?.ru ?? null}, price_from_en=${svc.priceFrom?.en ?? null},
+      price_unit_uk=${svc.priceUnit?.uk ?? null}, price_unit_ru=${svc.priceUnit?.ru ?? null}, price_unit_en=${svc.priceUnit?.en ?? null},
       seo_title_uk=${m.seoTitle.uk}, seo_title_ru=${m.seoTitle.ru}, seo_title_en=${m.seoTitle.en},
       seo_desc_uk=${m.seoDesc.uk}, seo_desc_ru=${m.seoDesc.ru}, seo_desc_en=${m.seoDesc.en},
       updated_at=now()
@@ -159,3 +163,6 @@ export const EQ = {
 } as const;
 
 export const COSMETOLOGISTS = ["beliyanushkin-viktor", "sepkina-hanna"];
+
+/** Consultation pages carry no device block. */
+export const CONSULTATION_BLOCKS = ["faq", "doctors", "relatedServices", "finalCTA"];
