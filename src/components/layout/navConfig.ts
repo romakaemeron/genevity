@@ -40,10 +40,6 @@ export type NavSection = {
   groups: NavCategory[];
 };
 
-/** Total leaf count for a section — shown next to the rail label. */
-export function sectionCount(section: NavSection): number {
-  return section.groups.reduce((n, g) => n + g.items.length, 0);
-}
 
 export type NavTop = {
   key: string;
