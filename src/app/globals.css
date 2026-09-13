@@ -869,6 +869,30 @@ input[type="search"] {
   animation: grid-enter 0.35s cubic-bezier(0.16,1,0.3,1) both;
 }
 
+/* Mega-menu rail label. Rolls its own type instead of swapping .body-m for
+   .body-strong, because that swap is a hard cut between two presets and also
+   changes line-height, so every row jumped height as the selection moved.
+   line-height is pinned in px: the glyphs scale, the row box does not, so the
+   rail never reflows mid-transition. Mulish is loaded as static instances, so
+   the weight steps once at the midpoint while the size interpolates — the size
+   carries the motion and the step rides along inside it. */
+.megamenu-rail-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  transition: font-size 0.24s cubic-bezier(0.16,1,0.3,1),
+              font-weight 0.24s cubic-bezier(0.16,1,0.3,1);
+}
+.megamenu-rail-label[data-active="true"] {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .megamenu-rail-label { transition: none; }
+}
+
 /* ─── BookingForm success state ─────────────────────────────────────────── */
 @keyframes success-disc-in {
   from { transform: translateY(40px) scale(0.96); opacity: 0; }
