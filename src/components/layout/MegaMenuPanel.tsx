@@ -120,8 +120,11 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
             })}
           </nav>
 
-          {/* Right pane — the selected category */}
-          <div key={active.key} className="megamenu-item mt-8 lg:mt-0 lg:min-h-[336px]" style={{ animationDelay: "0.14s" }}>
+          {/* Right pane — the selected category. No `key` here on purpose: keying
+              it by category remounted the pane on every hover, replaying the
+              entry animation and leaving the pane blank for its delay. The
+              stagger should play once, when the panel opens. */}
+          <div className="megamenu-item mt-8 lg:mt-0 lg:min-h-[336px]" style={{ animationDelay: "0.14s" }}>
             <Link
               href={active.href}
               onClick={onNavigate}
