@@ -83,7 +83,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(240px,300px)_1fr] gap-x-12 xl:gap-x-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(240px,320px)_1fr] gap-x-12 xl:gap-x-16">
           {/* Left rail — categories */}
           <nav
             className="megamenu-item flex flex-col gap-1 lg:border-r lg:border-black-10 lg:pr-6"

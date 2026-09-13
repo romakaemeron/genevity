@@ -872,20 +872,21 @@ input[type="search"] {
 /* Mega-menu rail label. Rolls its own type instead of swapping .body-m for
    .body-strong, because that swap is a hard cut between two presets and also
    changes line-height, so every row jumped height as the selection moved.
-   line-height is pinned in px: the glyphs scale, the row box does not, so the
-   rail never reflows mid-transition. Mulish is loaded as static instances, so
-   the weight steps once at the midpoint while the size interpolates — the size
-   carries the motion and the step rides along inside it. */
+
+   Weight is the only thing that animates. Going up to 16px as well needed
+   229px for "Инъекционная косметология" against 221px of room, so the active
+   row wrapped to two lines and shoved the rest of the rail down. At a fixed
+   14px the same label needs 201px at either weight, so nothing reflows.
+   Mulish is loaded as a variable font, so 500 -> 600 interpolates rather than
+   stepping between shipped faces. */
 .megamenu-rail-label {
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
-  transition: font-size 0.24s cubic-bezier(0.16,1,0.3,1),
-              font-weight 0.24s cubic-bezier(0.16,1,0.3,1);
+  transition: font-weight 0.24s cubic-bezier(0.16,1,0.3,1);
 }
 .megamenu-rail-label[data-active="true"] {
-  font-size: 16px;
   font-weight: 600;
 }
 
