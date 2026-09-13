@@ -7,14 +7,6 @@ import FormStatusDropdown from "../../_components/form-status-dropdown";
 import DeleteSubmissionButton from "./_components/delete-button";
 import type { FormStatus } from "../../_actions/forms";
 
-/** Delivery outcome of the patient's WhatsApp confirmation, in plain Ukrainian. */
-const WHATSAPP_LABEL: Record<string, string> = {
-  sent: "Підтвердження надіслано",
-  unreachable: "Немає WhatsApp на цьому номері",
-  failed: "Не вдалося надіслати",
-  skipped: "Не надсилалося",
-};
-
 /** Server-side formatter — Kyiv time is where ops reads these. */
 function formatKyiv(raw: Date | string | null | undefined): string {
   if (!raw) return "—";
@@ -57,8 +49,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
     SELECT id, status, name, phone, email, message, direction, preferred_time,
            page_url, page_title, referrer, form_label, service_id,
            utm_source, utm_medium, utm_campaign, utm_term, utm_content,
-           created_at, read_at, processed_at,
-           whatsapp_opt_in, whatsapp_status
+           created_at, read_at, processed_at
     FROM form_submissions
     WHERE id = ${id}
     LIMIT 1
@@ -135,7 +126,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
 
       {/* Appointment details — filled by the online booking wizard (/booking).
           The short CTA form leaves both fields empty, so the section hides. */}
-      {(r.preferred_time || r.message || r.whatsapp_opt_in !== null) && (
+      {(r.preferred_time || r.message) && (
         <section className="mb-8 rounded-[var(--radius-card)] bg-white border border-line p-5">
           <h2 className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">Запис на прийом</h2>
           {r.preferred_time && (
@@ -149,16 +140,6 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
           {r.message && (
             <Row label="Коментар">
               <span className="text-[14px] text-ink whitespace-pre-wrap break-words">{r.message as string}</span>
-            </Row>
-          )}
-          {r.whatsapp_opt_in !== null && r.whatsapp_opt_in !== undefined && (
-            <Row label="WhatsApp">
-              <Value>{WHATSAPP_LABEL[(r.whatsapp_status as string) ?? "skipped"] ?? String(r.whatsapp_status)}</Value>
-              <p className="text-[12px] text-muted mt-1">
-                {r.whatsapp_opt_in
-                  ? "Пацієнт дав згоду на повідомлення в WhatsApp."
-                  : "Пацієнт не давав згоди — не пишіть йому в WhatsApp."}
-              </p>
             </Row>
           )}
         </section>

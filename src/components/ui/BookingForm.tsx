@@ -333,7 +333,7 @@ export default function BookingForm({
       {/* Privacy consent — YMYL/medical-site requirement (E-E-A-T). The
           message carries a <link> tag rendered as an in-app Link to the
           privacy-policy legal doc; opens in a new tab so the form isn't lost. */}
-      <p className="text-[12px] text-stone leading-snug text-left">
+      <p className="text-[12px] text-stone leading-snug text-center">
         {t.rich("privacyNote", {
           link: (chunks) => (
             <Link

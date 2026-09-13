@@ -67,7 +67,6 @@ const R = {
   contacts: "/contacts",
   faq: "/faq",
   media: "/media",
-  booking: "/booking",
 
   injectable: "/services/injectable-cosmetology",
   injectableBotulinum: "/services/injectable-cosmetology/botulinum-therapy",
@@ -474,7 +473,6 @@ export const infoLinksForFooter: NavLeaf[] = [
   { key: "contacts", label: L("Контакти", "Контакты", "Contacts"), href: R.contacts },
   { key: "faq", label: L("Питання та відповіді", "Вопросы и ответы", "FAQ"), href: R.faq },
   { key: "media", label: L("ЗМІ про нас", "СМИ о нас", "Media about us"), href: R.media },
-  { key: "booking", label: L("Онлайн-запис", "Онлайн-запись", "Book online"), href: R.booking },
 ];
 
 export function t(trans: Translated, locale: string): string {
