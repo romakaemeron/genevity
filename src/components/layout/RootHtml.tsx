@@ -14,9 +14,12 @@ const tenorSans = Tenor_Sans({
   preload: true,
 });
 
+// Variable font (wght 200-1000) rather than the four static instances, so
+// font-weight interpolates: the mega-menu rail animates 500 -> 600, and static
+// faces can only step between the weights they ship. Payload is a wash —
+// 8 subset files, ~140 KB, same as before.
 const mulish = Mulish({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
   preload: true,

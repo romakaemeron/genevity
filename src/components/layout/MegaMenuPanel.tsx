@@ -19,7 +19,7 @@ function ArrowRight({ className = "" }: { className?: string }) {
   );
 }
 
-/** One group of leaves inside the detail pane, flowed across balanced columns. */
+/** One group of leaves inside the detail pane, laid out across a top-aligned grid. */
 function GroupBlock({
   group,
   showHeading,
@@ -40,13 +40,15 @@ function GroupBlock({
             : resolveNavLabel(tNav, group.key, group.label, locale)}
         </p>
       )}
-      <ul className="columns-1 sm:columns-2 xl:columns-3 gap-x-10">
+      {/* Grid, not CSS columns: multi-column balances the flow, which left the
+          first item of each column sitting at a different height. */}
+      <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-3 items-start content-start">
         {group.items.map((leaf) => (
-          <li key={leaf.key} className="break-inside-avoid mb-3">
+          <li key={leaf.key}>
             <Link
               href={leaf.href}
               onClick={onNavigate}
-              className="body-m text-black-60 hover:text-main transition-colors"
+              className="body-m text-black-60 hover:text-black transition-colors"
             >
               {resolveNavLabel(tNav, leaf.key, leaf.label, locale)}
             </Link>
@@ -102,7 +104,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
                     isActive ? "bg-champagne-dark text-black" : "text-black-60 hover:text-black"
                   }`}
                 >
-                  <span className={isActive ? "body-strong" : "body-m"}>
+                  <span className="megamenu-rail-label" data-active={isActive}>
                     {resolveNavLabel(tNav, section.key, section.label, locale)}
                   </span>
                   {/* Affordance: the row opens a list rather than just navigating. */}
