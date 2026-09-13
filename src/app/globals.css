@@ -869,6 +869,31 @@ input[type="search"] {
   animation: grid-enter 0.35s cubic-bezier(0.16,1,0.3,1) both;
 }
 
+/* Mega-menu rail label. Rolls its own type instead of swapping .body-m for
+   .body-strong, because that swap is a hard cut between two presets and also
+   changes line-height, so every row jumped height as the selection moved.
+
+   Weight is the only thing that animates. Going up to 16px as well needed
+   229px for "Инъекционная косметология" against 221px of room, so the active
+   row wrapped to two lines and shoved the rest of the rail down. At a fixed
+   14px the same label needs 201px at either weight, so nothing reflows.
+   Mulish is loaded as a variable font, so 500 -> 600 interpolates rather than
+   stepping between shipped faces. */
+.megamenu-rail-label {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  transition: font-weight 0.24s cubic-bezier(0.16,1,0.3,1);
+}
+.megamenu-rail-label[data-active="true"] {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .megamenu-rail-label { transition: none; }
+}
+
 /* ─── BookingForm success state ─────────────────────────────────────────── */
 @keyframes success-disc-in {
   from { transform: translateY(40px) scale(0.96); opacity: 0; }
@@ -997,6 +1022,17 @@ body.binotel-active .genevity-ai-widget {
 body.modal-open .genevity-ai-widget {
   display: none !important;
 }
+/* Hide every floating widget while the mobile nav is open — the menu is a
+   full-screen surface and the call button, Binotel chat and AI orb otherwise
+   float on top of the menu links. Set by MegaMenuHeader alongside `mobileOpen`.
+   The `body.nav-open` prefix outranks Binotel's own #id !important rules. */
+body.nav-open .genevity-ai-widget,
+body.nav-open #bingc-phone-button,
+body.nav-open #bingc-passive,
+body.nav-open #bingc-active {
+  display: none !important;
+}
+
 /* Keep the Binotel GetCall button always visible on the public site.
    Binotel's theme stylesheet hides it once an impression cap is reached;
    this ID+!important rule overrides that class-based hide. In /admin the
