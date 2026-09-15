@@ -57,10 +57,10 @@ export async function GET(req: NextRequest) {
       client.runReport({
         property: PROPERTY,
         dateRanges: [dr],
-        dimensions: [{ name: "sessionSource" }],
+        dimensions: [{ name: "sessionSource" }, { name: "sessionMedium" }],
         metrics: [{ name: "sessions" }],
         orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
-        limit: 5,
+        limit: 8,
       }),
 
       // 4. Top 5 service pages by views
@@ -80,18 +80,48 @@ export async function GET(req: NextRequest) {
       }),
     ]);
 
-    // Separate booking_submitted count — needs its own report filtered by event name
-    const [bookingsReport] = await client.runReport({
-      property: PROPERTY,
-      dateRanges: [dr],
-      metrics: [{ name: "eventCount" }],
-      dimensionFilter: {
-        filter: {
-          fieldName: "eventName",
-          stringFilter: { matchType: "EXACT", value: "booking_submitted" },
+    // booking_submitted counts — need their own reports filtered by event name.
+    // Site-wide total, plus a per-channel split so paid traffic can be judged on
+    // bookings rather than raw session volume.
+    const [[bookingsReport], [channelsReport], [bookingsByChannelReport]] = await Promise.all([
+      client.runReport({
+        property: PROPERTY,
+        dateRanges: [dr],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: {
+            fieldName: "eventName",
+            stringFilter: { matchType: "EXACT", value: "booking_submitted" },
+          },
         },
-      },
-    });
+      }),
+
+      client.runReport({
+        property: PROPERTY,
+        dateRanges: [dr],
+        dimensions: [{ name: "sessionDefaultChannelGroup" }],
+        metrics: [
+          { name: "sessions" },
+          { name: "engagedSessions" },
+          { name: "averageSessionDuration" },
+        ],
+        orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+        limit: 8,
+      }),
+
+      client.runReport({
+        property: PROPERTY,
+        dateRanges: [dr],
+        dimensions: [{ name: "sessionDefaultChannelGroup" }],
+        metrics: [{ name: "eventCount" }],
+        dimensionFilter: {
+          filter: {
+            fieldName: "eventName",
+            stringFilter: { matchType: "EXACT", value: "booking_submitted" },
+          },
+        },
+      }),
+    ]);
 
     const realtimeUsers = Number(realtime[0]?.rows?.[0]?.metricValues?.[0]?.value ?? 0);
     const mainRow = mainReport[0]?.rows?.[0];
@@ -102,8 +132,34 @@ export async function GET(req: NextRequest) {
 
     const sources = (sourcesReport[0]?.rows ?? []).map((row) => ({
       source: row.dimensionValues?.[0]?.value ?? "(direct)",
+      medium: row.dimensionValues?.[1]?.value ?? "",
       sessions: Number(row.metricValues?.[0]?.value ?? 0),
     }));
+
+    // Channel table: sessions + engagement + bookings, joined on the channel name.
+    const bookingsPerChannel = new Map(
+      (bookingsByChannelReport?.rows ?? []).map((row) => [
+        row.dimensionValues?.[0]?.value ?? "",
+        Number(row.metricValues?.[0]?.value ?? 0),
+      ]),
+    );
+
+    const channels = (channelsReport?.rows ?? []).map((row) => {
+      const channel = row.dimensionValues?.[0]?.value ?? "";
+      const chSessions = Number(row.metricValues?.[0]?.value ?? 0);
+      const engaged = Number(row.metricValues?.[1]?.value ?? 0);
+      const avgDuration = Number(row.metricValues?.[2]?.value ?? 0);
+      const chBookings = bookingsPerChannel.get(channel) ?? 0;
+      return {
+        channel,
+        sessions: chSessions,
+        engagedRate: chSessions > 0 ? Math.round((engaged / chSessions) * 100) : 0,
+        avgDuration: Math.round(avgDuration),
+        bookings: chBookings,
+        conversionRate:
+          chSessions > 0 ? Math.round((chBookings / chSessions) * 1000) / 10 : 0,
+      };
+    });
 
     const servicePages = (pagesReport[0]?.rows ?? []).map((row) => ({
       path: row.dimensionValues?.[0]?.value ?? "",
@@ -117,6 +173,7 @@ export async function GET(req: NextRequest) {
       bookings,
       conversionRate,
       sources,
+      channels,
       servicePages,
       range,
       updatedAt: new Date().toISOString(),
