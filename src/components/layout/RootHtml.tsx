@@ -4,6 +4,10 @@ import "@/app/globals.css";
 import { cn } from "@/lib/utils";
 import ChatWidget from "@/components/chat/ChatWidget";
 
+const GTM_ID = "GTM-PGGK275D";
+/** Only this host feeds the production GA4 property. */
+const GTM_HOST = "genevity.com.ua";
+
 // Downloaded at build time, self-hosted on Vercel CDN as WOFF2 with subsetting.
 // No runtime Google Fonts connection.
 const tenorSans = Tenor_Sans({
@@ -54,15 +58,14 @@ export default function RootHtml({
       <body className="antialiased">
         {chrome && (
           <>
-            {/* GTM: dataLayer init must run before gtm.js — Script must be in body, not head */}
+            {/* GTM, gated to the live domain. Previews, localhost and the bare
+                genevity.vercel.app alias share this container, so without the
+                hostname check our own test traffic lands in the production
+                property. The dataLayer init has to run before gtm.js, so the
+                loader is inlined here rather than split across two Scripts. */}
             <Script id="gtm-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'})`}
+              {`(function(){var h=location.hostname;if(h!=='${GTM_HOST}'&&h!=='www.${GTM_HOST}')return;window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id=${GTM_ID}';document.head.appendChild(s)})()`}
             </Script>
-            <Script
-              id="gtm-head"
-              strategy="afterInteractive"
-              src="https://www.googletagmanager.com/gtm.js?id=GTM-PGGK275D"
-            />
           </>
         )}
         {children}
