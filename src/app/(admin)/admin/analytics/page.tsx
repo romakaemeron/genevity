@@ -25,14 +25,25 @@ interface AnalyticsData {
   activeUsers: number;
   bookings: number;
   conversionRate: number;
-  sources: { source: string; sessions: number }[];
+  sources: { source: string; medium: string; sessions: number }[];
+  channels: {
+    channel: string;
+    sessions: number;
+    engagedRate: number;
+    avgDuration: number;
+    bookings: number;
+    conversionRate: number;
+  }[];
   servicePages: { path: string; views: number }[];
   range: Range;
   updatedAt: string;
 }
 
-function formatSource(s: string) {
+/** Google Ads and Google organic both report sessionSource "google" — without the
+ *  medium they collapse into one row and paid traffic reads as free. */
+function formatSource(s: string, medium?: string) {
   if (!s || s === "(direct)" || s === "(none)") return "Прямий";
+  if (s.toLowerCase() === "google" && medium === "cpc") return "Google Ads";
   const map: Record<string, string> = {
     google: "Google",
     instagram: "Instagram",
@@ -46,6 +57,12 @@ function formatSource(s: string) {
     "vercel.com": "Vercel",
   };
   return map[s.toLowerCase()] ?? s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function formatDuration(seconds: number) {
+  const m = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  return m > 0 ? `${m}:${String(sec).padStart(2, "0")}` : `${sec}s`;
 }
 
 function formatPath(path: string) {
@@ -195,7 +212,7 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
           icon={Users}
-          label={t.analyticsPage.visitorsLabel(rangeLabel[range])}
+          label={t.analyticsPage.sessionsLabel(rangeLabel[range])}
           value={data?.sessions ?? 0}
           sub={data ? t.analyticsPage.activeUsers(data.activeUsers) : undefined}
           loading={loading}
@@ -216,6 +233,58 @@ export default function AnalyticsPage() {
           loading={loading}
         />
       </div>
+
+      {/* Channel breakdown — sessions alone can't tell paid from organic, and the
+          paid block is large enough that it skews the site-wide conversion rate. */}
+      <Card>
+        <CardHeader className="px-5">
+          <CardTitle className="text-sm font-semibold flex items-center gap-2">
+            <BarChart2 size={14} className="text-muted-foreground" />
+            {t.analyticsPage.channels}
+            <span className="ml-auto text-[11px] font-normal text-muted-foreground">
+              {t.analyticsPage.paidHint}
+            </span>
+          </CardTitle>
+        </CardHeader>
+        <Separator />
+        <CardContent className="p-0">
+          {loading ? (
+            <div className="px-5 py-4 space-y-3">
+              {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-4 w-full" />)}
+            </div>
+          ) : !data?.channels.length ? (
+            <div className="px-5 py-8 text-center text-sm text-muted-foreground">{t.common.noData}</div>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow className="bg-muted/30 hover:bg-muted/30">
+                  <TableHead className="text-xs px-5">{t.analyticsPage.channelCol}</TableHead>
+                  <TableHead className="text-xs text-right px-5">{t.analyticsPage.sessionsCol}</TableHead>
+                  <TableHead className="text-xs text-right px-5">{t.analyticsPage.engagedCol}</TableHead>
+                  <TableHead className="text-xs text-right px-5">{t.analyticsPage.bookingsCol}</TableHead>
+                  <TableHead className="text-xs text-right px-5">{t.analyticsPage.convCol}</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.channels.map((c) => (
+                  <TableRow key={c.channel}>
+                    <TableCell className="px-5 py-2.5 text-sm text-foreground">
+                      {c.channel}
+                      <span className="ml-2 text-[11px] text-muted-foreground tabular-nums">
+                        {formatDuration(c.avgDuration)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="px-5 py-2.5 text-right tabular-nums text-sm">{c.sessions}</TableCell>
+                    <TableCell className="px-5 py-2.5 text-right tabular-nums text-sm text-muted-foreground">{c.engagedRate}%</TableCell>
+                    <TableCell className="px-5 py-2.5 text-right tabular-nums text-sm font-medium">{c.bookings}</TableCell>
+                    <TableCell className="px-5 py-2.5 text-right tabular-nums text-sm font-medium">{c.conversionRate}%</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Sources + Pages tables */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -255,7 +324,12 @@ export default function AnalyticsPage() {
                             <div className="h-1.5 rounded-full bg-primary/20 flex-1 max-w-[80px]">
                               <div className="h-1.5 rounded-full bg-primary" style={{ width: `${pct}%` }} />
                             </div>
-                            <span className="text-sm text-foreground">{formatSource(s.source)}</span>
+                            <span className="text-sm text-foreground">{formatSource(s.source, s.medium)}</span>
+                            {s.medium && s.medium !== "(none)" && (
+                              <span className="text-[10px] text-muted-foreground uppercase tracking-wide">
+                                {s.medium}
+                              </span>
+                            )}
                           </div>
                         </TableCell>
                         <TableCell className="px-5 py-2.5 text-right tabular-nums text-sm font-medium">{s.sessions}</TableCell>
