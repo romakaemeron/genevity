@@ -42,7 +42,7 @@ export default function BookingPage({ locale, ui, phone, hours, address }: Props
         {phone && (
           <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex gap-3 items-center group">
             <Phone className="w-4 h-4 text-main shrink-0" aria-hidden="true" />
-            <span className="body-strong text-black group-hover:text-main transition-colors">{phone}</span>
+            <span className="binct-phone-number-1 body-strong text-black group-hover:text-main transition-colors">{phone}</span>
           </a>
         )}
         {hours && (

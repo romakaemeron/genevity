@@ -277,7 +277,7 @@ export default function AppointmentWizard({
         <h2 className="heading-3 text-black">{t("unavailableTitle")}</h2>
         <p className="body-m text-muted mt-3 mb-6 max-w-md">{t("unavailableText")}</p>
         <div className="flex flex-wrap gap-3">
-          <Button variant="primary" size="sm" href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</Button>
+          <Button variant="primary" size="sm" href={`tel:${phone.replace(/\s/g, "")}`} className="binct-phone-number-1">{phone}</Button>
           {fallbackUrl && (
             <Button variant="outline" size="sm" href={fallbackUrl} target="_blank" rel="noopener noreferrer">
               {t("unavailableCta")}
