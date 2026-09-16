@@ -40,10 +40,10 @@ export default function BookingPage({ locale, ui, phone, hours, address }: Props
     <div className="rounded-[var(--radius-card)] bg-champagne-dark p-5">
       <div className="flex flex-col gap-3.5">
         {phone && (
-          <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex gap-3 items-center group">
+          <div className="flex gap-3 items-center">
             <Phone className="w-4 h-4 text-main shrink-0" aria-hidden="true" />
-            <span className="binct-phone-number-1 body-strong text-black group-hover:text-main transition-colors">{phone}</span>
-          </a>
+            <a href={`tel:${phone.replace(/\s/g, "")}`} className="binct-phone-number-1 body-strong text-black hover:text-main transition-colors">{phone}</a>
+          </div>
         )}
         {hours && (
           <p className="flex gap-3 items-center">
