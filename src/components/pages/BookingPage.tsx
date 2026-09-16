@@ -66,14 +66,15 @@ export default function BookingPage({ locale, ui, phone, hours }: Props) {
 
           <aside className="rounded-[var(--radius-card)] bg-champagne-dark p-6 flex flex-col gap-4 lg:sticky lg:top-28">
             {phone && (
-              <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-start gap-3 group">
+              <div className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-main mt-1 shrink-0" aria-hidden="true" />
-                <span>
-                  <span className="binct-phone-number-1 block body-strong text-black group-hover:text-main transition-colors">
-                    {phone}
-                  </span>
-                </span>
-              </a>
+                <a
+                  href={`tel:${phone.replace(/\s/g, "")}`}
+                  className="binct-phone-number-1 block body-strong text-black hover:text-main transition-colors"
+                >
+                  {phone}
+                </a>
+              </div>
             )}
             {hours && (
               <p className="flex items-start gap-3">

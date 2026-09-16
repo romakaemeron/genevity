@@ -118,13 +118,20 @@ export default function Footer({ legalDocs = [], settings }: { legalDocs?: Legal
                 <span>{settings?.address || ""}</span>
               </a>
               {settings?.phone1 && (
-                <a
-                  href={`tel:${settings.phone1.replace(/\s/g, "")}`}
-                  className="flex items-center gap-2 body-m text-black hover:text-main transition-colors"
-                >
+                /* The icon sits outside the anchor on purpose: Binotel only
+                   rewrites an element's href when the binct class is on that
+                   element, so the class has to be on the <a> itself. With the
+                   icon inside, the class could only go on an inner span, and
+                   the anchor kept dialling the un-substituted base number. */
+                <div className="flex items-center gap-2 body-m text-black">
                   <Phone className="w-4 h-4 text-main shrink-0" />
-                  <span className="binct-phone-number-1">{settings.phone1}</span>
-                </a>
+                  <a
+                    href={`tel:${settings.phone1.replace(/\s/g, "")}`}
+                    className="binct-phone-number-1 hover:text-main transition-colors"
+                  >
+                    {settings.phone1}
+                  </a>
+                </div>
               )}
               <div className="flex items-start gap-2 body-m text-black">
                 <Clock className="w-4 h-4 text-main shrink-0 mt-1" />
