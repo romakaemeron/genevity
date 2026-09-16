@@ -69,7 +69,7 @@ export default function BookingPage({ locale, ui, phone, hours }: Props) {
               <a href={`tel:${phone.replace(/\s/g, "")}`} className="flex items-start gap-3 group">
                 <Phone className="w-4 h-4 text-main mt-1 shrink-0" aria-hidden="true" />
                 <span>
-                  <span className="block body-strong text-black group-hover:text-main transition-colors">
+                  <span className="binct-phone-number-1 block body-strong text-black group-hover:text-main transition-colors">
                     {phone}
                   </span>
                 </span>

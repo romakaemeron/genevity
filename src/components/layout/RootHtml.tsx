@@ -6,6 +6,7 @@ import ChatWidget from "@/components/chat/ChatWidget";
 
 const GTM_ID = "GTM-PGGK275D";
 const META_PIXEL_ID = "901952452960149";
+const BINOTEL_CALLTRACKING_HASH = "fx083acd84tcu2jfnais";
 /** Only this host feeds the production GA4 property. */
 const GTM_HOST = "genevity.com.ua";
 
@@ -54,7 +55,22 @@ export default function RootHtml({
           layouts render <head> directly; next/head is Pages Router only. */}
       <head>
         {chrome && <link rel="preconnect" href="https://www.googletagmanager.com" />}
-        {chrome && <link rel="dns-prefetch" href="https://widgets.binotel.com" />}
+        {chrome && <link rel="preconnect" href="https://widgets.binotel.com" />}
+        {/* Binotel call tracking runs here, in <head>, rather than through
+            next/script. Every other strategy — afterInteractive, and even
+            beforeInteractive, which defers to Next's hydration bootstrap —
+            lets the page paint the base numbers first. A visitor who reads or
+            taps a number in that window calls the base line, and the call is
+            never attributed to its source. Inline execution during parse
+            closes the gap; the snippet itself only appends an async script,
+            so it does not block rendering. */}
+        {chrome && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(d,w,s){var widgetHash='${BINOTEL_CALLTRACKING_HASH}',ctw=d.createElement(s);ctw.type='text/javascript';ctw.async=true;ctw.src='//widgets.binotel.com/calltracking/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(ctw,sn);})(document,window,'script');`,
+            }}
+          />
+        )}
       </head>
       <body className="antialiased">
         {chrome && (
@@ -79,9 +95,6 @@ export default function RootHtml({
         {children}
         {chrome && (
           <>
-            <Script id="binotel-calltracking" strategy="afterInteractive">
-              {`(function(d,w,s){var widgetHash='fx083acd84tcu2jfnais',ctw=d.createElement(s);ctw.type='text/javascript';ctw.async=true;ctw.src='//widgets.binotel.com/calltracking/widgets/'+widgetHash+'.js';var sn=d.getElementsByTagName(s)[0];sn.parentNode.insertBefore(ctw,sn);})(document,window,'script');`}
-            </Script>
             <Script
               id="binotel-getcall"
               strategy="afterInteractive"
