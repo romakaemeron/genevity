@@ -87,6 +87,18 @@ describe("applyTaxonomy", () => {
     ].sort());
   });
 
+  it("gives the PolyPhil variants real names", () => {
+    const inj = cats.find((c) => c.labelUk === "Ін'єкційна косметологія")!;
+    const polyphil = inj.subcategories.find((s) => s.labelUk === "PolyPhil")!;
+    const names = polyphil.items.map((i) => i.nameUk).sort();
+    expect(names).toEqual([
+      "PolyPhil",
+      "PolyPhil Eye",
+      "PolyPhil Hair",
+      "PolyPhil Next",
+    ]);
+  });
+
   it("keeps surgery visible", () => {
     const surgery = cats.find((c) => c.labelUk === "Естетична хірургія")!;
     expect(surgery.isVisible).toBe(true);

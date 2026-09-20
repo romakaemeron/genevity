@@ -47,6 +47,21 @@ const HIDDEN_ITEM_PATTERNS = [
   "статевого члена",
 ];
 
+/**
+ * Rows whose name in the spreadsheet is internal shorthand that would be
+ * meaningless — or actively broken — on a public page. The sheet files three
+ * PolyPhil variants under the "PolyPhil" subcategory as bare "hair", "eye" and
+ * "next", which would render as price rows called "next — 7 800 ₴".
+ *
+ * Renaming is safe across re-imports because the diff matches on
+ * roapp_service_id first, and all three rows carry one.
+ */
+const ITEM_RENAMES: Record<string, string> = {
+  hair: "PolyPhil Hair",
+  eye: "PolyPhil Eye",
+  next: "PolyPhil Next",
+};
+
 /** Category-8 subcategories that belong with the injectables instead. */
 const MOVE_TO_INJECTABLES = ["Нітковий ліфтинг", "Ліпофілінг"];
 
@@ -97,7 +112,11 @@ function toCatalogueSub(
     slug: slugify(labelUk) || "inshe",
     labelUk,
     isVisible: visible,
-    items: sub.items.map((i) => ({ ...i, isVisible: visible && !isHidden(i.nameUk) })),
+    items: sub.items.map((i) => ({
+      ...i,
+      nameUk: ITEM_RENAMES[i.nameUk] ?? i.nameUk,
+      isVisible: visible && !isHidden(i.nameUk),
+    })),
   };
 }
 
