@@ -643,11 +643,12 @@ describe("applyTaxonomy", () => {
     expect(labels).not.toContain("1. Фракційний мікроігольчастий RF");
   });
 
-  it("folds thread lift and lipofilling into injectables", () => {
+  it("folds thread lift and lipofilling into injectables without their old umbrella", () => {
     const inj = cats.find((c) => c.labelUk === "Ін'єкційна косметологія")!;
     const labels = inj.subcategories.map((s) => s.labelUk);
     expect(labels).toContain("Нітковий ліфтинг");
     expect(labels).toContain("Ліпофілінг");
+    expect(labels).not.toContain("Естетична медицина — Ліпофілінг");
   });
 
   it("hides the Крапельниці category pending price confirmation", () => {
@@ -789,8 +790,18 @@ function composeLabel(sub: ParsedSubcategory): string {
   return `${sub.groupUk} — ${own}`;
 }
 
-function toCatalogueSub(sub: ParsedSubcategory, visible: boolean): CatalogueSubcategory {
-  const labelUk = composeLabel(sub);
+/**
+ * `dropGroup` is for a subcategory being relocated out of its source category:
+ * once "Ліпофілінг" sits under Ін'єкційна косметологія, prefixing it with its
+ * old umbrella ("Естетична медицина — Ліпофілінг") describes where it came
+ * from rather than what it is.
+ */
+function toCatalogueSub(
+  sub: ParsedSubcategory,
+  visible: boolean,
+  dropGroup = false,
+): CatalogueSubcategory {
+  const labelUk = dropGroup ? stripNumberPrefix(sub.labelUk) : composeLabel(sub);
   return {
     slug: slugify(labelUk) || "inshe",
     labelUk,
@@ -812,7 +823,7 @@ export function applyTaxonomy(parsed: ParsedCategory[]): CatalogueCategory[] {
     if (cat.index === INJECTABLES_INDEX && mixed) {
       for (const name of MOVE_TO_INJECTABLES) {
         const moved = mixed.subcategories.find((s) => s.labelUk === name);
-        if (moved) subs.push(toCatalogueSub(moved, true));
+        if (moved) subs.push(toCatalogueSub(moved, true, true));
       }
     }
 
