@@ -180,7 +180,7 @@ git commit -m "feat(prices): add subcategory table and catalogue columns"
 
 | Column A | Column B | Price col | Meaning |
 |---|---|---|---|
-| integer 1–8 | text | absent | **category** header |
+| integer 0–8 | text | absent | **category** header (0 = the consultations block at the top of the sheet) |
 | absent | text | absent | **subcategory** header |
 | any number | text | present | **item** |
 | anything | empty | — | skip |
@@ -253,17 +253,24 @@ describe("parseGenevitySheet", () => {
     cats = await parseGenevitySheet(fs.readFileSync(XLSX));
   });
 
-  it("finds exactly 8 top-level categories", () => {
-    expect(cats.map((c) => c.index)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  it("finds 8 numbered categories plus the consultations block", () => {
+    expect(cats.map((c) => c.index)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  it("reads the consultations block at the top of the sheet as category 0", () => {
+    const consultations = cats.find((c) => c.index === 0)!;
+    expect(consultations.labelUk).toBe("Консультації лікарів");
+    expect(consultations.subcategories.flatMap((s) => s.items)).toHaveLength(24);
   });
 
   it("names them as the sheet does", () => {
-    expect(cats[0].labelUk).toBe("Апаратні процедури");
-    expect(cats[1].labelUk).toBe("Лазерна епіляція");
-    expect(cats[5].labelUk).toBe("Подологія");
+    const byIndex = (n: number) => cats.find((c) => c.index === n)!;
+    expect(byIndex(1).labelUk).toBe("Апаратні процедури");
+    expect(byIndex(2).labelUk).toBe("Лазерна епіляція");
+    expect(byIndex(6).labelUk).toBe("Подологія");
   });
 
-  it("parses 575 items in total", () => {
+  it("parses 575 priced rows in total, consultations included", () => {
     const total = cats.reduce(
       (n, c) => n + c.subcategories.reduce((m, s) => m + s.items.length, 0), 0);
     expect(total).toBe(575);
@@ -286,13 +293,14 @@ describe("parseGenevitySheet", () => {
   });
 
   it("captures duration, RoApp id and notes", () => {
-    const smas = cats[0].subcategories.find((s) => s.labelUk === "SMAS-ліфтінг ULTRAFORMER")!;
+    const apparatus = cats.find((c) => c.index === 1)!;
+    const smas = apparatus.subcategories.find((s) => s.labelUk === "SMAS-ліфтінг ULTRAFORMER")!;
     const full = smas.items.find((i) => i.nameUk.startsWith("Full face"))!;
     expect(full.duration).toBe("90");
     expect(full.roappServiceId).toBe("10001");
     expect(full.priceNumeric).toBe(40000);
 
-    const noted = cats[0].subcategories
+    const noted = apparatus.subcategories
       .flatMap((s) => s.items)
       .find((i) => i.noteUk?.includes("Гармаш"));
     expect(noted).toBeDefined();
@@ -491,6 +499,7 @@ git commit -m "feat(prices): parse the GENEVITY sheet of the Helios price book"
 
 **Context.** This is where the spec's editorial decisions live, isolated from parsing so they can be changed without touching the reader. Three rules:
 
+0. **The consultations block is dropped.** The sheet opens with 24 consultation rows under a header carrying `A=0`, before category 1. The parser reports them faithfully as category index 0; this module drops them, because the site's consultations category is curated by hand and deliberately carries different prices. This is the single place that exclusion lives.
 1. **Category 8 splits.** The sheet bundles IV drips, surgery and aesthetic medicine under one heading. `Нітковий ліфтинг` and `Ліпофілінг` move into Ін'єкційна косметологія (category 3). `Крапельниці` becomes its own category, hidden. Everything else becomes a new `Естетична хірургія` category, visible.
 2. **Six rows are hidden by name** — oncology, urology and intimate injections.
 3. **Slugs** are transliterated from Ukrainian, because the categories need stable URL keys for `?c=`/`?s=`.
@@ -578,10 +587,10 @@ describe("applyTaxonomy", () => {
     expect(blepharo.priceNumeric).toBe(50000);
   });
 
-  it("still totals 575 items across all categories", () => {
+  it("totals 551 items — the sheet's 575 minus the 24 consultations", () => {
     const total = cats.reduce(
       (n, c) => n + c.subcategories.reduce((m, s) => m + s.items.length, 0), 0);
-    expect(total).toBe(575);
+    expect(total).toBe(551);
   });
 
   it("gives every category and subcategory a unique non-empty slug", () => {
@@ -663,6 +672,10 @@ const CATEGORY_8_PASSTHROUGH = ["Естетична хірургія", "Есте
 
 const INJECTABLES_INDEX = 3;
 const MIXED_INDEX = 8;
+/** The consultations block at the top of the sheet. Never imported: the
+ *  consultations category on the site is curated by hand and carries prices
+ *  the spreadsheet deliberately disagrees with. */
+const CONSULTATIONS_INDEX = 0;
 
 function isHidden(name: string): boolean {
   const lower = name.toLowerCase();
@@ -683,7 +696,8 @@ export function applyTaxonomy(parsed: ParsedCategory[]): CatalogueCategory[] {
   const mixed = parsed.find((c) => c.index === MIXED_INDEX);
 
   for (const cat of parsed) {
-    if (cat.index === MIXED_INDEX) continue;   // handled below
+    if (cat.index === CONSULTATIONS_INDEX) continue;   // never imported
+    if (cat.index === MIXED_INDEX) continue;           // handled below
 
     const subs = cat.subcategories.map((s) => toCatalogueSub(s.labelUk, s.items, true));
 
