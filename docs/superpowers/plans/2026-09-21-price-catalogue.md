@@ -166,7 +166,7 @@ git commit -m "feat(prices): add subcategory table and catalogue columns"
     priceNumeric: number | null;
     noteUk: string | null;
   }
-  export interface ParsedSubcategory { labelUk: string; items: ParsedItem[] }
+  export interface ParsedSubcategory { labelUk: string; groupUk: string | null; items: ParsedItem[] }
   export interface ParsedCategory {
     index: number;              // 1–8 from column A
     labelUk: string;
@@ -314,6 +314,30 @@ describe("parseGenevitySheet", () => {
     expect(odd.map((i) => i.duration)).toContain("15/30");
   });
 
+  it("keeps a group header that is followed straight by another header", () => {
+    const apparatus = cats.find((c) => c.index === 1)!;
+    const exion = apparatus.subcategories.find(
+      (s) => s.labelUk === "1. Фракційний мікроігольчастий RF")!;
+    expect(exion.groupUk).toBe("Exion");
+
+    const emsculpt = apparatus.subcategories.find((s) => s.labelUk === "EmSculpt")!;
+    expect(emsculpt.groupUk).toBe("RF-ліфтінг");
+  });
+
+  it("leaves groupUk null for an ordinary subcategory", () => {
+    const laser = cats.find((c) => c.index === 2)!;
+    expect(laser.subcategories[0].groupUk).toBeNull();
+  });
+
+  it("loses no header text anywhere in the sheet", () => {
+    const groups = new Set(
+      cats.flatMap((c) => c.subcategories).map((s) => s.groupUk).filter(Boolean));
+    expect(groups).toContain("Exion");
+    expect(groups).toContain("RF-ліфтінг");
+    expect(groups).toContain("Естетична хірургія");
+    expect(groups).toContain("Естетична медицина");
+  });
+
   it("puts subcategory-less items in an unnamed bucket", () => {
     const podology = cats.find((c) => c.index === 6)!;
     expect(podology.subcategories[0].labelUk).toBe("");
@@ -348,6 +372,15 @@ export interface ParsedItem {
 
 export interface ParsedSubcategory {
   labelUk: string;
+  /**
+   * The sheet has a third, unlabelled hierarchy level: a header row followed
+   * immediately by another header row rather than by items — "Exion" above
+   * "1. Фракційний мікроігольчастий RF", "Естетична хірургія" above "Пластика".
+   * Such a group header owns no items, so unless it is carried on its children
+   * its text is lost entirely. taxonomy.ts decides how to present it; the
+   * parser only records it.
+   */
+  groupUk: string | null;
   items: ParsedItem[];
 }
 
@@ -500,9 +533,14 @@ git commit -m "feat(prices): parse the GENEVITY sheet of the Helios price book"
 **Context.** This is where the spec's editorial decisions live, isolated from parsing so they can be changed without touching the reader. Three rules:
 
 0. **The consultations block is dropped.** The sheet opens with 24 consultation rows under a header carrying `A=0`, before category 1. The parser reports them faithfully as category index 0; this module drops them, because the site's consultations category is curated by hand and deliberately carries different prices. This is the single place that exclusion lives.
-1. **Category 8 splits.** The sheet bundles IV drips, surgery and aesthetic medicine under one heading. `Нітковий ліфтинг` and `Ліпофілінг` move into Ін'єкційна косметологія (category 3). `Крапельниці` becomes its own category, hidden. Everything else becomes a new `Естетична хірургія` category, visible.
-2. **Six rows are hidden by name** — oncology, urology and intimate injections.
-3. **Slugs** are transliterated from Ukrainian, because the categories need stable URL keys for `?c=`/`?s=`.
+1. **Group headers fold into their children.** The parser reports a `groupUk`
+   for any subcategory whose header was preceded by a header that owned no items
+   of its own. This module composes the display label — `Exion — Фракційний
+   мікроігольчастий RF` — and strips the sheet's `N. ` numbering. Without this
+   the page shows a bare numbered fragment with no device name.
+2. **Category 8 splits.** The sheet bundles IV drips, surgery and aesthetic medicine under one heading. `Нітковий ліфтинг` and `Ліпофілінг` move into Ін'єкційна косметологія (category 3). `Крапельниці` becomes its own category, hidden. Everything else becomes a new `Естетична хірургія` category, visible.
+3. **Six rows are hidden by name** — oncology, urology and intimate injections.
+4. **Slugs** are transliterated from Ukrainian, because the categories need stable URL keys for `?c=`/`?s=`.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -550,6 +588,14 @@ describe("applyTaxonomy", () => {
 
   it("never emits a consultations category", () => {
     expect(cats.find((c) => c.labelUk.includes("Консультац"))).toBeUndefined();
+  });
+
+  it("folds a device group header into its child's label", () => {
+    const apparatus = cats.find((c) => c.labelUk === "Апаратні процедури")!;
+    const labels = apparatus.subcategories.map((s) => s.labelUk);
+    expect(labels).toContain("Exion — Фракційний мікроігольчастий RF");
+    expect(labels).toContain("RF-ліфтінг — EmSculpt");
+    expect(labels).not.toContain("1. Фракційний мікроігольчастий RF");
   });
 
   it("folds thread lift and lipofilling into injectables", () => {
@@ -615,7 +661,7 @@ Expected: FAIL — `Failed to resolve import "./taxonomy"`.
 Create `src/lib/prices/taxonomy.ts`:
 
 ```ts
-import type { ParsedCategory, ParsedItem } from "./parse-xlsx";
+import type { ParsedCategory, ParsedItem, ParsedSubcategory } from "./parse-xlsx";
 
 export interface CatalogueItem extends ParsedItem {
   isVisible: boolean;
@@ -667,9 +713,6 @@ const HIDDEN_ITEM_PATTERNS = [
 /** Category-8 subcategories that belong with the injectables instead. */
 const MOVE_TO_INJECTABLES = ["Нітковий ліфтинг", "Ліпофілінг"];
 
-/** Headings inside category 8 that are grouping labels, not real subcategories. */
-const CATEGORY_8_PASSTHROUGH = ["Естетична хірургія", "Естетична медицина"];
-
 const INJECTABLES_INDEX = 3;
 const MIXED_INDEX = 8;
 /** The consultations block at the top of the sheet. Never imported: the
@@ -682,12 +725,32 @@ function isHidden(name: string): boolean {
   return HIDDEN_ITEM_PATTERNS.some((p) => lower.includes(p.toLowerCase()));
 }
 
-function toCatalogueSub(labelUk: string, items: ParsedItem[], visible: boolean): CatalogueSubcategory {
+/** The sheet numbers some subcategories ("1. Фракційний…"); that is a
+ *  spreadsheet artifact, not part of the name. */
+function stripNumberPrefix(label: string): string {
+  return label.replace(/^\s*\d+\.\s*/, "");
+}
+
+/**
+ * Compose the display label. A group header ("Exion") is folded into its
+ * child ("1. Фракційний мікроігольчастий RF") so the device name survives:
+ * "Exion — Фракційний мікроігольчастий RF". Without this the user sees a bare
+ * numbered fragment and no way to tell which device it belongs to.
+ */
+function composeLabel(sub: ParsedSubcategory): string {
+  const own = stripNumberPrefix(sub.labelUk);
+  if (!sub.groupUk) return own;
+  if (!own) return sub.groupUk;
+  return `${sub.groupUk} — ${own}`;
+}
+
+function toCatalogueSub(sub: ParsedSubcategory, visible: boolean): CatalogueSubcategory {
+  const labelUk = composeLabel(sub);
   return {
     slug: slugify(labelUk) || "inshe",
     labelUk,
     isVisible: visible,
-    items: items.map((i) => ({ ...i, isVisible: visible && !isHidden(i.nameUk) })),
+    items: sub.items.map((i) => ({ ...i, isVisible: visible && !isHidden(i.nameUk) })),
   };
 }
 
@@ -699,12 +762,12 @@ export function applyTaxonomy(parsed: ParsedCategory[]): CatalogueCategory[] {
     if (cat.index === CONSULTATIONS_INDEX) continue;   // never imported
     if (cat.index === MIXED_INDEX) continue;           // handled below
 
-    const subs = cat.subcategories.map((s) => toCatalogueSub(s.labelUk, s.items, true));
+    const subs = cat.subcategories.map((s) => toCatalogueSub(s, true));
 
     if (cat.index === INJECTABLES_INDEX && mixed) {
       for (const name of MOVE_TO_INJECTABLES) {
         const moved = mixed.subcategories.find((s) => s.labelUk === name);
-        if (moved) subs.push(toCatalogueSub(moved.labelUk, moved.items, true));
+        if (moved) subs.push(toCatalogueSub(moved, true));
       }
     }
 
@@ -722,17 +785,12 @@ export function applyTaxonomy(parsed: ParsedCategory[]): CatalogueCategory[] {
 
     for (const sub of mixed.subcategories) {
       if (MOVE_TO_INJECTABLES.includes(sub.labelUk)) continue;   // already moved
-      if (CATEGORY_8_PASSTHROUGH.includes(sub.labelUk)) {
-        // A bare grouping heading whose own rows, if any, belong to surgery.
-        if (sub.items.length) surgery.push(toCatalogueSub(sub.labelUk, sub.items, true));
-        continue;
-      }
       // The sheet's category-8 heading row itself carries the single drip item.
       if (sub.labelUk === "" || sub.labelUk === mixed.labelUk) {
-        drips.push(toCatalogueSub("", sub.items, false));
+        drips.push(toCatalogueSub(sub, false));
         continue;
       }
-      surgery.push(toCatalogueSub(sub.labelUk, sub.items, true));
+      surgery.push(toCatalogueSub(sub, true));
     }
 
     if (surgery.length) {
