@@ -15,8 +15,8 @@ describe("parsePrice", () => {
   it("handles bare small numbers", () => {
     expect(parsePrice("10")).toEqual({ display: "10", numeric: 10 });
   });
-  it("handles non-breaking space separators", () => {
-    expect(parsePrice("1 500")).toEqual({ display: "1 500", numeric: 1500 });
+  it("normalizes non-breaking space separators to ordinary spaces", () => {
+    expect(parsePrice("1\u00A0500")).toEqual({ display: "1 500", numeric: 1500 });
   });
 });
 
@@ -33,14 +33,14 @@ describe("parseGenevitySheet", () => {
   it("reads the consultations block at the top of the sheet as category 0", () => {
     const consultations = cats.find((c) => c.index === 0)!;
     expect(consultations.labelUk).toBe("Консультації лікарів");
-    const total = consultations.subcategories.reduce((n, s) => n + s.items.length, 0);
-    expect(total).toBe(24);
+    expect(consultations.subcategories.flatMap((s) => s.items)).toHaveLength(24);
   });
 
   it("names them as the sheet does", () => {
-    expect(cats.find((c) => c.index === 1)!.labelUk).toBe("Апаратні процедури");
-    expect(cats.find((c) => c.index === 2)!.labelUk).toBe("Лазерна епіляція");
-    expect(cats.find((c) => c.index === 6)!.labelUk).toBe("Подологія");
+    const byIndex = (n: number) => cats.find((c) => c.index === n)!;
+    expect(byIndex(1).labelUk).toBe("Апаратні процедури");
+    expect(byIndex(2).labelUk).toBe("Лазерна епіляція");
+    expect(byIndex(6).labelUk).toBe("Подологія");
   });
 
   it("parses 575 priced rows in total, consultations included", () => {
@@ -66,14 +66,14 @@ describe("parseGenevitySheet", () => {
   });
 
   it("captures duration, RoApp id and notes", () => {
-    const category1 = cats.find((c) => c.index === 1)!;
-    const smas = category1.subcategories.find((s) => s.labelUk === "SMAS-ліфтінг ULTRAFORMER")!;
+    const apparatus = cats.find((c) => c.index === 1)!;
+    const smas = apparatus.subcategories.find((s) => s.labelUk === "SMAS-ліфтінг ULTRAFORMER")!;
     const full = smas.items.find((i) => i.nameUk.startsWith("Full face"))!;
     expect(full.duration).toBe("90");
     expect(full.roappServiceId).toBe("10001");
     expect(full.priceNumeric).toBe(40000);
 
-    const noted = category1.subcategories
+    const noted = apparatus.subcategories
       .flatMap((s) => s.items)
       .find((i) => i.noteUk?.includes("Гармаш"));
     expect(noted).toBeDefined();
@@ -85,6 +85,30 @@ describe("parseGenevitySheet", () => {
       .flatMap((s) => s.items)
       .filter((i) => i.duration !== null && !/^\d+$/.test(i.duration));
     expect(odd.map((i) => i.duration)).toContain("15/30");
+  });
+
+  it("keeps a group header that is followed straight by another header", () => {
+    const apparatus = cats.find((c) => c.index === 1)!;
+    const exion = apparatus.subcategories.find(
+      (s) => s.labelUk === "1. Фракційний мікроігольчастий RF")!;
+    expect(exion.groupUk).toBe("Exion");
+
+    const emsculpt = apparatus.subcategories.find((s) => s.labelUk === "EmSculpt")!;
+    expect(emsculpt.groupUk).toBe("RF-ліфтінг");
+  });
+
+  it("leaves groupUk null for an ordinary subcategory", () => {
+    const laser = cats.find((c) => c.index === 2)!;
+    expect(laser.subcategories[0].groupUk).toBeNull();
+  });
+
+  it("loses no header text anywhere in the sheet", () => {
+    const groups = new Set(
+      cats.flatMap((c) => c.subcategories).map((s) => s.groupUk).filter(Boolean));
+    expect(groups).toContain("Exion");
+    expect(groups).toContain("RF-ліфтінг");
+    expect(groups).toContain("Естетична хірургія");
+    expect(groups).toContain("Естетична медицина");
   });
 
   it("puts subcategory-less items in an unnamed bucket", () => {

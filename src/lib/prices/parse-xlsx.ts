@@ -14,6 +14,15 @@ export interface ParsedItem {
 
 export interface ParsedSubcategory {
   labelUk: string;
+  /**
+   * The sheet has a third, unlabelled hierarchy level: a header row followed
+   * immediately by another header row rather than by items — "Exion" above
+   * "1. Фракційний мікроігольчастий RF", "Естетична хірургія" above "Пластика".
+   * Such a group header owns no items, so unless it is carried on its children
+   * its text is lost entirely. taxonomy.ts decides how to present it; the
+   * parser only records it.
+   */
+  groupUk: string | null;
   items: ParsedItem[];
 }
 
@@ -29,7 +38,7 @@ export interface ParsedCategory {
  * for structured data. Returns numeric: null when nothing parses.
  */
 export function parsePrice(raw: string): { display: string; numeric: number | null } {
-  const normalized = String(raw).replace(/ /g, " ").trim();
+  const normalized = String(raw).replace(/\u00A0/g, " ").trim();
   const digits = normalized.replace(/[\s]/g, "");
   const asFloat = Number(digits.replace(",", "."));
   if (!Number.isFinite(asFloat)) return { display: normalized, numeric: null };
@@ -76,6 +85,11 @@ function isPriceCell(raw: string): boolean {
   return raw !== "" && /\d/.test(raw);
 }
 
+/** "1. Фракційний мікроігольчастий RF" — the sheet's own numbering for a run
+ * of variants under one device. Used only to decide whether a group header's
+ * scope should keep extending past its immediate next sibling. */
+const NUMBERED_LABEL = /^\d+\.\s/;
+
 export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory[]> {
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.load(buffer as unknown as ArrayBuffer);
@@ -85,6 +99,11 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
   const categories: ParsedCategory[] = [];
   let currentCategory: ParsedCategory | null = null;
   let currentSub: ParsedSubcategory | null = null;
+  // The group a freshly-created subcategory should inherit. Set whenever a
+  // header row turns out to have owned zero items once the next header
+  // arrives (see below), and kept alive across a run of "N. " numbered
+  // siblings (e.g. "Exion" covers "1. ...", "2. ...", "3. ...", "4. ...").
+  let activeGroup: string | null = null;
 
   sheet.eachRow((row) => {
     const a = cellText(row.getCell(1));
@@ -103,6 +122,7 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
     if (!hasPrice && Number.isFinite(aNum) && aNum >= 0 && aNum <= 8 && Number.isInteger(aNum)) {
       currentCategory = { index: aNum, labelUk: b, subcategories: [] };
       currentSub = null;
+      activeGroup = null;                 // groups never cross a category boundary
       categories.push(currentCategory);
       return;
     }
@@ -110,15 +130,31 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
     // Subcategory header: text in B alone, no price.
     if (!hasPrice) {
       if (!currentCategory) return;       // headers above category 0 are ignored
-      currentSub = { labelUk: b, items: [] };
-      currentCategory.subcategories.push(currentSub);
+
+      if (currentSub && currentSub.items.length === 0) {
+        // The previous header row never received items before this one
+        // arrived — it was a bare group title (e.g. "Exion", "RF-ліфтінг"),
+        // not a real subcategory. It gets filtered out below; carry its
+        // label forward as the group for what follows instead.
+        activeGroup = currentSub.labelUk;
+      } else if (currentSub) {
+        // The previous subcategory was real (it owns items). The group only
+        // keeps extending across a run of "N. " numbered siblings; anything
+        // else ends its scope.
+        const continuesNumberedRun = NUMBERED_LABEL.test(currentSub.labelUk) && NUMBERED_LABEL.test(b);
+        if (!continuesNumberedRun) activeGroup = null;
+      }
+
+      const sub: ParsedSubcategory = { labelUk: b, groupUk: activeGroup, items: [] };
+      currentSub = sub;
+      currentCategory.subcategories.push(sub);
       return;
     }
 
     // Item.
     if (!currentCategory) return;
     if (!currentSub) {
-      currentSub = { labelUk: "", items: [] };
+      currentSub = { labelUk: "", groupUk: null, items: [] };
       currentCategory.subcategories.push(currentSub);
     }
     const { display, numeric } = parsePrice(d);
@@ -132,7 +168,9 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
     });
   });
 
-  // Drop header-only subcategories left empty by spacer rows.
+  // Drop header-only subcategories left empty by spacer rows or bare group
+  // titles — their text has already been carried onto their children's
+  // groupUk above, so nothing is lost here.
   for (const cat of categories) {
     cat.subcategories = cat.subcategories.filter((s) => s.items.length > 0);
   }
