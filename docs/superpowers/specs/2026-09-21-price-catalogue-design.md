@@ -6,14 +6,14 @@
 
 ## Problem
 
-`/prices` currently shows 44 hand-curated items in 5 flat categories. The
+`/prices` currently shows 34 hand-curated items in 5 flat categories. The
 clinic's real catalogue is 575 services. Two consequences:
 
 1. **Coverage.** Whole service lines have no public price at all — AcuPuls
    and Smart XIDE laser resurfacing, видалення новоутворень, M-22
    фотоомолодження, most of УЗД. That is a large amount of long-tail search
    surface the site does not compete for.
-2. **Accuracy.** The 44 items were partly hand-entered and have drifted. A
+2. **Accuracy.** The 34 items were partly hand-entered and have drifted. A
    diff against the clinic's price book found six wrong prices, and only two
    of them are explained by a stale revision — the rest were never correct.
 
@@ -196,7 +196,7 @@ The existing PDF download stays.
 
 `_components/prices-editor.tsx` is rewritten. It currently loads every
 category into a single client form and replaces all rows on save; that is
-workable at 44 items and fails at 575.
+workable at 34 items and fails at 575.
 
 ## Testing
 

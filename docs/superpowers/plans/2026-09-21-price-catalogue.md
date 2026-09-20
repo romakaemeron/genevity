@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Replace the 44 hand-curated price rows on `/prices` with the clinic's full 575-service catalogue, imported from `Прайс Геліос-4.xlsx`, browsable by category and subcategory with instant search.
+**Goal:** Replace the 34 hand-curated price rows on `/prices` with the clinic's full 575-service catalogue, imported from `Прайс Геліос-4.xlsx`, browsable by category and subcategory with instant search.
 
 **Architecture:** A parser module reads the `прайс GENEVITY (Гончара)` sheet and emits a normalized tree (category → subcategory → item). A taxonomy module applies the project's editorial rules to that tree (category-8 split, consultation exclusion, visibility). A diff module compares the tree against the database and classifies every row. An apply module writes a confirmed diff. The same three modules back both a CLI seed script and an admin upload screen. The page renders the resulting tree as sticky category pills over collapsible subcategory sections.
 
@@ -134,7 +134,7 @@ Expected: `✓ Migration 024 applied`, then both column lists printed, with `sub
 - [ ] **Step 4: Verify existing rows are untouched**
 
 Run: `npx tsx scripts/check-prices.ts`
-Expected: the existing 44 items still print with their current prices. The migration is additive; nothing should have changed.
+Expected: the existing 34 items still print with their current prices. The migration is additive; nothing should have changed.
 
 - [ ] **Step 5: Commit**
 
