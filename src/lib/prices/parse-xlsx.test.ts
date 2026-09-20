@@ -87,14 +87,45 @@ describe("parseGenevitySheet", () => {
     expect(odd.map((i) => i.duration)).toContain("15/30");
   });
 
-  it("keeps a group header that is followed straight by another header", () => {
+  it("attaches a bold group header to every child beneath it", () => {
     const apparatus = cats.find((c) => c.index === 1)!;
-    const exion = apparatus.subcategories.find(
-      (s) => s.labelUk === "1. Фракційний мікроігольчастий RF")!;
-    expect(exion.groupUk).toBe("Exion");
+    const grouped = (g: string) => apparatus.subcategories
+      .filter((s) => s.groupUk === g).map((s) => s.labelUk);
 
-    const emsculpt = apparatus.subcategories.find((s) => s.labelUk === "EmSculpt")!;
-    expect(emsculpt.groupUk).toBe("RF-ліфтінг");
+    expect(grouped("Exion")).toEqual([
+      "1. Фракційний мікроігольчастий RF",
+      "2. Монополярний RF-ліфтінг",
+      "3. RF-ліфтинг + ультразвук",
+      "4. Гінекологія",
+    ]);
+    expect(grouped("RF-ліфтінг")).toEqual(["EmSculpt"]);
+  });
+
+  it("stops a group at the next bold header", () => {
+    const apparatus = cats.find((c) => c.index === 1)!;
+    // EmFace is bold and owns items, so it is its own subcategory — it must
+    // NOT inherit Exion, which is the header immediately above its run.
+    const emface = apparatus.subcategories.find((s) => s.labelUk === "EmFace")!;
+    expect(emface.groupUk).toBeNull();
+    const volnewmer = apparatus.subcategories.find((s) => s.labelUk === "Volnewmer")!;
+    expect(volnewmer.groupUk).toBeNull();
+  });
+
+  it("attaches the surgery umbrellas to all of their children", () => {
+    const mixed = cats.find((c) => c.index === 8)!;
+    const grouped = (g: string) => mixed.subcategories
+      .filter((s) => s.groupUk === g).map((s) => s.labelUk);
+
+    expect(grouped("Естетична хірургія")).toEqual([
+      "Пластика",
+      "Видалення новоутворень хірургічним шляхом",
+      "Лазерні методики Smart Lipo",
+    ]);
+    expect(grouped("Естетична медицина")).toEqual([
+      "Нітковий ліфтинг",
+      "Ліпофілінг",
+      "Інʼєкційни методики",
+    ]);
   });
 
   it("leaves groupUk null for an ordinary subcategory", () => {
@@ -105,10 +136,13 @@ describe("parseGenevitySheet", () => {
   it("loses no header text anywhere in the sheet", () => {
     const groups = new Set(
       cats.flatMap((c) => c.subcategories).map((s) => s.groupUk).filter(Boolean));
-    expect(groups).toContain("Exion");
-    expect(groups).toContain("RF-ліфтінг");
-    expect(groups).toContain("Естетична хірургія");
-    expect(groups).toContain("Естетична медицина");
+    expect([...groups].sort()).toEqual([
+      "Exion",
+      "RF-ліфтінг",
+      "Видалення новоутворень шкіри та слизових",
+      "Естетична медицина",
+      "Естетична хірургія",
+    ].sort());
   });
 
   it("puts subcategory-less items in an unnamed bucket", () => {

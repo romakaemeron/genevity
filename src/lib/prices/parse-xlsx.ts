@@ -85,11 +85,6 @@ function isPriceCell(raw: string): boolean {
   return raw !== "" && /\d/.test(raw);
 }
 
-/** "1. Фракційний мікроігольчастий RF" — the sheet's own numbering for a run
- * of variants under one device. Used only to decide whether a group header's
- * scope should keep extending past its immediate next sibling. */
-const NUMBERED_LABEL = /^\d+\.\s/;
-
 export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory[]> {
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.load(buffer as unknown as ArrayBuffer);
@@ -99,15 +94,18 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
   const categories: ParsedCategory[] = [];
   let currentCategory: ParsedCategory | null = null;
   let currentSub: ParsedSubcategory | null = null;
-  // The group a freshly-created subcategory should inherit. Set whenever a
-  // header row turns out to have owned zero items once the next header
-  // arrives (see below), and kept alive across a run of "N. " numbered
-  // siblings (e.g. "Exion" covers "1. ...", "2. ...", "3. ...", "4. ...").
-  let activeGroup: string | null = null;
+  // The sheet encodes its third hierarchy level in bold, not position: a
+  // bold header row (e.g. "Exion", "RF-ліфтінг") sets the group that any
+  // following *non-bold* header rows belong to, until the next bold header
+  // supersedes it or the category ends. A bold header that goes on to own
+  // items itself (SMAS-ліфтінг ULTRAFORMER, EmFace, Volnewmer, ...) is an
+  // ordinary subcategory — groupUk: null — it IS the group, not a member.
+  let currentGroup: string | null = null;
 
   sheet.eachRow((row) => {
     const a = cellText(row.getCell(1));
-    const b = cellText(row.getCell(2));
+    const bCell = row.getCell(2);
+    const b = cellText(bCell);
     const c = cellText(row.getCell(3));
     const d = cellText(row.getCell(4));
     const e = cellText(row.getCell(5));
@@ -122,7 +120,7 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
     if (!hasPrice && Number.isFinite(aNum) && aNum >= 0 && aNum <= 8 && Number.isInteger(aNum)) {
       currentCategory = { index: aNum, labelUk: b, subcategories: [] };
       currentSub = null;
-      activeGroup = null;                 // groups never cross a category boundary
+      currentGroup = null;                // groups never cross a category boundary
       categories.push(currentCategory);
       return;
     }
@@ -131,21 +129,19 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
     if (!hasPrice) {
       if (!currentCategory) return;       // headers above category 0 are ignored
 
-      if (currentSub && currentSub.items.length === 0) {
-        // The previous header row never received items before this one
-        // arrived — it was a bare group title (e.g. "Exion", "RF-ліфтінг"),
-        // not a real subcategory. It gets filtered out below; carry its
-        // label forward as the group for what follows instead.
-        activeGroup = currentSub.labelUk;
-      } else if (currentSub) {
-        // The previous subcategory was real (it owns items). The group only
-        // keeps extending across a run of "N. " numbered siblings; anything
-        // else ends its scope.
-        const continuesNumberedRun = NUMBERED_LABEL.test(currentSub.labelUk) && NUMBERED_LABEL.test(b);
-        if (!continuesNumberedRun) activeGroup = null;
+      const bold = bCell.font?.bold === true;
+      let groupUk: string | null;
+      if (bold) {
+        // Either a group umbrella (if it turns out to own no items — dropped
+        // by the empty-subcategory filter below) or an ordinary subcategory
+        // that happens to be bold. Either way it does not belong to a group.
+        groupUk = null;
+        currentGroup = b;
+      } else {
+        groupUk = currentGroup;
       }
 
-      const sub: ParsedSubcategory = { labelUk: b, groupUk: activeGroup, items: [] };
+      const sub: ParsedSubcategory = { labelUk: b, groupUk, items: [] };
       currentSub = sub;
       currentCategory.subcategories.push(sub);
       return;
