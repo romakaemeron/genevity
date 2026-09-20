@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^3.0.120",
@@ -46,6 +48,7 @@
     "cmdk": "^1.1.1",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
+    "exceljs": "^4.4.0",
     "framer-motion": "^12.36.0",
     "jose": "^6.2.2",
     "lucide-react": "^1.16.0",
@@ -76,6 +79,7 @@
     "shadcn": "^4.7.0",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   }
 }
