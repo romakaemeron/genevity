@@ -657,16 +657,28 @@ describe("applyTaxonomy", () => {
     expect(drips.subcategories.flatMap((s) => s.items)).toHaveLength(1);
   });
 
-  it("hides oncology, urology and intimate-injection rows", () => {
+  it("hides exactly the intended rows and no others", () => {
+    // An exact-set assertion, not a `some()` spot check: the hidden set is an
+    // editorial decision about what appears on a public medical price list, so
+    // any drift in either direction — a row that stops hiding, or a new sheet
+    // row that starts hiding — must fail this test and be re-decided, never
+    // slip through silently.
     const hidden = cats
+      .filter((c) => c.isVisible)          // a hidden category is a separate rule
       .flatMap((c) => c.subcategories)
       .flatMap((s) => s.items)
       .filter((i) => !i.isVisible)
-      .map((i) => i.nameUk);
-    expect(hidden.some((n) => n.includes("базально-клітинної карциноми"))).toBe(true);
-    expect(hidden.some((n) => n.includes("Панч-біопсія"))).toBe(true);
-    expect(hidden.some((n) => n.includes("циркумцизія"))).toBe(true);
-    expect(hidden.some((n) => n.includes("статевого члена"))).toBe(true);
+      .map((i) => i.nameUk)
+      .sort();
+    expect(hidden).toEqual([
+      "Видалення базально-клітинної карциноми (1 категорія)",
+      "Видалення базально-клітинної карциноми (2 категорія)",
+      "Видалення базально-клітинної карциноми (3 категорія)",
+      "Корекція статевого члена філером (без вартості препарату)",
+      "Лазерне обрізання крайньої плоті (циркумцизія)",
+      "PRP статевого члена (1 пробірка)",
+      "Панч-біопсія (без вартості гістології)",
+    ].sort());
   });
 
   it("keeps surgery visible", () => {
