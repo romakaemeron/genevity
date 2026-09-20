@@ -5,26 +5,26 @@ import { sql } from "@/lib/db/client";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
 
-// SEO audit §1.6: only mandatory tags (urlset/url/loc) + alternates; no changeFreq/priority/lastMod
+// SEO audit §1.6: only the mandatory tags (urlset/url/loc); no changeFreq/priority/lastMod.
 //
-// TZ №14: every language version needs its OWN <url>/<loc> entry, not just the
-// uk canonical with ru/en as xhtml:link alternates. Google attributes a URL to
-// a sitemap only when it appears in a <loc>; with the old one-entry-per-page
-// shape, GSC reported "Sitemap: no matching sitemaps found" for /ru/* and /en/*
-// pages and left them undiscovered. Per the Sitemaps + hreflang spec each entry
-// carries the complete alternate set, including a self-reference.
+// TZ №14, part 1 — every language version gets its OWN <url>/<loc> entry.
+// Google attributes a URL to a sitemap only when it appears in a <loc>, so the
+// previous shape (one entry per page, uk in <loc> with ru/en as xhtml:link
+// alternates) left every /ru/* and /en/* page undiscovered — GSC reported
+// "Sitemap: no matching sitemaps found" for them.
+//
+// TZ №14, part 2 — NO xhtml:link hreflang alternates here, deliberately.
+// Declaring xmlns:xhtml makes WebKit/Blink skip their XML source viewer and
+// render the document as markup instead: <loc> becomes an unknown inline
+// element and the whole file displays as one run-on line of text. It also
+// fails strict validation against the official sitemaps.org 0.9 XSD, since the
+// hreflang extension is outside that schema. Dropping it costs no hreflang
+// coverage — every page already emits the complete
+// <link rel="alternate" hreflang> set (uk-UA/ru-UA/en-UA/x-default) in its
+// <head> via buildAlternates(), which Google treats as equivalent. See §1.11.
 function localeUrls(path: string): MetadataRoute.Sitemap {
-  const languages: Record<string, string> = {};
-  for (const locale of routing.locales) {
-    // SEO audit §1.11: region-qualified hreflang codes (uk-UA, ru-UA, en-UA)
-    const tag = locale === "ua" ? "uk-UA" : locale === "ru" ? "ru-UA" : "en-UA";
-    languages[tag] = absoluteUrl(path, locale);
-  }
-  languages["x-default"] = absoluteUrl(path, routing.defaultLocale);
-
   return routing.locales.map((locale) => ({
     url: absoluteUrl(path, locale),
-    alternates: { languages },
   }));
 }
 
