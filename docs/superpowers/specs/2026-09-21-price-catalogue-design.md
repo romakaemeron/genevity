@@ -116,23 +116,26 @@ base, per client instruction.
 ### Category 8 — split, not hidden
 
 The sheet's category 8 bundles three different risk profiles under one
-heading. Importing it as one unit and hiding it wholesale would suppress ~54
+heading. Importing it as one unit and hiding it wholesale would suppress ~53
 publishable services to deal with ~6 problematic ones. It is therefore split:
 
 | Source subcategory | Destination | Visible |
 |---|---|---|
 | Нітковий ліфтинг, Ліпофілінг | folded into Ін'єкційна косметологія | yes |
 | Пластика, Видалення новоутворень хірургічним шляхом, Smart Lipo | new category **Естетична хірургія** | yes |
-| Крапельниці | new category **Крапельниці** | yes |
+| Крапельниці | new category **Крапельниці** | **no** — see below |
 | Видалення базально-клітинної карциноми, панч-біопсія, циркумцизія, корекція статевого члена філером, PRP статевого члена | retained under Естетична хірургія | **no** |
 
 The hidden group is oncological, urological and intimate-injection work that
 does not belong on a public aesthetic-medicine price list. It is imported with
 `is_visible=false` and is one admin toggle from publication.
 
-**Open data question for the clinic:** Крапельниці contains exactly one row,
-`Крапельниця — 20 000 ₴`. That is an order of magnitude above comparable
-services and looks like a data error. Confirm before publishing.
+**Крапельниці is imported hidden.** The category contains exactly one row,
+`Крапельниця — 20 000 ₴`, an order of magnitude above comparable services and
+most likely a data error. The category and its row are created with
+`is_visible=false` so the structure exists and is one admin toggle from
+publication once the clinic confirms the correct price — or supplies the full
+drip menu this single row appears to stand in for.
 
 ### Price corrections applied by the import
 
