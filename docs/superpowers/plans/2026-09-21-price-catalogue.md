@@ -460,7 +460,7 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
 Run: `npm test`
 Expected: PASS, all assertions in both describe blocks.
 
-If the total is not exactly 575, print the per-category counts and compare against the spec's table before adjusting the classification rules — a mismatch means a row shape the rules do not cover, not a wrong expectation.
+If the total is not exactly 575, print the per-category counts and compare against the spec's table. The 575 came from a different counting heuristic than this parser implements, so it is a strong prior, not ground truth: first assume the parser is missing a row shape and fix the rules. If the parser is demonstrably right and the constant wrong, correct the constant — but only with the per-category breakdown as evidence, and say in your report which number you settled on and why.
 
 - [ ] **Step 7: Commit**
 
@@ -533,7 +533,7 @@ describe("applyTaxonomy", () => {
       "Діагностичні послуги",
       "Доглядові процедури",
       "Подологія",
-      "Видалення родимок, папілом, бородавок та інші",
+      "Видалення родимок, папіломив, бородавок та інші",
       "Естетична хірургія",
       "Крапельниці",
     ]);
@@ -922,7 +922,7 @@ export const PRICE_TRANSLATIONS: Record<string, Translation> = {
   "Діагностичні послуги": { ru: "Диагностические услуги", en: "Diagnostics" },
   "Доглядові процедури": { ru: "Уходовые процедуры", en: "Skincare treatments" },
   "Подологія": { ru: "Подология", en: "Podiatry" },
-  "Видалення родимок, папілом, бородавок та інші": {
+  "Видалення родимок, папіломив, бородавок та інші": {
     ru: "Удаление родинок, папиллом, бородавок и другое",
     en: "Removal of moles, papillomas, warts and more",
   },
@@ -2038,7 +2038,7 @@ git commit -m "feat(prices): two-level catalogue browse with search and URL stat
 - Modify: `src/app/[locale]/(pages)/prices/page.tsx`
 
 **Interfaces:**
-- Consumes: `PriceCategory` from `@/lib/db/queries/phase2`, `JsonLd` from `@/components/seo/JsonLd`.
+- Consumes: `PriceCategory` from `@/lib/db/queries/phase2`, `JsonLd` (named export) from `@/components/seo/JsonLd`.
 - Produces: an `OfferCatalog` JSON-LD node on `/prices`.
 
 **Context.** `src/components/seo/JsonLd.tsx` is the existing wrapper for structured data. Only items with a `priceNumeric` are emitted — a non-numeric price cannot be expressed as a valid `Offer`.
@@ -2079,7 +2079,7 @@ Then render it inside the returned fragment, directly above `<MegaMenuHeader …
 And add the import:
 
 ```tsx
-import JsonLd from "@/components/seo/JsonLd";
+import { JsonLd } from "@/components/seo/JsonLd";
 ```
 
 - [ ] **Step 2: Build**
