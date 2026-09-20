@@ -584,7 +584,7 @@ git commit -m "feat(prices): parse the GENEVITY sheet of the Helios price book"
    мікроігольчастий RF` — and strips the sheet's `N. ` numbering. Without this
    the page shows a bare numbered fragment with no device name.
 2. **Category 8 splits.** The sheet bundles IV drips, surgery and aesthetic medicine under one heading. `Нітковий ліфтинг` and `Ліпофілінг` move into Ін'єкційна косметологія (category 3). `Крапельниці` becomes its own category, hidden. Everything else becomes a new `Естетична хірургія` category, visible.
-3. **Six rows are hidden by name** — oncology, urology and intimate injections.
+3. **Seven rows are hidden by name** — oncology, urology and intimate injections.
 4. **Slugs** are transliterated from Ukrainian, because the categories need stable URL keys for `?c=`/`?s=`.
 
 - [ ] **Step 1: Write the failing test**

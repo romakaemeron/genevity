@@ -117,7 +117,7 @@ base, per client instruction.
 
 The sheet's category 8 bundles three different risk profiles under one
 heading. Importing it as one unit and hiding it wholesale would suppress ~53
-publishable services to deal with ~6 problematic ones. It is therefore split:
+publishable services to deal with 7 problematic ones. It is therefore split:
 
 | Source subcategory | Destination | Visible |
 |---|---|---|
