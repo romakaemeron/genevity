@@ -6,7 +6,14 @@ import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
 
 // SEO audit §1.6: only mandatory tags (urlset/url/loc) + alternates; no changeFreq/priority/lastMod
-function localeUrls(path: string): MetadataRoute.Sitemap[number] {
+//
+// TZ №14: every language version needs its OWN <url>/<loc> entry, not just the
+// uk canonical with ru/en as xhtml:link alternates. Google attributes a URL to
+// a sitemap only when it appears in a <loc>; with the old one-entry-per-page
+// shape, GSC reported "Sitemap: no matching sitemaps found" for /ru/* and /en/*
+// pages and left them undiscovered. Per the Sitemaps + hreflang spec each entry
+// carries the complete alternate set, including a self-reference.
+function localeUrls(path: string): MetadataRoute.Sitemap {
   const languages: Record<string, string> = {};
   for (const locale of routing.locales) {
     // SEO audit §1.11: region-qualified hreflang codes (uk-UA, ru-UA, en-UA)
@@ -14,10 +21,11 @@ function localeUrls(path: string): MetadataRoute.Sitemap[number] {
     languages[tag] = absoluteUrl(path, locale);
   }
   languages["x-default"] = absoluteUrl(path, routing.defaultLocale);
-  return {
-    url: absoluteUrl(path, routing.defaultLocale),
+
+  return routing.locales.map((locale) => ({
+    url: absoluteUrl(path, locale),
     alternates: { languages },
-  };
+  }));
 }
 
 export const revalidate = 3600;
@@ -37,48 +45,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
   // Home
-  entries.push(localeUrls("/"));
+  entries.push(...localeUrls("/"));
 
   // Static pages (about, prices, stationary, laboratory, contacts)
   for (const page of staticPages) {
     if (page.slug === "home") continue;
-    entries.push(localeUrls(`/${page.slug}`));
+    entries.push(...localeUrls(`/${page.slug}`));
   }
 
   // Services index + category hubs
-  entries.push(localeUrls("/services"));
+  entries.push(...localeUrls("/services"));
   for (const cat of categories) {
-    entries.push(localeUrls(`/services/${cat.slug}`));
+    entries.push(...localeUrls(`/services/${cat.slug}`));
   }
 
   // Service detail pages. Skip self-referential hub services (slug === category):
   // /services/<cat>/<cat> 308-redirects to /services/<cat>, already listed above.
   for (const svc of services) {
     if (svc.slug === svc.categorySlug) continue;
-    entries.push(localeUrls(`/services/${svc.categorySlug}/${svc.slug}`));
+    entries.push(...localeUrls(`/services/${svc.categorySlug}/${svc.slug}`));
   }
 
   // Doctors index + individual doctor pages
-  entries.push(localeUrls("/doctors"));
+  entries.push(...localeUrls("/doctors"));
   for (const doc of doctors) {
-    if (doc.slug) entries.push(localeUrls(`/doctors/${doc.slug}`));
+    if (doc.slug) entries.push(...localeUrls(`/doctors/${doc.slug}`));
   }
 
   // Legal docs
   for (const doc of legalDocs) {
-    entries.push(localeUrls(`/legal/${doc.slug}`));
+    entries.push(...localeUrls(`/legal/${doc.slug}`));
   }
 
   // Blog excluded on production (redirects to / until launch)
   if (!isProduction) {
-    entries.push(localeUrls("/blog"));
+    entries.push(...localeUrls("/blog"));
     for (const slug of blogSlugs) {
-      entries.push(localeUrls(`/blog/${slug}`));
+      entries.push(...localeUrls(`/blog/${slug}`));
     }
   }
 
   // Media/press mentions
-  entries.push(localeUrls("/media"));
+  entries.push(...localeUrls("/media"));
 
-  return entries;
+  // TZ №14: /services and /doctors are pushed both explicitly and via
+  // `static_pages`, which is why GSC reported 121 discovered URLs for 123
+  // <loc> entries. Keep the first occurrence of each URL.
+  const seen = new Set<string>();
+  return entries.filter((e) => {
+    if (seen.has(e.url)) return false;
+    seen.add(e.url);
+    return true;
+  });
 }
