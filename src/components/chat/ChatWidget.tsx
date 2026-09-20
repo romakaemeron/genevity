@@ -375,7 +375,7 @@ export default function ChatWidget() {
               display: "flex",
               alignItems: "center",
               gap: 12,
-              maxWidth: showOrbLabel ? 320 : 0,
+              maxWidth: showOrbLabel ? "min(320px, calc(100vw - 7rem))" : 0,
               opacity: showOrbLabel ? 1 : 0,
               paddingLeft: showOrbLabel ? 22 : 0,
               paddingRight: showOrbLabel ? 52 : 0,
