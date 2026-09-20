@@ -181,9 +181,20 @@ git commit -m "feat(prices): add subcategory table and catalogue columns"
 | Column A | Column B | Price col | Meaning |
 |---|---|---|---|
 | integer 0–8 | text | absent | **category** header (0 = the consultations block at the top of the sheet) |
-| absent | text | absent | **subcategory** header |
+| absent | **bold** text | absent | **group** header — an umbrella over the non-bold headers beneath it |
+| absent | non-bold text | absent | **subcategory** header |
 | any number | text | present | **item** |
 | anything | empty | — | skip |
+
+**The sheet encodes its third hierarchy level in bold, not in position.** A
+bold header row ("Exion", "RF-ліфтінг", "Естетична хірургія", "Естетична
+медицина", "Видалення новоутворень шкіри та слизових") is an umbrella; the
+non-bold header rows beneath it are its children, until the next bold header
+or the next category. A bold header that owns items directly ("SMAS-ліфтінг
+ULTRAFORMER", "EmFace", "Volnewmer") is an ordinary subcategory with no group
+of its own. Read it with exceljs via `cell.font?.bold`. Do not infer the
+hierarchy from position or from the "N. " numbering — both give the wrong
+answer on this sheet.
 
 Prices live in column D but arrive in three shapes: `40 000` (non-breaking or regular space as thousands separator), `950.0` (Excel float), and `10`. Durations in column C are usually an integer as float (`90.0`) but one row is the literal string `15/30`. Column E carries free-text notes (`Гармаш С.К.`, `нова послуга 22/06`).
 
@@ -314,14 +325,45 @@ describe("parseGenevitySheet", () => {
     expect(odd.map((i) => i.duration)).toContain("15/30");
   });
 
-  it("keeps a group header that is followed straight by another header", () => {
+  it("attaches a bold group header to every child beneath it", () => {
     const apparatus = cats.find((c) => c.index === 1)!;
-    const exion = apparatus.subcategories.find(
-      (s) => s.labelUk === "1. Фракційний мікроігольчастий RF")!;
-    expect(exion.groupUk).toBe("Exion");
+    const grouped = (g: string) => apparatus.subcategories
+      .filter((s) => s.groupUk === g).map((s) => s.labelUk);
 
-    const emsculpt = apparatus.subcategories.find((s) => s.labelUk === "EmSculpt")!;
-    expect(emsculpt.groupUk).toBe("RF-ліфтінг");
+    expect(grouped("Exion")).toEqual([
+      "1. Фракційний мікроігольчастий RF",
+      "2. Монополярний RF-ліфтінг",
+      "3. RF-ліфтинг + ультразвук",
+      "4. Гінекологія",
+    ]);
+    expect(grouped("RF-ліфтінг")).toEqual(["EmSculpt"]);
+  });
+
+  it("stops a group at the next bold header", () => {
+    const apparatus = cats.find((c) => c.index === 1)!;
+    // EmFace is bold and owns items, so it is its own subcategory — it must
+    // NOT inherit Exion, which is the header immediately above its run.
+    const emface = apparatus.subcategories.find((s) => s.labelUk === "EmFace")!;
+    expect(emface.groupUk).toBeNull();
+    const volnewmer = apparatus.subcategories.find((s) => s.labelUk === "Volnewmer")!;
+    expect(volnewmer.groupUk).toBeNull();
+  });
+
+  it("attaches the surgery umbrellas to all of their children", () => {
+    const mixed = cats.find((c) => c.index === 8)!;
+    const grouped = (g: string) => mixed.subcategories
+      .filter((s) => s.groupUk === g).map((s) => s.labelUk);
+
+    expect(grouped("Естетична хірургія")).toEqual([
+      "Пластика",
+      "Видалення новоутворень хірургічним шляхом",
+      "Лазерні методики Smart Lipo",
+    ]);
+    expect(grouped("Естетична медицина")).toEqual([
+      "Нітковий ліфтинг",
+      "Ліпофілінг",
+      "Інʼєкційни методики",
+    ]);
   });
 
   it("leaves groupUk null for an ordinary subcategory", () => {
@@ -332,10 +374,13 @@ describe("parseGenevitySheet", () => {
   it("loses no header text anywhere in the sheet", () => {
     const groups = new Set(
       cats.flatMap((c) => c.subcategories).map((s) => s.groupUk).filter(Boolean));
-    expect(groups).toContain("Exion");
-    expect(groups).toContain("RF-ліфтінг");
-    expect(groups).toContain("Естетична хірургія");
-    expect(groups).toContain("Естетична медицина");
+    expect([...groups].sort()).toEqual([
+      "Exion",
+      "RF-ліфтінг",
+      "Видалення новоутворень шкіри та слизових",
+      "Естетична медицина",
+      "Естетична хірургія",
+    ].sort());
   });
 
   it("puts subcategory-less items in an unnamed bucket", () => {
