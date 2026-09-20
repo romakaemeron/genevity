@@ -26,17 +26,24 @@ describe("parseGenevitySheet", () => {
     cats = await parseGenevitySheet(fs.readFileSync(XLSX));
   });
 
-  it("finds exactly 8 top-level categories", () => {
-    expect(cats.map((c) => c.index)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  it("finds 8 numbered categories plus the consultations block", () => {
+    expect(cats.map((c) => c.index)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  it("reads the consultations block at the top of the sheet as category 0", () => {
+    const consultations = cats.find((c) => c.index === 0)!;
+    expect(consultations.labelUk).toBe("Консультації лікарів");
+    const total = consultations.subcategories.reduce((n, s) => n + s.items.length, 0);
+    expect(total).toBe(24);
   });
 
   it("names them as the sheet does", () => {
-    expect(cats[0].labelUk).toBe("Апаратні процедури");
-    expect(cats[1].labelUk).toBe("Лазерна епіляція");
-    expect(cats[5].labelUk).toBe("Подологія");
+    expect(cats.find((c) => c.index === 1)!.labelUk).toBe("Апаратні процедури");
+    expect(cats.find((c) => c.index === 2)!.labelUk).toBe("Лазерна епіляція");
+    expect(cats.find((c) => c.index === 6)!.labelUk).toBe("Подологія");
   });
 
-  it("parses 575 items in total", () => {
+  it("parses 575 priced rows in total, consultations included", () => {
     const total = cats.reduce(
       (n, c) => n + c.subcategories.reduce((m, s) => m + s.items.length, 0), 0);
     expect(total).toBe(575);
@@ -59,13 +66,14 @@ describe("parseGenevitySheet", () => {
   });
 
   it("captures duration, RoApp id and notes", () => {
-    const smas = cats[0].subcategories.find((s) => s.labelUk === "SMAS-ліфтінг ULTRAFORMER")!;
+    const category1 = cats.find((c) => c.index === 1)!;
+    const smas = category1.subcategories.find((s) => s.labelUk === "SMAS-ліфтінг ULTRAFORMER")!;
     const full = smas.items.find((i) => i.nameUk.startsWith("Full face"))!;
     expect(full.duration).toBe("90");
     expect(full.roappServiceId).toBe("10001");
     expect(full.priceNumeric).toBe(40000);
 
-    const noted = cats[0].subcategories
+    const noted = category1.subcategories
       .flatMap((s) => s.items)
       .find((i) => i.noteUk?.includes("Гармаш"));
     expect(noted).toBeDefined();

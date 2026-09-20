@@ -58,12 +58,22 @@ function normalizeDuration(raw: string): string | null {
   return raw;
 }
 
-/** Column A holds a service id like 10001, or a category index 1–8. */
+/** Column A holds a service id like 10001, or a category index 0–8. */
 function normalizeServiceId(raw: string): string | null {
   if (!raw) return null;
   const n = Number(raw);
   if (!Number.isFinite(n)) return null;
   return String(Math.round(n));
+}
+
+/**
+ * A cell only counts as a price if it actually contains a numeric value.
+ * The consultations block's header row puts the unit label "грн" in column D
+ * — that must not be mistaken for a price (it has no digits, so this already
+ * excludes it, but the check is written explicitly so the intent is clear).
+ */
+function isPriceCell(raw: string): boolean {
+  return raw !== "" && /\d/.test(raw);
 }
 
 export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory[]> {
@@ -75,12 +85,6 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
   const categories: ParsedCategory[] = [];
   let currentCategory: ParsedCategory | null = null;
   let currentSub: ParsedSubcategory | null = null;
-  // The sheet opens with a "Консультації лікарів" block (col A = 0, a header
-  // row followed by 24 items) that sits before category 1's header row. It
-  // isn't one of the 8 numbered categories, but its rows are real items and
-  // must not be dropped. Buffer them here and splice them in as category 1's
-  // first subcategory once category 1's header row is seen.
-  let pendingSub: ParsedSubcategory | null = null;
 
   sheet.eachRow((row) => {
     const a = cellText(row.getCell(1));
@@ -92,15 +96,12 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
     if (!b) return;                       // blank or spacer row
 
     const aNum = a ? Number(a) : NaN;
-    const hasPrice = d !== "" && /\d/.test(d);
+    const hasPrice = isPriceCell(d);
 
-    // Category header: small integer index in A, no price.
-    if (!hasPrice && Number.isFinite(aNum) && aNum >= 1 && aNum <= 8 && Number.isInteger(aNum)) {
+    // Category header: small integer index in A (0–8, 0 is the "Консультації
+    // лікарів" block that precedes the 8 numbered categories), no price.
+    if (!hasPrice && Number.isFinite(aNum) && aNum >= 0 && aNum <= 8 && Number.isInteger(aNum)) {
       currentCategory = { index: aNum, labelUk: b, subcategories: [] };
-      if (pendingSub) {
-        currentCategory.subcategories.push(pendingSub);
-        pendingSub = null;
-      }
       currentSub = null;
       categories.push(currentCategory);
       return;
@@ -108,26 +109,17 @@ export async function parseGenevitySheet(buffer: Buffer): Promise<ParsedCategory
 
     // Subcategory header: text in B alone, no price.
     if (!hasPrice) {
-      const sub: ParsedSubcategory = { labelUk: b, items: [] };
-      currentSub = sub;
-      if (currentCategory) {
-        currentCategory.subcategories.push(sub);
-      } else {
-        // Header appears before any numbered category (e.g. the leading
-        // "Консультації лікарів" block) — buffer it for the next category.
-        pendingSub = sub;
-      }
+      if (!currentCategory) return;       // headers above category 0 are ignored
+      currentSub = { labelUk: b, items: [] };
+      currentCategory.subcategories.push(currentSub);
       return;
     }
 
     // Item.
+    if (!currentCategory) return;
     if (!currentSub) {
       currentSub = { labelUk: "", items: [] };
-      if (currentCategory) {
-        currentCategory.subcategories.push(currentSub);
-      } else {
-        pendingSub = currentSub;
-      }
+      currentCategory.subcategories.push(currentSub);
     }
     const { display, numeric } = parsePrice(d);
     currentSub.items.push({
