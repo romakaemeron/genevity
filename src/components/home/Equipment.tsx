@@ -71,7 +71,7 @@ export default function Equipment({ items, ui }: { items: EquipmentItem[]; ui: H
 
       {selectedItem !== null && (
         <Modal open onClose={closeModal} maxWidth={selectedItem.photo ? "sm:max-w-3xl" : "sm:max-w-lg"}>
-          <EquipmentModalContent item={selectedItem} suitsTitle={ui.suitsTitle} resultsTitle={ui.resultsTitle} />
+          <EquipmentModalContent item={selectedItem} suitsTitle={ui.suitsTitle} resultsTitle={ui.resultsTitle} servicesTitle={ui.servicesTitle} />
         </Modal>
       )}
     </section>

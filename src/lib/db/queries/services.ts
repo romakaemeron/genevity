@@ -10,6 +10,7 @@ import type {
 } from "../types";
 import { getSections, getFaqItems } from "./sections";
 import { getReviewer } from "./doctors";
+import { getEquipmentServiceLinks } from "./homepage";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -273,6 +274,7 @@ async function getRelatedEquipment(serviceId: string, l: string): Promise<Equipm
     WHERE se.service_id = ${serviceId}
     ORDER BY se.sort_order
   `;
+  const links = await getEquipmentServiceLinks(rows.map((r) => r.id as string), l);
   return rows.map((r) => ({
     _id: r.id,
     category: r.category,
@@ -283,6 +285,7 @@ async function getRelatedEquipment(serviceId: string, l: string): Promise<Equipm
     results: (r as any)[`results_${l}`] || r.results_uk || [],
     note: pick(r, "note", l) || "",
     photo: r.photo,
+    services: links.get(r.id as string) ?? [],
   }));
 }
 

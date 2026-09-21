@@ -1,7 +1,15 @@
 import { sql } from "../client";
-import type { HomepageData, HeroData, AboutData, SiteSettingsData, UiStringsData, EquipmentItem, DoctorItem, FaqItem } from "../types";
+import type { HomepageData, HeroData, AboutData, SiteSettingsData, UiStringsData, EquipmentItem, EquipmentServiceLink, DoctorItem, FaqItem } from "../types";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
+
+/** Heading above the equipment modal's service links, until
+ *  `equipment.servicesTitle` is seeded into `ui_strings`. */
+const EQUIPMENT_SERVICES_TITLE_FALLBACK: Record<string, string> = {
+  uk: "Послуги на цьому апараті",
+  ru: "Услуги на этом аппарате",
+  en: "Procedures on this device",
+};
 
 function pick<T>(row: any, field: string, l: string): T {
   return row[`${field}_${l}`] ?? row[`${field}_uk`] ?? null;
@@ -21,8 +29,49 @@ export async function getHomepageData(locale: string): Promise<HomepageData> {
   return { equipment, doctors, faq, hero, about, settings, ui };
 }
 
+/**
+ * Service landing pages for a batch of equipment ids, keyed by equipment id.
+ * One query for the whole batch — the modal needs these for every card, so an
+ * N+1 per device would be wasteful.
+ *
+ * Skips `seo_noindex` services (we don't link to pages kept out of the index)
+ * and self-referential hub services where `slug === category slug`, since
+ * /services/<cat>/<cat> 308-redirects to the category page.
+ */
+export async function getEquipmentServiceLinks(
+  equipmentIds: string[],
+  l: string,
+): Promise<Map<string, EquipmentServiceLink[]>> {
+  const byEquipment = new Map<string, EquipmentServiceLink[]>();
+  if (equipmentIds.length === 0) return byEquipment;
+
+  const rows = await sql`
+    SELECT se.equipment_id, s.slug, c.slug AS category_slug,
+           s.title_uk, s.title_ru, s.title_en
+    FROM service_equipment se
+    JOIN services s ON s.id = se.service_id
+    JOIN service_categories c ON c.id = s.category_id
+    WHERE se.equipment_id = ANY(${equipmentIds})
+      AND s.seo_noindex IS NOT TRUE
+      AND s.slug <> c.slug
+    ORDER BY c.sort_order, s.sort_order
+  `;
+
+  for (const r of rows) {
+    const list = byEquipment.get(r.equipment_id) ?? [];
+    list.push({
+      slug: r.slug,
+      categorySlug: r.category_slug,
+      title: pick(r, "title", l) || r.slug,
+    });
+    byEquipment.set(r.equipment_id, list);
+  }
+  return byEquipment;
+}
+
 async function getEquipment(l: string): Promise<EquipmentItem[]> {
   const rows = await sql`SELECT * FROM equipment ORDER BY sort_order`;
+  const links = await getEquipmentServiceLinks(rows.map((r) => r.id as string), l);
   return rows.map((r) => ({
     _id: r.id,
     category: r.category,
@@ -33,6 +82,7 @@ async function getEquipment(l: string): Promise<EquipmentItem[]> {
     results: (r as any)[`results_${l}`] || r.results_uk || [],
     note: pick(r, "note", l),
     photo: r.photo,
+    services: links.get(r.id as string) ?? [],
   }));
 }
 
@@ -183,6 +233,7 @@ async function getUiStrings(l: string): Promise<UiStringsData> {
       showLess: pick2("equipment", "showLess"),
       suitsTitle: pick2("equipment", "suitsTitle"),
       resultsTitle: pick2("equipment", "resultsTitle"),
+      servicesTitle: pick2("equipment", "servicesTitle") || EQUIPMENT_SERVICES_TITLE_FALLBACK[l] || EQUIPMENT_SERVICES_TITLE_FALLBACK.uk,
       tabs: {
         all: pick2("equipment", "tabs", "all"),
         face: pick2("equipment", "tabs", "face"),

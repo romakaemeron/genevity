@@ -34,7 +34,7 @@ interface Props {
   locale: Locale;
   doctorsUi?: { title: string; subtitle: string; cta: string; experience: string };
   detailsLabel?: string;
-  equipmentUi?: { title: string; details: string; suitsTitle: string; resultsTitle: string };
+  equipmentUi?: { title: string; details: string; suitsTitle: string; resultsTitle: string; servicesTitle?: string };
   eeatUi?: { reviewedBy: string; updated: string; disclaimer: string; serviceReviewsHeading?: string };
 }
 
@@ -259,7 +259,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                 </div>
                 {selectedEquipment !== null && (
                   <Modal open onClose={() => setOpenEquipmentId(null)} maxWidth={selectedEquipment.photo ? "sm:max-w-3xl" : "sm:max-w-lg"}>
-                    <EquipmentModalContent item={selectedEquipment} suitsTitle={equipmentUi?.suitsTitle || ""} resultsTitle={equipmentUi?.resultsTitle || ""} />
+                    <EquipmentModalContent item={selectedEquipment} suitsTitle={equipmentUi?.suitsTitle || ""} resultsTitle={equipmentUi?.resultsTitle || ""} servicesTitle={equipmentUi?.servicesTitle || ""} excludeServiceSlug={data.slug} />
                   </Modal>
                 )}
               </div>
