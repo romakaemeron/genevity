@@ -2,7 +2,14 @@ import { describe, it, expect, beforeAll } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import { parseGenevitySheet } from "./parse-xlsx";
-import { applyTaxonomy, normalizeUnits, slugify, type CatalogueCategory } from "./taxonomy";
+import type { ParsedCategory } from "./parse-xlsx";
+import {
+  applyTaxonomy,
+  normalizeUnits,
+  slugify,
+  validateTaxonomyShape,
+  type CatalogueCategory,
+} from "./taxonomy";
 
 const XLSX = path.resolve(__dirname, "../../../Прайс Геліос-4.xlsx");
 
@@ -34,6 +41,43 @@ describe("normalizeUnits", () => {
   });
   it("leaves a string with no units unchanged", () => {
     expect(normalizeUnits("PolyPhil Hair")).toBe("PolyPhil Hair");
+  });
+});
+
+describe("validateTaxonomyShape", () => {
+  let parsed: ParsedCategory[];
+  beforeAll(async () => {
+    parsed = await parseGenevitySheet(fs.readFileSync(XLSX));
+  });
+
+  it("passes the real sheet unchanged", () => {
+    expect(() => validateTaxonomyShape(parsed)).not.toThrow();
+  });
+
+  it("refuses when the drip category heading is renamed", () => {
+    const mutated = parsed.map((c) =>
+      c.index === 8 ? { ...c, labelUk: "Крапельниці (оновлено)" } : c,
+    );
+    expect(() => validateTaxonomyShape(mutated)).toThrow(/index 8/);
+  });
+
+  it("refuses when the consultations block is no longer at index 0", () => {
+    const mutated = parsed.map((c) =>
+      c.index === 0 ? { ...c, labelUk: "Щось інше" } : c,
+    );
+    expect(() => validateTaxonomyShape(mutated)).toThrow(/index 0/);
+  });
+
+  it("refuses when a category has been inserted or removed", () => {
+    const mutated = parsed.slice(0, -1);
+    expect(() => validateTaxonomyShape(mutated)).toThrow(/expected 9 categories/);
+  });
+
+  it("tolerates incidental whitespace and case differences", () => {
+    const mutated = parsed.map((c) =>
+      c.index === 3 ? { ...c, labelUk: "  ін'єкційна косметологія  " } : c,
+    );
+    expect(() => validateTaxonomyShape(mutated)).not.toThrow();
   });
 });
 

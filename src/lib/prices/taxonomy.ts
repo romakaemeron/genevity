@@ -72,6 +72,60 @@ const MIXED_INDEX = 8;
  *  the spreadsheet deliberately disagrees with. */
 const CONSULTATIONS_INDEX = 0;
 
+/** How many top-level categories (indices 0–8) the sheet must carry. */
+const EXPECTED_CATEGORY_COUNT = 9;
+
+/**
+ * Every rule below is keyed on a raw column-A index or on exact label text
+ * (e.g. the drip row is found by `sub.labelUk === mixed.labelUk`). Both only
+ * make sense while the sheet still has the shape they were written against.
+ */
+const EXPECTED_LABELS: ReadonlyArray<readonly [number, string]> = [
+  [CONSULTATIONS_INDEX, "Консультації лікарів"],
+  [INJECTABLES_INDEX, "Ін'єкційна косметологія"],
+  [MIXED_INDEX, "Крапельниці"],
+];
+
+function normalizeLabel(s: string): string {
+  return s.trim().toLowerCase();
+}
+
+/**
+ * Guard the assumptions above before any rule runs. Nothing about a renamed
+ * heading or an inserted/removed category is invalid spreadsheet data — it
+ * parses fine — but it silently misroutes rows once the index-based rules
+ * are applied to it:
+ *   - rename the category-8 heading ("Крапельниці") and the single drip row
+ *     stops matching `sub.labelUk === mixed.labelUk`, falls into the surgery
+ *     branch, and is published *visible* at its ₴20,000 placeholder price;
+ *   - insert a category ahead of consultations and the consultations block
+ *     no longer sits at index 0, so its 24 rows import as a second, visible
+ *     "consultations" section at prices that conflict with the hand-curated
+ *     one already on the site.
+ * Refuse instead of guessing. Comparison is trim + case-fold so incidental
+ * whitespace or casing does not trip it, but the label text itself must
+ * still match exactly — a genuine restructure (a different category renamed
+ * to something else entirely) must still fail this.
+ */
+export function validateTaxonomyShape(parsed: ParsedCategory[]): void {
+  if (parsed.length !== EXPECTED_CATEGORY_COUNT) {
+    throw new Error(
+      `Refusing to import: expected ${EXPECTED_CATEGORY_COUNT} categories in the sheet, ` +
+      `found ${parsed.length}. The sheet's structure has changed — check for an inserted ` +
+      "or removed category before retrying.");
+  }
+  for (const [index, expectedLabel] of EXPECTED_LABELS) {
+    const cat = parsed.find((c) => c.index === index);
+    const actualLabel = cat?.labelUk ?? "(missing)";
+    if (!cat || normalizeLabel(actualLabel) !== normalizeLabel(expectedLabel)) {
+      throw new Error(
+        `Refusing to import: category index ${index} was expected to be "${expectedLabel}" ` +
+        `but found "${actualLabel}". The sheet's structure has changed — check the heading ` +
+        "before retrying.");
+    }
+  }
+}
+
 function isHidden(name: string): boolean {
   const lower = name.toLowerCase();
   return HIDDEN_ITEM_PATTERNS.some((p) => lower.includes(p.toLowerCase()));
@@ -145,6 +199,8 @@ function toCatalogueSub(
 }
 
 export function applyTaxonomy(parsed: ParsedCategory[]): CatalogueCategory[] {
+  validateTaxonomyShape(parsed);
+
   const out: CatalogueCategory[] = [];
   const mixed = parsed.find((c) => c.index === MIXED_INDEX);
 

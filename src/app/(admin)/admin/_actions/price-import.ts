@@ -72,12 +72,27 @@ export async function previewPriceImport(formData: FormData): Promise<DiffResult
  * Re-parses the same uploaded file (never trusts the preview round trip,
  * since the browser could send anything) and writes it via `applyCatalogue`,
  * which only upserts and hides — it never deletes a row.
+ *
+ * Re-runs `diffCatalogue` first and refuses to write if it reports any
+ * warnings (currently: duplicate RoApp service ids, in the sheet or in the
+ * database). The preview screen renders these warnings prominently, but
+ * without this check they were purely advisory: `applyCatalogue`'s
+ * `LIMIT 1` id match would silently update the same row twice for a
+ * duplicated id, and orphan-hiding would then hide the other row — a
+ * service quietly disappearing from the public page.
  */
 export async function commitPriceImport(
   formData: FormData
-): Promise<{ categories: number; subcategories: number; items: number; hidden: number }> {
+): Promise<{ categories: number; subcategories: number; items: number; hidden: number; manualSkipped: number }> {
   await requireSession();
   const cats = await readCatalogue(formData);
+  const existing = await loadExistingRows(sql as never);
+  const { warnings } = diffCatalogue(cats, existing);
+  if (warnings.length > 0) {
+    throw new Error(
+      "Refusing to apply: the spreadsheet has data problems that must be fixed first:\n" +
+      warnings.map((w) => `- ${w}`).join("\n"));
+  }
   const result = await applyCatalogue(sql as never, cats);
 
   await logChange({
