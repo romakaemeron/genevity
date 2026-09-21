@@ -72,6 +72,32 @@ describe("diffCatalogue", () => {
     expect(change.existingId).toBe("row-1");
   });
 
+  it("warns about a duplicate service id in the spreadsheet", () => {
+    const d = diffCatalogue(
+      cat([{ name: "Одна", price: "100" }, { name: "Інша", price: "200" }]),
+      [existing()]);
+    expect(d.warnings.some((w) => w.includes("Duplicate service id 100"))).toBe(true);
+  });
+
+  it("warns about a duplicate service id already in the database", () => {
+    const d = diffCatalogue(
+      cat([{ name: "Процедура", price: "500" }]),
+      [existing(), existing({ id: "row-2", nameUk: "Дубль" })]);
+    expect(d.warnings.some((w) => w.includes("Duplicate service id 100"))).toBe(true);
+  });
+
+  it("reports no warnings for a clean catalogue", () => {
+    const d = diffCatalogue(cat([{ name: "Процедура", price: "500" }]), [existing()]);
+    expect(d.warnings).toEqual([]);
+  });
+
+  it("reports a case-only change as a rename", () => {
+    const d = diffCatalogue(
+      cat([{ name: "ПРОЦЕДУРА", price: "500" }]), [existing()]);
+    expect(d.counts.renamed).toBe(1);
+    expect(d.counts.added).toBe(0);
+  });
+
   it("flags a change over a hand-edited row as a manual conflict", () => {
     const d = diffCatalogue(
       cat([{ name: "Процедура", price: "800" }]),

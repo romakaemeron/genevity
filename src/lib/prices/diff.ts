@@ -26,9 +26,21 @@ export interface Change {
 export interface DiffResult {
   changes: Change[];
   counts: Record<ChangeKind, number>;
+  /**
+   * Data problems in the inputs that make the diff below less trustworthy.
+   * Surfaced rather than thrown: a duplicate service id is a fixable mistake
+   * in the clinic's spreadsheet, and an importer that dies with a stack trace
+   * tells the admin nothing about which row to fix.
+   */
+  warnings: string[];
 }
 
-/** Secondary key when a row carries no RoApp service id. */
+/** Secondary key when a row carries no RoApp service id.
+ *  Deliberately case-insensitive, while the rename check below is NOT: a row
+ *  whose only change is capitalisation still matches here, and is then
+ *  correctly reported as a rename so the reviewer sees the text change. Do not
+ *  "fix" this asymmetry by case-folding the rename check — that would hide
+ *  legitimate capitalisation corrections. */
 function nameKey(categorySlug: string, subSlug: string | null, name: string): string {
   return `${categorySlug}::${subSlug ?? ""}::${name.trim().toLowerCase()}`;
 }
@@ -37,11 +49,39 @@ export function diffCatalogue(
   incoming: CatalogueCategory[],
   existing: ExistingRow[],
 ): DiffResult {
+  const warnings: string[] = [];
+
   const byId = new Map<string, ExistingRow>();
   const byName = new Map<string, ExistingRow>();
   for (const row of existing) {
-    if (row.roappServiceId) byId.set(row.roappServiceId, row);
+    if (row.roappServiceId) {
+      if (byId.has(row.roappServiceId)) {
+        warnings.push(
+          `Duplicate service id ${row.roappServiceId} in the database: ` +
+          `"${byId.get(row.roappServiceId)!.nameUk}" and "${row.nameUk}". ` +
+          `Only one can be matched; the other will look removed.`);
+      }
+      byId.set(row.roappServiceId, row);
+    }
     byName.set(nameKey(row.categorySlug, row.subcategorySlug, row.nameUk), row);
+  }
+
+  // Two incoming rows sharing an id would both match the same existing row and
+  // both be reported against it, so the reviewer would approve a change to a
+  // row they cannot see. Detect it before matching starts.
+  const incomingIds = new Set<string>();
+  for (const cat of incoming) {
+    for (const sub of cat.subcategories) {
+      for (const item of sub.items) {
+        if (!item.roappServiceId) continue;
+        if (incomingIds.has(item.roappServiceId)) {
+          warnings.push(
+            `Duplicate service id ${item.roappServiceId} in the spreadsheet ` +
+            `("${item.nameUk}"). Fix the source file before importing.`);
+        }
+        incomingIds.add(item.roappServiceId);
+      }
+    }
   }
 
   const changes: Change[] = [];
@@ -103,5 +143,5 @@ export function diffCatalogue(
   };
   for (const c of changes) counts[c.kind]++;
 
-  return { changes, counts };
+  return { changes, counts, warnings };
 }
