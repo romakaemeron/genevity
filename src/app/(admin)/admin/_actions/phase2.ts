@@ -3,6 +3,7 @@
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
 import { processAndUploadImage } from "./upload";
+import { requireSession } from "./auth";
 
 export async function uploadPhase2Image(formData: FormData): Promise<{ url: string }> {
   const file = formData.get("file") as File;
@@ -140,7 +141,12 @@ export async function updatePriceItem(input: {
   price: string;
   is_visible: boolean;
 }) {
-  const numeric = Number(String(input.price).replace(/[\s ]/g, "").replace(",", "."));
+  await requireSession();
+  const cleaned = String(input.price).replace(/[\s\u00A0]/g, "").replace(",", ".");
+  // An empty (or whitespace-only) price field means "no price", not "priced at
+  // zero" -- Number("") is 0 in JS, which would otherwise store price_numeric
+  // = 0 and surface as a genuine "0 UAH" offer in structured data / sorting.
+  const numeric = cleaned === "" ? NaN : Number(cleaned);
   await sql`
     UPDATE price_items SET
       name_uk = ${input.name_uk},
@@ -158,12 +164,14 @@ export async function updatePriceItem(input: {
 }
 
 export async function setPriceCategoryVisibility(id: string, isVisible: boolean) {
+  await requireSession();
   await sql`UPDATE price_categories SET is_visible = ${isVisible}, updated_at = now() WHERE id = ${id}`;
   revalidatePrices();
   return { ok: true as const };
 }
 
 export async function setPriceSubcategoryVisibility(id: string, isVisible: boolean) {
+  await requireSession();
   await sql`UPDATE price_subcategories SET is_visible = ${isVisible}, updated_at = now() WHERE id = ${id}`;
   revalidatePrices();
   return { ok: true as const };
