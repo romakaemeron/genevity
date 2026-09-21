@@ -39,14 +39,23 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
     itemListElement: categories.map((cat) => ({
       "@type": "OfferCatalog",
       name: cat.label,
+      // Items filed directly under a category keep their bare name. Items
+      // filed under a subcategory get their name qualified with the
+      // subcategory label — otherwise, e.g. within "Лазерна епіляція" or
+      // "Апаратні процедури", multiple subcategories reuse the same item
+      // name ("Щоки", "Шия"...) at different prices (different device/
+      // area), and the flattened catalog would assert contradictory prices
+      // for a Service with the same name.
       itemListElement: [
-        ...cat.items,
-        ...cat.subcategories.flatMap((s) => s.items),
+        ...cat.items.map((item) => ({ item, name: item.name })),
+        ...cat.subcategories.flatMap((s) =>
+          s.items.map((item) => ({ item, name: `${s.label} — ${item.name}` }))
+        ),
       ]
-        .filter((item) => item.priceNumeric !== null)
-        .map((item) => ({
+        .filter(({ item }) => item.priceNumeric !== null)
+        .map(({ item, name }) => ({
           "@type": "Offer",
-          itemOffered: { "@type": "Service", name: item.name },
+          itemOffered: { "@type": "Service", name },
           price: item.priceNumeric,
           priceCurrency: "UAH",
         })),

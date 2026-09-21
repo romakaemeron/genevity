@@ -170,6 +170,7 @@ export async function getPriceCategoriesWithItems(locale: string): Promise<Price
       }))
       .filter((s) => s.items.length > 0);
     const direct = catItems.filter((it) => !it.subcategory_id).map(toView);
+    const itemCount = direct.length + subs.reduce((n, s) => n + s.items.length, 0);
 
     return {
       id: String(c.id),
@@ -178,9 +179,16 @@ export async function getPriceCategoriesWithItems(locale: string): Promise<Price
       link: (c.link as string) ?? null,
       items: direct,
       subcategories: subs,
-      itemCount: direct.length + subs.reduce((n, s) => n + s.items.length, 0),
+      itemCount,
     };
-  });
+  })
+    // Renaming a category in the spreadsheet slugifies to a new slug, a new
+    // category row gets inserted, and the items migrate to it — but the old
+    // category row survives with is_visible = true and zero items. Without
+    // this filter it renders as a pill reading "Old name 0" above an empty
+    // card. Do not remove this as "redundant" with the subcategory filter
+    // above — that one only drops empty subcategories, not empty categories.
+    .filter((c) => c.itemCount > 0);
 }
 
 export interface LabService {

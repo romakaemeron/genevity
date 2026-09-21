@@ -29,25 +29,39 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
   const tLabels = useTranslations("labels");
   const tPage = useTranslations("pricesPage");
 
-  const [search, setSearch] = useState("");
-  // Default view is "All categories" so a first-time visitor sees the whole
-  // catalogue rather than one arbitrary slice of it.
-  const [activeSlug, setActiveSlug] = useState<string>(ALL_SLUG);
-  // The All view starts with every accordion collapsed — 52 subcategories
-  // open at once would bury the page — so the initial Set is empty rather
-  // than seeded with the first category's first subcategory.
-  const [openSubs, setOpenSubs] = useState<Set<string>>(() => new Set());
-
-  // Hydrate from the URL so a shared /prices?c=…&s=…&q=… link lands correctly.
+  // Hydrate from the URL so a shared /prices?c=…&s=…&q=… link lands
+  // correctly. Derived as initial state (lazy useState initializers) rather
+  // than set from an effect on mount — an effect that unconditionally calls
+  // setState on mount just to reflect data already available at first
+  // render causes an avoidable extra render (react-hooks/set-state-in-effect).
   // ALL_SLUG is not a real category slug, so it needs its own branch in the
   // validity check below or a shared ?c=all link would be silently rejected.
-  useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    const c = p.get("c"); const s = p.get("s"); const q = p.get("q");
-    if (c && (c === ALL_SLUG || categories.some((cat) => cat.slug === c))) setActiveSlug(c);
-    if (s) setOpenSubs((prev) => new Set(prev).add(s));
-    if (q) setSearch(q);
-  }, [categories]);
+  const [search, setSearch] = useState<string>(() => {
+    if (typeof window === "undefined") return "";
+    return new URLSearchParams(window.location.search).get("q") || "";
+  });
+  // Default view is "All categories" so a first-time visitor sees the whole
+  // catalogue rather than one arbitrary slice of it.
+  const [activeSlug, setActiveSlug] = useState<string>(() => {
+    if (typeof window === "undefined") return ALL_SLUG;
+    const c = new URLSearchParams(window.location.search).get("c");
+    if (c && (c === ALL_SLUG || categories.some((cat) => cat.slug === c))) return c;
+    return ALL_SLUG;
+  });
+  // The All view starts with every accordion collapsed — 52 subcategories
+  // open at once would bury the page — so the initial Set is empty unless
+  // the URL names one. Subcategory slugs are only unique per category (DB
+  // constraint UNIQUE(category_id, slug)), so entries are keyed on the
+  // composite `${categorySlug}/${subSlug}`, not the bare sub slug.
+  const [openSubs, setOpenSubs] = useState<Set<string>>(() => {
+    if (typeof window === "undefined") return new Set();
+    const s = new URLSearchParams(window.location.search).get("s");
+    const c = new URLSearchParams(window.location.search).get("c");
+    if (!s || !c || c === ALL_SLUG) return new Set();
+    const cat = categories.find((cat) => cat.slug === c);
+    if (cat?.subcategories.some((sub) => sub.slug === s)) return new Set([`${c}/${s}`]);
+    return new Set();
+  });
 
   const syncUrl = (next: { c?: string; s?: string; q?: string }) => {
     const p = new URLSearchParams(window.location.search);
@@ -68,17 +82,29 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
       return;
     }
     const first = categories.find((c) => c.slug === slug)?.subcategories[0];
-    if (first) setOpenSubs((prev) => new Set(prev).add(first.slug));
+    setOpenSubs((prev) => {
+      // Prune entries belonging to other categories — composite keys avoid
+      // slug collisions across categories, but stale entries from a
+      // previously visited category would otherwise linger in the Set and
+      // silently reopen if the user returns to it later.
+      const next = new Set<string>();
+      for (const key of prev) {
+        if (key.startsWith(`${slug}/`)) next.add(key);
+      }
+      if (first) next.add(`${slug}/${first.slug}`);
+      return next;
+    });
     syncUrl({ c: slug, s: undefined });
   };
 
-  const toggleSub = (slug: string) => {
+  const toggleSub = (categorySlug: string, subSlug: string) => {
+    const key = `${categorySlug}/${subSlug}`;
     setOpenSubs((prev) => {
       const next = new Set(prev);
-      if (next.has(slug)) next.delete(slug); else next.add(slug);
+      if (next.has(key)) next.delete(key); else next.add(key);
       return next;
     });
-    syncUrl({ s: slug });
+    syncUrl({ s: subSlug });
   };
 
   // useDeferredValue keeps the input responsive while the 575-row filter
@@ -98,13 +124,16 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
     if (!q) return [];
     const out: { item: PriceItemView; categoryLabel: string; subLabel: string | null }[] = [];
     for (const cat of categories) {
+      // Spec: search matches name, subcategory and category — so a hit on
+      // the category label surfaces every item filed under it too.
+      const catHit = cat.label.toLowerCase().includes(q);
       for (const item of cat.items) {
-        if (item.name.toLowerCase().includes(q)) {
+        if (catHit || item.name.toLowerCase().includes(q)) {
           out.push({ item, categoryLabel: cat.label, subLabel: null });
         }
       }
       for (const sub of cat.subcategories) {
-        const subHit = sub.label.toLowerCase().includes(q);
+        const subHit = catHit || sub.label.toLowerCase().includes(q);
         for (const item of sub.items) {
           if (subHit || item.name.toLowerCase().includes(q)) {
             out.push({ item, categoryLabel: cat.label, subLabel: sub.label });
@@ -219,10 +248,11 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
                   {cat.subcategories.map((sub) => (
                     <SubcategorySection
                       key={sub.id}
+                      categorySlug={cat.slug}
                       sub={sub}
-                      open={openSubs.has(sub.slug)}
+                      open={openSubs.has(`${cat.slug}/${sub.slug}`)}
                       countLabel={tPage("servicesCount")}
-                      onToggle={() => toggleSub(sub.slug)}
+                      onToggle={() => toggleSub(cat.slug, sub.slug)}
                     />
                   ))}
                 </div>
