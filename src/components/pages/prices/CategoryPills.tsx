@@ -11,7 +11,7 @@ interface Props {
 export default function CategoryPills({ categories, activeSlug, onSelect }: Props) {
   return (
     <div className="sticky top-20 z-20 -mx-4 sm:-mx-6 lg:-mx-12 px-4 sm:px-6 lg:px-12 py-3 bg-champagne/95 backdrop-blur-sm">
-      <div className="flex gap-2 overflow-x-auto no-scrollbar">
+      <div className="flex gap-2 overflow-x-auto scrollbar-hide">
         {categories.map((cat) => (
           <button
             key={cat.slug}

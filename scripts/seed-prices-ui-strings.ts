@@ -18,7 +18,6 @@ const sql = postgres(env.DATABASE_URL!);
 const ADDITIONS = {
   servicesCount: { uk: "послуг", ru: "услуг", en: "services" },
   resultsCount: { uk: "Знайдено", ru: "Найдено", en: "Found" },
-  showAll: { uk: "Показати всі", ru: "Показать все", en: "Show all" },
 };
 
 async function run() {

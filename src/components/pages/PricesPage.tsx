@@ -141,8 +141,8 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
         </div>
 
         {search ? (
-          <div aria-live="polite">
-            <p className="body-s text-muted mb-4">
+          <div>
+            <p role="status" aria-live="polite" className="body-s text-muted mb-4">
               {tPage("resultsCount")}: {results.length}
             </p>
             {results.length > 0 ? (
