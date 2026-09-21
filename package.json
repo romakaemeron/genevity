@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "import:prices": "tsx scripts/import-prices.ts"
   },
   "dependencies": {
     "@ai-sdk/gateway": "^3.0.120",
