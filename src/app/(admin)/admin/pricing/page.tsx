@@ -10,7 +10,10 @@ export default async function PricingAdminPage() {
   await requireSession();
   const [catRows, itemRows, pageTexts, fullTree, settingsRows] = await Promise.all([
     sql`SELECT * FROM price_categories ORDER BY sort_order`,
-    sql`SELECT * FROM price_items ORDER BY sort_order`,
+    sql`SELECT i.*, s.label_uk AS subcategory_label
+        FROM price_items i
+        LEFT JOIN price_subcategories s ON s.id = i.subcategory_id
+        ORDER BY i.sort_order`,
     getUiStringsNamespace("pricesPage"),
     getUiStringsTree(),
     sql`SELECT pricelist_pdf FROM site_settings WHERE id = 1`,
@@ -34,6 +37,9 @@ export default async function PricingAdminPage() {
         name_ru: (it.name_ru as string) || "",
         name_en: (it.name_en as string) || "",
         price: (it.price as string) || "",
+        is_visible: (it.is_visible as boolean) ?? true,
+        duration: (it.duration as string) ?? null,
+        subcategory_label: (it.subcategory_label as string) ?? null,
       })),
   }));
 
