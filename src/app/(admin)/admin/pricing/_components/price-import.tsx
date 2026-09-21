@@ -24,7 +24,10 @@ export default function PriceImport() {
           setApplied(null);
         } else {
           const r = await commitPriceImport(fd);
-          setApplied(`${r.items} items across ${r.categories} categories (${r.hidden} hidden)`);
+          const skippedNote = r.manualSkipped > 0
+            ? ` — ${r.manualSkipped} manually-edited row(s) left untouched (their price stayed as edited; edit them in the catalogue tab or clear the manual flag to let the next import update them)`
+            : "";
+          setApplied(`${r.items} items across ${r.categories} categories (${r.hidden} hidden)${skippedNote}`);
           setDiff(null);
         }
       } catch (e) {

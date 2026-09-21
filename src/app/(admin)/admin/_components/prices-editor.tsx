@@ -102,9 +102,10 @@ export default function PricesEditor({ initial }: Props) {
 
       <p className="text-xs text-neutral-500">
         {rows.length} rows. Editing a row marks it as a manual override — the
-        next spreadsheet import will keep your price and translations
-        (visibility is always yours to control here) but will still update
-        its category, duration and RoApp link from the sheet.
+        next spreadsheet import will keep your name, price, notes and
+        translations (visibility is always yours to control here) but will
+        still update its category, subcategory, duration and RoApp link from
+        the sheet.
       </p>
 
       <div className="divide-y border rounded-md">

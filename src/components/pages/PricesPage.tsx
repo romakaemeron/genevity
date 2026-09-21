@@ -30,38 +30,77 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
   const tPage = useTranslations("pricesPage");
 
   // Hydrate from the URL so a shared /prices?c=…&s=…&q=… link lands
-  // correctly. Derived as initial state (lazy useState initializers) rather
-  // than set from an effect on mount — an effect that unconditionally calls
-  // setState on mount just to reflect data already available at first
-  // render causes an avoidable extra render (react-hooks/set-state-in-effect).
+  // correctly.
+  //
+  // /prices is statically generated (SSG), so the HTML the server ships is
+  // always the no-query-string tree: empty search box, "All" active, every
+  // accordion closed. If these were lazy useState initializers reading
+  // window.location.search, the client's FIRST render (which already has
+  // access to the real URL) would differ from that server tree — with
+  // ?q=… the whole category list is replaced by search results — and React
+  // would report a hydration mismatch and discard/rebuild the subtree.
+  //
+  // So state starts at the same defaults the server rendered, and is
+  // corrected to match the URL in an effect that runs once after mount —
+  // after hydration has already reconciled against the matching default
+  // tree. This is exactly the case react-hooks/set-state-in-effect exists to
+  // flag (a setState that isn't a response to a user action or a prop
+  // change), but here it's restoring state the server could not have known,
+  // not an avoidable extra render, so it's suppressed at the one call site
+  // below rather than worked around by reintroducing the hydration bug.
+  //
   // ALL_SLUG is not a real category slug, so it needs its own branch in the
   // validity check below or a shared ?c=all link would be silently rejected.
-  const [search, setSearch] = useState<string>(() => {
-    if (typeof window === "undefined") return "";
-    return new URLSearchParams(window.location.search).get("q") || "";
-  });
+  const [search, setSearch] = useState<string>("");
   // Default view is "All categories" so a first-time visitor sees the whole
   // catalogue rather than one arbitrary slice of it.
-  const [activeSlug, setActiveSlug] = useState<string>(() => {
-    if (typeof window === "undefined") return ALL_SLUG;
-    const c = new URLSearchParams(window.location.search).get("c");
-    if (c && (c === ALL_SLUG || categories.some((cat) => cat.slug === c))) return c;
-    return ALL_SLUG;
-  });
+  const [activeSlug, setActiveSlug] = useState<string>(ALL_SLUG);
   // The All view starts with every accordion collapsed — 52 subcategories
-  // open at once would bury the page — so the initial Set is empty unless
-  // the URL names one. Subcategory slugs are only unique per category (DB
-  // constraint UNIQUE(category_id, slug)), so entries are keyed on the
-  // composite `${categorySlug}/${subSlug}`, not the bare sub slug.
-  const [openSubs, setOpenSubs] = useState<Set<string>>(() => {
-    if (typeof window === "undefined") return new Set();
-    const s = new URLSearchParams(window.location.search).get("s");
-    const c = new URLSearchParams(window.location.search).get("c");
-    if (!s || !c || c === ALL_SLUG) return new Set();
-    const cat = categories.find((cat) => cat.slug === c);
-    if (cat?.subcategories.some((sub) => sub.slug === s)) return new Set([`${c}/${s}`]);
-    return new Set();
-  });
+  // open at once would bury the page. Subcategory slugs are only unique per
+  // category (DB constraint UNIQUE(category_id, slug)), so entries are
+  // keyed on the composite `${categorySlug}/${subSlug}`, not the bare sub
+  // slug — see toggleSub, which is the only writer of `?s=` and always
+  // writes that same composite form, so the URL this page produces is
+  // always one this page can also read back.
+  const [openSubs, setOpenSubs] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    // Restoring state from the URL on mount, once, so the server-rendered
+    // (SSG, query-less) tree and the client's first render match; see the
+    // comment above the state declarations for why this can't be a lazy
+    // useState initializer instead.
+    const q = params.get("q");
+    if (q) setSearch(q); // eslint-disable-line react-hooks/set-state-in-effect -- see comment above
+
+    const c = params.get("c");
+    const validC = c && (c === ALL_SLUG || categories.some((cat) => cat.slug === c)) ? c : null;
+    if (validC) setActiveSlug(validC);
+
+    // `s` is written by toggleSub as the composite `${categorySlug}/${subSlug}`
+    // — the same key format `openSubs` uses internally — independent of
+    // `c`, because subcategory accordions render (and can be toggled) in the
+    // "All" view too, not only once a single category is selected. A bare
+    // slug with no slash is a legacy link from before this fix (or a
+    // hand-typed URL); it's only resolvable against `c` when present, and
+    // otherwise left closed rather than thrown on.
+    const s = params.get("s");
+    if (s) {
+      const slashIndex = s.indexOf("/");
+      let key: string | null = null;
+      if (slashIndex > -1) {
+        const catSlug = s.slice(0, slashIndex);
+        const subSlug = s.slice(slashIndex + 1);
+        const cat = categories.find((cat) => cat.slug === catSlug);
+        if (cat?.subcategories.some((sub) => sub.slug === subSlug)) key = s;
+      } else if (validC && validC !== ALL_SLUG) {
+        const cat = categories.find((cat) => cat.slug === validC);
+        if (cat?.subcategories.some((sub) => sub.slug === s)) key = `${validC}/${s}`;
+      }
+      if (key) setOpenSubs(new Set([key]));
+    }
+  }, [categories]);
 
   const syncUrl = (next: { c?: string; s?: string; q?: string }) => {
     const p = new URLSearchParams(window.location.search);
@@ -104,7 +143,12 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
       if (next.has(key)) next.delete(key); else next.add(key);
       return next;
     });
-    syncUrl({ s: subSlug });
+    // Write the same composite `${categorySlug}/${subSlug}` form the effect
+    // above reads back — a bare subcategory slug is ambiguous without `c`
+    // (subcategory slugs are only unique per category) and, since
+    // subcategories render in the "All" view too, `c` isn't reliably in the
+    // URL to disambiguate against.
+    syncUrl({ s: key });
   };
 
   // useDeferredValue keeps the input responsive while the 575-row filter

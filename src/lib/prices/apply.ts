@@ -57,9 +57,86 @@ interface ExistingItemRow {
   source: string;
   price: string;
   price_numeric: number | null;
+  name_uk: string;
   name_ru: string | null;
   name_en: string | null;
+  note_uk: string | null;
+  note_ru: string | null;
+  note_en: string | null;
   is_visible: boolean;
+}
+
+interface IncomingItemFields {
+  nameUk: string;
+  price: string;
+  priceNumeric: number | null;
+  noteUk: string | null;
+}
+
+interface TranslatedFields {
+  nameRu: string | null;
+  nameEn: string | null;
+  noteRu: string | null;
+  noteEn: string | null;
+}
+
+export interface MergedItemFields {
+  nameUk: string;
+  nameRu: string | null;
+  nameEn: string | null;
+  price: string;
+  priceNumeric: number | null;
+  noteUk: string | null;
+  noteRu: string | null;
+  noteEn: string | null;
+  source: "manual" | "import";
+}
+
+/**
+ * Decide, for an existing row matched by an incoming import row, which
+ * fields the import is allowed to overwrite. Pulled out so it can be
+ * unit-tested without a database.
+ *
+ * A `manual` row is the record of a hand-edit made in the admin editor. The
+ * editor lets an operator change name_uk, price, and the note fields (in
+ * whichever locale they're editing) — every one of those is a promise, made
+ * on screen, that the next import will not silently revert it. So all of
+ * them are preserved here, the same way, for the same reason: name_uk and
+ * note_* get exactly the treatment price/price_numeric/name_ru/name_en
+ * already had. Structural fields the sheet legitimately owns — category/
+ * subcategory placement, duration, the RoApp link, sort order — are applied
+ * unconditionally by the caller and are not part of this merge.
+ */
+export function mergeManualPreservedFields(
+  existing: ExistingItemRow,
+  incoming: IncomingItemFields,
+  translated: TranslatedFields,
+): MergedItemFields {
+  const isManual = existing.source === "manual";
+  if (isManual) {
+    return {
+      nameUk: existing.name_uk,
+      nameRu: existing.name_ru,
+      nameEn: existing.name_en,
+      price: existing.price,
+      priceNumeric: existing.price_numeric,
+      noteUk: existing.note_uk,
+      noteRu: existing.note_ru,
+      noteEn: existing.note_en,
+      source: "manual",
+    };
+  }
+  return {
+    nameUk: incoming.nameUk,
+    nameRu: translated.nameRu ?? existing.name_ru,
+    nameEn: translated.nameEn ?? existing.name_en,
+    price: incoming.price,
+    priceNumeric: incoming.priceNumeric,
+    noteUk: incoming.noteUk,
+    noteRu: translated.noteRu,
+    noteEn: translated.noteEn,
+    source: "import",
+  };
 }
 
 export async function applyCatalogue(
@@ -142,7 +219,6 @@ export async function applyCatalogue(
         label_uk = EXCLUDED.label_uk,
         label_ru = COALESCE(EXCLUDED.label_ru, price_categories.label_ru),
         label_en = COALESCE(EXCLUDED.label_en, price_categories.label_en),
-        is_visible = EXCLUDED.is_visible,
         sort_order = EXCLUDED.sort_order,
         updated_at = now()
       RETURNING id
@@ -163,7 +239,6 @@ export async function applyCatalogue(
             label_uk = EXCLUDED.label_uk,
             label_ru = COALESCE(EXCLUDED.label_ru, price_subcategories.label_ru),
             label_en = COALESCE(EXCLUDED.label_en, price_subcategories.label_en),
-            is_visible = EXCLUDED.is_visible,
             sort_order = EXCLUDED.sort_order,
             updated_at = now()
           RETURNING id
@@ -186,7 +261,8 @@ export async function applyCatalogue(
         let found: ExistingItemRow[] = [];
         if (item.roappServiceId) {
           found = (await sql`
-            SELECT i.id, i.source, i.price, i.price_numeric, i.name_ru, i.name_en, i.is_visible
+            SELECT i.id, i.source, i.price, i.price_numeric, i.name_uk, i.name_ru, i.name_en,
+                   i.note_uk, i.note_ru, i.note_en, i.is_visible
             FROM price_items i
             JOIN price_categories c ON c.id = i.category_id
             WHERE i.roapp_service_id = ${item.roappServiceId}
@@ -196,7 +272,8 @@ export async function applyCatalogue(
         }
         if (!found.length) {
           found = (await sql`
-            SELECT id, source, price, price_numeric, name_ru, name_en, is_visible
+            SELECT id, source, price, price_numeric, name_uk, name_ru, name_en,
+                   note_uk, note_ru, note_en, is_visible
             FROM price_items
             WHERE category_id = ${categoryId}
               AND subcategory_id IS NOT DISTINCT FROM ${subcategoryId}
@@ -213,43 +290,51 @@ export async function applyCatalogue(
           if (isManual) manualSkipped++;
 
           // Visibility is an admin decision, never the importer's — is_visible
-          // is never written on an existing row, no matter its source.
+          // is never written on an existing row, no matter its source, and
+          // (since it never changes here) matching an already-hidden row is
+          // not this import newly hiding anything — see `hidden` below.
           //
-          // A manual row also keeps its price, price_numeric, name_ru and
-          // name_en: those are exactly the fields the admin edit screen lets
-          // an operator override, and source = 'manual' is the promise (made
-          // on screen and in the design spec) that the next import will not
-          // silently overwrite them. Structural fields the sheet legitimately
-          // owns — category/subcategory placement, duration, the RoApp link,
-          // sort order — still update, and source stays 'manual' so the row
-          // keeps being flagged on every future import.
-          const nextPrice = isManual ? existing.price : item.price;
-          const nextPriceNumeric = isManual ? existing.price_numeric : item.priceNumeric;
-          const nextNameRu = isManual ? existing.name_ru : (it.ru ?? existing.name_ru);
-          const nextNameEn = isManual ? existing.name_en : (it.en ?? existing.name_en);
-          const nextSource = isManual ? "manual" : "import";
+          // A manual row also keeps its name_uk, price, price_numeric,
+          // name_ru, name_en and note_* fields: those are exactly the fields
+          // the admin edit screen lets an operator override, and
+          // source = 'manual' is the promise (made on screen and in the
+          // design spec) that the next import will not silently overwrite
+          // them. Structural fields the sheet legitimately owns — category/
+          // subcategory placement, duration, the RoApp link, sort order —
+          // still update, and source stays 'manual' so the row keeps being
+          // flagged on every future import.
+          const merged = mergeManualPreservedFields(
+            existing,
+            { nameUk: item.nameUk, price: item.price, priceNumeric: item.priceNumeric, noteUk: item.noteUk },
+            { nameRu: it.ru, nameEn: it.en, noteRu: note.ru, noteEn: note.en },
+          );
 
           await sql`
             UPDATE price_items SET
               category_id = ${categoryId},
               subcategory_id = ${subcategoryId},
-              name_uk = ${item.nameUk},
-              name_ru = ${nextNameRu},
-              name_en = ${nextNameEn},
-              price = ${nextPrice},
-              price_numeric = ${nextPriceNumeric},
+              name_uk = ${merged.nameUk},
+              name_ru = ${merged.nameRu},
+              name_en = ${merged.nameEn},
+              price = ${merged.price},
+              price_numeric = ${merged.priceNumeric},
               duration = ${item.duration},
               roapp_service_id = ${item.roappServiceId},
-              note_uk = ${item.noteUk},
-              note_ru = ${note.ru},
-              note_en = ${note.en},
+              note_uk = ${merged.noteUk},
+              note_ru = ${merged.noteRu},
+              note_en = ${merged.noteEn},
               is_visible = ${existing.is_visible},
-              source = ${nextSource},
+              source = ${merged.source},
               sort_order = ${ii},
               updated_at = now()
             WHERE id = ${itemId}
           `;
-          if (!existing.is_visible) hidden++;
+          // `hidden` counts rows this import newly hid. A matched existing
+          // row's is_visible never changes (see above), so it is never
+          // "newly" hidden here, no matter which way it was already set —
+          // counting it would report months-old hides as if this run caused
+          // them. Only the orphan-hiding pass below and brand-new hidden
+          // inserts are genuinely new.
         } else {
           const inserted = await sql`
             INSERT INTO price_items (
