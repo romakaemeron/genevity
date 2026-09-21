@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import { parseGenevitySheet } from "./parse-xlsx";
-import { applyTaxonomy, slugify, type CatalogueCategory } from "./taxonomy";
+import { applyTaxonomy, normalizeUnits, slugify, type CatalogueCategory } from "./taxonomy";
 
 const XLSX = path.resolve(__dirname, "../../../Прайс Геліос-4.xlsx");
 
@@ -14,6 +14,26 @@ describe("slugify", () => {
   it("collapses punctuation and case", () => {
     expect(slugify("SMAS-ліфтінг ULTRAFORMER")).toBe("smas-liftinh-ultraformer");
     expect(slugify("Ін'єкційна косметологія")).toBe("inyektsiyna-kosmetolohiya");
+  });
+});
+
+describe("normalizeUnits", () => {
+  it("converts a trailing 2 after см/мм/м into a superscript", () => {
+    expect(normalizeUnits("Видалення тату хірургічним шляхом (1 см2)")).toBe(
+      "Видалення тату хірургічним шляхом (1 см²)",
+    );
+  });
+  it("leaves range digits intact and converts only the trailing unit digit", () => {
+    expect(normalizeUnits("1-3 см2")).toBe("1-3 см²");
+  });
+  it("leaves a dimension expression alone and converts only the trailing unit digit", () => {
+    expect(normalizeUnits("Живіт (20*20 см2)")).toBe("Живіт (20*20 см²)");
+  });
+  it("does not touch a bare unit with no digit", () => {
+    expect(normalizeUnits("10 см")).toBe("10 см");
+  });
+  it("leaves a string with no units unchanged", () => {
+    expect(normalizeUnits("PolyPhil Hair")).toBe("PolyPhil Hair");
   });
 });
 
@@ -113,6 +133,15 @@ describe("applyTaxonomy", () => {
     const total = cats.reduce(
       (n, c) => n + c.subcategories.reduce((m, s) => m + s.items.length, 0), 0);
     expect(total).toBe(551);
+  });
+
+  it("never leaves a plain digit after см/мм/м in an item name", () => {
+    const offenders = cats
+      .flatMap((c) => c.subcategories)
+      .flatMap((s) => s.items)
+      .map((i) => i.nameUk)
+      .filter((n) => /(см|мм|м)[0-9]/.test(n));
+    expect(offenders).toEqual([]);
   });
 
   it("gives every category and subcategory a unique non-empty slug", () => {

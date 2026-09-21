@@ -84,6 +84,25 @@ function stripNumberPrefix(label: string): string {
 }
 
 /**
+ * The sheet writes area/volume units as a plain trailing digit — "см2",
+ * "мм3" — instead of a superscript. Normalising this in the taxonomy (rather
+ * than at render time, and rather than hand-editing the stored rows) is what
+ * keeps the import diff clean: the importer matches incoming names against
+ * stored names, so if the database held the corrected "см²" while the sheet
+ * still says "см2", every one of these rows would show up as a spurious
+ * rename on every future import, forever. Normalising here means the
+ * imported value and the stored value are always identical, so there is
+ * nothing to diff. Only a digit that terminates the unit token converts —
+ * "1-3 см2" must keep its range digits and only turn the trailing 2 into ²,
+ * and a dimension like "20*20" must be left alone.
+ */
+export function normalizeUnits(name: string): string {
+  return name.replace(/(см|мм|м)([23])(?![0-9])/g, (_, unit: string, digit: string) =>
+    unit + (digit === "2" ? "²" : "³"),
+  );
+}
+
+/**
  * Compose the display label. A group header ("Exion") is folded into its
  * child ("1. Фракційний мікроігольчастий RF") so the device name survives:
  * "Exion — Фракційний мікроігольчастий RF". Without this the user sees a bare
@@ -112,11 +131,16 @@ function toCatalogueSub(
     slug: slugify(labelUk) || "inshe",
     labelUk,
     isVisible: visible,
-    items: sub.items.map((i) => ({
-      ...i,
-      nameUk: ITEM_RENAMES[i.nameUk] ?? i.nameUk,
-      isVisible: visible && !isHidden(i.nameUk),
-    })),
+    items: sub.items.map((i) => {
+      // isHidden() must see the ORIGINAL untouched name: renaming/unit
+      // normalisation must never change which rows get hidden.
+      const renamed = ITEM_RENAMES[i.nameUk] ?? i.nameUk;
+      return {
+        ...i,
+        nameUk: normalizeUnits(renamed),
+        isVisible: visible && !isHidden(i.nameUk),
+      };
+    }),
   };
 }
 
