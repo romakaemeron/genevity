@@ -5,6 +5,7 @@ import PricesEditor, { type PriceCategory } from "../_components/prices-editor";
 import NamespaceTextsEditor from "../_components/namespace-texts-editor";
 import { AdminPageHeader, AdminSectionHeading } from "../_components/admin-list";
 import PricelistPdfForm from "./_components/pricelist-pdf-form";
+import PriceImport from "./_components/price-import";
 
 export default async function PricingAdminPage() {
   await requireSession();
@@ -46,6 +47,11 @@ export default async function PricingAdminPage() {
   return (
     <div className="p-8 flex flex-col gap-10">
       <AdminPageHeader title="Price List" subtitle="Categories and items shown on the /prices page." />
+
+      <div>
+        <AdminSectionHeading>Import from spreadsheet</AdminSectionHeading>
+        <PriceImport />
+      </div>
 
       <div>
         <AdminSectionHeading>Pricelist PDF</AdminSectionHeading>
