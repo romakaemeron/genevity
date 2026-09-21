@@ -1,5 +1,14 @@
 // ---- Sanity document types for the homepage ----
 
+/** A service landing page the device is used for — rendered as a link inside
+ *  the equipment modal so visitors can go from "which machine is this" to
+ *  "book this procedure". Sourced from the `service_equipment` join table. */
+export interface EquipmentServiceLink {
+  slug: string;
+  categorySlug: string;
+  title: string;
+}
+
 export interface EquipmentItem {
   _id: string;
   category: string;
@@ -10,6 +19,8 @@ export interface EquipmentItem {
   results: string[];
   note: string;
   photo: string | null;
+  /** Empty when the device has no linked service pages yet. */
+  services: EquipmentServiceLink[];
 }
 
 export interface DoctorReview {
@@ -100,6 +111,7 @@ export interface UiStringsData {
     showLess: string;
     suitsTitle: string;
     resultsTitle: string;
+    servicesTitle: string;
     tabs: Record<string, string>;
   };
   doctors: {
