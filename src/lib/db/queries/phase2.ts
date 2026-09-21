@@ -120,8 +120,14 @@ export interface PriceCategory {
 
 export async function getPriceCategoriesWithItems(locale: string): Promise<PriceCategory[]> {
   const l = lang(locale);
-  const categories = await sql`SELECT * FROM price_categories ORDER BY sort_order`;
-  const items = await sql`SELECT * FROM price_items ORDER BY sort_order`;
+  // `is_visible` gates what the public price list shows. Some catalogue rows
+  // are deliberately withheld — procedures that do not belong on a public
+  // aesthetic-medicine price list, and prices awaiting the clinic's
+  // confirmation — and superseded categories are retired by hiding rather than
+  // deleting. Both filters are required: a hidden category must not appear
+  // even though its rows are individually visible.
+  const categories = await sql`SELECT * FROM price_categories WHERE is_visible ORDER BY sort_order`;
+  const items = await sql`SELECT * FROM price_items WHERE is_visible ORDER BY sort_order`;
   return categories.map((c) => ({
     id: c.id,
     slug: c.slug,
