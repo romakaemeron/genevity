@@ -145,6 +145,36 @@ export async function applyCatalogue(
       "Refusing to apply: the parsed catalogue contained no items. " +
       "Check the spreadsheet and the sheet name before retrying.");
   }
+
+  // Plausibility gate against a shared production database: this is the ONLY
+  // implementation of this rule (the CLI at scripts/import-prices.ts used to
+  // duplicate a version of it; that copy is gone so this is the single
+  // source of truth and both the admin upload and the CLI inherit it).
+  // A wrong workbook, or a partially-corrupted one that still parses and
+  // still contains a sheet with the right name, can yield a handful of items
+  // instead of the full catalogue. Nothing about the shape of that data is
+  // invalid, so nothing above would refuse it — it would faithfully hide
+  // hundreds of rows that "vanished" and the live public price list would
+  // collapse to a fraction of itself. Recoverable (nothing is deleted, only
+  // hidden), but publicly visible and alarming, so refuse before it happens.
+  // Gated on N >= 50 so a genuinely small catalogue can still be seeded from
+  // scratch — the guard only engages once there is a substantial live
+  // catalogue worth protecting.
+  const visibleImportedRows = await sql`
+    SELECT count(*)::int AS n FROM price_items i
+    JOIN price_categories c ON c.id = i.category_id
+    WHERE i.source = 'import' AND i.is_visible = true
+      AND c.slug <> ALL(${PROTECTED_CATEGORY_SLUGS})
+  `;
+  const visibleImportedCount = Number(visibleImportedRows[0]?.n ?? 0);
+  const incomingCount = seenItemIds.length;
+  if (visibleImportedCount >= 50 && incomingCount < visibleImportedCount / 2) {
+    throw new Error(
+      `Refusing to apply: the parsed catalogue has only ${incomingCount} items, ` +
+      `but ${visibleImportedCount} imported rows are currently visible. ` +
+      "Check that you uploaded the right file before retrying.");
+  }
+
   const orphaned = await sql`
     UPDATE price_items SET is_visible = false, updated_at = now()
     WHERE source = 'import'

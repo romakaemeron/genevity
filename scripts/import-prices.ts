@@ -48,16 +48,13 @@ async function run() {
     return;
   }
 
-  // Sanity gate on a shared production database: a catalogue that suddenly
-  // shrinks, or a diff that would hide most of what is already published,
-  // means the parse went wrong — not that the clinic deleted its price list.
+  // Sanity gate specific to this CLI: it knows the expected size of THIS
+  // sheet (~551 items), which applyCatalogue cannot know in general. The
+  // more general "would hide most of what's currently visible" guard now
+  // lives inside applyCatalogue itself, so both this CLI and the admin
+  // upload inherit it from one place instead of duplicating it here.
   if (total < 500) {
     throw new Error(`Refusing to apply: parsed only ${total} items, expected ~551.`);
-  }
-  if (diff.counts.removed > existing.length / 2 && existing.length > 50) {
-    throw new Error(
-      `Refusing to apply: ${diff.counts.removed} of ${existing.length} existing ` +
-      `rows would be hidden. Re-check the source file.`);
   }
 
   const result = await applyCatalogue(sql as never, cats);
