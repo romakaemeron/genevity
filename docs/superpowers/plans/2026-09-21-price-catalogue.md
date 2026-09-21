@@ -1629,6 +1629,14 @@ export async function applyCatalogue(
   }
 
   // Rows that vanished from the spreadsheet are hidden, never deleted.
+  // Guard: with an empty seen-list the `<> ALL('{}')` below is true for every
+  // row, so a parse that silently produced nothing would hide the entire
+  // catalogue. An empty catalogue is never a legitimate import.
+  if (seenItemIds.length === 0) {
+    throw new Error(
+      "Refusing to apply: the parsed catalogue contained no items. " +
+      "Check the spreadsheet and the sheet name before retrying.");
+  }
   const orphaned = await sql`
     UPDATE price_items SET is_visible = false, updated_at = now()
     WHERE source = 'import'
@@ -1682,6 +1690,8 @@ async function run() {
   const diff = diffCatalogue(cats, existing);
   console.log("Diff:", diff.counts);
 
+  for (const w of diff.warnings) console.warn("  ⚠", w);
+
   for (const c of diff.changes.filter((c) => c.kind !== "unchanged").slice(0, 40)) {
     const conflict = c.isManualConflict ? "  ⚠ manual edit" : "";
     console.log(`  ${c.kind.padEnd(14)} ${c.nameUk} ${c.previousPrice ?? ""}→${c.nextPrice ?? ""}${conflict}`);
@@ -1693,6 +1703,18 @@ async function run() {
     console.log("\nDry run. Re-run with --apply to write.");
     await sql.end();
     return;
+  }
+
+  // Sanity gate on a shared production database: a catalogue that suddenly
+  // shrinks, or a diff that would hide most of what is already published,
+  // means the parse went wrong — not that the clinic deleted its price list.
+  if (total < 500) {
+    throw new Error(`Refusing to apply: parsed only ${total} items, expected ~551.`);
+  }
+  if (diff.counts.removed > existing.length / 2 && existing.length > 50) {
+    throw new Error(
+      `Refusing to apply: ${diff.counts.removed} of ${existing.length} existing ` +
+      `rows would be hidden. Re-check the source file.`);
   }
 
   const result = await applyCatalogue(sql as never, cats);
