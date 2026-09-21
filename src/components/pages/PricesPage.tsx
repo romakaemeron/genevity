@@ -9,7 +9,7 @@ import type { PriceCategory, PriceItemView } from "@/lib/db/queries/phase2";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import Button from "@/components/ui/Button";
-import CategoryPills from "./prices/CategoryPills";
+import CategoryPills, { ALL_SLUG } from "./prices/CategoryPills";
 import SubcategorySection from "./prices/SubcategorySection";
 import PriceRow from "./prices/PriceRow";
 
@@ -30,16 +30,21 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
   const tPage = useTranslations("pricesPage");
 
   const [search, setSearch] = useState("");
-  const [activeSlug, setActiveSlug] = useState(categories[0]?.slug || "");
-  const [openSubs, setOpenSubs] = useState<Set<string>>(
-    () => new Set(categories[0]?.subcategories[0] ? [categories[0].subcategories[0].slug] : []),
-  );
+  // Default view is "All categories" so a first-time visitor sees the whole
+  // catalogue rather than one arbitrary slice of it.
+  const [activeSlug, setActiveSlug] = useState<string>(ALL_SLUG);
+  // The All view starts with every accordion collapsed — 52 subcategories
+  // open at once would bury the page — so the initial Set is empty rather
+  // than seeded with the first category's first subcategory.
+  const [openSubs, setOpenSubs] = useState<Set<string>>(() => new Set());
 
   // Hydrate from the URL so a shared /prices?c=…&s=…&q=… link lands correctly.
+  // ALL_SLUG is not a real category slug, so it needs its own branch in the
+  // validity check below or a shared ?c=all link would be silently rejected.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
     const c = p.get("c"); const s = p.get("s"); const q = p.get("q");
-    if (c && categories.some((cat) => cat.slug === c)) setActiveSlug(c);
+    if (c && (c === ALL_SLUG || categories.some((cat) => cat.slug === c))) setActiveSlug(c);
     if (s) setOpenSubs((prev) => new Set(prev).add(s));
     if (q) setSearch(q);
   }, [categories]);
@@ -55,6 +60,13 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
 
   const selectCategory = (slug: string) => {
     setActiveSlug(slug);
+    if (slug === ALL_SLUG) {
+      // Start the All view fresh — every subcategory collapsed, not
+      // inheriting whatever was open in the previously selected category.
+      setOpenSubs(new Set());
+      syncUrl({ c: slug, s: undefined });
+      return;
+    }
     const first = categories.find((c) => c.slug === slug)?.subcategories[0];
     if (first) setOpenSubs((prev) => new Set(prev).add(first.slug));
     syncUrl({ c: slug, s: undefined });
@@ -171,16 +183,18 @@ export default function PricesPageComponent({ locale, categories, pricelistPdf }
               categories={categories}
               activeSlug={activeSlug}
               onSelect={selectCategory}
+              allLabel={tPage("allCategories")}
             />
 
-            {/* Every category stays mounted and is hidden with CSS so all 575
+            {/* Every category stays mounted and is hidden with CSS so all 551
                 prices are present in the HTML for indexing. Do not switch this
-                to conditional rendering. */}
+                to conditional rendering. When the All pill is active, nothing
+                is hidden — every category renders. */}
             {categories.map((cat) => (
               <div
                 key={cat.slug}
                 id={cat.slug}
-                hidden={cat.slug !== activeSlug}
+                hidden={activeSlug !== ALL_SLUG && cat.slug !== activeSlug}
                 className="mt-6 scroll-mt-28"
               >
                 <div className="bg-champagne-dark rounded-[var(--radius-card)] overflow-hidden">
