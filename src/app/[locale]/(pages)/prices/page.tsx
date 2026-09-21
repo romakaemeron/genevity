@@ -5,6 +5,7 @@ import PricesPageComponent from "@/components/pages/PricesPage";
 import MegaMenuHeader from "@/components/layout/MegaMenuHeader";
 import { sql } from "@/lib/db/client";
 import { setRequestLocale } from "next-intl/server";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const revalidate = 300;
 
@@ -31,8 +32,30 @@ export default async function PricesPage({ params }: { params: Promise<{ locale:
   ]);
   const pricelistPdf = (settingsRows[0]?.pricelist_pdf as string | null) ?? null;
 
+  const offerCatalog = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: "GENEVITY",
+    itemListElement: categories.map((cat) => ({
+      "@type": "OfferCatalog",
+      name: cat.label,
+      itemListElement: [
+        ...cat.items,
+        ...cat.subcategories.flatMap((s) => s.items),
+      ]
+        .filter((item) => item.priceNumeric !== null)
+        .map((item) => ({
+          "@type": "Offer",
+          itemOffered: { "@type": "Service", name: item.name },
+          price: item.priceNumeric,
+          priceCurrency: "UAH",
+        })),
+    })),
+  };
+
   return (
     <>
+      <JsonLd data={offerCatalog} />
       <MegaMenuHeader variant="solid" position="fixed" />
       <PricesPageComponent locale={locale as Locale} categories={categories} pricelistPdf={pricelistPdf} />
     </>
