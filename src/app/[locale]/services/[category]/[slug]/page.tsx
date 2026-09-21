@@ -101,6 +101,7 @@ export default async function ServicePage({ params }: { params: Promise<{ locale
           details: uiStrings.equipment.details,
           suitsTitle: uiStrings.equipment.suitsTitle,
           resultsTitle: uiStrings.equipment.resultsTitle,
+          servicesTitle: uiStrings.equipment.servicesTitle,
         } : undefined}
         eeatUi={uiStrings?.eeat}
       />
