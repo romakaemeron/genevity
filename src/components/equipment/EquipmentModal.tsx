@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { buttonClasses } from "@/components/ui/Button";
 import type { EquipmentItem } from "@/lib/db/types";
 import { isPreOptimized } from "@/lib/image-src";
 
@@ -58,17 +59,21 @@ function ModalText({ item, suitsTitle, resultsTitle, servicesTitle, excludeServi
       {services.length > 0 && (
         <div className="flex flex-col gap-2 border-t border-black-10 pt-4">
           <p className="body-strong text-black">{servicesTitle}</p>
-          <ul className="flex flex-col">
+          <ul className="flex flex-wrap gap-2">
             {services.map((service) => (
               <li key={`${service.categorySlug}/${service.slug}`}>
+                {/* next-intl's Link (not Button's plain next/link) so the href
+                    keeps its locale prefix, wearing Button's outline styles. */}
                 <Link
                   href={`/services/${service.categorySlug}/${service.slug}`}
-                  className="group flex items-center gap-1.5 -mx-2 px-2 py-1.5 rounded-lg body-m text-main hover:bg-champagne-dark transition-colors"
+                  className={buttonClasses({
+                    variant: "outline",
+                    size: "sm",
+                    className: "group gap-1.5 max-w-full whitespace-normal text-left",
+                  })}
                 >
-                  <span className="underline decoration-transparent group-hover:decoration-current transition-colors">
-                    {service.title}
-                  </span>
-                  <ChevronRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                  {service.title}
+                  <ChevronRight className="w-3.5 h-3.5 shrink-0 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </li>
             ))}
