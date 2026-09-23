@@ -15,6 +15,8 @@ type ButtonVariant =
   | "neutral";
 type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
+export type { ButtonVariant, ButtonSize };
+
 interface ButtonProps {
   children: React.ReactNode;
   variant?: ButtonVariant;
@@ -59,22 +61,25 @@ const variants: Record<ButtonVariant, string> = {
     "text-error hover:text-error/80 hover:bg-error/5",
 };
 
-export default function Button({
-  children,
+/**
+ * The exact class string `<Button>` would render. Exported so elements that
+ * can't be a `<button>` or a plain `next/link` — such as next-intl's
+ * locale-aware `Link` — can wear the same styles instead of hand-copying them
+ * and drifting from the design system.
+ */
+export function buttonClasses({
   variant = "primary",
   size = "md",
   pill = false,
   icon = false,
-  href,
-  onClick,
-  type = "button",
   className = "",
-  disabled = false,
-  title,
-  ariaLabel,
-  target,
-  rel,
-}: ButtonProps) {
+}: {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  pill?: boolean;
+  icon?: boolean;
+  className?: string;
+} = {}) {
   const sizeClass = icon
     ? size === "xs" ? "w-7 h-7 p-0"
     : size === "sm" ? "w-9 h-9 p-0"
@@ -95,7 +100,26 @@ export default function Button({
 
   const baseClasses = `inline-flex items-center justify-center gap-2 ${radius} font-[var(--font-body)] font-medium whitespace-nowrap cursor-pointer ${pressClass} disabled:opacity-50 disabled:cursor-not-allowed ${sizeClass}`;
 
-  const combinedClasses = `${baseClasses} ${variants[variant]} ${className}`;
+  return `${baseClasses} ${variants[variant]} ${className}`;
+}
+
+export default function Button({
+  children,
+  variant = "primary",
+  size = "md",
+  pill = false,
+  icon = false,
+  href,
+  onClick,
+  type = "button",
+  className = "",
+  disabled = false,
+  title,
+  ariaLabel,
+  target,
+  rel,
+}: ButtonProps) {
+  const combinedClasses = buttonClasses({ variant, size, pill, icon, className });
 
   if (href) {
     return (
