@@ -110,38 +110,85 @@ export async function getGalleryItems(ownerKey: string, locale: string): Promise
   }));
 }
 
+export interface PriceItemView {
+  id: string;
+  name: string;
+  price: string;
+  currency: string;
+  duration: string | null;
+  note: string | null;
+  priceNumeric: number | null;
+}
+
+export interface PriceSubcategoryView {
+  id: string;
+  slug: string;
+  label: string;
+  items: PriceItemView[];
+}
+
 export interface PriceCategory {
   id: string;
   slug: string;
   label: string;
   link: string | null;
-  items: { id: string; name: string; price: string; currency: string }[];
+  /** Items filed directly under the category, with no subcategory. */
+  items: PriceItemView[];
+  subcategories: PriceSubcategoryView[];
+  /** Direct items plus every subcategory's items — for the pill badges. */
+  itemCount: number;
 }
 
 export async function getPriceCategoriesWithItems(locale: string): Promise<PriceCategory[]> {
   const l = lang(locale);
-  // `is_visible` gates what the public price list shows. Some catalogue rows
-  // are deliberately withheld — procedures that do not belong on a public
-  // aesthetic-medicine price list, and prices awaiting the clinic's
-  // confirmation — and superseded categories are retired by hiding rather than
-  // deleting. Both filters are required: a hidden category must not appear
-  // even though its rows are individually visible.
-  const categories = await sql`SELECT * FROM price_categories WHERE is_visible ORDER BY sort_order`;
-  const items = await sql`SELECT * FROM price_items WHERE is_visible ORDER BY sort_order`;
-  return categories.map((c) => ({
-    id: c.id,
-    slug: c.slug,
-    label: pick(c, "label", l) || "",
-    link: c.link,
-    items: items
-      .filter((it) => it.category_id === c.id)
-      .map((it) => ({
-        id: it.id,
-        name: pick(it, "name", l) || "",
-        price: it.price,
-        currency: it.currency || "₴",
-      })),
-  }));
+  const categories = await sql`
+    SELECT * FROM price_categories WHERE is_visible ORDER BY sort_order`;
+  const subcategories = await sql`
+    SELECT * FROM price_subcategories WHERE is_visible ORDER BY sort_order`;
+  const items = await sql`
+    SELECT * FROM price_items WHERE is_visible ORDER BY sort_order`;
+
+  const toView = (it: Record<string, unknown>): PriceItemView => ({
+    id: String(it.id),
+    name: pick(it, "name", l) || "",
+    price: String(it.price ?? ""),
+    currency: (it.currency as string) || "₴",
+    duration: (it.duration as string) ?? null,
+    note: pick(it, "note", l),
+    priceNumeric: (it.price_numeric as number) ?? null,
+  });
+
+  return categories.map((c) => {
+    const catItems = items.filter((it) => it.category_id === c.id);
+    const subs = subcategories
+      .filter((s) => s.category_id === c.id)
+      .map((s) => ({
+        id: String(s.id),
+        slug: String(s.slug),
+        label: pick(s, "label", l) || "",
+        items: catItems.filter((it) => it.subcategory_id === s.id).map(toView),
+      }))
+      .filter((s) => s.items.length > 0);
+    const direct = catItems.filter((it) => !it.subcategory_id).map(toView);
+    const itemCount = direct.length + subs.reduce((n, s) => n + s.items.length, 0);
+
+    return {
+      id: String(c.id),
+      slug: String(c.slug),
+      label: pick(c, "label", l) || "",
+      link: (c.link as string) ?? null,
+      items: direct,
+      subcategories: subs,
+      itemCount,
+    };
+  })
+    // Renaming a category in the spreadsheet slugifies to a new slug, a new
+    // category row gets inserted, and the items migrate to it — but the old
+    // category row survives with is_visible = true and zero items. Without
+    // this filter it renders as a pill reading "Old name 0" above an empty
+    // card. Do not remove this as "redundant" with the subcategory filter
+    // above — that one only drops empty subcategories, not empty categories.
+    .filter((c) => c.itemCount > 0);
 }
 
 export interface LabService {

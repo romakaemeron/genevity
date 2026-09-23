@@ -2,8 +2,8 @@
 
 import { sql } from "@/lib/db/client";
 import { revalidatePath } from "next/cache";
-import { randomUUID } from "crypto";
 import { processAndUploadImage } from "./upload";
+import { requireSession } from "./auth";
 
 export async function uploadPhase2Image(formData: FormData): Promise<{ url: string }> {
   const file = formData.get("file") as File;
@@ -120,38 +120,61 @@ export async function saveGallery(ownerKey: string, items: GalleryItemInput[]) {
   return { ok: true };
 }
 
-/* ==========  PRICE CATEGORIES + ITEMS  ========== */
-type PriceCatInput = {
-  id?: string;
-  slug: string;
-  label_uk: string; label_ru: string; label_en: string;
-  link: string | null;
-  items: { id?: string; name_uk: string; name_ru: string; name_en: string; price: string }[];
-};
+/* ==========  PRICES  ========== */
 
-export async function savePriceCategories(cats: PriceCatInput[]) {
-  await sql`DELETE FROM price_items`;
-  await sql`DELETE FROM price_categories`;
-  for (let i = 0; i < cats.length; i++) {
-    const c = cats[i];
-    const catId = randomUUID();
-    await sql`
-      INSERT INTO price_categories (id, slug, label_uk, label_ru, label_en, link, sort_order)
-      VALUES (${catId}, ${c.slug}, ${c.label_uk}, ${c.label_ru || null}, ${c.label_en || null}, ${c.link || null}, ${i})
-    `;
-    for (let j = 0; j < c.items.length; j++) {
-      const it = c.items[j];
-      await sql`
-        INSERT INTO price_items (category_id, name_uk, name_ru, name_en, price, sort_order)
-        VALUES (${catId}, ${it.name_uk}, ${it.name_ru || null}, ${it.name_en || null}, ${it.price}, ${j})
-      `;
-    }
-  }
+function revalidatePrices() {
   revalidatePath("/");
   revalidatePath("/prices");
   revalidatePath("/ru/prices");
   revalidatePath("/en/prices");
-  return { ok: true };
+}
+
+/**
+ * Update a single price row. Marks the row `manual` so the next spreadsheet
+ * import reports it as a conflict instead of silently overwriting the edit.
+ */
+export async function updatePriceItem(input: {
+  id: string;
+  name_uk: string;
+  name_ru: string;
+  name_en: string;
+  price: string;
+  is_visible: boolean;
+}) {
+  await requireSession();
+  const cleaned = String(input.price).replace(/[\s\u00A0]/g, "").replace(",", ".");
+  // An empty (or whitespace-only) price field means "no price", not "priced at
+  // zero" -- Number("") is 0 in JS, which would otherwise store price_numeric
+  // = 0 and surface as a genuine "0 UAH" offer in structured data / sorting.
+  const numeric = cleaned === "" ? NaN : Number(cleaned);
+  await sql`
+    UPDATE price_items SET
+      name_uk = ${input.name_uk},
+      name_ru = ${input.name_ru || null},
+      name_en = ${input.name_en || null},
+      price = ${input.price},
+      price_numeric = ${Number.isFinite(numeric) ? Math.round(numeric) : null},
+      is_visible = ${input.is_visible},
+      source = 'manual',
+      updated_at = now()
+    WHERE id = ${input.id}
+  `;
+  revalidatePrices();
+  return { ok: true as const };
+}
+
+export async function setPriceCategoryVisibility(id: string, isVisible: boolean) {
+  await requireSession();
+  await sql`UPDATE price_categories SET is_visible = ${isVisible}, updated_at = now() WHERE id = ${id}`;
+  revalidatePrices();
+  return { ok: true as const };
+}
+
+export async function setPriceSubcategoryVisibility(id: string, isVisible: boolean) {
+  await requireSession();
+  await sql`UPDATE price_subcategories SET is_visible = ${isVisible}, updated_at = now() WHERE id = ${id}`;
+  revalidatePrices();
+  return { ok: true as const };
 }
 
 /* ==========  LAB SERVICES / PREP / CHECKUPS  ========== */
