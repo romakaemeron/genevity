@@ -66,7 +66,12 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
     galleryOwnerKey ? sql`SELECT * FROM gallery_items WHERE owner_key = ${galleryOwnerKey} ORDER BY sort_order` : Promise.resolve([]),
     isContacts || isHome ? sql`SELECT * FROM site_settings WHERE id = 1` : Promise.resolve([]),
     isPrices ? sql`SELECT * FROM price_categories ORDER BY sort_order` : Promise.resolve([]),
-    isPrices ? sql`SELECT * FROM price_items ORDER BY sort_order` : Promise.resolve([]),
+    isPrices
+      ? sql`SELECT i.*, s.label_uk AS subcategory_label
+            FROM price_items i
+            LEFT JOIN price_subcategories s ON s.id = i.subcategory_id
+            ORDER BY i.sort_order`
+      : Promise.resolve([]),
     isLaboratory ? sql`SELECT * FROM lab_services ORDER BY sort_order` : Promise.resolve([]),
     isLaboratory ? sql`SELECT * FROM lab_prep_steps ORDER BY sort_order` : Promise.resolve([]),
     isLaboratory ? sql`SELECT * FROM lab_checkups ORDER BY sort_order` : Promise.resolve([]),
@@ -126,6 +131,9 @@ export default async function EditStaticPagePage({ params }: { params: Promise<{
             name_ru: (it.name_ru as string) || "",
             name_en: (it.name_en as string) || "",
             price: (it.price as string) || "",
+            is_visible: (it.is_visible as boolean) ?? true,
+            duration: (it.duration as string) ?? null,
+            subcategory_label: (it.subcategory_label as string) ?? null,
           })),
       }))
     : null;
