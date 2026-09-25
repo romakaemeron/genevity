@@ -31,15 +31,13 @@ function localeUrls(path: string): MetadataRoute.Sitemap {
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const isProduction = process.env.VERCEL_ENV === "production";
-
   const [categories, services, staticPages, legalDocs, doctors, blogSlugs] = await Promise.all([
     sql`SELECT slug FROM service_categories WHERE seo_noindex IS NOT TRUE ORDER BY sort_order`,
     getAllServiceSlugs(),
     sql`SELECT slug FROM static_pages`,
     getLegalDocs("ua"),
     getAllDoctors("ua"),
-    isProduction ? Promise.resolve([]) : getAllBlogSlugs(),
+    getAllBlogSlugs(),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -77,12 +75,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(...localeUrls(`/legal/${doc.slug}`));
   }
 
-  // Blog excluded on production (redirects to / until launch)
-  if (!isProduction) {
-    entries.push(...localeUrls("/blog"));
-    for (const slug of blogSlugs) {
-      entries.push(...localeUrls(`/blog/${slug}`));
-    }
+  // Blog index + articles. Live on production since the 2026-09-25 launch;
+  // getAllBlogSlugs() already returns only published, past-dated posts.
+  entries.push(...localeUrls("/blog"));
+  for (const slug of blogSlugs) {
+    entries.push(...localeUrls(`/blog/${slug}`));
   }
 
   // Media/press mentions
