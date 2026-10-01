@@ -30,6 +30,34 @@ function formatKyiv(raw: Date | string | null | undefined): string {
   });
 }
 
+/** The callback form stores the visitor's preferred slot as a machine-shaped
+ *  "YYYY-MM-DD HH:MM" (or date-only when they left the hour open); the online
+ *  wizard stores a full ISO instant. Both are rendered as a sentence here.
+ *  Anything unrecognized falls through verbatim. */
+function formatPreferred(raw: string): string {
+  const m = /^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}))?/.exec(raw.trim());
+  if (!m) return raw;
+  const [, date, time] = m;
+  const d = new Date(`${date}T00:00:00Z`);
+  if (isNaN(d.getTime())) return raw;
+  const long = d.toLocaleDateString("uk-UA", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+  });
+  // An ISO instant carries a timezone; re-read it in Kyiv rather than trusting
+  // the wall-clock digits in the string.
+  const hhmm = raw.includes("T") ? formatKyivTime(raw) : time;
+  return hhmm ? `${long}, ${hhmm}` : `${long} — будь-який час`;
+}
+
+/** "14:30" for an ISO instant, as seen in Kyiv. */
+function formatKyivTime(iso: string): string | undefined {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return undefined;
+  return d.toLocaleTimeString("uk-UA", {
+    hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Europe/Kyiv",
+  });
+}
+
 /** Render either a value or a muted em-dash for missing rows. */
 function Value({ children, mono }: { children?: React.ReactNode; mono?: boolean }) {
   const present = children !== undefined && children !== null && children !== "";
@@ -140,7 +168,7 @@ export default async function SubmissionDetailPage({ params }: { params: Promise
           <h2 className="text-sm font-semibold text-muted uppercase tracking-wider mb-3">Запис на прийом</h2>
           {r.preferred_time && (
             <Row label="Бажаний час">
-              <Value>{r.preferred_time as string}</Value>
+              <Value>{formatPreferred(r.preferred_time as string)}</Value>
               <p className="text-[12px] text-muted mt-1">
                 Обрано пацієнтом — потребує підтвердження по телефону.
               </p>

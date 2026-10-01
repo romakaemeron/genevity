@@ -113,6 +113,11 @@ export interface BookingSubmissionInput {
    *  form_submissions.direction so the admin sees exactly what the
    *  visitor picked even if slugs later change. */
   interestLabels: string[];
+  /** Preferred appointment day, "YYYY-MM-DD" in Kyiv terms. Optional — the
+   *  form collects a preference, not a reservation. */
+  preferredDate?: string;
+  /** Preferred hour, "HH:MM" 24h. Only meaningful alongside a date. */
+  preferredTime?: string;
   pageUrl?: string;
   /** Analytics context captured at submit time for lead attribution. */
   pageTitle?: string;
@@ -202,6 +207,49 @@ function sanitizeInterestLabels(raw: unknown): string[] {
   return out;
 }
 
+/* ── Preferred appointment slot ────────────────────────────────────
+ *  Stored as a single `preferred_time` string ("2026-10-11 14:30", or
+ *  just the date when the visitor left the hour open) — the column
+ *  already exists and the admin portal renders it verbatim. A time
+ *  without a date is dropped: an hour with no day is not a preference.
+ *  The window is re-checked here because the client's clock, timezone
+ *  and bundle are all outside our control.                           */
+
+const DATE_KEY = /^\d{4}-\d{2}-\d{2}$/;
+const TIME_HHMM = /^([01]\d|2[0-3]):([0-5]\d)$/;
+/** Matches the picker's MONTHS_AHEAD window, with a day of slack. */
+const MAX_DAYS_AHEAD = 190;
+
+/** Today's date key as seen in Kyiv — en-CA gives ISO ordering. */
+function kyivTodayKey(): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Kyiv", year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(new Date());
+}
+
+function sanitizePreferredSlot(
+  rawDate: string | undefined,
+  rawTime: string | undefined,
+): string | null {
+  const date = (rawDate || "").trim();
+  if (!DATE_KEY.test(date)) return null;
+  // Reject impossible dates like 2026-02-31, which the regex happily allows.
+  const asUtc = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(asUtc.getTime()) || asUtc.toISOString().slice(0, 10) !== date) return null;
+
+  const today = kyivTodayKey();
+  if (date < today) return null;
+  const daysAhead = Math.round(
+    (asUtc.getTime() - new Date(`${today}T00:00:00Z`).getTime()) / 86_400_000,
+  );
+  if (daysAhead > MAX_DAYS_AHEAD) return null;
+
+  const time = (rawTime || "").trim();
+  if (!time) return date;
+  if (!TIME_HHMM.test(time)) return date;
+  return `${date} ${time}`;
+}
+
 function sanitizePageUrl(raw: string | undefined): string {
   const s = (raw || "").trim().slice(0, 500);
   if (!s) return "";
@@ -231,6 +279,7 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
   const phone = sanitizePhone(input.phone || "");
   if (!phone) return { ok: false, errorKey: "phone" };
 
+  const preferredSlot = sanitizePreferredSlot(input.preferredDate, input.preferredTime);
   const interestValues = sanitizeInterestValues(input.interestValues);
   const interestLabels = sanitizeInterestLabels(input.interestLabels);
   const joinedLabel = interestLabels.join(" · ");
@@ -258,12 +307,13 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
   try {
     await sql`
       INSERT INTO form_submissions (
-        form_type, name, phone, direction, page_url, service_id, status,
+        form_type, name, phone, direction, preferred_time, page_url, service_id, status,
         form_label, page_title, referrer,
         utm_source, utm_medium, utm_campaign, utm_term, utm_content
       )
       VALUES (
-        'consultation', ${name}, ${phone}, ${joinedLabel || null}, ${pageUrl || null}, ${serviceId}, 'new',
+        'consultation', ${name}, ${phone}, ${joinedLabel || null}, ${preferredSlot},
+        ${pageUrl || null}, ${serviceId}, 'new',
         ${formLabel}, ${pageTitle}, ${referrer},
         ${utmSource}, ${utmMedium}, ${utmCampaign}, ${utmTerm}, ${utmContent}
       )
@@ -274,7 +324,7 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
   }
 
   await notifyAdmin({
-    name, phone, interestLabel: joinedLabel, pageUrl, pageTitle,
+    name, phone, interestLabel: joinedLabel, preferredSlot, pageUrl, pageTitle,
     referrer, formLabel, locale: input.locale,
     utmSource, utmMedium, utmCampaign, utmTerm, utmContent,
   });
@@ -286,6 +336,7 @@ async function notifyAdmin(s: {
   name: string;
   phone: string;
   interestLabel: string;
+  preferredSlot: string | null;
   pageUrl: string;
   pageTitle: string | null;
   referrer: string | null;
@@ -318,6 +369,7 @@ async function notifyAdmin(s: {
     { label: "Ім'я клієнта",     value: s.name },
     { label: "Телефон клієнта",  value: s.phone, mono: true },
     { label: "Цікавиться",       value: s.interestLabel || missing, dim: !s.interestLabel },
+    { label: "Бажаний час",      value: s.preferredSlot ? formatPreferredSlot(s.preferredSlot) : missing, dim: !s.preferredSlot },
     { label: "Клініка",          value: "GENEVITY" },
     { label: "Сторінка",         value: s.pageTitle ? `${s.pageTitle}\n${s.pageUrl}` : (s.pageUrl || missing), dim: !s.pageUrl },
     { label: "Форма",            value: s.formLabel || missing, dim: !s.formLabel },
@@ -350,6 +402,19 @@ async function notifyAdmin(s: {
   if (!result.ok) {
     console.warn("[booking] email notify failed:", result.reason);
   }
+}
+
+/** "субота, 11 жовтня 2026, 14:30" — the stored key is machine-shaped,
+ *  the email should read like a sentence. Falls back to the raw value if
+ *  the shape ever changes. */
+function formatPreferredSlot(stored: string): string {
+  const [date, time] = stored.split(" ");
+  const d = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return stored;
+  const long = new Intl.DateTimeFormat("uk-UA", {
+    timeZone: "UTC", weekday: "long", day: "numeric", month: "long", year: "numeric",
+  }).format(d);
+  return time ? `${long}, ${time}` : `${long} — будь-який час`;
 }
 
 function escapeHtml(s: string): string {

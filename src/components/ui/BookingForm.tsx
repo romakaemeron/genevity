@@ -18,6 +18,7 @@ import { Loader2 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import SearchSelect from "@/components/ui/SearchSelect";
+import DateTimePicker, { type PreferredSlot } from "@/components/ui/DateTimePicker";
 import {
   listBookingOptions,
   submitBookingForm,
@@ -84,6 +85,9 @@ export default function BookingForm({
   // `XX XXX XX XX`. The +380 chip is rendered separately in the JSX.
   const [phoneLocal, setPhoneLocal] = useState("");
   const [interests, setInterests] = useState<string[]>(initialInterest ? [initialInterest] : []);
+  // Preferred appointment day / hour. Optional — an empty slot simply means
+  // "call me and we'll find a time", which is what the form did before.
+  const [preferred, setPreferred] = useState<PreferredSlot>({ date: null, time: null });
   const [interestLabels, setInterestLabels] = useState<Record<string, string>>({});
   // Per-field error messages — rendered inline under the offending input
   // so the visitor sees the nudge exactly where they need to act. `generic`
@@ -142,6 +146,8 @@ export default function BookingForm({
         phone: "+380" + phoneDigits,
         interestValues: interests,
         interestLabels: labels,
+        preferredDate: preferred.date ?? undefined,
+        preferredTime: preferred.time ?? undefined,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
         pageTitle: typeof document !== "undefined" ? document.title : undefined,
         referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
@@ -304,6 +310,22 @@ export default function BookingForm({
           clearLabel={t("interestClear")}
           labelId="booking-interest-label"
           disabled={!options}
+        />
+      </Field>
+
+      <Field label={t("preferredLabel")} htmlFor="booking-preferred-label" isLabelId>
+        <DateTimePicker
+          value={preferred}
+          onChange={setPreferred}
+          locale={locale}
+          labelId="booking-preferred-label"
+          placeholder={t("preferredPlaceholder")}
+          timeHeading={t("preferredTimeHeading")}
+          timeHint={t("preferredTimeHint")}
+          anyTimeLabel={t("preferredAnyTime")}
+          clearLabel={t("interestClear")}
+          prevMonthLabel={t("preferredPrevMonth")}
+          nextMonthLabel={t("preferredNextMonth")}
         />
       </Field>
 
