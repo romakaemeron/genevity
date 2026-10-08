@@ -14,7 +14,7 @@ import { useSiteSettings } from "@/components/providers/SiteSettingsProvider";
  * viewport edge in one motion.
  *
  * On phones only the number and the hours survive — the address is too long to
- * share a 32px row with them, and it is one tap away in the footer anyway.
+ * share a 36px row with them, and it is one tap away in the footer anyway.
  */
 export default function UtilityBar({
   hidden,
@@ -40,14 +40,14 @@ export default function UtilityBar({
   return (
     <div
       className={`overflow-hidden border-b transition-[height,opacity] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${borderClass} ${
-        hidden ? "h-0 opacity-0 border-b-0" : "h-8 lg:h-9 opacity-100"
+        hidden ? "h-0 opacity-0 border-b-0" : "h-9 lg:h-10 opacity-100"
       }`}
       // The row is decorative duplication of the footer's contact block for
       // sighted users; keep it out of the a11y tree while collapsed.
       aria-hidden={hidden}
     >
       <div className="max-w-[var(--container-max)] mx-auto h-full px-4 sm:px-6 lg:px-[var(--container-padding)]">
-        <div className={`flex h-full items-center justify-between gap-4 body-s ${textClass}`}>
+        <div className={`flex h-full items-center justify-between gap-4 body-m ${textClass}`}>
           <div className="flex items-center gap-5 min-w-0">
             {address && (
               <a
@@ -56,13 +56,13 @@ export default function UtilityBar({
                 rel="noopener noreferrer"
                 className={`hidden lg:flex items-center gap-1.5 min-w-0 transition-colors ${hoverClass}`}
               >
-                <MapPin className={`w-3.5 h-3.5 shrink-0 ${iconClass}`} aria-hidden="true" />
+                <MapPin className={`w-4 h-4 shrink-0 ${iconClass}`} aria-hidden="true" />
                 <span className="truncate">{address}</span>
               </a>
             )}
             {hours && (
               <span className="flex items-center gap-1.5 min-w-0">
-                <Clock className={`w-3.5 h-3.5 shrink-0 ${iconClass}`} aria-hidden="true" />
+                <Clock className={`w-4 h-4 shrink-0 ${iconClass}`} aria-hidden="true" />
                 <span className="truncate">{hours}</span>
               </span>
             )}
@@ -74,7 +74,7 @@ export default function UtilityBar({
                  the element carrying the binct class, so the class must sit on
                  the <a>. Same reasoning as the footer's contact block. */
               <span className="flex items-center gap-1.5">
-                <Phone className={`w-3.5 h-3.5 shrink-0 ${iconClass}`} aria-hidden="true" />
+                <Phone className={`w-4 h-4 shrink-0 ${iconClass}`} aria-hidden="true" />
                 <a href={tel(phone1)} className={`binct-phone-number-1 whitespace-nowrap transition-colors ${hoverClass}`}>
                   {phone1}
                 </a>
