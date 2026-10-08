@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BookingCTA from "@/components/ui/BookingCTA";
 import dynamic from "next/dynamic";
 const DoctorReviews = dynamic(() => import("@/components/doctors/DoctorReviews"), { ssr: false });
-const CertificateGallery = dynamic(() => import("@/components/doctors/CertificateGallery"), { ssr: false });
+const CertificateGallery = dynamic(() => import("@/components/certificates/CertificateGallery"), { ssr: false });
 import { JsonLd } from "@/components/seo/JsonLd";
 import { useScrollReveal } from "@/lib/useReveal";
 
@@ -55,6 +55,16 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
     }));
 
   const certTitle = locale === "ru" ? "Сертификаты" : locale === "en" ? "Certificates" : "Сертифікати";
+
+  const certLang = (locale === "ua" ? "uk" : locale) as "uk" | "ru" | "en";
+  const certAlt = (c: DoctorProfileData["certificateImages"][number]) =>
+    c[`alt_${certLang}` as keyof typeof c] as string || c.alt_uk;
+  const certGalleryItems = doctor.certificateImages
+    .filter((c) => c.type === "image")
+    .map((c) => ({ url: c.url, alt: certAlt(c) }));
+  const certGalleryPdfs = doctor.certificateImages
+    .filter((c) => c.type === "pdf")
+    .map((c) => ({ url: c.url, alt: certAlt(c) }));
 
   return (
     <>
@@ -163,7 +173,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
           {certImagesForSchema.length > 0 && (
             <JsonLd data={certImagesForSchema.length === 1 ? certImagesForSchema[0] : { "@context": "https://schema.org", "@graph": certImagesForSchema }} />
           )}
-          <CertificateGallery images={doctor.certificateImages} doctorName={doctor.name} locale={locale} title={certTitle} />
+          <CertificateGallery items={certGalleryItems} pdfs={certGalleryPdfs} title={certTitle} />
         </>
       )}
 

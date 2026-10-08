@@ -453,6 +453,7 @@ function buildServiceBlocks(
     { key: "reviews",         label: "Patient reviews",        description: "Carousel of reviews tagged with this service. Tag them on the Reviews page.",      hasContent: true },
     { key: "doctors",         label: "Related doctors",        description: "Doctors who perform this procedure. Managed on the Relations tab.",                hasContent: relations.doctorIds.length > 0 },
     { key: "equipment",       label: "Related equipment",      description: "Devices used for this procedure. Managed on the Relations tab.",                   hasContent: relations.equipmentIds.length > 0 },
+    { key: "certificates",    label: "Equipment certificates", description: "Conformity certificates of the linked devices. Managed on each Equipment page.",   hasContent: relations.equipmentIds.length > 0 },
     { key: "relatedServices", label: "Related services",       description: '"Also interesting" grid of other services. Managed on the Relations tab.',         hasContent: relations.relatedServiceIds.length > 0 },
     { key: "finalCTA",        label: "Final booking CTA",      description: "Closing call-to-action card with the Book button.",                               hasContent: true },
   ];

@@ -10,6 +10,7 @@ import type {
 } from "../types";
 import { getSections, getFaqItems } from "./sections";
 import { getReviewer } from "./doctors";
+import { resolveCertificates, type RawEquipmentCertificate } from "./equipment-certificates";
 import { getEquipmentServiceLinks } from "./homepage";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
@@ -286,6 +287,7 @@ async function getRelatedEquipment(serviceId: string, l: string): Promise<Equipm
     note: pick(r, "note", l) || "",
     photo: r.photo,
     services: links.get(r.id as string) ?? [],
+    certificates: resolveCertificates(r.certificates as RawEquipmentCertificate[] | string | null, l),
   }));
 }
 

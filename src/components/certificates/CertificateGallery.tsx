@@ -5,13 +5,24 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, FileText, Download } from "lucide-react";
 import Button from "@/components/ui/Button";
-import type { CertificateImage } from "@/lib/db/queries/doctors";
+
+/** One scan in the strip. `caption` is shown under the lightbox image —
+ *  apparatus certificates use it for the document name and registry number;
+ *  doctor certificates leave it unset. */
+export interface CertificateGalleryItem {
+  url: string;
+  alt: string;
+  caption?: string;
+}
 
 interface Props {
-  images: CertificateImage[];
-  doctorName: string;
-  locale: string;
+  items: CertificateGalleryItem[];
   title: string;
+  /** Documents that are not images (PDF scans) — rendered as download links. */
+  pdfs?: { url: string; alt: string }[];
+  /** Heading level; the doctor profile and the service page both already
+   *  render an `h1`, so these galleries stay at `h2`. */
+  headingId?: string;
 }
 
 /* ─── Lightbox ─────────────────────────────────────────────────────────── */
@@ -22,7 +33,7 @@ function Lightbox({
   onPrev,
   onNext,
 }: {
-  items: CertificateImage[];
+  items: CertificateGalleryItem[];
   index: number;
   onClose: () => void;
   onPrev: () => void;
@@ -118,9 +129,13 @@ function Lightbox({
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      {/* image area — swipeable */}
+      {/* image area — swipeable. A caption can wrap to three lines on a narrow
+          viewport, so the image area reserves room for it instead of letting it
+          sit over the scan. */}
       <div
-        className="fixed inset-0 z-[1001] flex items-center justify-center px-16 py-14"
+        className={`fixed inset-0 z-[1001] flex items-center justify-center px-16 pt-14 ${
+          cert.caption ? "pb-44 sm:pb-32" : "pb-14"
+        }`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
         onClick={onClose}
@@ -129,8 +144,8 @@ function Lightbox({
           <Image
             key={cert.url}
             src={cert.url}
-            alt={cert.alt_uk}
-            title={cert.alt_uk}
+            alt={cert.alt}
+            title={cert.alt}
             fill
             className="object-contain select-none"
             sizes="90vw"
@@ -141,7 +156,10 @@ function Lightbox({
       </div>
 
       {/* counter + dot strip */}
-      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[1002] flex flex-col items-center gap-2">
+      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-[1002] flex max-w-[min(90vw,42rem)] flex-col items-center gap-2 px-4 text-center">
+        {cert.caption && (
+          <p className="text-white/80 text-sm leading-snug">{cert.caption}</p>
+        )}
         {/* dot indicators — up to 20 dots, else just text */}
         {items.length <= 20 && (
           <div className="flex gap-1.5">
@@ -165,15 +183,15 @@ function Lightbox({
 }
 
 /* ─── Gallery strip ─────────────────────────────────────────────────────── */
-export default function CertificateGallery({ images, title }: Props) {
+export default function CertificateGallery({ items, title, pdfs = [], headingId }: Props) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [hasOverflow, setHasOverflow] = useState(false);
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
 
-  const imageItems = images.filter((c) => c.type === "image");
-  const pdfItems = images.filter((c) => c.type === "pdf");
+  const imageItems = items;
+  const pdfItems = pdfs;
 
   const updateScrollState = useCallback(() => {
     const el = scrollerRef.current;
@@ -219,14 +237,14 @@ export default function CertificateGallery({ images, title }: Props) {
   const prevImage = useCallback(() => setLightboxIdx((i) => (i !== null && i > 0 ? i - 1 : i)), []);
   const nextImage = useCallback(() => setLightboxIdx((i) => (i !== null && i < imageItems.length - 1 ? i + 1 : i)), [imageItems.length]);
 
-  if (images.length === 0) return null;
+  if (imageItems.length === 0 && pdfItems.length === 0) return null;
 
   return (
     <>
       <section className="bg-champagne py-12 lg:py-16">
         {/* header + arrows */}
         <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mb-6 flex items-center justify-between gap-4">
-            <h2 className="heading-2 text-black">{title}</h2>
+            <h2 id={headingId} className="heading-2 text-black">{title}</h2>
           {hasOverflow && (
             <div className="flex gap-2 shrink-0">
               <Button variant="secondary" icon size="sm" onClick={() => scroll("left")} disabled={!canScrollLeft}>
@@ -248,12 +266,12 @@ export default function CertificateGallery({ images, title }: Props) {
                 onClick={() => setLightboxIdx(i)}
                 className="shrink-0 group overflow-hidden rounded-2xl bg-champagne-dark cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-main"
                 style={{ scrollSnapAlign: "start" }}
-                aria-label={cert.alt_uk}
+                aria-label={cert.alt}
               >
                 <Image
                   src={cert.url}
-                  alt={cert.alt_uk}
-                  title={cert.alt_uk}
+                  alt={cert.alt}
+                  title={cert.alt}
                   width={0}
                   height={0}
                   sizes="600px"
@@ -275,7 +293,7 @@ export default function CertificateGallery({ images, title }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-champagne-dark hover:bg-champagne-darker transition-colors body-s text-black"
-                aria-label={cert.alt_uk}
+                aria-label={cert.alt}
               >
                 <FileText className="w-4 h-4 text-main shrink-0" />
                 <span>PDF</span>

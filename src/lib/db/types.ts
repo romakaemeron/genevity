@@ -9,6 +9,25 @@ export interface EquipmentServiceLink {
   title: string;
 }
 
+/** One scanned page of a conformity certificate, already resolved to a locale.
+ *  Stored on `equipment.certificates`, so the same upload serves every service
+ *  page that links the device. */
+export interface EquipmentCertificate {
+  url: string;
+  /** Name of the document, e.g. "Сертифікат відповідності на обладнання BTL". */
+  doc: string;
+  /** Body that issued it. */
+  issuer: string;
+  /** Registry number as printed on the scan; empty when the document has none. */
+  number: string;
+  /** Validity as printed; empty when the document states none. */
+  validUntil: string;
+  alt: string;
+  /** 1-based page within its source document, and that document's page count. */
+  page: number;
+  pageCount: number;
+}
+
 export interface EquipmentItem {
   _id: string;
   category: string;
@@ -21,6 +40,8 @@ export interface EquipmentItem {
   photo: string | null;
   /** Empty when the device has no linked service pages yet. */
   services: EquipmentServiceLink[];
+  /** Empty when no conformity documents have been uploaded for the device. */
+  certificates: EquipmentCertificate[];
 }
 
 export interface DoctorReview {
@@ -341,6 +362,7 @@ export interface ServiceBlockHeadings {
   reviews?: string;
   doctors?: string;
   equipment?: string;
+  certificates?: string;
   relatedServices?: string;
   finalCTA?: string;
 }
