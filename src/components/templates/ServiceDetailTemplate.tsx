@@ -16,6 +16,7 @@ import Button from "@/components/ui/Button";
 import Modal from "@/components/ui/Modal";
 import EquipmentCard from "@/components/equipment/EquipmentCard";
 import EquipmentModalContent from "@/components/equipment/EquipmentModal";
+import CertificateGallery from "@/components/certificates/CertificateGallery";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import { JsonLdMedicalProcedure } from "@/components/seo/JsonLdMedicalProcedure";
 import { JsonLdMedicalWebPage } from "@/components/seo/JsonLdMedicalWebPage";
@@ -64,7 +65,17 @@ const REVIEWS_HEADING_FALLBACK: Record<string, string> = {
   en: "Reviews of this service",
 };
 
-export const SERVICE_FIXED_BLOCKS = ["faq", "reviews", "doctors", "equipment", "relatedServices", "finalCTA"] as const;
+/** Heading and link copy for the apparatus-certificates block. Hardcoded like
+ *  the other per-locale strings on this template — the block is identical on
+ *  every service page, so there is nothing for an editor to change here beyond
+ *  the `blockHeadings.certificates` override. */
+const CERTIFICATES_COPY: Record<string, { heading: string; all: string }> = {
+  ua: { heading: "Сертифікати на обладнання", all: "Усі сертифікати" },
+  ru: { heading: "Сертификаты на оборудование", all: "Все сертификаты" },
+  en: { heading: "Equipment certificates", all: "All certificates" },
+};
+
+export const SERVICE_FIXED_BLOCKS = ["faq", "reviews", "doctors", "equipment", "certificates", "relatedServices", "finalCTA"] as const;
 export type ServiceFixedBlockKey = typeof SERVICE_FIXED_BLOCKS[number];
 export type ServiceBlockKey = ServiceFixedBlockKey | `section:${string}`;
 
@@ -264,6 +275,39 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
                 )}
               </div>
             ) : null;
+
+          case "certificates": {
+            // Certificates live on the device, so a page using two machines
+            // shows both sets — deduped, because devices such as Ultraformer
+            // MPT and Volnewmer share one Classys certificate.
+            const seenCert = new Set<string>();
+            const certItems = (data.relatedEquipment || [])
+              .flatMap((eq) => eq.certificates || [])
+              .filter((c) => (seenCert.has(c.url) ? false : (seenCert.add(c.url), true)))
+              .map((c) => ({
+                url: c.url,
+                alt: c.alt,
+                caption: [c.doc, c.number && `№ ${c.number}`, c.issuer].filter(Boolean).join(" · "),
+              }));
+            if (!certItems.length) return null;
+            const certCopy = CERTIFICATES_COPY[locale] ?? CERTIFICATES_COPY.ua;
+            return (
+              <div key="certificates" className="mt-20 lg:mt-24">
+                <CertificateGallery
+                  items={certItems}
+                  title={heading(data.blockHeadings.certificates, certCopy.heading)}
+                />
+                <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
+                  <Link href="/certificates">
+                    <Button variant="outline" size="sm">
+                      {certCopy.all}
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            );
+          }
 
           case "relatedServices":
             return data.relatedServices?.length > 0 ? (

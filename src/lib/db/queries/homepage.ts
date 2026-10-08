@@ -1,6 +1,8 @@
 import { sql } from "../client";
 import type { HomepageData, HeroData, AboutData, SiteSettingsData, UiStringsData, EquipmentItem, EquipmentServiceLink, DoctorItem, FaqItem } from "../types";
 
+import { resolveCertificates, type RawEquipmentCertificate } from "./equipment-certificates";
+
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 
 /** Heading above the equipment modal's service links, until
@@ -83,6 +85,7 @@ async function getEquipment(l: string): Promise<EquipmentItem[]> {
     note: pick(r, "note", l),
     photo: r.photo,
     services: links.get(r.id as string) ?? [],
+    certificates: resolveCertificates(r.certificates as RawEquipmentCertificate[] | string | null, l),
   }));
 }
 

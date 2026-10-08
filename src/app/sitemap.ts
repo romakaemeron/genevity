@@ -85,6 +85,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Media/press mentions
   entries.push(...localeUrls("/media"));
 
+  // Equipment certificates hub
+  entries.push(...localeUrls("/certificates"));
+
   // TZ №14: /services and /doctors are pushed both explicitly and via
   // `static_pages`, which is why GSC reported 121 discovered URLs for 123
   // <loc> entries. Keep the first occurrence of each URL.

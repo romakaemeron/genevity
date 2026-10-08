@@ -182,12 +182,12 @@ export async function saveService(_prevState: any, formData: FormData) {
 
 /**
  * Persist an admin-chosen block order for a service detail page. Valid entries:
- *   - one of the fixed keys: faq | doctors | equipment | relatedServices | finalCTA
+ *   - one of the fixed keys: faq | doctors | equipment | certificates | relatedServices | finalCTA
  *   - section:<uuid> — references an individual content_sections row
  * Unknown keys are filtered defensively before write; template also re-validates.
  */
 export async function saveServiceBlockOrder(serviceId: string, order: string[]) {
-  const FIXED = new Set(["faq", "doctors", "equipment", "relatedServices", "finalCTA"]);
+  const FIXED = new Set(["faq", "doctors", "equipment", "certificates", "relatedServices", "finalCTA"]);
   const cleaned = order.filter((k) => FIXED.has(k) || k.startsWith("section:"));
   await sql`UPDATE services SET block_order = ${cleaned} WHERE id = ${serviceId}`;
   revalidatePath("/");
@@ -200,7 +200,7 @@ export async function saveServiceBlockOrder(serviceId: string, order: string[]) 
  * then rebuilds each service's block_order using their own section IDs (by sort_order).
  */
 export async function applyLayoutToAllServices(templateOrder: string[], skipServiceId?: string) {
-  const FIXED = new Set(["faq", "doctors", "equipment", "relatedServices", "finalCTA"]);
+  const FIXED = new Set(["faq", "doctors", "equipment", "certificates", "relatedServices", "finalCTA"]);
 
   // Build structural pattern: collapse all section:* into a single __S__ marker
   const pattern: string[] = [];
