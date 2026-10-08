@@ -9,6 +9,7 @@ import LocaleSelector from "@/components/ui/LocaleSelector";
 import SearchTrigger from "@/components/ui/SearchTrigger";
 import SearchModal from "@/components/ui/SearchModal";
 import MegaMenuPanel from "./MegaMenuPanel";
+import UtilityBar from "./UtilityBar";
 import { navTop, type NavTop } from "./navConfig";
 import { resolveNavLabel } from "./navLabel";
 
@@ -57,7 +58,9 @@ export default function MegaMenuHeader({
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(!hideUntilScrollPastId);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [barHidden, setBarHidden] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const onScroll = () => {
@@ -67,6 +70,25 @@ export default function MegaMenuHeader({
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Contact stripe: hides on the way down, comes back on the way up. Only the
+  // fixed header does this — an absolute one scrolls off with the hero, so
+  // collapsing its stripe would animate something already leaving the screen.
+  useEffect(() => {
+    if (position !== "fixed") return;
+    lastScrollY.current = window.scrollY;
+    const onScroll = () => {
+      if (document.body.style.position === "fixed") return;
+      const y = window.scrollY;
+      const dy = y - lastScrollY.current;
+      // Ignore sub-pixel jitter and iOS rubber-banding past the top.
+      if (Math.abs(dy) < 6) return;
+      lastScrollY.current = y;
+      setBarHidden(y > 8 && dy > 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [position]);
 
   useEffect(() => {
     if (!hideUntilScrollPastId) return;
@@ -161,6 +183,11 @@ export default function MegaMenuHeader({
       style={headerStyle}
       onMouseLeave={scheduleClose}
     >
+      {/* Collapsed while the mobile menu is open: that panel is positioned from
+          a fixed 64px header top, so the stripe has to be out of the way for it
+          to line up. */}
+      <UtilityBar hidden={barHidden || mobileOpen} lightText={isLightText} />
+
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           <Link href="/" className="flex items-center shrink-0 hover:opacity-80 transition-opacity duration-300" onClick={closeMobile}>
