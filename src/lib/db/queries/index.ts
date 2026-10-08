@@ -27,3 +27,5 @@ export {
   adminGetAllMentions, adminGetMentionById, adminSaveMention, adminDeleteMention,
 } from "./media";
 export type { MediaMentionPublic, MediaMentionAdmin, MediaMentionInput } from "./media";
+export { getCertificateDocuments, resolveCertificates } from "./equipment-certificates";
+export type { CertificateDocument, CertificateServiceLink, RawEquipmentCertificate } from "./equipment-certificates";
