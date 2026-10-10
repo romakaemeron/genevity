@@ -93,6 +93,61 @@ async function processPair(
   return { card: currentCard || null, modal: currentModal || null };
 }
 
+const PUBLICATION_KINDS = new Set(["article", "coauthor", "journal", "research", "method", "profile"]);
+
+type PublicationRecord = {
+  kind: string;
+  title_uk: string; title_ru: string; title_en: string;
+  source_uk: string; source_ru: string; source_en: string;
+  year: number | null;
+  url: string;
+};
+
+/**
+ * Parse + harden the publications JSON posted by PublicationsEditor.
+ * Returns `null` when the field is absent (→ the UPDATE skips the column),
+ * and an array otherwise — including an empty one, which is how the editor
+ * expresses "all entries deleted".
+ */
+function sanitizePublications(raw: FormDataEntryValue | null): PublicationRecord[] | null {
+  if (typeof raw !== "string") return null;
+  let parsed: unknown;
+  try { parsed = JSON.parse(raw); } catch { return null; }
+  if (!Array.isArray(parsed)) return null;
+
+  const out: PublicationRecord[] = [];
+  for (const item of parsed) {
+    if (!item || typeof item !== "object") continue;
+    const e = item as Record<string, unknown>;
+    const str = (k: string) => (typeof e[k] === "string" ? (e[k] as string).trim() : "");
+    const title_uk = str("title_uk");
+    const title_ru = str("title_ru");
+    const title_en = str("title_en");
+    if (!title_uk && !title_ru && !title_en) continue;
+
+    // Only http(s) survives — the public component links these with
+    // target="_blank", so a javascript:/data: URL must never reach the page.
+    let url = "";
+    const rawUrl = str("url");
+    if (rawUrl) {
+      try {
+        const u = new URL(rawUrl);
+        if (u.protocol === "http:" || u.protocol === "https:") url = u.toString();
+      } catch { /* malformed — drop the link, keep the entry */ }
+    }
+
+    const yearNum = parseInt(str("year"), 10);
+    out.push({
+      kind: PUBLICATION_KINDS.has(String(e.kind)) ? String(e.kind) : "article",
+      title_uk, title_ru, title_en,
+      source_uk: str("source_uk"), source_ru: str("source_ru"), source_en: str("source_en"),
+      year: Number.isFinite(yearNum) && yearNum > 1800 && yearNum < 2200 ? yearNum : null,
+      url,
+    });
+  }
+  return out;
+}
+
 export async function saveDoctor(_prevState: any, formData: FormData) {
   const id = formData.get("id") as string | null;
   const isNew = !id;
@@ -121,6 +176,11 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   let education = null, certifications = null;
   try { education = educationRaw ? JSON.parse(educationRaw) : null; } catch { education = null; }
   try { certifications = certificationsRaw ? JSON.parse(certificationsRaw) : null; } catch { certifications = null; }
+  // ТЗ #15 §1 — "Наукова діяльність". The column is NOT NULL DEFAULT '[]', and
+  // the field is absent on a form posted by an older cached bundle, so an
+  // unparsable or missing value must preserve nothing rather than wipe the
+  // list: `null` is passed through as "leave the column alone" below.
+  const publications = sanitizePublications(formData.get("publications_json"));
   const is_published = formData.get("is_published") === "1";
   const sort_order = parseInt(formData.get("sort_order") as string) || 0;
   const card_position = (formData.get("card_position") as string) || "center center";
@@ -185,12 +245,12 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
     await sql`
       INSERT INTO doctors (name_uk, name_ru, name_en, role_uk, role_ru, role_en, experience_uk, experience_ru, experience_en,
         slug, seo_title_uk, seo_title_ru, seo_title_en, seo_desc_uk, seo_desc_ru, seo_desc_en,
-        bio_uk, bio_ru, bio_en, education, certifications,
+        bio_uk, bio_ru, bio_en, education, certifications, publications,
         photo_card, photo_full, photo_circle, card_position, modal_position, circle_focal_point, circle_scale,
         profile_focal_point, profile_scale, sort_order, is_published)
       VALUES (${name_uk}, ${name_ru}, ${name_en}, ${role_uk}, ${role_ru}, ${role_en}, ${experience_uk}, ${experience_ru}, ${experience_en},
         ${slug}, ${seo_title_uk}, ${seo_title_ru}, ${seo_title_en}, ${seo_desc_uk}, ${seo_desc_ru}, ${seo_desc_en},
-        ${bio_uk}, ${bio_ru}, ${bio_en}, ${JSON.stringify(education)}, ${JSON.stringify(certifications)},
+        ${bio_uk}, ${bio_ru}, ${bio_en}, ${JSON.stringify(education)}, ${JSON.stringify(certifications)}, ${JSON.stringify(publications ?? [])},
         ${photo_card}, ${photo_full}, ${photo_circle}, ${card_position}, ${modal_position}, ${circle_focal_point}, ${circle_scale},
         ${profile_focal_point}, ${profile_scale}, ${sort_order}, ${is_published})
     `;
@@ -206,6 +266,7 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
         seo_desc_uk = ${seo_desc_uk}, seo_desc_ru = ${seo_desc_ru}, seo_desc_en = ${seo_desc_en},
         bio_uk = ${bio_uk}, bio_ru = ${bio_ru}, bio_en = ${bio_en},
         education = ${JSON.stringify(education)}, certifications = ${JSON.stringify(certifications)},
+        publications = COALESCE(${publications === null ? null : JSON.stringify(publications)}::jsonb, publications),
         photo_card = ${photo_card}, photo_full = ${photo_full}, photo_circle = ${photo_circle},
         card_position = ${card_position}, modal_position = ${modal_position},
         circle_focal_point = ${circle_focal_point}, circle_scale = ${circle_scale},
@@ -235,6 +296,9 @@ export async function saveDoctor(_prevState: any, formData: FormData) {
   revalidatePath("/doctors");
   revalidatePath("/ru/doctors");
   revalidatePath("/en/doctors");
+  if (slug) {
+    for (const prefix of ["", "/ru", "/en"]) revalidatePath(`${prefix}/doctors/${slug}`);
+  }
   revalidatePath("/sitemap-images");
   redirect("/admin/doctors");
 }

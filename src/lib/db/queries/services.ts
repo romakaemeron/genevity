@@ -12,6 +12,7 @@ import { getSections, getFaqItems } from "./sections";
 import { getReviewer } from "./doctors";
 import { resolveCertificates, type RawEquipmentCertificate } from "./equipment-certificates";
 import { getEquipmentServiceLinks } from "./homepage";
+import { getBeforeAfterCases, serviceBeforeAfterKey } from "./before-after";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: any, field: string, l: string) {
@@ -36,6 +37,7 @@ function resolveBlockHeadings(raw: unknown, l: string): ServiceBlockHeadings {
   return {
     faq: pickLocalized(src.faq, l),
     reviews: pickLocalized(src.reviews, l),
+    beforeAfter: pickLocalized(src.beforeAfter, l),
     doctors: pickLocalized(src.doctors, l),
     equipment: pickLocalized(src.equipment, l),
     relatedServices: pickLocalized(src.relatedServices, l),
@@ -78,7 +80,7 @@ export async function getServiceBySlug(
   if (!rows.length) return null;
   const r = rows[0];
 
-  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment, reviewer, reviews] = await Promise.all([
+  const [sections, faq, relatedDoctors, relatedServices, relatedEquipment, reviewer, reviews, beforeAfterCases] = await Promise.all([
     getSections("service", r.id, l),
     getFaqItems("service", r.id, l),
     getRelatedDoctors(r.id, l),
@@ -86,6 +88,7 @@ export async function getServiceBySlug(
     getRelatedEquipment(r.id, l),
     getReviewer(r.reviewer_doctor_id, l),
     getServiceReviews(r.id, l),
+    getBeforeAfterCases(serviceBeforeAfterKey(r.id as string), locale),
   ]);
 
   return {
@@ -118,6 +121,7 @@ export async function getServiceBySlug(
     reviewer,
     lastReviewedAt: r.last_reviewed_at ? new Date(r.last_reviewed_at).toISOString().slice(0, 10) : null,
     reviews,
+    beforeAfterCases,
   };
 }
 

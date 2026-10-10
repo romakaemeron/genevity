@@ -33,6 +33,8 @@ export const CTA_REGISTRY: readonly CtaRegistryEntry[] = [
   { key: "hero",                   group: "Homepage & navigation", label: "Homepage hero",                 description: "The primary CTA inside the homepage hero slideshow." },
   { key: "megamenu",               group: "Homepage & navigation", label: "Top navigation (desktop)",      description: "CTA in the sticky site header." },
   { key: "megamenuMobile",         group: "Homepage & navigation", label: "Top navigation (mobile menu)",  description: "CTA shown inside the mobile hamburger panel." },
+  { key: "homepagePromotions",     group: "Homepage & navigation", label: "Homepage — promotions card",    description: "Booking CTA on an \"Акції\" card that has no landing page of its own (ТЗ #16 §1.2)." },
+  { key: "homepageFinal",          group: "Homepage & navigation", label: "Homepage — final CTA banner",   description: "Inline booking form in the closing banner above the footer (ТЗ #16 §1.3)." },
 
   // Service pages
   { key: "serviceDetailHero",      group: "Service pages", label: "Service detail — hero CTA",   description: "Above-the-fold CTA inside a service's hero block." },

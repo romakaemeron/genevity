@@ -131,7 +131,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
                       </div>
                     </RevealDiv>
                   ) : (
-                    <div id={`section-${section._key}`}><SectionRenderer sections={[section]} /></div>
+                    <div id={`section-${section._key}`}><SectionRenderer sections={[section]} locale={locale} /></div>
                   )}
                   {isMidpoint && (
                     <RevealDiv className="mt-12 lg:mt-16 relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden hidden lg:block">

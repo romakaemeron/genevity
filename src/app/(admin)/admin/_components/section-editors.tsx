@@ -25,6 +25,7 @@ export const SECTION_LABELS: Record<string, string> = {
   showcaseGallery: "Showcase Gallery",
   relatedDoctors: "Related Doctors",
   cta: "CTA Block",
+  alternatives: "Alternatives comparison (Порівняння з альтернативами)",
   sources: "Sources (Джерела)",
 };
 
@@ -62,6 +63,16 @@ export function createDefaultData(type: string): any {
       return { heading: emptyLocaleString(), doctorIds: [] };
     case "cta":
       return { heading: emptyLocaleString(), body: emptyLocaleString(), ctaLabel: emptyLocaleString(), ctaHref: "" };
+    case "alternatives":
+      return {
+        heading: emptyLocaleString(),
+        intro: emptyLocaleString(),
+        uniqueHeading: emptyLocaleString(),
+        unique: emptyLocaleArray(),
+        comparisonHeading: emptyLocaleString(),
+        alternatives: [],
+        conclusion: emptyLocaleString(),
+      };
     case "sources":
       return { heading: emptyLocaleString(), items: [] };
     default:
@@ -91,6 +102,7 @@ export function SectionEditor({ type, data, onChange, doctors }: { type: string 
     case "showcaseGallery": return <ShowcaseGalleryEditor data={data} onChange={onChange} />;
     case "relatedDoctors": return <RelatedDoctorsEditor data={data} onChange={onChange} doctors={doctors || []} />;
     case "cta": return <CtaEditor data={data} onChange={onChange} />;
+    case "alternatives": return <AlternativesEditor data={data} onChange={onChange} />;
     case "sources": return <SourcesEditor data={data} onChange={onChange} />;
     default: return <div className="text-sm text-muted">Unknown section type: {type}</div>;
   }
@@ -644,6 +656,137 @@ function ShowcaseGalleryEditor({ data, onChange }: EditorProps<{
         maxSelect={MAX_IMAGES - data.images.length}
         onPickMultiple={handlePickMultiple}
         preferredFolder="sections"
+      />
+    </div>
+  );
+}
+
+/**
+ * ТЗ #16 §2.2 — "Порівняння з альтернативами".
+ *
+ * Two independent halves: a bullet list of what makes the procedure unique,
+ * and one row per competing option (name / what the alternative gives / what
+ * this procedure gives). Section headings are optional — the public component
+ * falls back to localized defaults so an editor only has to fill the content.
+ */
+function AlternativesEditor({ data, onChange }: EditorProps<{
+  heading: LocaleString;
+  intro?: LocaleString;
+  uniqueHeading?: LocaleString;
+  unique: LocaleArray;
+  comparisonHeading?: LocaleString;
+  alternatives: { name: LocaleString; theirs: LocaleString; ours: LocaleString }[];
+  conclusion?: LocaleString;
+}>) {
+  const activeLocale = useContext(SectionLocaleContext);
+  const rows = data.alternatives || [];
+
+  const addRow = () =>
+    onChange({
+      ...data,
+      alternatives: [...rows, { name: emptyLocaleString(), theirs: emptyLocaleString(), ours: emptyLocaleString() }],
+    });
+  const updateRow = (i: number, field: "name" | "theirs" | "ours", value: string) => {
+    const next = [...rows];
+    next[i] = { ...next[i], [field]: { ...(next[i][field] || emptyLocaleString()), [activeLocale]: value } };
+    onChange({ ...data, alternatives: next });
+  };
+  const removeRow = (i: number) =>
+    onChange({ ...data, alternatives: rows.filter((_, idx) => idx !== i) });
+
+  const cellClass =
+    "w-full px-2 py-1.5 rounded-md bg-champagne-dark border border-line text-ink text-xs outline-none focus:border-main";
+
+  return (
+    <div className="flex flex-col gap-4">
+      <LocaleText label="Heading" value={data.heading} onChange={(v) => onChange({ ...data, heading: v })} />
+      <LocaleText
+        label="Intro (optional)"
+        multiline
+        rows={3}
+        value={data.intro || emptyLocaleString()}
+        onChange={(v) => onChange({ ...data, intro: v })}
+        placeholder="Пацієнти часто вагаються між кріоліполізом та EMSCULPT NEO…"
+      />
+
+      <div className="rounded-lg border border-line p-3 flex flex-col gap-3">
+        <LocaleText
+          label="«Унікальність» heading (optional)"
+          value={data.uniqueHeading || emptyLocaleString()}
+          onChange={(v) => onChange({ ...data, uniqueHeading: v })}
+          placeholder="У чому унікальність послуги"
+        />
+        <LocaleStringList
+          label="What makes this procedure unique"
+          value={data.unique}
+          onChange={(v) => onChange({ ...data, unique: v })}
+          itemPlaceholder="Одночасно спалює жир (RF-нагрів) і будує м'язи (HIFEM)"
+        />
+      </div>
+
+      <div className="rounded-lg border border-line p-3 flex flex-col gap-3">
+        <LocaleText
+          label="Comparison heading (optional)"
+          value={data.comparisonHeading || emptyLocaleString()}
+          onChange={(v) => onChange({ ...data, comparisonHeading: v })}
+          placeholder="Порівняння з альтернативами"
+        />
+
+        <div className="flex flex-col gap-2">
+          <label className="text-[11px] font-medium text-muted uppercase tracking-wider">
+            Alternatives ({rows.length})
+          </label>
+          {rows.map((row, i) => (
+            <div key={i} className="rounded-lg border border-line bg-champagne/30 p-2.5 flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] text-muted">#{i + 1}</span>
+                <input
+                  value={row.name?.[activeLocale] || ""}
+                  onChange={(e) => updateRow(i, "name", e.target.value)}
+                  placeholder="Кріоліполіз"
+                  className={cellClass}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeRow(i)}
+                  className="text-muted hover:text-error transition-colors cursor-pointer shrink-0"
+                  title="Remove"
+                >
+                  <Trash2 size={13} />
+                </button>
+              </div>
+              <textarea
+                rows={2}
+                value={row.theirs?.[activeLocale] || ""}
+                onChange={(e) => updateRow(i, "theirs", e.target.value)}
+                placeholder="Що дає альтернатива — тільки руйнує жирові клітини, м'язи не задіяні."
+                className={`${cellClass} resize-y`}
+              />
+              <textarea
+                rows={2}
+                value={row.ours?.[activeLocale] || ""}
+                onChange={(e) => updateRow(i, "ours", e.target.value)}
+                placeholder="Що дає ця послуга — 20 000 скорочень за 30 хвилин і одночасне зменшення жиру."
+                className={`${cellClass} resize-y`}
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addRow}
+            className="self-start inline-flex items-center gap-1.5 text-xs text-main hover:text-main-dark transition-colors cursor-pointer"
+          >
+            <Plus size={12} /> Add alternative
+          </button>
+        </div>
+      </div>
+
+      <LocaleText
+        label="Conclusion (optional)"
+        multiline
+        rows={2}
+        value={data.conclusion || emptyLocaleString()}
+        onChange={(v) => onChange({ ...data, conclusion: v })}
       />
     </div>
   );

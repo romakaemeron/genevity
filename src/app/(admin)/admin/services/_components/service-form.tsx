@@ -13,6 +13,8 @@ import SeoFormTab from "../../_components/seo-form-tab";
 import BlockOrderEditor, { type BlockDef } from "../../_components/block-order-editor";
 import ServiceOverridesEditor from "../../_components/service-overrides-editor";
 import FinalCtaEditor from "../../_components/final-cta-editor";
+import BeforeAfterEditor from "../../_components/before-after-editor";
+import { serviceBeforeAfterKey, type BeforeAfterCaseInput } from "@/lib/db/queries/before-after";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import Button from "@/components/ui/Button";
 import type { ServiceBlockHeadingsInput, ServiceFinalCtaInput } from "../../_actions/services";
@@ -26,11 +28,14 @@ interface Props {
   doctors?: { id: string; name_uk: string; role_uk: string | null }[];
   /** Published doctors as {id, name} — used by the "Reviewed by" selector below. */
   doctorOptions?: { id: string; name: string }[];
+  /** ТЗ #16 §2.1 — this service's before/after cases. */
+  beforeAfterCases?: BeforeAfterCaseInput[];
   allServices?: { id: string; title_uk: string; slug: string; cat_title: string }[];
   equipment?: { id: string; name: string; category: string }[];
   /** Global ui_strings labels for all locales — used as placeholders in per-service override inputs. */
   uiDefaults?: {
     faq?: { uk: string; ru: string; en: string };
+    beforeAfter?: { uk: string; ru: string; en: string };
     reviews?: { uk: string; ru: string; en: string };
     doctors?: { uk: string; ru: string; en: string };
     equipment?: { uk: string; ru: string; en: string };
@@ -39,12 +44,13 @@ interface Props {
   };
 }
 
-type Tab = "meta" | "seo" | "sections" | "faq" | "relations" | "layout";
+type Tab = "meta" | "seo" | "sections" | "faq" | "beforeAfter" | "relations" | "layout";
 
 export default function ServiceForm({
   service: svc, categories,
   sections = [], faq = [], relations = { doctorIds: [], relatedServiceIds: [], equipmentIds: [] },
   doctors = [], doctorOptions = [], allServices = [], equipment = [], uiDefaults = {},
+  beforeAfterCases = [],
 }: Props) {
   const [state, formAction] = useActionState(saveService, null as any);
   const [tab, setTab] = useState<Tab>("meta");
@@ -56,6 +62,7 @@ export default function ServiceForm({
     { key: "seo", label: "SEO", show: !isNew },
     { key: "sections", label: `Sections (${sections.length})`, show: !isNew },
     { key: "faq", label: `FAQ (${faq.length})`, show: !isNew },
+    { key: "beforeAfter", label: `Before / After (${beforeAfterCases.length})`, show: !isNew },
     { key: "relations", label: "Relations", show: !isNew },
     { key: "layout", label: "Layout", show: !isNew },
   ];
@@ -330,6 +337,7 @@ export default function ServiceForm({
                   serviceLabel={svc.title_uk || svc.slug}
                   blocks={[
                     { key: "faq",             label: "FAQ",              globalDefault: uiDefaults.faq },
+                    { key: "beforeAfter",     label: "Before / After",   globalDefault: uiDefaults.beforeAfter },
                     { key: "reviews",         label: "Patient reviews",  globalDefault: uiDefaults.reviews },
                     { key: "doctors",         label: "Doctors",          globalDefault: uiDefaults.doctors },
                     { key: "equipment",       label: "Equipment",        globalDefault: uiDefaults.equipment },
@@ -354,6 +362,22 @@ export default function ServiceForm({
         <div className="p-8">
           <p className="body-m text-muted mb-6">Frequently asked questions shown at the bottom of the service page.</p>
           <FaqEditor ownerType="service" ownerId={svc.id} initial={faq} />
+        </div>
+      )}
+
+      {tab === "beforeAfter" && !isNew && (
+        <div className="p-8">
+          <p className="body-m text-muted mb-6 max-w-2xl">
+            Photo evidence for this procedure (ТЗ&nbsp;#16&nbsp;§2.1). Each case needs a
+            &laquo;before&raquo; and an &laquo;after&raquo; photo plus the treated zone and the
+            number of sessions. The block renders on the service page in the position set on the
+            <strong> Layout</strong> tab, and stays hidden while no complete case exists.
+          </p>
+          <BeforeAfterEditor
+            ownerKey={serviceBeforeAfterKey(svc.id)}
+            ownerLabel={svc.title_uk || svc.slug}
+            initial={beforeAfterCases}
+          />
         </div>
       )}
 
@@ -384,7 +408,7 @@ export default function ServiceForm({
           <BlockOrderEditor
             entityId={svc.id}
             entityLabel={svc.title_uk || svc.slug}
-            blocks={buildServiceBlocks(svc, sections, faq, relations)}
+            blocks={buildServiceBlocks(svc, sections, faq, relations, beforeAfterCases.length)}
             initialOrder={(svc.block_order as string[] | null) || null}
             onSave={(order) => saveServiceBlockOrder(svc.id, order)}
             onApplyToAll={(order) => applyLayoutToAllServices(order, svc.id)}
@@ -403,6 +427,7 @@ const SECTION_TYPE_LABELS: Record<string, string> = {
   bullets: "Bullet list",
   steps: "Steps",
   compareTable: "Compare table",
+  alternatives: "Alternatives comparison",
   indicationsContraindications: "Indications / Contraindications",
   priceTeaser: "Price teaser",
   callout: "Callout",
@@ -432,6 +457,7 @@ function buildServiceBlocks(
   sections: { id?: string; type: string; data: any }[],
   faq: any[],
   relations: { doctorIds: string[]; relatedServiceIds: string[]; equipmentIds: string[] },
+  beforeAfterCount: number,
 ): BlockDef[] {
   const sectionBlocks: BlockDef[] = sections
     // Only sections that have a DB id can be referenced in block_order
@@ -450,6 +476,7 @@ function buildServiceBlocks(
   return [
     ...sectionBlocks,
     { key: "faq",             label: "FAQ",                    description: "Frequently asked questions. Managed on the FAQ tab.",                              hasContent: faq.length > 0 },
+    { key: "beforeAfter",     label: "Before / After",         description: "Comparison slider of real patient results. Managed on the Before / After tab.",    hasContent: beforeAfterCount > 0 },
     { key: "reviews",         label: "Patient reviews",        description: "Carousel of reviews tagged with this service. Tag them on the Reviews page.",      hasContent: true },
     { key: "doctors",         label: "Related doctors",        description: "Doctors who perform this procedure. Managed on the Relations tab.",                hasContent: relations.doctorIds.length > 0 },
     { key: "equipment",       label: "Related equipment",      description: "Devices used for this procedure. Managed on the Relations tab.",                   hasContent: relations.equipmentIds.length > 0 },

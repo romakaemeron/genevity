@@ -250,6 +250,8 @@ export async function uploadServiceImage(formData: FormData): Promise<{ url: str
 export type LocaleString = { uk?: string; ru?: string; en?: string };
 export type ServiceBlockHeadingsInput = {
   faq?: LocaleString;
+  /** ТЗ #16 §2.1 — "До / Після" block heading override. */
+  beforeAfter?: LocaleString;
   reviews?: LocaleString;
   doctors?: LocaleString;
   equipment?: LocaleString;
@@ -285,7 +287,7 @@ export async function saveServiceOverrides(
   headings: ServiceBlockHeadingsInput,
 ) {
   const cleanedHeadings: ServiceBlockHeadingsInput = {};
-  for (const k of ["faq", "reviews", "doctors", "equipment", "relatedServices"] as const) {
+  for (const k of ["faq", "beforeAfter", "reviews", "doctors", "equipment", "relatedServices"] as const) {
     const cleaned = cleanLocaleString(headings[k]);
     if (cleaned) cleanedHeadings[k] = cleaned;
   }

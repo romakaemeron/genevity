@@ -1,5 +1,8 @@
 import { getHomepageData, getHeroSlides, getStaticPageSeo, getGalleryItems, getMediaMentions } from "@/lib/db/queries";
 import { getClinicReviews, getReviewsSummary } from "@/lib/db/queries/reviews";
+import { getBeforeAfterCases, HOMEPAGE_BEFORE_AFTER_KEY } from "@/lib/db/queries/before-after";
+import { getPromotions } from "@/lib/db/queries/promotions";
+import { getHomepageCta } from "@/lib/db/queries/homepage-cta";
 import { generatePageMetadata } from "@/lib/seo";
 import { getTranslations , setRequestLocale} from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
@@ -17,6 +20,11 @@ const ReviewsBlock = dynamic(() => import("@/components/reviews/ReviewsBlock"));
 const HomeFaq      = dynamic(() => import("@/components/home/HomeFaq"));
 const MediaCoverage = dynamic(() => import("@/components/home/MediaCoverage"));
 const Contacts     = dynamic(() => import("@/components/home/Contacts"));
+// ТЗ #16 §1.1–1.3 — conversion blocks. Each renders null when its CMS table is
+// empty, so an unconfigured block costs nothing but the (lazy) chunk.
+const BeforeAfterBlock = dynamic(() => import("@/components/before-after/BeforeAfterBlock"));
+const Promotions   = dynamic(() => import("@/components/home/Promotions"));
+const FinalCta     = dynamic(() => import("@/components/home/FinalCta"));
 import { Link } from "@/i18n/navigation";
 import Button from "@/components/ui/Button";
 import { ChevronRight } from "lucide-react";
@@ -56,7 +64,10 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems, reviews, reviewsSummary, mediaMentions] = await Promise.all([
+  const [
+    data, tLabels, heroSlides, homepageAboutGallery, advantagesBentoItems,
+    reviews, reviewsSummary, mediaMentions, beforeAfterCases, promotions, finalCta,
+  ] = await Promise.all([
     getHomepageData(locale),
     getTranslations("labels"),
     getHeroSlides(locale),
@@ -65,6 +76,9 @@ export default async function HomePage({
     getClinicReviews(5),
     getReviewsSummary(),
     getMediaMentions(locale),
+    getBeforeAfterCases(HOMEPAGE_BEFORE_AFTER_KEY, locale),
+    getPromotions(locale),
+    getHomepageCta(locale),
   ]);
 
   return (
@@ -75,12 +89,22 @@ export default async function HomePage({
       <div className="flex flex-col gap-16 lg:gap-[120px]">
         <Hero data={data.hero} slides={heroSlides} />
         <div id="about"><About data={data.about} gallery={homepageAboutGallery} /></div>
+        {promotions.length > 0 && (
+          <div className="cv-auto">
+            <Promotions promotions={promotions} locale={locale} />
+          </div>
+        )}
         <div id="equipment" className="cv-auto">
           <Equipment items={data.equipment} ui={data.ui.equipment} />
         </div>
         <div id="advantages" className="cv-auto">
           <Advantages bentoImage={advantagesBentoItems[0] ?? null} />
         </div>
+        {beforeAfterCases.length > 0 && (
+          <div className="cv-auto">
+            <BeforeAfterBlock cases={beforeAfterCases} locale={locale} />
+          </div>
+        )}
         <div id="doctors" className="cv-auto">
           <Doctors doctors={data.doctors} ui={data.ui.doctors} detailsLabel={data.ui.equipment.details} />
           <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-6">
@@ -123,6 +147,11 @@ export default async function HomePage({
         <div id="contacts" className="cv-auto">
           <Contacts data={{ settings: data.settings, ui: data.ui.contacts }} />
         </div>
+        {finalCta.isEnabled && (
+          <div className="cv-auto">
+            <FinalCta data={finalCta} />
+          </div>
+        )}
       </div>
     </>
   );
