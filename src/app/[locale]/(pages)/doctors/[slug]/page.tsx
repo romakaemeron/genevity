@@ -110,11 +110,30 @@ export default async function DoctorPage({
     } : {}),
   };
 
+  // ТЗ #15 §1 — each listed publication becomes a CreativeWork authored by the
+  // doctor, so the scientific-activity block is machine-readable and not just
+  // on-page text. Entries without a primary-source URL are still emitted; the
+  // `@id` falls back to a page-scoped fragment so the node stays addressable.
+  const publicationNodes = doctor.publications.map((p, i) => ({
+    "@type": p.kind === "profile" ? "WebPage" : "ScholarlyArticle",
+    "@id": p.url || `${doctorUrl}#publication-${i + 1}`,
+    name: p.title,
+    ...(p.url ? { url: p.url } : {}),
+    ...(p.source ? { isPartOf: { "@type": "Periodical", name: p.source } } : {}),
+    ...(/^\d{4}$/.test(p.year) ? { datePublished: p.year } : {}),
+    author: { "@id": `${doctorUrl}#person` },
+  }));
+
+  if (publicationNodes.length > 0) {
+    person.subjectOf = publicationNodes.map((n) => ({ "@id": n["@id"] }));
+  }
+
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "ProfilePage", url: doctorUrl, mainEntity: { "@id": `${doctorUrl}#person` } },
       person,
+      ...publicationNodes,
       {
         "@type": "MedicalOrganization",
         "@id": "https://genevity.com.ua/#organization",

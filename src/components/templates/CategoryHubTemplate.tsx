@@ -157,7 +157,7 @@ export default function CategoryHubTemplate({ category, services, locale, heroIm
                     </RevealSection>
                   ) : (
                     <div id={`section-${section._key}`}>
-                      <SectionRenderer sections={[section]} />
+                      <SectionRenderer sections={[section]} locale={locale} />
                     </div>
                   )}
 

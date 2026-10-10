@@ -10,6 +10,8 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import dynamic from "next/dynamic";
 const DoctorReviews = dynamic(() => import("@/components/doctors/DoctorReviews"), { ssr: false });
 const CertificateGallery = dynamic(() => import("@/components/certificates/CertificateGallery"), { ssr: false });
+const DoctorPublications = dynamic(() => import("@/components/doctors/DoctorPublications"), { ssr: false });
+import DoctorRatingLink from "@/components/doctors/DoctorRatingLink";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { useScrollReveal } from "@/lib/useReveal";
 import { isPreOptimized } from "@/lib/image-src";
@@ -45,6 +47,15 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
   const hasCerts = doctor.certifications.length > 0;
   const hasServices = doctor.services.length > 0;
   const hasCertImages = doctor.certificateImages.length > 0;
+  const hasPublications = doctor.publications.length > 0;
+
+  // ТЗ #15 §3 — rating badge under the name. Averaged over every published
+  // review, which is exactly the set the "Відгуки" block below renders and the
+  // set the page's AggregateRating JSON-LD reports, so the three never disagree.
+  const reviewCount = doctor.reviews.length;
+  const averageRating = reviewCount
+    ? doctor.reviews.reduce((sum, r) => sum + r.rating, 0) / reviewCount
+    : 0;
 
   const certImagesForSchema = doctor.certificateImages
     .filter((c) => c.type === "image")
@@ -81,6 +92,7 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
               <div>
                 <h1 className="heading-1 text-black">{doctor.name}</h1>
                 <p className="body-m text-main font-medium mt-3">{doctor.role}</p>
+                <DoctorRatingLink rating={averageRating} count={reviewCount} locale={locale} />
               </div>
               {doctor.experience && (
                 <div className="inline-flex self-start items-center gap-2 px-4 py-2 rounded-full bg-main/10 text-main body-s font-medium">
@@ -169,6 +181,12 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
         </RevealSection>
       )}
 
+      {/* ТЗ #15 §1 — scientific activity, right after the credentials it
+          substantiates and immediately before the certificate scans. */}
+      {hasPublications && (
+        <DoctorPublications publications={doctor.publications} locale={locale} doctorName={doctor.name} />
+      )}
+
       {hasCertImages && (
         <>
           {certImagesForSchema.length > 0 && (
@@ -177,6 +195,11 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
           <CertificateGallery items={certGalleryItems} pdfs={certGalleryPdfs} title={certTitle} />
         </>
       )}
+
+      {/* ТЗ #15 §2 — "Відгуки" sits directly after the certificates block:
+          patients weigh other patients' experience right after the proof of
+          qualification, before the longer procedure list. */}
+      <DoctorReviews reviews={doctor.reviews} locale={locale} doctorSlug={doctor.slug} doctorId={doctor._id} doctorName={doctor.name} services={doctor.services.map((s) => ({ slug: s.slug, title: s.title }))} />
 
       {hasServices && (
         <RevealSection className="bg-champagne py-12 lg:py-16">
@@ -201,8 +224,6 @@ export default function DoctorProfilePage({ doctor, locale }: Props) {
           </div>
         </RevealSection>
       )}
-
-      <DoctorReviews reviews={doctor.reviews} locale={locale} doctorSlug={doctor.slug} doctorId={doctor._id} doctorName={doctor.name} services={doctor.services.map((s) => ({ slug: s.slug, title: s.title }))} />
 
       {(() => {
         const cta = doctor.finalCta;

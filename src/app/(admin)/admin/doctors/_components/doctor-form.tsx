@@ -12,6 +12,7 @@ import CirclePhotoEditor from "../../_components/circle-photo-editor";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import FinalCtaEditor from "../../_components/final-cta-editor";
 import CertificatesEditor from "./certificates-editor";
+import PublicationsEditor from "./publications-editor";
 import { saveDoctorFinalCtaData } from "../../_actions/doctors";
 import type { ServiceFinalCtaInput } from "../../_actions/services";
 import Button from "@/components/ui/Button";
@@ -25,7 +26,7 @@ interface Doctor {
   seo_title_uk?: string | null; seo_title_ru?: string | null; seo_title_en?: string | null;
   seo_desc_uk?: string | null; seo_desc_ru?: string | null; seo_desc_en?: string | null;
   bio_uk?: string | null; bio_ru?: string | null; bio_en?: string | null;
-  education?: any; certifications?: any;
+  education?: any; certifications?: any; publications?: any;
   final_cta?: any;
   photo_card: string | null;
   photo_full: string | null;
@@ -76,6 +77,9 @@ export default function DoctorForm({ doctor }: Props) {
   );
 
   const formRef = useRef<HTMLFormElement | null>(null);
+  // PublicationsEditor is React-controlled (hidden JSON input), so the native
+  // form-dirty check can't see its edits — it reports them up instead.
+  const [publicationsDirty, setPublicationsDirty] = useState(false);
 
   // Position state is React-managed (not a native form field) — track its
   // change against the initial snapshot so the guard notices focal-point tweaks
@@ -90,7 +94,8 @@ export default function DoctorForm({ doctor }: Props) {
     Math.abs(circleScale - (Number.isFinite(initialCircleScale) ? initialCircleScale : 1)) > 1e-3 ||
     cardUrl !== (doctor?.photo_card ?? null) ||
     fullUrl !== (doctor?.photo_full ?? null) ||
-    circleUrl !== (doctor?.photo_circle ?? null);
+    circleUrl !== (doctor?.photo_circle ?? null) ||
+    publicationsDirty;
 
   return (
     <>
@@ -348,6 +353,23 @@ export default function DoctorForm({ doctor }: Props) {
               className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm font-mono text-ink focus:outline-none focus:ring-2 focus:ring-main/40 resize-y"
             />
           </div>
+        </div>
+
+        {/* ТЗ #15 §1 — Наукова діяльність */}
+        <div className="mt-8 border-t border-line pt-8">
+          <h3 className="text-sm font-semibold text-foreground mb-1">
+            Scientific publications (Наукова діяльність)
+          </h3>
+          <p className="text-xs text-muted mb-4 max-w-2xl">
+            Articles, co-authorships, journal publications, research participation, authored
+            protocols and profiles in scientific databases. Shown as a dedicated trust block on
+            the public profile, between the credentials and the certificate scans. Each entry can
+            link to its primary source so a patient can verify it independently.
+          </p>
+          <PublicationsEditor
+            initial={doctor?.publications ?? []}
+            onDirtyChange={setPublicationsDirty}
+          />
         </div>
 
         {/* Certificate images */}

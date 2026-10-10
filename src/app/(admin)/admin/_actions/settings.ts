@@ -30,6 +30,76 @@ export async function saveHero(_prevState: any, formData: FormData) {
   return { success: true };
 }
 
+/**
+ * ТЗ #16 §1.3 — the closing CTA banner above the footer on the homepage.
+ *
+ * Benefits are one-per-line in the textarea and stored as a `text[]`, which is
+ * the same shape `doctors.specialties_*` uses — easy to render as a list and
+ * easy to reorder by editing the box.
+ */
+export async function saveHomepageCta(_prevState: any, formData: FormData) {
+  const str = (name: string) => {
+    const v = formData.get(name);
+    return typeof v === "string" ? v.trim() : "";
+  };
+  const lines = (name: string) =>
+    str(name).split("\n").map((l) => l.trim()).filter(Boolean);
+
+  const isEnabled = formData.get("is_enabled") === "1";
+  const fields: Record<string, unknown> = { is_enabled: isEnabled };
+  for (const l of ["uk", "ru", "en"]) {
+    for (const f of ["eyebrow", "heading", "subtitle", "note"]) fields[`${f}_${l}`] = str(`${f}_${l}`);
+    fields[`benefits_${l}`] = lines(`benefits_${l}`);
+  }
+  // Background image: an uploaded file wins, otherwise the hidden field keeps
+  // whatever is already stored (or clears it when the editor removed it).
+  const bgImage = await processUploadOrKeep(
+    formData.get("bg_image") as File | null,
+    "homepage-cta",
+    str("bg_image_current") || undefined,
+  );
+  const bgFocal = str("bg_focal_point") || "50% 50%";
+
+  const beforeRows = await sql`SELECT * FROM homepage_cta WHERE id = 1`;
+  const before = beforeRows[0] ?? null;
+
+  await sql`
+    INSERT INTO homepage_cta (
+      id, is_enabled,
+      eyebrow_uk, eyebrow_ru, eyebrow_en,
+      heading_uk, heading_ru, heading_en,
+      subtitle_uk, subtitle_ru, subtitle_en,
+      benefits_uk, benefits_ru, benefits_en,
+      note_uk, note_ru, note_en,
+      bg_image, bg_focal_point, updated_at
+    ) VALUES (
+      1, ${isEnabled},
+      ${fields.eyebrow_uk}, ${fields.eyebrow_ru}, ${fields.eyebrow_en},
+      ${fields.heading_uk}, ${fields.heading_ru}, ${fields.heading_en},
+      ${fields.subtitle_uk}, ${fields.subtitle_ru}, ${fields.subtitle_en},
+      ${fields.benefits_uk as string[]}, ${fields.benefits_ru as string[]}, ${fields.benefits_en as string[]},
+      ${fields.note_uk}, ${fields.note_ru}, ${fields.note_en},
+      ${bgImage}, ${bgFocal}, now()
+    )
+    ON CONFLICT (id) DO UPDATE SET
+      is_enabled = EXCLUDED.is_enabled,
+      eyebrow_uk = EXCLUDED.eyebrow_uk, eyebrow_ru = EXCLUDED.eyebrow_ru, eyebrow_en = EXCLUDED.eyebrow_en,
+      heading_uk = EXCLUDED.heading_uk, heading_ru = EXCLUDED.heading_ru, heading_en = EXCLUDED.heading_en,
+      subtitle_uk = EXCLUDED.subtitle_uk, subtitle_ru = EXCLUDED.subtitle_ru, subtitle_en = EXCLUDED.subtitle_en,
+      benefits_uk = EXCLUDED.benefits_uk, benefits_ru = EXCLUDED.benefits_ru, benefits_en = EXCLUDED.benefits_en,
+      note_uk = EXCLUDED.note_uk, note_ru = EXCLUDED.note_ru, note_en = EXCLUDED.note_en,
+      bg_image = EXCLUDED.bg_image, bg_focal_point = EXCLUDED.bg_focal_point,
+      updated_at = now()
+  `;
+
+  await logChange({
+    action: "update", entityType: "homepageCta", entityId: "1",
+    entityLabel: "Homepage final CTA", before, after: fields,
+  });
+  for (const path of ["/", "/ru", "/en"]) revalidatePath(path);
+  return { success: true };
+}
+
 export async function saveAbout(_prevState: any, formData: FormData) {
   const fields: Record<string, any> = {};
   for (const suffix of ["uk", "ru", "en"]) {

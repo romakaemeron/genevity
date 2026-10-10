@@ -125,7 +125,10 @@ export default function DoctorReviews({ reviews, locale, doctorSlug, doctorId, d
   if (reviews.length === 0) return null;
 
   return (
-    <section className="bg-champagne py-12 lg:py-16">
+    /* `id` is the scroll target of the rating badge under the doctor's name
+       (ТЗ #15 §3) and of the review count on service pages; `scroll-mt-28`
+       keeps the heading clear of the fixed header. */
+    <section id="reviews" className="bg-champagne py-12 lg:py-16 scroll-mt-28">
       {/* Header: mobile=two rows (title / arrows+button), sm+=single row */}
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
         <h2 className="heading-2 text-black">{labels.title}</h2>
