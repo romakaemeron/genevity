@@ -12,12 +12,15 @@ import ShowcaseGallerySection from "./ShowcaseGallerySection";
 import RelatedDoctorsSection from "./RelatedDoctorsSection";
 import CtaSection from "./CtaSection";
 import SourcesSection from "./SourcesSection";
+import AlternativesSection from "./AlternativesSection";
 
 interface Props {
   sections: ContentSection[];
+  /** Request locale — only the sections with built-in copy need it. */
+  locale?: string;
 }
 
-function renderSection(section: ContentSection, index: number) {
+function renderSection(section: ContentSection, index: number, locale?: string) {
   switch (section._type) {
     case "section.richText":
       return <RichTextSection {...section} index={index} />;
@@ -45,19 +48,21 @@ function renderSection(section: ContentSection, index: number) {
       return <CtaSection {...section} />;
     case "section.sources":
       return <SourcesSection section={section} />;
+    case "section.alternatives":
+      return <AlternativesSection section={section} locale={locale} />;
     default:
       return null;
   }
 }
 
-export default function SectionRenderer({ sections }: Props) {
+export default function SectionRenderer({ sections, locale }: Props) {
   if (!sections?.length) return null;
 
   return (
     <div className="flex flex-col gap-16 lg:gap-20">
       {sections.map((section, i) => (
         <div key={section._key} id={`section-${section._key}`}>
-          {renderSection(section, i)}
+          {renderSection(section, i, locale)}
         </div>
       ))}
     </div>

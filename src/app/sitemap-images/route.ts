@@ -10,6 +10,7 @@
  *   - Service hero images
  *   - Equipment photos
  *   - Blog post cover images
+ *   - Before/after case photos (homepage + service pages), promotion cards
  */
 
 import { getAllDoctors } from "@/lib/db/queries";
@@ -62,7 +63,7 @@ function urlBlock(loc: string, images: { url: string; title: string }[]): string
 }
 
 export async function GET() {
-  const [doctors, serviceRows, heroSlides, galleryItems, equipmentRows, blogRows] =
+  const [doctors, serviceRows, heroSlides, galleryItems, equipmentRows, blogRows, beforeAfterRows, promotionRows] =
     await Promise.all([
       getAllDoctors("ua"),
       sql`
@@ -83,16 +84,36 @@ export async function GET() {
           AND cover_image IS NOT NULL
           AND cover_image != ''
       `,
+      // ТЗ #16 §1.1 / §2.1 — before/after proof photos, resolved to the page
+      // that renders them (homepage, or the owning service's URL).
+      sql`
+        SELECT b.owner_key, b.before_url, b.after_url, b.alt_uk, b.title_uk,
+               s.slug AS service_slug, sc.slug AS category_slug
+        FROM before_after_cases b
+        LEFT JOIN services s
+          ON b.owner_key = 'service:' || s.id::text
+        LEFT JOIN service_categories sc ON sc.id = s.category_id
+        WHERE b.is_published = true AND b.before_url <> '' AND b.after_url <> ''
+        ORDER BY b.sort_order
+      `,
+      // ТЗ #16 §1.2 — promotion card images live on the homepage.
+      sql`
+        SELECT image_url, title_uk FROM promotions
+        WHERE is_published = true AND image_url IS NOT NULL AND image_url <> ''
+          AND (valid_until IS NULL OR valid_until >= CURRENT_DATE)
+        ORDER BY sort_order
+      `,
     ]);
 
   const blocks: string[] = [];
 
-  // — Homepage: OG image + hero slides
+  // — Homepage: OG image + hero slides. The block itself is emitted after the
+  //   gallery / before-after / promotion passes below have contributed their
+  //   homepage images, so everything on `/` ends up in one <url> entry.
   const homepageImages: { url: string; title: string }[] = [
     { url: `${BASE}/og/genevity-og.jpg`, title: "GENEVITY — центр довголіття та естетичної медицини у Дніпрі" },
     ...heroSlides.map((s) => ({ url: s.image_url as string, title: (s.alt_uk as string) || "GENEVITY" })),
   ];
-  blocks.push(urlBlock(`${BASE}/`, homepageImages));
 
   // — Gallery items grouped by page
   const galleryByPage = new Map<string, { url: string; title: string }[]>();
@@ -116,6 +137,35 @@ export async function GET() {
     if (block) blocks.push(block);
   }
 
+  // — Before/after cases, grouped by the page that shows them
+  const beforeAfterByPage = new Map<string, { url: string; title: string }[]>();
+  for (const c of beforeAfterRows) {
+    const ownerKey = c.owner_key as string;
+    const pageUrl =
+      ownerKey === "homepage"
+        ? `${BASE}/`
+        : c.service_slug && c.category_slug
+        ? `${BASE}/services/${c.category_slug}/${c.service_slug}`
+        : null;
+    // An orphaned owner_key (service deleted) has no page to point at.
+    if (!pageUrl) continue;
+    const title = (c.alt_uk as string) || (c.title_uk as string) || "GENEVITY — до і після";
+    const target = pageUrl === `${BASE}/` ? homepageImages : (beforeAfterByPage.get(pageUrl) ?? []);
+    target.push({ url: c.before_url as string, title });
+    target.push({ url: c.after_url as string, title });
+    if (pageUrl !== `${BASE}/`) beforeAfterByPage.set(pageUrl, target);
+  }
+
+  // — Promotion card images (homepage)
+  for (const p of promotionRows) {
+    homepageImages.push({
+      url: p.image_url as string,
+      title: (p.title_uk as string) || "GENEVITY — акція",
+    });
+  }
+
+  blocks.push(urlBlock(`${BASE}/`, homepageImages));
+
   // — Equipment photos (apparatus cosmetology page)
   const equipmentImages = equipmentRows
     .filter((eq) => eq.photo)
@@ -136,12 +186,24 @@ export async function GET() {
     if (block) blocks.push(block);
   }
 
-  // — Service hero images
+  // — Service hero images (plus that service's before/after photos, so each
+  //   service URL appears exactly once)
   for (const row of serviceRows) {
-    if (!row.hero_image) continue;
-    const block = urlBlock(`${BASE}/services/${row.category_slug}/${row.slug}`, [
-      { url: row.hero_image as string, title: (row.title_uk as string) ?? "" },
-    ]);
+    const pageUrl = `${BASE}/services/${row.category_slug}/${row.slug}`;
+    const images: { url: string; title: string }[] = [];
+    if (row.hero_image) {
+      images.push({ url: row.hero_image as string, title: (row.title_uk as string) ?? "" });
+    }
+    const ba = beforeAfterByPage.get(pageUrl);
+    if (ba) { images.push(...ba); beforeAfterByPage.delete(pageUrl); }
+    const block = urlBlock(pageUrl, images);
+    if (block) blocks.push(block);
+  }
+
+  // — Before/after photos on services whose hero image is missing (or whose
+  //   page was filtered out of `serviceRows`), so those cases aren't lost.
+  for (const [pageUrl, images] of beforeAfterByPage.entries()) {
+    const block = urlBlock(pageUrl, images);
     if (block) blocks.push(block);
   }
 

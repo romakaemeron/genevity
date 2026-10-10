@@ -1,3 +1,5 @@
+import type { BeforeAfterCase } from "./queries/before-after";
+
 // ---- Sanity document types for the homepage ----
 
 /** A service landing page the device is used for — rendered as a link inside
@@ -314,6 +316,27 @@ export interface SectionCta {
   ctaHref: string;
 }
 
+/**
+ * ТЗ #16 §2.2 — "Порівняння з альтернативами".
+ *
+ * Two halves in one block: what makes this procedure unique (`unique`), and a
+ * row-per-alternative comparison explaining why a hesitating patient should
+ * pick it over the obvious substitutes. Both halves are optional so a page can
+ * use only the part it has content for.
+ */
+export interface SectionAlternatives {
+  _type: "section.alternatives";
+  _key: string;
+  heading: string;
+  intro?: string;
+  uniqueHeading?: string;
+  unique: string[];
+  comparisonHeading?: string;
+  /** One row per competing option. */
+  alternatives: { name: string; theirs: string; ours: string }[];
+  conclusion?: string;
+}
+
 export interface SectionSources {
   _type: "section.sources";
   _key: string;
@@ -334,6 +357,7 @@ export type ContentSection =
   | SectionShowcaseGallery
   | SectionRelatedDoctors
   | SectionCta
+  | SectionAlternatives
   | SectionSources;
 
 export interface ServiceCategoryData {
@@ -360,6 +384,8 @@ export interface ServiceCategoryData {
 export interface ServiceBlockHeadings {
   faq?: string;
   reviews?: string;
+  /** ТЗ #16 §2.1 — "До / Після" block. */
+  beforeAfter?: string;
   doctors?: string;
   equipment?: string;
   certificates?: string;
@@ -427,6 +453,8 @@ export interface ServiceData {
   lastReviewedAt: string | null;
   /** Up to 10 most recent published reviews bound to this service. */
   reviews: ServiceReview[];
+  /** ТЗ #16 §2.1 — before/after proof cases attached to this service. */
+  beforeAfterCases: BeforeAfterCase[];
 }
 
 export interface ServiceCardData {

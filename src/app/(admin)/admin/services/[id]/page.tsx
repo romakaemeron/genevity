@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ServiceForm from "../_components/service-form";
 import { getUiStringsTree } from "@/lib/db/queries/ui-strings";
 import { getDoctorOptions } from "@/lib/db/queries/doctors";
+import { adminGetBeforeAfterCases, serviceBeforeAfterKey } from "@/lib/db/queries/before-after";
 
 export default async function EditServicePage({ params }: { params: Promise<{ id: string }> }) {
   await requireSession();
@@ -12,7 +13,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
   const rows = await sql`SELECT * FROM services WHERE id = ${id}`;
   if (!rows.length) notFound();
 
-  const [categories, sectionRows, faqRows, doctorRows, serviceRows, equipmentRows, sdRows, srRows, seRows, uiTree, doctorOptions] = await Promise.all([
+  const [categories, sectionRows, faqRows, doctorRows, serviceRows, equipmentRows, sdRows, srRows, seRows, uiTree, doctorOptions, beforeAfterCases] = await Promise.all([
     sql`SELECT id, title_uk, slug FROM service_categories ORDER BY sort_order`,
     sql`SELECT id, section_type, data, sort_order FROM content_sections WHERE owner_type = 'service' AND owner_id = ${id} ORDER BY sort_order`,
     sql`SELECT * FROM faq_items WHERE owner_type = 'service' AND owner_id = ${id} ORDER BY sort_order`,
@@ -24,6 +25,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
     sql`SELECT equipment_id FROM service_equipment WHERE service_id = ${id} ORDER BY sort_order`,
     getUiStringsTree(),
     getDoctorOptions("uk"),
+    adminGetBeforeAfterCases(serviceBeforeAfterKey(id)),
   ]);
 
   const leafAll = (path: string[]): { uk: string; ru: string; en: string } => {
@@ -76,6 +78,7 @@ export default async function EditServicePage({ params }: { params: Promise<{ id
       allServices={serviceRows as any}
       equipment={equipmentRows as any}
       uiDefaults={uiDefaults}
+      beforeAfterCases={beforeAfterCases}
     />
   );
 }

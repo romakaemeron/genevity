@@ -1,18 +1,20 @@
 import { sql } from "@/lib/db/client";
 import { requireSession } from "../../_actions/auth";
 import HomepageForm from "./_components/homepage-form";
+import { adminGetHomepageCta } from "@/lib/db/queries/homepage-cta";
 import { ArrowUpRight } from "lucide-react";
 
 export default async function HomepageSettingsPage() {
   await requireSession();
-  const [heroRows, aboutRows] = await Promise.all([
+  const [heroRows, aboutRows, finalCta] = await Promise.all([
     sql`SELECT * FROM hero WHERE id = 1`,
     sql`SELECT * FROM about WHERE id = 1`,
+    adminGetHomepageCta(),
   ]);
 
   return (
     <div className="flex flex-col gap-6">
-      <HomepageForm hero={heroRows[0] || {}} about={aboutRows[0] || {}} />
+      <HomepageForm hero={heroRows[0] || {}} about={aboutRows[0] || {}} finalCta={finalCta} />
 
       <div className="px-8 pb-8">
         <a

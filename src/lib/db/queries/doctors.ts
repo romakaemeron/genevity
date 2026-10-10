@@ -63,6 +63,80 @@ export interface CertificateImage {
   alt_en: string;
 }
 
+/**
+ * ТЗ #15 §1 — one entry of the doctor's "Наукові публікації / Наукова
+ * діяльність" block. Stored as an ordered JSONB array on `doctors.publications`.
+ *
+ * `kind` keeps the taxonomy out of the editor's hands: the public component
+ * renders a localized chip for it, so an admin never has to translate
+ * "співавторство" three times. `url` is optional — a publication without a
+ * public page is still worth listing, it just renders as plain text.
+ */
+export type PublicationKind =
+  | "article"   // наукова стаття
+  | "coauthor"  // стаття у співавторстві
+  | "journal"   // публікація в українському / міжнародному журналі
+  | "research"  // участь у науковому дослідженні
+  | "method"    // авторство / співавторство методики
+  | "profile";  // профіль у науковій базі (Scopus, ORCID, PubMed…)
+
+export interface PublicationEntry {
+  kind: PublicationKind;
+  title_uk: string; title_ru: string; title_en: string;
+  /** Journal, conference or database the work appeared in. */
+  source_uk?: string; source_ru?: string; source_en?: string;
+  year?: number | string | null;
+  /** Link to the primary source. Rendered rel="nofollow" per the spec. */
+  url?: string;
+}
+
+/** Locale-resolved publication handed to the public component. */
+export interface PublicationView {
+  kind: PublicationKind;
+  title: string;
+  source: string;
+  year: string;
+  url: string | null;
+}
+
+const PUBLICATION_KINDS: readonly PublicationKind[] = [
+  "article", "coauthor", "journal", "research", "method", "profile",
+];
+
+/** Only http(s) links are rendered as anchors — anything else becomes text. */
+function safePublicationUrl(url: unknown): string | null {
+  if (typeof url !== "string" || !url.trim()) return null;
+  try {
+    const u = new URL(url.trim());
+    return u.protocol === "http:" || u.protocol === "https:" ? u.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
+function resolvePublications(raw: unknown, l: string): PublicationView[] {
+  if (!Array.isArray(raw)) return [];
+  const out: PublicationView[] = [];
+  for (const item of raw) {
+    if (!item || typeof item !== "object") continue;
+    const e = item as Record<string, unknown>;
+    const title = String(e[`title_${l}`] ?? e.title_uk ?? "").trim();
+    if (!title) continue; // an entry with no title in any locale is noise
+    const kind = PUBLICATION_KINDS.includes(e.kind as PublicationKind)
+      ? (e.kind as PublicationKind)
+      : "article";
+    const yearRaw = e.year;
+    out.push({
+      kind,
+      title,
+      source: String(e[`source_${l}`] ?? e.source_uk ?? "").trim(),
+      year: yearRaw === null || yearRaw === undefined ? "" : String(yearRaw).trim(),
+      url: safePublicationUrl(e.url),
+    });
+  }
+  return out;
+}
+
 export interface DoctorProfileData {
   _id: string;
   slug: string;
@@ -79,6 +153,8 @@ export interface DoctorProfileData {
   education: (EducationEntry & { institution: string; degree: string })[];
   certifications: (CertEntry & { title: string; issuer?: string })[];
   certificateImages: CertificateImage[];
+  /** ТЗ #15 §1 — scientific publications, locale-resolved and link-sanitized. */
+  publications: PublicationView[];
   services: { slug: string; categorySlug: string; title: string }[];
   reviews: DoctorReview[];
   seoTitle: string | null;
@@ -144,6 +220,7 @@ export async function getDoctorBySlug(locale: string, slug: string): Promise<Doc
       ...ci,
       alt: ci[`alt_${l}` as keyof CertificateImage] as string || ci.alt_uk,
     })) as CertificateImage[],
+    publications: resolvePublications(r.publications, l),
     reviews: reviewRows.map((rv) => {
       const pick = (uk: unknown, ru: unknown, en: unknown) => {
         if (l === "ru") return (ru as string) || (uk as string) || "";

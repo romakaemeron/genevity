@@ -24,6 +24,7 @@ import BookingCTA from "@/components/ui/BookingCTA";
 import ReviewedByBadge from "@/components/ui/ReviewedByBadge";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import ServiceReviews from "@/components/reviews/ServiceReviews";
+import BeforeAfterBlock from "@/components/before-after/BeforeAfterBlock";
 import { absoluteUrl } from "@/lib/url";
 import { formatReviewDate } from "@/lib/formatDate";
 import { useScrollReveal } from "@/lib/useReveal";
@@ -75,7 +76,7 @@ const CERTIFICATES_COPY: Record<string, { heading: string; all: string }> = {
   en: { heading: "Equipment certificates", all: "All certificates" },
 };
 
-export const SERVICE_FIXED_BLOCKS = ["faq", "reviews", "doctors", "equipment", "certificates", "relatedServices", "finalCTA"] as const;
+export const SERVICE_FIXED_BLOCKS = ["faq", "beforeAfter", "reviews", "doctors", "equipment", "certificates", "relatedServices", "finalCTA"] as const;
 export type ServiceFixedBlockKey = typeof SERVICE_FIXED_BLOCKS[number];
 export type ServiceBlockKey = ServiceFixedBlockKey | `section:${string}`;
 
@@ -220,7 +221,7 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
 
           return (
             <RevealBlock key={blockKey} id={`section-${section._key}`} className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-16 lg:mt-20">
-              <SectionRenderer sections={[section]} />
+              <SectionRenderer sections={[section]} locale={locale} />
             </RevealBlock>
           );
         }
@@ -229,6 +230,20 @@ export default function ServiceDetailTemplate({ data, locale, doctorsUi, details
           case "faq":
             return data.faq?.length > 0 ? (
               <FaqBlock key="faq" heading={heading(data.blockHeadings.faq, t("faq"))} items={data.faq} openIndex={openFaq} onToggle={(i) => setOpenFaq(openFaq === i ? null : i)} className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 mt-20 lg:mt-24" />
+            ) : null;
+
+          // ТЗ #16 §2.1 — photo evidence from real patients, with the treated
+          // zone and the number of sessions. Available on every service page;
+          // renders only once cases have been uploaded for that service.
+          case "beforeAfter":
+            return data.beforeAfterCases?.length > 0 ? (
+              <div key="beforeAfter" className="mt-20 lg:mt-24">
+                <BeforeAfterBlock
+                  cases={data.beforeAfterCases}
+                  locale={locale}
+                  heading={data.blockHeadings.beforeAfter}
+                />
+              </div>
             ) : null;
 
           case "reviews":

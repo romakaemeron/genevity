@@ -45,6 +45,17 @@ export default async function SettingsPage() {
             title={t.settingsPage.galleries}
             subtitle={t.settingsPage.galleriesDesc}
           />
+          {/* ТЗ #16 §1.1–1.2 — conversion blocks on the homepage. */}
+          <AdminListItem
+            href="/admin/settings/before-after"
+            title={t.settingsPage.beforeAfter}
+            subtitle={t.settingsPage.beforeAfterDesc}
+          />
+          <AdminListItem
+            href="/admin/settings/promotions"
+            title={t.settingsPage.promotions}
+            subtitle={t.settingsPage.promotionsDesc}
+          />
         </AdminList>
       </div>
 
