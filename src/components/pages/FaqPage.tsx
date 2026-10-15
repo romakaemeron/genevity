@@ -9,7 +9,7 @@ import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { FaqSchema } from "@/components/seo/FaqSchema";
 import type { Locale } from "@/i18n/routing";
 import type { FaqPageGroup } from "@/lib/db/queries";
-import type { FaqCategoryKey } from "@/lib/db/queries/faq";
+import type { FaqCategoryKey } from "@/lib/db/faq-keys";
 import type { UiStringsData } from "@/lib/db/types";
 
 interface Props {

@@ -17,7 +17,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 import BeforeAfterSlider from "./BeforeAfterSlider";
-import type { BeforeAfterCase } from "@/lib/db/queries/before-after";
+import type { BeforeAfterCase } from "@/lib/db/before-after-keys";
 import { isPreOptimized } from "@/lib/image-src";
 import { useScrollReveal } from "@/lib/useReveal";
 
