@@ -1,4 +1,5 @@
 import { sql } from "../client";
+import type { BeforeAfterCase, BeforeAfterCaseInput } from "../before-after-keys";
 
 /**
  * ТЗ #16 §1.1 / §2.1 — "До / Після" proof cases.
@@ -8,32 +9,23 @@ import { sql } from "../client";
  *   • `'service:<uuid>'`       — a service page's own cases
  * so the editor, this loader and the public component are shared instead of
  * duplicated per surface.
+ *
+ * The owner-key helpers and the row shapes live in `../before-after-keys`,
+ * which imports nothing — client components must never reach this module,
+ * because `sql` evaluates `neon(DATABASE_URL)` at import time.
  */
+
+// Re-exported for server-side callers that already import from here.
+export {
+  HOMEPAGE_BEFORE_AFTER_KEY,
+  serviceBeforeAfterKey,
+} from "../before-after-keys";
+export type { BeforeAfterCase, BeforeAfterCaseInput } from "../before-after-keys";
 
 function lang(locale: string) { return locale === "ua" ? "uk" : locale; }
 function pick(row: Record<string, unknown>, field: string, l: string): string {
   const v = row[`${field}_${l}`] ?? row[`${field}_uk`];
   return typeof v === "string" ? v : "";
-}
-
-export const HOMEPAGE_BEFORE_AFTER_KEY = "homepage";
-export function serviceBeforeAfterKey(serviceId: string) {
-  return `service:${serviceId}`;
-}
-
-export interface BeforeAfterCase {
-  id: string;
-  beforeUrl: string;
-  afterUrl: string;
-  /** What the case is, e.g. "Корекція живота, 34 роки". */
-  title: string;
-  /** Treated zone — "зона корекції" in the spec. */
-  zone: string;
-  /** Number of sessions performed, as free text ("4 сеанси"). */
-  sessions: string;
-  /** Any extra caveat shown under the caption. */
-  note: string;
-  alt: string;
 }
 
 /** Published cases for one owner, ordered as the admin arranged them. */
@@ -59,18 +51,6 @@ export async function getBeforeAfterCases(ownerKey: string, locale: string): Pro
 }
 
 /* ── Admin ─────────────────────────────────────────────────────────────── */
-
-export interface BeforeAfterCaseInput {
-  id?: string;
-  before_url: string;
-  after_url: string;
-  title_uk: string; title_ru: string; title_en: string;
-  zone_uk: string; zone_ru: string; zone_en: string;
-  sessions_uk: string; sessions_ru: string; sessions_en: string;
-  note_uk: string; note_ru: string; note_en: string;
-  alt_uk: string; alt_ru: string; alt_en: string;
-  is_published: boolean;
-}
 
 const TEXT_FIELDS = [
   "title_uk", "title_ru", "title_en",

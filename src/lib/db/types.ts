@@ -1,4 +1,4 @@
-import type { BeforeAfterCase } from "./queries/before-after";
+import type { BeforeAfterCase } from "./before-after-keys";
 
 // ---- Sanity document types for the homepage ----
 

@@ -16,7 +16,7 @@ import type { LocaleKey } from "./translation-tabs";
 import { useReorderable, DragHandle, REORDERABLE_ROW_CLASSES } from "./reorderable";
 import MediaPicker from "./media-picker";
 import { saveBeforeAfterCases, uploadBeforeAfterImage } from "../_actions/before-after";
-import type { BeforeAfterCaseInput } from "@/lib/db/queries/before-after";
+import type { BeforeAfterCaseInput } from "@/lib/db/before-after-keys";
 import { useUnsavedTracker } from "./unsaved-changes";
 
 const emptyCase = (): BeforeAfterCaseInput => ({
