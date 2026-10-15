@@ -1,4 +1,4 @@
-import { FAQ_CATEGORY_KEYS, type FaqCategoryKey } from "@/lib/db/queries/faq";
+import { FAQ_CATEGORY_KEYS, type FaqCategoryKey } from "@/lib/db/faq-keys";
 
 export { FAQ_CATEGORY_KEYS };
 export type { FaqCategoryKey };

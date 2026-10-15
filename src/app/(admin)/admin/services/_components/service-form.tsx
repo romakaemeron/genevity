@@ -14,7 +14,7 @@ import BlockOrderEditor, { type BlockDef } from "../../_components/block-order-e
 import ServiceOverridesEditor from "../../_components/service-overrides-editor";
 import FinalCtaEditor from "../../_components/final-cta-editor";
 import BeforeAfterEditor from "../../_components/before-after-editor";
-import { serviceBeforeAfterKey, type BeforeAfterCaseInput } from "@/lib/db/queries/before-after";
+import { serviceBeforeAfterKey, type BeforeAfterCaseInput } from "@/lib/db/before-after-keys";
 import { FormDirtyTracker } from "../../_components/unsaved-changes";
 import Button from "@/components/ui/Button";
 import type { ServiceBlockHeadingsInput, ServiceFinalCtaInput } from "../../_actions/services";
