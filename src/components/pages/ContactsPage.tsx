@@ -31,7 +31,7 @@ export default function ContactsPageComponent({ settings, locale, contactsUi, ct
     <>
       {/* Hero — map + info split, above fold, no animation */}
       <section className="bg-champagne">
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-0">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-header pb-10 lg:pb-0">
           <Breadcrumbs
             items={[
               { label: tLabels("home"), href: "/" },

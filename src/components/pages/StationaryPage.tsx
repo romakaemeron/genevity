@@ -89,7 +89,7 @@ export default function StationaryPageComponent({ data, locale, doctors, doctors
       {/* Hero — above fold, no animation */}
       <section className="relative overflow-hidden bg-champagne">
         <div className="relative z-[5]">
-          <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+          <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-header pb-10 lg:pb-16">
             <div className={`flex flex-col ${data.heroImage ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
               <div className={data.heroImage ? "flex-1 max-w-lg lg:py-8" : "max-w-3xl"}>
                 <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: data.title, href: "/stationary" }]} locale={locale} />

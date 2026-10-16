@@ -102,6 +102,35 @@
   --duration-slow: 800ms;
 }
 
+/* === Fixed header clearance ===
+ * The fixed header is two stacked rows: the contact stripe (h-9 / lg:h-10) and
+ * the nav (h-16 / lg:h-20). Pages that sit under it must pad their first
+ * element past both, and before the stripe existed every page hardcoded a
+ * `pt-28` that cleared the nav alone — which is why the stripe silently
+ * half-hid every breadcrumb on desktop.
+ *
+ * Keeping the height here means the next change to either row is a one-line
+ * edit rather than a sweep through twenty templates. `.pt-header` adds the
+ * standard element gap on top so content never butts against the header.
+ *
+ * The stripe collapses on scroll-down, but these pages are padded for its
+ * expanded height: the gap only ever grows as the header shrinks, and content
+ * is already scrolled past by then.
+ */
+:root {
+  --header-h: 100px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 120px;
+  }
+}
+
+.pt-header {
+  padding-top: calc(var(--header-h) + var(--spacing-element));
+}
+
 /* === Hide Ringostat widget (replaced by Binotel) === */
 [id*="ringostat"],
 [class*="ringostat"],

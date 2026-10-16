@@ -130,7 +130,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       <MegaMenuHeader variant="solid" position="fixed" topOffset={isPreview ? PREVIEW_BANNER_HEIGHT : 0} />
 
       <div
-        className="bg-champagne pt-28 pb-8"
+        className="bg-champagne pt-header pb-8"
         style={isPreview ? { paddingTop: `calc(7rem + ${PREVIEW_BANNER_HEIGHT}px)` } : undefined}
       >
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-12">
