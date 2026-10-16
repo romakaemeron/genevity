@@ -33,7 +33,7 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, services, staticPages, legalDocs, doctors, blogSlugs] = await Promise.all([
     sql`SELECT slug FROM service_categories WHERE seo_noindex IS NOT TRUE ORDER BY sort_order`,
-    getAllServiceSlugs(),
+    getAllServiceSlugs({ includeNoindex: false }),
     sql`SELECT slug FROM static_pages`,
     getLegalDocs("ua"),
     getAllDoctors("ua"),

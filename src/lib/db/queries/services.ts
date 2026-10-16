@@ -110,6 +110,7 @@ export async function getServiceBySlug(
     priceUnit: pick(r, "price_unit", l),
     seoTitle: pick(r, "seo_title", l),
     seoDescription: pick(r, "seo_desc", l),
+    seoNoindex: Boolean(r.seo_noindex),
     sections,
     faq,
     relatedDoctors,
@@ -344,11 +345,22 @@ export async function getServicesBySlugs(locale: string, slugs: string[]): Promi
   }));
 }
 
-export async function getAllServiceSlugs(): Promise<{ slug: string; categorySlug: string }[]> {
-  const rows = await sql`
-    SELECT s.slug, c.slug AS category_slug
-    FROM services s
-    JOIN service_categories c ON s.category_id = c.id
-  `;
+export async function getAllServiceSlugs(
+  { includeNoindex = true }: { includeNoindex?: boolean } = {},
+): Promise<{ slug: string; categorySlug: string }[]> {
+  const rows = includeNoindex
+    ? await sql`
+        SELECT s.slug, c.slug AS category_slug
+        FROM services s
+        JOIN service_categories c ON s.category_id = c.id
+      `
+    // A page marked noindex must not be advertised in the sitemap — listing a
+    // URL there while telling crawlers not to index it is a contradiction.
+    : await sql`
+        SELECT s.slug, c.slug AS category_slug
+        FROM services s
+        JOIN service_categories c ON s.category_id = c.id
+        WHERE s.seo_noindex = false
+      `;
   return rows.map((r) => ({ slug: r.slug, categorySlug: r.category_slug }));
 }

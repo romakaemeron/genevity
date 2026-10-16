@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       data.seoDescription || data.summary || `${data.title} у центрі GENEVITY, Дніпро`,
     locale: locale as Locale,
     path: `/services/${category}/${slug}`,
+    noindex: data.seoNoindex,
   });
 }
 

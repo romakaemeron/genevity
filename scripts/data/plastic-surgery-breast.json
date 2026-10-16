@@ -1,0 +1,2257 @@
+{
+  "_source": "Page structure mirrors the client's seven face documents; metatags verbatim from ТЗ #17. Breast pages drafted in-house to the same structure, pending clinical review.",
+  "_review": "AWAITING CLINICAL REVIEW — every page here ships seoNoindex until a GENEVITY surgeon has read it. Clear the flag in /admin per page once approved.",
+  "categorySlug": "plastic-surgery",
+  "pages": [
+    {
+      "slug": "breast",
+      "sortOrder": 8,
+      "seoNoindex": true,
+      "related": [
+        "breast-augmentation",
+        "breast-reduction",
+        "breast-lift",
+        "breast-shape-correction",
+        "face"
+      ],
+      "h1": {
+        "uk": "Пластична хірургія грудей у Дніпрі",
+        "ru": "Пластическая хирургия груди в Днепре",
+        "en": "Breast Plastic Surgery in Dnipro"
+      },
+      "title": {
+        "uk": "Пластична хірургія грудей",
+        "ru": "Пластическая хирургия груди",
+        "en": "Breast Plastic Surgery"
+      },
+      "summary": {
+        "uk": "Пластична хірургія грудей у GENEVITY — збільшення, зменшення, підтяжка та корекція форми й асиметрії грудей. Пластичний хірург оцінює анатомію грудної клітки, стан залозистої тканини та шкіри, пропорції тіла й побажання пацієнтки, щоб визначити доцільність операції, підібрати методику та спланувати відновлення.",
+        "ru": "Пластическая хирургия груди в GENEVITY — увеличение, уменьшение, подтяжка и коррекция формы и асимметрии груди. Пластический хирург оценивает анатомию грудной клетки, состояние железистой ткани и кожи, пропорции тела и пожелания пациентки, чтобы определить целесообразность операции, подобрать методику и спланировать восстановление.",
+        "en": "Breast plastic surgery at GENEVITY covers augmentation, reduction, lifting and correction of breast shape and asymmetry. The plastic surgeon assesses the anatomy of the chest, the condition of the glandular tissue and skin, body proportions and the patient's wishes in order to establish whether surgery is appropriate, select a technique and plan the recovery."
+      },
+      "seoTitle": {
+        "ru": "Пластика груди в Днепре - хирургия груди",
+        "uk": "Пластика грудей в Дніпрі - хірургія грудей",
+        "en": "Breast surgery in Dnipro - breast surgery"
+      },
+      "seoDescription": {
+        "ru": "Пластика груди в Днепре в GENEVITY 🤍 Увеличение, уменьшение, подтяжка и коррекция формы груди по доступной цене. Консультация пластического хирурга 💫 Индивидуальный план операции.",
+        "uk": "Пластична хірургія грудей у Дніпрі в GENEVITY 🤍 Збільшення, зменшення, підтяжка та корекція форми грудей за доступною ціною. Консультація пластичного хірурга 💫 Індивідуальний план операції.",
+        "en": "Breast Plastic Surgery in Dnipro at GENEVITY 🤍 Breast augmentation, reduction, lift, and reshaping at an affordable price. Consultation with a plastic surgeon 💫 Personalized surgical plan."
+      },
+      "heroImage": "/images/surgery/operating-theatre.webp",
+      "sections": [
+        {
+          "type": "richText",
+          "data": {
+            "heading": {
+              "uk": "Що таке пластична хірургія грудей?",
+              "ru": "Что такое пластическая хирургия груди?",
+              "en": "What Is Breast Plastic Surgery?"
+            },
+            "body": {
+              "uk": "Пластична хірургія грудей — напрям естетичної та реконструктивної медицини, який охоплює хірургічну зміну об'єму, форми, положення та симетрії молочних залоз.\n\nФорма грудей залежить від об'єму залозистої та жирової тканини, еластичності шкіри, будови грудної клітки та положення сосково-ареолярного комплексу. На неї впливають вагітність і лактація, коливання маси тіла, вікові зміни та спадкові особливості.\n\nЗалежно від задачі застосовуються різні втручання: збільшення грудей імплантами, редукційна мамопластика, мастопексія або корекція форми та асиметрії. У частині випадків методики поєднуються — наприклад, підтяжка разом зі збільшенням.\n\nУ GENEVITY планування ґрунтується на анатомічних особливостях і медичних показаннях. Перед операцією на молочних залозах обов'язковим є обстеження, що включає консультацію мамолога та візуалізацію залоз за віковими рекомендаціями.\n\nГоловне завдання — отримати форму, пропорційну тілу пацієнтки, зі збереженням природного вигляду та, за можливості, функції молочної залози.",
+              "ru": "Пластическая хирургия груди — направление эстетической и реконструктивной медицины, которое охватывает хирургическое изменение объема, формы, положения и симметрии молочных желез.\n\nФорма груди зависит от объема железистой и жировой ткани, эластичности кожи, строения грудной клетки и положения сосково-ареолярного комплекса. На нее влияют беременность и лактация, колебания массы тела, возрастные изменения и наследственные особенности.\n\nВ зависимости от задачи применяются разные вмешательства: увеличение груди имплантами, редукционная маммопластика, мастопексия или коррекция формы и асимметрии. В части случаев методики сочетаются — например, подтяжка вместе с увеличением.\n\nВ GENEVITY планирование основывается на анатомических особенностях и медицинских показаниях. Перед операцией на молочных железах обязательным является обследование, включающее консультацию маммолога и визуализацию желез по возрастным рекомендациям.\n\nГлавная задача — получить форму, пропорциональную телу пациентки, с сохранением естественного вида и, по возможности, функции молочной железы.",
+              "en": "Breast plastic surgery is a field of aesthetic and reconstructive medicine covering surgical change to the volume, shape, position and symmetry of the breasts.\n\nThe shape of the breast depends on the volume of glandular and fatty tissue, the elasticity of the skin, the structure of the chest and the position of the nipple-areola complex. It is affected by pregnancy and breastfeeding, changes in weight, ageing and inherited characteristics.\n\nDifferent procedures are used depending on the goal: augmentation with implants, reduction mammoplasty, mastopexy, or correction of shape and asymmetry. In some cases techniques are combined — a lift together with augmentation, for example.\n\nAt GENEVITY, planning is based on individual anatomy and medical indications. Surgery on the breast always requires prior assessment, including a consultation with a breast specialist and imaging of the glands according to age-based guidance.\n\nThe aim is a shape proportionate to the patient's body, preserving a natural appearance and, where possible, the function of the breast."
+            },
+            "calloutBody": {
+              "uk": "",
+              "ru": "",
+              "en": ""
+            },
+            "heroImage": "/images/surgery/operating-theatre.webp",
+            "heroImageFocalPoint": "50% 50%"
+          }
+        },
+        {
+          "type": "steps",
+          "data": {
+            "heading": {
+              "uk": "Як проходить підготовка та операція на грудях?",
+              "ru": "Как проходит подготовка и операция на груди?",
+              "en": "How Are Preparation and Breast Surgery Carried Out?"
+            },
+            "steps": [
+              {
+                "title": {
+                  "uk": "Консультація та діагностика",
+                  "ru": "Консультация и диагностика",
+                  "en": "Consultation and Assessment"
+                },
+                "description": {
+                  "uk": "Пластичний хірург оцінює об'єм і форму грудей, стан шкіри, положення сосково-ареолярного комплексу, симетрію та пропорції тіла. Обговорюються очікування, можливі результати, обмеження й ризики.",
+                  "ru": "Пластический хирург оценивает объем и форму груди, состояние кожи, положение сосково-ареолярного комплекса, симметрию и пропорции тела. Обсуждаются ожидания, возможные результаты, ограничения и риски.",
+                  "en": "The plastic surgeon assesses the volume and shape of the breasts, the condition of the skin, the position of the nipple-areola complex, symmetry and body proportions. Expectations, possible results, limitations and risks are discussed."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Мамологічне обстеження",
+                  "ru": "Маммологическое обследование",
+                  "en": "Breast Assessment"
+                },
+                "description": {
+                  "uk": "Перед втручанням на молочних залозах проводиться консультація мамолога та візуалізація — ультразвукове дослідження або мамографія залежно від віку й показань. Це дозволяє виключити стани, що потребують лікування до операції.",
+                  "ru": "Перед вмешательством на молочных железах проводится консультация маммолога и визуализация — ультразвуковое исследование или маммография в зависимости от возраста и показаний. Это позволяет исключить состояния, требующие лечения до операции.",
+                  "en": "Before any procedure on the breast, a consultation with a breast specialist and imaging — ultrasound or mammography depending on age and indications — are carried out. This rules out conditions that need treatment before surgery."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Індивідуальне планування",
+                  "ru": "Индивидуальное планирование",
+                  "en": "Individual Planning"
+                },
+                "description": {
+                  "uk": "Лікар визначає методику, доступ, розташування розрізів, а за потреби — тип, форму та розмір імпланта. Обирається варіант, що відповідає анатомії та очікуванням пацієнтки.",
+                  "ru": "Врач определяет методику, доступ, расположение разрезов, а при необходимости — тип, форму и размер импланта. Выбирается вариант, соответствующий анатомии и ожиданиям пациентки.",
+                  "en": "The doctor determines the technique, the approach, the placement of the incisions and, where relevant, the type, shape and size of implant, choosing the option that matches the patient's anatomy and expectations."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Хірургічне втручання",
+                  "ru": "Хирургическое вмешательство",
+                  "en": "Surgery"
+                },
+                "description": {
+                  "uk": "Операції на молочних залозах зазвичай проводяться під загальною анестезією. Тривалість і обсяг залежать від обраної методики. Після втручання передбачене перебування під наглядом у стаціонарі.",
+                  "ru": "Операции на молочных железах обычно проводятся под общей анестезией. Длительность и объем зависят от выбранной методики. После вмешательства предусмотрено пребывание под наблюдением в стационаре.",
+                  "en": "Breast operations are usually performed under general anaesthesia. Their length and extent depend on the technique chosen. An inpatient stay under observation follows the procedure."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Відновлення та контроль результату",
+                  "ru": "Восстановление и контроль результата",
+                  "en": "Recovery and Follow-Up"
+                },
+                "description": {
+                  "uk": "Призначається компресійна білизна, обмеження фізичних навантажень і контрольні огляди. Початкове відновлення зазвичай займає кілька тижнів, а остаточна форма грудей формується протягом кількох місяців.",
+                  "ru": "Назначается компрессионное белье, ограничение физических нагрузок и контрольные осмотры. Первичное восстановление обычно занимает несколько недель, а окончательная форма груди формируется в течение нескольких месяцев.",
+                  "en": "A compression garment, restrictions on physical activity and follow-up appointments are prescribed. Initial recovery usually takes several weeks, and the final shape of the breasts settles over several months."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Переваги пластичної хірургії грудей у GENEVITY",
+              "ru": "Преимущества пластической хирургии груди в GENEVITY",
+              "en": "Benefits of Breast Surgery at GENEVITY"
+            },
+            "items": [
+              {
+                "uk": "**Обстеження перед операцією в одному центрі** — Консультація мамолога, ультразвукова діагностика та лабораторні дослідження проводяться на базі центру.",
+                "ru": "**Обследование перед операцией в одном центре** — Консультация маммолога, ультразвуковая диагностика и лабораторные исследования проводятся на базе центра.",
+                "en": "**Preoperative Assessment in One Centre** — The breast consultation, ultrasound and laboratory investigations are all carried out at the centre."
+              },
+              {
+                "uk": "**Індивідуальний підбір методики** — Метод операції обирається з урахуванням анатомії, стану тканин, пропорцій тіла та очікувань пацієнтки.",
+                "ru": "**Индивидуальный подбор методики** — Метод операции выбирается с учетом анатомии, состояния тканей, пропорций тела и ожиданий пациентки.",
+                "en": "**An Individually Chosen Technique** — The surgical technique is chosen with the patient's anatomy, tissue condition, body proportions and expectations in mind."
+              },
+              {
+                "uk": "**Робота з об'ємом, формою та положенням** — Хірургічні методики дозволяють змінювати об'єм, коригувати форму, положення грудей і сосково-ареолярного комплексу.",
+                "ru": "**Работа с объемом, формой и положением** — Хирургические методики позволяют изменять объем, корректировать форму, положение груди и сосково-ареолярного комплекса.",
+                "en": "**Volume, Shape and Position** — Surgical techniques can change volume and correct the shape and position of the breast and the nipple-areola complex."
+              },
+              {
+                "uk": "**Можливість поєднання втручань** — За відповідних показань підтяжка може поєднуватися зі збільшенням або зменшенням грудей в одну операцію.",
+                "ru": "**Возможность сочетания вмешательств** — При соответствующих показаниях подтяжка может сочетаться с увеличением или уменьшением груди в одну операцию.",
+                "en": "**Combined Procedures** — Where indicated, a lift can be combined with augmentation or reduction in a single operation."
+              },
+              {
+                "uk": "**Орієнтація на природні пропорції** — Планування спрямоване на форму, пропорційну тілу, без необґрунтовано великих об'ємів.",
+                "ru": "**Ориентация на естественные пропорции** — Планирование направлено на форму, пропорциональную телу, без необоснованно больших объемов.",
+                "en": "**A Focus on Natural Proportions** — Planning aims at a shape proportionate to the body, without disproportionately large volumes."
+              },
+              {
+                "uk": "**Медичний супровід** — Передопераційне обстеження, анестезіологічне забезпечення, стаціонар і післяопераційні огляди є складовими лікування.",
+                "ru": "**Медицинское сопровождение** — Предоперационное обследование, анестезиологическое обеспечение, стационар и послеоперационные осмотры являются составляющими лечения.",
+                "en": "**Medical Care and Follow-Up** — Preoperative assessment, anaesthetic care, the inpatient stay and postoperative review are all part of the treatment."
+              }
+            ]
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Кому може підійти пластична хірургія грудей?",
+              "ru": "Кому может подойти пластическая хирургия груди?",
+              "en": "Who Might Breast Surgery Suit?"
+            },
+            "items": [
+              {
+                "uk": "Малий об'єм грудей, непропорційний будові тіла.",
+                "ru": "Малый объем груди, непропорциональный строению тела.",
+                "en": "Small breast volume that is out of proportion with the body."
+              },
+              {
+                "uk": "Втрата об'єму та форми після вагітності й лактації.",
+                "ru": "Потеря объема и формы после беременности и лактации.",
+                "en": "Loss of volume and shape after pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Провисання грудей і зміщення сосково-ареолярного комплексу вниз.",
+                "ru": "Провисание груди и смещение сосково-ареолярного комплекса вниз.",
+                "en": "Sagging of the breast and downward displacement of the nipple-areola complex."
+              },
+              {
+                "uk": "Надмірно великий об'єм грудей із навантаженням на спину та шию.",
+                "ru": "Чрезмерно большой объем груди с нагрузкой на спину и шею.",
+                "en": "Excessively large breasts placing strain on the back and neck."
+              },
+              {
+                "uk": "Виражена асиметрія молочних залоз.",
+                "ru": "Выраженная асимметрия молочных желез.",
+                "en": "Pronounced asymmetry of the breasts."
+              },
+              {
+                "uk": "Особливості форми грудей або ареол.",
+                "ru": "Особенности формы груди или ареол.",
+                "en": "Particular features of the shape of the breast or areolae."
+              },
+              {
+                "uk": "Зміни форми після значного схуднення.",
+                "ru": "Изменения формы после значительного похудения.",
+                "en": "Changes in shape after significant weight loss."
+              },
+              {
+                "uk": "Бажання відновити пропорції тіла після завершення лактації.",
+                "ru": "Желание восстановить пропорции тела после завершения лактации.",
+                "en": "A wish to restore body proportions after breastfeeding has ended."
+              }
+            ]
+          }
+        }
+      ],
+      "faq": [
+        {
+          "question": {
+            "uk": "Які операції входять до пластичної хірургії грудей?",
+            "ru": "Какие операции входят в пластическую хирургию груди?",
+            "en": "Which Operations Does Breast Surgery Include?"
+          },
+          "answer": {
+            "uk": "До цього напряму належать збільшення грудей імплантами, редукційна мамопластика, підтяжка грудей (мастопексія) та корекція форми й асиметрії молочних залоз.",
+            "ru": "К этому направлению относятся увеличение груди имплантами, редукционная маммопластика, подтяжка груди (мастопексия) и коррекция формы и асимметрии молочных желез.",
+            "en": "The field includes augmentation with implants, reduction mammoplasty, breast lifting (mastopexy) and correction of breast shape and asymmetry."
+          }
+        },
+        {
+          "question": {
+            "uk": "Яке обстеження потрібне перед операцією на грудях?",
+            "ru": "Какое обследование нужно перед операцией на груди?",
+            "en": "What Assessment Is Needed Before Breast Surgery?"
+          },
+          "answer": {
+            "uk": "Перед втручанням обов'язкові консультація мамолога та візуалізація молочних залоз — ультразвукове дослідження або мамографія залежно від віку. Також проводяться лабораторні дослідження та консультація анестезіолога.",
+            "ru": "Перед вмешательством обязательны консультация маммолога и визуализация молочных желез — ультразвуковое исследование или маммография в зависимости от возраста. Также проводятся лабораторные исследования и консультация анестезиолога.",
+            "en": "A consultation with a breast specialist and imaging of the breasts — ultrasound or mammography depending on age — are required. Laboratory investigations and a consultation with an anaesthetist are also carried out."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна поєднати підтяжку зі збільшенням грудей?",
+            "ru": "Можно ли сочетать подтяжку с увеличением груди?",
+            "en": "Can a Lift Be Combined with Augmentation?"
+          },
+          "answer": {
+            "uk": "Так, за відповідних показань. Поєднання дозволяє одночасно відновити положення грудей і додати об'єм. Можливість і доцільність визначає хірург після огляду.",
+            "ru": "Да, при соответствующих показаниях. Сочетание позволяет одновременно восстановить положение груди и добавить объем. Возможность и целесообразность определяет хирург после осмотра.",
+            "en": "Yes, where indicated. Combining the two restores the position of the breast and adds volume in one operation. The surgeon decides whether it is possible and appropriate after examination."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи впливають операції на грудях на грудне вигодовування?",
+            "ru": "Влияют ли операции на груди на грудное вскармливание?",
+            "en": "Do Breast Operations Affect Breastfeeding?"
+          },
+          "answer": {
+            "uk": "Вплив залежить від методики та обсягу втручання. Деякі операції можуть знижувати можливість лактації, особливо ті, що передбачають роботу із залозистою тканиною та протоками. Якщо вагітність планується, це обов'язково обговорюється до операції.",
+            "ru": "Влияние зависит от методики и объема вмешательства. Некоторые операции могут снижать возможность лактации, особенно те, которые предполагают работу с железистой тканью и протоками. Если беременность планируется, это обязательно обсуждается до операции.",
+            "en": "This depends on the technique and the extent of the procedure. Some operations can reduce the ability to breastfeed, particularly those involving the glandular tissue and ducts. If pregnancy is planned, this is always discussed before surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи варто оперуватися до вагітності чи після неї?",
+            "ru": "Стоит ли оперироваться до беременности или после нее?",
+            "en": "Should Surgery Come Before or After Pregnancy?"
+          },
+          "answer": {
+            "uk": "Вагітність і лактація змінюють об'єм і форму грудей, тому результат операції, виконаної до них, може змінитися. За планування вагітності найближчим часом втручання зазвичай рекомендують відкласти.",
+            "ru": "Беременность и лактация меняют объем и форму груди, поэтому результат операции, выполненной до них, может измениться. При планировании беременности в ближайшее время вмешательство обычно рекомендуют отложить.",
+            "en": "Pregnancy and breastfeeding change the volume and shape of the breasts, so the result of surgery performed beforehand may change. If pregnancy is planned in the near future, surgery is usually deferred."
+          }
+        },
+        {
+          "question": {
+            "uk": "Яка анестезія використовується?",
+            "ru": "Какая анестезия используется?",
+            "en": "What Kind of Anaesthesia Is Used?"
+          },
+          "answer": {
+            "uk": "Операції на молочних залозах зазвичай проводяться під загальною анестезією. Вид знеболення визначається анестезіологом з урахуванням обсягу втручання та стану здоров'я.",
+            "ru": "Операции на молочных железах обычно проводятся под общей анестезией. Вид обезболивания определяется анестезиологом с учетом объема вмешательства и состояния здоровья.",
+            "en": "Breast operations are usually performed under general anaesthesia. The anaesthetist decides on the approach, taking the extent of the procedure and the patient's health into account."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки триває відновлення?",
+            "ru": "Сколько длится восстановление?",
+            "en": "How Long Does Recovery Take?"
+          },
+          "answer": {
+            "uk": "Початкове відновлення зазвичай займає кілька тижнів, протягом яких призначається компресійна білизна та обмеження навантажень. Остаточна форма грудей формується протягом кількох місяців.",
+            "ru": "Первичное восстановление обычно занимает несколько недель, в течение которых назначается компрессионное белье и ограничение нагрузок. Окончательная форма груди формируется в течение нескольких месяцев.",
+            "en": "Initial recovery usually takes several weeks, during which a compression garment and restrictions on activity are prescribed. The final shape settles over several months."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи залишаються рубці?",
+            "ru": "Остаются ли рубцы?",
+            "en": "Will There Be Scars?"
+          },
+          "answer": {
+            "uk": "Будь-яка операція на грудях залишає рубці. Їх розташування залежить від методики — у складці під грудьми, навколо ареоли або вертикально. Вираженість залежить від індивідуального загоєння.",
+            "ru": "Любая операция на груди оставляет рубцы. Их расположение зависит от методики — в складке под грудью, вокруг ареолы или вертикально. Выраженность зависит от индивидуального заживления.",
+            "en": "Any breast operation leaves scars. Their position depends on the technique — in the fold beneath the breast, around the areola, or vertically. How noticeable they are depends on individual healing."
+          }
+        },
+        {
+          "question": {
+            "uk": "Наскільки довго зберігається результат?",
+            "ru": "Как долго сохраняется результат?",
+            "en": "How Long Do the Results Last?"
+          },
+          "answer": {
+            "uk": "Результат багатьох втручань є довготривалим. Водночас на форму грудей продовжують впливати вікові зміни, коливання маси тіла, вагітність і лактація та еластичність шкіри.",
+            "ru": "Результат многих вмешательств является долговременным. В то же время на форму груди продолжают влиять возрастные изменения, колебания массы тела, беременность и лактация и эластичность кожи.",
+            "en": "The results of many procedures are long-lasting. The shape of the breast continues to be affected by ageing, changes in weight, pregnancy and breastfeeding, and skin elasticity."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки коштує пластична хірургія грудей у Дніпрі?",
+            "ru": "Сколько стоит пластическая хирургия груди в Днепре?",
+            "en": "How Much Does Breast Surgery Cost in Dnipro?"
+          },
+          "answer": {
+            "uk": "Вартість залежить від виду операції, обсягу втручання, типу імплантів за їх використання, анестезії, обстежень і перебування у стаціонарі. Точний кошторис формується після консультації.",
+            "ru": "Стоимость зависит от вида операции, объема вмешательства, типа имплантов при их использовании, анестезии, обследований и пребывания в стационаре. Точная смета формируется после консультации.",
+            "en": "The cost depends on the type of operation, its extent, the implants used if any, the anaesthesia, the investigations and the inpatient stay. An exact estimate is prepared after a consultation."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "breast-augmentation",
+      "sortOrder": 9,
+      "seoNoindex": true,
+      "related": [
+        "breast",
+        "breast-lift",
+        "breast-shape-correction",
+        "breast-reduction"
+      ],
+      "h1": {
+        "uk": "Збільшення грудей у Дніпрі",
+        "ru": "Увеличение груди в Днепре",
+        "en": "Breast Augmentation in Dnipro"
+      },
+      "title": {
+        "uk": "Збільшення грудей",
+        "ru": "Увеличение груди",
+        "en": "Breast Augmentation"
+      },
+      "summary": {
+        "uk": "Збільшення грудей у GENEVITY — мамопластика з використанням імплантів, спрямована на зміну об'єму та форми молочних залоз. Тип, форму й розмір імпланта, а також доступ і площину розміщення пластичний хірург підбирає індивідуально з урахуванням анатомії грудної клітки, стану тканин і пропорцій тіла.",
+        "ru": "Увеличение груди в GENEVITY — маммопластика с использованием имплантов, направленная на изменение объема и формы молочных желез. Тип, форму и размер импланта, а также доступ и плоскость размещения пластический хирург подбирает индивидуально с учетом анатомии грудной клетки, состояния тканей и пропорций тела.",
+        "en": "Breast augmentation at GENEVITY is mammoplasty using implants to change the volume and shape of the breasts. The plastic surgeon selects the type, shape and size of implant, together with the approach and the plane of placement, individually, taking into account the anatomy of the chest, the condition of the tissues and body proportions."
+      },
+      "seoTitle": {
+        "ru": "Увеличение груди в Днепре - маммопластика",
+        "uk": "Збільшення грудей в Дніпрі - мамопластика",
+        "en": "Breast augmentation in Dnipro - mammoplasty"
+      },
+      "seoDescription": {
+        "ru": "Увеличение груди в Днепре в GENEVITY 🤍 Маммопластика для коррекции объема и формы груди по доступной цене. Консультация пластического хирурга 💫 Индивидуальный план операции.",
+        "uk": "Збільшення грудей у Дніпрі в GENEVITY 🤍 Мамопластика для корекції об’єму та форми грудей за доступною ціною. Консультація пластичного хірурга 💫 Індивідуальний план операції.",
+        "en": "Breast Augmentation in Dnipro at GENEVITY 🤍 Breast surgery to correct breast size and shape at an affordable price. Consultation with a plastic surgeon 💫 Personalized surgical plan."
+      },
+      "heroImage": "/images/surgery/operating-room.webp",
+      "sections": [
+        {
+          "type": "richText",
+          "data": {
+            "heading": {
+              "uk": "Що таке збільшення грудей та який результат воно дає",
+              "ru": "Что такое увеличение груди и какой результат оно дает",
+              "en": "What Is Breast Augmentation and What Results Can You Expect?"
+            },
+            "body": {
+              "uk": "Об'єм грудей визначається кількістю залозистої та жирової тканини. Він може бути невеликим від природи або зменшуватися після вагітності, лактації та значного схуднення — залозиста тканина скорочується, а шкіра залишається розтягнутою.\n\nЗбільшення грудей виконується за допомогою силіконових імплантів. Імплант може розміщуватися під залозою, під грудним м'язом або в комбінованій площині. Доступ найчастіше виконується у складці під грудьми, рідше — по краю ареоли.\n\nІмплант додає об'єм, але не піднімає груди. За вираженого провисання збільшення зазвичай поєднують із підтяжкою — інакше груди стануть більшими, але залишаться опущеними.",
+              "ru": "Объем груди определяется количеством железистой и жировой ткани. Он может быть небольшим от природы или уменьшаться после беременности, лактации и значительного похудения — железистая ткань сокращается, а кожа остается растянутой.\n\nУвеличение груди выполняется с помощью силиконовых имплантов. Имплант может размещаться под железой, под грудной мышцей или в комбинированной плоскости. Доступ чаще всего выполняется в складке под грудью, реже — по краю ареолы.\n\nИмплант добавляет объем, но не поднимает грудь. При выраженном провисании увеличение обычно сочетают с подтяжкой — иначе грудь станет больше, но останется опущенной.",
+              "en": "Breast volume is determined by the amount of glandular and fatty tissue. It may be small naturally, or decrease after pregnancy, breastfeeding and significant weight loss, when the glandular tissue shrinks while the skin remains stretched.\n\nAugmentation is performed using silicone implants. The implant may be placed under the gland, under the pectoral muscle, or in a combined plane. The approach is most often through the fold beneath the breast, and less often along the edge of the areola.\n\nAn implant adds volume but does not lift the breast. Where there is pronounced sagging, augmentation is usually combined with a lift — otherwise the breast becomes larger but remains low."
+            },
+            "calloutBody": {
+              "uk": "Результат залежить від вихідної анатомії, обраного імпланта, стану шкіри та залозистої тканини, особливостей загоєння та дотримання післяопераційних рекомендацій.",
+              "ru": "Результат зависит от исходной анатомии, выбранного импланта, состояния кожи и железистой ткани, особенностей заживления и соблюдения послеоперационных рекомендаций.",
+              "en": "The result depends on the starting anatomy, the implant chosen, the condition of the skin and glandular tissue, how healing proceeds and adherence to postoperative recommendations."
+            },
+            "heroImage": "/images/surgery/operating-room.webp",
+            "heroImageFocalPoint": "50% 50%"
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Яких змін можна очікувати після збільшення грудей",
+              "ru": "Каких изменений можно ожидать после увеличения груди",
+              "en": "Expected improvements after breast augmentation may include"
+            },
+            "items": [
+              {
+                "uk": "Збільшення об'єму молочних залоз.",
+                "ru": "Увеличение объема молочных желез.",
+                "en": "An increase in breast volume."
+              },
+              {
+                "uk": "Більш виражена форма верхнього полюса грудей.",
+                "ru": "Более выраженная форма верхнего полюса груди.",
+                "en": "A fuller upper pole of the breast."
+              },
+              {
+                "uk": "Відновлення об'єму, втраченого після лактації або схуднення.",
+                "ru": "Восстановление объема, утраченного после лактации или похудения.",
+                "en": "Restoration of volume lost after breastfeeding or weight loss."
+              },
+              {
+                "uk": "Зменшення вираженості асиметрії за різного об'єму залоз.",
+                "ru": "Уменьшение выраженности асимметрии при разном объеме желез.",
+                "en": "Reduced asymmetry where the breasts differ in volume."
+              },
+              {
+                "uk": "Покращення пропорцій між грудьми, талією та стегнами.",
+                "ru": "Улучшение пропорций между грудью, талией и бедрами.",
+                "en": "Improved proportions between the bust, waist and hips."
+              },
+              {
+                "uk": "Можливість підібрати одяг і білизну за розміром.",
+                "ru": "Возможность подобрать одежду и белье по размеру.",
+                "en": "Greater ease in finding clothing and underwear that fit."
+              }
+            ]
+          }
+        },
+        {
+          "type": "indicationsContraindications",
+          "data": {
+            "indicationsHeading": {
+              "uk": "Показання до збільшення грудей",
+              "ru": "Показания к увеличению груди",
+              "en": "Indications for Breast Augmentation"
+            },
+            "indications": [
+              {
+                "uk": "Невеликий об'єм молочних залоз від природи.",
+                "ru": "Небольшой объем молочных желез от природы.",
+                "en": "Naturally small breast volume."
+              },
+              {
+                "uk": "Втрата об'єму після вагітності та лактації.",
+                "ru": "Потеря объема после беременности и лактации.",
+                "en": "Loss of volume after pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Зменшення об'єму грудей після значного схуднення.",
+                "ru": "Уменьшение объема груди после значительного похудения.",
+                "en": "Loss of breast volume after significant weight loss."
+              },
+              {
+                "uk": "Асиметрія молочних залоз за об'ємом.",
+                "ru": "Асимметрия молочных желез по объему.",
+                "en": "Asymmetry in the volume of the breasts."
+              },
+              {
+                "uk": "Непропорційність грудей щодо будови тіла.",
+                "ru": "Непропорциональность груди по отношению к строению тела.",
+                "en": "Breasts out of proportion with the build of the body."
+              },
+              {
+                "uk": "Недорозвинення молочної залози, зокрема тубулярна форма.",
+                "ru": "Недоразвитие молочной железы, в том числе тубулярная форма.",
+                "en": "Underdevelopment of the breast, including tubular breast."
+              },
+              {
+                "uk": "Бажання відновити форму грудей після завершення лактації.",
+                "ru": "Желание восстановить форму груди после завершения лактации.",
+                "en": "A wish to restore breast shape after breastfeeding has ended."
+              },
+              {
+                "uk": "Потреба в заміні раніше встановлених імплантів.",
+                "ru": "Необходимость замены ранее установленных имплантов.",
+                "en": "A need to replace implants placed previously."
+              }
+            ],
+            "contraindicationsHeading": {
+              "uk": "Протипоказання до збільшення грудей",
+              "ru": "Противопоказания к увеличению груди",
+              "en": "Contraindications for Breast Augmentation"
+            },
+            "contraindications": [
+              {
+                "uk": "Гострі інфекційні та запальні захворювання.",
+                "ru": "Острые инфекционные и воспалительные заболевания.",
+                "en": "Acute infectious and inflammatory conditions."
+              },
+              {
+                "uk": "Неконтрольований цукровий діабет.",
+                "ru": "Неконтролируемый сахарный диабет.",
+                "en": "Uncontrolled diabetes."
+              },
+              {
+                "uk": "Порушення згортання крові.",
+                "ru": "Нарушения свертываемости крови.",
+                "en": "Blood clotting disorders."
+              },
+              {
+                "uk": "Декомпенсовані серцево-судинні та інші тяжкі соматичні захворювання.",
+                "ru": "Декомпенсированные сердечно-сосудистые и другие тяжелые соматические заболевания.",
+                "en": "Decompensated cardiovascular and other severe systemic conditions."
+              },
+              {
+                "uk": "Схильність до келоїдних рубців.",
+                "ru": "Склонность к келоидным рубцам.",
+                "en": "A tendency to keloid scarring."
+              },
+              {
+                "uk": "Стани, за яких проведення анестезії або операції пов'язане з неприйнятно високим ризиком.",
+                "ru": "Состояния, при которых проведение анестезии или операции связано с неприемлемо высоким риском.",
+                "en": "Conditions in which anaesthesia or surgery would carry an unacceptably high risk."
+              },
+              {
+                "uk": "Вагітність і період грудного вигодовування.",
+                "ru": "Беременность и период грудного вскармливания.",
+                "en": "Pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Виявлені під час обстеження захворювання молочних залоз, що потребують лікування.",
+                "ru": "Выявленные при обследовании заболевания молочных желез, требующие лечения.",
+                "en": "Breast conditions found during assessment that require treatment."
+              },
+              {
+                "uk": "Онкологічні захворювання в активній стадії.",
+                "ru": "Онкологические заболевания в активной стадии.",
+                "en": "Active cancer."
+              },
+              {
+                "uk": "Незавершене формування молочних залоз, якщо немає окремих медичних показань.",
+                "ru": "Незавершенное формирование молочных желез, если нет отдельных медицинских показаний.",
+                "en": "Incomplete breast development, unless there are separate medical indications."
+              },
+              {
+                "uk": "Інші індивідуальні обмеження, встановлені лікарем.",
+                "ru": "Другие индивидуальные ограничения, установленные врачом.",
+                "en": "Other individual limitations determined by the doctor."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "info",
+            "body": {
+              "uk": "Збільшення грудей може бути рекомендоване за недостатнього об'єму молочних залоз, його втрати після вагітності чи схуднення або за асиметрії, яку не вдається скоригувати іншими способами. Показання визначаються з урахуванням анатомії, стану тканин, загального здоров'я та реалістичності очікувань.\n\nОскільки це хірургічне втручання на молочній залозі, перед операцією необхідні консультація пластичного хірурга, консультація мамолога з візуалізацією залоз, передопераційне обстеження та консультація анестезіолога.",
+              "ru": "Увеличение груди может быть рекомендовано при недостаточном объеме молочных желез, его потере после беременности или похудения либо при асимметрии, которую не удается скорректировать другими способами. Показания определяются с учетом анатомии, состояния тканей, общего здоровья и реалистичности ожиданий.\n\nПоскольку это хирургическое вмешательство на молочной железе, перед операцией необходимы консультация пластического хирурга, консультация маммолога с визуализацией желез, предоперационное обследование и консультация анестезиолога.",
+              "en": "Augmentation may be recommended where breast volume is insufficient, has been lost after pregnancy or weight loss, or where there is asymmetry that cannot be corrected by other means. The indications are determined by anatomy, the condition of the tissues, general health and how realistic the patient's expectations are.\n\nBecause this is surgery on the breast, it requires a consultation with a plastic surgeon, a consultation with a breast specialist including imaging, preoperative assessment and a consultation with an anaesthetist beforehand."
+            }
+          }
+        },
+        {
+          "type": "steps",
+          "data": {
+            "heading": {
+              "uk": "Як проходить збільшення грудей",
+              "ru": "Как проходит увеличение груди",
+              "en": "How Is Breast Augmentation Performed?"
+            },
+            "steps": [
+              {
+                "title": {
+                  "uk": "Консультація пластичного хірурга",
+                  "ru": "Консультация пластического хирурга",
+                  "en": "Consultation with a Plastic Surgeon"
+                },
+                "description": {
+                  "uk": "Лікар оцінює об'єм і форму грудей, стан шкіри та залозистої тканини, ширину грудної клітки, положення сосково-ареолярного комплексу та симетрію. На основі вимірювань підбирається тип, форма й розмір імпланта, доступ і площина розміщення. Обговорюються очікування, можливі результати, обмеження та ризики.",
+                  "ru": "Врач оценивает объем и форму груди, состояние кожи и железистой ткани, ширину грудной клетки, положение сосково-ареолярного комплекса и симметрию. На основе измерений подбирается тип, форма и размер импланта, доступ и плоскость размещения. Обсуждаются ожидания, возможные результаты, ограничения и риски.",
+                  "en": "The doctor assesses the volume and shape of the breasts, the condition of the skin and glandular tissue, the width of the chest, the position of the nipple-areola complex and symmetry. Measurements guide the choice of implant type, shape and size, the approach and the plane of placement. Expectations, possible results, limitations and risks are discussed."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Передопераційна підготовка",
+                  "ru": "Предоперационная подготовка",
+                  "en": "Preoperative Preparation"
+                },
+                "description": {
+                  "uk": "Пацієнтка проходить консультацію мамолога з візуалізацією молочних залоз, лабораторні та інструментальні обстеження і консультацію анестезіолога. Лікар надає рекомендації щодо підготовки, прийому медикаментів і режиму перед операцією.",
+                  "ru": "Пациентка проходит консультацию маммолога с визуализацией молочных желез, лабораторные и инструментальные обследования и консультацию анестезиолога. Врач дает рекомендации по подготовке, приему медикаментов и режиму перед операцией.",
+                  "en": "The patient has a consultation with a breast specialist including imaging, laboratory and instrumental investigations, and a consultation with an anaesthetist. The doctor advises on preparation, medication and the regimen to follow before surgery."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Встановлення імплантів",
+                  "ru": "Установка имплантов",
+                  "en": "Implant Placement"
+                },
+                "description": {
+                  "uk": "Операція проводиться під загальною анестезією. Хірург виконує доступ відповідно до плану, формує кишеню для імпланта під залозою, під м'язом або в комбінованій площині та встановлює імплант.\n\nПісля контролю симетрії та гемостазу накладаються шви. За потреби встановлюються дренажі.",
+                  "ru": "Операция проводится под общей анестезией. Хирург выполняет доступ в соответствии с планом, формирует карман для импланта под железой, под мышцей или в комбинированной плоскости и устанавливает имплант.\n\nПосле контроля симметрии и гемостаза накладываются швы. При необходимости устанавливаются дренажи.",
+                  "en": "The operation is performed under general anaesthesia. The surgeon makes the planned incision, creates a pocket for the implant under the gland, under the muscle or in a combined plane, and places the implant.\n\nOnce symmetry and haemostasis have been checked, the incisions are closed. Drains are placed if required."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Післяопераційне спостереження",
+                  "ru": "Послеоперационное наблюдение",
+                  "en": "Postoperative Monitoring"
+                },
+                "description": {
+                  "uk": "Після завершення операції пацієнтка перебуває під медичним наглядом у стаціонарі. Призначається компресійна білизна, знеболення та догляд за швами. Тривалість перебування залежить від обсягу втручання та стану пацієнтки.",
+                  "ru": "После завершения операции пациентка находится под медицинским наблюдением в стационаре. Назначается компрессионное белье, обезболивание и уход за швами. Длительность пребывания зависит от объема вмешательства и состояния пациентки.",
+                  "en": "After the operation the patient remains under medical supervision in hospital. A compression garment, pain relief and wound care are prescribed. The length of stay depends on the extent of the procedure and the patient's condition."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Відновлення та контроль результату",
+                  "ru": "Восстановление и контроль результата",
+                  "en": "Recovery and Follow-Up"
+                },
+                "description": {
+                  "uk": "У перші дні можливі набряк, відчуття тиску та дискомфорт у ділянці грудей. Компресійна білизна носиться протягом призначеного лікарем періоду, фізичні навантаження обмежуються.\n\nПочаткове відновлення зазвичай займає 3–4 тижні, а остаточне формування форми грудей — кілька місяців, поки імпланти займають природне положення.",
+                  "ru": "В первые дни возможны отек, ощущение давления и дискомфорт в области груди. Компрессионное белье носится в течение назначенного врачом периода, физические нагрузки ограничиваются.\n\nПервичное восстановление обычно занимает 3–4 недели, а окончательное формирование формы груди — несколько месяцев, пока импланты занимают естественное положение.",
+                  "en": "Swelling, a feeling of pressure and discomfort in the breasts are common in the first few days. A compression garment is worn for the period the doctor prescribes and physical activity is restricted.\n\nInitial recovery usually takes three to four weeks, and the final shape settles over several months as the implants take up their natural position."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Переваги збільшення грудей у GENEVITY",
+              "ru": "Преимущества увеличения груди в GENEVITY",
+              "en": "Benefits of Breast Augmentation at GENEVITY"
+            },
+            "items": [
+              {
+                "uk": "**Індивідуальне планування операції** — Імплант підбирається за вимірюваннями грудної клітки та стану тканин, а не лише за бажаним розміром.",
+                "ru": "**Индивидуальное планирование операции** — Имплант подбирается по измерениям грудной клетки и состоянию тканей, а не только по желаемому размеру.",
+                "en": "**Personalized Surgical Planning** — The implant is selected from measurements of the chest and the condition of the tissues, not from a desired cup size alone."
+              },
+              {
+                "uk": "**Мамологічне обстеження перед операцією** — Консультація мамолога та візуалізація молочних залоз проводяться на базі центру до планування втручання.",
+                "ru": "**Маммологическое обследование перед операцией** — Консультация маммолога и визуализация молочных желез проводятся на базе центра до планирования вмешательства.",
+                "en": "**Breast Assessment Before Surgery** — The breast consultation and imaging are carried out at the centre before the procedure is planned."
+              },
+              {
+                "uk": "**Вибір площини та доступу** — Розміщення імпланта під залозою, під м'язом або в комбінованій площині обирається за товщиною тканин і будовою грудей.",
+                "ru": "**Выбор плоскости и доступа** — Размещение импланта под железой, под мышцей или в комбинированной плоскости выбирается по толщине тканей и строению груди.",
+                "en": "**Choice of Plane and Approach** — Placement under the gland, under the muscle or in a combined plane is chosen according to tissue thickness and breast structure."
+              },
+              {
+                "uk": "**Поєднання з підтяжкою за показаннями** — За провисання грудей збільшення може виконуватися разом із мастопексією в одну операцію.",
+                "ru": "**Сочетание с подтяжкой по показаниям** — При провисании груди увеличение может выполняться вместе с мастопексией в одну операцию.",
+                "en": "**Combination with a Lift Where Indicated** — Where the breast has descended, augmentation can be carried out together with mastopexy in a single operation."
+              },
+              {
+                "uk": "**Медичний супровід** — Передопераційне обстеження, анестезіологічне забезпечення, стаціонар і післяопераційні огляди є важливими складовими хірургічного лікування.",
+                "ru": "**Медицинское сопровождение** — Предоперационное обследование, анестезиологическое обеспечение, стационар и послеоперационные осмотры являются важными составляющими хирургического лечения.",
+                "en": "**Medical Care and Follow-Up** — Preoperative assessment, anaesthetic care, the inpatient stay and postoperative review are essential parts of surgical treatment."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "warning",
+            "body": {
+              "uk": "Збільшення грудей, як і будь-яке хірургічне втручання, має ризики. Серед них — кровотеча, гематоми, інфекції, порушення загоєння, зміни чутливості соска, асиметрія, капсулярна контрактура, зміщення або пошкодження імпланта та можливість необхідності повторної операції. Усі суттєві ризики обговорюються до втручання.",
+              "ru": "Увеличение груди, как и любое хирургическое вмешательство, имеет риски. Среди них — кровотечение, гематомы, инфекции, нарушение заживления, изменения чувствительности соска, асимметрия, капсулярная контрактура, смещение или повреждение импланта и возможность необходимости повторной операции. Все существенные риски обсуждаются до вмешательства.",
+              "en": "Breast augmentation, like any surgical procedure, carries risks. These include bleeding, haematoma, infection, impaired healing, changes in nipple sensation, asymmetry, capsular contracture, displacement or damage to the implant, and the possibility that further surgery may be needed. All material risks are discussed before the procedure."
+            }
+          }
+        }
+      ],
+      "faq": [
+        {
+          "question": {
+            "uk": "Як підбирається розмір імпланта?",
+            "ru": "Как подбирается размер импланта?",
+            "en": "How Is Implant Size Chosen?"
+          },
+          "answer": {
+            "uk": "Розмір визначається не бажаним розміром чашки, а вимірюваннями: шириною основи залози, шириною грудної клітки, товщиною тканин та еластичністю шкіри. Імплант, більший за те, що здатні утримати тканини, підвищує ризик ускладнень.",
+            "ru": "Размер определяется не желаемым размером чашки, а измерениями: шириной основания железы, шириной грудной клетки, толщиной тканей и эластичностью кожи. Имплант, больший, чем способны удержать ткани, повышает риск осложнений.",
+            "en": "Size is determined by measurements — the width of the breast base, the width of the chest, tissue thickness and skin elasticity — rather than by a desired cup size. An implant larger than the tissues can support increases the risk of complications."
+          }
+        },
+        {
+          "question": {
+            "uk": "Під залозу чи під м'яз — що краще?",
+            "ru": "Под железу или под мышцу — что лучше?",
+            "en": "Under the Gland or Under the Muscle?"
+          },
+          "answer": {
+            "uk": "Універсальної відповіді немає. За достатньої товщини власних тканин можливе розміщення під залозою, за тонких тканин частіше обирають підм'язову або комбіновану площину, щоб краї імпланта були менш помітними. Рішення ухвалюється після огляду та вимірювань.",
+            "ru": "Универсального ответа нет. При достаточной толщине собственных тканей возможно размещение под железой, при тонких тканях чаще выбирают подмышечную или комбинированную плоскость, чтобы края импланта были менее заметными. Решение принимается после осмотра и измерений.",
+            "en": "There is no universal answer. Where the patient's own tissues are thick enough, placement under the gland is possible; where they are thin, a submuscular or combined plane is more often chosen so the edges of the implant are less visible. The decision follows examination and measurement."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи потрібно змінювати імпланти через певний час?",
+            "ru": "Нужно ли менять импланты через определенное время?",
+            "en": "Do Implants Need Replacing After a Period of Time?"
+          },
+          "answer": {
+            "uk": "Сучасні імпланти не мають встановленого строку обов'язкової заміни. Водночас вони не є довічними: заміна може знадобитися у разі капсулярної контрактури, пошкодження оболонки, зміни форми грудей із часом або за бажанням змінити об'єм. Рекомендується регулярне спостереження.",
+            "ru": "Современные импланты не имеют установленного срока обязательной замены. В то же время они не являются пожизненными: замена может понадобиться при капсулярной контрактуре, повреждении оболочки, изменении формы груди со временем или при желании изменить объем. Рекомендуется регулярное наблюдение.",
+            "en": "Modern implants have no fixed replacement interval. They are not, however, lifetime devices: replacement may be needed for capsular contracture, damage to the shell, changes in breast shape over time, or if the patient wishes to change volume. Regular follow-up is recommended."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна годувати груддю після збільшення?",
+            "ru": "Можно ли кормить грудью после увеличения?",
+            "en": "Is Breastfeeding Possible After Augmentation?"
+          },
+          "answer": {
+            "uk": "У більшості випадків грудне вигодовування залишається можливим, оскільки імплант розміщується поза залозистою тканиною. Водночас гарантувати збереження лактації неможливо. Якщо вагітність планується, це обговорюється до операції.",
+            "ru": "В большинстве случаев грудное вскармливание остается возможным, поскольку имплант размещается вне железистой ткани. В то же время гарантировать сохранение лактации невозможно. Если беременность планируется, это обсуждается до операции.",
+            "en": "In most cases breastfeeding remains possible, since the implant is placed outside the glandular tissue. Preservation of lactation cannot be guaranteed, however. If pregnancy is planned, this is discussed before surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи заважають імпланти обстеженню молочних залоз?",
+            "ru": "Мешают ли импланты обследованию молочных желез?",
+            "en": "Do Implants Interfere with Breast Screening?"
+          },
+          "answer": {
+            "uk": "Імпланти можуть ускладнювати оцінку окремих ділянок залози при стандартній мамографії. Про наявність імплантів слід повідомляти лікаря — використовуються спеціальні укладки та додаткові методи візуалізації. Регулярне обстеження залишається обов'язковим.",
+            "ru": "Импланты могут затруднять оценку отдельных участков железы при стандартной маммографии. О наличии имплантов следует сообщать врачу — используются специальные укладки и дополнительные методы визуализации. Регулярное обследование остается обязательным.",
+            "en": "Implants can make parts of the breast harder to assess on standard mammography. Always tell the radiographer that implants are present — special views and additional imaging are used. Regular screening remains essential."
+          }
+        },
+        {
+          "question": {
+            "uk": "Що таке капсулярна контрактура?",
+            "ru": "Что такое капсулярная контрактура?",
+            "en": "What Is Capsular Contracture?"
+          },
+          "answer": {
+            "uk": "Навколо будь-якого імпланта організм формує сполучнотканинну капсулу — це нормальна реакція. Якщо капсула надмірно ущільнюється та стискає імплант, груди можуть ставати твердими, змінювати форму та викликати дискомфорт. Це одне з можливих ускладнень, що може потребувати повторної операції.",
+            "ru": "Вокруг любого импланта организм формирует соединительнотканную капсулу — это нормальная реакция. Если капсула чрезмерно уплотняется и сжимает имплант, грудь может становиться твердой, менять форму и вызывать дискомфорт. Это одно из возможных осложнений, которое может потребовать повторной операции.",
+            "en": "The body forms a capsule of connective tissue around any implant, which is a normal response. If that capsule thickens excessively and squeezes the implant, the breast can become firm, change shape and feel uncomfortable. It is one of the possible complications and may require further surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки триває відновлення після збільшення грудей?",
+            "ru": "Сколько длится восстановление после увеличения груди?",
+            "en": "How Long Does Recovery Take After Augmentation?"
+          },
+          "answer": {
+            "uk": "Початкове відновлення зазвичай займає 3–4 тижні, протягом яких носиться компресійна білизна та обмежуються навантаження. Остаточне положення імплантів і форма грудей формуються протягом кількох місяців.",
+            "ru": "Первичное восстановление обычно занимает 3–4 недели, в течение которых носится компрессионное белье и ограничиваются нагрузки. Окончательное положение имплантов и форма груди формируются в течение нескольких месяцев.",
+            "en": "Initial recovery usually takes three to four weeks, during which a compression garment is worn and activity is restricted. The final position of the implants and the shape of the breasts settle over several months."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи залишаються рубці після збільшення грудей?",
+            "ru": "Остаются ли рубцы после увеличения груди?",
+            "en": "Will There Be Scars After Augmentation?"
+          },
+          "answer": {
+            "uk": "Так. Найчастіше рубець розташовується у складці під грудьми, де він менш помітний, рідше — по краю ареоли. З часом рубці зазвичай стають світлішими, але повністю безслідне загоєння гарантувати неможливо.",
+            "ru": "Да. Чаще всего рубец располагается в складке под грудью, где он менее заметен, реже — по краю ареолы. Со временем рубцы обычно становятся светлее, но полностью бесследное заживление гарантировать невозможно.",
+            "en": "Yes. The scar is most often placed in the fold beneath the breast, where it is less visible, and less often along the edge of the areola. Scars usually fade over time, but completely invisible healing cannot be guaranteed."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна одночасно зробити збільшення та підтяжку?",
+            "ru": "Можно ли одновременно сделать увеличение и подтяжку?",
+            "en": "Can Augmentation and a Lift Be Done Together?"
+          },
+          "answer": {
+            "uk": "Так, за відповідних показань. Якщо груди не лише втратили об'єм, а й опустилися, саме лише збільшення результату не дасть. Поєднання методик обговорюється на консультації з урахуванням обсягу втручання та ризиків.",
+            "ru": "Да, при соответствующих показаниях. Если грудь не только потеряла объем, но и опустилась, одно только увеличение результата не даст. Сочетание методик обсуждается на консультации с учетом объема вмешательства и рисков.",
+            "en": "Yes, where indicated. If the breast has not only lost volume but also descended, augmentation alone will not give the result. Combining the techniques is discussed at the consultation, taking the extent of the procedure and the risks into account."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки коштує збільшення грудей у Дніпрі?",
+            "ru": "Сколько стоит увеличение груди в Днепре?",
+            "en": "How Much Does Breast Augmentation Cost in Dnipro?"
+          },
+          "answer": {
+            "uk": "Вартість залежить від типу та виробника імплантів, обсягу втручання, виду анестезії, обстежень і тривалості перебування у стаціонарі. Індивідуальний кошторис формується після консультації пластичного хірурга.",
+            "ru": "Стоимость зависит от типа и производителя имплантов, объема вмешательства, вида анестезии, обследований и длительности пребывания в стационаре. Индивидуальная смета формируется после консультации пластического хирурга.",
+            "en": "The cost depends on the type and manufacturer of the implants, the extent of the procedure, the anaesthesia, the investigations and the length of the inpatient stay. An individual estimate is prepared after a consultation with the plastic surgeon."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "breast-reduction",
+      "sortOrder": 10,
+      "seoNoindex": true,
+      "related": [
+        "breast",
+        "breast-lift",
+        "breast-shape-correction",
+        "breast-augmentation"
+      ],
+      "h1": {
+        "uk": "Зменшення грудей у Дніпрі",
+        "ru": "Уменьшение груди в Днепре",
+        "en": "Breast Reduction in Dnipro"
+      },
+      "title": {
+        "uk": "Зменшення грудей",
+        "ru": "Уменьшение груди",
+        "en": "Breast Reduction"
+      },
+      "summary": {
+        "uk": "Зменшення грудей у GENEVITY — редукційна мамопластика, яка зменшує об'єм молочних залоз, видаляє надлишок шкіри та одночасно піднімає груди. Операція виконується як з естетичних, так і з медичних показань, коли великий об'єм грудей створює навантаження на хребет і обмежує повсякденне життя.",
+        "ru": "Уменьшение груди в GENEVITY — редукционная маммопластика, которая уменьшает объем молочных желез, удаляет избыток кожи и одновременно поднимает грудь. Операция выполняется как по эстетическим, так и по медицинским показаниям, когда большой объем груди создает нагрузку на позвоночник и ограничивает повседневную жизнь.",
+        "en": "Breast reduction at GENEVITY is reduction mammoplasty: it reduces the volume of the breasts, removes excess skin and lifts the breast at the same time. It is performed for both aesthetic and medical reasons, when large breasts place strain on the spine and limit everyday life."
+      },
+      "seoTitle": {
+        "ru": "Уменьшение груди в Днепре - редукционная маммопластика",
+        "uk": "Зменшення грудей в Дніпрі - редукційна мамопластика",
+        "en": "Breast reduction in Dnipro - reduction mammoplasty"
+      },
+      "seoDescription": {
+        "ru": "Уменьшение груди в Днепре в GENEVITY 🤍 Хирургическая коррекция объема и формы груди по доступной цене. Консультация пластического хирурга 💫 Индивидуальный план операции.",
+        "uk": "Зменшення грудей у Дніпрі в GENEVITY 🤍 Хірургічна корекція об’єму та форми грудей за доступною ціною. Консультація пластичного хірурга 💫 Індивідуальний план операції.",
+        "en": "Breast Reduction in Dnipro at GENEVITY 🤍 Surgical correction of breast size and shape at an affordable price. Consultation with a plastic surgeon 💫 Personalized surgical plan."
+      },
+      "heroImage": "/images/surgery/operating-theatre.webp",
+      "sections": [
+        {
+          "type": "richText",
+          "data": {
+            "heading": {
+              "uk": "Що таке зменшення грудей та який результат воно дає",
+              "ru": "Что такое уменьшение груди и какой результат оно дает",
+              "en": "What Is Breast Reduction and What Results Can You Expect?"
+            },
+            "body": {
+              "uk": "Надмірно великий об'єм молочних залоз — це не лише естетичне питання. Вага грудей створює постійне навантаження на шийний і грудний відділи хребта, що може супроводжуватися болем у спині та шиї, слідами від бретелей на плечах і попрілостями у складці під грудьми.\n\nРедукційна мамопластика передбачає видалення частини залозистої та жирової тканини разом із надлишком шкіри, переміщення сосково-ареолярного комплексу у вище положення і, за потреби, зменшення діаметра ареоли.\n\nНа відміну від збільшення, ця операція одночасно вирішує два завдання: зменшує об'єм і піднімає груди. Обсяг тканини, яку можна видалити, визначається індивідуально — він обмежений потребою зберегти кровопостачання сосково-ареолярного комплексу.",
+              "ru": "Чрезмерно большой объем молочных желез — это не только эстетический вопрос. Вес груди создает постоянную нагрузку на шейный и грудной отделы позвоночника, что может сопровождаться болью в спине и шее, следами от бретелей на плечах и опрелостями в складке под грудью.\n\nРедукционная маммопластика предполагает удаление части железистой и жировой ткани вместе с избытком кожи, перемещение сосково-ареолярного комплекса в более высокое положение и, при необходимости, уменьшение диаметра ареолы.\n\nВ отличие от увеличения, эта операция одновременно решает две задачи: уменьшает объем и поднимает грудь. Объем ткани, который можно удалить, определяется индивидуально — он ограничен необходимостью сохранить кровоснабжение сосково-ареолярного комплекса.",
+              "en": "Excessively large breasts are not only an aesthetic matter. Their weight places constant strain on the cervical and thoracic spine, which can bring back and neck pain, grooving from bra straps on the shoulders, and skin irritation in the fold beneath the breast.\n\nReduction mammoplasty removes part of the glandular and fatty tissue together with excess skin, moves the nipple-areola complex to a higher position and, where needed, reduces the diameter of the areola.\n\nUnlike augmentation, this operation does two things at once: it reduces volume and lifts the breast. How much tissue can be removed is decided individually, limited by the need to preserve the blood supply to the nipple-areola complex."
+            },
+            "calloutBody": {
+              "uk": "Результат залежить від вихідного об'єму та форми грудей, еластичності шкіри, обсягу видаленої тканини, особливостей загоєння та дотримання післяопераційних рекомендацій.",
+              "ru": "Результат зависит от исходного объема и формы груди, эластичности кожи, объема удаленной ткани, особенностей заживления и соблюдения послеоперационных рекомендаций.",
+              "en": "The result depends on the starting volume and shape, skin elasticity, how much tissue is removed, how healing proceeds and adherence to postoperative recommendations."
+            },
+            "heroImage": "/images/surgery/operating-theatre.webp",
+            "heroImageFocalPoint": "50% 50%"
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Яких змін можна очікувати після зменшення грудей",
+              "ru": "Каких изменений можно ожидать после уменьшения груди",
+              "en": "Expected improvements after breast reduction may include"
+            },
+            "items": [
+              {
+                "uk": "Зменшення об'єму та ваги молочних залоз.",
+                "ru": "Уменьшение объема и веса молочных желез.",
+                "en": "A reduction in the volume and weight of the breasts."
+              },
+              {
+                "uk": "Підняття грудей і сосково-ареолярного комплексу.",
+                "ru": "Поднятие груди и сосково-ареолярного комплекса.",
+                "en": "Elevation of the breast and the nipple-areola complex."
+              },
+              {
+                "uk": "Зменшення навантаження на спину, шию та плечі.",
+                "ru": "Уменьшение нагрузки на спину, шею и плечи.",
+                "en": "Less strain on the back, neck and shoulders."
+              },
+              {
+                "uk": "Зникнення слідів від бретелей на плечах.",
+                "ru": "Исчезновение следов от бретелей на плечах.",
+                "en": "Resolution of grooving from bra straps."
+              },
+              {
+                "uk": "Зменшення попрілостей у складці під грудьми.",
+                "ru": "Уменьшение опрелостей в складке под грудью.",
+                "en": "Less skin irritation in the fold beneath the breast."
+              },
+              {
+                "uk": "Корекція асиметрії за різного об'єму залоз.",
+                "ru": "Коррекция асимметрии при разном объеме желез.",
+                "en": "Correction of asymmetry where the breasts differ in volume."
+              },
+              {
+                "uk": "Ширший вибір одягу та білизни.",
+                "ru": "Более широкий выбор одежды и белья.",
+                "en": "A wider choice of clothing and underwear."
+              }
+            ]
+          }
+        },
+        {
+          "type": "indicationsContraindications",
+          "data": {
+            "indicationsHeading": {
+              "uk": "Показання до зменшення грудей",
+              "ru": "Показания к уменьшению груди",
+              "en": "Indications for Breast Reduction"
+            },
+            "indications": [
+              {
+                "uk": "Надмірно великий об'єм молочних залоз (гіпертрофія, гігантомастія).",
+                "ru": "Чрезмерно большой объем молочных желез (гипертрофия, гигантомастия).",
+                "en": "Excessively large breasts (hypertrophy, gigantomastia)."
+              },
+              {
+                "uk": "Біль у шиї, спині та плечах, пов'язаний із вагою грудей.",
+                "ru": "Боль в шее, спине и плечах, связанная с весом груди.",
+                "en": "Neck, back and shoulder pain related to breast weight."
+              },
+              {
+                "uk": "Глибокі сліди від бретелей на плечах.",
+                "ru": "Глубокие следы от бретелей на плечах.",
+                "en": "Deep grooving from bra straps on the shoulders."
+              },
+              {
+                "uk": "Попрілості та подразнення шкіри у складці під грудьми.",
+                "ru": "Опрелости и раздражение кожи в складке под грудью.",
+                "en": "Intertrigo and skin irritation in the inframammary fold."
+              },
+              {
+                "uk": "Опущення грудей, пов'язане з великим об'ємом.",
+                "ru": "Опущение груди, связанное с большим объемом.",
+                "en": "Breast descent associated with large volume."
+              },
+              {
+                "uk": "Виражена асиметрія молочних залоз за об'ємом.",
+                "ru": "Выраженная асимметрия молочных желез по объему.",
+                "en": "Pronounced asymmetry in breast volume."
+              },
+              {
+                "uk": "Обмеження фізичної активності через розмір грудей.",
+                "ru": "Ограничение физической активности из-за размера груди.",
+                "en": "Physical activity limited by breast size."
+              },
+              {
+                "uk": "Непропорційність грудей щодо будови тіла.",
+                "ru": "Непропорциональность груди по отношению к строению тела.",
+                "en": "Breasts out of proportion with the build of the body."
+              }
+            ],
+            "contraindicationsHeading": {
+              "uk": "Протипоказання до зменшення грудей",
+              "ru": "Противопоказания к уменьшению груди",
+              "en": "Contraindications for Breast Reduction"
+            },
+            "contraindications": [
+              {
+                "uk": "Гострі інфекційні та запальні захворювання.",
+                "ru": "Острые инфекционные и воспалительные заболевания.",
+                "en": "Acute infectious and inflammatory conditions."
+              },
+              {
+                "uk": "Неконтрольований цукровий діабет.",
+                "ru": "Неконтролируемый сахарный диабет.",
+                "en": "Uncontrolled diabetes."
+              },
+              {
+                "uk": "Порушення згортання крові.",
+                "ru": "Нарушения свертываемости крови.",
+                "en": "Blood clotting disorders."
+              },
+              {
+                "uk": "Декомпенсовані серцево-судинні та інші тяжкі соматичні захворювання.",
+                "ru": "Декомпенсированные сердечно-сосудистые и другие тяжелые соматические заболевания.",
+                "en": "Decompensated cardiovascular and other severe systemic conditions."
+              },
+              {
+                "uk": "Схильність до келоїдних рубців.",
+                "ru": "Склонность к келоидным рубцам.",
+                "en": "A tendency to keloid scarring."
+              },
+              {
+                "uk": "Стани, за яких проведення анестезії або операції пов'язане з неприйнятно високим ризиком.",
+                "ru": "Состояния, при которых проведение анестезии или операции связано с неприемлемо высоким риском.",
+                "en": "Conditions in which anaesthesia or surgery would carry an unacceptably high risk."
+              },
+              {
+                "uk": "Вагітність і період грудного вигодовування.",
+                "ru": "Беременность и период грудного вскармливания.",
+                "en": "Pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Виявлені під час обстеження захворювання молочних залоз, що потребують лікування.",
+                "ru": "Выявленные при обследовании заболевания молочных желез, требующие лечения.",
+                "en": "Breast conditions found during assessment that require treatment."
+              },
+              {
+                "uk": "Онкологічні захворювання в активній стадії.",
+                "ru": "Онкологические заболевания в активной стадии.",
+                "en": "Active cancer."
+              },
+              {
+                "uk": "Куріння без готовності відмовитися за 3–4 тижні до та після операції.",
+                "ru": "Курение без готовности отказаться за 3–4 недели до и после операции.",
+                "en": "Smoking, without a willingness to stop three to four weeks before and after surgery."
+              },
+              {
+                "uk": "Планування вагітності найближчим часом.",
+                "ru": "Планирование беременности в ближайшее время.",
+                "en": "Pregnancy planned in the near future."
+              },
+              {
+                "uk": "Інші індивідуальні обмеження, встановлені лікарем.",
+                "ru": "Другие индивидуальные ограничения, установленные врачом.",
+                "en": "Other individual limitations determined by the doctor."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "info",
+            "body": {
+              "uk": "Зменшення грудей може бути рекомендоване за надмірного об'єму молочних залоз, який створює фізичне навантаження або не відповідає пропорціям тіла. Частина показань є медичними, а не суто естетичними. Показання визначаються з урахуванням анатомії, стану тканин, загального здоров'я та реалістичності очікувань.\n\nОскільки це хірургічне втручання на молочній залозі, перед операцією необхідні консультація пластичного хірурга, консультація мамолога з візуалізацією залоз, передопераційне обстеження та консультація анестезіолога.",
+              "ru": "Уменьшение груди может быть рекомендовано при чрезмерном объеме молочных желез, который создает физическую нагрузку или не соответствует пропорциям тела. Часть показаний является медицинскими, а не сугубо эстетическими. Показания определяются с учетом анатомии, состояния тканей, общего здоровья и реалистичности ожиданий.\n\nПоскольку это хирургическое вмешательство на молочной железе, перед операцией необходимы консультация пластического хирурга, консультация маммолога с визуализацией желез, предоперационное обследование и консультация анестезиолога.",
+              "en": "Reduction may be recommended where breast volume is excessive, placing physical strain on the body or out of proportion with it. Some of the indications are medical rather than purely aesthetic. They are determined by anatomy, the condition of the tissues, general health and how realistic the patient's expectations are.\n\nBecause this is surgery on the breast, it requires a consultation with a plastic surgeon, a consultation with a breast specialist including imaging, preoperative assessment and a consultation with an anaesthetist beforehand."
+            }
+          }
+        },
+        {
+          "type": "steps",
+          "data": {
+            "heading": {
+              "uk": "Як проходить зменшення грудей",
+              "ru": "Как проходит уменьшение груди",
+              "en": "How Is Breast Reduction Performed?"
+            },
+            "steps": [
+              {
+                "title": {
+                  "uk": "Консультація пластичного хірурга",
+                  "ru": "Консультация пластического хирурга",
+                  "en": "Consultation with a Plastic Surgeon"
+                },
+                "description": {
+                  "uk": "Лікар оцінює об'єм і форму грудей, ступінь опущення, положення сосково-ареолярного комплексу, стан шкіри та симетрію, а також наявність скарг на біль у спині й шиї. Визначається приблизний обсяг тканини до видалення та методика з відповідним типом рубця. Обговорюються очікування, можливі результати, обмеження та ризики.",
+                  "ru": "Врач оценивает объем и форму груди, степень опущения, положение сосково-ареолярного комплекса, состояние кожи и симметрию, а также наличие жалоб на боль в спине и шее. Определяется приблизительный объем ткани к удалению и методика с соответствующим типом рубца. Обсуждаются ожидания, возможные результаты, ограничения и риски.",
+                  "en": "The doctor assesses the volume and shape of the breasts, the degree of descent, the position of the nipple-areola complex, the condition of the skin and symmetry, together with any back and neck pain. The approximate amount of tissue to be removed and the technique — with its corresponding scar pattern — are determined. Expectations, possible results, limitations and risks are discussed."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Передопераційна підготовка",
+                  "ru": "Предоперационная подготовка",
+                  "en": "Preoperative Preparation"
+                },
+                "description": {
+                  "uk": "Пацієнтка проходить консультацію мамолога з візуалізацією молочних залоз, лабораторні та інструментальні обстеження і консультацію анестезіолога. Лікар надає рекомендації щодо підготовки, прийому медикаментів і режиму перед операцією.",
+                  "ru": "Пациентка проходит консультацию маммолога с визуализацией молочных желез, лабораторные и инструментальные обследования и консультацию анестезиолога. Врач дает рекомендации по подготовке, приему медикаментов и режиму перед операцией.",
+                  "en": "The patient has a consultation with a breast specialist including imaging, laboratory and instrumental investigations, and a consultation with an anaesthetist. The doctor advises on preparation, medication and the regimen before surgery."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Хірургічне зменшення об'єму",
+                  "ru": "Хирургическое уменьшение объема",
+                  "en": "Surgical Reduction of Volume"
+                },
+                "description": {
+                  "uk": "Операція проводиться під загальною анестезією. Хірург видаляє надлишок залозистої та жирової тканини разом із надлишком шкіри, переміщує сосково-ареолярний комплекс у нове положення, зберігаючи його кровопостачання та зв'язок із тканинами.\n\nЗалежно від обсягу втручання формується вертикальний рубець або рубець у формі перевернутої літери «Т». За потреби встановлюються дренажі.",
+                  "ru": "Операция проводится под общей анестезией. Хирург удаляет избыток железистой и жировой ткани вместе с избытком кожи, перемещает сосково-ареолярный комплекс в новое положение, сохраняя его кровоснабжение и связь с тканями.\n\nВ зависимости от объема вмешательства формируется вертикальный рубец или рубец в форме перевернутой буквы «Т». При необходимости устанавливаются дренажи.",
+                  "en": "The operation is performed under general anaesthesia. The surgeon removes excess glandular and fatty tissue together with excess skin and moves the nipple-areola complex to its new position, preserving its blood supply and its connection to the tissues.\n\nDepending on the extent of the procedure, this leaves either a vertical scar or an inverted-T scar. Drains are placed if required."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Післяопераційне спостереження",
+                  "ru": "Послеоперационное наблюдение",
+                  "en": "Postoperative Monitoring"
+                },
+                "description": {
+                  "uk": "Після завершення операції пацієнтка перебуває під медичним наглядом у стаціонарі. Призначається компресійна білизна, знеболення та догляд за швами. Тривалість перебування залежить від обсягу втручання та стану пацієнтки.",
+                  "ru": "После завершения операции пациентка находится под медицинским наблюдением в стационаре. Назначается компрессионное белье, обезболивание и уход за швами. Длительность пребывания зависит от объема вмешательства и состояния пациентки.",
+                  "en": "After the operation the patient remains under medical supervision in hospital. A compression garment, pain relief and wound care are prescribed. The length of stay depends on the extent of the procedure and the patient's condition."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Відновлення та контроль результату",
+                  "ru": "Восстановление и контроль результата",
+                  "en": "Recovery and Follow-Up"
+                },
+                "description": {
+                  "uk": "У перші дні можливі набряк, синці та дискомфорт. Компресійна білизна носиться протягом призначеного лікарем періоду, фізичні навантаження обмежуються.\n\nПочаткове відновлення зазвичай займає 3–4 тижні. Остаточна форма грудей формується протягом кількох місяців, а рубці дозрівають і світлішають до року й довше.",
+                  "ru": "В первые дни возможны отек, синяки и дискомфорт. Компрессионное белье носится в течение назначенного врачом периода, физические нагрузки ограничиваются.\n\nПервичное восстановление обычно занимает 3–4 недели. Окончательная форма груди формируется в течение нескольких месяцев, а рубцы созревают и светлеют до года и дольше.",
+                  "en": "Swelling, bruising and discomfort are common in the first few days. A compression garment is worn for the period the doctor prescribes and physical activity is restricted.\n\nInitial recovery usually takes three to four weeks. The final shape settles over several months, while the scars mature and fade over a year or more."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Переваги зменшення грудей у GENEVITY",
+              "ru": "Преимущества уменьшения груди в GENEVITY",
+              "en": "Benefits of Breast Reduction at GENEVITY"
+            },
+            "items": [
+              {
+                "uk": "**Індивідуальне планування операції** — Обсяг тканини до видалення та тип розрізів визначаються за вихідним об'ємом, ступенем опущення та станом шкіри.",
+                "ru": "**Индивидуальное планирование операции** — Объем ткани к удалению и тип разрезов определяются по исходному объему, степени опущения и состоянию кожи.",
+                "en": "**Personalized Surgical Planning** — How much tissue is removed and the incision pattern are determined by the starting volume, the degree of descent and the condition of the skin."
+              },
+              {
+                "uk": "**Мамологічне обстеження перед операцією** — Консультація мамолога та візуалізація молочних залоз проводяться на базі центру до планування втручання.",
+                "ru": "**Маммологическое обследование перед операцией** — Консультация маммолога и визуализация молочных желез проводятся на базе центра до планирования вмешательства.",
+                "en": "**Breast Assessment Before Surgery** — The breast consultation and imaging are carried out at the centre before the procedure is planned."
+              },
+              {
+                "uk": "**Одночасне зменшення та підтяжка** — Редукційна мамопластика зменшує об'єм і піднімає груди в межах одного втручання.",
+                "ru": "**Одновременное уменьшение и подтяжка** — Редукционная маммопластика уменьшает объем и поднимает грудь в рамках одного вмешательства.",
+                "en": "**Reduction and Lift in One Operation** — Reduction mammoplasty reduces volume and lifts the breast within a single procedure."
+              },
+              {
+                "uk": "**Увага до функціональних скарг** — Враховуються не лише естетичні цілі, а й біль у спині та шиї, подразнення шкіри й обмеження активності.",
+                "ru": "**Внимание к функциональным жалобам** — Учитываются не только эстетические цели, но и боль в спине и шее, раздражение кожи и ограничение активности.",
+                "en": "**Attention to Functional Symptoms** — Not only aesthetic goals are considered, but also back and neck pain, skin irritation and restricted activity."
+              },
+              {
+                "uk": "**Медичний супровід** — Передопераційне обстеження, анестезіологічне забезпечення, стаціонар і післяопераційні огляди є важливими складовими хірургічного лікування.",
+                "ru": "**Медицинское сопровождение** — Предоперационное обследование, анестезиологическое обеспечение, стационар и послеоперационные осмотры являются важными составляющими хирургического лечения.",
+                "en": "**Medical Care and Follow-Up** — Preoperative assessment, anaesthetic care, the inpatient stay and postoperative review are essential parts of surgical treatment."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "warning",
+            "body": {
+              "uk": "Зменшення грудей, як і будь-яке хірургічне втручання, має ризики. Серед них — кровотеча, гематоми, інфекції, порушення загоєння ран, зміни або втрата чутливості соска, порушення кровопостачання сосково-ареолярного комплексу, асиметрія, помітні рубці, втрата можливості грудного вигодовування та можливість необхідності повторної операції. Усі суттєві ризики обговорюються до втручання.",
+              "ru": "Уменьшение груди, как и любое хирургическое вмешательство, имеет риски. Среди них — кровотечение, гематомы, инфекции, нарушение заживления ран, изменения или потеря чувствительности соска, нарушение кровоснабжения сосково-ареолярного комплекса, асимметрия, заметные рубцы, потеря возможности грудного вскармливания и возможность необходимости повторной операции. Все существенные риски обсуждаются до вмешательства.",
+              "en": "Breast reduction, like any surgical procedure, carries risks. These include bleeding, haematoma, infection, impaired wound healing, altered or lost nipple sensation, compromised blood supply to the nipple-areola complex, asymmetry, noticeable scarring, loss of the ability to breastfeed, and the possibility that further surgery may be needed. All material risks are discussed before the procedure."
+            }
+          }
+        }
+      ],
+      "faq": [
+        {
+          "question": {
+            "uk": "На скільки розмірів можна зменшити груди?",
+            "ru": "На сколько размеров можно уменьшить грудь?",
+            "en": "By How Much Can the Breasts Be Reduced?"
+          },
+          "answer": {
+            "uk": "Обсяг визначається індивідуально. Він обмежений потребою зберегти кровопостачання сосково-ареолярного комплексу та отримати форму, пропорційну тілу. Хірург називає реалістичний діапазон після огляду та вимірювань.",
+            "ru": "Объем определяется индивидуально. Он ограничен необходимостью сохранить кровоснабжение сосково-ареолярного комплекса и получить форму, пропорциональную телу. Хирург называет реалистичный диапазон после осмотра и измерений.",
+            "en": "This is decided individually. It is limited by the need to preserve the blood supply to the nipple-areola complex and to achieve a shape proportionate to the body. The surgeon gives a realistic range after examination and measurement."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи піднімуться груди після зменшення?",
+            "ru": "Поднимется ли грудь после уменьшения?",
+            "en": "Does Reduction Also Lift the Breast?"
+          },
+          "answer": {
+            "uk": "Так. Редукційна мамопластика передбачає переміщення сосково-ареолярного комплексу вище та видалення надлишку шкіри, тому підтяжка виконується в межах тієї самої операції.",
+            "ru": "Да. Редукционная маммопластика предполагает перемещение сосково-ареолярного комплекса выше и удаление избытка кожи, поэтому подтяжка выполняется в рамках той же операции.",
+            "en": "Yes. Reduction mammoplasty moves the nipple-areola complex higher and removes excess skin, so the lift is part of the same operation."
+          }
+        },
+        {
+          "question": {
+            "uk": "Які рубці залишаються після зменшення грудей?",
+            "ru": "Какие рубцы остаются после уменьшения груди?",
+            "en": "What Scars Does Breast Reduction Leave?"
+          },
+          "answer": {
+            "uk": "Залежно від обсягу втручання формується вертикальний рубець (навколо ареоли та вниз до складки) або рубець у формі перевернутої літери «Т», який додатково проходить у складці під грудьми. Це більші рубці, ніж після збільшення, і це обговорюється до операції.",
+            "ru": "В зависимости от объема вмешательства формируется вертикальный рубец (вокруг ареолы и вниз до складки) или рубец в форме перевернутой буквы «Т», который дополнительно проходит в складке под грудью. Это более крупные рубцы, чем после увеличения, и это обсуждается до операции.",
+            "en": "Depending on the extent of the procedure, the result is either a vertical scar (around the areola and down to the fold) or an inverted-T scar, which additionally runs along the fold beneath the breast. These are larger scars than augmentation leaves, and this is discussed before surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи зменшиться біль у спині після операції?",
+            "ru": "Уменьшится ли боль в спине после операции?",
+            "en": "Will Back Pain Improve After Surgery?"
+          },
+          "answer": {
+            "uk": "Зменшення ваги грудей знижує навантаження на хребет, і багато пацієнток відзначають полегшення. Водночас біль у спині може мати й інші причини, тому гарантувати повне зникнення симптомів неможливо.",
+            "ru": "Уменьшение веса груди снижает нагрузку на позвоночник, и многие пациентки отмечают облегчение. В то же время боль в спине может иметь и другие причины, поэтому гарантировать полное исчезновение симптомов невозможно.",
+            "en": "Reducing the weight of the breasts lessens the load on the spine, and many patients report relief. Back pain can have other causes, however, so complete resolution of symptoms cannot be guaranteed."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна годувати груддю після зменшення?",
+            "ru": "Можно ли кормить грудью после уменьшения?",
+            "en": "Is Breastfeeding Possible After Reduction?"
+          },
+          "answer": {
+            "uk": "Операція передбачає роботу із залозистою тканиною та протоками, тому можливість лактації може знижуватися або втрачатися. Якщо вагітність планується, це обов'язково обговорюється до втручання.",
+            "ru": "Операция предполагает работу с железистой тканью и протоками, поэтому возможность лактации может снижаться или утрачиваться. Если беременность планируется, это обязательно обсуждается до вмешательства.",
+            "en": "The operation involves the glandular tissue and the ducts, so the ability to breastfeed may be reduced or lost. If pregnancy is planned, this is always discussed before surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи зміниться чутливість соска?",
+            "ru": "Изменится ли чувствительность соска?",
+            "en": "Will Nipple Sensation Change?"
+          },
+          "answer": {
+            "uk": "Тимчасова зміна чутливості в післяопераційному періоді є поширеною. У більшості випадків вона поступово відновлюється, проте часткова або стійка втрата чутливості є одним із можливих ускладнень.",
+            "ru": "Временное изменение чувствительности в послеоперационном периоде является распространенным. В большинстве случаев она постепенно восстанавливается, однако частичная или стойкая потеря чувствительности является одним из возможных осложнений.",
+            "en": "Temporary changes in sensation after surgery are common. Sensation usually returns gradually, but partial or lasting loss is one of the possible complications."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки триває відновлення після зменшення грудей?",
+            "ru": "Сколько длится восстановление после уменьшения груди?",
+            "en": "How Long Does Recovery Take?"
+          },
+          "answer": {
+            "uk": "Початкове відновлення зазвичай займає 3–4 тижні, протягом яких носиться компресійна білизна та обмежуються навантаження. Остаточна форма формується протягом кількох місяців, а рубці дозрівають до року й довше.",
+            "ru": "Первичное восстановление обычно занимает 3–4 недели, в течение которых носится компрессионное белье и ограничиваются нагрузки. Окончательная форма формируется в течение нескольких месяцев, а рубцы созревают до года и дольше.",
+            "en": "Initial recovery usually takes three to four weeks, with a compression garment and restricted activity. The final shape settles over several months, and scars mature over a year or more."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можуть груди знову збільшитися після операції?",
+            "ru": "Может ли грудь снова увеличиться после операции?",
+            "en": "Can the Breasts Grow Again After Surgery?"
+          },
+          "answer": {
+            "uk": "Видалена тканина не відновлюється. Проте об'єм грудей може зрости за значного набору ваги, під час вагітності та лактації або за гормональних змін, тому стабільна вага сприяє збереженню результату.",
+            "ru": "Удаленная ткань не восстанавливается. Однако объем груди может вырасти при значительном наборе веса, во время беременности и лактации или при гормональных изменениях, поэтому стабильный вес способствует сохранению результата.",
+            "en": "The tissue removed does not grow back. Breast volume can nonetheless increase with significant weight gain, during pregnancy and breastfeeding, or with hormonal change, so a stable weight helps preserve the result."
+          }
+        },
+        {
+          "question": {
+            "uk": "У якому віці можна робити зменшення грудей?",
+            "ru": "В каком возрасте можно делать уменьшение груди?",
+            "en": "At What Age Can Breast Reduction Be Done?"
+          },
+          "answer": {
+            "uk": "Операцію зазвичай розглядають після завершення формування молочних залоз. За вираженої гіпертрофії з функціональними скаргами втручання може розглядатися раніше за медичними показаннями. Рішення ухвалюється індивідуально.",
+            "ru": "Операцию обычно рассматривают после завершения формирования молочных желез. При выраженной гипертрофии с функциональными жалобами вмешательство может рассматриваться раньше по медицинским показаниям. Решение принимается индивидуально.",
+            "en": "Reduction is usually considered once the breasts have finished developing. Where hypertrophy is pronounced and causing functional symptoms, surgery may be considered earlier on medical grounds. The decision is made individually."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки коштує зменшення грудей у Дніпрі?",
+            "ru": "Сколько стоит уменьшение груди в Днепре?",
+            "en": "How Much Does Breast Reduction Cost in Dnipro?"
+          },
+          "answer": {
+            "uk": "Вартість залежить від обсягу втручання, обраної методики, виду анестезії, обстежень і тривалості перебування у стаціонарі. Індивідуальний кошторис формується після консультації пластичного хірурга.",
+            "ru": "Стоимость зависит от объема вмешательства, выбранной методики, вида анестезии, обследований и длительности пребывания в стационаре. Индивидуальная смета формируется после консультации пластического хирурга.",
+            "en": "The cost depends on the extent of the procedure, the technique, the anaesthesia, the investigations and the length of the inpatient stay. An individual estimate is prepared after a consultation with the plastic surgeon."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "breast-lift",
+      "sortOrder": 11,
+      "seoNoindex": true,
+      "related": [
+        "breast",
+        "breast-augmentation",
+        "breast-reduction",
+        "breast-shape-correction"
+      ],
+      "h1": {
+        "uk": "Підтяжка грудей у Дніпрі",
+        "ru": "Подтяжка груди в Днепре",
+        "en": "Breast Lift in Dnipro"
+      },
+      "title": {
+        "uk": "Підтяжка грудей",
+        "ru": "Подтяжка груди",
+        "en": "Breast Lift"
+      },
+      "summary": {
+        "uk": "Підтяжка грудей (мастопексія) у GENEVITY — хірургічна корекція положення молочних залоз без зміни їх об'єму. Операція видаляє надлишок розтягнутої шкіри та переміщує сосково-ареолярний комплекс у вище положення. За потреби мастопексія поєднується зі збільшенням або зменшенням грудей.",
+        "ru": "Подтяжка груди (мастопексия) в GENEVITY — хирургическая коррекция положения молочных желез без изменения их объема. Операция удаляет избыток растянутой кожи и перемещает сосково-ареолярный комплекс в более высокое положение. При необходимости мастопексия сочетается с увеличением или уменьшением груди.",
+        "en": "A breast lift (mastopexy) at GENEVITY is the surgical correction of breast position without changing volume. The operation removes excess stretched skin and moves the nipple-areola complex to a higher position. Where needed, mastopexy is combined with augmentation or reduction."
+      },
+      "seoTitle": {
+        "ru": "Подтяжка груди в Днепре - мастопексия",
+        "uk": "Підтяжка грудей у Дніпрі - мастопексія",
+        "en": "Breast lift in Dnipro - mastopexy"
+      },
+      "seoDescription": {
+        "ru": "Мастопексия в Днепре в GENEVITY 🤍 Хирургическая подтяжка груди и коррекция ее формы и положения по доступной цене. Консультация пластического хирурга 💫 Индивидуальный план операции.",
+        "uk": "Мастопексія в Дніпрі в GENEVITY 🤍 Хірургічна підтяжка грудей та корекція їх форми й положення за доступною ціною. Консультація пластичного хірурга 💫 Індивідуальний план операції.",
+        "en": "Mastopexy in Dnipro at GENEVITY 🤍 Surgical breast lift and correction of breast shape and position at an affordable price. Consultation with a plastic surgeon 💫 Personalized surgical plan."
+      },
+      "heroImage": "/images/surgery/operating-room.webp",
+      "sections": [
+        {
+          "type": "richText",
+          "data": {
+            "heading": {
+              "uk": "Що таке підтяжка грудей та який результат вона дає",
+              "ru": "Что такое подтяжка груди и какой результат она дает",
+              "en": "What Is a Breast Lift and What Results Can You Expect?"
+            },
+            "body": {
+              "uk": "З часом шкіра та зв'язковий апарат молочної залози втрачають пружність, і груди опускаються. Цей процес називають птозом. Його посилюють вагітність і лактація, значні коливання маси тіла, вікові зміни та спадкова еластичність шкіри.\n\nМастопексія не додає й не зменшує об'єм — вона працює з положенням. Хірург видаляє надлишок шкіри, перерозподіляє залозисту тканину, піднімає сосково-ареолярний комплекс і за потреби зменшує діаметр ареоли, яка часто розтягується разом зі шкірою.\n\nЯкщо разом із провисанням груди втратили об'єм, самої лише підтяжки може бути недостатньо для бажаної форми верхнього полюса — тоді мастопексію поєднують зі встановленням імпланта. За надмірного об'єму вона поєднується з редукційною мамопластикою.",
+              "ru": "Со временем кожа и связочный аппарат молочной железы теряют упругость, и грудь опускается. Этот процесс называют птозом. Его усиливают беременность и лактация, значительные колебания массы тела, возрастные изменения и наследственная эластичность кожи.\n\nМастопексия не добавляет и не уменьшает объем — она работает с положением. Хирург удаляет избыток кожи, перераспределяет железистую ткань, поднимает сосково-ареолярный комплекс и при необходимости уменьшает диаметр ареолы, которая часто растягивается вместе с кожей.\n\nЕсли вместе с провисанием грудь потеряла объем, одной только подтяжки может быть недостаточно для желаемой формы верхнего полюса — тогда мастопексию сочетают с установкой импланта. При чрезмерном объеме она сочетается с редукционной маммопластикой.",
+              "en": "Over time the skin and the supporting ligaments of the breast lose their elasticity and the breast descends. This is known as ptosis. It is accelerated by pregnancy and breastfeeding, significant changes in weight, ageing and inherited skin elasticity.\n\nMastopexy neither adds nor removes volume — it addresses position. The surgeon removes excess skin, redistributes the glandular tissue, raises the nipple-areola complex and, where needed, reduces the diameter of the areola, which often stretches along with the skin.\n\nIf the breast has lost volume as well as descending, a lift alone may not give the desired fullness in the upper pole — mastopexy is then combined with an implant. Where volume is excessive, it is combined with reduction mammoplasty."
+            },
+            "calloutBody": {
+              "uk": "Результат залежить від ступеня птозу, об'єму та щільності тканин, еластичності шкіри, особливостей загоєння та дотримання післяопераційних рекомендацій.",
+              "ru": "Результат зависит от степени птоза, объема и плотности тканей, эластичности кожи, особенностей заживления и соблюдения послеоперационных рекомендаций.",
+              "en": "The result depends on the degree of ptosis, the volume and density of the tissues, skin elasticity, how healing proceeds and adherence to postoperative recommendations."
+            },
+            "heroImage": "/images/surgery/operating-room.webp",
+            "heroImageFocalPoint": "50% 50%"
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Яких змін можна очікувати після підтяжки грудей",
+              "ru": "Каких изменений можно ожидать после подтяжки груди",
+              "en": "Expected improvements after a breast lift may include"
+            },
+            "items": [
+              {
+                "uk": "Підняття грудей у вище положення.",
+                "ru": "Поднятие груди в более высокое положение.",
+                "en": "Elevation of the breast to a higher position."
+              },
+              {
+                "uk": "Переміщення сосково-ареолярного комплексу вгору.",
+                "ru": "Перемещение сосково-ареолярного комплекса вверх.",
+                "en": "Repositioning of the nipple-areola complex upwards."
+              },
+              {
+                "uk": "Зменшення діаметра розтягнутої ареоли.",
+                "ru": "Уменьшение диаметра растянутой ареолы.",
+                "en": "Reduction in the diameter of a stretched areola."
+              },
+              {
+                "uk": "Більш підтягнутий контур молочної залози.",
+                "ru": "Более подтянутый контур молочной железы.",
+                "en": "A firmer breast contour."
+              },
+              {
+                "uk": "Зменшення надлишку розтягнутої шкіри.",
+                "ru": "Уменьшение избытка растянутой кожи.",
+                "en": "Less excess stretched skin."
+              },
+              {
+                "uk": "Корекція асиметрії за різної висоти розташування залоз.",
+                "ru": "Коррекция асимметрии при разной высоте расположения желез.",
+                "en": "Correction of asymmetry where the breasts sit at different heights."
+              }
+            ]
+          }
+        },
+        {
+          "type": "indicationsContraindications",
+          "data": {
+            "indicationsHeading": {
+              "uk": "Показання до підтяжки грудей",
+              "ru": "Показания к подтяжке груди",
+              "en": "Indications for a Breast Lift"
+            },
+            "indications": [
+              {
+                "uk": "Опущення молочних залоз (птоз) різного ступеня.",
+                "ru": "Опущение молочных желез (птоз) разной степени.",
+                "en": "Breast descent (ptosis) of any degree."
+              },
+              {
+                "uk": "Розташування соска нижче рівня складки під грудьми.",
+                "ru": "Расположение соска ниже уровня складки под грудью.",
+                "en": "The nipple sitting below the level of the inframammary fold."
+              },
+              {
+                "uk": "Зміни форми грудей після вагітності та лактації.",
+                "ru": "Изменения формы груди после беременности и лактации.",
+                "en": "Changes in breast shape after pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Втрата форми після значного схуднення.",
+                "ru": "Потеря формы после значительного похудения.",
+                "en": "Loss of shape after significant weight loss."
+              },
+              {
+                "uk": "Розтягнута шкіра та збільшений діаметр ареоли.",
+                "ru": "Растянутая кожа и увеличенный диаметр ареолы.",
+                "en": "Stretched skin and an enlarged areola."
+              },
+              {
+                "uk": "Асиметрія за висотою розташування молочних залоз.",
+                "ru": "Асимметрия по высоте расположения молочных желез.",
+                "en": "Asymmetry in the height of the breasts."
+              },
+              {
+                "uk": "Втрата форми верхнього полюса грудей.",
+                "ru": "Потеря формы верхнего полюса груди.",
+                "en": "Loss of fullness in the upper pole."
+              },
+              {
+                "uk": "Бажання відновити форму грудей без зміни їх розміру.",
+                "ru": "Желание восстановить форму груди без изменения ее размера.",
+                "en": "A wish to restore breast shape without changing its size."
+              }
+            ],
+            "contraindicationsHeading": {
+              "uk": "Протипоказання до підтяжки грудей",
+              "ru": "Противопоказания к подтяжке груди",
+              "en": "Contraindications for a Breast Lift"
+            },
+            "contraindications": [
+              {
+                "uk": "Гострі інфекційні та запальні захворювання.",
+                "ru": "Острые инфекционные и воспалительные заболевания.",
+                "en": "Acute infectious and inflammatory conditions."
+              },
+              {
+                "uk": "Неконтрольований цукровий діабет.",
+                "ru": "Неконтролируемый сахарный диабет.",
+                "en": "Uncontrolled diabetes."
+              },
+              {
+                "uk": "Порушення згортання крові.",
+                "ru": "Нарушения свертываемости крови.",
+                "en": "Blood clotting disorders."
+              },
+              {
+                "uk": "Декомпенсовані серцево-судинні та інші тяжкі соматичні захворювання.",
+                "ru": "Декомпенсированные сердечно-сосудистые и другие тяжелые соматические заболевания.",
+                "en": "Decompensated cardiovascular and other severe systemic conditions."
+              },
+              {
+                "uk": "Схильність до келоїдних рубців.",
+                "ru": "Склонность к келоидным рубцам.",
+                "en": "A tendency to keloid scarring."
+              },
+              {
+                "uk": "Стани, за яких проведення анестезії або операції пов'язане з неприйнятно високим ризиком.",
+                "ru": "Состояния, при которых проведение анестезии или операции связано с неприемлемо высоким риском.",
+                "en": "Conditions in which anaesthesia or surgery would carry an unacceptably high risk."
+              },
+              {
+                "uk": "Вагітність і період грудного вигодовування.",
+                "ru": "Беременность и период грудного вскармливания.",
+                "en": "Pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Виявлені під час обстеження захворювання молочних залоз, що потребують лікування.",
+                "ru": "Выявленные при обследовании заболевания молочных желез, требующие лечения.",
+                "en": "Breast conditions found during assessment that require treatment."
+              },
+              {
+                "uk": "Онкологічні захворювання в активній стадії.",
+                "ru": "Онкологические заболевания в активной стадии.",
+                "en": "Active cancer."
+              },
+              {
+                "uk": "Планування вагітності найближчим часом.",
+                "ru": "Планирование беременности в ближайшее время.",
+                "en": "Pregnancy planned in the near future."
+              },
+              {
+                "uk": "Куріння без готовності відмовитися за 3–4 тижні до та після операції.",
+                "ru": "Курение без готовности отказаться за 3–4 недели до и после операции.",
+                "en": "Smoking, without a willingness to stop three to four weeks before and after surgery."
+              },
+              {
+                "uk": "Інші індивідуальні обмеження, встановлені лікарем.",
+                "ru": "Другие индивидуальные ограничения, установленные врачом.",
+                "en": "Other individual limitations determined by the doctor."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "info",
+            "body": {
+              "uk": "Мастопексія може бути рекомендована за опущення молочних залоз, яке не коригується консервативними методами. Ступінь птозу та потреба в поєднанні з імплантом або редукцією визначаються на огляді з урахуванням анатомії, стану тканин, загального здоров'я та реалістичності очікувань.\n\nОскільки це хірургічне втручання на молочній залозі, перед операцією необхідні консультація пластичного хірурга, консультація мамолога з візуалізацією залоз, передопераційне обстеження та консультація анестезіолога.",
+              "ru": "Мастопексия может быть рекомендована при опущении молочных желез, которое не корректируется консервативными методами. Степень птоза и необходимость сочетания с имплантом или редукцией определяются на осмотре с учетом анатомии, состояния тканей, общего здоровья и реалистичности ожиданий.\n\nПоскольку это хирургическое вмешательство на молочной железе, перед операцией необходимы консультация пластического хирурга, консультация маммолога с визуализацией желез, предоперационное обследование и консультация анестезиолога.",
+              "en": "Mastopexy may be recommended for breast descent that cannot be corrected by conservative means. The degree of ptosis, and whether it needs combining with an implant or a reduction, are determined at examination, taking anatomy, tissue condition, general health and the realism of expectations into account.\n\nBecause this is surgery on the breast, it requires a consultation with a plastic surgeon, a consultation with a breast specialist including imaging, preoperative assessment and a consultation with an anaesthetist beforehand."
+            }
+          }
+        },
+        {
+          "type": "steps",
+          "data": {
+            "heading": {
+              "uk": "Як проходить підтяжка грудей",
+              "ru": "Как проходит подтяжка груди",
+              "en": "How Is a Breast Lift Performed?"
+            },
+            "steps": [
+              {
+                "title": {
+                  "uk": "Консультація пластичного хірурга",
+                  "ru": "Консультация пластического хирурга",
+                  "en": "Consultation with a Plastic Surgeon"
+                },
+                "description": {
+                  "uk": "Лікар оцінює ступінь птозу, положення соска щодо складки під грудьми, об'єм і щільність тканин, еластичність шкіри та симетрію. Визначається методика й відповідний тип рубця, а також потреба в поєднанні з імплантом або редукцією. Обговорюються очікування, можливі результати, обмеження та ризики.",
+                  "ru": "Врач оценивает степень птоза, положение соска относительно складки под грудью, объем и плотность тканей, эластичность кожи и симметрию. Определяется методика и соответствующий тип рубца, а также необходимость сочетания с имплантом или редукцией. Обсуждаются ожидания, возможные результаты, ограничения и риски.",
+                  "en": "The doctor assesses the degree of ptosis, the position of the nipple relative to the inframammary fold, tissue volume and density, skin elasticity and symmetry. The technique and its scar pattern are determined, together with whether an implant or a reduction should be combined with it. Expectations, possible results, limitations and risks are discussed."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Передопераційна підготовка",
+                  "ru": "Предоперационная подготовка",
+                  "en": "Preoperative Preparation"
+                },
+                "description": {
+                  "uk": "Пацієнтка проходить консультацію мамолога з візуалізацією молочних залоз, лабораторні та інструментальні обстеження і консультацію анестезіолога. Лікар надає рекомендації щодо підготовки, прийому медикаментів і режиму перед операцією.",
+                  "ru": "Пациентка проходит консультацию маммолога с визуализацией молочных желез, лабораторные и инструментальные обследования и консультацию анестезиолога. Врач дает рекомендации по подготовке, приему медикаментов и режиму перед операцией.",
+                  "en": "The patient has a consultation with a breast specialist including imaging, laboratory and instrumental investigations, and a consultation with an anaesthetist. The doctor advises on preparation, medication and the regimen before surgery."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Хірургічна підтяжка",
+                  "ru": "Хирургическая подтяжка",
+                  "en": "The Lift Procedure"
+                },
+                "description": {
+                  "uk": "Операція проводиться під загальною анестезією. Хірург видаляє надлишок шкіри, перерозподіляє залозисту тканину та переміщує сосково-ареолярний комплекс у нове положення, зберігаючи його кровопостачання.\n\nЗалежно від ступеня птозу формується рубець навколо ареоли, вертикальний або у формі перевернутої літери «Т». За показаннями одночасно встановлюється імплант.",
+                  "ru": "Операция проводится под общей анестезией. Хирург удаляет избыток кожи, перераспределяет железистую ткань и перемещает сосково-ареолярный комплекс в новое положение, сохраняя его кровоснабжение.\n\nВ зависимости от степени птоза формируется рубец вокруг ареолы, вертикальный или в форме перевернутой буквы «Т». По показаниям одновременно устанавливается имплант.",
+                  "en": "The operation is performed under general anaesthesia. The surgeon removes excess skin, redistributes the glandular tissue and moves the nipple-areola complex to its new position while preserving its blood supply.\n\nDepending on the degree of ptosis, the scar runs around the areola, vertically, or in an inverted-T pattern. An implant is placed at the same time where indicated."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Післяопераційне спостереження",
+                  "ru": "Послеоперационное наблюдение",
+                  "en": "Postoperative Monitoring"
+                },
+                "description": {
+                  "uk": "Після завершення операції пацієнтка перебуває під медичним наглядом у стаціонарі. Призначається компресійна білизна, знеболення та догляд за швами. Тривалість перебування залежить від обсягу втручання та стану пацієнтки.",
+                  "ru": "После завершения операции пациентка находится под медицинским наблюдением в стационаре. Назначается компрессионное белье, обезболивание и уход за швами. Длительность пребывания зависит от объема вмешательства и состояния пациентки.",
+                  "en": "After the operation the patient remains under medical supervision in hospital. A compression garment, pain relief and wound care are prescribed. The length of stay depends on the extent of the procedure and the patient's condition."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Відновлення та контроль результату",
+                  "ru": "Восстановление и контроль результата",
+                  "en": "Recovery and Follow-Up"
+                },
+                "description": {
+                  "uk": "У перші дні можливі набряк, синці та дискомфорт. Компресійна білизна носиться протягом призначеного лікарем періоду, фізичні навантаження обмежуються.\n\nПочаткове відновлення зазвичай займає 3–4 тижні. Остаточна форма грудей формується протягом кількох місяців, а рубці дозрівають і світлішають до року й довше.",
+                  "ru": "В первые дни возможны отек, синяки и дискомфорт. Компрессионное белье носится в течение назначенного врачом периода, физические нагрузки ограничиваются.\n\nПервичное восстановление обычно занимает 3–4 недели. Окончательная форма груди формируется в течение нескольких месяцев, а рубцы созревают и светлеют до года и дольше.",
+                  "en": "Swelling, bruising and discomfort are common in the first few days. A compression garment is worn for the prescribed period and physical activity is restricted.\n\nInitial recovery usually takes three to four weeks. The final shape settles over several months, and scars mature and fade over a year or more."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Переваги підтяжки грудей у GENEVITY",
+              "ru": "Преимущества подтяжки груди в GENEVITY",
+              "en": "Benefits of a Breast Lift at GENEVITY"
+            },
+            "items": [
+              {
+                "uk": "**Методика за ступенем птозу** — Обсяг втручання та тип розрізів обираються за ступенем опущення, тож мінімально достатній варіант не замінюється більшим без потреби.",
+                "ru": "**Методика по степени птоза** — Объем вмешательства и тип разрезов выбираются по степени опущения, поэтому минимально достаточный вариант не заменяется большим без необходимости.",
+                "en": "**A Technique Matched to the Degree of Ptosis** — The extent of surgery and the incision pattern follow the degree of descent, so the least extensive adequate option is not replaced by a larger one without reason."
+              },
+              {
+                "uk": "**Мамологічне обстеження перед операцією** — Консультація мамолога та візуалізація молочних залоз проводяться на базі центру до планування втручання.",
+                "ru": "**Маммологическое обследование перед операцией** — Консультация маммолога и визуализация молочных желез проводятся на базе центра до планирования вмешательства.",
+                "en": "**Breast Assessment Before Surgery** — The breast consultation and imaging are carried out at the centre before the procedure is planned."
+              },
+              {
+                "uk": "**Корекція ареоли** — За розтягнутої ареоли її діаметр зменшується в межах тієї самої операції.",
+                "ru": "**Коррекция ареолы** — При растянутой ареоле ее диаметр уменьшается в рамках той же операции.",
+                "en": "**Areola Correction** — Where the areola has stretched, its diameter is reduced within the same operation."
+              },
+              {
+                "uk": "**Поєднання з імплантом або редукцією** — За втрати об'єму підтяжка поєднується зі збільшенням, за надмірного об'єму — зі зменшенням грудей.",
+                "ru": "**Сочетание с имплантом или редукцией** — При потере объема подтяжка сочетается с увеличением, при чрезмерном объеме — с уменьшением груди.",
+                "en": "**Combination with an Implant or Reduction** — Where volume has been lost, the lift is combined with augmentation; where it is excessive, with reduction."
+              },
+              {
+                "uk": "**Медичний супровід** — Передопераційне обстеження, анестезіологічне забезпечення, стаціонар і післяопераційні огляди є важливими складовими хірургічного лікування.",
+                "ru": "**Медицинское сопровождение** — Предоперационное обследование, анестезиологическое обеспечение, стационар и послеоперационные осмотры являются важными составляющими хирургического лечения.",
+                "en": "**Medical Care and Follow-Up** — Preoperative assessment, anaesthetic care, the inpatient stay and postoperative review are essential parts of surgical treatment."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "warning",
+            "body": {
+              "uk": "Підтяжка грудей, як і будь-яке хірургічне втручання, має ризики. Серед них — кровотеча, гематоми, інфекції, порушення загоєння ран, зміни або втрата чутливості соска, порушення кровопостачання сосково-ареолярного комплексу, асиметрія, помітні рубці, повторне опущення грудей із часом та можливість необхідності повторної операції. Усі суттєві ризики обговорюються до втручання.",
+              "ru": "Подтяжка груди, как и любое хирургическое вмешательство, имеет риски. Среди них — кровотечение, гематомы, инфекции, нарушение заживления ран, изменения или потеря чувствительности соска, нарушение кровоснабжения сосково-ареолярного комплекса, асимметрия, заметные рубцы, повторное опущение груди со временем и возможность необходимости повторной операции. Все существенные риски обсуждаются до вмешательства.",
+              "en": "A breast lift, like any surgical procedure, carries risks. These include bleeding, haematoma, infection, impaired wound healing, altered or lost nipple sensation, compromised blood supply to the nipple-areola complex, asymmetry, noticeable scarring, recurrence of descent over time, and the possibility that further surgery may be needed. All material risks are discussed before the procedure."
+            }
+          }
+        }
+      ],
+      "faq": [
+        {
+          "question": {
+            "uk": "Чи змінить підтяжка розмір грудей?",
+            "ru": "Изменит ли подтяжка размер груди?",
+            "en": "Does a Lift Change Breast Size?"
+          },
+          "answer": {
+            "uk": "Ні. Мастопексія працює з положенням і формою, а не з об'ємом. Груди можуть здаватися трохи меншими через підтягнуту шкіру, але кількість тканини суттєво не змінюється. Якщо потрібен інший об'єм, операцію поєднують зі збільшенням або зменшенням.",
+            "ru": "Нет. Мастопексия работает с положением и формой, а не с объемом. Грудь может казаться немного меньше из-за подтянутой кожи, но количество ткани существенно не меняется. Если нужен другой объем, операцию сочетают с увеличением или уменьшением.",
+            "en": "No. Mastopexy addresses position and shape rather than volume. The breast may look slightly smaller because the skin is tighter, but the amount of tissue does not change materially. If a different volume is wanted, the operation is combined with augmentation or reduction."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чим підтяжка відрізняється від збільшення грудей?",
+            "ru": "Чем подтяжка отличается от увеличения груди?",
+            "en": "How Does a Lift Differ from Augmentation?"
+          },
+          "answer": {
+            "uk": "Збільшення додає об'єм за допомогою імпланта, але не піднімає груди. Підтяжка піднімає груди, але не додає об'єму. Якщо є і провисання, і втрата об'єму, методики поєднують.",
+            "ru": "Увеличение добавляет объем с помощью импланта, но не поднимает грудь. Подтяжка поднимает грудь, но не добавляет объема. Если есть и провисание, и потеря объема, методики сочетают.",
+            "en": "Augmentation adds volume with an implant but does not lift the breast. A lift raises the breast but adds no volume. Where there is both descent and volume loss, the techniques are combined."
+          }
+        },
+        {
+          "question": {
+            "uk": "Які рубці залишаються після підтяжки?",
+            "ru": "Какие рубцы остаются после подтяжки?",
+            "en": "What Scars Does a Lift Leave?"
+          },
+          "answer": {
+            "uk": "Залежно від ступеня птозу рубець може проходити лише навколо ареоли, вертикально від ареоли до складки або додатково у складці під грудьми у формі перевернутої літери «Т». Чим більше опущення, тим більший обсяг розрізів.",
+            "ru": "В зависимости от степени птоза рубец может проходить только вокруг ареолы, вертикально от ареолы до складки или дополнительно в складке под грудью в форме перевернутой буквы «Т». Чем больше опущение, тем больший объем разрезов.",
+            "en": "Depending on the degree of ptosis, the scar may run only around the areola, vertically from the areola to the fold, or additionally along the fold in an inverted-T pattern. The greater the descent, the more extensive the incisions."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна підтягнути груди без операції?",
+            "ru": "Можно ли подтянуть грудь без операции?",
+            "en": "Can the Breast Be Lifted Without Surgery?"
+          },
+          "answer": {
+            "uk": "Апаратні та ін'єкційні методики можуть дещо покращити якість шкіри, але вони не переміщують сосково-ареолярний комплекс і не видаляють надлишок шкіри. За вираженого птозу хірургічна підтяжка є єдиним способом суттєвої корекції.",
+            "ru": "Аппаратные и инъекционные методики могут несколько улучшить качество кожи, но они не перемещают сосково-ареолярный комплекс и не удаляют избыток кожи. При выраженном птозе хирургическая подтяжка является единственным способом существенной коррекции.",
+            "en": "Device-based and injectable treatments can improve skin quality to a degree, but they do not reposition the nipple-areola complex or remove excess skin. Where ptosis is pronounced, surgery is the only way to achieve substantial correction."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна годувати груддю після мастопексії?",
+            "ru": "Можно ли кормить грудью после мастопексии?",
+            "en": "Is Breastfeeding Possible After Mastopexy?"
+          },
+          "answer": {
+            "uk": "У багатьох випадках можливість зберігається, оскільки операція працює переважно зі шкірою та положенням тканин. Водночас гарантувати лактацію неможливо. Якщо вагітність планується, це обговорюється до втручання.",
+            "ru": "Во многих случаях возможность сохраняется, поскольку операция работает преимущественно с кожей и положением тканей. В то же время гарантировать лактацию невозможно. Если беременность планируется, это обсуждается до вмешательства.",
+            "en": "In many cases it remains possible, since the operation works mainly with the skin and the position of the tissues. Lactation cannot be guaranteed, however. If pregnancy is planned, this is discussed before surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи опустяться груди знову після підтяжки?",
+            "ru": "Опустится ли грудь снова после подтяжки?",
+            "en": "Will the Breast Descend Again?"
+          },
+          "answer": {
+            "uk": "Операція не зупиняє природні процеси. З часом під дією гравітації, вікових змін, коливань ваги та вагітності груди можуть частково опускатися знову. Стабільна вага та підтримувальна білизна сприяють збереженню результату.",
+            "ru": "Операция не останавливает естественные процессы. Со временем под действием гравитации, возрастных изменений, колебаний веса и беременности грудь может частично опускаться снова. Стабильный вес и поддерживающее белье способствуют сохранению результата.",
+            "en": "Surgery does not halt natural processes. Over time, gravity, ageing, weight changes and pregnancy can cause some descent to return. A stable weight and supportive underwear help preserve the result."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи варто робити підтяжку до планованої вагітності?",
+            "ru": "Стоит ли делать подтяжку до планируемой беременности?",
+            "en": "Should a Lift Be Done Before a Planned Pregnancy?"
+          },
+          "answer": {
+            "uk": "Вагітність і лактація знову змінюють об'єм і положення грудей, тому результат, отриманий до них, може змінитися. За планування вагітності найближчим часом операцію зазвичай рекомендують відкласти.",
+            "ru": "Беременность и лактация снова меняют объем и положение груди, поэтому результат, полученный до них, может измениться. При планировании беременности в ближайшее время операцию обычно рекомендуют отложить.",
+            "en": "Pregnancy and breastfeeding change the volume and position of the breast again, so a result achieved beforehand may be altered. If pregnancy is planned in the near future, surgery is usually deferred."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки триває відновлення після підтяжки грудей?",
+            "ru": "Сколько длится восстановление после подтяжки груди?",
+            "en": "How Long Does Recovery Take?"
+          },
+          "answer": {
+            "uk": "Початкове відновлення зазвичай займає 3–4 тижні, протягом яких носиться компресійна білизна та обмежуються навантаження. Остаточна форма формується протягом кількох місяців, а рубці дозрівають до року й довше.",
+            "ru": "Первичное восстановление обычно занимает 3–4 недели, в течение которых носится компрессионное белье и ограничиваются нагрузки. Окончательная форма формируется в течение нескольких месяцев, а рубцы созревают до года и дольше.",
+            "en": "Initial recovery usually takes three to four weeks, with a compression garment and restricted activity. The final shape settles over several months, and scars mature over a year or more."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи зміниться чутливість соска після підтяжки?",
+            "ru": "Изменится ли чувствительность соска после подтяжки?",
+            "en": "Will Nipple Sensation Change?"
+          },
+          "answer": {
+            "uk": "Тимчасова зміна чутливості після операції є поширеною і зазвичай поступово відновлюється. Часткова або стійка втрата чутливості є одним із можливих ускладнень і обговорюється до втручання.",
+            "ru": "Временное изменение чувствительности после операции является распространенным и обычно постепенно восстанавливается. Частичная или стойкая потеря чувствительности является одним из возможных осложнений и обсуждается до вмешательства.",
+            "en": "Temporary changes in sensation after surgery are common and usually resolve gradually. Partial or lasting loss is one of the possible complications and is discussed beforehand."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки коштує підтяжка грудей у Дніпрі?",
+            "ru": "Сколько стоит подтяжка груди в Днепре?",
+            "en": "How Much Does a Breast Lift Cost in Dnipro?"
+          },
+          "answer": {
+            "uk": "Вартість залежить від обсягу втручання, обраної методики, потреби в поєднанні з імплантом, виду анестезії, обстежень і тривалості перебування у стаціонарі. Індивідуальний кошторис формується після консультації.",
+            "ru": "Стоимость зависит от объема вмешательства, выбранной методики, необходимости сочетания с имплантом, вида анестезии, обследований и длительности пребывания в стационаре. Индивидуальная смета формируется после консультации.",
+            "en": "The cost depends on the extent of the procedure, the technique, whether an implant is combined with it, the anaesthesia, the investigations and the length of the inpatient stay. An individual estimate is prepared after a consultation."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "breast-shape-correction",
+      "sortOrder": 12,
+      "seoNoindex": true,
+      "related": [
+        "breast",
+        "breast-augmentation",
+        "breast-lift",
+        "breast-reduction"
+      ],
+      "h1": {
+        "uk": "Корекція форми та асиметрії грудей у Дніпрі",
+        "ru": "Коррекция формы и асимметрии груди в Днепре",
+        "en": "Breast Shape and Asymmetry Correction in Dnipro"
+      },
+      "title": {
+        "uk": "Корекція форми та асиметрії грудей",
+        "ru": "Коррекция формы и асимметрии груди",
+        "en": "Breast Shape and Asymmetry Correction"
+      },
+      "summary": {
+        "uk": "Корекція форми та асиметрії грудей у GENEVITY — хірургічне вирівнювання об'єму, форми та положення молочних залоз, коли вони помітно відрізняються між собою або мають анатомічні особливості будови. Для кожної залози план може бути різним: одну збільшують, іншу зменшують або піднімають.",
+        "ru": "Коррекция формы и асимметрии груди в GENEVITY — хирургическое выравнивание объема, формы и положения молочных желез, когда они заметно отличаются между собой или имеют анатомические особенности строения. Для каждой железы план может быть разным: одну увеличивают, другую уменьшают или поднимают.",
+        "en": "Correction of breast shape and asymmetry at GENEVITY surgically evens out the volume, shape and position of the breasts where they differ noticeably from each other or have particular structural features. The plan can differ for each breast: one may be augmented while the other is reduced or lifted."
+      },
+      "seoTitle": {
+        "ru": "Коррекция формы и асимметрии груди в Днепре - изменение формы грудей",
+        "uk": "Корекція форми та асиметрії грудей у Дніпрі - зміна форми грудей",
+        "en": "Breast shape and asymmetry correction in Dnipro - breast reshaping"
+      },
+      "seoDescription": {
+        "ru": "Коррекция формы и асимметрии груди в Днепре в GENEVITY 🤍 Хирургическая коррекция объема и формы груди по доступной цене. Консультация пластического хирурга 💫 Индивидуальный план операции.",
+        "uk": "Корекція форми та асиметрії грудей у Дніпрі в GENEVITY 🤍 Хірургічна корекція об’єму та форми грудей за доступною ціною. Консультація пластичного хірурга 💫 Індивідуальний план операції.",
+        "en": "Breast Shape and Asymmetry Correction in Dnipro at GENEVITY 🤍 Surgical correction of breast volume and shape at an affordable price. Consultation with a plastic surgeon 💫 Personalized surgical plan."
+      },
+      "heroImage": "/images/surgery/operating-theatre.webp",
+      "sections": [
+        {
+          "type": "richText",
+          "data": {
+            "heading": {
+              "uk": "Що таке корекція форми та асиметрії грудей",
+              "ru": "Что такое коррекция формы и асимметрии груди",
+              "en": "What Is Breast Shape and Asymmetry Correction?"
+            },
+            "body": {
+              "uk": "Невелика різниця між молочними залозами є нормою і зустрічається у більшості жінок. Про асиметрію, яка потребує корекції, говорять тоді, коли залози помітно відрізняються об'ємом, формою, висотою розташування або розміром ареол, і це впливає на вибір одягу та самопочуття.\n\nПричини бувають різними: вроджені особливості розвитку залози, зокрема тубулярна форма, нерівномірні зміни після вагітності й лактації, наслідки травм або перенесених операцій, а також особливості будови грудної клітки.\n\nЄдиної методики тут немає — план складається окремо для кожної залози. Можуть поєднуватися встановлення імпланта з одного боку, зменшення або підтяжка з іншого, корекція форми ареоли та робота з тканинами залози. Мета — максимально зблизити залози за об'ємом і формою, а не досягти абсолютної симетрії, якої не існує й у природі.",
+              "ru": "Небольшая разница между молочными железами является нормой и встречается у большинства женщин. Об асимметрии, требующей коррекции, говорят тогда, когда железы заметно отличаются объемом, формой, высотой расположения или размером ареол, и это влияет на выбор одежды и самочувствие.\n\nПричины бывают разными: врожденные особенности развития железы, в том числе тубулярная форма, неравномерные изменения после беременности и лактации, последствия травм или перенесенных операций, а также особенности строения грудной клетки.\n\nЕдиной методики здесь нет — план составляется отдельно для каждой железы. Могут сочетаться установка импланта с одной стороны, уменьшение или подтяжка с другой, коррекция формы ареолы и работа с тканями железы. Цель — максимально сблизить железы по объему и форме, а не достичь абсолютной симметрии, которой не существует и в природе.",
+              "en": "A small difference between the breasts is normal and occurs in most women. Asymmetry is considered for correction when the breasts differ noticeably in volume, shape, height or areolar size, and this affects clothing choices and how a person feels.\n\nThe causes vary: congenital differences in how the gland developed, including tubular breast; uneven changes after pregnancy and breastfeeding; the consequences of injury or previous surgery; and the structure of the chest wall itself.\n\nThere is no single technique: a plan is drawn up for each breast separately. It may combine an implant on one side with reduction or a lift on the other, correction of the areola and work on the glandular tissue. The aim is to bring the breasts as close as possible in volume and shape, not to achieve the absolute symmetry that does not exist in nature either."
+            },
+            "calloutBody": {
+              "uk": "Результат залежить від причини та ступеня асиметрії, вихідної анатомії обох залоз, стану тканин, особливостей загоєння та дотримання післяопераційних рекомендацій.",
+              "ru": "Результат зависит от причины и степени асимметрии, исходной анатомии обеих желез, состояния тканей, особенностей заживления и соблюдения послеоперационных рекомендаций.",
+              "en": "The result depends on the cause and degree of asymmetry, the starting anatomy of both breasts, the condition of the tissues, how healing proceeds and adherence to postoperative recommendations."
+            },
+            "heroImage": "/images/surgery/operating-theatre.webp",
+            "heroImageFocalPoint": "50% 50%"
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Яких змін можна очікувати після корекції",
+              "ru": "Каких изменений можно ожидать после коррекции",
+              "en": "Expected improvements after correction may include"
+            },
+            "items": [
+              {
+                "uk": "Зменшення різниці в об'ємі між молочними залозами.",
+                "ru": "Уменьшение разницы в объеме между молочными железами.",
+                "en": "A smaller difference in volume between the breasts."
+              },
+              {
+                "uk": "Вирівнювання висоти розташування грудей.",
+                "ru": "Выравнивание высоты расположения груди.",
+                "en": "More even positioning of the breasts."
+              },
+              {
+                "uk": "Корекція форми залози, зокрема за тубулярної будови.",
+                "ru": "Коррекция формы железы, в том числе при тубулярном строении.",
+                "en": "Correction of breast shape, including tubular breast."
+              },
+              {
+                "uk": "Вирівнювання розміру та форми ареол.",
+                "ru": "Выравнивание размера и формы ареол.",
+                "en": "More even areolar size and shape."
+              },
+              {
+                "uk": "Покращення симетрії сосково-ареолярних комплексів.",
+                "ru": "Улучшение симметрии сосково-ареолярных комплексов.",
+                "en": "Better symmetry of the nipple-areola complexes."
+              },
+              {
+                "uk": "Простіший підбір білизни та одягу.",
+                "ru": "Более простой подбор белья и одежды.",
+                "en": "Easier fitting of underwear and clothing."
+              }
+            ]
+          }
+        },
+        {
+          "type": "indicationsContraindications",
+          "data": {
+            "indicationsHeading": {
+              "uk": "Показання до корекції форми та асиметрії грудей",
+              "ru": "Показания к коррекции формы и асимметрии груди",
+              "en": "Indications for Shape and Asymmetry Correction"
+            },
+            "indications": [
+              {
+                "uk": "Помітна різниця в об'ємі молочних залоз.",
+                "ru": "Заметная разница в объеме молочных желез.",
+                "en": "A noticeable difference in breast volume."
+              },
+              {
+                "uk": "Різна висота розташування грудей.",
+                "ru": "Разная высота расположения груди.",
+                "en": "Breasts sitting at different heights."
+              },
+              {
+                "uk": "Тубулярна форма однієї або обох молочних залоз.",
+                "ru": "Тубулярная форма одной или обеих молочных желез.",
+                "en": "Tubular shape of one or both breasts."
+              },
+              {
+                "uk": "Різний розмір або форма ареол.",
+                "ru": "Разный размер или форма ареол.",
+                "en": "Areolae of differing size or shape."
+              },
+              {
+                "uk": "Недорозвинення однієї молочної залози.",
+                "ru": "Недоразвитие одной молочной железы.",
+                "en": "Underdevelopment of one breast."
+              },
+              {
+                "uk": "Деформації після травм або перенесених операцій.",
+                "ru": "Деформации после травм или перенесенных операций.",
+                "en": "Deformity following injury or previous surgery."
+              },
+              {
+                "uk": "Нерівномірні зміни форми після вагітності та лактації.",
+                "ru": "Неравномерные изменения формы после беременности и лактации.",
+                "en": "Uneven changes in shape after pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Асиметрія, що ускладнює підбір білизни та одягу.",
+                "ru": "Асимметрия, затрудняющая подбор белья и одежды.",
+                "en": "Asymmetry that makes underwear and clothing hard to fit."
+              }
+            ],
+            "contraindicationsHeading": {
+              "uk": "Протипоказання до корекції форми та асиметрії грудей",
+              "ru": "Противопоказания к коррекции формы и асимметрии груди",
+              "en": "Contraindications for Shape and Asymmetry Correction"
+            },
+            "contraindications": [
+              {
+                "uk": "Гострі інфекційні та запальні захворювання.",
+                "ru": "Острые инфекционные и воспалительные заболевания.",
+                "en": "Acute infectious and inflammatory conditions."
+              },
+              {
+                "uk": "Неконтрольований цукровий діабет.",
+                "ru": "Неконтролируемый сахарный диабет.",
+                "en": "Uncontrolled diabetes."
+              },
+              {
+                "uk": "Порушення згортання крові.",
+                "ru": "Нарушения свертываемости крови.",
+                "en": "Blood clotting disorders."
+              },
+              {
+                "uk": "Декомпенсовані серцево-судинні та інші тяжкі соматичні захворювання.",
+                "ru": "Декомпенсированные сердечно-сосудистые и другие тяжелые соматические заболевания.",
+                "en": "Decompensated cardiovascular and other severe systemic conditions."
+              },
+              {
+                "uk": "Схильність до келоїдних рубців.",
+                "ru": "Склонность к келоидным рубцам.",
+                "en": "A tendency to keloid scarring."
+              },
+              {
+                "uk": "Стани, за яких проведення анестезії або операції пов'язане з неприйнятно високим ризиком.",
+                "ru": "Состояния, при которых проведение анестезии или операции связано с неприемлемо высоким риском.",
+                "en": "Conditions in which anaesthesia or surgery would carry an unacceptably high risk."
+              },
+              {
+                "uk": "Вагітність і період грудного вигодовування.",
+                "ru": "Беременность и период грудного вскармливания.",
+                "en": "Pregnancy and breastfeeding."
+              },
+              {
+                "uk": "Виявлені під час обстеження захворювання молочних залоз, що потребують лікування.",
+                "ru": "Выявленные при обследовании заболевания молочных желез, требующие лечения.",
+                "en": "Breast conditions found during assessment that require treatment."
+              },
+              {
+                "uk": "Онкологічні захворювання в активній стадії.",
+                "ru": "Онкологические заболевания в активной стадии.",
+                "en": "Active cancer."
+              },
+              {
+                "uk": "Планування вагітності найближчим часом.",
+                "ru": "Планирование беременности в ближайшее время.",
+                "en": "Pregnancy planned in the near future."
+              },
+              {
+                "uk": "Незавершене формування молочних залоз, якщо немає окремих медичних показань.",
+                "ru": "Незавершенное формирование молочных желез, если нет отдельных медицинских показаний.",
+                "en": "Incomplete breast development, unless there are separate medical indications."
+              },
+              {
+                "uk": "Інші індивідуальні обмеження, встановлені лікарем.",
+                "ru": "Другие индивидуальные ограничения, установленные врачом.",
+                "en": "Other individual limitations determined by the doctor."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "info",
+            "body": {
+              "uk": "Корекція може бути рекомендована за вираженої асиметрії або особливостей форми молочних залоз, які не змінюються з часом і впливають на якість життя. Невелика природна різниця між залозами корекції не потребує. Показання визначаються з урахуванням анатомії обох залоз, стану тканин, загального здоров'я та реалістичності очікувань.\n\nОскільки це хірургічне втручання на молочній залозі, перед операцією необхідні консультація пластичного хірурга, консультація мамолога з візуалізацією залоз, передопераційне обстеження та консультація анестезіолога.",
+              "ru": "Коррекция может быть рекомендована при выраженной асимметрии или особенностях формы молочных желез, которые не меняются со временем и влияют на качество жизни. Небольшая естественная разница между железами коррекции не требует. Показания определяются с учетом анатомии обеих желез, состояния тканей, общего здоровья и реалистичности ожиданий.\n\nПоскольку это хирургическое вмешательство на молочной железе, перед операцией необходимы консультация пластического хирурга, консультация маммолога с визуализацией желез, предоперационное обследование и консультация анестезиолога.",
+              "en": "Correction may be recommended where asymmetry is pronounced, or where features of breast shape persist over time and affect quality of life. A small natural difference between the breasts needs no correction. The indications are determined by the anatomy of both breasts, the condition of the tissues, general health and how realistic the patient's expectations are.\n\nBecause this is surgery on the breast, it requires a consultation with a plastic surgeon, a consultation with a breast specialist including imaging, preoperative assessment and a consultation with an anaesthetist beforehand."
+            }
+          }
+        },
+        {
+          "type": "steps",
+          "data": {
+            "heading": {
+              "uk": "Як проходить корекція форми та асиметрії грудей",
+              "ru": "Как проходит коррекция формы и асимметрии груди",
+              "en": "How Is Shape and Asymmetry Correction Performed?"
+            },
+            "steps": [
+              {
+                "title": {
+                  "uk": "Консультація пластичного хірурга",
+                  "ru": "Консультация пластического хирурга",
+                  "en": "Consultation with a Plastic Surgeon"
+                },
+                "description": {
+                  "uk": "Лікар окремо оцінює кожну молочну залозу: об'єм, форму, висоту розташування, положення та розмір ареоли, стан шкіри й залозистої тканини, а також будову грудної клітки. Вимірювання фіксуються, щоб визначити, наскільки саме залози відрізняються. Обговорюються очікування, можливі результати, обмеження та ризики.",
+                  "ru": "Врач отдельно оценивает каждую молочную железу: объем, форму, высоту расположения, положение и размер ареолы, состояние кожи и железистой ткани, а также строение грудной клетки. Измерения фиксируются, чтобы определить, насколько именно железы отличаются. Обсуждаются ожидания, возможные результаты, ограничения и риски.",
+                  "en": "The doctor assesses each breast separately: its volume, shape, height, the position and size of the areola, the condition of the skin and glandular tissue, and the structure of the chest. Measurements are recorded to establish exactly how the breasts differ. Expectations, possible results, limitations and risks are discussed."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Складання плану для кожної залози",
+                  "ru": "Составление плана для каждой железы",
+                  "en": "A Plan for Each Breast"
+                },
+                "description": {
+                  "uk": "Оскільки залози відрізняються, план для них може бути різним. Визначається, яка з методик застосовується з кожного боку — встановлення імпланта, зменшення об'єму, підтяжка, корекція ареоли або їх поєднання.",
+                  "ru": "Поскольку железы отличаются, план для них может быть разным. Определяется, какая из методик применяется с каждой стороны — установка импланта, уменьшение объема, подтяжка, коррекция ареолы или их сочетание.",
+                  "en": "Because the breasts differ, the plan for each may differ too. The surgeon decides which technique applies on each side — an implant, volume reduction, a lift, areolar correction, or a combination."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Передопераційна підготовка",
+                  "ru": "Предоперационная подготовка",
+                  "en": "Preoperative Preparation"
+                },
+                "description": {
+                  "uk": "Пацієнтка проходить консультацію мамолога з візуалізацією молочних залоз, лабораторні та інструментальні обстеження і консультацію анестезіолога. Лікар надає рекомендації щодо підготовки, прийому медикаментів і режиму перед операцією.",
+                  "ru": "Пациентка проходит консультацию маммолога с визуализацией молочных желез, лабораторные и инструментальные обследования и консультацию анестезиолога. Врач дает рекомендации по подготовке, приему медикаментов и режиму перед операцией.",
+                  "en": "The patient has a consultation with a breast specialist including imaging, laboratory and instrumental investigations, and a consultation with an anaesthetist. The doctor advises on preparation, medication and the regimen before surgery."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Хірургічна корекція",
+                  "ru": "Хирургическая коррекция",
+                  "en": "The Corrective Procedure"
+                },
+                "description": {
+                  "uk": "Операція проводиться під загальною анестезією. Обсяг втручання з кожного боку відповідає затвердженому плану: з одного боку може встановлюватися імплант, з іншого — виконуватися підтяжка чи зменшення об'єму.\n\nСиметрія оцінюється під час операції, зокрема в положенні напівсидячи. Тип і розташування рубців залежать від застосованих методик.",
+                  "ru": "Операция проводится под общей анестезией. Объем вмешательства с каждой стороны соответствует утвержденному плану: с одной стороны может устанавливаться имплант, с другой — выполняться подтяжка или уменьшение объема.\n\nСимметрия оценивается во время операции, в том числе в положении полусидя. Тип и расположение рубцов зависят от примененных методик.",
+                  "en": "The operation is performed under general anaesthesia. The extent of surgery on each side follows the agreed plan: an implant may be placed on one side while a lift or reduction is carried out on the other.\n\nSymmetry is assessed during surgery, including with the patient semi-upright. The type and position of the scars depend on the techniques used."
+                }
+              },
+              {
+                "title": {
+                  "uk": "Післяопераційне спостереження",
+                  "ru": "Послеоперационное наблюдение",
+                  "en": "Postoperative Monitoring"
+                },
+                "description": {
+                  "uk": "Після завершення операції пацієнтка перебуває під медичним наглядом у стаціонарі. Призначається компресійна білизна, знеболення та догляд за швами. Тривалість перебування залежить від обсягу втручання та стану пацієнтки.",
+                  "ru": "После завершения операции пациентка находится под медицинским наблюдением в стационаре. Назначается компрессионное белье, обезболивание и уход за швами. Длительность пребывания зависит от объема вмешательства и состояния пациентки.",
+                  "en": "After the operation the patient remains under medical supervision in hospital. A compression garment, pain relief and wound care are prescribed. The length of stay depends on the extent of the procedure and the patient's condition."
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "bullets",
+          "data": {
+            "heading": {
+              "uk": "Переваги корекції форми та асиметрії грудей у GENEVITY",
+              "ru": "Преимущества коррекции формы и асимметрии груди в GENEVITY",
+              "en": "Benefits of Shape and Asymmetry Correction at GENEVITY"
+            },
+            "items": [
+              {
+                "uk": "**Окремий план для кожної залози** — Методика підбирається для лівої та правої молочної залози незалежно, відповідно до їх вихідних відмінностей.",
+                "ru": "**Отдельный план для каждой железы** — Методика подбирается для левой и правой молочной железы независимо, в соответствии с их исходными отличиями.",
+                "en": "**A Separate Plan for Each Breast** — The technique is chosen independently for the left and right breast, according to how they differ at the outset."
+              },
+              {
+                "uk": "**Вимірювання замість окоміру** — Різниця між залозами фіксується вимірюваннями, що дозволяє планувати обсяг корекції з кожного боку.",
+                "ru": "**Измерения вместо глазомера** — Разница между железами фиксируется измерениями, что позволяет планировать объем коррекции с каждой стороны.",
+                "en": "**Measurement Rather Than Estimation** — The difference between the breasts is recorded by measurement, which allows the extent of correction on each side to be planned."
+              },
+              {
+                "uk": "**Мамологічне обстеження перед операцією** — Консультація мамолога та візуалізація молочних залоз проводяться на базі центру до планування втручання.",
+                "ru": "**Маммологическое обследование перед операцией** — Консультация маммолога и визуализация молочных желез проводятся на базе центра до планирования вмешательства.",
+                "en": "**Breast Assessment Before Surgery** — The breast consultation and imaging are carried out at the centre before the procedure is planned."
+              },
+              {
+                "uk": "**Поєднання кількох методик** — В одну операцію можуть входити встановлення імпланта, підтяжка, зменшення об'єму та корекція ареоли.",
+                "ru": "**Сочетание нескольких методик** — В одну операцию могут входить установка импланта, подтяжка, уменьшение объема и коррекция ареолы.",
+                "en": "**Several Techniques Combined** — A single operation may include implant placement, a lift, volume reduction and areolar correction."
+              },
+              {
+                "uk": "**Медичний супровід** — Передопераційне обстеження, анестезіологічне забезпечення, стаціонар і післяопераційні огляди є важливими складовими хірургічного лікування.",
+                "ru": "**Медицинское сопровождение** — Предоперационное обследование, анестезиологическое обеспечение, стационар и послеоперационные осмотры являются важными составляющими хирургического лечения.",
+                "en": "**Medical Care and Follow-Up** — Preoperative assessment, anaesthetic care, the inpatient stay and postoperative review are essential parts of surgical treatment."
+              }
+            ]
+          }
+        },
+        {
+          "type": "callout",
+          "data": {
+            "tone": "warning",
+            "body": {
+              "uk": "Корекція форми та асиметрії грудей, як і будь-яке хірургічне втручання, має ризики. Серед них — кровотеча, гематоми, інфекції, порушення загоєння ран, зміни чутливості соска, залишкова асиметрія, помітні рубці, капсулярна контрактура за використання імпланта та можливість необхідності повторної операції. Усі суттєві ризики обговорюються до втручання.",
+              "ru": "Коррекция формы и асимметрии груди, как и любое хирургическое вмешательство, имеет риски. Среди них — кровотечение, гематомы, инфекции, нарушение заживления ран, изменения чувствительности соска, остаточная асимметрия, заметные рубцы, капсулярная контрактура при использовании импланта и возможность необходимости повторной операции. Все существенные риски обсуждаются до вмешательства.",
+              "en": "Shape and asymmetry correction, like any surgical procedure, carries risks. These include bleeding, haematoma, infection, impaired wound healing, changes in nipple sensation, residual asymmetry, noticeable scarring, capsular contracture where an implant is used, and the possibility that further surgery may be needed. All material risks are discussed before the procedure."
+            }
+          }
+        }
+      ],
+      "faq": [
+        {
+          "question": {
+            "uk": "Яка різниця між грудьми вважається нормою?",
+            "ru": "Какая разница между грудью считается нормой?",
+            "en": "What Difference Between the Breasts Is Normal?"
+          },
+          "answer": {
+            "uk": "Невелика природна відмінність в об'ємі та формі є у більшості жінок і корекції не потребує. Про асиметрію говорять тоді, коли різниця помітна в одязі, ускладнює підбір білизни або впливає на самопочуття.",
+            "ru": "Небольшое естественное отличие в объеме и форме есть у большинства женщин и коррекции не требует. Об асимметрии говорят тогда, когда разница заметна в одежде, затрудняет подбор белья или влияет на самочувствие.",
+            "en": "A small natural difference in volume and shape is present in most women and needs no correction. Asymmetry is considered when the difference shows through clothing, makes underwear hard to fit, or affects how a person feels."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна виправити асиметрію лише одним імплантом?",
+            "ru": "Можно ли исправить асимметрию только одним имплантом?",
+            "en": "Can Asymmetry Be Corrected with Just One Implant?"
+          },
+          "answer": {
+            "uk": "Іноді так — якщо залози відрізняються переважно об'ємом, а форма й положення співставні. Частіше потрібне поєднання: імплант з одного боку та підтяжка або зменшення з іншого. Рішення ухвалюється після вимірювань.",
+            "ru": "Иногда да — если железы отличаются преимущественно объемом, а форма и положение сопоставимы. Чаще требуется сочетание: имплант с одной стороны и подтяжка или уменьшение с другой. Решение принимается после измерений.",
+            "en": "Sometimes, where the breasts differ mainly in volume and their shape and position are comparable. More often a combination is needed: an implant on one side and a lift or reduction on the other. The decision follows measurement."
+          }
+        },
+        {
+          "question": {
+            "uk": "Що таке тубулярні груди?",
+            "ru": "Что такое тубулярная грудь?",
+            "en": "What Is Tubular Breast?"
+          },
+          "answer": {
+            "uk": "Це вроджена особливість будови, за якої залоза має вузьку основу, видовжену форму та часто збільшену ареолу. Корекція передбачає роботу з тканинами залози, розширення її основи й за показаннями встановлення імпланта.",
+            "ru": "Это врожденная особенность строения, при которой железа имеет узкое основание, удлиненную форму и часто увеличенную ареолу. Коррекция предполагает работу с тканями железы, расширение ее основания и по показаниям установку импланта.",
+            "en": "It is a congenital variation in which the breast has a narrow base, an elongated shape and often an enlarged areola. Correction involves working with the glandular tissue, widening the base and, where indicated, placing an implant."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи буде результат абсолютно симетричним?",
+            "ru": "Будет ли результат абсолютно симметричным?",
+            "en": "Will the Result Be Perfectly Symmetrical?"
+          },
+          "answer": {
+            "uk": "Абсолютної симетрії не існує навіть у природі. Мета операції — суттєво зменшити різницю, щоб вона не була помітною в одязі й не заважала підбирати білизну. Залишкова незначна асиметрія можлива і є очікуваною.",
+            "ru": "Абсолютной симметрии не существует даже в природе. Цель операции — существенно уменьшить разницу, чтобы она не была заметна в одежде и не мешала подбирать белье. Остаточная незначительная асимметрия возможна и является ожидаемой.",
+            "en": "Perfect symmetry does not exist even naturally. The aim is to reduce the difference substantially, so that it is not visible in clothing and does not interfere with fitting underwear. A small residual asymmetry is possible and expected."
+          }
+        },
+        {
+          "question": {
+            "uk": "У якому віці можна коригувати асиметрію грудей?",
+            "ru": "В каком возрасте можно корректировать асимметрию груди?",
+            "en": "At What Age Can Asymmetry Be Corrected?"
+          },
+          "answer": {
+            "uk": "Корекцію зазвичай розглядають після завершення формування молочних залоз, оскільки до цього часу різниця може змінюватися. За вираженої асиметрії зі значним впливом на якість життя втручання може розглядатися раніше за медичними показаннями.",
+            "ru": "Коррекцию обычно рассматривают после завершения формирования молочных желез, поскольку до этого времени разница может меняться. При выраженной асимметрии со значительным влиянием на качество жизни вмешательство может рассматриваться раньше по медицинским показаниям.",
+            "en": "Correction is usually considered once the breasts have finished developing, since the difference can change until then. Where asymmetry is pronounced and significantly affects quality of life, surgery may be considered earlier on medical grounds."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи зміниться асиметрія після вагітності?",
+            "ru": "Изменится ли асимметрия после беременности?",
+            "en": "Will Asymmetry Change After Pregnancy?"
+          },
+          "answer": {
+            "uk": "Вагітність і лактація можуть змінювати залози нерівномірно, тому досягнута симетрія може порушитися. За планування вагітності найближчим часом корекцію зазвичай рекомендують відкласти.",
+            "ru": "Беременность и лактация могут изменять железы неравномерно, поэтому достигнутая симметрия может нарушиться. При планировании беременности в ближайшее время коррекцию обычно рекомендуют отложить.",
+            "en": "Pregnancy and breastfeeding can change the breasts unevenly, so symmetry achieved beforehand may be disturbed. If pregnancy is planned in the near future, correction is usually deferred."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи однакові будуть рубці з обох боків?",
+            "ru": "Одинаковыми ли будут рубцы с обеих сторон?",
+            "en": "Will the Scars Match on Both Sides?"
+          },
+          "answer": {
+            "uk": "Не обов'язково. Оскільки методики з кожного боку можуть відрізнятися, відрізнятимуться й розрізи: з одного боку це може бути рубець у складці під грудьми, з іншого — навколо ареоли або вертикальний. Це обговорюється до операції.",
+            "ru": "Не обязательно. Поскольку методики с каждой стороны могут отличаться, будут отличаться и разрезы: с одной стороны это может быть рубец в складке под грудью, с другой — вокруг ареолы или вертикальный. Это обсуждается до операции.",
+            "en": "Not necessarily. Because the technique can differ on each side, so can the incisions: one side may have a scar in the inframammary fold while the other has a periareolar or vertical scar. This is discussed before surgery."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки триває відновлення?",
+            "ru": "Сколько длится восстановление?",
+            "en": "How Long Does Recovery Take?"
+          },
+          "answer": {
+            "uk": "Початкове відновлення зазвичай займає 3–4 тижні та залежить від обсягу втручання з кожного боку. Остаточна форма формується протягом кількох місяців, а рубці дозрівають до року й довше.",
+            "ru": "Первичное восстановление обычно занимает 3–4 недели и зависит от объема вмешательства с каждой стороны. Окончательная форма формируется в течение нескольких месяцев, а рубцы созревают до года и дольше.",
+            "en": "Initial recovery usually takes three to four weeks and depends on the extent of surgery on each side. The final shape settles over several months, and scars mature over a year or more."
+          }
+        },
+        {
+          "question": {
+            "uk": "Чи можна коригувати лише ареоли?",
+            "ru": "Можно ли корректировать только ареолы?",
+            "en": "Can Only the Areolae Be Corrected?"
+          },
+          "answer": {
+            "uk": "Так, якщо різниця стосується переважно розміру або форми ареол, а об'єм і положення залоз співставні. Таке втручання менше за обсягом, а рубець розташовується по краю ареоли.",
+            "ru": "Да, если разница касается преимущественно размера или формы ареол, а объем и положение желез сопоставимы. Такое вмешательство меньше по объему, а рубец располагается по краю ареолы.",
+            "en": "Yes, where the difference concerns mainly the size or shape of the areolae and the volume and position of the breasts are comparable. This is a smaller procedure, and the scar sits at the edge of the areola."
+          }
+        },
+        {
+          "question": {
+            "uk": "Скільки коштує корекція асиметрії грудей у Дніпрі?",
+            "ru": "Сколько стоит коррекция асимметрии груди в Днепре?",
+            "en": "How Much Does Asymmetry Correction Cost in Dnipro?"
+          },
+          "answer": {
+            "uk": "Вартість залежить від поєднання методик, потреби в імпланті, обсягу втручання з кожного боку, виду анестезії, обстежень і перебування у стаціонарі. Індивідуальний кошторис формується після консультації.",
+            "ru": "Стоимость зависит от сочетания методик, необходимости в импланте, объема вмешательства с каждой стороны, вида анестезии, обследований и пребывания в стационаре. Индивидуальная смета формируется после консультации.",
+            "en": "The cost depends on the combination of techniques, whether an implant is needed, the extent of surgery on each side, the anaesthesia, the investigations and the inpatient stay. An individual estimate is prepared after a consultation."
+          }
+        }
+      ]
+    }
+  ]
+}

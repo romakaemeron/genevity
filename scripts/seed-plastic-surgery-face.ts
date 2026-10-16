@@ -1,14 +1,11 @@
 /**
- * Seed the seven facial plastic surgery landing pages (ТЗ #16 structure,
- * ТЗ #17 metatags) under the existing `plastic-surgery` category.
+ * Seed a batch of plastic surgery landing pages (ТЗ #16 structure, ТЗ #17
+ * metatags) under the `plastic-surgery` category.
  *
- *   /services/plastic-surgery/face            — hub
- *   /services/plastic-surgery/facelift
- *   /services/plastic-surgery/necklift
- *   /services/plastic-surgery/blepharoplasty
- *   /services/plastic-surgery/rhinoplasty
- *   /services/plastic-surgery/otoplasty
- *   /services/plastic-surgery/face-contour
+ * One batch per data file in scripts/data/:
+ *   plastic-surgery-face.json    — the seven facial pages
+ *   plastic-surgery-breast.json  — the five breast pages
+ *   plastic-surgery-body.json    — the six body pages
  *
  * Copy and metatags come from `scripts/data/plastic-surgery-face.json`, which
  * was generated once from the client's Word documents and is the source of
@@ -19,7 +16,8 @@
  * every run. Re-running after an edit in /admin WILL discard that edit, so
  * treat this as the initial-import tool it is.
  *
- * Run: npx tsx scripts/seed-plastic-surgery-face.ts [--dry]
+ * Run: npx tsx scripts/seed-plastic-surgery-face.ts <data-file> [--dry]
+ *      npx tsx scripts/seed-plastic-surgery-face.ts plastic-surgery-body.json
  *
  * `--dry` executes every statement and then rolls the transaction back, which
  * is the only honest way to prove the SQL works against a database that has no
@@ -39,15 +37,23 @@ fs.readFileSync(path.resolve(__dirname, "../.env.local"), "utf-8")
 
 const sql = postgres(env.DATABASE_URL!);
 const DRY = process.argv.includes("--dry");
+const FILE = process.argv.slice(2).find((a) => a.endsWith(".json")) ?? "plastic-surgery-face.json";
 
 /** Thrown at the end of a --dry run purely to roll the transaction back. */
 const ROLLBACK = Symbol("dry-run rollback");
 
 type Loc = { uk: string; ru: string; en: string };
 interface Section { type: string; data: Record<string, unknown> }
+interface BeforeAfter { count: number; zone: Loc; sessions: Loc; alt: Loc }
 interface Page {
   slug: string;
   sortOrder: number;
+  /** Pages awaiting a clinician's review ship noindex so nothing unreviewed
+   *  is indexed; clearing the flag in /admin publishes them. */
+  seoNoindex?: boolean;
+  /** Sibling slugs for the "Related services" block, in order. */
+  related: string[];
+  beforeAfter?: BeforeAfter;
   h1: Loc; title: Loc; summary: Loc;
   seoTitle: Loc; seoDescription: Loc;
   heroImage: string;
@@ -56,52 +62,14 @@ interface Page {
 }
 
 const content = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, "data/plastic-surgery-face.json"), "utf-8"),
+  fs.readFileSync(path.resolve(__dirname, "data", FILE), "utf-8"),
 ) as { categorySlug: string; pages: Page[] };
-
-/** Sibling pages surfaced in the "Related services" block, by slug. The hub
- *  lists every procedure; each procedure points back at the hub first, then at
- *  the operations a patient most often weighs against it. */
-const RELATED: Record<string, string[]> = {
-  "face":           ["facelift", "necklift", "blepharoplasty", "rhinoplasty", "otoplasty", "face-contour"],
-  "facelift":       ["face", "necklift", "face-contour", "blepharoplasty"],
-  "necklift":       ["face", "facelift", "face-contour"],
-  "blepharoplasty": ["face", "facelift", "face-contour"],
-  "rhinoplasty":    ["face", "otoplasty"],
-  "otoplasty":      ["face", "rhinoplasty"],
-  "face-contour":   ["face", "facelift", "necklift"],
-};
-
-/** Captions for the client's before/after photos. Deliberately factual: the
- *  photographs arrived without case notes, so these state the treated zone and
- *  that a single operation was performed, and claim nothing further. */
-const BEFORE_AFTER: Record<string, { count: number; zone: Loc; sessions: Loc; alt: Loc }> = {
-  blepharoplasty: {
-    count: 6,
-    zone: { uk: "Верхні та нижні повіки", ru: "Верхние и нижние веки", en: "Upper and lower eyelids" },
-    sessions: { uk: "1 операція", ru: "1 операция", en: "1 operation" },
-    alt: {
-      uk: "Ділянка навколо очей до та після блефаропластики",
-      ru: "Область вокруг глаз до и после блефаропластики",
-      en: "The eye area before and after blepharoplasty",
-    },
-  },
-  "face-contour": {
-    count: 3,
-    zone: { uk: "Нижня третина обличчя та шия", ru: "Нижняя треть лица и шея", en: "Lower third of the face and neck" },
-    sessions: { uk: "1 операція", ru: "1 операция", en: "1 operation" },
-    alt: {
-      uk: "Контур нижньої щелепи та шиї до та після корекції овалу обличчя",
-      ru: "Контур нижней челюсти и шеи до и после коррекции овала лица",
-      en: "The jawline and neck before and after facial contouring",
-    },
-  },
-};
 
 /** Fixed blocks appended after the editable sections, in render order. */
 const TAIL_BLOCKS = ["beforeAfter", "doctors", "reviews", "relatedServices", "faq", "finalCTA"];
 
 async function main(sql: postgres.TransactionSql) {
+  console.log(`seeding ${FILE}`);
   const [cat] = await sql`SELECT id FROM service_categories WHERE slug = ${content.categorySlug}`;
   if (!cat) throw new Error(`category "${content.categorySlug}" not found`);
 
@@ -126,14 +94,14 @@ async function main(sql: postgres.TransactionSql) {
         summary_uk, summary_ru, summary_en, hero_image,
         seo_title_uk, seo_title_ru, seo_title_en,
         seo_desc_uk, seo_desc_ru, seo_desc_en,
-        sort_order, reviewer_doctor_id, last_reviewed_at
+        sort_order, reviewer_doctor_id, last_reviewed_at, seo_noindex
       ) VALUES (
         ${p.slug}, ${cat.id}, ${p.title.uk}, ${p.title.ru}, ${p.title.en},
         ${p.h1.uk}, ${p.h1.ru}, ${p.h1.en},
         ${p.summary.uk}, ${p.summary.ru}, ${p.summary.en}, ${p.heroImage},
         ${p.seoTitle.uk}, ${p.seoTitle.ru}, ${p.seoTitle.en},
         ${p.seoDescription.uk}, ${p.seoDescription.ru}, ${p.seoDescription.en},
-        ${p.sortOrder}, ${reviewer.id}, now()
+        ${p.sortOrder}, ${reviewer.id}, now(), ${p.seoNoindex ?? false}
       )
       ON CONFLICT (slug, category_id) DO UPDATE SET
         title_uk = EXCLUDED.title_uk, title_ru = EXCLUDED.title_ru, title_en = EXCLUDED.title_en,
@@ -145,6 +113,7 @@ async function main(sql: postgres.TransactionSql) {
         sort_order = EXCLUDED.sort_order,
         reviewer_doctor_id = EXCLUDED.reviewer_doctor_id,
         last_reviewed_at = EXCLUDED.last_reviewed_at,
+        seo_noindex = EXCLUDED.seo_noindex,
         updated_at = now()
       RETURNING id
     `;
@@ -185,7 +154,7 @@ async function main(sql: postgres.TransactionSql) {
       `;
     }
 
-    const ba = BEFORE_AFTER[p.slug];
+    const ba = p.beforeAfter;
     if (ba) {
       for (let n = 1; n <= ba.count; n++) {
         await sql`
@@ -216,12 +185,24 @@ async function main(sql: postgres.TransactionSql) {
   }
 
   // Related services need every id, so they are wired after the first pass.
-  for (const [slug, rel] of Object.entries(RELATED)) {
-    for (const [i, target] of rel.entries()) {
-      if (!ids[target]) throw new Error(`unknown related slug "${target}" for "${slug}"`);
+  // A batch may point at pages seeded by an earlier batch (the body pages link
+  // back to the face hub), so unknown slugs are resolved from the database
+  // rather than assumed missing.
+  for (const p of content.pages) {
+    for (const [i, target] of (p.related ?? []).entries()) {
+      let targetId = ids[target];
+      if (!targetId) {
+        const [row] = await sql`
+          SELECT s.id FROM services s
+          JOIN service_categories c ON c.id = s.category_id
+          WHERE s.slug = ${target} AND c.slug = ${content.categorySlug}
+        `;
+        if (!row) throw new Error(`unknown related slug "${target}" for "${p.slug}"`);
+        targetId = row.id as string;
+      }
       await sql`
         INSERT INTO service_related (service_id, related_service_id, sort_order)
-        VALUES (${ids[slug]}, ${ids[target]}, ${i})
+        VALUES (${ids[p.slug]}, ${targetId}, ${i})
         ON CONFLICT DO NOTHING
       `;
     }

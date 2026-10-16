@@ -434,6 +434,9 @@ export interface ServiceData {
   priceUnit: string | null;
   seoTitle?: string;
   seoDescription?: string;
+  /** Drafts awaiting review are served `noindex, nofollow` and kept out of
+   *  the sitemap until an editor clears the flag in /admin. */
+  seoNoindex?: boolean;
   sections: ContentSection[];
   faq: FaqItemData[];
   relatedDoctors: DoctorItem[];
