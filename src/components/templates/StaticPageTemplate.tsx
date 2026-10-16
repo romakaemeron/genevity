@@ -59,7 +59,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
           <div className="absolute inset-x-0 top-0 h-32 z-[3] pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%)" }} />
           <div className="absolute inset-x-0 top-0 z-[10]"><MegaMenuHeader variant="transparent" position="absolute" /></div>
           <div className="relative z-[5] min-h-[60vh] lg:min-h-[65vh] flex items-end">
-            <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pb-12 lg:pb-16 pt-28">
+            <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pb-12 lg:pb-16 pt-header">
               <div className="max-w-xl">
                 <Breadcrumbs items={breadcrumbs} locale={locale} variant="light" />
                 <h1 className="heading-1 text-champagne mt-6">{data.h1 || data.title}</h1>
@@ -78,7 +78,7 @@ export default function StaticPageTemplate({ data, locale, heroImage, heroVarian
         <section className="bg-champagne">
           {heroImage && <div className="absolute inset-x-0 top-0 z-[10]"><MegaMenuHeader variant="transparent-dark" position="absolute" /></div>}
           <div className="relative z-[5]">
-            <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+            <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-header pb-10 lg:pb-16">
               <div className={`flex flex-col ${heroImage ? "lg:flex-row lg:items-center lg:gap-10" : ""}`}>
                 <div className={heroImage ? "flex-1 max-w-lg lg:py-8" : "max-w-3xl"}>
                   <Breadcrumbs items={breadcrumbs} locale={locale} />

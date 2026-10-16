@@ -69,7 +69,7 @@ export default function LaboratoryPageComponent({
       {/* Hero — above fold, no animation */}
       <section className="relative overflow-hidden bg-champagne">
         <div className="relative z-[5]">
-          <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+          <div className="max-w-container mx-auto w-full px-4 sm:px-6 lg:px-12 pt-header pb-10 lg:pb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:gap-10">
               <div className="flex-1 max-w-lg lg:py-8">
                 <Breadcrumbs items={[{ label: tLabels("home"), href: "/" }, { label: data.title, href: "/laboratory" }]} locale={locale} />
