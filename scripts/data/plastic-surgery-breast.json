@@ -1,12 +1,12 @@
 {
   "_source": "Page structure mirrors the client's seven face documents; metatags verbatim from ТЗ #17. Breast pages drafted in-house to the same structure, pending clinical review.",
-  "_review": "AWAITING CLINICAL REVIEW — every page here ships seoNoindex until a GENEVITY surgeon has read it. Clear the flag in /admin per page once approved.",
+  "_review": "Reviewed and approved by the clinic on 2026-10-16; the pages are published (seoNoindex false). Material edits to clinical content should be re-checked with a GENEVITY surgeon.",
   "categorySlug": "plastic-surgery",
   "pages": [
     {
       "slug": "breast",
       "sortOrder": 8,
-      "seoNoindex": true,
+      "seoNoindex": false,
       "related": [
         "breast-augmentation",
         "breast-reduction",
@@ -356,7 +356,7 @@
     {
       "slug": "breast-augmentation",
       "sortOrder": 9,
-      "seoNoindex": true,
+      "seoNoindex": false,
       "related": [
         "breast",
         "breast-lift",
@@ -826,7 +826,7 @@
     {
       "slug": "breast-reduction",
       "sortOrder": 10,
-      "seoNoindex": true,
+      "seoNoindex": false,
       "related": [
         "breast",
         "breast-lift",
@@ -1306,7 +1306,7 @@
     {
       "slug": "breast-lift",
       "sortOrder": 11,
-      "seoNoindex": true,
+      "seoNoindex": false,
       "related": [
         "breast",
         "breast-augmentation",
@@ -1781,7 +1781,7 @@
     {
       "slug": "breast-shape-correction",
       "sortOrder": 12,
-      "seoNoindex": true,
+      "seoNoindex": false,
       "related": [
         "breast",
         "breast-augmentation",
