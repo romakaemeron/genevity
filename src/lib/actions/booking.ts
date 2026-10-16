@@ -3,12 +3,17 @@
 /**
  * Server actions for the site-wide booking form (name / phone / interest).
  * Submissions land in `form_submissions` so they show up in the admin
- * portal at /admin/forms, and a notification email fires to
- * BOOKING_NOTIFY_EMAIL (when configured) via Resend.
+ * portal at /admin/forms, and two notifications fire: an email to the
+ * clinic inbox via Resend (the durable record) and a message to the
+ * clinic's Telegram group (the instant front-desk ping).
+ *
+ * Both notifications are best-effort — neither can fail a submission that
+ * is already in the database.
  */
 
 import { sql } from "@/lib/db/client";
 import { sendEmail } from "@/lib/email";
+import { sendTelegram, escapeHtml as tgEscape } from "@/lib/telegram";
 
 export interface BookingOption {
   /** Stable key persisted as `direction` on form_submissions, e.g.
@@ -323,16 +328,21 @@ export async function submitBookingForm(input: BookingSubmissionInput): Promise<
     return { ok: false, errorKey: "generic" };
   }
 
-  await notifyAdmin({
+  const notification = {
     name, phone, interestLabel: joinedLabel, preferredSlot, pageUrl, pageTitle,
     referrer, formLabel, locale: input.locale,
     utmSource, utmMedium, utmCampaign, utmTerm, utmContent,
-  });
+  };
+  // Concurrent, and settled rather than awaited-in-sequence: the lead row is
+  // already committed, so a slow or broken notifier must not add latency to
+  // the visitor's "thank you" screen or turn a saved lead into an error.
+  await Promise.allSettled([notifyAdmin(notification), notifyTelegram(notification)]);
 
   return { ok: true };
 }
 
-async function notifyAdmin(s: {
+/** Everything both notifiers render, sanitized and ready to display. */
+interface LeadNotification {
   name: string;
   phone: string;
   interestLabel: string;
@@ -347,7 +357,9 @@ async function notifyAdmin(s: {
   utmCampaign: string | null;
   utmTerm: string | null;
   utmContent: string | null;
-}) {
+}
+
+async function notifyAdmin(s: LeadNotification) {
   const to = "helyos1nfo@outlook.com";
 
   const subject = `Genevity — Нова заявка — ${s.name}`;
@@ -401,6 +413,76 @@ async function notifyAdmin(s: {
   const result = await sendEmail({ to, subject, html, text });
   if (!result.ok) {
     console.warn("[booking] email notify failed:", result.reason);
+  }
+}
+
+/**
+ * Ping the clinic's Telegram group about a new lead.
+ *
+ * Ukrainian only, like the email: this goes to the front desk, not to the
+ * visitor, and the clinic works in Ukrainian whichever locale the form was
+ * filled in. The visitor's locale is still reported as a call-back hint.
+ *
+ * Unlike the email — which renders every field so ops can tell a missing UTM
+ * from an empty one — this omits blank rows. A chat message is read at a
+ * glance, and fourteen "не вказано" lines bury the phone number.
+ *
+ * The phone is deliberately plain text, not a link: Telegram's HTML mode
+ * rejects `tel:` hrefs, but its mobile clients auto-detect a spaced
+ * international number and make it tappable-to-call on their own.
+ */
+async function notifyTelegram(s: LeadNotification) {
+  const dateKyiv = new Date().toLocaleString("uk-UA", {
+    day: "2-digit", month: "long", year: "numeric",
+    hour: "2-digit", minute: "2-digit", timeZone: "Europe/Kyiv",
+  });
+
+  const rows: [string, string][] = [
+    ["Дата", dateKyiv],
+    ["Ім'я", s.name],
+    ["Телефон", s.phone],
+  ];
+  if (s.interestLabel) rows.push(["Цікавиться", s.interestLabel]);
+  if (s.preferredSlot) rows.push(["Бажаний час", formatPreferredSlot(s.preferredSlot)]);
+  if (s.formLabel) rows.push(["Форма", s.formLabel]);
+  // Title and URL both: the title says where the visitor was, the URL is what
+  // ops paste to get there. Web previews are disabled, so the link is inert.
+  if (s.pageTitle || s.pageUrl) {
+    rows.push([
+      "Сторінка",
+      s.pageTitle && s.pageUrl ? `${s.pageTitle}\n${s.pageUrl}` : s.pageTitle || s.pageUrl,
+    ]);
+  }
+  if (s.locale) rows.push(["Мова сайту", s.locale]);
+  if (s.referrer) rows.push(["Джерело переходу", s.referrer]);
+
+  // UTMs collapse into one line: campaign attribution matters, but it is
+  // context for later, not something the front desk acts on.
+  const utm = (
+    [
+      ["source", s.utmSource],
+      ["medium", s.utmMedium],
+      ["campaign", s.utmCampaign],
+      ["term", s.utmTerm],
+      ["content", s.utmContent],
+    ] as [string, string | null][]
+  )
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}=${v}`)
+    .join(" · ");
+  if (utm) rows.push(["UTM", utm]);
+
+  const text = [
+    "✨ <b>Нова заявка з сайту</b>",
+    "",
+    ...rows.map(([label, value]) => `<b>${label}:</b> ${tgEscape(value)}`),
+    "",
+    "<i>Заявка вже збережена в адмінці (/admin/forms). Зателефонуйте клієнту, щоб підтвердити запис.</i>",
+  ].join("\n");
+
+  const result = await sendTelegram({ text });
+  if (!result.ok) {
+    console.warn("[booking] telegram notify failed:", result.reason);
   }
 }
 
