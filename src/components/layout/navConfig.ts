@@ -127,6 +127,19 @@ const R = {
   plasticOtoplasty:      "/services/plastic-surgery/otoplasty",
   plasticFaceContour:    "/services/plastic-surgery/face-contour",
 
+  plasticBreast:            "/services/plastic-surgery/breast",
+  plasticBreastAug:         "/services/plastic-surgery/breast-augmentation",
+  plasticBreastReduction:   "/services/plastic-surgery/breast-reduction",
+  plasticBreastLift:        "/services/plastic-surgery/breast-lift",
+  plasticBreastShape:       "/services/plastic-surgery/breast-shape-correction",
+
+  plasticBody:              "/services/plastic-surgery/body",
+  plasticAbdominoplasty:    "/services/plastic-surgery/abdominoplasty",
+  plasticLiposuction:       "/services/plastic-surgery/liposuction",
+  plasticBodyContouring:    "/services/plastic-surgery/body-contouring",
+  plasticPostWeightLoss:    "/services/plastic-surgery/post-weight-loss-contouring",
+  plasticDiastasis:         "/services/plastic-surgery/diastasis-correction",
+
   diagBioimpedance:           "/services/diagnostics/bioimpedance",
   diagUltrasound:             "/services/diagnostics/ultrasound",
   diagEndocrinologist:        "/services/diagnostics/endocrinologist",
@@ -396,6 +409,33 @@ const plasticFace: NavCategory = {
   ],
 };
 
+const plasticBreast: NavCategory = {
+  key: "plastic-breast",
+  label: L("Пластична хірургія грудей", "Пластическая хирургия груди", "Breast plastic surgery"),
+  href: R.plasticBreast,
+  compact: true,
+  items: [
+    { key: "plastic-breast-aug",       label: L("Збільшення грудей", "Увеличение груди", "Breast augmentation"),                              href: R.plasticBreastAug },
+    { key: "plastic-breast-reduction", label: L("Зменшення грудей", "Уменьшение груди", "Breast reduction"),                                  href: R.plasticBreastReduction },
+    { key: "plastic-breast-lift",      label: L("Підтяжка грудей", "Подтяжка груди", "Breast lift"),                                          href: R.plasticBreastLift },
+    { key: "plastic-breast-shape",     label: L("Корекція форми та асиметрії", "Коррекция формы и асимметрии", "Shape and asymmetry"),        href: R.plasticBreastShape },
+  ],
+};
+
+const plasticBody: NavCategory = {
+  key: "plastic-body",
+  label: L("Пластична хірургія тіла", "Пластическая хирургия тела", "Body plastic surgery"),
+  href: R.plasticBody,
+  compact: true,
+  items: [
+    { key: "plastic-abdominoplasty",   label: L("Абдомінопластика", "Абдоминопластика", "Abdominoplasty"),                                    href: R.plasticAbdominoplasty },
+    { key: "plastic-liposuction",      label: L("Ліпосакція", "Липосакция", "Liposuction"),                                                   href: R.plasticLiposuction },
+    { key: "plastic-body-contouring",  label: L("Корекція контурів тіла", "Коррекция контуров тела", "Body contouring"),                      href: R.plasticBodyContouring },
+    { key: "plastic-post-weight-loss", label: L("Контурна пластика після схуднення", "Контурная пластика после похудения", "After weight loss"), href: R.plasticPostWeightLoss },
+    { key: "plastic-diastasis",        label: L("Корекція діастазу", "Коррекция диастаза", "Diastasis correction"),                           href: R.plasticDiastasis },
+  ],
+};
+
 const extraServices: NavLeaf[] = [
   { key: "care", label: L("Доглядові процедури", "Уходовые процедуры", "Skincare treatments"), href: R.skincare },
   { key: "podology", label: L("Подологія", "Подология", "Podology"), href: R.podology },
@@ -418,7 +458,7 @@ const megaSections: NavSection[] = [
   { key: "longevity",        label: longevity.label,         href: R.longevity,    groups: [longevity] },
   { key: "intimate",         label: intimate.label,          href: "/services/intimate-rejuvenation", groups: [intimate] },
   { key: "diagnosticsNav",   label: diagnosticsNav.label,    href: R.diagnostics,  groups: [diagnosticsNav, consultationsNav] },
-  { key: "plastic",          label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: R.plastic, groups: [plasticFace] },
+  { key: "plastic",          label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: R.plastic, groups: [plasticFace, plasticBreast, plasticBody] },
   { key: "more",             label: otherServices.label,     href: R.services,     groups: [otherServices] },
 ];
 

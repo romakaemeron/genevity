@@ -6,7 +6,6 @@
     {
       "slug": "face",
       "sortOrder": 1,
-      "missingLocales": [],
       "h1": {
         "uk": "Пластична хірургія обличчя в Дніпрі",
         "ru": "Пластическая хирургия лица в Днепре",
@@ -344,12 +343,19 @@
             "en": "The cost depends on the type of operation, its complexity and extent, the anaesthesia, the investigations required and the postoperative monitoring needed. An exact estimate is prepared after a consultation."
           }
         }
+      ],
+      "related": [
+        "facelift",
+        "necklift",
+        "blepharoplasty",
+        "rhinoplasty",
+        "otoplasty",
+        "face-contour"
       ]
     },
     {
       "slug": "facelift",
       "sortOrder": 2,
-      "missingLocales": [],
       "h1": {
         "uk": "Підтяжка обличчя в Дніпрі",
         "ru": "Подтяжка лица в Днепре",
@@ -854,12 +860,17 @@
             "en": "It is recommended to prepare information about previous surgeries, chronic medical conditions, allergies, and any medications you are currently taking. It is also helpful to identify which age-related changes concern you most and what results you hope to achieve."
           }
         }
+      ],
+      "related": [
+        "face",
+        "necklift",
+        "face-contour",
+        "blepharoplasty"
       ]
     },
     {
       "slug": "necklift",
       "sortOrder": 3,
-      "missingLocales": [],
       "h1": {
         "uk": "Підтяжка шиї в Дніпрі",
         "ru": "Подтяжка шеи в Днепре",
@@ -1303,12 +1314,16 @@
             "en": "It is recommended to prepare information about previous surgeries, chronic medical conditions, allergies, and any medications you are currently taking. It is also helpful to identify which changes in the neck area concern you most and what results you hope to achieve."
           }
         }
+      ],
+      "related": [
+        "face",
+        "facelift",
+        "face-contour"
       ]
     },
     {
       "slug": "blepharoplasty",
       "sortOrder": 4,
-      "missingLocales": [],
       "h1": {
         "uk": "Блефаропластика в Дніпрі",
         "ru": "Блефаропластика в Днепре",
@@ -1757,12 +1772,34 @@
             "en": "The cost depends on the type of procedure — upper, lower, or combined upper and lower blepharoplasty — the extent of surgery, the type of anesthesia, and other aspects of treatment. An individualized cost estimate is provided after a consultation with a plastic surgeon."
           }
         }
-      ]
+      ],
+      "related": [
+        "face",
+        "facelift",
+        "face-contour"
+      ],
+      "beforeAfter": {
+        "count": 6,
+        "zone": {
+          "uk": "Верхні та нижні повіки",
+          "ru": "Верхние и нижние веки",
+          "en": "Upper and lower eyelids"
+        },
+        "sessions": {
+          "uk": "1 операція",
+          "ru": "1 операция",
+          "en": "1 operation"
+        },
+        "alt": {
+          "uk": "Ділянка навколо очей до та після блефаропластики",
+          "ru": "Область вокруг глаз до и после блефаропластики",
+          "en": "The eye area before and after blepharoplasty"
+        }
+      }
     },
     {
       "slug": "rhinoplasty",
       "sortOrder": 5,
-      "missingLocales": [],
       "h1": {
         "uk": "Ринопластика в Дніпрі",
         "ru": "Ринопластика в Днепре",
@@ -2221,12 +2258,15 @@
             "en": "The cost depends on the complexity of the operation, the technique chosen, whether functional correction is needed, the type of anaesthesia and other elements of treatment. An individual estimate is prepared after a consultation with the plastic surgeon."
           }
         }
+      ],
+      "related": [
+        "face",
+        "otoplasty"
       ]
     },
     {
       "slug": "otoplasty",
       "sortOrder": 6,
-      "missingLocales": [],
       "h1": {
         "uk": "Отопластика в Дніпрі",
         "ru": "Отопластика в Днепре",
@@ -2670,12 +2710,15 @@
             "en": "The cost depends on the complexity of the procedure, whether one or both ears require correction, the selected surgical technique, the type of anesthesia, and other aspects of treatment. An individualized cost estimate is provided after a consultation with a plastic surgeon."
           }
         }
+      ],
+      "related": [
+        "face",
+        "rhinoplasty"
       ]
     },
     {
       "slug": "face-contour",
       "sortOrder": 7,
-      "missingLocales": [],
       "h1": {
         "uk": "Корекція овалу обличчя в Дніпрі",
         "ru": "Коррекция овала лица в Днепре",
@@ -3151,7 +3194,30 @@
             "en": "The cost depends on the selected method, extent of treatment, required examinations, and other aspects of care. An individualized cost estimate is provided after a specialist consultation."
           }
         }
-      ]
+      ],
+      "related": [
+        "face",
+        "facelift",
+        "necklift"
+      ],
+      "beforeAfter": {
+        "count": 3,
+        "zone": {
+          "uk": "Нижня третина обличчя та шия",
+          "ru": "Нижняя треть лица и шея",
+          "en": "Lower third of the face and neck"
+        },
+        "sessions": {
+          "uk": "1 операція",
+          "ru": "1 операция",
+          "en": "1 operation"
+        },
+        "alt": {
+          "uk": "Контур нижньої щелепи та шиї до та після корекції овалу обличчя",
+          "ru": "Контур нижней челюсти и шеи до и после коррекции овала лица",
+          "en": "The jawline and neck before and after facial contouring"
+        }
+      }
     }
   ]
 }
