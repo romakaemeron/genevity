@@ -23,23 +23,42 @@ function ArrowRight({ className = "" }: { className?: string }) {
 function GroupBlock({
   group,
   showHeading,
+  sectionHref,
   onNavigate,
 }: {
   group: NavCategory;
   showHeading: boolean;
+  /** The rail link above this pane. A group heading only becomes a link when it
+   *  points somewhere else — most groups just repeat it. */
+  sectionHref?: string;
   onNavigate?: () => void;
 }) {
   const tNav = useTranslations("nav_mega");
   const locale = useLocale();
+  const heading = group.paneLabel
+    ? localizeNavLabel(group.paneLabel, locale)
+    : resolveNavLabel(tNav, group.key, group.label, locale);
+  // Sub-category hubs (plastic surgery of the face / breast / body, apparatus
+  // cosmetology for face / body) are real pages, and until now the heading was
+  // the only thing standing in front of them — rendered as plain text, so they
+  // were unreachable from the menu entirely.
+  const headingLinks = Boolean(group.href) && group.href !== sectionHref;
+  const headingClass = "body-s uppercase tracking-[0.12em]";
+
   return (
     <div className="flex flex-col gap-4">
-      {showHeading && (
-        <p className="body-s uppercase tracking-[0.12em] text-black-40">
-          {group.paneLabel
-            ? localizeNavLabel(group.paneLabel, locale)
-            : resolveNavLabel(tNav, group.key, group.label, locale)}
-        </p>
-      )}
+      {showHeading && (headingLinks ? (
+        <Link
+          href={group.href}
+          onClick={onNavigate}
+          className={`group/h inline-flex items-center gap-1.5 self-start ${headingClass} text-black-40 hover:text-main transition-colors`}
+        >
+          <span>{heading}</span>
+          <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 group-hover/h:opacity-100 group-hover/h:translate-x-0 transition-all duration-200" />
+        </Link>
+      ) : (
+        <p className={`${headingClass} text-black-40`}>{heading}</p>
+      ))}
       {/* Grid, not CSS columns: multi-column balances the flow, which left the
           first item of each column sitting at a different height. */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-3 items-start content-start">
@@ -140,6 +159,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
                   key={group.key}
                   group={group}
                   showHeading={active.groups.length > 1}
+                  sectionHref={active.href}
                   onNavigate={onNavigate}
                 />
               ))}
