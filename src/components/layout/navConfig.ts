@@ -118,6 +118,15 @@ const R = {
   diagnostics: "/services/diagnostics",
   plastic: "/services/plastic-surgery",
 
+  // ТЗ #17 — facial plastic surgery landing pages
+  plasticFace:           "/services/plastic-surgery/face",
+  plasticFacelift:       "/services/plastic-surgery/facelift",
+  plasticNecklift:       "/services/plastic-surgery/necklift",
+  plasticBlepharoplasty: "/services/plastic-surgery/blepharoplasty",
+  plasticRhinoplasty:    "/services/plastic-surgery/rhinoplasty",
+  plasticOtoplasty:      "/services/plastic-surgery/otoplasty",
+  plasticFaceContour:    "/services/plastic-surgery/face-contour",
+
   diagBioimpedance:           "/services/diagnostics/bioimpedance",
   diagUltrasound:             "/services/diagnostics/ultrasound",
   diagEndocrinologist:        "/services/diagnostics/endocrinologist",
@@ -373,6 +382,20 @@ const consultationsNav: NavCategory = {
   ],
 };
 
+const plasticFace: NavCategory = {
+  key: "plastic-face",
+  label: L("Пластична хірургія обличчя", "Пластическая хирургия лица", "Facial plastic surgery"),
+  href: R.plasticFace,
+  items: [
+    { key: "plastic-facelift",       label: L("Підтяжка обличчя", "Подтяжка лица", "Facelift"),                       href: R.plasticFacelift },
+    { key: "plastic-necklift",       label: L("Підтяжка шиї", "Подтяжка шеи", "Neck lift"),                           href: R.plasticNecklift },
+    { key: "plastic-blepharoplasty", label: L("Блефаропластика", "Блефаропластика", "Blepharoplasty"),                href: R.plasticBlepharoplasty },
+    { key: "plastic-rhinoplasty",    label: L("Ринопластика", "Ринопластика", "Rhinoplasty"),                         href: R.plasticRhinoplasty },
+    { key: "plastic-otoplasty",      label: L("Отопластика", "Отопластика", "Otoplasty"),                             href: R.plasticOtoplasty },
+    { key: "plastic-face-contour",   label: L("Корекція овалу обличчя", "Коррекция овала лица", "Facial contouring"), href: R.plasticFaceContour },
+  ],
+};
+
 const extraServices: NavLeaf[] = [
   { key: "care", label: L("Доглядові процедури", "Уходовые процедуры", "Skincare treatments"), href: R.skincare },
   { key: "podology", label: L("Подологія", "Подология", "Podology"), href: R.podology },
@@ -395,6 +418,7 @@ const megaSections: NavSection[] = [
   { key: "longevity",        label: longevity.label,         href: R.longevity,    groups: [longevity] },
   { key: "intimate",         label: intimate.label,          href: "/services/intimate-rejuvenation", groups: [intimate] },
   { key: "diagnosticsNav",   label: diagnosticsNav.label,    href: R.diagnostics,  groups: [diagnosticsNav, consultationsNav] },
+  { key: "plastic",          label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: R.plastic, groups: [plasticFace] },
   { key: "more",             label: otherServices.label,     href: R.services,     groups: [otherServices] },
 ];
 
