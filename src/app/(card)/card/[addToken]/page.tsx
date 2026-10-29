@@ -22,7 +22,8 @@ export default async function CardPage({ params }: { params: Promise<{ addToken:
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-champagne px-4 py-10">
       <div className="w-full max-w-sm text-center">
-        <p className="font-heading text-sm uppercase tracking-[0.3em] text-main">Genevity</p>
+        {/* eslint-disable-next-line @next/next/no-img-element -- static SVG brand mark; avoids metered image optimizer */}
+        <img src="/brand/LogoFullDark.svg" alt="GENEVITY" width={162} height={36} className="mx-auto mb-2 h-9 w-auto" />
         {view.kind === "revoked" ? (
           <h1 className="mt-10 font-heading text-2xl text-main-darker">Картку скасовано</h1>
         ) : (
