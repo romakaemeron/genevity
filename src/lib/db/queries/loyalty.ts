@@ -51,6 +51,18 @@ export async function listCards(): Promise<LoyaltyCard[]> {
   return rows.map(rowToCard);
 }
 
+export type LoyaltyCardWithIssuer = LoyaltyCard & { issuerName: string | null };
+
+/** Like listCards, plus the name of the admin who issued each card (null if unknown/deleted). */
+export async function listCardsWithIssuer(): Promise<LoyaltyCardWithIssuer[]> {
+  const rows = await sql`
+    SELECT c.*, u.name AS issuer_name
+    FROM loyalty_cards c
+    LEFT JOIN cms_users u ON u.id = c.issued_by
+    ORDER BY c.issued_at DESC`;
+  return rows.map((r) => ({ ...rowToCard(r), issuerName: (r.issuer_name as string | null) ?? null }));
+}
+
 /**
  * Revokes an active card. An already revoked card is returned unchanged
  * (revoked_at/by are not overwritten); an unknown id yields null.

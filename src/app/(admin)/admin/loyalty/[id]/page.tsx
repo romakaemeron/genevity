@@ -2,20 +2,21 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getCardById } from "@/lib/db/queries/loyalty";
 import { addPageUrl } from "@/lib/loyalty/urls";
+import { isUuid } from "@/lib/loyalty/validation";
 import { qrSvg } from "@/lib/loyalty/qr";
 import { AdminPageHeader, AdminSecondaryButton } from "../../_components/admin-list";
 import { Card } from "@/components/ui/card";
 import { getAdminLocale, getAdminStrings } from "../../_i18n/server";
+import { requireAdminPage } from "../_guard";
 import SharePanel from "../_components/share-panel";
 import RevokeButton from "../_components/revoke-button";
 
 export const dynamic = "force-dynamic";
 
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
 export default async function LoyaltyCardPage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdminPage();
   const { id } = await params;
-  if (!UUID_RE.test(id)) notFound();
+  if (!isUuid(id)) notFound();
   const card = await getCardById(id);
   if (!card) notFound();
 
