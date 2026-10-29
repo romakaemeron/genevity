@@ -265,7 +265,6 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
 export default function UsersPanel({ users, currentUserId }: Props) {
   const [showCreate, setShowCreate] = useState(false);
   const [createState, createAction] = useActionState(createUser, null as any);
-  const createFormRef = useRef<HTMLFormElement>(null);
 
   return (
     <div className="flex flex-col gap-8 mt-6">
@@ -301,7 +300,7 @@ export default function UsersPanel({ users, currentUserId }: Props) {
 
         {showCreate && (
           <div className="border-t border-line p-5">
-            <form ref={createFormRef} action={createAction} onSubmit={() => { if (createFormRef.current) createFormRef.current.reset(); }} className="flex flex-col gap-4">
+            <form action={createAction} className="flex flex-col gap-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[11px] font-medium text-muted uppercase tracking-wider">Name</label>
