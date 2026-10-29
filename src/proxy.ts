@@ -34,15 +34,16 @@ async function roleGate(request: NextRequest, host: string, pathname: string) {
   const effective = host.startsWith("admin.") && !isAdminPath(pathname) && !isAdminApiPath(pathname)
     ? `/admin${pathname}`
     : pathname;
-  if (!isAdminPath(effective) && !isAdminApiPath(effective)) return null;
+  const gated = isAdminPath(effective) || isAdminApiPath(effective);
+  const isAction = request.headers.has("next-action");
+  // Public traffic does no JWT work: decode only for admin paths or server-action posts.
+  if (!gated && !isAction) return null;
 
   const role = await readSessionRole(request.cookies.get("cms_session")?.value);
   if (role === null) return null;
-  if (!canAccessPath(role, effective)) return new NextResponse("Forbidden", { status: 403 });
-  // Restricted roles need no server actions (logout is a plain route handler).
-  if (!isFullRole(role) && request.headers.has("next-action")) {
-    return new NextResponse("Forbidden", { status: 403 });
-  }
+  // Restricted roles need no server actions on any path (logout is a plain route handler).
+  if (!isFullRole(role) && isAction) return new NextResponse("Forbidden", { status: 403 });
+  if (gated && !canAccessPath(role, effective)) return new NextResponse("Forbidden", { status: 403 });
   return null;
 }
 
