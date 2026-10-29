@@ -108,3 +108,19 @@ describe("proxy server actions and matcher", () => {
     expect(hits("/api/admin/x.y")).toBe(true);
   });
 });
+
+describe("proxy next-action on any path", () => {
+  const act = { "next-action": "abc" };
+  it.each(["/", "/uk/poslugy", `/card/${TOKEN}`])("forbids frontdesk server-action on %s", async (p) => {
+    expect((await call(p, "frontdesk", "genevity.com.ua", act)).status).toBe(403);
+  });
+  it("leaves support alone on /", async () => {
+    expect((await call("/", "support", "genevity.com.ua", act)).status).not.toBe(403);
+  });
+  it("leaves frontdesk alone on / without next-action", async () => {
+    expect((await call("/", "frontdesk")).status).not.toBe(403);
+  });
+  it("leaves anonymous next-action unchanged", async () => {
+    expect((await call("/", null, "genevity.com.ua", act)).status).not.toBe(403);
+  });
+});
