@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db/client";
-import { getSession } from "@/app/(admin)/admin/_actions/auth";
+import { requireFullApiSession } from "@/lib/auth/require-full-api-session";
 import { buildXlsx, type XlsxValue } from "@/lib/xlsx";
 import { getAdminLocale } from "@/app/(admin)/admin/_i18n/server";
 import { EXPORT_STRINGS } from "./strings";
@@ -114,8 +114,9 @@ function tally(rows: Row[], pick: (r: Row) => string | null, emptyLabel: string)
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const auth = await requireFullApiSession();
+  if ("response" in auth) return auth.response;
+  const { session } = auth;
 
   let body: ExportRequest;
   try {

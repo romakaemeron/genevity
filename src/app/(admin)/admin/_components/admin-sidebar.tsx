@@ -8,7 +8,7 @@ import {
   LayoutDashboard, FileText, Stethoscope, Cpu,
   StickyNote, MessageSquare, Image as ImageIcon, Settings, LogOut,
   BookOpen, DollarSign, Users, ScrollText, Star, BarChart2, HelpCircle,
-  Newspaper,
+  Newspaper, BadgePercent,
 } from "lucide-react";
 import { logout } from "../_actions/auth";
 import Button from "@/components/ui/Button";
@@ -21,9 +21,9 @@ import { useAdminLocale } from "../_i18n/context";
 import LocaleSelector from "./locale-selector";
 import { isPreOptimized } from "@/lib/image-src";
 
-type Role = "admin" | "marketing" | "support";
+type Role = "admin" | "marketing" | "support" | "frontdesk";
 
-const ROLE_LEVEL: Record<Role, number> = { admin: 3, marketing: 2, support: 1 };
+const ROLE_LEVEL: Record<Role, number> = { admin: 3, marketing: 2, support: 1, frontdesk: 0 };
 function canSee(item: { minRole?: Role }, role: Role) {
   return !item.minRole || ROLE_LEVEL[role] >= ROLE_LEVEL[item.minRole];
 }
@@ -81,6 +81,7 @@ const navSections: NavSectionDef[] = [
     items: [
       { key: "users", href: "/admin/super/users", icon: Users,      minRole: "admin" },
       { key: "logs",  href: "/admin/super/logs",  icon: ScrollText, minRole: "admin" },
+      { key: "loyalty", href: "/admin/loyalty", icon: BadgePercent, minRole: "admin" },
     ],
   },
 ];

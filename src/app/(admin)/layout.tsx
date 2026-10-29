@@ -53,6 +53,18 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     );
   }
 
+  // Restricted roles (frontdesk) get a bare shell: no sidebar, header or counts.
+  if (!["admin", "marketing", "support"].includes(session.role)) {
+    return (
+      <RootHtml lang="uk" chrome={false}>
+        <div className="font-body" data-admin-root="true">
+          <HideWidgets />
+          {children}
+        </div>
+      </RootHtml>
+    );
+  }
+
   const [counts, locale] = await Promise.all([getCounts(), getAdminLocale()]);
 
   return (
