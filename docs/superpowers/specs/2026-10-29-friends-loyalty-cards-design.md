@@ -66,7 +66,7 @@ The approved preview is saved at `docs/superpowers/specs/assets/2026-10-29-frien
 
 ### Card identifier
 
-Each card has **two separate** random, unguessable tokens (each at least 128 bits, URL-safe, e.g. 22+ characters): an **add token** (used in the add-to-wallet link, which is sent to the friend) and a **verify token** (printed only in the card's QR code). They must be independent: someone who photographs the QR code or sees it in a chat must not be able to reach the add page and read the name. The reverse (add link to verify token) must also be impossible. There are no sequential public numbers.
+Each card has **two separate** random, unguessable tokens (each at least 128 bits, URL-safe, e.g. 22+ characters): an **add token** (used in the add-to-wallet link, which is sent to the friend) and a **verify token** (printed only in the card's QR code). They must be independent: someone who photographs the QR code or sees it in a chat must not be able to reach the add page and read the name. The reverse is not achievable and not needed: whoever holds the add link installs the card and therefore receives the verify token inside it (and the Google save link, a signed JWT, embeds the pass payload including the QR value). That is accepted by design. The verify token opens only the staff-only scan page. There are no sequential public numbers.
 
 ### Add-to-wallet page (public, unguessable link)
 
