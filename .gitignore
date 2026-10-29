@@ -58,6 +58,8 @@ next-env.d.ts
 *.jpeg
 *.jpg
 !public/**
+# generated Apple Wallet pass images (scripts/generate-loyalty-assets.ts)
+!src/lib/loyalty/assets/**
 fix-audit-issues.mjs
 
 # playwright browser cache
