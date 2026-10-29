@@ -13,6 +13,9 @@ import {
 import { getPublicBase, verifyUrl } from "./urls";
 import type { LoyaltyCard } from "./types";
 
+/** Nested JSON view for assertions (avoids `any`). */
+type Loose = { [key: string]: Loose } & Pick<string, "endsWith" | "startsWith">;
+
 function card(over: Partial<LoyaltyCard> = {}): LoyaltyCard {
   return {
     id: "card-1",
@@ -57,7 +60,7 @@ describe("buildGenericClass", () => {
 describe("buildGenericObject", () => {
   it("maps the approved fields", () => {
     const c = card();
-    const o = buildGenericObject("123", c) as Record<string, any>;
+    const o = buildGenericObject("123", c) as Loose;
     expect(o.id).toBe("123.card-1");
     expect(o.state).toBe("ACTIVE");
     expect(o.classId).toBe(genericClassId("123", 15));
@@ -75,7 +78,7 @@ describe("buildGenericObject", () => {
 
 describe("revoked cards", () => {
   it("builds an EXPIRED object", () => {
-    const o = buildGenericObject("123", card({ status: "revoked" })) as Record<string, any>;
+    const o = buildGenericObject("123", card({ status: "revoked" })) as Loose;
     expect(o.state).toBe("EXPIRED");
   });
 
@@ -100,7 +103,7 @@ describe("signSaveJwt", () => {
     expect(payload.iss).toBe(creds.clientEmail);
     expect(payload.typ).toBe("savetowallet");
     expect(payload.origins).toContain(getPublicBase());
-    const p = payload.payload as any;
+    const p = payload.payload as Loose;
     expect(p.genericObjects[0].id).toBe(genericObjectId(creds.issuerId, c));
     expect(payload.exp! - payload.iat!).toBe(3600);
   });
