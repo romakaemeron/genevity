@@ -92,7 +92,17 @@ describe("revokeCardAction", () => {
     expect(q.markRevoked).not.toHaveBeenCalled();
   });
 
+  it("skips Google and returns a plain ok when Google is not configured", async () => {
+    g.isGoogleConfigured.mockReturnValue(false);
+    q.getCardById.mockResolvedValue(card());
+    q.markRevoked.mockResolvedValue(card({ status: "revoked" }));
+    const res = await revokeCardAction(ID);
+    expect(res).toEqual({ ok: true });
+    expect(g.expireObject).not.toHaveBeenCalled();
+  });
+
   it("revokes then expires the Google object", async () => {
+    g.isGoogleConfigured.mockReturnValue(true);
     q.getCardById.mockResolvedValue(card());
     q.markRevoked.mockResolvedValue(card({ status: "revoked" }));
     g.expireObject.mockResolvedValue(undefined);
@@ -104,6 +114,7 @@ describe("revokeCardAction", () => {
   });
 
   it("still succeeds with a warning when Google expiry rejects", async () => {
+    g.isGoogleConfigured.mockReturnValue(true);
     q.getCardById.mockResolvedValue(card());
     q.markRevoked.mockResolvedValue(card({ status: "revoked" }));
     g.expireObject.mockRejectedValue(new Error("secret raw error"));

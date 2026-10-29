@@ -5,13 +5,11 @@ import { revalidatePath } from "next/cache";
 import { requireSession } from "./auth";
 import { logChange } from "@/lib/audit";
 import { insertCard, getCardById, markRevoked, setGoogleObjectId } from "@/lib/db/queries/loyalty";
-import { parseIssueInput } from "@/lib/loyalty/validation";
+import { isUuid, parseIssueInput } from "@/lib/loyalty/validation";
 import { expireObject, genericObjectId, isGoogleConfigured } from "@/lib/loyalty/google";
 
 export type IssueState = { error?: string };
 export type RevokeResult = { ok: boolean; googleWarning?: string; error?: string };
-
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 async function requireAdmin() {
   const session = await requireSession();
@@ -66,7 +64,7 @@ export async function issueCard(_prev: IssueState, formData: FormData): Promise<
 
 export async function revokeCardAction(id: string): Promise<RevokeResult> {
   const session = await requireAdmin();
-  if (typeof id !== "string" || !UUID_RE.test(id)) return { ok: false, error: "Картку не знайдено" };
+  if (!isUuid(id)) return { ok: false, error: "Картку не знайдено" };
 
   const existing = await getCardById(id);
   if (!existing) return { ok: false, error: "Картку не знайдено" };
@@ -86,6 +84,7 @@ export async function revokeCardAction(id: string): Promise<RevokeResult> {
   revalidatePath("/admin/loyalty");
   revalidatePath(`/admin/loyalty/${id}`);
 
+  if (!isGoogleConfigured()) return { ok: true };
   try {
     await expireObject(revoked);
   } catch {

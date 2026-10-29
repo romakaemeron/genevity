@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { listCards } from "@/lib/db/queries/loyalty";
+import { listCardsWithIssuer } from "@/lib/db/queries/loyalty";
 import { AdminPageHeader, AdminPrimaryButton } from "../_components/admin-list";
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { requireAdminPage } from "./_guard";
 import { getAdminLocale, getAdminStrings } from "../_i18n/server";
 
 export const dynamic = "force-dynamic";
 
 export default async function LoyaltyPage() {
-  const [cards, t, locale] = await Promise.all([listCards(), getAdminStrings(), getAdminLocale()]);
+  await requireAdminPage();
+  const [cards, t, locale] = await Promise.all([listCardsWithIssuer(), getAdminStrings(), getAdminLocale()]);
   const l = t.loyaltyPage;
   const fmt = new Intl.DateTimeFormat(locale === "uk" ? "uk-UA" : locale === "ru" ? "ru-RU" : "en-GB", {
     day: "numeric", month: "short", year: "numeric",
@@ -32,6 +34,7 @@ export default async function LoyaltyPage() {
                 <TableHead>{l.colTier}</TableHead>
                 <TableHead>{l.colStatus}</TableHead>
                 <TableHead>{l.colIssued}</TableHead>
+                <TableHead>{l.colIssuedBy}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -47,6 +50,7 @@ export default async function LoyaltyPage() {
                     </span>
                   </TableCell>
                   <TableCell className="text-muted-foreground">{fmt.format(c.issuedAt)}</TableCell>
+                  <TableCell className="text-muted-foreground">{c.issuerName ?? "—"}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
