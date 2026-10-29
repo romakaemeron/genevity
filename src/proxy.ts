@@ -1,7 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
-import { canAccessPath } from "@/lib/auth/roles";
+import { canAccessPath, isFullRole } from "@/lib/auth/roles";
 import { readSessionRole } from "@/lib/auth/session-edge";
 import {
   getComposedEpoch,
@@ -39,6 +39,10 @@ async function roleGate(request: NextRequest, host: string, pathname: string) {
   const role = await readSessionRole(request.cookies.get("cms_session")?.value);
   if (role === null) return null;
   if (!canAccessPath(role, effective)) return new NextResponse("Forbidden", { status: 403 });
+  // Restricted roles need no server actions (logout is a plain route handler).
+  if (!isFullRole(role) && request.headers.has("next-action")) {
+    return new NextResponse("Forbidden", { status: 403 });
+  }
   return null;
 }
 
@@ -234,5 +238,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|studio|.*\\..*).*)", "/api/admin/:path*"],
+  matcher: ["/((?!api|_next|_vercel|studio|.*\\..*).*)", "/admin/:path*", "/api/admin/:path*"],
 };

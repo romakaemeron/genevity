@@ -21,6 +21,9 @@ describe("afterLoginPath", () => {
     expect(afterLoginPath("frontdesk", "/admin/forms")).toBe("/admin/scan");
     expect(afterLoginPath("frontdesk", null)).toBe("/admin/scan");
   });
+  it("sends unknown roles to the scan page", () => {
+    expect(afterLoginPath("nonsense", null)).toBe("/admin/scan");
+  });
   it("honours an allowed next", () => {
     expect(afterLoginPath("frontdesk", `/admin/scan/${TOKEN}`)).toBe(`/admin/scan/${TOKEN}`);
     expect(afterLoginPath("admin", "/admin/forms")).toBe("/admin/forms");

@@ -17,7 +17,9 @@ vi.mock("@/lib/last-modified", () => ({
 }));
 
 import { getJwtSecret } from "@/lib/auth/session-secret";
-import { proxy } from "./proxy";
+// @ts-expect-error - Next ships no types for its compiled path-to-regexp
+import { pathToRegexp } from "next/dist/compiled/path-to-regexp";
+import { config, proxy } from "./proxy";
 
 const TOKEN = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
@@ -29,8 +31,8 @@ async function cookieFor(role: string) {
   return `cms_session=${jwt}`;
 }
 
-async function call(path: string, role: string | null, host = "genevity.com.ua") {
-  const headers: Record<string, string> = { host };
+async function call(path: string, role: string | null, host = "genevity.com.ua", extra: Record<string, string> = {}) {
+  const headers: Record<string, string> = { host, ...extra };
   if (role) headers.cookie = await cookieFor(role);
   return proxy(new NextRequest(`https://${host}${path}`, { headers }));
 }
@@ -78,5 +80,31 @@ describe("proxy frontdesk gate", () => {
       new NextRequest("https://genevity.com.ua/admin/forms", { headers: { host: "genevity.com.ua", cookie: "cms_session=garbage" } }),
     );
     expect(res.status).not.toBe(403);
+  });
+});
+
+describe("proxy server actions and matcher", () => {
+  it("forbids any next-action request from frontdesk, even on an allowed path", async () => {
+    const res = await call("/admin/scan", "frontdesk", "genevity.com.ua", { "next-action": "abc" });
+    expect(res.status).toBe(403);
+  });
+
+  it("does not block next-action for support", async () => {
+    const res = await call("/admin/forms", "support", "genevity.com.ua", { "next-action": "abc" });
+    expect(res.status).not.toBe(403);
+  });
+
+  it("forbids dotted admin paths for frontdesk", async () => {
+    expect((await call("/admin/services/a.b", "frontdesk", "genevity.com.ua", { "next-action": "x" })).status).toBe(403);
+    expect((await call("/admin/forms/x.y", "frontdesk")).status).toBe(403);
+    expect((await call("/api/admin/x.y", "frontdesk")).status).toBe(403);
+  });
+
+  it("matcher covers dotted admin and admin API paths", () => {
+    const hits = (p: string) =>
+      config.matcher.some((m: string) => (pathToRegexp(m) as RegExp).test(p));
+    expect(hits("/admin/forms/x.y")).toBe(true);
+    expect(hits("/admin/services/a.b")).toBe(true);
+    expect(hits("/api/admin/x.y")).toBe(true);
   });
 });
