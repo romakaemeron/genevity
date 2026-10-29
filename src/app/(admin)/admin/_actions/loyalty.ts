@@ -68,21 +68,26 @@ export async function revokeCardAction(id: string): Promise<RevokeResult> {
 
   const existing = await getCardById(id);
   if (!existing) return { ok: false, error: "Картку не знайдено" };
-  if (existing.status === "revoked") return { ok: true };
 
-  const revoked = await markRevoked(id, session.userId);
-  if (!revoked) return { ok: false, error: "Картку не знайдено" };
+  // An already revoked card writes no second audit entry, but still re-attempts the
+  // (idempotent) Google expiry so a failed first attempt can be retried.
+  let revoked = existing;
+  if (existing.status !== "revoked") {
+    const updated = await markRevoked(id, session.userId);
+    if (!updated) return { ok: false, error: "Картку не знайдено" };
+    revoked = updated;
 
-  await logChange({
-    action: "update",
-    entityType: "loyalty_card",
-    entityId: revoked.id,
-    entityLabel: revoked.holderName,
-    before: { status: "active" },
-    after: { status: "revoked" },
-  });
-  revalidatePath("/admin/loyalty");
-  revalidatePath(`/admin/loyalty/${id}`);
+    await logChange({
+      action: "update",
+      entityType: "loyalty_card",
+      entityId: revoked.id,
+      entityLabel: revoked.holderName,
+      before: { status: "active" },
+      after: { status: "revoked" },
+    });
+    revalidatePath("/admin/loyalty");
+    revalidatePath(`/admin/loyalty/${id}`);
+  }
 
   if (!isGoogleConfigured()) return { ok: true };
   try {

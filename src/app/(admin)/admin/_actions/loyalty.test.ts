@@ -124,11 +124,33 @@ describe("revokeCardAction", () => {
     expect(res.googleWarning).not.toContain("secret");
   });
 
-  it("is harmless for an already revoked card: no second log entry", async () => {
+  it("already revoked, Google not configured: plain ok, nothing written", async () => {
     q.getCardById.mockResolvedValue(card({ status: "revoked" }));
     const res = await revokeCardAction(ID);
-    expect(res.ok).toBe(true);
+    expect(res).toEqual({ ok: true });
     expect(q.markRevoked).not.toHaveBeenCalled();
+    expect(g.expireObject).not.toHaveBeenCalled();
+    expect(logChange).not.toHaveBeenCalled();
+  });
+
+  it("already revoked, Google configured: retries expiry without a second log entry", async () => {
+    g.isGoogleConfigured.mockReturnValue(true);
+    q.getCardById.mockResolvedValue(card({ status: "revoked" }));
+    g.expireObject.mockResolvedValue(undefined);
+    const res = await revokeCardAction(ID);
+    expect(res).toEqual({ ok: true });
+    expect(q.markRevoked).not.toHaveBeenCalled();
+    expect(g.expireObject).toHaveBeenCalledTimes(1);
+    expect(logChange).not.toHaveBeenCalled();
+  });
+
+  it("already revoked, retry fails: returns the warning, still no log entry", async () => {
+    g.isGoogleConfigured.mockReturnValue(true);
+    q.getCardById.mockResolvedValue(card({ status: "revoked" }));
+    g.expireObject.mockRejectedValue(new Error("boom"));
+    const res = await revokeCardAction(ID);
+    expect(res.ok).toBe(true);
+    expect(res.googleWarning).toBeTruthy();
     expect(logChange).not.toHaveBeenCalled();
   });
 

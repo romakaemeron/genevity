@@ -10,6 +10,8 @@ import { getAdminLocale, getAdminStrings } from "../../_i18n/server";
 import { requireAdminPage } from "../_guard";
 import SharePanel from "../_components/share-panel";
 import RevokeButton from "../_components/revoke-button";
+import RetryGoogleButton from "../_components/retry-google-button";
+import { isGoogleConfigured } from "@/lib/loyalty/google";
 
 export const dynamic = "force-dynamic";
 
@@ -73,7 +75,14 @@ export default async function LoyaltyCardPage({ params }: { params: Promise<{ id
             {url && svg ? (
               <SharePanel url={url} qrSvgMarkup={svg} />
             ) : (
-              <p className="text-sm text-muted-foreground">{l.revokedInfo}</p>
+              <div className="flex flex-col gap-3">
+                <p className="text-sm text-muted-foreground">{l.revokedInfo}</p>
+                {isGoogleConfigured() && (
+                  <div>
+                    <RetryGoogleButton id={card.id} />
+                  </div>
+                )}
+              </div>
             )}
           </Card>
 
