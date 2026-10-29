@@ -8,7 +8,7 @@ import {
   LayoutDashboard, FileText, Stethoscope, Cpu,
   StickyNote, MessageSquare, Image as ImageIcon, Settings, LogOut,
   BookOpen, DollarSign, Users, ScrollText, Star, BarChart2, HelpCircle,
-  Newspaper,
+  Newspaper, BadgePercent,
 } from "lucide-react";
 import { logout } from "../_actions/auth";
 import Button from "@/components/ui/Button";
@@ -80,6 +80,7 @@ const navSections: NavSectionDef[] = [
     items: [
       { key: "users", href: "/admin/super/users", icon: Users,      minRole: "admin" },
       { key: "logs",  href: "/admin/super/logs",  icon: ScrollText, minRole: "admin" },
+      { key: "loyalty", href: "/admin/loyalty", icon: BadgePercent, minRole: "admin" },
     ],
   },
 ];
