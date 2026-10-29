@@ -22,5 +22,8 @@ describe("artSvg", () => {
     expect(artSvg({ tier: 10, width: 375, height: 144 })).toBe(a);
     expect(artSvg.length).toBe(1);
     expect(a.match(/<text /g)).toHaveLength(2);
+    // mask rect + background rect + the drawn minus (Tenor Sans has no U+2212 glyph)
+    expect(a.match(/<rect /g)).toHaveLength(3);
+    expect(a).toMatch(/<rect [^>]*fill="url\(#num\)"\/>/);
   });
 });
