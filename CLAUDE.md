@@ -70,6 +70,16 @@ src/
 └── messages/              # Translation JSON files (uk.json, ru.json, en.json)
 ```
 
+### Loyalty cards (friends of the founder)
+- **What:** admin-issued 10%/15% Apple/Google Wallet cards. Admin role only; independent of RoApp.
+- **Code:** `src/lib/loyalty/`, `src/app/(admin)/admin/loyalty` (issue/list/cancel), `/admin/scan/[token]` (staff scan), `src/app/(card)/card/[addToken]` (friend's add-to-wallet page), `src/app/api/loyalty/pass/[addToken]` (Apple .pkpass), migration `scripts/migrations/027_loyalty_cards.sql`. Regenerate pass assets: `npx tsx scripts/generate-loyalty-assets.ts`.
+- **Two tokens — never mix:** the *add token* lives in the friend's link; the *verify token* lives in the card's QR.
+- **PERMANENT scan URL:** `https://admin.genevity.com.ua/scan/<verifyToken>` is baked into every issued card. Never change the host or path.
+- **Env vars:** `LOYALTY_VERIFY_BASE_URL`, `LOYALTY_PUBLIC_BASE_URL`, `APPLE_PASS_TYPE_ID`, `APPLE_TEAM_ID`, `APPLE_PASS_CERT_PEM`, `APPLE_PASS_KEY_PEM`, `APPLE_PASS_KEY_PASSPHRASE`, `APPLE_WWDR_PEM`, `GOOGLE_WALLET_ISSUER_ID`, `GOOGLE_WALLET_SERVICE_ACCOUNT_JSON`. `scripts/loyalty-prepare-apple-certs.sh` derives the Apple values from the .p12. Never commit secret values.
+- **`frontdesk` role:** may open the scan page only. Deny-by-default gate in `src/proxy.ts` + `src/lib/auth/roles.ts`.
+- **Shipping:** may be cherry-picked to `main` only with the user's confirmation.
+- **Testing:** test cards must be named `TEST…` and cancelled afterwards.
+
 ### Design System
 - Colors: `--color-main` (#8B7B6B taupe), `--color-champagne` (#FAF9F6), `--color-rosegold` (#C0CFD5)
 - Typography classes: `.heading-1`, `.heading-2`, `.heading-3`, `.body-l`, `.body-strong`, `.body-m`, `.body-s`

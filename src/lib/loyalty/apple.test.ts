@@ -3,6 +3,9 @@ import { buildPassJson, generatePkpass, isAppleConfigured, WalletNotConfiguredEr
 import { verifyUrl } from "./urls";
 import type { LoyaltyCard } from "./types";
 
+/** Nested JSON view for assertions (avoids `any`). */
+type Loose = { [key: string]: Loose };
+
 const cfg = { passTypeIdentifier: "pass.com.genevity.friends", teamIdentifier: "PJL9Y7HXZ8" };
 
 function card(over: Partial<LoyaltyCard> = {}): LoyaltyCard {
@@ -24,21 +27,21 @@ function card(over: Partial<LoyaltyCard> = {}): LoyaltyCard {
 
 describe("buildPassJson", () => {
   it("styles tier 10", () => {
-    const p = buildPassJson(card(), cfg) as Record<string, any>;
+    const p = buildPassJson(card(), cfg) as Loose;
     expect(p.backgroundColor).toBe("rgb(214,198,177)");
     expect(p.foregroundColor).toBe("rgb(51,41,31)");
     expect(p.labelColor).toBe("rgb(95,79,63)");
   });
 
   it("styles tier 15", () => {
-    const p = buildPassJson(card({ tier: 15 }), cfg) as Record<string, any>;
+    const p = buildPassJson(card({ tier: 15 }), cfg) as Loose;
     expect(p.backgroundColor).toBe("rgb(27,23,20)");
     expect(p.foregroundColor).toBe("rgb(242,236,226)");
     expect(p.labelColor).toBe("rgb(168,152,136)");
   });
 
   it("has only the holder secondary field", () => {
-    const p = buildPassJson(card(), cfg) as Record<string, any>;
+    const p = buildPassJson(card(), cfg) as Loose;
     expect(p.storeCard.secondaryFields).toEqual([
       { key: "holder", label: "Власник картки", value: "Олена Коваленко" },
     ]);
@@ -49,14 +52,14 @@ describe("buildPassJson", () => {
 
   it("has a QR barcode without altText", () => {
     const c = card();
-    const p = buildPassJson(c, cfg) as Record<string, any>;
+    const p = buildPassJson(c, cfg) as Loose;
     expect(p.barcodes).toEqual([
       { format: "PKBarcodeFormatQR", message: verifyUrl(c.verifyToken), messageEncoding: "iso-8859-1" },
     ]);
   });
 
   it("carries identity fields from card and cfg", () => {
-    const p = buildPassJson(card(), cfg) as Record<string, any>;
+    const p = buildPassJson(card(), cfg) as Loose;
     expect(p.serialNumber).toBe("card-1");
     expect(p.organizationName).toBe("GENEVITY");
     expect(p.passTypeIdentifier).toBe(cfg.passTypeIdentifier);
@@ -65,7 +68,7 @@ describe("buildPassJson", () => {
 
   it("survives JSON round-trip for hostile names", () => {
     const name = 'A "q" \\ back 😀';
-    const p = buildPassJson(card({ holderName: name }), cfg) as Record<string, any>;
+    const p = buildPassJson(card({ holderName: name }), cfg) as Loose;
     const back = JSON.parse(JSON.stringify(p));
     expect(back.storeCard.secondaryFields[0].value).toBe(name);
   });
