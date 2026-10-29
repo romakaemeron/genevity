@@ -73,6 +73,23 @@ describe("buildGenericObject", () => {
   });
 });
 
+describe("revoked cards", () => {
+  it("builds an EXPIRED object", () => {
+    const o = buildGenericObject("123", card({ status: "revoked" })) as Record<string, any>;
+    expect(o.state).toBe("EXPIRED");
+  });
+
+  it("does not create a save url", async () => {
+    const { creds } = await makeCreds();
+    vi.stubEnv("GOOGLE_WALLET_ISSUER_ID", creds.issuerId);
+    vi.stubEnv(
+      "GOOGLE_WALLET_SERVICE_ACCOUNT_JSON",
+      JSON.stringify({ client_email: creds.clientEmail, private_key: creds.privateKey }),
+    );
+    expect(await createSaveUrl(card({ status: "revoked" }))).toBeNull();
+  });
+});
+
 describe("signSaveJwt", () => {
   it("signs a verifiable save-to-wallet JWT", async () => {
     const { publicKey, creds } = await makeCreds();
@@ -85,6 +102,7 @@ describe("signSaveJwt", () => {
     expect(payload.origins).toContain(getPublicBase());
     const p = payload.payload as any;
     expect(p.genericObjects[0].id).toBe(genericObjectId(creds.issuerId, c));
+    expect(payload.exp! - payload.iat!).toBe(3600);
   });
 });
 
@@ -142,6 +160,14 @@ describe("expireObject", () => {
     expect(init.method).toBe("PATCH");
     expect(init.body).toBe('{"state":"EXPIRED"}');
     expect(init.headers.Authorization).toBe("Bearer tok");
+
+    const [, tokInit] = fetchMock.mock.calls[0];
+    expect(tokInit.headers["Content-Type"]).toBe("application/x-www-form-urlencoded");
+    const form = new URLSearchParams(tokInit.body as string);
+    expect(form.get("grant_type")).toBe("urn:ietf:params:oauth:grant-type:jwt-bearer");
+    const claims = jose.decodeJwt(form.get("assertion")!);
+    expect(claims.aud).toBe("https://oauth2.googleapis.com/token");
+    expect(claims.scope).toBe("https://www.googleapis.com/auth/wallet_object.issuer");
   });
 
   it("treats 404 as success", async () => {
