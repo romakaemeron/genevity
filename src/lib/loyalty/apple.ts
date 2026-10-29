@@ -41,6 +41,7 @@ export function buildPassJson(
     serialNumber: card.id,
     organizationName: "GENEVITY",
     description: "GENEVITY Friends",
+    sharingProhibited: true,
     backgroundColor: rgb(style.background),
     foregroundColor: rgb(style.foreground),
     labelColor: rgb(style.label),
