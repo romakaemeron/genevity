@@ -49,6 +49,18 @@ describe("GET /api/loyalty/pass/[addToken]", () => {
     const body = await res.text();
     expect(body).not.toContain("ENOENT");
     expect(body).not.toContain("secret");
+    expect(body).toBe("Сталася помилка. Спробуйте пізніше.");
+  });
+  it("failure responses carry a short plain-text Ukrainian body", async () => {
+    vi.mocked(getCardByAddToken).mockResolvedValue(card("revoked") as never);
+    const gone = await call(ADD);
+    expect(gone.headers.get("content-type")).toBe("text/plain; charset=utf-8");
+    expect(await gone.text()).toBe("Картку скасовано");
+    vi.mocked(getCardByAddToken).mockResolvedValue(card() as never);
+    vi.mocked(isAppleConfigured).mockReturnValue(false);
+    expect(await (await call(ADD)).text()).toBe("Додавання тимчасово недоступне");
+    vi.mocked(getCardByAddToken).mockResolvedValue(null);
+    expect(await (await call(ADD)).text()).toBe("Картку не знайдено");
   });
   it("active -> 200 pkpass with headers", async () => {
     vi.mocked(getCardByAddToken).mockResolvedValue(card() as never);

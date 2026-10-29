@@ -26,6 +26,10 @@ function card(over: Partial<LoyaltyCard> = {}): LoyaltyCard {
 }
 
 describe("buildPassJson", () => {
+  it("prohibits sharing", () => {
+    expect((buildPassJson(card(), cfg) as Loose).sharingProhibited).toBe(true);
+  });
+
   it("styles tier 10", () => {
     const p = buildPassJson(card(), cfg) as Loose;
     expect(p.backgroundColor).toBe("rgb(214,198,177)");
