@@ -1,12 +1,22 @@
 "use client";
 
-import { useActionState } from "react";
+import { Suspense, useActionState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { login } from "../_actions/auth";
 import { isPreOptimized } from "@/lib/image-src";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const [state, formAction, pending] = useActionState(login, null);
+  const next = useSearchParams().get("next") ?? "";
 
   return (
     <div className="min-h-screen bg-champagne flex items-center justify-center px-4">
@@ -24,6 +34,7 @@ export default function LoginPage() {
         </div>
 
         <form action={formAction} className="flex flex-col gap-5">
+          <input type="hidden" name="next" value={next} />
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-xs font-medium text-muted uppercase tracking-wider">
               Email

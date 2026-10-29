@@ -6,9 +6,10 @@ import { SignJWT, jwtVerify } from "jose";
 import bcrypt from "bcryptjs";
 import { sql } from "@/lib/db/client";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.CMS_JWT_SECRET || "genevity-cms-dev-secret"
-);
+import { getJwtSecret } from "@/lib/auth/session-secret";
+import { afterLoginPath, safeNextPath } from "@/lib/auth/next-path";
+
+const JWT_SECRET = getJwtSecret();
 const COOKIE_NAME = "cms_session";
 const SESSION_DAYS = 30;
 
@@ -81,7 +82,7 @@ export async function login(_prevState: any, formData: FormData) {
   await sql`UPDATE cms_users SET last_login = now() WHERE id = ${user.id}`;
 
   await createSession(user.id, user.email, user.name, user.role);
-  redirect("/admin/dashboard");
+  redirect(afterLoginPath(user.role, safeNextPath(formData.get("next") as string | null)));
 }
 
 /* ── Logout ── */

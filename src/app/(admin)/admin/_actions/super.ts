@@ -28,7 +28,7 @@ export async function createUser(_: any, formData: FormData) {
   const password = formData.get("password") as string;
 
   if (!email || !name || !role || !password) return { error: "All fields required" };
-  if (!["admin", "marketing", "support"].includes(role)) return { error: "Invalid role" };
+  if (!["admin", "marketing", "support", "frontdesk"].includes(role)) return { error: "Invalid role" };
   if (password.length < 8) return { error: "Password must be at least 8 characters" };
 
   const existing = await sql`SELECT id FROM cms_users WHERE email = ${email}`;
@@ -87,7 +87,7 @@ export async function updateUserRole(_: any, formData: FormData) {
   const userId = formData.get("userId") as string;
   const role = formData.get("role") as string;
 
-  if (!["admin", "marketing", "support"].includes(role)) return { error: "Invalid role" };
+  if (!["admin", "marketing", "support", "frontdesk"].includes(role)) return { error: "Invalid role" };
   if (userId === session.userId) return { error: "Cannot change your own role" };
 
   const rows = await sql`SELECT email, name, role FROM cms_users WHERE id = ${userId}`;
