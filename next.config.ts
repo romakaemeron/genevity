@@ -44,6 +44,11 @@ const nextConfig = {
   // Next.js 16: proxy/middleware request body is capped separately from Server Actions.
   // Lift it to 20MB so large source photos (12MP+ phone shots) can reach the server.
   middlewareClientMaxBodySize: "20mb",
+  // Apple Wallet pass images are read from disk at request time, so the
+  // tracer cannot see them; ship them with the pass route's function.
+  outputFileTracingIncludes: {
+    "/api/loyalty/pass/[addToken]": ["./src/lib/loyalty/assets/apple/**"],
+  },
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
     serverActions: {
