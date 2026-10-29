@@ -41,13 +41,15 @@ async function run() {
     const body = JSON.stringify(buildGenericClass(issuerId, tier));
     const id = genericClassId(issuerId, tier);
     let res = await fetch(api, { method: "POST", headers, body });
-    if (res.status === 409) {
+    const patched = res.status === 409;
+    if (patched) {
       res = await fetch(`${api}/${encodeURIComponent(id)}`, { method: "PATCH", headers, body });
-      console.log(`${id}: exists, patched (${res.status})`);
-    } else {
-      console.log(`${id}: created (${res.status})`);
     }
-    if (!res.ok) throw new Error(`Class ${id} failed with status ${res.status}`);
+    if (!res.ok) {
+      console.log(`${id}: FAILED (${res.status})`);
+      throw new Error(`Class ${id} failed with status ${res.status}`);
+    }
+    console.log(`${id}: ${patched ? "exists, patched" : "created"} (${res.status})`);
   }
 }
 
