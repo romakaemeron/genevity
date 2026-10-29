@@ -39,13 +39,57 @@ async function call(path: string, role: string | null, host = "genevity.com.ua",
 
 describe("proxy frontdesk gate", () => {
   it.each([
-    ["/admin/forms", "genevity.com.ua"],
     ["/api/admin/forms/export", "genevity.com.ua"],
-    ["/forms", "admin.genevity.com.ua"],
     ["/api/admin/analytics", "admin.genevity.com.ua"],
-  ])("forbids frontdesk on %s (%s)", async (p, host) => {
+  ])("forbids frontdesk on API %s (%s)", async (p, host) => {
     const res = await call(p, "frontdesk", host);
     expect(res.status).toBe(403);
+  });
+
+  it.each([
+    ["/admin/forms", "genevity.com.ua", "/admin/scan"],
+    ["/admin", "genevity.com.ua", "/admin/scan"],
+    ["/admin/", "genevity.com.ua", "/admin/scan"],
+    ["/forms", "admin.genevity.com.ua", "/scan"],
+    ["/", "admin.genevity.com.ua", "/scan"],
+    ["/admin/dashboard", "admin.genevity.com.ua", "/scan"],
+  ])("redirects frontdesk GET page %s (%s) to the scan landing", async (p, host, to) => {
+    const res = await call(p, "frontdesk", host);
+    expect(res.status).toBe(307);
+    const loc = new URL(res.headers.get("location")!);
+    expect(loc.host).toBe(host);
+    expect(loc.pathname).toBe(to);
+  });
+
+  it("redirects an unknown role the same way", async () => {
+    const res = await call("/admin/forms", "nonsense");
+    expect(res.status).toBe(307);
+  });
+
+  it("keeps a bare 403 for restricted non-GET requests, except POST /admin/logout", async () => {
+    for (const method of ["POST", "PUT", "PATCH", "DELETE"]) {
+      const req = new NextRequest("https://genevity.com.ua/admin/scan", {
+        method,
+        headers: { host: "genevity.com.ua", cookie: await cookieFor("frontdesk") },
+      });
+      expect((await proxy(req)).status).toBe(403);
+    }
+    const post = async (path: string, host: string) =>
+      proxy(new NextRequest(`https://${host}${path}`, {
+        method: "POST",
+        headers: { host, cookie: await cookieFor("frontdesk") },
+      }));
+    expect((await post("/admin/logout", "genevity.com.ua")).status).not.toBe(403);
+    expect((await post("/logout", "admin.genevity.com.ua")).status).not.toBe(403);
+    expect((await post("/admin/login", "genevity.com.ua")).status).toBe(403);
+  });
+
+  it("does not restrict non-GET for support", async () => {
+    const req = new NextRequest("https://genevity.com.ua/admin/forms", {
+      method: "POST",
+      headers: { host: "genevity.com.ua", cookie: await cookieFor("support") },
+    });
+    expect((await proxy(req)).status).not.toBe(403);
   });
 
   it.each([
@@ -57,9 +101,6 @@ describe("proxy frontdesk gate", () => {
     expect(res.status).not.toBe(403);
   });
 
-  it("forbids a validly signed unknown role", async () => {
-    expect((await call("/admin/forms", "nonsense")).status).toBe(403);
-  });
 
   it.each([
     ["/admin/forms", "genevity.com.ua"],
@@ -96,7 +137,7 @@ describe("proxy server actions and matcher", () => {
 
   it("forbids dotted admin paths for frontdesk", async () => {
     expect((await call("/admin/services/a.b", "frontdesk", "genevity.com.ua", { "next-action": "x" })).status).toBe(403);
-    expect((await call("/admin/forms/x.y", "frontdesk")).status).toBe(403);
+    expect((await call("/admin/forms/x.y", "frontdesk")).status).toBe(307);
     expect((await call("/api/admin/x.y", "frontdesk")).status).toBe(403);
   });
 

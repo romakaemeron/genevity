@@ -41,10 +41,25 @@ async function roleGate(request: NextRequest, host: string, pathname: string) {
 
   const role = await readSessionRole(request.cookies.get("cms_session")?.value);
   if (role === null) return null;
+  if (isFullRole(role)) return null;
+
+  const deny = () => new NextResponse("Forbidden", { status: 403 });
   // Restricted roles need no server actions on any path (logout is a plain route handler).
-  if (!isFullRole(role) && isAction) return new NextResponse("Forbidden", { status: 403 });
-  if (gated && !canAccessPath(role, effective)) return new NextResponse("Forbidden", { status: 403 });
-  return null;
+  if (isAction) return deny();
+  if (!gated) return null;
+
+  // Restricted roles may only read; the one write they need is logging out.
+  const method = request.method;
+  const isRead = method === "GET" || method === "HEAD";
+  if (!isRead) {
+    return method === "POST" && effective === "/admin/logout" ? null : deny();
+  }
+
+  if (canAccessPath(role, effective)) return null;
+  // API paths keep the bare 403; a forbidden PAGE sends them to the scan landing.
+  if (isAdminApiPath(effective)) return deny();
+  const target = host.startsWith("admin.") ? "/scan" : "/admin/scan";
+  return NextResponse.redirect(new URL(target, request.url), 307);
 }
 
 /**
