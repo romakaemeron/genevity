@@ -24,8 +24,9 @@ export async function GET(_req: Request, ctx: { params: Promise<{ addToken: stri
         "Cache-Control": "no-store",
       },
     });
-  } catch {
-    // Never echo error text: it can contain file paths.
+  } catch (err) {
+    // Never echo error text (may contain file paths); log the error name only.
+    console.error("pkpass generation failed", err instanceof Error ? err.name : "unknown");
     return plain(500);
   }
 }
