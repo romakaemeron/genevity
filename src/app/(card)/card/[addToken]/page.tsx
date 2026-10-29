@@ -2,8 +2,8 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getCardByAddToken } from "@/lib/db/queries/loyalty";
 import { isAppleConfigured } from "@/lib/loyalty/apple";
-import { createSaveUrl } from "@/lib/loyalty/google";
-import { cardPageView, safeGoogleSaveUrl } from "@/lib/loyalty/card-page-view";
+import { isGoogleConfigured } from "@/lib/loyalty/google";
+import { cardPageView } from "@/lib/loyalty/card-page-view";
 
 export const dynamic = "force-dynamic";
 
@@ -15,11 +15,9 @@ export default async function CardPage({ params }: { params: Promise<{ addToken:
   if (!card) notFound();
 
   const ua = (await headers()).get("user-agent");
-  // The signed Google save URL is a JWT whose (unencrypted) payload embeds the
-  // pass, including the QR value. Intended: the holder of this add link receives
-  // the same value inside the installed card anyway.
-  const googleSaveUrl = await safeGoogleSaveUrl(card, createSaveUrl);
-  const view = cardPageView(card, ua, { appleConfigured: isAppleConfigured(), googleSaveUrl });
+  // The Google button points at /api/loyalty/google/<addToken>, which mints the
+  // signed save link on click; the page itself carries no JWT.
+  const view = cardPageView(card, ua, { appleConfigured: isAppleConfigured(), googleConfigured: isGoogleConfigured() });
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center bg-champagne px-4 py-10">
