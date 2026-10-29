@@ -11,7 +11,7 @@ vi.mock("next-intl/middleware", async () => {
 vi.mock("@/lib/last-modified", () => ({
   getComposedEpoch: async () => 0,
   getGlobalEpoch: async () => 0,
-  getLastModifiedMap: async () => ({}),
+  getLastModifiedMap: async () => new Map(),
   isComposedPath: () => false,
   normalizeContentPath: (p: string) => p,
 }));
