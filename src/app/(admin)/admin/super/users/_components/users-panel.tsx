@@ -10,6 +10,7 @@ const ROLE_LABELS: Record<string, { label: string; color: string; desc: string }
   admin:     { label: "Admin",     color: "bg-error/15 text-error",     desc: "Full access — content, settings, users, logs" },
   marketing: { label: "Marketing", color: "bg-main/15 text-main",       desc: "Content editing + form submissions" },
   support:   { label: "Support",   color: "bg-success/15 text-success", desc: "Form submissions only" },
+  frontdesk: { label: "Рецепція",  color: "bg-main/15 text-main",       desc: "Лише сканування карток друзів" },
 };
 
 interface User {
@@ -124,6 +125,7 @@ function UserRow({ user, currentUserId }: { user: User; currentUserId: string })
                   <option value="admin">Admin</option>
                   <option value="marketing">Marketing</option>
                   <option value="support">Support</option>
+                  <option value="frontdesk">Рецепція</option>
                 </select>
                 <ChevronDown size={12} className="absolute right-2 top-1/2 -translate-y-1/2 text-muted pointer-events-none" />
               </div>
@@ -317,6 +319,7 @@ export default function UsersPanel({ users, currentUserId }: Props) {
                   <select name="role" required className={`${inputClass} cursor-pointer`}>
                     <option value="marketing">Marketing</option>
                     <option value="support">Support</option>
+                    <option value="frontdesk">Рецепція</option>
                     <option value="admin">Admin</option>
                   </select>
                 </div>

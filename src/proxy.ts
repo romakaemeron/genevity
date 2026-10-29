@@ -1,6 +1,8 @@
 import createMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { routing } from "@/i18n/routing";
+import { canAccessPath } from "@/lib/auth/roles";
+import { readSessionRole } from "@/lib/auth/session-edge";
 import {
   getComposedEpoch,
   getGlobalEpoch,
@@ -13,6 +15,31 @@ const intlMiddleware = createMiddleware(routing);
 
 function isAdminPath(pathname: string) {
   return pathname === "/admin" || pathname.startsWith("/admin/");
+}
+
+function isCardPath(pathname: string) {
+  return pathname === "/card" || pathname.startsWith("/card/");
+}
+
+function isAdminApiPath(pathname: string) {
+  return pathname.startsWith("/api/admin/");
+}
+
+/**
+ * Server-side path gate for restricted roles (`frontdesk`). Runs on the
+ * effective path: on the `admin.` host a request for `/forms` is `/admin/forms`.
+ * Requests without a valid session are left to the existing login flow.
+ */
+async function roleGate(request: NextRequest, host: string, pathname: string) {
+  const effective = host.startsWith("admin.") && !isAdminPath(pathname) && !isAdminApiPath(pathname)
+    ? `/admin${pathname}`
+    : pathname;
+  if (!isAdminPath(effective) && !isAdminApiPath(effective)) return null;
+
+  const role = await readSessionRole(request.cookies.get("cms_session")?.value);
+  if (role === null) return null;
+  if (!canAccessPath(role, effective)) return new NextResponse("Forbidden", { status: 403 });
+  return null;
 }
 
 /**
@@ -171,6 +198,12 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url, 301);
   }
 
+  const forbidden = await roleGate(request, host, pathname);
+  if (forbidden) return forbidden;
+
+  // Admin API routes carry their own auth; never run i18n on them.
+  if (isAdminApiPath(pathname)) return NextResponse.next();
+
   // Draft preview — checked before the host branches, because on a single-host
   // preview deployment the article and the admin share an origin and the CSP is
   // needed there too (the admin-host routing below is unchanged otherwise).
@@ -193,7 +226,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // Main domain: /admin/* bypasses i18n
-  if (isAdminPath(pathname)) {
+  if (isAdminPath(pathname) || isCardPath(pathname)) {
     return NextResponse.next();
   }
 
@@ -201,5 +234,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|studio|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|studio|.*\\..*).*)", "/api/admin/:path*"],
 };

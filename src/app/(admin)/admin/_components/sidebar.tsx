@@ -11,7 +11,7 @@ import {
 import { logout } from "../_actions/auth";
 import Button from "@/components/ui/Button";
 
-type Role = "admin" | "marketing" | "support";
+type Role = "admin" | "marketing" | "support" | "frontdesk";
 
 type NavLink = {
   href: string;
@@ -24,7 +24,7 @@ type NavDivider = { divider: true; label: string; minRole?: Role };
 type NavItem = NavLink | NavDivider;
 
 // Role hierarchy: admin > marketing > support
-const ROLE_LEVEL: Record<Role, number> = { admin: 3, marketing: 2, support: 1 };
+const ROLE_LEVEL: Record<Role, number> = { admin: 3, marketing: 2, support: 1, frontdesk: 0 };
 
 function canSee(item: { minRole?: Role }, role: Role): boolean {
   if (!item.minRole) return true;
