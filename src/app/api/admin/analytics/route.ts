@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
-import { getSession } from "@/app/(admin)/admin/_actions/auth";
+import { requireFullApiSession } from "@/lib/auth/require-full-api-session";
 
 const PROPERTY = `properties/${process.env.GA4_PROPERTY_ID}`;
 
@@ -24,8 +24,8 @@ function dateRange(range: Range): { startDate: string; endDate: string } {
 }
 
 export async function GET(req: NextRequest) {
-  const session = await getSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const auth = await requireFullApiSession();
+  if ("response" in auth) return auth.response;
 
   const range = (req.nextUrl.searchParams.get("range") ?? "today") as Range;
   const dr = dateRange(range);
