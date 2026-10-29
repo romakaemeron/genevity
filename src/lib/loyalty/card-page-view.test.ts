@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { cardPageView } from "./card-page-view";
+import { describe, expect, it, vi } from "vitest";
+import { cardPageView, safeGoogleSaveUrl } from "./card-page-view";
 import type { LoyaltyCard } from "./types";
 
 const VERIFY = "V".repeat(32);
@@ -47,9 +47,30 @@ describe("cardPageView", () => {
     expect(v).toEqual({ kind: "revoked" });
     expect(JSON.stringify(v)).not.toContain("Олена");
   });
-  it("never contains the verify token", () => {
+  it("view model never exposes the verify token as a field or value of its own", () => {
     for (const c of [card(), card({ status: "revoked" })]) {
       expect(JSON.stringify(cardPageView(c, IPHONE, flags))).not.toContain(VERIFY);
     }
+  });
+});
+
+describe("safeGoogleSaveUrl", () => {
+  it("returns the url on success", async () => {
+    expect(await safeGoogleSaveUrl(card(), async () => "https://x")).toBe("https://x");
+  });
+  it("returns null without calling for revoked cards", async () => {
+    const create = vi.fn();
+    expect(await safeGoogleSaveUrl(card({ status: "revoked" }), create)).toBeNull();
+    expect(create).not.toHaveBeenCalled();
+  });
+  it("swallows failures, logging only the error name", async () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await safeGoogleSaveUrl(card(), async () => {
+      throw new TypeError("-----BEGIN PRIVATE KEY----- secret");
+    });
+    expect(res).toBeNull();
+    expect(JSON.stringify(spy.mock.calls)).not.toContain("secret");
+    expect(spy).toHaveBeenCalledWith("google save url failed", "TypeError");
+    spy.mockRestore();
   });
 });

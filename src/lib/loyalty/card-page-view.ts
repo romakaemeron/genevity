@@ -17,9 +17,11 @@ export interface CardPageFlags {
 }
 
 /**
- * Pure projection of a card for the public add-to-wallet page. It deliberately
- * copies only the fields the page needs: the verify token must never reach the
- * rendered output, and a revoked card exposes nothing about its holder.
+ * Pure projection of a card for the public add-to-wallet page. It copies only
+ * the fields the page needs: the view model never exposes the verify token as a
+ * field or value of its own, and the revoked view contains nothing about the
+ * holder. (The Google save URL in `buttons` is a signed JWT that embeds the
+ * pass payload, QR value included; that is intended, see the page.)
  */
 export function cardPageView(card: LoyaltyCard, userAgent: string | null, flags: CardPageFlags): CardPageView {
   if (card.status === "revoked") return { kind: "revoked" };
@@ -33,4 +35,22 @@ export function cardPageView(card: LoyaltyCard, userAgent: string | null, flags:
     if (href) buttons.push({ kind, href });
   }
   return { kind: "active", name: card.holderName, imageSrc: `/loyalty/google-hero-${card.tier}.png`, buttons };
+}
+
+/**
+ * Resolves the Google save URL without ever throwing: a misconfigured service
+ * account must hide only the Google button, not break the page. Logs a
+ * sanitized marker only (no message, no key material).
+ */
+export async function safeGoogleSaveUrl(
+  card: LoyaltyCard,
+  create: (card: LoyaltyCard) => Promise<string | null>,
+): Promise<string | null> {
+  if (card.status !== "active") return null;
+  try {
+    return await create(card);
+  } catch (err) {
+    console.error("google save url failed", err instanceof Error ? err.name : "unknown");
+    return null;
+  }
 }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getCardByAddToken } from "@/lib/db/queries/loyalty";
 import { isAppleConfigured } from "@/lib/loyalty/apple";
 import { createSaveUrl } from "@/lib/loyalty/google";
-import { cardPageView } from "@/lib/loyalty/card-page-view";
+import { cardPageView, safeGoogleSaveUrl } from "@/lib/loyalty/card-page-view";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +15,10 @@ export default async function CardPage({ params }: { params: Promise<{ addToken:
   if (!card) notFound();
 
   const ua = (await headers()).get("user-agent");
-  const googleSaveUrl = card.status === "active" ? await createSaveUrl(card) : null;
+  // The signed Google save URL is a JWT whose (unencrypted) payload embeds the
+  // pass, including the QR value. Intended: the holder of this add link receives
+  // the same value inside the installed card anyway.
+  const googleSaveUrl = await safeGoogleSaveUrl(card, createSaveUrl);
   const view = cardPageView(card, ua, { appleConfigured: isAppleConfigured(), googleSaveUrl });
 
   return (
@@ -23,7 +26,7 @@ export default async function CardPage({ params }: { params: Promise<{ addToken:
       <div className="w-full max-w-sm text-center">
         <p className="font-heading text-sm uppercase tracking-[0.3em] text-main">Genevity</p>
         {view.kind === "revoked" ? (
-          <p className="mt-10 font-heading text-2xl text-main-darker">Картку скасовано</p>
+          <h1 className="mt-10 font-heading text-2xl text-main-darker">Картку скасовано</h1>
         ) : (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element -- static brand art; avoids metered image optimizer */}
@@ -46,8 +49,8 @@ export default async function CardPage({ params }: { params: Promise<{ addToken:
                     href={b.href}
                     className={
                       i === 0
-                        ? "rounded-xl bg-main-darker px-6 py-4 text-sm font-semibold text-champagne transition-colors hover:bg-main-dark"
-                        : "rounded-xl border border-main-lighter px-6 py-4 text-sm font-semibold text-main-darker transition-colors hover:bg-champagne-dark"
+                        ? "rounded-xl bg-main-darker px-6 py-4 text-sm font-semibold text-champagne transition-colors hover:bg-main-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main-darker"
+                        : "rounded-xl border border-main-lighter px-6 py-4 text-sm font-semibold text-main-darker transition-colors hover:bg-champagne-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-main-darker"
                     }
                   >
                     {LABEL[b.kind]}
