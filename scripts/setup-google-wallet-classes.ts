@@ -6,11 +6,16 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const envContent = fs.readFileSync(path.resolve(__dirname, "../.env.local"), "utf-8");
-envContent.split("\n").forEach((l) => {
-  const [k, ...v] = l.split("=");
-  if (k && v.length && !process.env[k.trim()]) process.env[k.trim()] = v.join("=").trim();
-});
+try {
+  const envContent = fs.readFileSync(path.resolve(__dirname, "../.env.local"), "utf-8");
+  envContent.split("\n").forEach((l) => {
+    const [k, ...v] = l.split("=");
+    if (k && v.length && !process.env[k.trim()]) process.env[k.trim()] = v.join("=").trim();
+  });
+} catch {
+  console.error("Could not read .env.local; create it with the Google Wallet variables");
+  process.exit(1);
+}
 
 async function run() {
   const { buildGenericClass, genericClassId, getAccessToken, isGoogleConfigured } = await import(

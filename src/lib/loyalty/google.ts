@@ -64,7 +64,7 @@ export function buildGenericObject(issuerId: string, card: LoyaltyCard): Record<
   return {
     id: genericObjectId(issuerId, card),
     classId: genericClassId(issuerId, card.tier),
-    state: "ACTIVE",
+    state: card.status === "active" ? "ACTIVE" : "EXPIRED",
     cardTitle: text("GENEVITY"),
     subheader: text("Власник картки"),
     header: text(card.holderName),
@@ -86,10 +86,13 @@ export async function signSaveJwt(card: LoyaltyCard, creds: GoogleCreds): Promis
     .setIssuer(creds.clientEmail)
     .setAudience("google")
     .setIssuedAt()
+    .setExpirationTime("1h")
     .sign(key);
 }
 
 export async function createSaveUrl(card: LoyaltyCard): Promise<string | null> {
+  // Never mint a save link for a revoked card.
+  if (card.status !== "active") return null;
   const creds = readCreds();
   if (!creds) return null;
   return `https://pay.google.com/gp/v/save/${await signSaveJwt(card, creds)}`;
