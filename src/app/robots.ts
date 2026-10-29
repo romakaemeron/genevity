@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
 
   if (!isProduction) {
     return {
-      rules: [{ userAgent: "*", disallow: "/" }],
+      rules: [{ userAgent: "*", disallow: ["/", "/card/"] }],
       sitemap: [`${BASE}/sitemap.xml`, `${BASE}/sitemap-images.xml`],
     };
   }
@@ -23,6 +23,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: [
           "/admin/",
+          "/card/",
           "/api/",
           "/_next/data/",
           "/studio/",

@@ -101,6 +101,11 @@ const nextConfig = {
       source: "/(.*)",
       headers: [{ key: "Vary", value: "Accept-Encoding" }],
     },
+    // Private add-to-wallet pages: per-holder content behind an unguessable link.
+    {
+      source: "/card/:path*",
+      headers: [{ key: "Cache-Control", value: "no-store" }],
+    },
     // ТЗ №1 §1: block indexing of Next.js RSC prefetch URLs (?_rsc=…)
     {
       source: "/(.*)",
