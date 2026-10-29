@@ -10,6 +10,7 @@ describe("canAccessPath", () => {
 
   it.each([
     "/admin/login",
+    "/admin/logout",
     "/admin/scan",
     "/admin/scan/",
     `/admin/scan/${TOKEN}`,
@@ -27,6 +28,7 @@ describe("canAccessPath", () => {
     "/admin/scan/%2e%2e/forms",
     `/admin/scan/${TOKEN}/x`,
     "/api/admin/forms/export",
+    "/admin/logout/x",
     "/admin/loyalty",
     "/admin/super/users",
     "/admin/scan\\..\\forms",
