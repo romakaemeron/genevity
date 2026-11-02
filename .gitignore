@@ -83,3 +83,6 @@ genevity-analytics-d287e299af9d.json
 *-service-account*.json
 *-credentials*.json
 client_secret_*.json
+
+# Licensed fonts (Gotham): never commit
+/font 2/

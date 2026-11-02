@@ -10,10 +10,9 @@ export interface ArtOptions {
 /**
  * Wallet strip / hero artwork: fine wave lines overlapping into a guilloche-style
  * moire, faded in from the right. Port of the approved preview's `art()` (no holder name).
- * Text is live SVG text: the renderer must provide Mulish SemiBold and Tenor Sans.
- * Tenor Sans has no U+2212 minus glyph and resvg then drops the whole run to the fallback
- * font (a tspan does not help either), so the minus is drawn as a rect; the accessible
- * label carries the real "−N%" text.
+ * Text is live SVG text: the renderer must provide Mulish SemiBold (label) and Gotham Light (number).
+ * The minus is drawn as a rect because a U+2212 missing from the number font makes resvg drop the
+ * whole run to the fallback font; the accessible label carries the real "−N%" text.
  */
 export function artSvg({ tier, width: w, height: h }: ArtOptions): string {
   const t = TIER_STYLE[tier];
@@ -44,6 +43,6 @@ export function artSvg({ tier, width: w, height: h }: ArtOptions): string {
 <g mask="url(#m)" fill="none" stroke="${t.line}" stroke-opacity="${t.lineOpacity}" stroke-width="${(h / 230).toFixed(2)}">${paths}</g>
 <text x="${w * 0.06}" y="${h * 0.27}" font-family="Mulish, sans-serif" font-weight="600" font-size="${h * 0.075}" letter-spacing="${h * 0.015}" fill="${t.label}">ПЕРСОНАЛЬНА ЗНИЖКА</text>
 <rect x="${w * 0.055 + size * 0.04}" y="${h * 0.76 - size * 0.37}" width="${size * 0.34}" height="${size * 0.05}" fill="url(#num)"/>
-<text x="${w * 0.055 + size * 0.5}" y="${h * 0.76}" font-family="'Tenor Sans', Georgia, serif" font-size="${size}" fill="url(#num)">${tier}%</text>
+<text x="${w * 0.055 + size * 0.5}" y="${h * 0.76}" font-family="Gotham, Georgia, serif" font-size="${size}" fill="url(#num)">${tier}%</text>
 </svg>`;
 }

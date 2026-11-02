@@ -11,8 +11,10 @@ import { TIER_STYLE } from "../src/lib/loyalty/tiers";
 import type { Tier } from "../src/lib/loyalty/types";
 
 const root = path.resolve(__dirname, "..");
+// Gotham is a licensed font: it is not committed. Point GOTHAM_LIGHT_TTF at Gotham-Light.ttf
+// (default: the untracked "font 2" folder in the repo root).
 const fontFiles = [
-  path.join(root, "scripts/fonts/TenorSans-Regular.ttf"),
+  process.env.GOTHAM_LIGHT_TTF ?? path.join(root, "font 2/Gotham-Light.ttf"),
   path.join(root, "scripts/fonts/Mulish-SemiBold.ttf"),
 ];
 for (const f of fontFiles) readFileSync(f); // throws if missing
