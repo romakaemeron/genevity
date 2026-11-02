@@ -46,7 +46,7 @@ async function authorize(req: Request, passTypeId: string, serial: string): Prom
   if (!token) return { ok: false, res: empty(401) };
   const card = await getCardById(serial);
   if (!card) return { ok: false, res: empty(404) };
-  if (!tokensEqual(token, card.appleAuthToken)) return { ok: false, res: empty(401) };
+  if (!card.appleAuthToken || !tokensEqual(token, card.appleAuthToken)) return { ok: false, res: empty(401) };
   return { ok: true, card };
 }
 
