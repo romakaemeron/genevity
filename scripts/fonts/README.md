@@ -9,3 +9,4 @@ Both are licensed under the SIL Open Font License 1.1 (https://openfontlicense.o
   Source: https://github.com/google/fonts/tree/main/ofl/mulish
   Static instance (wght=600) cut from the variable font `Mulish[wght].ttf` with
   `fonttools varLib.instancer "Mulish[wght].ttf" wght=600`, because resvg cannot pick a weight from a variable font reliably.
+- Gotham Light (number in the strip art) is licensed and NOT in the repo: set GOTHAM_LIGHT_TTF or put it at `font 2/Gotham-Light.ttf`.
