@@ -57,6 +57,18 @@ const STEP_ORDER: Record<EntryMode, readonly Step[]> = {
   service: ["service", "doctor", "when", "contact", "confirm"],
 };
 
+/**
+ * Drop RoApp's catalogue numbering from a category name.
+ *
+ * The catalogue is numbered for the clinic's own filing — "1.6. Подологія",
+ * "1.9 Інше" (that one has no dot) — which means nothing to a patient and eats
+ * the width a chip has on a phone. The admin editor keeps the numbers, because
+ * staff cross-reference them against RoApp.
+ */
+function prettyCategory(title: string): string {
+  return title.replace(/^\d+(?:\.\d+)*\.?\s*/, "").trim() || title;
+}
+
 const fieldCls =
   "w-full px-4 py-3 rounded-[var(--radius-button)] bg-champagne-dark border border-line text-ink text-[15px] outline-none transition-colors duration-150 placeholder:text-stone hover:border-stone-light focus:border-main focus:ring-2 focus:ring-main/15";
 
@@ -761,7 +773,10 @@ export default function AppointmentWizard({
       </div>
     </div>
 
-      <aside className="lg:sticky lg:top-28 flex flex-col gap-4 w-full order-first lg:order-last">
+      {/* Desktop only. On a phone this sat above the wizard, repeating the step
+          indicator and the header's phone number before the visitor had even
+          chosen anything — the booking itself should be the whole screen. */}
+      <aside className="hidden lg:flex lg:sticky lg:top-28 flex-col gap-4 w-full lg:order-last">
         <div className="rounded-[var(--radius-card)] border border-line bg-white p-5">
           <p className="bk-eyebrow">{t("railTitle")}</p>
           <div className="mt-4 flex flex-col gap-3.5">
@@ -908,16 +923,14 @@ function ScopeEmpty({
  * search that is already doing the filtering.
  */
 function CategoryChips({
-  categories, active, onSelect, allLabel, counts,
+  categories, active, onSelect, allLabel,
 }: {
   categories: string[];
   active: string | null;
   onSelect: (c: string | null) => void;
   allLabel: string;
-  counts: Map<string, number>;
 }) {
   if (categories.length < 2) return null;
-  const total = [...counts.values()].reduce((a, b) => a + b, 0);
   const chip = (on: boolean) =>
     `shrink-0 px-4 py-2 rounded-[var(--radius-pill)] body-m cursor-pointer transition-colors duration-200 ${
       on ? "bg-main text-champagne" : "bg-champagne-dark text-black hover:bg-champagne-darker"
@@ -926,12 +939,10 @@ function CategoryChips({
     <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-4 -mx-1 px-1">
       <button type="button" onClick={() => onSelect(null)} aria-pressed={active === null} className={chip(active === null)}>
         {allLabel}
-        <span className="body-s opacity-60 ml-2">{total}</span>
       </button>
       {categories.map((c) => (
         <button key={c} type="button" onClick={() => onSelect(c)} aria-pressed={active === c} className={chip(active === c)}>
-          {c}
-          <span className="body-s opacity-60 ml-2">{counts.get(c) ?? 0}</span>
+          {prettyCategory(c)}
         </button>
       ))}
     </div>
@@ -993,7 +1004,6 @@ function ServiceGrid({
           active={activeCategory}
           onSelect={setCategory}
           allLabel={t("allCategories")}
-          counts={categories}
         />
       )}
 
@@ -1006,7 +1016,7 @@ function ServiceGrid({
             return (
               <button key={s.id} type="button" onClick={() => onSelect(s.id)} aria-pressed={on} className={cardCls(on)}>
                 <div className="flex justify-between items-start gap-3">
-                  <p className="bk-eyebrow">{s.category ?? t("otherServices")}</p>
+                  <p className="bk-eyebrow">{s.category ? prettyCategory(s.category) : t("otherServices")}</p>
                   <Tick on={on} />
                 </div>
                 <p className="body-strong text-black text-[16px] mt-2 leading-snug">{s.title}</p>
