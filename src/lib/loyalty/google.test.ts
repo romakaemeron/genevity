@@ -232,7 +232,7 @@ describe("updateObject", () => {
     const body = JSON.parse(init.body);
     expect(body.id).toBe("stored.id");
     expect(body.heroImage.sourceUri.uri).toContain(`?v=${LOYALTY_DESIGN_VERSION}`);
-    expect(body.state).toBe("ACTIVE");
+    expect(body.state).toBeUndefined();
   });
 
   it("returns false when the holder never saved the card (404)", async () => {

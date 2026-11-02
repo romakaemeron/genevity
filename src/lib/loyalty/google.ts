@@ -150,7 +150,10 @@ export async function upsertGenericClass(creds: GoogleCreds, token: string, tier
  */
 export async function updateObject(card: LoyaltyCard, creds: GoogleCreds, token: string): Promise<boolean> {
   const objectId = card.googleObjectId ?? genericObjectId(creds.issuerId, card);
-  const object = { ...buildGenericObject(creds.issuerId, card), id: objectId };
+  // `state` is left out on purpose: a design refresh must never re-activate a
+  // card revoked while the refresh was running (expiry is expireObject's job).
+  const object: Record<string, unknown> = { ...buildGenericObject(creds.issuerId, card), id: objectId };
+  delete object.state;
   const res = await fetch(`${API}/genericObject/${encodeURIComponent(objectId)}`, {
     method: "PATCH",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
