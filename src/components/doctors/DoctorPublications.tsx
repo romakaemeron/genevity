@@ -119,18 +119,18 @@ export default function DoctorPublications({ publications, locale, doctorName }:
             const meta = [p.source, p.year].filter(Boolean).join(" · ");
             return (
               <li key={i} className="flex gap-3 sm:gap-4 py-4">
-                <span className="text-base text-black-50 tabular-nums w-7 shrink-0 text-right">{i + 1}.</span>
+                <span className="text-base text-black-60 tabular-nums w-7 shrink-0 text-right">{i + 1}.</span>
                 <div className="flex-1 min-w-0 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
                   <div className="min-w-0">
                     <p className="text-base text-black leading-relaxed">
                       {mixed && p.kind !== dominant && (
-                        <span className="mr-2 align-middle text-xs px-2.5 py-0.5 rounded-full bg-champagne-dark border border-champagne-darker text-black-50 whitespace-nowrap">
+                        <span className="mr-2 align-middle text-xs px-2.5 py-0.5 rounded-full bg-champagne-dark border border-champagne-darker text-black-60 whitespace-nowrap">
                           {kinds[p.kind]}
                         </span>
                       )}
                       {p.title}
                     </p>
-                    {meta && <p className="body-m text-black-50 mt-1">{meta}</p>}
+                    {meta && <p className="text-[13px] leading-snug text-black-60 mt-1.5">{meta}</p>}
                   </div>
                   {p.url && (
                     <Button
@@ -171,7 +171,7 @@ export default function DoctorPublications({ publications, locale, doctorName }:
                 {t.less}
               </Button>
             )}
-            <span className="body-m text-black-50">{t.count(shown.length, publications.length)}</span>
+            <span className="body-m text-black-60">{t.count(shown.length, publications.length)}</span>
           </div>
         )}
       </div>
