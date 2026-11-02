@@ -3,10 +3,16 @@
 /**
  * Which services each specialist is offered for in the online booking wizard.
  *
- * Built around categories rather than services on purpose: the 232 bookable
- * services sit in 8 broad headings, so a specialist is usually one or two
- * ticks. Individual services are there for the exceptions, behind a disclosure
- * so they don't dominate the common case.
+ * Built around categories rather than services: the 232 bookable services sit
+ * in 8 headings, so most specialists are a tick or two.
+ *
+ * Categories alone are not enough, though, and the exception is the busiest
+ * one. "Консультації лікарів" is a single flat category holding 29
+ * consultations across 13 specialties — urology, gynaecology, dermatology,
+ * dietetics — so ticking it would offer a urologist every consultation the
+ * clinic sells. That is why the per-service panel lists the ticked
+ * categories' services by default instead of hiding behind a search: for
+ * consultations, refining the category *is* the job, not an edge case.
  *
  * The rule the UI has to make obvious is the fallback — a specialist with
  * nothing ticked is offered **every** service. That is deliberate (the clinic
@@ -79,7 +85,9 @@ export default function BookingScopeEditor({
           scope={scopes[e.id] ?? emptyScope()}
           expanded={open === e.id}
           onToggle={() => setOpen(open === e.id ? null : e.id)}
-          onChange={(next) => setScopes((s) => ({ ...s, [e.id]: next }))}
+          onChange={(update) =>
+            setScopes((all) => ({ ...all, [e.id]: update(all[e.id] ?? emptyScope()) }))
+          }
         />
       ))}
     </div>
@@ -95,13 +103,17 @@ function EmployeeRow({
   scope: EmployeeScope;
   expanded: boolean;
   onToggle: () => void;
-  onChange: (next: EmployeeScope) => void;
+  /** Receives the previous scope and returns the next — never a bare value,
+   *  so two toggles landing in one React batch cannot clobber each other. */
+  onChange: (update: (prev: EmployeeScope) => EmployeeScope) => void;
 }) {
   const [saving, startSave] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
-  const [showServices, setShowServices] = useState(false);
+  // Open as soon as there is something to refine; collapsed is only right
+  // while the specialist has no categories at all.
+  const [showServices, setShowServices] = useState(scope.categories.length > 0);
 
   const unrestricted = isUnrestricted(scope);
 
@@ -118,43 +130,73 @@ function EmployeeRow({
     ).length;
   }, [services, scope, unrestricted]);
 
+  /**
+   * What the exceptions panel lists.
+   *
+   * With no search it shows the services of the ticked categories, grouped —
+   * because the common job is *refining* a category, not hunting across 232
+   * services. "Консультації лікарів" is the reason: it is a single flat
+   * category holding 29 consultations across 13 specialties, so ticking it
+   * and then unticking the ones that aren't this doctor's is the only way to
+   * get it right. A search box alone made that workflow invisible.
+   *
+   * With a search it looks across the whole catalogue, for adding a service
+   * from a category the specialist isn't otherwise offered.
+   */
   const visibleServices = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return [] as ScopeService[];
-    return services.filter((s) => s.title.toLowerCase().includes(q)).slice(0, 40);
-  }, [services, query]);
+    if (q) return services.filter((s) => s.title.toLowerCase().includes(q)).slice(0, 60);
+    const cats = new Set(scope.categories);
+    return services.filter((s) => s.groupId != null && cats.has(s.groupId));
+  }, [services, query, scope.categories]);
+
+  /** Group the panel's rows under their category heading. */
+  const visibleByGroup = useMemo(() => {
+    const out = new Map<string, ScopeService[]>();
+    for (const s of visibleServices) {
+      const title = groups.find((g) => g.id === s.groupId)?.title ?? "—";
+      if (!out.has(title)) out.set(title, []);
+      out.get(title)!.push(s);
+    }
+    return [...out.entries()].sort((a, b) => a[0].localeCompare(b[0], "uk"));
+  }, [visibleServices, groups]);
 
   function toggleCategory(id: number) {
-    const has = scope.categories.includes(id);
-    onChange({
-      ...scope,
-      categories: has
-        ? scope.categories.filter((c) => c !== id)
-        : [...scope.categories, id],
-      // Dropping a category makes its per-service exceptions meaningless;
-      // leaving them behind would quietly re-add services later.
-      denyServices: has
-        ? scope.denyServices.filter(
-            (sid) => services.find((s) => s.id === sid)?.groupId !== id,
-          )
-        : scope.denyServices,
+    onChange((prev) => {
+      const has = prev.categories.includes(id);
+      return {
+        ...prev,
+        categories: has
+          ? prev.categories.filter((c) => c !== id)
+          : [...prev.categories, id],
+        // Dropping a category makes its per-service exceptions meaningless;
+        // leaving them behind would quietly re-add services later.
+        denyServices: has
+          ? prev.denyServices.filter(
+              (sid) => services.find((s) => s.id === sid)?.groupId !== id,
+            )
+          : prev.denyServices,
+      };
     });
   }
 
   /** Cycle one service: inherited → explicitly on → explicitly off → inherited. */
-  function cycleService(s: ScopeService) {
-    const inCategory = s.groupId != null && scope.categories.includes(s.groupId);
-    const allowed = scope.allowServices.includes(s.id);
-    const denied = scope.denyServices.includes(s.id);
-    const base = {
-      ...scope,
-      allowServices: scope.allowServices.filter((id) => id !== s.id),
-      denyServices: scope.denyServices.filter((id) => id !== s.id),
-    };
-    if (denied) return onChange(base);
-    if (allowed) return onChange({ ...base, denyServices: [...base.denyServices, s.id] });
-    if (inCategory) return onChange({ ...base, denyServices: [...base.denyServices, s.id] });
-    return onChange({ ...base, allowServices: [...base.allowServices, s.id] });
+  function cycleService(svc: ScopeService) {
+    onChange((prev) => {
+      const inCategory = svc.groupId != null && prev.categories.includes(svc.groupId);
+      const allowed = prev.allowServices.includes(svc.id);
+      const denied = prev.denyServices.includes(svc.id);
+      const base = {
+        ...prev,
+        allowServices: prev.allowServices.filter((id) => id !== svc.id),
+        denyServices: prev.denyServices.filter((id) => id !== svc.id),
+      };
+      if (denied) return base;
+      if (allowed || inCategory) {
+        return { ...base, denyServices: [...base.denyServices, svc.id] };
+      }
+      return { ...base, allowServices: [...base.allowServices, svc.id] };
+    });
   }
 
   function serviceState(s: ScopeService): "on" | "off" | "inherited-on" {
@@ -260,8 +302,9 @@ function EmployeeRow({
             {showServices && (
               <div className="mt-3 flex flex-col gap-2">
                 <p className="text-xs text-muted-foreground">
-                  Для винятків із напрямів вище. Знайдіть послугу й натисніть,
-                  щоб увімкнути або вимкнути її окремо.
+                  Натисніть на послугу, щоб увімкнути або вимкнути її окремо.
+                  Пошук шукає по всьому каталогу — так можна додати послугу з
+                  напряму, який не обрано.
                 </p>
                 <div className="relative">
                   <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
@@ -273,33 +316,48 @@ function EmployeeRow({
                     className="w-full pl-9 pr-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground"
                   />
                 </div>
-                <div className="flex flex-col gap-1 max-h-72 overflow-y-auto">
-                  {visibleServices.map((s) => {
-                    const st = serviceState(s);
-                    return (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => cycleService(s)}
-                        className="flex items-center justify-between gap-3 px-3 py-2 rounded-md border border-border text-left hover:border-muted-foreground/40 cursor-pointer"
-                      >
-                        <span className="text-sm text-foreground truncate">{s.title}</span>
-                        <span
-                          className={`text-xs px-2 py-0.5 rounded whitespace-nowrap shrink-0 ${
-                            st === "on"
-                              ? "bg-emerald-50 text-emerald-700"
-                              : st === "inherited-on"
-                                ? "bg-muted text-muted-foreground"
-                                : "bg-rose-50 text-rose-700"
-                          }`}
-                        >
-                          {st === "on" ? "увімкнено" : st === "inherited-on" ? "з напряму" : "вимкнено"}
-                        </span>
-                      </button>
-                    );
-                  })}
-                  {query.trim() && visibleServices.length === 0 && (
-                    <p className="text-xs text-muted-foreground px-1 py-2">Нічого не знайдено</p>
+                <div className="flex flex-col gap-3 max-h-96 overflow-y-auto">
+                  {visibleByGroup.map(([groupTitle, rows]) => (
+                    <div key={groupTitle}>
+                      {!query.trim() && (
+                        <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 sticky top-0 bg-card py-1">
+                          {groupTitle}
+                        </p>
+                      )}
+                      <div className="flex flex-col gap-1">
+                        {rows.map((s) => {
+                          const st = serviceState(s);
+                          return (
+                            <button
+                              key={s.id}
+                              type="button"
+                              onClick={() => cycleService(s)}
+                              className="flex items-center justify-between gap-3 px-3 py-2 rounded-md border border-border text-left hover:border-muted-foreground/40 cursor-pointer"
+                            >
+                              <span className="text-sm text-foreground truncate">{s.title}</span>
+                              <span
+                                className={`text-xs px-2 py-0.5 rounded whitespace-nowrap shrink-0 ${
+                                  st === "on"
+                                    ? "bg-emerald-50 text-emerald-700"
+                                    : st === "inherited-on"
+                                      ? "bg-muted text-muted-foreground"
+                                      : "bg-rose-50 text-rose-700"
+                                }`}
+                              >
+                                {st === "on" ? "увімкнено" : st === "inherited-on" ? "з напряму" : "вимкнено"}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                  {visibleServices.length === 0 && (
+                    <p className="text-xs text-muted-foreground px-1 py-2">
+                      {query.trim()
+                        ? "Нічого не знайдено"
+                        : "Оберіть напрям вище — його послуги зʼявляться тут, і зайві можна буде вимкнути."}
+                    </p>
                   )}
                 </div>
               </div>
@@ -318,7 +376,7 @@ function EmployeeRow({
             {!unrestricted && (
               <button
                 type="button"
-                onClick={() => onChange(emptyScope())}
+                onClick={() => onChange(() => emptyScope())}
                 className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
               >
                 Очистити (показувати всі)
