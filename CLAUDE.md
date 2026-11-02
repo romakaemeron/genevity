@@ -80,6 +80,7 @@ src/
 - **`frontdesk` role:** may open the scan page only. Deny-by-default gate in `src/proxy.ts` + `src/lib/auth/roles.ts`.
 - **Shipping:** may be cherry-picked to `main` only with the user's confirmation.
 - **Testing:** test cards must be named `TEST…` and cancelled afterwards.
+- **Live pass updates:** pass.json carries `webServiceURL` (`<LOYALTY_PUBLIC_BASE_URL>/api/loyalty/apple`, Apple's PassKit `/v1` protocol in `src/lib/loyalty/passkit-service.ts`) and a per-card `authenticationToken`; pushes go out via APNs (`apns.ts`). Migration **029** (`scripts/run-migration-029.ts`) must be applied before this code is deployed. To ship a design change: edit code, bump `LOYALTY_DESIGN_VERSION` in `tiers.ts` (busts Google image caches), deploy, then press "Оновити дизайн на всіх картках" on `/admin/loyalty`. Apple cards added before this feature have no update hook; holders must re-add them once.
 
 ### Design System
 - Colors: `--color-main` (#8B7B6B taupe), `--color-champagne` (#FAF9F6), `--color-rosegold` (#C0CFD5)
