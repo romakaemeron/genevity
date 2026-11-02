@@ -111,9 +111,14 @@ function EmployeeRow({
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  /** "scope" = what this specialist is mapped to; otherwise a category id
+   *  being browsed so individual services can be added from it. */
+  const [browse, setBrowse] = useState<string>("scope");
   // Open as soon as there is something to refine; collapsed is only right
   // while the specialist has no categories at all.
-  const [showServices, setShowServices] = useState(scope.categories.length > 0);
+  const [showServices, setShowServices] = useState(
+    scope.categories.length > 0 || scope.allowServices.length > 0,
+  );
 
   const unrestricted = isUnrestricted(scope);
 
@@ -146,9 +151,22 @@ function EmployeeRow({
   const visibleServices = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (q) return services.filter((s) => s.title.toLowerCase().includes(q)).slice(0, 60);
+    // Browsing one specific category, to add services from a heading that
+    // isn't ticked — the case where you know the area but not the name.
+    if (browse !== "scope") {
+      const id = Number(browse);
+      return services.filter((s) => s.groupId === id);
+    }
     const cats = new Set(scope.categories);
-    return services.filter((s) => s.groupId != null && cats.has(s.groupId));
-  }, [services, query, scope.categories]);
+    const ruled = new Set([...scope.allowServices, ...scope.denyServices]);
+    // Services under a ticked category, *plus* anything with its own rule.
+    // Without the second half a specialist mapped only to individual services
+    // — which most are, since consultations don't group by specialty — would
+    // show an empty panel with no way to see or undo what they're offered.
+    return services.filter(
+      (s) => ruled.has(s.id) || (s.groupId != null && cats.has(s.groupId)),
+    );
+  }, [services, query, browse, scope.categories, scope.allowServices, scope.denyServices]);
 
   /** Group the panel's rows under their category heading. */
   const visibleByGroup = useMemo(() => {
@@ -306,15 +324,30 @@ function EmployeeRow({
                   Пошук шукає по всьому каталогу — так можна додати послугу з
                   напряму, який не обрано.
                 </p>
-                <div className="relative">
-                  <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Пошук послуги…"
-                    className="w-full pl-9 pr-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground"
-                  />
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-1">
+                    <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="search"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Пошук по всьому каталогу…"
+                      className="w-full pl-9 pr-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground"
+                    />
+                  </div>
+                  <select
+                    value={browse}
+                    onChange={(e) => setBrowse(e.target.value)}
+                    disabled={Boolean(query.trim())}
+                    className="px-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground cursor-pointer disabled:opacity-50 sm:w-64"
+                  >
+                    <option value="scope">Обране для спеціаліста</option>
+                    {groups.map((g) => (
+                      <option key={g.id} value={String(g.id)}>
+                        {g.title} ({g.serviceCount})
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="flex flex-col gap-3 max-h-96 overflow-y-auto">
                   {visibleByGroup.map(([groupTitle, rows]) => (
@@ -356,7 +389,7 @@ function EmployeeRow({
                     <p className="text-xs text-muted-foreground px-1 py-2">
                       {query.trim()
                         ? "Нічого не знайдено"
-                        : "Оберіть напрям вище — його послуги зʼявляться тут, і зайві можна буде вимкнути."}
+                        : "Нічого не обрано. Оберіть напрям вище, або виберіть напрям у списку праворуч, щоб додати окремі послуги."}
                     </p>
                   )}
                 </div>
