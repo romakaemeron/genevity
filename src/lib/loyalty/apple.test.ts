@@ -21,6 +21,7 @@ function card(over: Partial<LoyaltyCard> = {}): LoyaltyCard {
     revokedBy: null,
     revokedAt: null,
     googleObjectId: null,
+    appleAuthToken: "t".repeat(64), passUpdatedAt: new Date("2026-01-01T00:00:00Z"),
     ...over,
   };
 }
@@ -75,6 +76,28 @@ describe("buildPassJson", () => {
     const p = buildPassJson(card({ holderName: name }), cfg) as Loose;
     const back = JSON.parse(JSON.stringify(p));
     expect(back.storeCard.secondaryFields[0].value).toBe(name);
+  });
+});
+
+describe("buildPassJson update hooks", () => {
+  it("points webServiceURL at the public base and carries the card's auth token", () => {
+    const p = buildPassJson(card(), cfg) as Loose;
+    expect(p.webServiceURL).toBe("https://genevity.com.ua/api/loyalty/apple");
+    expect(p.authenticationToken).toBe("t".repeat(64));
+  });
+
+  it("uses LOYALTY_PUBLIC_BASE_URL without a double slash", () => {
+    process.env.LOYALTY_PUBLIC_BASE_URL = "https://preview.example.app/";
+    try {
+      expect((buildPassJson(card(), cfg) as Loose).webServiceURL).toBe("https://preview.example.app/api/loyalty/apple");
+    } finally {
+      delete process.env.LOYALTY_PUBLIC_BASE_URL;
+    }
+  });
+
+  it("voids a revoked card and only a revoked card", () => {
+    expect((buildPassJson(card({ status: "revoked" }), cfg) as Loose).voided).toBe(true);
+    expect((buildPassJson(card(), cfg) as Loose).voided).toBeUndefined();
   });
 });
 
