@@ -47,8 +47,8 @@ export function buildPassJson(
     organizationName: "GENEVITY",
     description: "GENEVITY Friends",
     sharingProhibited: true,
-    webServiceURL: passWebServiceUrl(),
-    authenticationToken: card.appleAuthToken,
+    // Guarded so a row without the token (migration 029 not applied) still yields a valid pass.
+    ...(card.appleAuthToken ? { webServiceURL: passWebServiceUrl(), authenticationToken: card.appleAuthToken } : {}),
     ...(card.status === "revoked" ? { voided: true } : {}),
     backgroundColor: rgb(style.background),
     foregroundColor: rgb(style.foreground),

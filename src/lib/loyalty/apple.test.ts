@@ -95,6 +95,12 @@ describe("buildPassJson update hooks", () => {
     }
   });
 
+  it("omits the update hook when the card has no auth token", () => {
+    const p = buildPassJson(card({ appleAuthToken: undefined as unknown as string }), cfg) as Loose;
+    expect(p.webServiceURL).toBeUndefined();
+    expect(p.authenticationToken).toBeUndefined();
+  });
+
   it("voids a revoked card and only a revoked card", () => {
     expect((buildPassJson(card({ status: "revoked" }), cfg) as Loose).voided).toBe(true);
     expect((buildPassJson(card(), cfg) as Loose).voided).toBeUndefined();
