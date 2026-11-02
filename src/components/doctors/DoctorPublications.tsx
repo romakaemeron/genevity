@@ -27,6 +27,7 @@ const COPY = {
       "Публікації, дослідження та авторські методики — з посиланнями на першоджерела, щоб кожен факт можна було перевірити самостійно.",
     verify: "Першоджерело",
     more: "Показати ще",
+    less: "Згорнути",
     count: (shown: number, total: number) => `Показано ${shown} з ${total}`,
   },
   ru: {
@@ -35,6 +36,7 @@ const COPY = {
       "Публикации, исследования и авторские методики — со ссылками на первоисточники, чтобы каждый факт можно было проверить самостоятельно.",
     verify: "Первоисточник",
     more: "Показать ещё",
+    less: "Свернуть",
     count: (shown: number, total: number) => `Показано ${shown} из ${total}`,
   },
   en: {
@@ -43,6 +45,7 @@ const COPY = {
       "Papers, studies and authored protocols — each linked to its primary source so every claim can be verified independently.",
     verify: "Primary source",
     more: "Show more",
+    less: "Show less",
     count: (shown: number, total: number) => `Showing ${shown} of ${total}`,
   },
 } as const;
@@ -154,6 +157,18 @@ export default function DoctorPublications({ publications, locale, doctorName }:
             {limit < publications.length && (
               <Button variant="outline" onClick={() => setLimit((n) => Math.min(n + STEP, publications.length))}>
                 {t.more}
+              </Button>
+            )}
+            {limit > INITIAL && (
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setLimit(INITIAL);
+                  // Collapsing shifts the page up; keep the reader at the block's top.
+                  document.getElementById("publications")?.scrollIntoView({ block: "start" });
+                }}
+              >
+                {t.less}
               </Button>
             )}
             <span className="body-m text-black-50">{t.count(shown.length, publications.length)}</span>
