@@ -256,6 +256,50 @@ const BOOKING: Record<string, L> = {
     ru: "Это время только что заняли. Выберите, пожалуйста, другое — список уже обновлён.",
     en: "That time was just taken. Please choose another — the list is already updated.",
   },
+  // ── Per-specialist service scope ──────────────────────────────────────
+  // RoApp can't say which specialist performs which service, so the mapping
+  // lives on our side (migration 028). These label the resulting narrowing so
+  // the visitor understands why a list is shorter than they expected — an
+  // unexplained short list reads as a broken page.
+  scopeServicesFor: {
+    uk: "Показано послуги, які виконує",
+    ru: "Показаны услуги, которые выполняет",
+    en: "Showing services performed by",
+  },
+  scopeDoctorsFor: {
+    uk: "Показано спеціалістів, які виконують",
+    ru: "Показаны специалисты, которые выполняют",
+    en: "Showing specialists who perform",
+  },
+  scopeNoServices: {
+    uk: "У цього спеціаліста поки немає послуг, доступних для онлайн-запису.",
+    ru: "У этого специалиста пока нет услуг, доступных для онлайн-записи.",
+    en: "This specialist has no services available for online booking yet.",
+  },
+  scopeNoServicesAction: {
+    uk: "Обрати іншого спеціаліста",
+    ru: "Выбрать другого специалиста",
+    en: "Choose another specialist",
+  },
+  scopeNoDoctors: {
+    uk: "Цю послугу поки не можна записати онлайн. Зателефонуйте нам — ми запишемо вас вручну.",
+    ru: "Эту услугу пока нельзя записать онлайн. Позвоните нам — мы запишем вас вручную.",
+    en: "This service can't be booked online yet. Call us and we'll book you in manually.",
+  },
+  scopeNoDoctorsAction: {
+    uk: "Обрати іншу послугу",
+    ru: "Выбрать другую услугу",
+    en: "Choose another service",
+  },
+
+  // Raised when a stale tab posts a service the specialist is no longer
+  // offered for. Names the fix rather than the fault — the visitor did nothing
+  // wrong and the list they were looking at was simply out of date.
+  errorServiceUnavailable: {
+    uk: "Ця послуга більше недоступна в обраного спеціаліста. Оберіть іншу послугу або іншого лікаря.",
+    ru: "Эта услуга больше недоступна у выбранного специалиста. Выберите другую услугу или другого врача.",
+    en: "That service is no longer available with the specialist you chose. Please pick another service or doctor.",
+  },
   errorUnavailable: {
     uk: "Не вдалося зв'язатися з системою запису. Зателефонуйте нам, і ми запишемо вас вручну.",
     ru: "Не удалось связаться с системой записи. Позвоните нам, и мы запишем вас вручную.",

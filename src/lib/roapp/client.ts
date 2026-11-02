@@ -218,24 +218,80 @@ interface PagedV2<T> {
 }
 
 /**
- * service id → category title, for grouping the service step.
+ * The catalogue's shape, in the two forms the booking flow needs.
  *
  * The public booking API returns services without a category, so this joins the
  * catalogue from v2. Cached for an hour: it's ~15 sequential requests on a cold
  * cache, which the 3 req/s limit makes slow but is negligible once warm.
+ *
+ * Two different levels of the tree are useful, hence two maps:
+ *   - `title` is the service's *immediate* category, which is what the wizard
+ *     groups the service list by.
+ *   - `groupId` is its *second-level* ancestor — the 8 broad headings the 232
+ *     bookable services fall into ("Подологія", "Апаратні процедури"). That is
+ *     the unit the admin assigns specialists against, because 8 headings is a
+ *     afternoon's work and 232 services is not.
  */
-export async function serviceCategoryMap(): Promise<Map<number, string>> {
+export interface ServiceTaxonomy {
+  /** service id → immediate category title, for UI grouping. */
+  title: Map<number, string>;
+  /** service id → second-level category id, the scope unit. */
+  groupId: Map<number, number>;
+  /** Second-level categories in catalogue order, for the admin editor. */
+  groups: { id: number; title: string; serviceCount: number }[];
+}
+
+export async function serviceTaxonomy(): Promise<ServiceTaxonomy> {
   const [services, categories] = await Promise.all([
     pagedV2<{ id: number; category_id: number | null }>("/catalog/services"),
-    pagedV2<{ id: number; title: string }>("/catalog/services/categories"),
+    pagedV2<{ id: number; title: string; parent_id: number | null }>(
+      "/catalog/services/categories",
+    ),
   ]);
-  const titleById = new Map(categories.map((c) => [c.id, c.title]));
-  const out = new Map<number, string>();
+  const byId = new Map(categories.map((c) => [c.id, c]));
+  const isRoot = (id: number) => {
+    const c = byId.get(id);
+    return !c || c.parent_id == null || !byId.has(c.parent_id);
+  };
+
+  /** Top-most non-root ancestor of a category — its second-level heading. */
+  const groupOf = (categoryId: number): number | null => {
+    if (!byId.has(categoryId)) return null;
+    if (isRoot(categoryId)) return categoryId;
+    let cur = categoryId;
+    // Bounded rather than `while (true)`: a cycle in the catalogue would
+    // otherwise hang the request.
+    for (let hops = 0; hops < 20; hops += 1) {
+      const parent = byId.get(cur)?.parent_id;
+      if (parent == null || !byId.has(parent) || isRoot(parent)) return cur;
+      cur = parent;
+    }
+    return cur;
+  };
+
+  const title = new Map<number, string>();
+  const groupId = new Map<number, number>();
+  const counts = new Map<number, number>();
   for (const s of services) {
-    const title = s.category_id != null ? titleById.get(s.category_id) : undefined;
-    if (title) out.set(s.id, title);
+    if (s.category_id == null) continue;
+    const t = byId.get(s.category_id)?.title;
+    if (t) title.set(s.id, t);
+    const g = groupOf(s.category_id);
+    if (g != null) {
+      groupId.set(s.id, g);
+      counts.set(g, (counts.get(g) ?? 0) + 1);
+    }
   }
-  return out;
+
+  const groups = [...counts.entries()]
+    .map(([id, serviceCount]) => ({
+      id,
+      title: byId.get(id)?.title ?? String(id),
+      serviceCount,
+    }))
+    .sort((a, b) => a.title.localeCompare(b.title, "uk"));
+
+  return { title, groupId, groups };
 }
 
 /** Walk a paged v2 collection. Sequential on purpose — 3 req/s. */
@@ -258,17 +314,19 @@ export async function listServicesGrouped(
   employeeId?: number,
 ): Promise<RoappServiceWithCategory[]> {
   const services = await listServices(employeeId);
-  let categories: Map<number, string>;
+  let taxonomy: ServiceTaxonomy;
   try {
-    categories = await serviceCategoryMap();
+    taxonomy = await serviceTaxonomy();
   } catch {
-    // Grouping is a nicety; never fail the step over it.
-    categories = new Map();
+    // Grouping is a nicety; never fail the step over it. Scoping degrades too:
+    // with no group ids, every specialist falls back to the full catalogue,
+    // which is exactly the behaviour we had before any of this.
+    taxonomy = { title: new Map(), groupId: new Map(), groups: [] };
   }
   return services.map((s) => ({
     ...s,
-    categoryId: null,
-    categoryTitle: categories.get(s.id) ?? null,
+    categoryId: taxonomy.groupId.get(s.id) ?? null,
+    categoryTitle: taxonomy.title.get(s.id) ?? null,
   }));
 }
 

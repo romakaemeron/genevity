@@ -82,6 +82,13 @@ export default async function SettingsPage() {
             title={t.settingsPage.cta}
             subtitle={t.settingsPage.ctaDesc}
           />
+          {/* Not a UI string, but it belongs beside the other things that
+              shape what the booking flow offers. */}
+          <AdminListItem
+            href="/admin/settings/booking-scope"
+            title={t.settingsPage.bookingScope}
+            subtitle={t.settingsPage.bookingScopeDesc}
+          />
         </AdminList>
       </div>
     </div>

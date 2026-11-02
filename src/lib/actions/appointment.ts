@@ -29,6 +29,11 @@ import {
   RoappError,
 } from "@/lib/roapp/client";
 import { mergeDoctors } from "@/lib/roapp/doctors";
+import {
+  getScopeMap,
+  isServiceAllowed,
+  type ScopeMap,
+} from "@/lib/db/queries/booking-scope";
 import type { BookingDoctor, BookingSlot } from "@/lib/roapp/types";
 
 /* ── Reads ─────────────────────────────────────────────────────────────── */
@@ -57,38 +62,54 @@ export interface ServiceOption {
   durationMinutes: number;
   price: number;
   category: string | null;
+  /** Second-level RoApp category id — what a category scope rule matches. */
+  groupId: number | null;
 }
 
 /**
- * Bookable services.
+ * The whole bookable catalogue, plus the rules for who is offered what.
  *
- * `employeeId` is accepted and forwarded, but RoApp ignores it — the same 232
- * services come back for every specialist, and even for an id that doesn't
- * exist (verified against the live account). Services simply aren't linked to
- * employees in this account yet. Pass 0 to ask for the catalogue outright.
+ * `employeeId` is still forwarded to RoApp, but RoApp ignores it: the same 232
+ * services come back for every specialist and even for an id that doesn't
+ * exist. (Verified against the live account, and RoApp's own booking page
+ * sends the identical parameter to the identical effect.) Per-specialist
+ * filtering therefore happens here, against `roapp_service_scope`.
+ *
+ * The catalogue and the rules are fetched once, together, and the wizard
+ * filters locally from there — so moving between "pick a doctor" and "pick a
+ * service" is instant in both directions rather than a round trip per step.
  */
 export async function getDoctorServices(employeeId: number): Promise<{
   ok: boolean;
   services: ServiceOption[];
+  /** employeeId → rules; a missing entry means that specialist is unrestricted. */
+  scope: ScopeMap;
 }> {
   if (!Number.isInteger(employeeId) || employeeId < 0) {
-    return { ok: false, services: [] };
+    return { ok: false, services: [], scope: {} };
   }
   try {
-    const services = await listServicesGrouped(employeeId || undefined);
+    // The scope read is local and cheap; the catalogue is the slow half, so
+    // run them together rather than in series.
+    const [services, scope] = await Promise.all([
+      listServicesGrouped(employeeId || undefined),
+      getScopeMap(),
+    ]);
     return {
       ok: true,
+      scope,
       services: services.map((s) => ({
         id: s.id,
         title: s.title,
         durationMinutes: s.durationMinutes,
         price: s.price,
         category: s.categoryTitle,
+        groupId: s.categoryId,
       })),
     };
   } catch (e) {
     console.error("[appointment] listServices failed:", e);
-    return { ok: false, services: [] };
+    return { ok: false, services: [], scope: {} };
   }
 }
 
@@ -133,7 +154,13 @@ export interface AppointmentInput {
 export interface AppointmentResult {
   ok: boolean;
   /** Localized by the caller via the `booking` ui_strings namespace. */
-  errorKey?: "name" | "phone" | "slotTaken" | "unavailable" | "generic";
+  errorKey?:
+    | "name"
+    | "phone"
+    | "slotTaken"
+    | "serviceUnavailable"
+    | "unavailable"
+    | "generic";
   /** Echoed back so the confirmation screen can show what was booked. */
   bookingId?: number;
 }
@@ -308,12 +335,31 @@ export async function submitAppointment(
   }
 
   // Resolve the service for the comment; a missing one is not fatal.
+  //
+  // This also re-checks the service against the specialist's scope. The wizard
+  // filters the list it shows, but the filtering is client-side for speed, so
+  // a stale tab — open from before the clinic narrowed a specialist's scope —
+  // could still post a pairing the rules no longer permit. Re-checking here
+  // keeps the booking RoApp receives consistent with what the site offers.
   let serviceTitle: string | null = null;
   if (Number.isInteger(input.serviceId) && input.serviceId > 0) {
     try {
-      const { services } = await getDoctorServices(input.employeeId);
-      serviceTitle = services.find((s) => s.id === input.serviceId)?.title ?? null;
+      const { services, scope } = await getDoctorServices(input.employeeId);
+      const picked = services.find((s) => s.id === input.serviceId) ?? null;
+      if (
+        picked &&
+        !isServiceAllowed(scope[input.employeeId], picked.id, picked.groupId)
+      ) {
+        console.warn(
+          `[appointment] service ${picked.id} is out of scope for employee ${input.employeeId}`,
+        );
+        return { ok: false, errorKey: "serviceUnavailable" };
+      }
+      serviceTitle = picked?.title ?? null;
     } catch {
+      // The scope read already falls back to "unrestricted" on failure, so
+      // reaching here means the catalogue itself is down. The appointment is
+      // still worth taking — the service is only a note on the booking.
       serviceTitle = null;
     }
   }

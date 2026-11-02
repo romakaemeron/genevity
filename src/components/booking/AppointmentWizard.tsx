@@ -31,6 +31,7 @@ import {
   type ServiceOption,
 } from "@/lib/actions/appointment";
 import type { BookingDoctor, BookingSlot } from "@/lib/roapp/types";
+import { isServiceAllowed, type ScopeMap } from "@/lib/booking-scope-rules";
 import {
   kyivDateKey, kyivTime, formatKyivDateLong, formatDayMonth, periodOf, type SlotPeriod,
 } from "@/lib/booking-time";
@@ -42,11 +43,14 @@ type EntryMode = "service" | "doctor";
 /**
  * The visitor picks where to start and the first two steps follow.
  *
- * Worth knowing: RoApp returns the same 232 bookable services regardless of
- * `employee_id` — verified, even a non-existent id returns the identical list —
- * because services aren't linked to employees in the account. So neither order
- * narrows the other yet. This shape already supports it: the moment the clinic
- * links them in RoApp, both directions start filtering with no code change.
+ * Whichever they pick first narrows the second: a specialist narrows the
+ * services on offer, a service narrows the specialists who perform it. The
+ * narrowing comes from our own `roapp_service_scope` mapping, because RoApp
+ * returns the same 232 services for every `employee_id` — verified, and its
+ * own booking page has the same limitation.
+ *
+ * Only the *dependent* list is narrowed, never the one they started from, so
+ * stepping back to change the first choice always shows the full list again.
  */
 const STEP_ORDER: Record<EntryMode, readonly Step[]> = {
   doctor: ["doctor", "service", "when", "contact", "confirm"],
@@ -91,6 +95,8 @@ export default function AppointmentWizard({
 
   const [doctorId, setDoctorId] = useState<number | null>(null);
   const [services, setServices] = useState<ServiceOption[] | null>(null);
+  // employeeId → rules; a missing entry means that specialist is unrestricted.
+  const [scope, setScope] = useState<ScopeMap>({});
   // null = nothing picked yet; 0 is the explicit "just a consultation" choice.
   const [serviceId, setServiceId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
@@ -123,8 +129,14 @@ export default function AppointmentWizard({
       setDoctors(r.doctors);
       if (!r.ok) setFallbackUrl(r.fallbackUrl ?? null);
     });
-    // The catalogue is the same for every specialist, so fetch it once up front.
-    getDoctorServices(0).then((r) => { if (alive) setServices(r.services); });
+    // Catalogue and scope rules arrive together, once. RoApp ignores the
+    // employee filter, so there is nothing to re-fetch per specialist — the
+    // narrowing happens here, which also makes it instant between steps.
+    getDoctorServices(0).then((r) => {
+      if (!alive) return;
+      setServices(r.services);
+      setScope(r.scope);
+    });
     return () => { alive = false; };
   }, [locale]);
 
@@ -169,16 +181,68 @@ export default function AppointmentWizard({
     setStep(STEP_ORDER[next][0]);
   }
 
+  /** Does this specialist perform this service? `0` is "just a consultation". */
+  const pairAllowed = useCallback(
+    (employeeId: number, pickedServiceId: number | null) => {
+      if (pickedServiceId == null || pickedServiceId === 0) return true;
+      const picked = services?.find((s) => s.id === pickedServiceId);
+      if (!picked) return true;
+      return isServiceAllowed(scope[employeeId], picked.id, picked.groupId);
+    },
+    [services, scope],
+  );
+
+  // Changing one half can invalidate the other — pick a service, step back,
+  // then choose a specialist who doesn't perform it. Dropping the stale half
+  // here, where the change happens, keeps it out of an effect: syncing state
+  // to state in an effect costs a cascading render for no benefit.
   function chooseDoctor(id: number) {
     setDoctorId(id);
     loadSlots(id);
+    if (!pairAllowed(id, serviceId)) setServiceId(null);
   }
 
+  function chooseService(id: number) {
+    setServiceId(id);
+    if (doctorId != null && !pairAllowed(doctorId, id)) {
+      setDoctorId(null);
+      setSlots(null);
+      setDateKey(null);
+      setSlotStart(null);
+    }
+  }
+
+  /* ── Per-specialist scope ────────────────────────────────────────────
+   * Only the dependent list narrows, so going back to change the first choice
+   * always shows everything again. `serviceId === 0` is the explicit "just a
+   * consultation" option, which every specialist can take — it must never
+   * narrow the doctor list. */
+
+  const scopedServices = useMemo(() => {
+    if (!services) return null;
+    if (mode !== "doctor" || doctorId == null) return services;
+    return services.filter((s) => isServiceAllowed(scope[doctorId], s.id, s.groupId));
+  }, [services, scope, mode, doctorId]);
+
+  const scopedDoctors = useMemo(() => {
+    if (!doctors) return null;
+    if (mode !== "service" || serviceId == null || serviceId === 0) return doctors;
+    const picked = services?.find((s) => s.id === serviceId);
+    if (!picked) return doctors;
+    return doctors.filter((d) => isServiceAllowed(scope[d.id], picked.id, picked.groupId));
+  }, [doctors, services, scope, mode, serviceId]);
+
+  /** True when the scope actually removed something — drives the explanation. */
+  const servicesNarrowed =
+    services != null && scopedServices != null && scopedServices.length < services.length;
+  const doctorsNarrowed =
+    doctors != null && scopedDoctors != null && scopedDoctors.length < doctors.length;
+
   const filteredServices = useMemo(() => {
-    if (!services) return [];
+    if (!scopedServices) return [];
     const q = query.trim().toLowerCase();
-    return q ? services.filter((s) => s.title.toLowerCase().includes(q)) : services;
-  }, [services, query]);
+    return q ? scopedServices.filter((s) => s.title.toLowerCase().includes(q)) : scopedServices;
+  }, [scopedServices, query]);
 
   const daySlots = useMemo(
     () => (slots && dateKey ? slots.filter((s) => kyivDateKey(s.start) === dateKey) : []),
@@ -242,6 +306,13 @@ export default function AppointmentWizard({
         go("when");
         setErrors({ generic: t("errorSlotTaken") });
         setSlotTaken(true);
+      } else if (res.errorKey === "serviceUnavailable") {
+        // The scope changed under an open tab. Drop the stale pick and return
+        // to the service step, where the choice can actually be corrected —
+        // leaving them on the contact step with a message would be a dead end.
+        setServiceId(null);
+        go("service");
+        setErrors({ generic: t("errorServiceUnavailable") });
       } else if (res.errorKey === "unavailable") setErrors({ generic: t("errorUnavailable") });
       else setErrors({ generic: t("errorGeneric") });
     });
@@ -424,8 +495,8 @@ export default function AppointmentWizard({
           </div>
 
           {mode === "service"
-            ? <ServiceGrid services={filteredServices} all={services} selected={serviceId} onSelect={setServiceId} query={query} onQuery={setQuery} t={t} locale={locale} hourShort={hourShort} minShort={minShort} />
-            : <DoctorList doctors={doctors} selected={doctorId} onSelect={chooseDoctor} t={t} locale={locale} />}
+            ? <ServiceGrid services={filteredServices} all={scopedServices} selected={serviceId} onSelect={chooseService} query={query} onQuery={setQuery} t={t} locale={locale} hourShort={hourShort} minShort={minShort} />
+            : <DoctorList doctors={scopedDoctors} selected={doctorId} onSelect={chooseDoctor} t={t} locale={locale} />}
         </div>
       )}
 
@@ -438,9 +509,39 @@ export default function AppointmentWizard({
           <p className="body-m text-muted mt-3 mb-6 max-w-xl">
             {mode === "service" ? t("step2DoctorSub") : t("step2ServiceSub")}
           </p>
-          {mode === "service"
-            ? <DoctorList doctors={doctors} selected={doctorId} onSelect={chooseDoctor} t={t} locale={locale} />
-            : <ServiceGrid services={filteredServices} all={services} selected={serviceId} onSelect={setServiceId} query={query} onQuery={setQuery} t={t} locale={locale} hourShort={hourShort} minShort={minShort} />}
+          {mode === "service" ? (
+            <>
+              {doctorsNarrowed && service && (
+                <ScopeNote label={t("scopeDoctorsFor")} subject={`«${service.title}»`} />
+              )}
+              {scopedDoctors?.length === 0 ? (
+                <ScopeEmpty
+                  message={t("scopeNoDoctors")}
+                  action={t("scopeNoDoctorsAction")}
+                  onAction={() => { setServiceId(null); go("service"); }}
+                  phone={phone}
+                />
+              ) : (
+                <DoctorList doctors={scopedDoctors} selected={doctorId} onSelect={chooseDoctor} t={t} locale={locale} />
+              )}
+            </>
+          ) : (
+            <>
+              {servicesNarrowed && doctor && (
+                <ScopeNote label={t("scopeServicesFor")} subject={doctor.name} />
+              )}
+              {scopedServices?.length === 0 ? (
+                <ScopeEmpty
+                  message={t("scopeNoServices")}
+                  action={t("scopeNoServicesAction")}
+                  onAction={() => { setDoctorId(null); go("doctor"); }}
+                  phone={phone}
+                />
+              ) : (
+                <ServiceGrid services={filteredServices} all={scopedServices} selected={serviceId} onSelect={chooseService} query={query} onQuery={setQuery} t={t} locale={locale} hourShort={hourShort} minShort={minShort} />
+              )}
+            </>
+          )}
         </div>
       )}
 
@@ -691,6 +792,62 @@ const cardCls = (on: boolean) =>
     on ? "border-main bg-white"
        : "border-transparent bg-champagne-dark hover:bg-champagne-darker"
   }`;
+
+/**
+ * Why this list is shorter than the catalogue.
+ *
+ * An unexplained short list reads as a broken page, so the narrowing always
+ * says whose it is. Rendered only when the scope actually removed something —
+ * a specialist nobody has mapped yet sees no note, because nothing was hidden.
+ */
+function ScopeNote({ label, subject }: { label: string; subject: string }) {
+  return (
+    <p className="bk-fade flex items-start gap-2 mb-4 body-s text-muted">
+      <Check className="w-4 h-4 mt-0.5 shrink-0 text-main" aria-hidden="true" />
+      <span>
+        {label} <span className="text-black">{subject}</span>
+      </span>
+    </p>
+  );
+}
+
+/**
+ * The scope left nothing to show.
+ *
+ * Shouldn't happen in normal use — an unmapped specialist is offered the whole
+ * catalogue — but a mapping can point at categories that hold no bookable
+ * service, and a dead end on a booking page costs a patient. Always offers a
+ * way onwards and the phone number as the guaranteed fallback.
+ */
+function ScopeEmpty({
+  message, action, onAction, phone,
+}: {
+  message: string;
+  action: string;
+  onAction: () => void;
+  phone: string;
+}) {
+  return (
+    <div className="bk-fade rounded-[var(--radius-card)] border border-line bg-champagne-dark/60 p-6 text-center">
+      <p className="body-m text-black">{message}</p>
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+        <button
+          type="button"
+          onClick={onAction}
+          className="px-5 py-2.5 rounded-[var(--radius-button)] bg-main text-white body-m cursor-pointer transition-opacity duration-200 hover:opacity-90"
+        >
+          {action}
+        </button>
+        <a
+          href={`tel:${phone.replace(/\s/g, "")}`}
+          className="px-5 py-2.5 rounded-[var(--radius-button)] border border-line body-m text-black transition-colors duration-200 hover:border-stone-light"
+        >
+          {phone}
+        </a>
+      </div>
+    </div>
+  );
+}
 
 function ServiceGrid({
   services, all, selected, onSelect, query, onQuery, t, locale, hourShort, minShort,
