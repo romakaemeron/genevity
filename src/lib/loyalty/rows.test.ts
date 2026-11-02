@@ -13,6 +13,8 @@ const base = {
   revoked_by: null,
   revoked_at: null,
   google_object_id: null,
+  apple_auth_token: "c".repeat(64),
+  pass_updated_at: new Date("2026-03-04T05:06:07Z"),
 };
 
 describe("rowToCard", () => {
@@ -23,6 +25,8 @@ describe("rowToCard", () => {
     expect(c.holderName).toBe("Test Holder");
     expect(c.issuedBy).toBe(base.issued_by);
     expect(c.tier).toBe(10);
+    expect(c.appleAuthToken).toBe("c".repeat(64));
+    expect(c.passUpdatedAt).toBe(base.pass_updated_at);
   });
   it("keeps nullable fields null", () => {
     const c = rowToCard(base);
@@ -38,6 +42,8 @@ describe("rowToCard", () => {
     expect(c.revokedAt).toBeInstanceOf(Date);
     expect(c.status).toBe("revoked");
     expect(c.tier).toBe(15);
+    expect(rowToCard({ ...base, pass_updated_at: "2026-03-04T05:06:07.123Z" }).passUpdatedAt.getTime())
+      .toBe(Date.parse("2026-03-04T05:06:07.123Z"));
     expect(rowToCard(base).issuedAt).toBe(base.issued_at);
   });
 });

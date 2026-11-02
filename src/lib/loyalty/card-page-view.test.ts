@@ -15,6 +15,7 @@ const card = (over: Partial<LoyaltyCard> = {}): LoyaltyCard => ({
   revokedBy: null,
   revokedAt: null,
   googleObjectId: null,
+  appleAuthToken: "t".repeat(64), passUpdatedAt: new Date("2026-01-01T00:00:00Z"),
   ...over,
 });
 const IPHONE = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)";

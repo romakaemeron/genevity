@@ -3,7 +3,7 @@ import path from "node:path";
 import { PKPass } from "passkit-generator";
 import { TIER_STYLE } from "./tiers";
 import type { LoyaltyCard } from "./types";
-import { verifyUrl } from "./urls";
+import { getPublicBase, verifyUrl } from "./urls";
 
 export class WalletNotConfiguredError extends Error {
   constructor(message = "Apple Wallet is not configured") {
@@ -29,6 +29,11 @@ function rgb(hex: string): string {
   return `rgb(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255})`;
 }
 
+/** Base URL Apple Wallet calls for updates; Apple appends `/v1/...`. */
+export function passWebServiceUrl(): string {
+  return `${getPublicBase()}/api/loyalty/apple`;
+}
+
 export function buildPassJson(
   card: LoyaltyCard,
   cfg: { passTypeIdentifier: string; teamIdentifier: string },
@@ -42,6 +47,9 @@ export function buildPassJson(
     organizationName: "GENEVITY",
     description: "GENEVITY Friends",
     sharingProhibited: true,
+    // Guarded so a row without the token (migration 029 not applied) still yields a valid pass.
+    ...(card.appleAuthToken ? { webServiceURL: passWebServiceUrl(), authenticationToken: card.appleAuthToken } : {}),
+    ...(card.status === "revoked" ? { voided: true } : {}),
     backgroundColor: rgb(style.background),
     foregroundColor: rgb(style.foreground),
     labelColor: rgb(style.label),

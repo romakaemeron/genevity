@@ -5,12 +5,15 @@ import {
   buildGenericObject,
   createSaveUrl,
   expireObject,
+  updateObject,
+  upsertGenericClass,
   genericClassId,
   genericObjectId,
   isGoogleConfigured,
   signSaveJwt,
 } from "./google";
 import { getPublicBase, verifyUrl } from "./urls";
+import { LOYALTY_DESIGN_VERSION } from "./tiers";
 import type { LoyaltyCard } from "./types";
 
 /** Nested JSON view for assertions (avoids `any`). */
@@ -29,6 +32,7 @@ function card(over: Partial<LoyaltyCard> = {}): LoyaltyCard {
     revokedBy: null,
     revokedAt: null,
     googleObjectId: null,
+    appleAuthToken: "t".repeat(64), passUpdatedAt: new Date("2026-01-01T00:00:00Z"),
     ...over,
   };
 }
@@ -69,8 +73,8 @@ describe("buildGenericObject", () => {
     expect(o.header.defaultValue.value).toBe(c.holderName);
     expect(o.hexBackgroundColor).toBe("#1B1714");
     expect(o.barcode).toEqual({ type: "QR_CODE", value: verifyUrl(c.verifyToken) });
-    expect(o.heroImage.sourceUri.uri.endsWith("/loyalty/google-hero-15.png")).toBe(true);
-    expect(o.logo.sourceUri.uri.endsWith("/loyalty/google-logo-15.png")).toBe(true);
+    expect(o.heroImage.sourceUri.uri.endsWith(`/loyalty/google-hero-15.png?v=${LOYALTY_DESIGN_VERSION}`)).toBe(true);
+    expect(o.logo.sourceUri.uri.endsWith(`/loyalty/google-logo-15.png?v=${LOYALTY_DESIGN_VERSION}`)).toBe(true);
     expect(o.heroImage.sourceUri.uri.startsWith(getPublicBase())).toBe(true);
     expect(JSON.stringify(o)).not.toContain("%");
   });
@@ -181,5 +185,63 @@ describe("expireObject", () => {
   it("rejects on 500 with the status", async () => {
     await setup(500);
     await expect(expireObject(card())).rejects.toThrow(/500/);
+  });
+});
+
+describe("upsertGenericClass", () => {
+  const creds = { issuerId: "3388000000000000001", clientEmail: "e", privateKey: "k" };
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("creates the class with POST", async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await upsertGenericClass(creds, "tok", 10);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][1].method).toBe("POST");
+  });
+
+  it("patches an existing class on 409", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response("{}", { status: 409 }))
+      .mockResolvedValueOnce(new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await upsertGenericClass(creds, "tok", 15);
+    const [url, init] = fetchMock.mock.calls[1];
+    expect(url).toBe(`https://walletobjects.googleapis.com/walletobjects/v1/genericClass/${creds.issuerId}.genevity_friends_15`);
+    expect(init.method).toBe("PATCH");
+  });
+
+  it("throws with the status only", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("secret detail", { status: 403 })));
+    await expect(upsertGenericClass(creds, "tok", 10)).rejects.toThrow(/^Google Wallet class update failed \(403\)$/);
+  });
+});
+
+describe("updateObject", () => {
+  const creds = { issuerId: "3388000000000000001", clientEmail: "e", privateKey: "k" };
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("patches the full object with versioned images, using the stored object id", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(updateObject(card({ googleObjectId: "stored.id" }), creds, "tok")).resolves.toBe(true);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe("https://walletobjects.googleapis.com/walletobjects/v1/genericObject/stored.id");
+    expect(init.method).toBe("PATCH");
+    const body = JSON.parse(init.body);
+    expect(body.id).toBe("stored.id");
+    expect(body.heroImage.sourceUri.uri).toContain(`?v=${LOYALTY_DESIGN_VERSION}`);
+    expect(body.state).toBeUndefined();
+  });
+
+  it("returns false when the holder never saved the card (404)", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("{}", { status: 404 })));
+    await expect(updateObject(card(), creds, "tok")).resolves.toBe(false);
+  });
+
+  it("throws on other errors", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("{}", { status: 500 })));
+    await expect(updateObject(card(), creds, "tok")).rejects.toThrow(/500/);
   });
 });

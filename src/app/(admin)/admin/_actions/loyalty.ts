@@ -4,12 +4,33 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "./auth";
 import { logChange } from "@/lib/audit";
-import { insertCard, getCardById, markRevoked, setGoogleObjectId } from "@/lib/db/queries/loyalty";
+import {
+  insertCard,
+  getCardById,
+  markRevoked,
+  setGoogleObjectId,
+  bumpPassUpdatedAt,
+  bumpPassUpdatedAtForActiveCards,
+} from "@/lib/db/queries/loyalty";
 import { isUuid, parseIssueInput } from "@/lib/loyalty/validation";
 import { expireObject, genericObjectId, isGoogleConfigured } from "@/lib/loyalty/google";
+import { notifyAppleForActiveCards, notifyAppleForCards, refreshGoogleObjects } from "@/lib/loyalty/pass-updates";
 
 export type IssueState = { error?: string };
 export type RevokeResult = { ok: boolean; googleWarning?: string; error?: string };
+export type RefreshPassesResult =
+  | {
+      ok: true;
+      cards: number;
+      applePushed: number;
+      appleFailed: number;
+      /** The push batch itself failed (not a per-device failure). */
+      appleError: boolean;
+      googleUpdated: number;
+      googleNotSaved: number;
+      googleFailed: number;
+    }
+  | { ok: false; error: string };
 
 async function requireAdmin() {
   const session = await requireSession();
@@ -87,6 +108,14 @@ export async function revokeCardAction(id: string): Promise<RevokeResult> {
     });
     revalidatePath("/admin/loyalty");
     revalidatePath(`/admin/loyalty/${id}`);
+
+    // Best effort: the iPhone pass re-downloads as voided. Never fails the revoke.
+    try {
+      await bumpPassUpdatedAt(id);
+      await notifyAppleForCards([id]);
+    } catch {
+      // Holder's Apple pass stays as-is; scanning still shows it as cancelled.
+    }
   }
 
   if (!isGoogleConfigured()) return { ok: true };
@@ -100,4 +129,54 @@ export async function revokeCardAction(id: string): Promise<RevokeResult> {
     };
   }
   return { ok: true };
+}
+
+/**
+ * After a design change has been deployed: marks every active card's pass as
+ * changed, pushes Apple Wallet devices to re-download it, and re-sends Google
+ * Wallet classes/objects. Per-card best effort; returns counts for the admin.
+ */
+export async function refreshAllPassesAction(): Promise<RefreshPassesResult> {
+  await requireAdmin();
+
+  let cards;
+  try {
+    cards = await bumpPassUpdatedAtForActiveCards();
+  } catch {
+    return { ok: false, error: "Не вдалося оновити картки. Спробуйте ще раз." };
+  }
+
+  let apple = { pushed: 0, failed: 0 };
+  let appleError = false;
+  try {
+    apple = await notifyAppleForActiveCards();
+  } catch {
+    // e.g. the APNs session could not be opened; holders can still pull to refresh on the pass.
+    appleError = true;
+  }
+
+  let google = { updated: 0, notSaved: 0, failed: 0 };
+  try {
+    google = (await refreshGoogleObjects(cards)) ?? google;
+  } catch {
+    google = { updated: 0, notSaved: 0, failed: cards.length };
+  }
+
+  await logChange({
+    action: "update",
+    entityType: "loyalty_card",
+    entityLabel: "Оновлення дизайну всіх карток",
+    after: { cards: cards.length, applePushed: apple.pushed, googleUpdated: google.updated },
+  });
+
+  return {
+    ok: true,
+    cards: cards.length,
+    applePushed: apple.pushed,
+    appleFailed: apple.failed,
+    appleError,
+    googleUpdated: google.updated,
+    googleNotSaved: google.notSaved,
+    googleFailed: google.failed,
+  };
 }

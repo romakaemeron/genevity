@@ -19,6 +19,7 @@ const token = generateToken();
 const card = {
   id: "1", addToken: "a", verifyToken: token, holderName: "Олена", tier: 15, status: "active",
   issuedBy: null, issuedAt: new Date("2026-10-29T10:00:00Z"), revokedBy: null, revokedAt: null, googleObjectId: null,
+  appleAuthToken: "t".repeat(64), passUpdatedAt: new Date("2026-01-01T00:00:00Z"),
 };
 
 beforeEach(() => {

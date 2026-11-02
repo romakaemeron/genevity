@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { requireAdminPage } from "./_guard";
 import { getAdminLocale, getAdminStrings } from "../_i18n/server";
+import RefreshPassesButton from "./_components/refresh-passes-button";
 
 export const dynamic = "force-dynamic";
 
@@ -56,6 +57,10 @@ export default async function LoyaltyPage() {
             </TableBody>
           </Table>
         )}
+      </Card>
+      <Card className="p-6 mt-6 flex flex-col gap-4">
+        <h2 className="text-base font-semibold">{l.refreshTitle}</h2>
+        <RefreshPassesButton />
       </Card>
     </div>
   );

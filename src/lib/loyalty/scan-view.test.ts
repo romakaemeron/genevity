@@ -14,6 +14,7 @@ const base: LoyaltyCard = {
   revokedBy: null,
   revokedAt: null,
   googleObjectId: null,
+  appleAuthToken: "t".repeat(64), passUpdatedAt: new Date("2026-01-01T00:00:00Z"),
 };
 
 describe("scanView", () => {
