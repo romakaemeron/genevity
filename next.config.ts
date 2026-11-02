@@ -48,6 +48,7 @@ const nextConfig = {
   // tracer cannot see them; ship them with the pass route's function.
   outputFileTracingIncludes: {
     "/api/loyalty/pass/[addToken]": ["./src/lib/loyalty/assets/apple/**"],
+    "/api/loyalty/apple/v1/passes/[passTypeId]/[serial]": ["./src/lib/loyalty/assets/apple/**"],
   },
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],

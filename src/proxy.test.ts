@@ -148,6 +148,16 @@ describe("proxy server actions and matcher", () => {
     expect(hits("/admin/services/a.b")).toBe(true);
     expect(hits("/api/admin/x.y")).toBe(true);
   });
+
+  it("matcher skips the public Apple Wallet web service (no i18n, auth or redirects)", () => {
+    const hits = (p: string) =>
+      config.matcher.some((m: string) => (pathToRegexp(m) as RegExp).test(p));
+    const serial = "11111111-1111-4111-8111-111111111111";
+    expect(hits(`/api/loyalty/apple/v1/devices/abc123/registrations/pass.com.genevity.friends/${serial}`)).toBe(false);
+    expect(hits("/api/loyalty/apple/v1/devices/abc123/registrations/pass.com.genevity.friends")).toBe(false);
+    expect(hits(`/api/loyalty/apple/v1/passes/pass.com.genevity.friends/${serial}`)).toBe(false);
+    expect(hits("/api/loyalty/apple/v1/log")).toBe(false);
+  });
 });
 
 describe("proxy next-action on any path", () => {
