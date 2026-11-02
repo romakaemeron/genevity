@@ -5,7 +5,7 @@ import type { Tier } from "./types";
  * then press "refresh design" in the admin. Google caches pass images by URL,
  * so this is appended to Google image URLs as `?v=` to force a re-fetch.
  */
-export const LOYALTY_DESIGN_VERSION = 1;
+export const LOYALTY_DESIGN_VERSION = 2;
 
 export const TIERS: readonly Tier[] = [10, 15];
 
@@ -28,14 +28,14 @@ export interface TierStyle {
 
 export const TIER_STYLE: Record<Tier, TierStyle> = {
   10: {
-    background: "#D6C6B1",
-    foreground: "#33291F",
-    label: "#5F4F3F",
-    stripFrom: "#D6C6B1",
-    stripTo: "#E6D9C7",
-    line: "#5A4D42",
-    lineOpacity: 0.4,
-    numberGradient: ["#4E4137", "#33291F"],
+    background: "#EDE5D8",
+    foreground: "#3A3028",
+    label: "#8B7B6B",
+    stripFrom: "#EDE5D8",
+    stripTo: "#F9F5EC",
+    line: "#8B7B6B",
+    lineOpacity: 0.34,
+    numberGradient: ["#6B5E51", "#3A3028"],
     logo: "dark",
   },
   15: {
