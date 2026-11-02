@@ -16,6 +16,7 @@
 
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
+import Button from "@/components/ui/Button";
 import type { PublicationKind, PublicationView } from "@/lib/db/queries/doctors";
 import { useScrollReveal } from "@/lib/useReveal";
 
@@ -73,16 +74,6 @@ const KIND_LABELS: Record<string, Record<PublicationKind, string>> = {
   },
 };
 
-function BookIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-      <path d="M9 7h7M9 11h7" />
-    </svg>
-  );
-}
-
 interface Props {
   publications: PublicationView[];
   locale: string;
@@ -117,43 +108,42 @@ export default function DoctorPublications({ publications, locale, doctorName }:
       className={`bg-champagne py-12 lg:py-16 scroll-mt-28 ${visible ? "revealed" : ""}`}
     >
       <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="reveal flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-full bg-main/10 text-main flex items-center justify-center shrink-0">
-            <BookIcon />
-          </div>
-          <h2 className="heading-2 text-black">{t.title}</h2>
-        </div>
+        <h2 className="reveal heading-2 text-black mb-3">{t.title}</h2>
         <p className="reveal d1 body-m text-black-60 max-w-[680px] mb-6">{t.subtitle}</p>
 
         <ol className="reveal d2 divide-y divide-champagne-darker border-y border-champagne-darker">
           {shown.map((p, i) => {
             const meta = [p.source, p.year].filter(Boolean).join(" · ");
             return (
-              <li key={i} className="flex gap-3 sm:gap-4 py-3.5">
-                <span className="body-s text-black-50 tabular-nums w-6 shrink-0 text-right pt-px">{i + 1}.</span>
-                <div className="flex-1 min-w-0">
-                  <p className="body-s text-black leading-snug">
-                    {mixed && p.kind !== dominant && (
-                      <span className="mr-2 align-middle text-[11px] px-2 py-0.5 rounded-full bg-champagne-dark border border-champagne-darker text-black-50 whitespace-nowrap">
-                        {kinds[p.kind]}
-                      </span>
-                    )}
-                    {p.title}
-                  </p>
-                  {meta && <p className="body-s text-black-50 mt-1">{meta}</p>}
+              <li key={i} className="flex gap-3 sm:gap-4 py-4">
+                <span className="text-base text-black-50 tabular-nums w-7 shrink-0 text-right">{i + 1}.</span>
+                <div className="flex-1 min-w-0 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                  <div className="min-w-0">
+                    <p className="text-base text-black leading-relaxed">
+                      {mixed && p.kind !== dominant && (
+                        <span className="mr-2 align-middle text-xs px-2.5 py-0.5 rounded-full bg-champagne-dark border border-champagne-darker text-black-50 whitespace-nowrap">
+                          {kinds[p.kind]}
+                        </span>
+                      )}
+                      {p.title}
+                    </p>
+                    {meta && <p className="body-m text-black-50 mt-1">{meta}</p>}
+                  </div>
+                  {p.url && (
+                    <Button
+                      href={p.url}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      ariaLabel={`${t.verify}: ${p.title} — ${doctorName}`}
+                      variant="outline"
+                      size="sm"
+                      className="self-start shrink-0"
+                    >
+                      {t.verify}
+                      <ExternalLink size={14} />
+                    </Button>
+                  )}
                 </div>
-                {p.url && (
-                  <a
-                    href={p.url}
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                    aria-label={`${t.verify}: ${p.title} — ${doctorName}`}
-                    className="group inline-flex items-center gap-1.5 self-start shrink-0 body-s font-medium text-main hover:text-main-dark transition-colors"
-                  >
-                    <span className="hidden sm:inline">{t.verify}</span>
-                    <ExternalLink size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </a>
-                )}
               </li>
             );
           })}
@@ -162,15 +152,11 @@ export default function DoctorPublications({ publications, locale, doctorName }:
         {publications.length > INITIAL && (
           <div className="mt-5 flex items-center gap-4">
             {limit < publications.length && (
-              <button
-                type="button"
-                onClick={() => setLimit((n) => Math.min(n + STEP, publications.length))}
-                className="body-s font-medium text-main hover:text-main-dark transition-colors border border-main/30 hover:border-main rounded-xl px-5 py-2.5"
-              >
+              <Button variant="outline" onClick={() => setLimit((n) => Math.min(n + STEP, publications.length))}>
                 {t.more}
-              </button>
+              </Button>
             )}
-            <span className="body-s text-black-50">{t.count(shown.length, publications.length)}</span>
+            <span className="body-m text-black-50">{t.count(shown.length, publications.length)}</span>
           </div>
         )}
       </div>
