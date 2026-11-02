@@ -58,7 +58,7 @@ export default function AboutPageComponent({ about, locale, doctors, doctorsUi, 
     <>
       {/* Hero — above fold, no animation */}
       <section className="bg-champagne">
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-10 lg:pb-16">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-header pb-10 lg:pb-16">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12">
             <div className="flex-1 max-w-lg lg:py-8">
               <Breadcrumbs

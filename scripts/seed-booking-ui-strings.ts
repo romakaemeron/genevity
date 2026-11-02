@@ -256,6 +256,14 @@ const BOOKING: Record<string, L> = {
     ru: "Это время только что заняли. Выберите, пожалуйста, другое — список уже обновлён.",
     en: "That time was just taken. Please choose another — the list is already updated.",
   },
+  // Category chips over the service list — the same pill control the price
+  // list uses, so the booking flow borrows something visitors already know.
+  allCategories: {
+    uk: "Усі напрями",
+    ru: "Все направления",
+    en: "All areas",
+  },
+
   // ── Per-specialist service scope ──────────────────────────────────────
   // RoApp can't say which specialist performs which service, so the mapping
   // lives on our side (migration 028). These label the resulting narrowing so

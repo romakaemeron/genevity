@@ -43,7 +43,7 @@ export default async function NotFound() {
     // of its own — declare it on the wrapper instead.
     <div lang={htmlLang(locale)} className={`${fontVariables} antialiased`}>
       <MegaMenuHeader variant="solid" position="fixed" />
-      <div className="min-h-screen bg-champagne flex flex-col items-center justify-center px-6 text-center pt-24 pb-20">
+      <div className="min-h-screen bg-champagne flex flex-col items-center justify-center px-6 text-center pt-header pb-20">
         <p className="body-s text-muted mb-4 tracking-widest uppercase">{t.kicker}</p>
         <h1
           className="text-black mb-6"

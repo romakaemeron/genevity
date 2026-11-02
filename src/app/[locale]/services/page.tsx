@@ -52,7 +52,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
         { name: servicesLabel, url: `https://genevity.com.ua${localePrefix}/services` },
       ]} />
       <MegaMenuHeader variant="solid" position="fixed" />
-      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-20">
+      <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-header pb-20">
         <div className="animate-enter animate-enter-1">
           <Breadcrumbs
             items={[

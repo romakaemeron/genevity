@@ -67,7 +67,7 @@ export default function DoctorsPageComponent({ doctors, locale, doctorsUi, detai
       ))}
 
       <section className="bg-champagne">
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-12 lg:pb-16">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-header pb-12 lg:pb-16">
           <Breadcrumbs
             items={[
               { label: tLabels("home"), href: "/" },

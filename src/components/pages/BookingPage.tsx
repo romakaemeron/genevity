@@ -67,7 +67,7 @@ export default function BookingPage({ locale, ui, phone, hours, address }: Props
   return (
     <>
       <section className="bg-champagne">
-        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-28 pb-8 lg:pb-10">
+        <div className="max-w-container mx-auto px-4 sm:px-6 lg:px-12 pt-header pb-8 lg:pb-10">
           <Breadcrumbs
             items={[
               { label: tLabels("home"), href: "/" },

@@ -63,7 +63,7 @@ export default async function LegalPage({
         ]}
       />
       <MegaMenuHeader variant="solid" position="fixed" />
-      <div className="pt-32 pb-24 bg-champagne">
+      <div className="pt-header pb-24 bg-champagne">
         <div className="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
           <Link
             href="/"

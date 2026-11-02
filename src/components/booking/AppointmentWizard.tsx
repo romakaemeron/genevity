@@ -89,6 +89,9 @@ export default function AppointmentWizard({
   const locale = useLocale();
 
   const [mode, setMode] = useState<EntryMode>("service");
+  // Read inside the deferred advance, which would otherwise close over a stale
+  // mode if the visitor switched entry point between pick and fire.
+  const modeRef = useRef<EntryMode>("service");
   const [step, setStep] = useState<Step>("service");
   const [doctors, setDoctors] = useState<BookingDoctor[] | null>(null);
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
@@ -178,6 +181,7 @@ export default function AppointmentWizard({
 
   function chooseMode(next: EntryMode) {
     setMode(next);
+    modeRef.current = next;
     setStep(STEP_ORDER[next][0]);
   }
 
@@ -196,10 +200,47 @@ export default function AppointmentWizard({
   // then choose a specialist who doesn't perform it. Dropping the stale half
   // here, where the change happens, keeps it out of an effect: syncing state
   // to state in an effect costs a cascading render for no benefit.
+  /**
+   * Move on once a choice is made, instead of asking for a second click.
+   *
+   * The three picking steps have exactly one decision each, so the "Далі"
+   * button was a tax on every booking. The short delay is deliberate: the
+   * selected state has to be visible for a beat, or the step changes with no
+   * acknowledgement that the tap registered.
+   *
+   * `Далі` stays in the footer. Someone who steps back to review already has a
+   * selection, so a step that only moved on a *fresh* pick would otherwise
+   * trap them with no way forward.
+   */
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const advanceAfterPick = useCallback(
+    (from: Step) => {
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
+      advanceTimer.current = setTimeout(() => {
+        // Guard against a late fire after the visitor has already navigated.
+        setStep((current) => {
+          if (current !== from) return current;
+          const order = STEP_ORDER[modeRef.current];
+          const i = order.indexOf(current);
+          return i >= 0 && i < order.length - 1 ? order[i + 1] : current;
+        });
+        setErrors({});
+      }, 260);
+    },
+    [],
+  );
+
+  // Clear a pending advance on unmount so it can't fire into a dead component.
+  useEffect(() => () => {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+  }, []);
+
   function chooseDoctor(id: number) {
     setDoctorId(id);
     loadSlots(id);
-    if (!pairAllowed(id, serviceId)) setServiceId(null);
+    const keptService = pairAllowed(id, serviceId);
+    if (!keptService) setServiceId(null);
+    advanceAfterPick("doctor");
   }
 
   function chooseService(id: number) {
@@ -210,6 +251,12 @@ export default function AppointmentWizard({
       setDateKey(null);
       setSlotStart(null);
     }
+    advanceAfterPick("service");
+  }
+
+  function chooseSlot(start: string) {
+    setSlotStart(start);
+    advanceAfterPick("when");
   }
 
   /* ── Per-specialist scope ────────────────────────────────────────────
@@ -577,7 +624,7 @@ export default function AppointmentWizard({
                             const sel = slotStart === s.start;
                             return (
                               <button
-                                key={s.start} type="button" onClick={() => setSlotStart(s.start)} aria-pressed={sel}
+                                key={s.start} type="button" onClick={() => chooseSlot(s.start)} aria-pressed={sel}
                                 className={`px-4 py-2 rounded-[var(--radius-pill)] border text-[14px] cursor-pointer transition-colors duration-150 ${
                                   sel ? "border-main bg-main text-champagne"
                                       : "border-line bg-champagne-dark text-ink hover:border-stone-light"
@@ -849,6 +896,48 @@ function ScopeEmpty({
   );
 }
 
+/**
+ * Category chips over the service list.
+ *
+ * Narrowing by specialist already cuts the catalogue a long way, but a
+ * dermatologist still carries a hundred services across three headings. The
+ * chips are the same pill pattern the price list uses, so the booking flow
+ * borrows a control visitors have already met rather than inventing one.
+ *
+ * Hidden when there is nothing to choose between: a single category, or a
+ * search that is already doing the filtering.
+ */
+function CategoryChips({
+  categories, active, onSelect, allLabel, counts,
+}: {
+  categories: string[];
+  active: string | null;
+  onSelect: (c: string | null) => void;
+  allLabel: string;
+  counts: Map<string, number>;
+}) {
+  if (categories.length < 2) return null;
+  const total = [...counts.values()].reduce((a, b) => a + b, 0);
+  const chip = (on: boolean) =>
+    `shrink-0 px-4 py-2 rounded-[var(--radius-pill)] body-m cursor-pointer transition-colors duration-200 ${
+      on ? "bg-main text-champagne" : "bg-champagne-dark text-black hover:bg-champagne-darker"
+    }`;
+  return (
+    <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-4 -mx-1 px-1">
+      <button type="button" onClick={() => onSelect(null)} aria-pressed={active === null} className={chip(active === null)}>
+        {allLabel}
+        <span className="body-s opacity-60 ml-2">{total}</span>
+      </button>
+      {categories.map((c) => (
+        <button key={c} type="button" onClick={() => onSelect(c)} aria-pressed={active === c} className={chip(active === c)}>
+          {c}
+          <span className="body-s opacity-60 ml-2">{counts.get(c) ?? 0}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function ServiceGrid({
   services, all, selected, onSelect, query, onQuery, t, locale, hourShort, minShort,
 }: {
@@ -863,6 +952,29 @@ function ServiceGrid({
   hourShort: string;
   minShort: string;
 }) {
+  const [category, setCategory] = useState<string | null>(null);
+
+  const categories = useMemo(() => {
+    const seen = new Map<string, number>();
+    for (const s of services) {
+      const key = s.category ?? t("otherServices");
+      seen.set(key, (seen.get(key) ?? 0) + 1);
+    }
+    return seen;
+  }, [services, t]);
+
+  // A chip can be left selected after the list beneath it changes — switching
+  // specialist, or typing a search. Falling back to "all" keeps the grid from
+  // going silently empty with no obvious cause.
+  const activeCategory = category && categories.has(category) ? category : null;
+  const shown = useMemo(
+    () =>
+      activeCategory
+        ? services.filter((s) => (s.category ?? t("otherServices")) === activeCategory)
+        : services,
+    [services, activeCategory, t],
+  );
+
   if (all === null) return <Loader />;
   return (
     <div className="bk-fade">
@@ -875,11 +987,21 @@ function ServiceGrid({
         />
       </div>
 
-      {services.length === 0 ? (
+      {!query.trim() && (
+        <CategoryChips
+          categories={[...categories.keys()]}
+          active={activeCategory}
+          onSelect={setCategory}
+          allLabel={t("allCategories")}
+          counts={categories}
+        />
+      )}
+
+      {shown.length === 0 ? (
         <p className="body-m text-muted py-8 text-center">{t("serviceNoMatch")}</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {services.map((s) => {
+          {shown.map((s) => {
             const on = selected === s.id;
             return (
               <button key={s.id} type="button" onClick={() => onSelect(s.id)} aria-pressed={on} className={cardCls(on)}>
@@ -923,14 +1045,18 @@ function DoctorList({
         return (
           <button key={d.id} type="button" onClick={() => onSelect(d.id)} aria-pressed={on} className={cardCls(on)}>
             <div className="flex gap-4 items-start">
+              {/* The card has width to spare, and a face is the fastest way to
+                  recognise your own doctor — so the portrait gets real size
+                  rather than the avatar-sized thumbnail it started as. Served
+                  at 2x the rendered box so it stays sharp on retina. */}
               {d.photo ? (
                 <Image
-                  src={d.photo} alt="" width={64} height={64}
-                  className="w-12 h-12 rounded-full object-cover shrink-0"
+                  src={d.photo} alt="" width={160} height={160}
+                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover shrink-0"
                   style={{ objectPosition: d.photoFocalPoint }}
                 />
               ) : (
-                <span className={`shrink-0 w-12 h-12 rounded-full inline-flex items-center justify-center body-strong text-[15px] transition-colors ${
+                <span className={`shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-full inline-flex items-center justify-center body-strong text-[18px] sm:text-[20px] transition-colors ${
                   on ? "bg-main text-champagne" : "bg-champagne-darker text-main"
                 }`}>
                   {d.name.split(" ").slice(0, 2).map((w) => w[0]).join("")}

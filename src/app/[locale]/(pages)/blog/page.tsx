@@ -60,7 +60,7 @@ export default async function BlogIndexPage({ params, searchParams }: {
         { name: h1Labels[locale] || h1Labels.ua, url: `https://genevity.com.ua${localePrefix}/blog` },
       ]} />
       <MegaMenuHeader variant="solid" position="fixed" />
-      <div className="pt-32 pb-24 bg-champagne min-h-screen">
+      <div className="pt-header pb-24 bg-champagne min-h-screen">
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)]">
           <h1 className="heading-2 text-black mb-4">{h1Labels[locale] || h1Labels.ua}</h1>
 
