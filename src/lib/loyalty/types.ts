@@ -17,4 +17,8 @@ export interface LoyaltyCard {
   revokedBy: string | null;
   revokedAt: Date | null;
   googleObjectId: string | null;
+  /** Per-card secret Apple Wallet sends back as `Authorization: ApplePass <token>`. */
+  appleAuthToken: string;
+  /** Bumped when the pass content changes; drives PassKit update polling. */
+  passUpdatedAt: Date;
 }

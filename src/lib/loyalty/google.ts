@@ -1,5 +1,5 @@
 import { importPKCS8, SignJWT } from "jose";
-import { TIER_STYLE } from "./tiers";
+import { LOYALTY_DESIGN_VERSION, TIER_STYLE } from "./tiers";
 import type { LoyaltyCard, Tier } from "./types";
 import { getPublicBase, verifyUrl } from "./urls";
 
@@ -69,8 +69,9 @@ export function buildGenericObject(issuerId: string, card: LoyaltyCard): Record<
     subheader: text("Власник картки"),
     header: text(card.holderName),
     hexBackgroundColor: TIER_STYLE[card.tier].background,
-    logo: { sourceUri: { uri: `${base}/loyalty/google-logo-${card.tier}.png` } },
-    heroImage: { sourceUri: { uri: `${base}/loyalty/google-hero-${card.tier}.png` } },
+    // `?v=` busts Google's image cache when the artwork changes (bump LOYALTY_DESIGN_VERSION).
+    logo: { sourceUri: { uri: `${base}/loyalty/google-logo-${card.tier}.png?v=${LOYALTY_DESIGN_VERSION}` } },
+    heroImage: { sourceUri: { uri: `${base}/loyalty/google-hero-${card.tier}.png?v=${LOYALTY_DESIGN_VERSION}` } },
     barcode: { type: "QR_CODE", value: verifyUrl(card.verifyToken) },
   };
 }
@@ -123,6 +124,41 @@ export async function getAccessToken(creds: GoogleCreds): Promise<string> {
   const json = (await res.json()) as { access_token?: string };
   if (!json.access_token) throw new Error("Google token exchange returned no access token");
   return json.access_token;
+}
+
+export function readGoogleCreds(): GoogleCreds | null {
+  return readCreds();
+}
+
+const API = "https://walletobjects.googleapis.com/walletobjects/v1";
+
+/** Creates the tier's class, or patches it when it already exists (409). */
+export async function upsertGenericClass(creds: GoogleCreds, token: string, tier: Tier): Promise<void> {
+  const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+  const body = JSON.stringify(buildGenericClass(creds.issuerId, tier));
+  let res = await fetch(`${API}/genericClass`, { method: "POST", headers, body });
+  if (res.status === 409) {
+    const id = genericClassId(creds.issuerId, tier);
+    res = await fetch(`${API}/genericClass/${encodeURIComponent(id)}`, { method: "PATCH", headers, body });
+  }
+  if (!res.ok) throw new Error(`Google Wallet class update failed (${res.status})`);
+}
+
+/**
+ * Re-sends the card's full object so holders see the current design.
+ * Returns false when Google has no object yet (the holder never saved it).
+ */
+export async function updateObject(card: LoyaltyCard, creds: GoogleCreds, token: string): Promise<boolean> {
+  const objectId = card.googleObjectId ?? genericObjectId(creds.issuerId, card);
+  const object = { ...buildGenericObject(creds.issuerId, card), id: objectId };
+  const res = await fetch(`${API}/genericObject/${encodeURIComponent(objectId)}`, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify(object),
+  });
+  if (res.status === 404) return false;
+  if (!res.ok) throw new Error(`Google Wallet object update failed (${res.status})`);
+  return true;
 }
 
 export async function expireObject(card: LoyaltyCard): Promise<void> {

@@ -33,7 +33,8 @@ import { issueCard, revokeCardAction } from "./loyalty";
 const ID = "11111111-1111-4111-8111-111111111111";
 const card = (over: Partial<LoyaltyCard> = {}): LoyaltyCard => ({
   id: ID, addToken: "a", verifyToken: "v", holderName: "Anna", tier: 10, status: "active",
-  issuedBy: "u1", issuedAt: new Date(), revokedBy: null, revokedAt: null, googleObjectId: null, ...over,
+  issuedBy: "u1", issuedAt: new Date(), revokedBy: null, revokedAt: null, googleObjectId: null,
+  appleAuthToken: "t".repeat(64), passUpdatedAt: new Date("2026-01-01T00:00:00Z"), ...over,
 });
 const form = (name: string, tier = "10") => {
   const f = new FormData();

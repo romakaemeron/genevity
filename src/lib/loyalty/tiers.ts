@@ -1,5 +1,12 @@
 import type { Tier } from "./types";
 
+/**
+ * Bump on every card design change (artwork, colours, texts) before deploying,
+ * then press "refresh design" in the admin. Google caches pass images by URL,
+ * so this is appended to Google image URLs as `?v=` to force a re-fetch.
+ */
+export const LOYALTY_DESIGN_VERSION = 1;
+
 export const TIERS: readonly Tier[] = [10, 15];
 
 export function isTier(v: unknown): v is Tier {

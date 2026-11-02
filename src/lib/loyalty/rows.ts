@@ -22,5 +22,7 @@ export function rowToCard(row: Record<string, unknown>): LoyaltyCard {
     revokedBy: (row.revoked_by as string | null) ?? null,
     revokedAt: toDateOrNull(row.revoked_at),
     googleObjectId: (row.google_object_id as string | null) ?? null,
+    appleAuthToken: row.apple_auth_token as string,
+    passUpdatedAt: toDate(row.pass_updated_at),
   };
 }
