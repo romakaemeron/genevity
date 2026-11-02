@@ -33,9 +33,9 @@ describe("buildPassJson", () => {
 
   it("styles tier 10", () => {
     const p = buildPassJson(card(), cfg) as Loose;
-    expect(p.backgroundColor).toBe("rgb(214,198,177)");
-    expect(p.foregroundColor).toBe("rgb(51,41,31)");
-    expect(p.labelColor).toBe("rgb(95,79,63)");
+    expect(p.backgroundColor).toBe("rgb(237,229,216)");
+    expect(p.foregroundColor).toBe("rgb(58,48,40)");
+    expect(p.labelColor).toBe("rgb(139,123,107)");
   });
 
   it("styles tier 15", () => {
