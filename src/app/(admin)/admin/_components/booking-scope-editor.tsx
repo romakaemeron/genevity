@@ -3,27 +3,30 @@
 /**
  * Which services each specialist is offered for in the online booking wizard.
  *
- * Built around categories rather than services: the 232 bookable services sit
- * in 8 headings, so most specialists are a tick or two.
+ * RoApp cannot express this — its booking API accepts an `employee_id` on the
+ * services endpoint and ignores it — so the mapping lives here. Migration 028
+ * has the background.
  *
- * Categories alone are not enough, though, and the exception is the busiest
- * one. "Консультації лікарів" is a single flat category holding 29
- * consultations across 13 specialties — urology, gynaecology, dermatology,
- * dietetics — so ticking it would offer a urologist every consultation the
- * clinic sells. That is why the per-service panel lists the ticked
- * categories' services by default instead of hiding behind a search: for
- * consultations, refining the category *is* the job, not an edge case.
+ * One list, two levels: every category is always visible with a tri-state box
+ * (all / some / none) and expands to its own services. An earlier version put
+ * a category grid above a separate searchable panel, which asked the editor to
+ * hold two models of the same thing at once and hid the services of any
+ * category they had not already ticked. Categories alone are not enough
+ * either: "Консультації лікарів" is one flat heading holding 29 consultations
+ * across 13 specialties, so selecting it wholesale would offer a urologist
+ * every consultation the clinic sells.
  *
- * The rule the UI has to make obvious is the fallback — a specialist with
- * nothing ticked is offered **every** service. That is deliberate (the clinic
- * maps doctors one at a time and a half-done mapping must never show a patient
- * an empty list), but it is surprising if unstated, so an untouched specialist
- * is badged rather than left looking merely blank.
+ * The rule the UI must make obvious is the fallback: a specialist with nothing
+ * selected is offered **every** service. That is deliberate — the clinic maps
+ * doctors one at a time and a half-done mapping must never show a patient an
+ * empty list — but it surprises unless stated, so it is badged rather than
+ * left looking merely blank.
  */
 
 import { useMemo, useState, useTransition } from "react";
-import { ChevronDown, Search, Check } from "lucide-react";
+import { ChevronDown, Search, Check, Minus } from "lucide-react";
 import { saveBookingScope } from "../_actions/booking-scope";
+import { useAdminLocale } from "../_i18n/context";
 import {
   isUnrestricted,
   type EmployeeScope,
@@ -58,6 +61,7 @@ export default function BookingScopeEditor({
   services: ScopeService[];
   initial: ScopeMap;
 }) {
+  const { t } = useAdminLocale();
   const [scopes, setScopes] = useState<Record<number, EmployeeScope>>(() => {
     const out: Record<number, EmployeeScope> = {};
     for (const e of employees) out[e.id] = initial[e.id] ?? emptyScope();
@@ -66,12 +70,7 @@ export default function BookingScopeEditor({
   const [open, setOpen] = useState<number | null>(null);
 
   if (employees.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">
-        Не вдалося отримати список спеціалістів із RoApp. Оновіть сторінку
-        пізніше — редактор працює лише коли RoApp доступний.
-      </p>
-    );
+    return <p className="text-sm text-muted-foreground">{t.bookingScopeEditor.roappDown}</p>;
   }
 
   return (
@@ -103,125 +102,90 @@ function EmployeeRow({
   scope: EmployeeScope;
   expanded: boolean;
   onToggle: () => void;
-  /** Receives the previous scope and returns the next — never a bare value,
-   *  so two toggles landing in one React batch cannot clobber each other. */
+  /** Receives the previous scope and returns the next — never a bare value, so
+   *  two toggles landing in one React batch cannot clobber each other. */
   onChange: (update: (prev: EmployeeScope) => EmployeeScope) => void;
 }) {
+  const { t } = useAdminLocale();
+  const s = t.bookingScopeEditor;
   const [saving, startSave] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState("");
-  /** "scope" = what this specialist is mapped to; otherwise a category id
-   *  being browsed so individual services can be added from it. */
-  const [browse, setBrowse] = useState<string>("scope");
-  // Open as soon as there is something to refine; collapsed is only right
-  // while the specialist has no categories at all.
-  const [showServices, setShowServices] = useState(
-    scope.categories.length > 0 || scope.allowServices.length > 0,
-  );
+  const [openGroup, setOpenGroup] = useState<number | null>(null);
 
   const unrestricted = isUnrestricted(scope);
 
-  /** How many services this specialist is actually offered for, live. */
-  const covered = useMemo(() => {
-    if (unrestricted) return services.length;
-    const cats = new Set(scope.categories);
-    const allow = new Set(scope.allowServices);
-    const deny = new Set(scope.denyServices);
-    return services.filter(
-      (s) =>
-        !deny.has(s.id) &&
-        (allow.has(s.id) || (s.groupId != null && cats.has(s.groupId))),
-    ).length;
-  }, [services, scope, unrestricted]);
+  const byGroup = useMemo(() => {
+    const out = new Map<number, ScopeService[]>();
+    for (const svc of services) {
+      if (svc.groupId == null) continue;
+      if (!out.has(svc.groupId)) out.set(svc.groupId, []);
+      out.get(svc.groupId)!.push(svc);
+    }
+    return out;
+  }, [services]);
 
   /**
-   * What the exceptions panel lists.
+   * Is this one service selected?
    *
-   * With no search it shows the services of the ticked categories, grouped —
-   * because the common job is *refining* a category, not hunting across 232
-   * services. "Консультації лікарів" is the reason: it is a single flat
-   * category holding 29 consultations across 13 specialties, so ticking it
-   * and then unticking the ones that aren't this doctor's is the only way to
-   * get it right. A search box alone made that workflow invisible.
-   *
-   * With a search it looks across the whole catalogue, for adding a service
-   * from a category the specialist isn't otherwise offered.
+   * Mirrors isServiceAllowed minus its fallback: an unmapped specialist shows
+   * every box unticked here, which is what the warning above the list explains.
+   * Showing 232 ticked boxes would imply someone had chosen them.
    */
-  const visibleServices = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (q) return services.filter((s) => s.title.toLowerCase().includes(q)).slice(0, 60);
-    // Browsing one specific category, to add services from a heading that
-    // isn't ticked — the case where you know the area but not the name.
-    if (browse !== "scope") {
-      const id = Number(browse);
-      return services.filter((s) => s.groupId === id);
-    }
+  const isOn = useMemo(() => {
+    const allow = new Set(scope.allowServices);
+    const deny = new Set(scope.denyServices);
     const cats = new Set(scope.categories);
-    const ruled = new Set([...scope.allowServices, ...scope.denyServices]);
-    // Services under a ticked category, *plus* anything with its own rule.
-    // Without the second half a specialist mapped only to individual services
-    // — which most are, since consultations don't group by specialty — would
-    // show an empty panel with no way to see or undo what they're offered.
-    return services.filter(
-      (s) => ruled.has(s.id) || (s.groupId != null && cats.has(s.groupId)),
-    );
-  }, [services, query, browse, scope.categories, scope.allowServices, scope.denyServices]);
+    return (svc: ScopeService) => {
+      if (deny.has(svc.id)) return false;
+      if (allow.has(svc.id)) return true;
+      return svc.groupId != null && cats.has(svc.groupId);
+    };
+  }, [scope]);
 
-  /** Group the panel's rows under their category heading. */
-  const visibleByGroup = useMemo(() => {
-    const out = new Map<string, ScopeService[]>();
-    for (const s of visibleServices) {
-      const title = groups.find((g) => g.id === s.groupId)?.title ?? "—";
-      if (!out.has(title)) out.set(title, []);
-      out.get(title)!.push(s);
-    }
-    return [...out.entries()].sort((a, b) => a[0].localeCompare(b[0], "uk"));
-  }, [visibleServices, groups]);
+  const covered = useMemo(
+    () => (unrestricted ? services.length : services.filter(isOn).length),
+    [services, isOn, unrestricted],
+  );
 
-  function toggleCategory(id: number) {
-    onChange((prev) => {
-      const has = prev.categories.includes(id);
-      return {
-        ...prev,
-        categories: has
-          ? prev.categories.filter((c) => c !== id)
-          : [...prev.categories, id],
-        // Dropping a category makes its per-service exceptions meaningless;
-        // leaving them behind would quietly re-add services later.
-        denyServices: has
-          ? prev.denyServices.filter(
-              (sid) => services.find((s) => s.id === sid)?.groupId !== id,
-            )
-          : prev.denyServices,
-      };
-    });
+  /** Search spans the whole catalogue; otherwise the list is the category tree. */
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return null;
+    return services.filter((x) => x.title.toLowerCase().includes(q)).slice(0, 80);
+  }, [services, query]);
+
+  function setGroup(groupId: number, on: boolean) {
+    const ids = (byGroup.get(groupId) ?? []).map((x) => x.id);
+    onChange((prev) => ({
+      categories: on
+        ? [...new Set([...prev.categories, groupId])]
+        : prev.categories.filter((c) => c !== groupId),
+      // Selecting a whole category supersedes its per-service exceptions, and
+      // clearing it drops that category's explicit allows too — otherwise a
+      // service would quietly survive a "clear all".
+      allowServices: prev.allowServices.filter((id) => !ids.includes(id)),
+      denyServices: prev.denyServices.filter((id) => !ids.includes(id)),
+    }));
   }
 
-  /** Cycle one service: inherited → explicitly on → explicitly off → inherited. */
-  function cycleService(svc: ScopeService) {
+  function toggleService(svc: ScopeService) {
+    const on = isOn(svc);
     onChange((prev) => {
-      const inCategory = svc.groupId != null && prev.categories.includes(svc.groupId);
-      const allowed = prev.allowServices.includes(svc.id);
-      const denied = prev.denyServices.includes(svc.id);
       const base = {
         ...prev,
         allowServices: prev.allowServices.filter((id) => id !== svc.id),
         denyServices: prev.denyServices.filter((id) => id !== svc.id),
       };
-      if (denied) return base;
-      if (allowed || inCategory) {
-        return { ...base, denyServices: [...base.denyServices, svc.id] };
+      const inCategory = svc.groupId != null && prev.categories.includes(svc.groupId);
+      if (on) {
+        // Turning one off inside a selected category needs an explicit deny;
+        // outside one, dropping the allow is enough.
+        return inCategory ? { ...base, denyServices: [...base.denyServices, svc.id] } : base;
       }
       return { ...base, allowServices: [...base.allowServices, svc.id] };
     });
-  }
-
-  function serviceState(s: ScopeService): "on" | "off" | "inherited-on" {
-    if (scope.denyServices.includes(s.id)) return "off";
-    if (scope.allowServices.includes(s.id)) return "on";
-    if (s.groupId != null && scope.categories.includes(s.groupId)) return "inherited-on";
-    return "off";
   }
 
   function save() {
@@ -230,9 +194,9 @@ function EmployeeRow({
       try {
         await saveBookingScope(employee.id, employee.name, scope);
         setSaved(true);
-        setTimeout(() => setSaved(false), 2200);
+        setTimeout(() => setSaved(false), 2500);
       } catch (e) {
-        setError(e instanceof Error ? e.message : "Не вдалося зберегти");
+        setError(e instanceof Error ? e.message : s.saveError);
       }
     });
   }
@@ -250,15 +214,15 @@ function EmployeeRow({
           <p className="text-xs text-muted-foreground truncate">{employee.position}</p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          {unrestricted ? (
-            <span className="px-2 py-1 rounded-md bg-amber-50 text-amber-700 text-xs whitespace-nowrap">
-              усі послуги ({services.length})
-            </span>
-          ) : (
-            <span className="px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 text-xs whitespace-nowrap">
-              {covered} з {services.length}
-            </span>
-          )}
+          <span
+            className={`px-2 py-1 rounded-md text-xs whitespace-nowrap ${
+              unrestricted ? "bg-amber-50 text-amber-700" : "bg-emerald-50 text-emerald-700"
+            }`}
+          >
+            {unrestricted
+              ? `${s.unmappedBadge} (${services.length})`
+              : `${covered} ${s.coveredBadge} ${services.length}`}
+          </span>
           <ChevronDown
             className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
           />
@@ -269,133 +233,106 @@ function EmployeeRow({
         <div className="border-t border-border p-4 flex flex-col gap-4">
           {unrestricted && (
             <p className="text-xs text-amber-700 bg-amber-50 rounded-md px-3 py-2">
-              Поки нічого не обрано, цьому спеціалісту пропонуються всі послуги.
-              Оберіть напрями — і пацієнти бачитимуть лише їх.
+              {s.unmappedWarning}
             </p>
           )}
 
-          <div>
-            <p className="text-xs font-medium text-foreground mb-2">Напрями</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="relative">
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={s.searchPlaceholder}
+              className="w-full pl-9 pr-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground"
+            />
+          </div>
+
+          {matches ? (
+            <div className="flex flex-col gap-1 max-h-[32rem] overflow-y-auto">
+              {matches.map((svc) => (
+                <ServiceRow key={svc.id} svc={svc} on={isOn(svc)} onToggle={() => toggleService(svc)} />
+              ))}
+              {matches.length === 0 && (
+                <p className="text-xs text-muted-foreground px-1 py-2">{s.noMatches}</p>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2 max-h-[32rem] overflow-y-auto">
               {groups.map((g) => {
-                const on = scope.categories.includes(g.id);
+                const rows = byGroup.get(g.id) ?? [];
+                const on = rows.filter(isOn).length;
+                const state = on === 0 ? "none" : on === rows.length ? "all" : "some";
+                const isOpen = openGroup === g.id;
                 return (
-                  <label
-                    key={g.id}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md border cursor-pointer transition-colors duration-150 ${
-                      on
-                        ? "border-emerald-300 bg-emerald-50/60"
-                        : "border-border hover:border-muted-foreground/40"
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={on}
-                      onChange={() => toggleCategory(g.id)}
-                      className="w-4 h-4 accent-emerald-600 cursor-pointer"
-                    />
-                    <span className="text-sm text-foreground flex-1 min-w-0 truncate">
-                      {g.title}
-                    </span>
-                    <span className="text-xs text-muted-foreground shrink-0">
-                      {g.serviceCount}
-                    </span>
-                  </label>
+                  <div key={g.id} className="rounded-md border border-border">
+                    <div className="flex items-center gap-3 px-3 py-2">
+                      <button
+                        type="button"
+                        role="checkbox"
+                        aria-checked={state === "all" ? true : state === "some" ? "mixed" : false}
+                        aria-label={g.title}
+                        onClick={() => setGroup(g.id, state !== "all")}
+                        className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 cursor-pointer transition-colors ${
+                          state === "none"
+                            ? "border-muted-foreground/50 bg-background"
+                            : "border-emerald-600 bg-emerald-600 text-white"
+                        }`}
+                      >
+                        {state === "all" && <Check className="w-3 h-3" strokeWidth={3} />}
+                        {state === "some" && <Minus className="w-3 h-3" strokeWidth={3} />}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setOpenGroup(isOpen ? null : g.id)}
+                        aria-expanded={isOpen}
+                        title={s.expandHint}
+                        className="flex-1 min-w-0 flex items-center justify-between gap-3 text-left cursor-pointer"
+                      >
+                        <span className="text-sm text-foreground truncate">{g.title}</span>
+                        <span className="flex items-center gap-2 shrink-0">
+                          <span className="text-xs text-muted-foreground">
+                            {state === "none" ? rows.length : `${on} / ${rows.length}`}
+                          </span>
+                          <ChevronDown
+                            className={`w-3.5 h-3.5 text-muted-foreground transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                          />
+                        </span>
+                      </button>
+                    </div>
+                    {isOpen && (
+                      <div className="border-t border-border p-2 flex flex-col gap-1">
+                        <div className="flex gap-3 px-1 pb-1">
+                          <button
+                            type="button"
+                            onClick={() => setGroup(g.id, true)}
+                            className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                          >
+                            {s.selectAll}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setGroup(g.id, false)}
+                            className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                          >
+                            {s.clearAll}
+                          </button>
+                        </div>
+                        {rows.map((svc) => (
+                          <ServiceRow
+                            key={svc.id}
+                            svc={svc}
+                            on={isOn(svc)}
+                            onToggle={() => toggleService(svc)}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>
-          </div>
-
-          <div>
-            <button
-              type="button"
-              onClick={() => setShowServices(!showServices)}
-              className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
-            >
-              {showServices ? "Сховати" : "Окремі послуги"}
-              {scope.allowServices.length + scope.denyServices.length > 0 &&
-                ` · ${scope.allowServices.length + scope.denyServices.length} винятків`}
-            </button>
-
-            {showServices && (
-              <div className="mt-3 flex flex-col gap-2">
-                <p className="text-xs text-muted-foreground">
-                  Натисніть на послугу, щоб увімкнути або вимкнути її окремо.
-                  Пошук шукає по всьому каталогу — так можна додати послугу з
-                  напряму, який не обрано.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <div className="relative flex-1">
-                    <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="search"
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Пошук по всьому каталогу…"
-                      className="w-full pl-9 pr-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground"
-                    />
-                  </div>
-                  <select
-                    value={browse}
-                    onChange={(e) => setBrowse(e.target.value)}
-                    disabled={Boolean(query.trim())}
-                    className="px-3 py-2 rounded-md border border-border bg-background text-sm outline-none focus:border-muted-foreground cursor-pointer disabled:opacity-50 sm:w-64"
-                  >
-                    <option value="scope">Обране для спеціаліста</option>
-                    {groups.map((g) => (
-                      <option key={g.id} value={String(g.id)}>
-                        {g.title} ({g.serviceCount})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex flex-col gap-3 max-h-96 overflow-y-auto">
-                  {visibleByGroup.map(([groupTitle, rows]) => (
-                    <div key={groupTitle}>
-                      {!query.trim() && (
-                        <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 sticky top-0 bg-card py-1">
-                          {groupTitle}
-                        </p>
-                      )}
-                      <div className="flex flex-col gap-1">
-                        {rows.map((s) => {
-                          const st = serviceState(s);
-                          return (
-                            <button
-                              key={s.id}
-                              type="button"
-                              onClick={() => cycleService(s)}
-                              className="flex items-center justify-between gap-3 px-3 py-2 rounded-md border border-border text-left hover:border-muted-foreground/40 cursor-pointer"
-                            >
-                              <span className="text-sm text-foreground truncate">{s.title}</span>
-                              <span
-                                className={`text-xs px-2 py-0.5 rounded whitespace-nowrap shrink-0 ${
-                                  st === "on"
-                                    ? "bg-emerald-50 text-emerald-700"
-                                    : st === "inherited-on"
-                                      ? "bg-muted text-muted-foreground"
-                                      : "bg-rose-50 text-rose-700"
-                                }`}
-                              >
-                                {st === "on" ? "увімкнено" : st === "inherited-on" ? "з напряму" : "вимкнено"}
-                              </span>
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
-                  {visibleServices.length === 0 && (
-                    <p className="text-xs text-muted-foreground px-1 py-2">
-                      {query.trim()
-                        ? "Нічого не знайдено"
-                        : "Нічого не обрано. Оберіть напрям вище, або виберіть напрям у списку праворуч, щоб додати окремі послуги."}
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
+          )}
 
           <div className="flex items-center gap-3 pt-1">
             <button
@@ -404,7 +341,7 @@ function EmployeeRow({
               disabled={saving}
               className="px-4 py-2 rounded-md bg-foreground text-background text-sm cursor-pointer disabled:opacity-50"
             >
-              {saving ? "Збереження…" : "Зберегти"}
+              {saving ? s.saving : s.save}
             </button>
             {!unrestricted && (
               <button
@@ -412,12 +349,12 @@ function EmployeeRow({
                 onClick={() => onChange(() => emptyScope())}
                 className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
               >
-                Очистити (показувати всі)
+                {s.reset}
               </button>
             )}
             {saved && (
               <span className="flex items-center gap-1 text-xs text-emerald-600">
-                <Check className="w-3.5 h-3.5" /> Збережено
+                <Check className="w-3.5 h-3.5" /> {s.saved}
               </span>
             )}
             {error && <span className="text-xs text-rose-600">{error}</span>}
@@ -425,5 +362,33 @@ function EmployeeRow({
         </div>
       )}
     </div>
+  );
+}
+
+/** One service, ticked or not. Kept small — it renders up to 232 times. */
+function ServiceRow({
+  svc, on, onToggle,
+}: {
+  svc: ScopeService;
+  on: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={on}
+      onClick={onToggle}
+      className="flex items-center gap-3 px-3 py-2 rounded-md text-left hover:bg-muted/50 cursor-pointer"
+    >
+      <span
+        className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 transition-colors ${
+          on ? "border-emerald-600 bg-emerald-600 text-white" : "border-muted-foreground/50 bg-background"
+        }`}
+      >
+        {on && <Check className="w-3 h-3" strokeWidth={3} />}
+      </span>
+      <span className="text-sm text-foreground truncate">{svc.title}</span>
+    </button>
   );
 }

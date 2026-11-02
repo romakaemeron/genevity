@@ -6,6 +6,7 @@ import BookingScopeEditor, {
   type ScopeService,
 } from "../../_components/booking-scope-editor";
 import { getScopeMap } from "@/lib/db/queries/booking-scope";
+import { getAdminStrings } from "../../_i18n/server";
 import { listEmployees, listServicesGrouped, serviceTaxonomy } from "@/lib/roapp/client";
 import type { ScopeMap } from "@/lib/booking-scope-rules";
 
@@ -25,6 +26,7 @@ export const dynamic = "force-dynamic";
  */
 export default async function BookingScopePage() {
   await requireSession();
+  const t = await getAdminStrings();
 
   let employees: ScopeEmployee[] = [];
   let groups: ScopeGroup[] = [];
@@ -67,16 +69,13 @@ export default async function BookingScopePage() {
   return (
     <div className="p-8">
       <AdminPageHeader
-        title="Послуги спеціалістів"
-        subtitle="Які послуги пропонуються пацієнту для кожного лікаря в онлайн-записі. Спеціаліст без обраних напрямів отримує всі послуги — так само, як було раніше."
+        title={t.settingsPage.bookingScope}
+        subtitle={t.settingsPage.bookingScopeDesc}
       />
 
       {roappError ? (
         <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
-          <p className="text-sm text-amber-900">
-            Не вдалося отримати дані з RoApp, тому редактор зараз недоступний.
-            Збережені налаштування не змінилися — оновіть сторінку пізніше.
-          </p>
+          <p className="text-sm text-amber-900">{t.bookingScopeEditor.roappDown}</p>
           <p className="text-xs text-amber-700 mt-2 font-mono break-all">{roappError}</p>
         </div>
       ) : (
