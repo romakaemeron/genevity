@@ -140,6 +140,31 @@ const R = {
   plasticPostWeightLoss:    "/services/plastic-surgery/post-weight-loss-contouring",
   plasticDiastasis:         "/services/plastic-surgery/diastasis-correction",
 
+  // ТЗ #19 — procedure-level landing pages
+  plasticEndoFacelift:      "/services/plastic-surgery/endoscopic-facelift",
+  plasticUpperBleph:        "/services/plastic-surgery/upper-blepharoplasty",
+  plasticLowerBleph:        "/services/plastic-surgery/lower-blepharoplasty",
+  plasticCircularBleph:     "/services/plastic-surgery/circular-blepharoplasty",
+  plasticTransconjBleph:    "/services/plastic-surgery/transconjunctival-blepharoplasty",
+  plasticAsianBleph:        "/services/plastic-surgery/asian-blepharoplasty",
+  plasticEpicanthoplasty:   "/services/plastic-surgery/epicanthoplasty",
+  plasticEndoscopic:        "/services/plastic-surgery/endoscopic-surgery",
+  plasticPeriareolar:       "/services/plastic-surgery/periareolar-mastopexy",
+  plasticVertical:          "/services/plastic-surgery/vertical-mastopexy",
+  plasticCircularLift:      "/services/plastic-surgery/circular-breast-lift",
+  plasticLiftNoImplants:    "/services/plastic-surgery/breast-lift-without-implants",
+  plasticLiftImplants:      "/services/plastic-surgery/breast-lift-with-implants",
+  plasticLiftReduction:     "/services/plastic-surgery/breast-lift-reduction",
+  plasticLiftPregnancy:     "/services/plastic-surgery/breast-lift-after-pregnancy",
+  plasticGynecomastia:      "/services/plastic-surgery/gynecomastia",
+  plasticBuffaloHump:       "/services/plastic-surgery/buffalo-hump-removal",
+  plasticButtock:           "/services/plastic-surgery/buttock-augmentation",
+  plasticThighLift:         "/services/plastic-surgery/thigh-lift",
+  plasticCalfLipofilling:   "/services/plastic-surgery/calf-lipofilling",
+  plasticUmbilicoplasty:    "/services/plastic-surgery/umbilicoplasty",
+  plasticMonsplasty:        "/services/plastic-surgery/monsplasty",
+  plasticLabiaplasty:       "/services/plastic-surgery/labiaplasty",
+
   diagBioimpedance:           "/services/diagnostics/bioimpedance",
   diagUltrasound:             "/services/diagnostics/ultrasound",
   diagEndocrinologist:        "/services/diagnostics/endocrinologist",
@@ -401,11 +426,19 @@ const plasticFace: NavCategory = {
   href: R.plasticFace,
   items: [
     { key: "plastic-facelift",       label: L("Підтяжка обличчя", "Подтяжка лица", "Facelift"),                       href: R.plasticFacelift },
+    { key: "plastic-endo-facelift",     label: L("Ендоскопічна підтяжка обличчя", "Эндоскопическая подтяжка лица", "Endoscopic facelift"), href: R.plasticEndoFacelift },
     { key: "plastic-necklift",       label: L("Підтяжка шиї", "Подтяжка шеи", "Neck lift"),                           href: R.plasticNecklift },
     { key: "plastic-blepharoplasty", label: L("Блефаропластика", "Блефаропластика", "Blepharoplasty"),                href: R.plasticBlepharoplasty },
+    { key: "plastic-upper-bleph",       label: L("Блефаропластика верхніх повік", "Блефаропластика верхних век", "Upper eyelid surgery"), href: R.plasticUpperBleph },
+    { key: "plastic-lower-bleph",       label: L("Блефаропластика нижніх повік", "Блефаропластика нижних век", "Lower eyelid surgery"), href: R.plasticLowerBleph },
+    { key: "plastic-circular-bleph",    label: L("Кругова блефаропластика", "Круговая блефаропластика", "Circular blepharoplasty"), href: R.plasticCircularBleph },
+    { key: "plastic-transconj-bleph",   label: L("Трансконʼюнктивальна блефаропластика", "Трансконъюнктивальная блефаропластика", "Transconjunctival blepharoplasty"), href: R.plasticTransconjBleph },
+    { key: "plastic-asian-bleph",       label: L("Блефаропластика азіатських очей", "Блефаропластика азиатских глаз", "Asian eyelid surgery"), href: R.plasticAsianBleph },
+    { key: "plastic-epicanthoplasty",   label: L("Епікантопластика", "Эпикантопластика", "Epicanthoplasty"), href: R.plasticEpicanthoplasty },
     { key: "plastic-rhinoplasty",    label: L("Ринопластика", "Ринопластика", "Rhinoplasty"),                         href: R.plasticRhinoplasty },
     { key: "plastic-otoplasty",      label: L("Отопластика", "Отопластика", "Otoplasty"),                             href: R.plasticOtoplasty },
     { key: "plastic-face-contour",   label: L("Корекція овалу обличчя", "Коррекция овала лица", "Facial contouring"), href: R.plasticFaceContour },
+    { key: "plastic-endoscopic",        label: L("Ендоскопічна пластична хірургія", "Эндоскопическая пластическая хирургия", "Endoscopic plastic surgery"), href: R.plasticEndoscopic },
   ],
 };
 
@@ -418,6 +451,13 @@ const plasticBreast: NavCategory = {
     { key: "plastic-breast-aug",       label: L("Збільшення грудей", "Увеличение груди", "Breast augmentation"),                              href: R.plasticBreastAug },
     { key: "plastic-breast-reduction", label: L("Зменшення грудей", "Уменьшение груди", "Breast reduction"),                                  href: R.plasticBreastReduction },
     { key: "plastic-breast-lift",      label: L("Підтяжка грудей", "Подтяжка груди", "Breast lift"),                                          href: R.plasticBreastLift },
+    { key: "plastic-periareolar",       label: L("Періареолярна мастопексія", "Периареолярная мастопексия", "Periareolar mastopexy"), href: R.plasticPeriareolar },
+    { key: "plastic-vertical",          label: L("Вертикальна мастопексія", "Вертикальная мастопексия", "Vertical mastopexy"), href: R.plasticVertical },
+    { key: "plastic-circular-lift",     label: L("Циркулярна підтяжка грудей", "Циркулярная подтяжка груди", "Circular breast lift"), href: R.plasticCircularLift },
+    { key: "plastic-lift-no-implants",  label: L("Підтяжка грудей без імплантів", "Подтяжка груди без имплантов", "Breast lift without implants"), href: R.plasticLiftNoImplants },
+    { key: "plastic-lift-implants",     label: L("Підтяжка грудей з імплантами", "Подтяжка груди с имплантами", "Breast lift with implants"), href: R.plasticLiftImplants },
+    { key: "plastic-lift-reduction",    label: L("Підтяжка та зменшення грудей", "Подтяжка и уменьшение груди", "Breast lift and reduction"), href: R.plasticLiftReduction },
+    { key: "plastic-lift-pregnancy",    label: L("Підтяжка грудей після пологів", "Подтяжка груди после родов", "Breast lift after pregnancy"), href: R.plasticLiftPregnancy },
     { key: "plastic-breast-shape",     label: L("Корекція форми та асиметрії", "Коррекция формы и асимметрии", "Shape and asymmetry"),        href: R.plasticBreastShape },
   ],
 };
@@ -433,6 +473,14 @@ const plasticBody: NavCategory = {
     { key: "plastic-body-contouring",  label: L("Корекція контурів тіла", "Коррекция контуров тела", "Body contouring"),                      href: R.plasticBodyContouring },
     { key: "plastic-post-weight-loss", label: L("Контурна пластика після схуднення", "Контурная пластика после похудения", "After weight loss"), href: R.plasticPostWeightLoss },
     { key: "plastic-diastasis",        label: L("Корекція діастазу", "Коррекция диастаза", "Diastasis correction"),                           href: R.plasticDiastasis },
+    { key: "plastic-gynecomastia",      label: L("Гінекомастія", "Гинекомастия", "Gynecomastia"), href: R.plasticGynecomastia },
+    { key: "plastic-buffalo-hump",      label: L("Видалення шийного горба", "Удаление шейного горба", "Neck hump removal"), href: R.plasticBuffaloHump },
+    { key: "plastic-buttock",           label: L("Збільшення сідниць", "Увеличение ягодиц", "Buttock augmentation"), href: R.plasticButtock },
+    { key: "plastic-thigh-lift",        label: L("Пластика стегон", "Пластика бедер", "Thigh lift"), href: R.plasticThighLift },
+    { key: "plastic-calf-lipofilling",  label: L("Ліпофілінг гомілок", "Липофилинг голеней", "Calf lipofilling"), href: R.plasticCalfLipofilling },
+    { key: "plastic-umbilicoplasty",    label: L("Пластика пупка", "Пластика пупка", "Belly button surgery"), href: R.plasticUmbilicoplasty },
+    { key: "plastic-monsplasty",        label: L("Пластика лобка", "Пластика лобка", "Monsplasty"), href: R.plasticMonsplasty },
+    { key: "plastic-labiaplasty",       label: L("Пластика статевих губ", "Пластика половых губ", "Labiaplasty"), href: R.plasticLabiaplasty },
   ],
 };
 
@@ -458,7 +506,12 @@ const megaSections: NavSection[] = [
   { key: "longevity",        label: longevity.label,         href: R.longevity,    groups: [longevity] },
   { key: "intimate",         label: intimate.label,          href: "/services/intimate-rejuvenation", groups: [intimate] },
   { key: "diagnosticsNav",   label: diagnosticsNav.label,    href: R.diagnostics,  groups: [diagnosticsNav, consultationsNav] },
-  { key: "plastic",          label: L("Пластична хірургія", "Пластическая хирургия", "Plastic surgery"), href: R.plastic, groups: [plasticFace, plasticBreast, plasticBody] },
+  // Plastic surgery is three rail entries, not one: with the ТЗ #19 procedure
+  // pages the combined pane ran ~45 links, taller than the viewport, and the
+  // panel sits in the fixed header where it cannot scroll with the page.
+  { key: "plastic-face",     label: plasticFace.label,       href: R.plasticFace,  groups: [plasticFace] },
+  { key: "plastic-breast",   label: plasticBreast.label,     href: R.plasticBreast, groups: [plasticBreast] },
+  { key: "plastic-body",     label: plasticBody.label,       href: R.plasticBody,  groups: [plasticBody] },
   { key: "more",             label: otherServices.label,     href: R.services,     groups: [otherServices] },
 ];
 
