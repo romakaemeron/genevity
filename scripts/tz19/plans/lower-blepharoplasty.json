@@ -1,0 +1,1703 @@
+{
+ "sortOrder": 103,
+ "related": [
+  "blepharoplasty",
+  "transconjunctival-blepharoplasty",
+  "circular-blepharoplasty"
+ ],
+ "title": {
+  "uk": "Блефаропластика нижніх повік",
+  "ru": "Блефаропластика нижних век",
+  "en": "Lower Eyelid Blepharoplasty"
+ },
+ "summary": {
+  "uk": "Блефаропластика нижніх повік — пластична операція, спрямована на корекцію мішків під очима, жирових випинань, надлишку шкіри та окремих вікових змін нижніх повік. Залежно від анатомічних особливостей хірург може видалити або перерозподілити жирову тканину, скоригувати шкірні складки та покращити перехід між нижньою повікою і щокою.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Lower eyelid blepharoplasty is a cosmetic operation to correct under-eye bags, fat bulges, excess skin and certain age-related changes in the lower eyelids. Depending on the patient's anatomy, the surgeon may remove or redistribute fatty tissue, correct skin folds and improve the transition between the lower eyelid and the cheek."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/lower-blepharoplasty-hero.webp",
+   "heading": {
+    "uk": "Що таке нижня блефаропластика?",
+    "ru": {
+     "$": 6
+    },
+    "en": "What Is Lower Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Нижня блефаропластика — хірургічна корекція тканин нижньої повіки та прилеглої ділянки.\n\nЗалежно від показань операція може включати видалення або перерозподіл орбітальної жирової тканини, обмежене видалення надлишку шкіри та зміцнення структур, що підтримують нижню повіку.\n\nДілянка навколо очей має тонку шкіру та складну анатомічну будову. З віком підтримувальні структури нижніх повік можуть слабшати, а жирові пакети — ставати помітнішими. У результаті з’являються випинання під очима, поглиблюється перехід до щоки та змінюється контур періорбітальної ділянки.\n\nПри цьому мішки під очима не завжди пов’язані з віком. Вони можуть бути зумовлені спадковими особливостями й траплятися навіть у молодих людей.\n\nГоловне завдання операції — покращити контур нижніх повік, зберігши природну форму очей та їхню нормальну функцію.",
+    "ru": {
+     "$": [
+      7,
+      8,
+      2,
+      3,
+      5
+     ]
+    },
+    "en": "Lower blepharoplasty is the surgical correction of the tissues of the lower eyelid and the adjacent area.\n\nDepending on the indications, the operation may involve removing or redistributing orbital fat, limited removal of excess skin, and reinforcing the structures that support the lower eyelid.\n\nThe skin around the eyes is thin and the anatomy is complex. With age, the supporting structures of the lower eyelids can weaken and the fat pads can become more prominent. The result is bulging under the eyes, a deeper transition to the cheek and a change in the contour of the periorbital area.\n\nUnder-eye bags are not always related to age, however. They can be hereditary and occur even in young people.\n\nThe main aim of the operation is to improve the contour of the lower eyelids while preserving the natural shape of the eyes and their normal function."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає естетичну хірургію в межах комплексного підходу до здоров’я, зовнішності та індивідуального благополуччя людини.",
+    "ru": {
+     "$": 1
+    },
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — treats aesthetic surgery as part of a comprehensive approach to health, appearance and individual well-being."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Нижня блефаропластика дає змогу коригувати певні анатомічні зміни, але не є універсальним методом усунення набряків, темних кіл і всіх зморшок навколо очей.",
+    "ru": {
+     "$": 4
+    },
+    "en": "Lower blepharoplasty can correct certain anatomical changes, but it is not a universal remedy for swelling, dark circles and all wrinkles around the eyes."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Два основні хірургічні доступи",
+    "ru": {
+     "$": 9
+    },
+    "en": "Two Main Surgical Approaches"
+   },
+   "items": {
+    "$list": 10,
+    "uk": [
+     "Транскон’юнктивальний — через внутрішню поверхню нижньої повіки, без зовнішнього розрізу шкіри.",
+     "Транскутанний — через розріз на шкірі, зазвичай розташований безпосередньо під лінією вій."
+    ],
+    "en": [
+     "Transconjunctival — through the inner surface of the lower eyelid, with no external skin incision.",
+     "Transcutaneous — through an incision in the skin, usually placed just below the lash line."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір методу залежить від стану шкіри, об’єму жирових випинань, положення нижньої повіки та особливостей переходу між повікою і щокою.\n\nУ деяких випадках хірург може застосовувати комбіновані методики.",
+    "ru": {
+     "$": [
+      11,
+      12
+     ]
+    },
+    "en": "The choice of method depends on the condition of the skin, the size of the fat bulges, the position of the lower eyelid and the characteristics of the transition between the eyelid and the cheek.\n\nIn some cases the surgeon may use combined techniques."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Чому з’являються мішки під очима?",
+    "ru": {
+     "$": 13
+    },
+    "en": "Why Do Under-Eye Bags Appear?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Випинання орбітальної жирової тканини",
+      "ru": {
+       "$": 15
+      },
+      "en": "Bulging of orbital fat"
+     },
+     "description": {
+      "uk": "Навколо очей розташовані жирові пакети, які виконують захисну та підтримувальну функцію.\n\nЧерез вікові зміни або спадкові особливості вони можуть виступати вперед, формуючи характерні опуклості під очима.\n\nСаме такі зміни часто стають показанням до нижньої блефаропластики.",
+      "ru": {
+       "$": [
+        16,
+        17,
+        18
+       ]
+      },
+      "en": "Fat pads around the eyes serve a protective and supporting function.\n\nWith age-related changes or hereditary traits they can protrude forward, forming the characteristic bulges under the eyes.\n\nIt is precisely these changes that most often become the indication for lower blepharoplasty."
+     }
+    },
+    {
+     "title": {
+      "uk": "Зниження еластичності шкіри",
+      "ru": {
+       "$": 19
+      },
+      "en": "Reduced skin elasticity"
+     },
+     "description": {
+      "uk": "З віком шкіра нижніх повік поступово втрачає пружність.\n\nЦе може призводити до появи дрібних складок, зморшок і надлишку шкіри.",
+      "ru": {
+       "$": [
+        20,
+        21
+       ]
+      },
+      "en": "With age, the skin of the lower eyelids gradually loses its firmness.\n\nThis can lead to fine creases, wrinkles and excess skin."
+     }
+    },
+    {
+     "title": {
+      "uk": "Зміна положення м’яких тканин обличчя",
+      "ru": {
+       "$": 22
+      },
+      "en": "Changes in the position of facial soft tissues"
+     },
+     "description": {
+      "uk": "Опущення тканин середньої третини обличчя та зменшення об’єму виличної ділянки можуть посилювати контраст між нижньою повікою і щокою.\n\nУ результаті мішки під очима стають візуально більш вираженими.",
+      "ru": {
+       "$": [
+        23,
+        24
+       ]
+      },
+      "en": "Descent of the midface tissues and loss of volume in the cheekbone area can heighten the contrast between the lower eyelid and the cheek.\n\nAs a result, under-eye bags look more pronounced."
+     }
+    },
+    {
+     "title": {
+      "uk": "Спадкові особливості",
+      "ru": {
+       "$": 25
+      },
+      "en": "Hereditary factors"
+     },
+     "description": {
+      "uk": "У деяких людей жирові випинання під очима помітні з молодого віку.\n\nУ таких випадках зміни не обов’язково пов’язані зі старінням чи способом життя.",
+      "ru": {
+       "$": [
+        26,
+        27
+       ]
+      },
+      "en": "In some people, fat bulges under the eyes are visible from a young age.\n\nIn such cases the changes are not necessarily related to ageing or lifestyle."
+     }
+    },
+    {
+     "title": {
+      "uk": "Набряклість",
+      "ru": {
+       "$": 28
+      },
+      "en": "Swelling"
+     },
+     "description": {
+      "uk": "Тимчасові або постійні набряки можуть виникати при алергічних реакціях, захворюваннях, порушеннях сну та інших станах.\n\nЯкщо припухлість під очима спричинена переважно набряком, хірургічне видалення жиру може не вирішити проблему.\n\nТому перед вибором методу корекції потрібна діагностика.",
+      "ru": {
+       "$": [
+        29,
+        30,
+        31
+       ]
+      },
+      "en": "Temporary or persistent swelling can occur with allergic reactions, illnesses, sleep disturbances and other conditions.\n\nIf puffiness under the eyes is mainly due to swelling, surgical fat removal may not solve the problem.\n\nThat is why a diagnosis is needed before choosing a correction method."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Мішки під очима можуть мати різне походження, тому перед операцією важливо визначити їхню причину.",
+    "ru": {
+     "$": 14
+    },
+    "en": "Under-eye bags can have different causes, so it is important to identify the cause before surgery."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до блефаропластики нижніх повік",
+    "ru": {
+     "$": 32
+    },
+    "en": "Indications for Lower Eyelid Blepharoplasty"
+   },
+   "indications": {
+    "$list": 35,
+    "uk": [
+     "виражені жирові мішки під очима;",
+     "спадкові випинання орбітальної жирової тканини;",
+     "надлишок шкіри нижніх повік;",
+     "вікові зміни контуру нижньої повіки;",
+     "виражений перехід між нижньою повікою і щокою;",
+     "деякі види асиметрії періорбітальної ділянки;",
+     "поєднання жирових випинань і шкірних складок;",
+     "бажання скоригувати стійкі зміни нижніх повік хірургічним методом."
+    ],
+    "en": [
+     "pronounced fat bags under the eyes;",
+     "hereditary bulging of orbital fat;",
+     "excess skin on the lower eyelids;",
+     "age-related changes in the lower eyelid contour;",
+     "a pronounced transition between the lower eyelid and the cheek;",
+     "certain types of periorbital asymmetry;",
+     "a combination of fat bulges and skin folds;",
+     "a wish to correct persistent lower eyelid changes surgically."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до блефаропластики нижніх повік",
+    "ru": {
+     "$": 209
+    },
+    "en": "Contraindications for Lower Eyelid Blepharoplasty"
+   },
+   "contraindications": {
+    "$list": 212,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "активні запальні захворювання очей;",
+     "декомпенсовані хронічні захворювання;",
+     "порушення згортання крові;",
+     "стани, що підвищують ризик анестезії;",
+     "виражені порушення загоєння;",
+     "окремі захворювання очної поверхні;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "active inflammatory eye conditions;",
+     "decompensated chronic conditions;",
+     "blood clotting disorders;",
+     "conditions that increase the risk of anaesthesia;",
+     "significantly impaired wound healing;",
+     "certain diseases of the ocular surface;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Необхідність операції визначають після огляду.\n\nЯкщо основна скарга пов’язана з пігментацією, судинними особливостями шкіри або набряками, можуть знадобитися інші методи лікування.",
+    "ru": {
+     "$": [
+      36,
+      37
+     ]
+    },
+    "en": "Whether surgery is needed is determined after an examination.\n\nIf the main concern is pigmentation, vascular features of the skin or swelling, other treatments may be required."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Перед операцією необхідно оцінити стан здоров’я та функцію очей.\n\nОсобливої уваги потребують синдром сухого ока, захворювання щитоподібної залози з ураженням очей, порушення положення повік і раніше перенесені операції.\n\nЦі стани не завжди є абсолютними протипоказаннями, але можуть суттєво впливати на вибір методики та безпеку втручання.",
+    "ru": {
+     "$": [
+      210,
+      213,
+      214
+     ]
+    },
+    "en": "Before surgery, the patient's general health and eye function must be assessed.\n\nParticular attention is needed for dry eye syndrome, thyroid disease affecting the eyes, eyelid malposition and previous operations.\n\nThese conditions are not always absolute contraindications, but they can significantly influence the choice of technique and the safety of the procedure."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Кому підходить нижня блефаропластика?",
+    "ru": {
+     "$": 38
+    },
+    "en": "Who Is Lower Blepharoplasty Suitable For?"
+   },
+   "body": {
+    "uk": "Нижню блефаропластику можна розглядати для дорослих пацієнтів зі стійкими жировими випинаннями та іншими анатомічними змінами нижніх повік.\n\nВік не є єдиним критерієм.\n\nУ молодих пацієнтів зі збереженою еластичністю шкіри іноді можливе застосування транскон’юнктивального доступу.\n\nЗа виражених вікових змін може знадобитися комплексніша корекція.",
+    "ru": {
+     "$": [
+      39,
+      42,
+      43,
+      44
+     ]
+    },
+    "en": "Lower blepharoplasty may be considered for adult patients with persistent fat bulges and other anatomical changes in the lower eyelids.\n\nAge is not the only criterion.\n\nIn younger patients whose skin has retained its elasticity, a transconjunctival approach is sometimes possible.\n\nWhere age-related changes are pronounced, a more comprehensive correction may be needed."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Перед операцією хірург оцінює",
+    "ru": {
+     "$": 40
+    },
+    "en": "Before Surgery the Surgeon Assesses"
+   },
+   "items": {
+    "$list": 41,
+    "uk": [
+     "об’єм і розташування жирових пакетів;",
+     "еластичність шкіри;",
+     "наявність надлишку шкіри;",
+     "положення нижньої повіки відносно очного яблука;",
+     "тонус підтримувальних структур;",
+     "стан слізної плівки;",
+     "наявність синдрому сухого ока;",
+     "особливості будови очних ямок;",
+     "положення виличних тканин;",
+     "наявність попередніх операцій;",
+     "загальний стан здоров’я."
+    ],
+    "en": [
+     "the volume and position of the fat pads;",
+     "skin elasticity;",
+     "whether there is excess skin;",
+     "the position of the lower eyelid relative to the eyeball;",
+     "the tone of the supporting structures;",
+     "the condition of the tear film;",
+     "whether there is dry eye syndrome;",
+     "the structure of the eye sockets;",
+     "the position of the cheek tissues;",
+     "any previous surgery;",
+     "general health."
+    ]
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Види блефаропластики нижніх повік",
+    "ru": {
+     "$": 45
+    },
+    "en": "Types of Lower Eyelid Blepharoplasty"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Транскон’юнктивальна блефаропластика нижніх повік",
+      "ru": {
+       "$": 47
+      },
+      "en": "Transconjunctival lower blepharoplasty"
+     },
+     "description": {
+      "uk": "Транскон’юнктивальна блефаропластика — операція, під час якої доступ до жирових пакетів здійснюється через внутрішню поверхню нижньої повіки.\n\nХірург виконує розріз з боку кон’юнктиви, після чого коригує жирову тканину.\n\nЗовнішнього розрізу шкіри при цьому немає.\n\nМетодику часто розглядають за виражених жирових випинань без значного надлишку шкіри.",
+      "ru": {
+       "$": [
+        48,
+        49,
+        50,
+        51
+       ]
+      },
+      "en": "Transconjunctival blepharoplasty is an operation in which the fat pads are reached through the inner surface of the lower eyelid.\n\nThe surgeon makes an incision on the conjunctival side and then corrects the fatty tissue.\n\nThere is no external skin incision.\n\nThe technique is often considered for pronounced fat bulges without significant excess skin."
+     }
+    },
+    {
+     "title": {
+      "uk": "Класична нижня блефаропластика",
+      "ru": {
+       "$": 56
+      },
+      "en": "Classic lower blepharoplasty"
+     },
+     "description": {
+      "uk": "Класичну, або транскутанну, блефаропластику виконують через розріз шкіри під лінією нижніх вій.\n\nЧерез цей доступ хірург може працювати з жировою тканиною та коригувати надлишок шкіри.\n\nЗа потреби виконують зміцнення підтримувальних структур нижньої повіки.\n\nМетодику можуть застосовувати за поєднання жирових випинань і вікових змін шкіри.\n\nВажливо уникати надмірного видалення тканин, оскільки це підвищує ризик відтягування нижньої повіки.",
+      "ru": {
+       "$": [
+        57,
+        58,
+        59,
+        60,
+        61
+       ]
+      },
+      "en": "Classic, or transcutaneous, blepharoplasty is performed through a skin incision below the lower lash line.\n\nThrough this approach the surgeon can work with the fatty tissue and correct excess skin.\n\nWhere necessary, the supporting structures of the lower eyelid are reinforced.\n\nThe technique may be used when fat bulges are combined with age-related skin changes.\n\nIt is important to avoid removing too much tissue, as this increases the risk of the lower eyelid being pulled down."
+     }
+    },
+    {
+     "title": {
+      "uk": "Жирозберігальна нижня блефаропластика",
+      "ru": {
+       "$": 62
+      },
+      "en": "Fat-preserving lower blepharoplasty"
+     },
+     "description": {
+      "uk": "Сучасні підходи до нижньої блефаропластики не завжди передбачають видалення жиру, що виступає.\n\nУ деяких випадках хірург перерозподіляє жирову тканину, щоб згладити перехід між нижньою повікою і щокою.\n\nЦе може бути корисно, якщо випинання поєднуються з вираженою носослізною борозною.\n\nВибір методу залежить від вихідної анатомії та стану тканин.",
+      "ru": {
+       "$": [
+        63,
+        64,
+        65,
+        66
+       ]
+      },
+      "en": "Modern approaches to lower blepharoplasty do not always involve removing the protruding fat.\n\nIn some cases the surgeon redistributes the fatty tissue to smooth the transition between the lower eyelid and the cheek.\n\nThis can be helpful when the bulges are combined with a pronounced tear trough.\n\nThe choice of method depends on the initial anatomy and the condition of the tissues."
+     }
+    },
+    {
+     "title": {
+      "uk": "Нижня блефаропластика зі зміцненням повіки",
+      "ru": {
+       "$": 67
+      },
+      "en": "Lower blepharoplasty with eyelid support"
+     },
+     "description": {
+      "uk": "За зниженого тонусу нижньої повіки може знадобитися додаткова підтримка.\n\nДля цього в окремих випадках застосовують кантопексію або кантопластику — хірургічні методи зміцнення або зміни фіксації зовнішніх структур повіки.\n\nТакі процедури виконують за показаннями, і вони не є обов’язковою частиною кожної нижньої блефаропластики.",
+      "ru": {
+       "$": [
+        68,
+        69,
+        70
+       ]
+      },
+      "en": "When the lower eyelid has lost tone, additional support may be needed.\n\nFor this, canthopexy or canthoplasty — surgical methods of reinforcing or changing the fixation of the outer eyelid structures — are used in selected cases.\n\nThese procedures are performed when indicated and are not a mandatory part of every lower blepharoplasty."
+     }
+    }
+   ]
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги транскон’юнктивального доступу",
+    "ru": {
+     "$": 52
+    },
+    "en": "Advantages of the Transconjunctival Approach"
+   },
+   "items": {
+    "$list": 53,
+    "uk": [
+     "відсутність зовнішнього шкірного рубця;",
+     "можливість корекції жирових пакетів;",
+     "збереження зовнішньої шкіри нижньої повіки;",
+     "можливість перерозподілу жирової тканини за відповідних показань."
+    ],
+    "en": [
+     "no external skin scar;",
+     "the fat pads can be corrected;",
+     "the outer skin of the lower eyelid is preserved;",
+     "fatty tissue can be redistributed where indicated."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Однак транскон’юнктивальна методика самостійно не усуває вираженого надлишку шкіри.\n\nЗа потреби хірург може розглянути додаткові способи корекції шкірних змін.",
+    "ru": {
+     "$": [
+      54,
+      55
+     ]
+    },
+    "en": "However, the transconjunctival technique does not on its own remove pronounced excess skin.\n\nIf needed, the surgeon may consider additional ways of correcting skin changes."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Транскон’юнктивальна чи класична блефаропластика: що краще?",
+    "ru": {
+     "$": 71
+    },
+    "en": "Transconjunctival or Classic Blepharoplasty: Which Is Better?"
+   },
+   "items": {
+    "ru": [
+     "Расположение разреза: трансконъюнктивальная — внутри нижнего века; классическая — под линией ресниц.",
+     "Наружный кожный рубец: трансконъюнктивальная — отсутствует; классическая — возможен.",
+     "Коррекция жировых пакетов: трансконъюнктивальная — да; классическая — да.",
+     "Удаление избытка кожи: трансконъюнктивальная — не через основной доступ; классическая — возможно.",
+     "Дополнительное укрепление века: трансконъюнктивальная — по показаниям; классическая — по показаниям.",
+     "Выбор методики: трансконъюнктивальная — при подходящей анатомии; классическая — при необходимости коррекции кожи и других тканей."
+    ],
+    "uk": [
+     "Розташування розрізу: транскон’юнктивальна — усередині нижньої повіки; класична — під лінією вій.",
+     "Зовнішній шкірний рубець: транскон’юнктивальна — відсутній; класична — можливий.",
+     "Корекція жирових пакетів: транскон’юнктивальна — так; класична — так.",
+     "Видалення надлишку шкіри: транскон’юнктивальна — не через основний доступ; класична — можливе.",
+     "Додаткове зміцнення повіки: транскон’юнктивальна — за показаннями; класична — за показаннями.",
+     "Вибір методики: транскон’юнктивальна — за відповідної анатомії; класична — за потреби корекції шкіри та інших тканин."
+    ],
+    "en": [
+     "Incision site: transconjunctival — inside the lower eyelid; classic — below the lash line.",
+     "External skin scar: transconjunctival — none; classic — possible.",
+     "Fat pad correction: transconjunctival — yes; classic — yes.",
+     "Removal of excess skin: transconjunctival — not through the main approach; classic — possible.",
+     "Additional eyelid support: transconjunctival — as indicated; classic — as indicated.",
+     "Choice of technique: transconjunctival — when the anatomy is suitable; classic — when the skin and other tissues need correcting."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Універсально кращого методу не існує.\n\nТранскон’юнктивальна блефаропластика може бути доречним варіантом за жирових випинань без вираженого надлишку шкіри.\n\nКласична нижня блефаропластика дає змогу одночасно коригувати жирову тканину та шкіру, якщо це необхідно.\n\nОстаточне рішення ухвалює хірург після оцінки анатомії та можливих ризиків.",
+    "ru": {
+     "$": [
+      72,
+      73,
+      74,
+      96
+     ]
+    },
+    "en": "There is no universally better method.\n\nTransconjunctival blepharoplasty may be a suitable option for fat bulges without pronounced excess skin.\n\nClassic lower blepharoplasty allows both the fatty tissue and the skin to be corrected at the same time, if necessary.\n\nThe final decision is made by the surgeon after assessing the anatomy and the possible risks."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи можна прибрати мішки під очима за допомогою блефаропластики?",
+    "ru": {
+     "$": 97
+    },
+    "en": "Can Blepharoplasty Remove Under-Eye Bags?"
+   },
+   "body": {
+    "uk": "Якщо мішки під очима пов’язані з випинанням орбітальної жирової тканини, нижня блефаропластика може допомогти зменшити їхню виразність.\n\nЗалежно від ситуації хірург видаляє частину жиру або перерозподіляє його.\n\nОднак не всі припухлості під очима є жировими мішками.\n\nНабряки, пов’язані з алергією, захворюваннями або затримкою рідини, потребують іншого підходу.\n\nТому перед операцією важливо визначити, який компонент формує зміну контуру нижньої повіки.",
+    "ru": {
+     "$": [
+      98,
+      99,
+      100,
+      101,
+      102
+     ]
+    },
+    "en": "If under-eye bags are caused by bulging orbital fat, lower blepharoplasty can help make them less noticeable.\n\nDepending on the situation, the surgeon removes part of the fat or redistributes it.\n\nHowever, not all puffiness under the eyes is due to fat bags.\n\nSwelling related to allergies, illness or fluid retention requires a different approach.\n\nThat is why it is important to determine before surgery which component is changing the contour of the lower eyelid."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Чи прибирає нижня блефаропластика темні кола під очима?",
+    "ru": {
+     "$": 103
+    },
+    "en": "Does Lower Blepharoplasty Remove Dark Circles?"
+   },
+   "items": {
+    "$list": 105,
+    "uk": [
+     "пігментація шкіри;",
+     "особливості судинної сітки;",
+     "тонка шкіра нижніх повік;",
+     "виражена носослізна борозна;",
+     "тіні від жирових випинань;",
+     "індивідуальні анатомічні особливості."
+    ],
+    "en": [
+     "skin pigmentation;",
+     "the pattern of blood vessels;",
+     "thin lower eyelid skin;",
+     "a pronounced tear trough;",
+     "shadows cast by fat bulges;",
+     "individual anatomical features."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Якщо темні кола візуально посилюються через тінь від мішків під очима, корекція контуру може зменшити їхню виразність.\n\nОднак операція не усуває пігментації шкіри чи судинних змін.\n\nТому нижня блефаропластика не гарантує зникнення темних кіл під очима.",
+    "ru": {
+     "$": [
+      106,
+      107,
+      108
+     ]
+    },
+    "en": "If dark circles look more pronounced because of the shadow cast by under-eye bags, correcting the contour can make them less noticeable.\n\nHowever, the operation does not remove skin pigmentation or vascular changes.\n\nLower blepharoplasty therefore does not guarantee that dark circles will disappear."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Блефаропластика нижніх повік і носослізна борозна",
+    "ru": {
+     "$": 109
+    },
+    "en": "Lower Blepharoplasty and the Tear Trough"
+   },
+   "body": {
+    "uk": "Носослізна борозна — анатомічне заглиблення в ділянці переходу нижньої повіки до щоки.\n\nЗ віком або через індивідуальні особливості будови обличчя вона може ставати помітнішою.\n\nЯкщо поруч із борозною є випинання жирової тканини, контраст між заглибленням і опуклістю посилюється.\n\nЗа певних показань хірург може перерозподілити орбітальний жир, щоб згладити цей перехід.\n\nВ інших випадках розглядають додаткові методи відновлення об’єму.\n\nНеобхідність таких втручань визначають індивідуально.",
+    "ru": {
+     "$": [
+      110,
+      111,
+      112,
+      113,
+      114,
+      115
+     ]
+    },
+    "en": "The tear trough is an anatomical depression where the lower eyelid meets the cheek.\n\nWith age, or because of individual facial structure, it can become more noticeable.\n\nIf there are fat bulges next to the trough, the contrast between the hollow and the bulge is heightened.\n\nWhen indicated, the surgeon may redistribute orbital fat to smooth this transition.\n\nIn other cases, additional volume-restoring methods are considered.\n\nThe need for such procedures is determined individually."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Переваги нижньої блефаропластики",
+    "ru": {
+     "$": 116
+    },
+    "en": "Benefits of Lower Blepharoplasty"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Корекція жирових мішків",
+      "ru": {
+       "$": 118
+      },
+      "en": "Correction of fat bags"
+     },
+     "description": {
+      "uk": "Хірургічна корекція дає змогу зменшити випинання жирової тканини під очима.",
+      "ru": {
+       "$": 119
+      },
+      "en": "Surgical correction reduces the bulging of fatty tissue under the eyes."
+     }
+    },
+    {
+     "title": {
+      "uk": "Покращення контуру нижніх повік",
+      "ru": {
+       "$": 120
+      },
+      "en": "Improved lower eyelid contour"
+     },
+     "description": {
+      "uk": "Видалення або перерозподіл жиру може зробити перехід між нижньою повікою і щокою плавнішим.",
+      "ru": {
+       "$": 121
+      },
+      "en": "Removing or redistributing fat can make the transition between the lower eyelid and the cheek smoother."
+     }
+    },
+    {
+     "title": {
+      "uk": "Індивідуальний добір методики",
+      "ru": {
+       "$": 122
+      },
+      "en": "An individually chosen technique"
+     },
+     "description": {
+      "uk": "Хірург може обрати внутрішній або зовнішній доступ залежно від стану шкіри та м’яких тканин.",
+      "ru": {
+       "$": 123
+      },
+      "en": "The surgeon can choose an internal or external approach depending on the condition of the skin and soft tissues."
+     }
+    },
+    {
+     "title": {
+      "uk": "Можливість збереження об’єму",
+      "ru": {
+       "$": 124
+      },
+      "en": "The option of preserving volume"
+     },
+     "description": {
+      "uk": "За деяких методик жир не видаляють повністю, а використовують для корекції заглиблень.",
+      "ru": {
+       "$": 125
+      },
+      "en": "With some techniques the fat is not removed completely but is used to correct hollows."
+     }
+    },
+    {
+     "title": {
+      "uk": "Можливість поєднання з іншими операціями",
+      "ru": {
+       "$": 126
+      },
+      "en": "The option of combining with other operations"
+     },
+     "description": {
+      "uk": "За наявності показань нижню блефаропластику можна поєднувати з верхньою блефаропластикою або іншими втручаннями.",
+      "ru": {
+       "$": 127
+      },
+      "en": "Where indicated, lower blepharoplasty can be combined with upper blepharoplasty or other procedures."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "При цьому операція не зупиняє природного старіння і не гарантує повного усунення всіх змін періорбітальної ділянки.",
+    "ru": {
+     "$": 128
+    },
+    "en": "The operation does not, however, stop natural ageing, nor does it guarantee that all changes in the periorbital area will be fully corrected."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить блефаропластика нижніх повік?",
+    "ru": {
+     "$": 129
+    },
+    "en": "How Is Lower Eyelid Blepharoplasty Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "1. Консультація пластичного хірурга",
+      "ru": {
+       "$": 131
+      },
+      "en": "1. Consultation with a plastic surgeon"
+     },
+     "description": {
+      "uk": "Лікар оцінює стан нижніх повік, розташування жирових пакетів, наявність надлишку шкіри та особливості переходу між повікою і щокою.\n\nОсобливу увагу приділяють положенню нижньої повіки, її тонусу та здатності нормально прилягати до очного яблука.",
+      "ru": {
+       "$": [
+        132,
+        133
+       ]
+      },
+      "en": "The doctor assesses the condition of the lower eyelids, the position of the fat pads, any excess skin and the characteristics of the transition between the eyelid and the cheek.\n\nParticular attention is paid to the position and tone of the lower eyelid and its ability to sit properly against the eyeball."
+     }
+    },
+    {
+     "title": {
+      "uk": "2. Оцінка стану очей",
+      "ru": {
+       "$": 134
+      },
+      "en": "2. Eye assessment"
+     },
+     "description": {
+      "uk": "Перед операцією важливо виявити можливі захворювання очної поверхні та порушення слізної плівки.\n\nЗа наявності сухості очей, перенесених офтальмологічних операцій або інших чинників ризику може знадобитися консультація офтальмолога.",
+      "ru": {
+       "$": [
+        135,
+        136
+       ]
+      },
+      "en": "Before surgery it is important to identify any diseases of the ocular surface and tear film disorders.\n\nIf there is dry eye, previous eye surgery or other risk factors, a consultation with an ophthalmologist may be needed."
+     }
+    },
+    {
+     "title": {
+      "uk": "3. Передопераційне обстеження",
+      "ru": {
+       "$": 137
+      },
+      "en": "3. Preoperative tests"
+     },
+     "description": {
+      "uk": "Пацієнт проходить необхідні дослідження для оцінки стану здоров’я та підготовки до анестезії.\n\nЛікар уточнює відомості про хронічні захворювання, ліки, які приймає пацієнт, і раніше перенесені втручання.",
+      "ru": {
+       "$": [
+        138,
+        139
+       ]
+      },
+      "en": "The patient undergoes the necessary investigations to assess their health and prepare for anaesthesia.\n\nThe doctor asks about chronic conditions, current medication and previous procedures."
+     }
+    },
+    {
+     "title": {
+      "uk": "4. Вибір хірургічної техніки",
+      "ru": {
+       "$": 140
+      },
+      "en": "4. Choice of surgical technique"
+     },
+     "description": {
+      "uk": "Хірург визначає, який доступ підходить для корекції: транскон’юнктивальний, транскутанний чи комбінований.\n\nЗа потреби планують перерозподіл жиру або зміцнення нижньої повіки.",
+      "ru": {
+       "$": [
+        141,
+        142
+       ]
+      },
+      "en": "The surgeon decides which approach suits the correction: transconjunctival, transcutaneous or combined.\n\nIf necessary, fat redistribution or lower eyelid support is planned."
+     }
+    },
+    {
+     "title": {
+      "uk": "5. Анестезія",
+      "ru": {
+       "$": 143
+      },
+      "en": "5. Anaesthesia"
+     },
+     "description": {
+      "uk": "Операцію можуть проводити під місцевою анестезією з седацією або під загальною анестезією.\n\nВідповідний варіант визначають індивідуально.",
+      "ru": {
+       "$": [
+        144,
+        145
+       ]
+      },
+      "en": "The operation may be performed under local anaesthesia with sedation or under general anaesthesia.\n\nThe appropriate option is chosen individually."
+     }
+    },
+    {
+     "title": {
+      "uk": "6. Хірургічна корекція",
+      "ru": {
+       "$": 146
+      },
+      "en": "6. Surgical correction"
+     },
+     "description": {
+      "uk": "Лікар виконує доступ до тканин нижньої повіки, коригує жирові пакети та за потреби надлишок шкіри.\n\nЯкщо потрібно, проводять зміцнення підтримувальних структур.",
+      "ru": {
+       "$": [
+        147,
+        148
+       ]
+      },
+      "en": "The doctor accesses the tissues of the lower eyelid and corrects the fat pads and, where necessary, excess skin.\n\nIf required, the supporting structures are reinforced."
+     }
+    },
+    {
+     "title": {
+      "uk": "7. Післяопераційне спостереження",
+      "ru": {
+       "$": 149
+      },
+      "en": "7. Postoperative monitoring"
+     },
+     "description": {
+      "uk": "Після операції оцінюють стан повік, зір, вираженість набряку та загальне самопочуття пацієнта.\n\nЗа неускладненого відновлення повернутися додому іноді можна в день втручання.",
+      "ru": {
+       "$": [
+        150,
+        151
+       ]
+      },
+      "en": "After the operation, the condition of the eyelids, vision, the degree of swelling and the patient's general well-being are assessed.\n\nIf recovery is uncomplicated, it is sometimes possible to go home on the day of the procedure."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки триває операція?",
+    "ru": {
+     "$": 152
+    },
+    "en": "How Long Does the Operation Take?"
+   },
+   "body": {
+    "uk": "Тривалість нижньої блефаропластики залежить від складності корекції, обраного доступу та додаткових хірургічних маніпуляцій.\n\nІзольована операція на обох нижніх повіках може тривати приблизно одну-дві години, проте фактичний час індивідуальний.\n\nЯкщо одночасно виконують верхню блефаропластику, перерозподіл жиру або зміцнення нижніх повік, тривалість може збільшуватися.",
+    "ru": {
+     "$": [
+      153,
+      154,
+      155
+     ]
+    },
+    "en": "The length of lower blepharoplasty depends on the complexity of the correction, the chosen approach and any additional surgical steps.\n\nAn isolated operation on both lower eyelids may take roughly one to two hours, but the actual time varies from patient to patient.\n\nIf upper blepharoplasty, fat redistribution or lower eyelid support is performed at the same time, the operation may take longer."
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/lower-blepharoplasty-inline.webp",
+   "heading": {
+    "uk": "Реабілітація після блефаропластики нижніх повік",
+    "ru": {
+     "$": 156
+    },
+    "en": "Recovery After Lower Eyelid Blepharoplasty"
+   },
+   "body": {
+    "uk": "Відновлення після нижньої блефаропластики залежить від обсягу втручання та індивідуальних особливостей організму.",
+    "ru": {
+     "$": 157
+    },
+    "en": "Recovery after lower blepharoplasty depends on the extent of the procedure and the individual characteristics of the body."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "У перші дні можливі",
+    "ru": {
+     "$": 158
+    },
+    "en": "Possible in the First Few Days"
+   },
+   "items": {
+    "$list": 159,
+    "uk": [
+     "набряклість нижніх повік;",
+     "синці навколо очей;",
+     "помірна болючість;",
+     "відчуття натягу тканин;",
+     "тимчасова сльозотеча;",
+     "сухість і подразнення очей;",
+     "тимчасова нечіткість зору, зокрема через очні мазі;",
+     "зміна чутливості шкіри;",
+     "почервоніння кон’юнктиви."
+    ],
+    "en": [
+     "swelling of the lower eyelids;",
+     "bruising around the eyes;",
+     "moderate tenderness;",
+     "a feeling of tightness in the tissues;",
+     "temporary watering of the eyes;",
+     "dryness and irritation of the eyes;",
+     "temporarily blurred vision, including from eye ointments;",
+     "changes in skin sensation;",
+     "redness of the conjunctiva."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Зазвичай ці прояви поступово зменшуються.\n\nХолодні компреси та інші засоби застосовують за рекомендацією лікаря.",
+    "ru": {
+     "$": [
+      160,
+      164
+     ]
+    },
+    "en": "These effects usually subside gradually.\n\nCold compresses and other measures are used only as recommended by the doctor."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації після операції",
+    "ru": {
+     "$": 161
+    },
+    "en": "Aftercare Recommendations"
+   },
+   "items": {
+    "$list": 163,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "використовувати призначені очні препарати;",
+     "правильно доглядати за післяопераційною ділянкою;",
+     "не терти очі;",
+     "уникати інтенсивних фізичних навантажень;",
+     "тимчасово відмовитися від контактних лінз;",
+     "не використовувати макіяж для очей до дозволу лікаря;",
+     "захищати ділянку очей від сонця та вітру;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "use the prescribed eye medication;",
+     "care for the operated area properly;",
+     "do not rub your eyes;",
+     "avoid strenuous physical activity;",
+     "stop wearing contact lenses for a while;",
+     "do not wear eye make-up until the doctor allows it;",
+     "protect the eye area from sun and wind;",
+     "attend follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли минають синці та набряки?",
+    "ru": {
+     "$": 165
+    },
+    "en": "When Do Bruising and Swelling Subside?"
+   },
+   "body": {
+    "uk": "Помітні синці та набряки часто зменшуються протягом перших одного-двох тижнів.\n\nОднак залишкова припухлість може зберігатися довше.\n\nПісля складнішої корекції, особливо з перерозподілом тканин, відновлення може тривати додатковий час.",
+    "ru": {
+     "$": [
+      166,
+      167,
+      168
+     ]
+    },
+    "en": "Visible bruising and swelling often subside within the first one to two weeks.\n\nHowever, some residual puffiness may last longer.\n\nAfter a more complex correction, especially one involving tissue redistribution, recovery may take extra time."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли можна повернутися до роботи?",
+    "ru": {
+     "$": 169
+    },
+    "en": "When Can I Return to Work?"
+   },
+   "body": {
+    "uk": "За неускладненого відновлення деякі пацієнти повертаються до спокійної роботи через один-два тижні.\n\nТерміни залежать від вираженості набряку, характеру роботи та обсягу операції.",
+    "ru": {
+     "$": [
+      170,
+      171
+     ]
+    },
+    "en": "With an uncomplicated recovery, some patients return to non-strenuous work after one to two weeks.\n\nThe timing depends on the degree of swelling, the type of work and the extent of the operation."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли можна займатися спортом?",
+    "ru": {
+     "$": 172
+    },
+    "en": "When Can I Exercise?"
+   },
+   "body": {
+    "uk": "Інтенсивні фізичні навантаження зазвичай обмежують на кілька тижнів.\n\nТочний термін повернення до тренувань визначає хірург.",
+    "ru": {
+     "$": [
+      173,
+      174
+     ]
+    },
+    "en": "Strenuous exercise is usually restricted for several weeks.\n\nThe surgeon will decide exactly when you can return to training."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли видно результат нижньої блефаропластики?",
+    "ru": {
+     "$": 175
+    },
+    "en": "When Are the Results of Lower Blepharoplasty Visible?"
+   },
+   "body": {
+    "uk": "Перші зміни контуру нижніх повік стають помітними після зменшення раннього набряку.\n\nОднак у перші тижні результат може бути нерівномірним через загоєння тканин.\n\nПоступово зменшується припухлість і стабілізується положення нижніх повік.\n\nОстаточна оцінка результату може тривати кілька місяців.\n\nЕфект операції здатний зберігатися тривалий час, але природні вікові зміни тривають.",
+    "ru": {
+     "$": [
+      176,
+      177,
+      178,
+      179,
+      180
+     ]
+    },
+    "en": "The first changes in the lower eyelid contour become visible once the early swelling subsides.\n\nIn the first weeks, however, the result may look uneven as the tissues heal.\n\nGradually the puffiness decreases and the position of the lower eyelids stabilises.\n\nThe final result may take several months to assess.\n\nThe effect of the operation can last a long time, but natural age-related changes continue."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після нижньої блефаропластики?",
+    "ru": {
+     "$": 181
+    },
+    "en": "Are There Scars After Lower Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Розташування рубців залежить від хірургічної методики.\n\nПри транскон’юнктивальній блефаропластиці розріз виконують усередині нижньої повіки, тому зовнішнього шкірного рубця немає.\n\nПри класичній нижній блефаропластиці розріз зазвичай розташовується під лінією вій.\n\nПісля загоєння рубець може стати малопомітним, проте повністю виключити рубцювання неможливо.\n\nВигляд рубця залежить від індивідуальних особливостей шкіри та процесу відновлення.",
+    "ru": {
+     "$": [
+      182,
+      183,
+      184,
+      185,
+      186
+     ]
+    },
+    "en": "Where scars are located depends on the surgical technique.\n\nIn transconjunctival blepharoplasty the incision is made inside the lower eyelid, so there is no external skin scar.\n\nIn classic lower blepharoplasty the incision is usually placed below the lash line.\n\nOnce healed, the scar may become barely noticeable, but scarring cannot be ruled out entirely.\n\nHow the scar looks depends on individual skin characteristics and the healing process."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи може змінитися форма очей після нижньої блефаропластики?",
+    "ru": {
+     "$": 187
+    },
+    "en": "Can the Shape of the Eyes Change After Lower Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Нижня повіка має складну систему підтримувальних структур.\n\nПід час хірургічної корекції важливо зберегти її нормальне положення відносно очного яблука.\n\nУ деяких випадках після операції можливі тимчасові зміни контуру.\n\nОднак надмірне видалення шкіри або порушення підтримки нижньої повіки можуть призвести до її відтягування, округлення очної щілини або вивороту повіки.\n\nТому перед операцією необхідно оцінити тонус тканин і визначити безпечний обсяг корекції.",
+    "ru": {
+     "$": [
+      188,
+      189,
+      190,
+      191,
+      192
+     ]
+    },
+    "en": "The lower eyelid has a complex system of supporting structures.\n\nDuring surgical correction it is important to preserve its normal position relative to the eyeball.\n\nIn some cases, temporary changes in contour are possible after surgery.\n\nHowever, removing too much skin or disrupting the lower eyelid's support can lead to the eyelid being pulled down, a rounding of the eye opening or eversion of the eyelid.\n\nThat is why tissue tone must be assessed before surgery and a safe extent of correction determined."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Нижня та кругова блефаропластика: у чому різниця?",
+    "ru": {
+     "$": 193
+    },
+    "en": "Lower vs Circular Blepharoplasty: What Is the Difference?"
+   },
+   "body": {
+    "uk": "Нижня блефаропластика спрямована лише на корекцію нижніх повік.\n\nКругова блефаропластика передбачає корекцію верхніх і нижніх повік у межах однієї операції.\n\nЯкщо пацієнта турбують виключно мішки під очима, комплексна пластика всіх повік може бути не потрібна.\n\nЯкщо водночас є нависання верхніх повік і виражені зміни нижніх, хірург може розглянути кругову блефаропластику.\n\nВибір визначають індивідуально.",
+    "ru": {
+     "$": [
+      194,
+      195,
+      196,
+      197,
+      198
+     ]
+    },
+    "en": "Lower blepharoplasty corrects the lower eyelids only.\n\nCircular blepharoplasty corrects both the upper and lower eyelids in a single operation.\n\nIf the patient is only concerned about under-eye bags, surgery on all the eyelids may not be necessary.\n\nIf there is both hooding of the upper eyelids and pronounced change in the lower eyelids, the surgeon may consider circular blepharoplasty.\n\nThe choice is made individually."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Чи можна поєднувати нижню блефаропластику з іншими процедурами?",
+    "ru": {
+     "$": 199
+    },
+    "en": "Can Lower Blepharoplasty Be Combined With Other Procedures?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Нижня та верхня блефаропластика",
+      "ru": {
+       "$": 201
+      },
+      "en": "Lower and upper blepharoplasty"
+     },
+     "description": {
+      "uk": "Поєднання операцій дає змогу одночасно коригувати верхні та нижні повіки.",
+      "ru": {
+       "$": 202
+      },
+      "en": "Combining the operations allows the upper and lower eyelids to be corrected at the same time."
+     }
+    },
+    {
+     "title": {
+      "uk": "Нижня блефаропластика та ліпофілінг",
+      "ru": {
+       "$": 203
+      },
+      "en": "Lower blepharoplasty and lipofilling"
+     },
+     "description": {
+      "uk": "За вираженої втрати об’єму під очима або у виличній ділянці іноді розглядають пересадку власної жирової тканини.\n\nОднак ліпофілінг періорбітальної ділянки потребує особливо ретельного планування через анатомічні ризики.",
+      "ru": {
+       "$": [
+        204,
+        205
+       ]
+      },
+      "en": "Where there is marked volume loss under the eyes or in the cheekbone area, transfer of the patient's own fat is sometimes considered.\n\nHowever, periorbital lipofilling requires especially careful planning because of the anatomical risks."
+     }
+    },
+    {
+     "title": {
+      "uk": "Нижня блефаропластика та підтяжка середньої третини обличчя",
+      "ru": {
+       "$": 206
+      },
+      "en": "Lower blepharoplasty and midface lift"
+     },
+     "description": {
+      "uk": "Якщо зміни пов’язані з опущенням тканин щік, може знадобитися корекція середньої третини обличчя.\n\nПри цьому збільшення обсягу операції впливає на складність втручання та відновлення.",
+      "ru": {
+       "$": [
+        207,
+        208
+       ]
+      },
+      "en": "If the changes are related to sagging of the cheek tissues, midface correction may be needed.\n\nA more extensive operation, however, affects the complexity of the procedure and the recovery."
+     }
+    }
+   ]
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ризики та ускладнення",
+    "ru": {
+     "$": 215
+    },
+    "en": "Possible Risks and Complications"
+   },
+   "items": {
+    "$list": 218,
+    "uk": [
+     "кровотеча та гематома;",
+     "інфекція;",
+     "порушення загоєння;",
+     "тривала набряклість;",
+     "асиметрія;",
+     "помітні рубці;",
+     "зміна чутливості шкіри;",
+     "сухість і подразнення очей;",
+     "неповне змикання повік;",
+     "відтягування нижньої повіки;",
+     "виворіт нижньої повіки — ектропіон;",
+     "округлення очної щілини;",
+     "нерівності контуру під очима;",
+     "надмірне або недостатнє видалення жиру;",
+     "незадовільний естетичний результат;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "impaired healing;",
+     "prolonged swelling;",
+     "asymmetry;",
+     "noticeable scarring;",
+     "changes in skin sensation;",
+     "dry and irritated eyes;",
+     "incomplete eyelid closure;",
+     "pulling down of the lower eyelid;",
+     "eversion of the lower eyelid (ectropion);",
+     "rounding of the eye opening;",
+     "contour irregularities under the eyes;",
+     "too much or too little fat removed;",
+     "an unsatisfactory aesthetic result;",
+     "the need for a further operation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Нижня блефаропластика є хірургічною операцією і супроводжується певними ризиками.\n\nРідкісним, але серйозним ускладненням є крововилив в орбіту, який може призвести до ушкодження зору.\n\nЯкщо після операції виникли раптове погіршення зору, сильний біль, що наростає, набряк, який швидко збільшується, або виражене випинання ока, необхідно негайно звернутися по екстрену медичну допомогу.",
+    "ru": {
+     "$": [
+      216,
+      219,
+      220
+     ]
+    },
+    "en": "Lower blepharoplasty is a surgical operation and carries certain risks.\n\nA rare but serious complication is bleeding into the orbit, which can damage vision.\n\nIf after surgery you experience a sudden deterioration in vision, severe and worsening pain, rapidly increasing swelling or marked protrusion of the eye, seek emergency medical care immediately."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи можна прибрати мішки під очима без операції?",
+    "ru": {
+     "$": 221
+    },
+    "en": "Can Under-Eye Bags Be Removed Without Surgery?"
+   },
+   "body": {
+    "uk": "Безопераційні методи можуть бути корисними за окремих причин змін нижніх повік.\n\nЯкщо припухлість пов’язана з набряками, важливо визначити та за можливості усунути їхню причину.\n\nЗа деяких змін якості шкіри можуть розглядатися косметологічні процедури.\n\nЗа вираженої носослізної борозни іноді застосовують методи відновлення об’єму, однак ін’єкційні процедури поблизу очей мають власні ризики, зокрема рідкісні тяжкі судинні ускладнення.\n\nЯкщо мішки під очима зумовлені значним випинанням орбітального жиру, косметологічні методи зазвичай не забезпечують результату, порівнянного з хірургічною корекцією.",
+    "ru": {
+     "$": [
+      222,
+      223,
+      224,
+      225,
+      226
+     ]
+    },
+    "en": "Non-surgical methods can help with some causes of lower eyelid changes.\n\nIf the puffiness is related to swelling, it is important to identify its cause and, where possible, eliminate it.\n\nFor some changes in skin quality, cosmetic treatments may be considered.\n\nFor a pronounced tear trough, volume-restoring methods are sometimes used, but injectable procedures near the eyes carry their own risks, including rare but serious vascular complications.\n\nIf under-eye bags are caused by significant bulging of orbital fat, cosmetic methods usually cannot deliver a result comparable to surgical correction."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Блефаропластика нижніх повік для чоловіків",
+    "ru": {
+     "$": 227
+    },
+    "en": "Lower Eyelid Blepharoplasty for Men"
+   },
+   "body": {
+    "uk": "Нижню блефаропластику можуть проводити як жінкам, так і чоловікам.\n\nУ чоловіків нерідко трапляються спадкові жирові випинання під очима, а з віком можуть з’являтися зміни шкіри та м’яких тканин.\n\nПід час планування хірург враховує особливості будови обличчя, положення нижніх повік та індивідуальні естетичні побажання.\n\nОсновне завдання — скоригувати анатомічні зміни без необґрунтованої зміни природної форми очей.",
+    "ru": {
+     "$": [
+      228,
+      229,
+      230,
+      231
+     ]
+    },
+    "en": "Lower blepharoplasty can be performed on both women and men.\n\nMen often have hereditary fat bulges under the eyes, and with age changes in the skin and soft tissues may also appear.\n\nWhen planning, the surgeon takes into account the facial structure, the position of the lower eyelids and individual aesthetic wishes.\n\nThe main aim is to correct anatomical changes without needlessly altering the natural shape of the eyes."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Нижня блефаропластика та якість життя",
+    "ru": {
+     "$": 232
+    },
+    "en": "Lower Blepharoplasty and Quality of Life"
+   },
+   "body": {
+    "uk": "Мішки під очима та вікові зміни нижніх повік — поширені особливості зовнішності.\n\nВони не завжди потребують медичного чи хірургічного втручання.\n\nПроте деякі люди розглядають блефаропластику, якщо зміни спричиняють стійкий естетичний дискомфорт.\n\nGENEVITY — Центр довголіття та якості життя — дотримується підходу, за якого естетичні побажання розглядають разом зі станом здоров’я та індивідуальними потребами людини.\n\nПід час планування операції важливо враховувати стан очної поверхні, нормальну функцію нижніх повік, можливі ризики та реалістичність очікуваного результату.\n\nБлефаропластика не зупиняє біологічного старіння і не впливає безпосередньо на тривалість життя.",
+    "ru": {
+     "$": [
+      233,
+      234,
+      235,
+      236,
+      237,
+      238
+     ]
+    },
+    "en": "Under-eye bags and age-related changes in the lower eyelids are common features of appearance.\n\nThey do not always require medical or surgical treatment.\n\nNevertheless, some people consider blepharoplasty when these changes cause persistent aesthetic discomfort.\n\nGENEVITY — the Centre for Longevity and Quality of Life — takes an approach in which aesthetic wishes are considered together with the person's health and individual needs.\n\nWhen planning the operation, it is important to take into account the condition of the ocular surface, the normal function of the lower eyelids, the possible risks and how realistic the expected result is.\n\nBlepharoplasty does not halt biological ageing and has no direct effect on life expectancy."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує блефаропластика нижніх повік у Дніпрі?",
+    "ru": {
+     "$": 239
+    },
+    "en": "How Much Does Lower Eyelid Blepharoplasty Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна блефаропластики нижніх повік у Дніпрі залежить від складності хірургічної корекції, обраної методики та індивідуальних особливостей пацієнта.\n\nТочну вартість визначають після консультації та складання індивідуального хірургічного плану.\n\nЩоб дізнатися актуальні ціни та доступні методики, зверніться до GENEVITY — Центру довголіття та якості життя в Дніпрі.",
+    "ru": {
+     "$": [
+      240,
+      243,
+      244
+     ]
+    },
+    "en": "The price of lower eyelid blepharoplasty in Dnipro depends on the complexity of the surgical correction, the chosen technique and the patient's individual characteristics.\n\nThe exact cost is determined after a consultation and the drawing up of an individual surgical plan.\n\nFor current prices and available techniques, contact GENEVITY — the Centre for Longevity and Quality of Life in Dnipro."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати",
+    "ru": {
+     "$": 241
+    },
+    "en": "Factors That May Affect the Cost"
+   },
+   "items": {
+    "$list": 242,
+    "uk": [
+     "транскон’юнктивальний чи класичний доступ;",
+     "об’єм жирових випинань;",
+     "необхідність перерозподілу жирової тканини;",
+     "наявність надлишку шкіри;",
+     "необхідність зміцнення нижніх повік;",
+     "первинна чи повторна операція;",
+     "вид анестезії;",
+     "передопераційне обстеження;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "a transconjunctival or classic approach;",
+     "the size of the fat bulges;",
+     "the need to redistribute fatty tissue;",
+     "whether there is excess skin;",
+     "the need to support the lower eyelids;",
+     "primary or revision surgery;",
+     "the type of anaesthesia;",
+     "preoperative tests;",
+     "postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Якщо вас турбують мішки під очима, жирові випинання, надлишок шкіри або зміна переходу між нижньою повікою і щокою, першим кроком має стати консультація кваліфікованого пластичного хірурга.\n\nФахівець оцінить стан тканин, положення нижніх повік, особливості жирових пакетів і можливі причини змін.\n\nПісля огляду лікар зможе визначити, чи підходить вам нижня блефаропластика, який хірургічний доступ може бути рекомендований і які обмеження необхідно враховувати.\n\nУточніть можливість консультації щодо нижньої блефаропластики, доступні хірургічні методики та умови проведення операції.",
+    "ru": {
+     "$": [
+      279,
+      280,
+      281,
+      283
+     ]
+    },
+    "en": "If you are concerned about under-eye bags, fat bulges, excess skin or a change in the transition between the lower eyelid and the cheek, the first step should be a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the condition of the tissues, the position of the lower eyelids, the characteristics of the fat pads and the possible causes of the changes.\n\nAfter the examination, the doctor will be able to tell whether lower blepharoplasty is right for you, which surgical approach may be recommended and what limitations need to be taken into account.\n\nAsk about a consultation on lower blepharoplasty, the available surgical techniques and the conditions for the operation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке блефаропластика нижніх повік?",
+    "ru": {
+     "$": 246
+    },
+    "en": "What Is Lower Eyelid Blepharoplasty?"
+   },
+   "answer": {
+    "uk": "Це хірургічна операція, спрямована на корекцію жирових випинань, надлишку шкіри та окремих змін контуру нижніх повік.",
+    "ru": {
+     "$": 247
+    },
+    "en": "It is a surgical operation to correct fat bulges, excess skin and certain changes in the contour of the lower eyelids."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна прибрати мішки під очима назавжди?",
+    "ru": {
+     "$": 248
+    },
+    "en": "Can Under-Eye Bags Be Removed for Good?"
+   },
+   "answer": {
+    "uk": "Операція може надовго зменшити жирові випинання, але не зупиняє вікових змін і не виключає появи нових естетичних проблем.",
+    "ru": {
+     "$": 249
+    },
+    "en": "The operation can reduce fat bulges for a long time, but it does not stop age-related changes or rule out new aesthetic concerns."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чим транскон’юнктивальна блефаропластика відрізняється від класичної?",
+    "ru": {
+     "$": 250
+    },
+    "en": "How Does Transconjunctival Blepharoplasty Differ From the Classic Technique?"
+   },
+   "answer": {
+    "uk": "За транскон’юнктивальної методики розріз виконують усередині нижньої повіки, без зовнішнього шкірного рубця. Під час класичної операції використовують шкірний доступ під віями, що дає змогу також коригувати надлишок шкіри.",
+    "ru": {
+     "$": 251
+    },
+    "en": "In the transconjunctival technique the incision is made inside the lower eyelid, with no external skin scar. The classic operation uses a skin incision below the lashes, which also allows excess skin to be corrected."
+   }
+  },
+  {
+   "question": {
+    "uk": "Яка блефаропластика нижніх повік краща?",
+    "ru": {
+     "$": 252
+    },
+    "en": "Which Type of Lower Blepharoplasty Is Better?"
+   },
+   "answer": {
+    "uk": "Метод обирають індивідуально. За жирових випинань без надлишку шкіри може підходити транскон’юнктивальна техніка. За виражених змін шкіри можуть знадобитися інші методи.",
+    "ru": {
+     "$": 253
+    },
+    "en": "The method is chosen individually. For fat bulges without excess skin, the transconjunctival technique may be suitable. Pronounced skin changes may require other methods."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити нижню блефаропластику в молодому віці?",
+    "ru": {
+     "$": 254
+    },
+    "en": "Can Lower Blepharoplasty Be Done at a Young Age?"
+   },
+   "answer": {
+    "uk": "Так, за наявності показань. Спадкові жирові мішки можуть з’являтися задовго до виражених вікових змін.",
+    "ru": {
+     "$": 255
+    },
+    "en": "Yes, if there are indications. Hereditary fat bags can appear long before any pronounced age-related changes."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи прибирає операція темні кола?",
+    "ru": {
+     "$": 256
+    },
+    "en": "Does the Operation Remove Dark Circles?"
+   },
+   "answer": {
+    "uk": "Не завжди. Якщо темні кола пов’язані з тінями від жирових випинань, корекція контуру може покращити їхній вигляд. Пігментацію та судинні особливості операція не усуває.",
+    "ru": {
+     "$": 257
+    },
+    "en": "Not always. If dark circles are caused by shadows from fat bulges, correcting the contour can improve their appearance. The operation does not remove pigmentation or vascular features."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами?",
+    "ru": {
+     "$": 258
+    },
+    "en": "Will There Be Scars?"
+   },
+   "answer": {
+    "uk": "За транскон’юнктивального доступу зовнішнього шкірного рубця немає. За класичної методики залишається рубець під лінією вій, який після загоєння може бути малопомітним.",
+    "ru": {
+     "$": 259
+    },
+    "en": "With the transconjunctival approach there is no external skin scar. The classic technique leaves a scar below the lash line, which may be barely noticeable once healed."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи болісна нижня блефаропластика?",
+    "ru": {
+     "$": 260
+    },
+    "en": "Is Lower Blepharoplasty Painful?"
+   },
+   "answer": {
+    "uk": "Під час операції застосовують анестезію. Після втручання можливі помірна болючість, набряк і відчуття натягу тканин.",
+    "ru": {
+     "$": 261
+    },
+    "en": "Anaesthesia is used during the operation. Afterwards there may be moderate tenderness, swelling and a feeling of tightness."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки триває операція?",
+    "ru": {
+     "$": 262
+    },
+    "en": "How Long Does the Operation Take?"
+   },
+   "answer": {
+    "uk": "Тривалість залежить від обраної техніки та обсягу корекції. Ізольована операція може тривати приблизно одну-дві години, але фактичний час індивідуальний.",
+    "ru": {
+     "$": 263
+    },
+    "en": "It depends on the chosen technique and the extent of the correction. An isolated operation may take roughly one to two hours, but the actual time varies."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна повернутися на роботу?",
+    "ru": {
+     "$": 264
+    },
+    "en": "When Can I Go Back to Work?"
+   },
+   "answer": {
+    "uk": "За неускладненого відновлення деякі пацієнти повертаються до спокійної роботи через один-два тижні.",
+    "ru": {
+     "$": 265
+    },
+    "en": "With an uncomplicated recovery, some patients return to non-strenuous work after one to two weeks."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна фарбувати очі?",
+    "ru": {
+     "$": 266
+    },
+    "en": "When Can I Wear Eye Make-up?"
+   },
+   "answer": {
+    "uk": "Макіяж дозволяється після достатнього загоєння та з дозволу хірурга.",
+    "ru": {
+     "$": 267
+    },
+    "en": "Make-up is allowed once healing is sufficient and the surgeon has given permission."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна носити контактні лінзи після операції?",
+    "ru": {
+     "$": 268
+    },
+    "en": "Can I Wear Contact Lenses After Surgery?"
+   },
+   "answer": {
+    "uk": "У ранньому післяопераційному періоді носіння контактних лінз зазвичай обмежують. Термін повернення до них визначає лікар.",
+    "ru": {
+     "$": 269
+    },
+    "en": "Contact lenses are usually restricted in the early postoperative period. The doctor will decide when you can start wearing them again."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи може змінитися форма очей?",
+    "ru": {
+     "$": 270
+    },
+    "en": "Can the Shape of My Eyes Change?"
+   },
+   "answer": {
+    "uk": "Так, зміна положення нижньої повіки є одним із можливих ризиків. Тому важливо ретельно оцінити стан підтримувальних структур до операції.",
+    "ru": {
+     "$": 271
+    },
+    "en": "Yes, a change in the position of the lower eyelid is one of the possible risks. That is why the supporting structures must be carefully assessed before surgery."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна поєднати нижню блефаропластику з верхньою?",
+    "ru": {
+     "$": 272
+    },
+    "en": "Can Lower Blepharoplasty Be Combined With Upper Blepharoplasty?"
+   },
+   "answer": {
+    "uk": "Так, за наявності показань можлива кругова блефаропластика — одночасна корекція верхніх і нижніх повік.",
+    "ru": {
+     "$": 273
+    },
+    "en": "Yes, where indicated, circular blepharoplasty is possible — correction of the upper and lower eyelids at the same time."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки зберігається результат?",
+    "ru": {
+     "$": 274
+    },
+    "en": "How Long Do the Results Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років, проте його тривалість залежить від індивідуальних особливостей і природних вікових змін.",
+    "ru": {
+     "$": 275
+    },
+    "en": "The result can last for many years, but how long depends on individual characteristics and natural age-related changes."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна повторно зробити нижню блефаропластику?",
+    "ru": {
+     "$": 276
+    },
+    "en": "Can Lower Blepharoplasty Be Repeated?"
+   },
+   "answer": {
+    "uk": "В окремих випадках повторна операція можлива, але потребує ретельної оцінки рубців, стану шкіри, положення повіки та ризику ускладнень.",
+    "ru": {
+     "$": 277
+    },
+    "en": "In some cases a repeat operation is possible, but it requires careful assessment of scarring, skin condition, eyelid position and the risk of complications."
+   }
+  }
+ ]
+}

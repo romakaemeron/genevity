@@ -1,0 +1,523 @@
+{
+ "sortOrder": 123,
+ "related": ["breast-lift", "breast-lift-without-implants", "breast-lift-with-implants"],
+ "title": {
+  "uk": "Підтяжка грудей після пологів",
+  "ru": "Подтяжка груди после родов",
+  "en": "Breast Lift After Pregnancy"
+ },
+ "summary": {
+  "uk": "Підтяжка грудей після пологів і лактації (мастопексія) — пластична операція, спрямована на корекцію опущення молочних залоз, видалення надлишку шкіри та відновлення вищого положення грудей. Операція може допомогти покращити форму молочних залоз після вагітності та завершення грудного вигодовування.",
+  "ru": { "$": 0 },
+  "en": "A breast lift after pregnancy and breastfeeding (mastopexy) corrects breast ptosis, removes excess skin, and restores a higher breast position. It can help improve breast shape after pregnancy and the end of breastfeeding."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/breast-lift-after-pregnancy-hero.webp",
+   "heading": {
+    "uk": "Чому змінюється форма грудей після пологів?",
+    "ru": { "$": 2 },
+    "en": "Why Does Breast Shape Change After Childbirth?"
+   },
+   "body": {
+    "uk": "Під час вагітності молочні залози збільшуються під впливом гормональних змін. Після пологів і завершення лактації їхній об'єм може зменшуватися, а шкіра не завжди повертається до попереднього стану.",
+    "ru": { "$": 3 },
+    "en": "During pregnancy the breasts enlarge under the influence of hormonal changes. After childbirth and the end of lactation their volume may decrease, and the skin does not always return to its previous state."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетична корекція розглядається з урахуванням індивідуальних особливостей організму, стану здоров'я та побажань пацієнта.",
+    "ru": { "$": 1 },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's individual anatomy, health status, and personal goals."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На форму грудей впливають",
+    "ru": { "$": 4 },
+    "en": "Breast Shape Is Influenced By"
+   },
+   "items": {
+    "$list": 5,
+    "uk": [
+     "вагітність і гормональні зміни;",
+     "коливання маси тіла;",
+     "вихідний розмір молочних залоз;",
+     "еластичність шкіри;",
+     "спадкові особливості;",
+     "вікові зміни."
+    ],
+    "en": [
+     "pregnancy and hormonal changes;",
+     "fluctuations in body weight;",
+     "the original size of the breasts;",
+     "skin elasticity;",
+     "hereditary factors;",
+     "age-related changes."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Опущення грудей пов'язане з комплексом факторів. Саме по собі грудне вигодовування не обов'язково є причиною птозу.",
+    "ru": { "$": 6 },
+    "en": "Breast ptosis results from a combination of factors. Breastfeeding itself is not necessarily the cause."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Що таке мастопексія після вагітності?",
+    "ru": { "$": 7 },
+    "en": "What Is a Mastopexy After Pregnancy?"
+   },
+   "body": {
+    "uk": "Мастопексія — хірургічна підтяжка грудей, за якої пластичний хірург видаляє надлишок шкіри, моделює власні тканини молочних залоз і піднімає сосково-ареолярний комплекс.\n\nГоловна мета операції — покращити форму та положення грудей, а не обов'язково збільшити їхній розмір.\n\nЯкщо після вагітності значно зменшився об'єм молочних залоз, хірург може обговорити можливість поєднання підтяжки зі встановленням імплантів. За достатнього об'єму власних тканин операція може виконуватися без них.",
+    "ru": { "$": [8, 9, 10] },
+    "en": "A mastopexy is a surgical breast lift in which the plastic surgeon removes excess skin, reshapes the patient's own breast tissue, and raises the nipple-areola complex.\n\nThe main goal is to improve the shape and position of the breasts, not necessarily to increase their size.\n\nIf breast volume has decreased significantly after pregnancy, the surgeon may discuss combining the lift with implants. Where there is enough of the patient's own tissue, the operation can be performed without them."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до підтяжки грудей після пологів",
+    "ru": { "$": 11 },
+    "en": "Indications for a Breast Lift After Childbirth"
+   },
+   "indications": {
+    "$list": 13,
+    "uk": [
+     "опущення молочних залоз після вагітності;",
+     "зміщення сосків униз;",
+     "надлишок розтягнутої шкіри;",
+     "втрата наповненості та зміна форми грудей;",
+     "асиметрія молочних залоз;",
+     "зміна положення ареол;",
+     "бажання відновити більш підтягнутий контур грудей."
+    ],
+    "en": [
+     "breast ptosis after pregnancy;",
+     "downward displacement of the nipples;",
+     "excess stretched skin;",
+     "loss of fullness and changes in breast shape;",
+     "breast asymmetry;",
+     "a change in the position of the areolas;",
+     "a wish to restore a firmer breast contour."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до мастопексії",
+    "ru": "Противопоказания к мастопексии",
+    "en": "Contraindications for Mastopexy"
+   },
+   "contraindications": {
+    "ru": [
+     "Продолжающаяся лактация.",
+     "Активное воспаление молочных желёз.",
+     "Острые инфекции.",
+     "Декомпенсированные хронические заболевания.",
+     "Нарушения свертываемости крови.",
+     "Другие состояния, повышающие хирургический риск."
+    ],
+    "uk": [
+     "Лактація, що триває.",
+     "Активне запалення молочних залоз.",
+     "Гострі інфекції.",
+     "Декомпенсовані хронічні захворювання.",
+     "Порушення згортання крові.",
+     "Інші стани, що підвищують хірургічний ризик."
+    ],
+    "en": [
+     "Ongoing lactation.",
+     "Active inflammation of the breasts.",
+     "Acute infections.",
+     "Decompensated chronic conditions.",
+     "Blood clotting disorders.",
+     "Other conditions that raise surgical risk."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли можна робити підтяжку грудей після лактації?",
+    "ru": { "$": 15 },
+    "en": "When Can a Breast Lift Be Done After Breastfeeding?"
+   },
+   "body": {
+    "uk": "Мастопексію зазвичай планують після повного завершення грудного вигодовування, коли об'єм грудей стабілізувався.\n\nНерідко хірурги рекомендують зачекати приблизно 3–6 місяців після завершення лактації, однак це не універсальний термін. В окремих випадках очікування може бути довшим.\n\nНеобхідність операції та відповідна техніка визначаються після огляду.",
+    "ru": { "$": [16, 17, 14] },
+    "en": "A mastopexy is usually planned after breastfeeding has fully ended and breast volume has stabilised.\n\nSurgeons often recommend waiting roughly 3–6 months after lactation ends, although this is not a universal timeline. In some cases a longer wait is advisable.\n\nWhether surgery is needed, and which technique suits, is determined after an examination."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Перед операцією важливо враховувати",
+    "ru": { "$": 18 },
+    "en": "Before Surgery It Is Important to Consider"
+   },
+   "items": {
+    "$list": 19,
+    "uk": [
+     "завершення вироблення молока;",
+     "стабільність маси тіла;",
+     "відновлення після вагітності;",
+     "відсутність запальних захворювань грудей;",
+     "плани щодо майбутніх вагітностей."
+    ],
+    "en": [
+     "that milk production has ceased;",
+     "stability of body weight;",
+     "recovery after pregnancy;",
+     "the absence of inflammatory breast conditions;",
+     "plans for future pregnancies."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Якщо жінка планує ще одну вагітність найближчим часом, операцію іноді доцільно відкласти, оскільки повторні зміни об'єму грудей можуть вплинути на результат.",
+    "ru": { "$": 20 },
+    "en": "If another pregnancy is planned in the near future, it is sometimes sensible to postpone surgery, since further changes in breast volume can affect the result."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Методи підтяжки грудей після пологів",
+    "ru": { "$": 21 },
+    "en": "Techniques for a Breast Lift After Childbirth"
+   },
+   "items": {
+    "ru": [
+     "Периареолярная мастопексия. Разрез выполняется вокруг ареолы. Методика подходит преимущественно при небольшом опущении груди.",
+     "Вертикальная мастопексия. Разрез проходит вокруг ареолы и вертикально вниз до подгрудной складки. Применяется для более выраженной коррекции формы и положения груди.",
+     "Якорная мастопексия. Разрез выполняется вокруг ареолы, вертикально вниз и вдоль подгрудной складки. Чаще используется при значительном опущении и большом избытке кожи."
+    ],
+    "uk": [
+     "Періареолярна мастопексія. Розріз виконується навколо ареоли. Методика підходить переважно за незначного опущення грудей.",
+     "Вертикальна мастопексія. Розріз проходить навколо ареоли та вертикально вниз до підгрудної складки. Застосовується для виразнішої корекції форми та положення грудей.",
+     "Якірна мастопексія. Розріз виконується навколо ареоли, вертикально вниз і вздовж підгрудної складки. Частіше використовується за значного опущення та великого надлишку шкіри."
+    ],
+    "en": [
+     "Periareolar mastopexy. The incision is made around the areola. The technique mainly suits mild breast ptosis.",
+     "Vertical mastopexy. The incision runs around the areola and vertically down to the inframammary fold. It is used for a more pronounced correction of breast shape and position.",
+     "Anchor mastopexy. The incision runs around the areola, vertically downwards, and along the inframammary fold. It is more often used for significant ptosis and a large amount of excess skin."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір хірургічної техніки залежить від ступеня опущення та кількості надлишкової шкіри. За недостатнього об'єму власних тканин може розглядатися підтяжка з імплантами.",
+    "ru": { "$": [22, 29] },
+    "en": "The surgical technique is chosen according to the degree of ptosis and the amount of excess skin. Where there is not enough of the patient's own tissue, a lift with implants may be considered."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги підтяжки грудей після вагітності",
+    "ru": { "$": 30 },
+    "en": "Advantages of a Breast Lift After Pregnancy"
+   },
+   "items": {
+    "$list": 32,
+    "uk": [
+     "Підняти груди та скоригувати положення сосків.",
+     "Видалити надлишок шкіри після зміни об'єму молочних залоз.",
+     "Покращити форму за рахунок моделювання власних тканин.",
+     "Скоригувати асиметрію в межах можливостей операції.",
+     "Виконати підтяжку без імплантів, якщо вихідний об'єм грудей достатній."
+    ],
+    "en": [
+     "Lift the breasts and correct nipple position.",
+     "Remove excess skin left after the change in breast volume.",
+     "Improve the shape by reshaping the patient's own tissue.",
+     "Correct asymmetry within the limits of the procedure.",
+     "Perform the lift without implants where the existing breast volume is sufficient."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Результат залежить від анатомії, стану шкіри та особливостей загоєння. Повністю повернути груди до форми до вагітності вдається не завжди.",
+    "ru": { "$": 33 },
+    "en": "The outcome depends on anatomy, skin condition, and individual healing. It is not always possible to restore the breasts fully to their pre-pregnancy shape."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить підтяжка грудей після пологів?",
+    "ru": { "$": 34 },
+    "en": "How Is a Breast Lift After Childbirth Performed?"
+   },
+   "body": {
+    "uk": "Перед операцією пластичний хірург оцінює розмір і форму грудей, ступінь опущення, стан шкіри та загальне здоров'я пацієнтки.\n\nТривалість втручання залежить від складності корекції.",
+    "ru": { "$": [35, 38] },
+    "en": "Before surgery the plastic surgeon assesses breast size and shape, the degree of ptosis, skin condition, and the patient's general health.\n\nThe length of the procedure depends on the complexity of the correction."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": { "$": 36 },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 37,
+    "uk": [
+     "Консультація та обстеження. Обговорення побажань, репродуктивних планів і необхідних досліджень молочних залоз.",
+     "Вибір методики. Визначення техніки підтяжки та необхідності додаткового збільшення об'єму.",
+     "Розмітка. Планування ліній розрізів і нового положення сосково-ареолярного комплексу.",
+     "Анестезія. Операція зазвичай виконується під загальною анестезією.",
+     "Хірургічна корекція. Видалення надлишку шкіри, моделювання тканин і переміщення сосково-ареолярного комплексу.",
+     "Післяопераційне спостереження. Контроль загоєння та рекомендації щодо відновлення."
+    ],
+    "en": [
+     "Consultation and examination. Discussing your goals, reproductive plans, and the necessary breast investigations.",
+     "Choice of technique. Deciding on the lifting method and whether additional volume is needed.",
+     "Marking. Planning the incision lines and the new position of the nipple-areola complex.",
+     "Anaesthesia. The operation is usually performed under general anaesthesia.",
+     "Surgical correction. Removal of excess skin, reshaping of tissue, and repositioning of the nipple-areola complex.",
+     "Postoperative monitoring. Checking healing and giving recovery instructions."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Відновлення після мастопексії",
+    "ru": { "$": 39 },
+    "en": "Recovery After Mastopexy"
+   },
+   "body": {
+    "uk": "Після операції можливі набряки, синці, болючість і тимчасова зміна чутливості грудей.\n\nДо спокійної роботи деякі пацієнтки повертаються через 1–2 тижні. Однак догляд за маленькою дитиною може потребувати додаткової допомоги, оскільки піднімати важке в перші тижні зазвичай не рекомендується.\n\nОстаточна форма грудей встановлюється поступово, протягом кількох місяців.",
+    "ru": { "$": [40, 43, 44] },
+    "en": "Swelling, bruising, tenderness, and temporary changes in breast sensation are possible after surgery.\n\nSome patients return to sedentary work after 1–2 weeks. Caring for a small child may require extra help, since lifting is usually not advised in the first weeks.\n\nThe final breast shape settles gradually over several months."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Під час відновлення рекомендується",
+    "ru": { "$": 41 },
+    "en": "During Recovery It Is Recommended To"
+   },
+   "items": {
+    "$list": 42,
+    "uk": [
+     "носити призначену підтримувальну білизну;",
+     "обмежувати фізичні навантаження;",
+     "уникати тиску на груди;",
+     "дотримуватися рекомендацій щодо догляду за швами;",
+     "приймати призначені препарати;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "wear the prescribed support garment;",
+     "limit physical activity;",
+     "avoid pressure on the breasts;",
+     "follow the instructions for suture care;",
+     "take the prescribed medication;",
+     "attend the scheduled follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після підтяжки грудей?",
+    "ru": { "$": 45 },
+    "en": "Do Scars Remain After a Breast Lift?"
+   },
+   "body": {
+    "uk": "Так. Мастопексія передбачає хірургічні розрізи, після яких залишаються рубці.\n\nЇхнє розташування залежить від обраної техніки: навколо ареоли, вертикально вниз або додатково вздовж підгрудної складки.\n\nЗ часом рубці можуть стати менш помітними, але повністю не зникають.",
+    "ru": { "$": [46, 47, 48] },
+    "en": "Yes. A mastopexy involves surgical incisions, which leave scars.\n\nTheir location depends on the technique used: around the areola, vertically downwards, or additionally along the inframammary fold.\n\nOver time the scars may become less noticeable, but they do not disappear completely."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення",
+    "ru": { "$": 51 },
+    "en": "Possible Complications"
+   },
+   "items": {
+    "$list": 52,
+    "uk": [
+     "кровотечу та гематому;",
+     "інфекцію;",
+     "порушення загоєння;",
+     "помітні рубці;",
+     "асиметрію грудей;",
+     "зміну чутливості сосків;",
+     "порушення кровопостачання сосково-ареолярного комплексу;",
+     "повторне опущення тканин;",
+     "необхідність додаткової операції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "impaired healing;",
+     "noticeable scarring;",
+     "breast asymmetry;",
+     "changes in nipple sensation;",
+     "compromised blood supply to the nipple-areola complex;",
+     "recurrent tissue descent;",
+     "the need for further surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Також існують ризики, пов'язані з анестезією та утворенням тромбів.\n\nМайбутня вагітність і грудне вигодовування можуть вплинути на результат мастопексії. Можливість лактації після операції залежить від обраної техніки та збереженості молочних проток і нервів.",
+    "ru": { "$": [53, 54] },
+    "en": "There are also risks associated with anaesthesia and blood clot formation.\n\nA future pregnancy and breastfeeding can affect the result of a mastopexy. Whether lactation remains possible after surgery depends on the technique used and on the milk ducts and nerves being preserved."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Підтяжка грудей після пологів: з імплантами чи без?",
+    "ru": { "$": 55 },
+    "en": "Breast Lift After Childbirth: With or Without Implants?"
+   },
+   "items": {
+    "ru": [
+     "Без имплантов — коррекция формы за счёт собственных тканей; с имплантами — подтяжка с увеличением объёма.",
+     "Без имплантов — подходит при достаточном объёме груди; с имплантами — может рассматриваться при выраженной потере объёма.",
+     "Без имплантов — не предназначена для значительного увеличения размера; с имплантами — позволяет увеличить размер и наполненность груди.",
+     "Без имплантов — нет рисков, специфичных для имплантов; с имплантами — требуется учитывать дополнительные риски и наблюдение за имплантами."
+    ],
+    "uk": [
+     "Без імплантів — корекція форми за рахунок власних тканин; з імплантами — підтяжка зі збільшенням об'єму.",
+     "Без імплантів — підходить за достатнього об'єму грудей; з імплантами — може розглядатися за вираженої втрати об'єму.",
+     "Без імплантів — не призначена для значного збільшення розміру; з імплантами — дозволяє збільшити розмір і наповненість грудей.",
+     "Без імплантів — немає ризиків, специфічних для імплантів; з імплантами — потрібно враховувати додаткові ризики та спостереження за імплантами."
+    ],
+    "en": [
+     "Without implants — reshaping using the patient's own tissue; with implants — a lift plus an increase in volume.",
+     "Without implants — suitable where breast volume is sufficient; with implants — may be considered where volume loss is pronounced.",
+     "Without implants — not intended for a significant increase in size; with implants — size and fullness can be increased.",
+     "Without implants — no implant-specific risks; with implants — additional risks and ongoing implant monitoring must be taken into account."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір залежить від стану грудей після вагітності та бажаного результату.",
+    "ru": { "$": 66 },
+    "en": "The choice depends on the condition of the breasts after pregnancy and on the desired result."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна підтяжки грудей після пологів і лактації в Дніпрі",
+    "ru": { "$": 67 },
+    "en": "The Cost of a Breast Lift After Pregnancy in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість підтяжки грудей після вагітності залежить від ступеня опущення молочних залоз, обраної хірургічної техніки, складності операції, виду анестезії та обсягу післяопераційного спостереження.\n\nЯкщо планується встановлення імплантів, їхня вартість також враховується.\n\nТочна ціна визначається після консультації пластичного хірурга.",
+    "ru": { "$": [68, 69, 70] },
+    "en": "The cost of a breast lift after pregnancy depends on the degree of breast ptosis, the surgical technique chosen, the complexity of the operation, the type of anaesthesia, and the extent of postoperative monitoring.\n\nIf implants are planned, their cost is also included.\n\nThe exact price is determined after a consultation with a plastic surgeon."
+   },
+   "calloutBody": {
+    "uk": "Якщо після вагітності та завершення грудного вигодовування змінилася форма грудей, почніть з консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить ступінь опущення молочних залоз, стан шкіри, стабільність об'єму грудей і допоможе визначити відповідний час і методику операції.\n\nУточніть доступність підтяжки грудей після пологів і лактації, актуальну вартість та умови запису на консультацію.",
+    "ru": { "$": [85, 86, 88] },
+    "en": "If the shape of your breasts has changed after pregnancy and breastfeeding, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the degree of ptosis, skin condition, and the stability of breast volume, and will help determine the right timing and technique.\n\nAsk about the availability of a breast lift after pregnancy and breastfeeding, current pricing, and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Через скільки після завершення грудного вигодовування можна підтягнути груди?",
+    "ru": { "$": 72 },
+    "en": "How Long After Breastfeeding Can the Breasts Be Lifted?"
+   },
+   "answer": {
+    "uk": "Часто рекомендують зачекати близько 3–6 місяців після завершення лактації, щоб форма та об'єм грудей стабілізувалися. Індивідуальний термін визначає хірург.",
+    "ru": { "$": 73 },
+    "en": "Waiting around 3–6 months after lactation ends is often recommended, so that breast shape and volume can stabilise. The individual timeline is set by the surgeon."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна підтягнути груди після пологів без імплантів?",
+    "ru": { "$": 74 },
+    "en": "Can the Breasts Be Lifted After Childbirth Without Implants?"
+   },
+   "answer": {
+    "uk": "Так. Якщо власних тканин достатньо, мастопексія може виконуватися без встановлення імплантів.",
+    "ru": { "$": 75 },
+    "en": "Yes. Where there is enough of the patient's own tissue, a mastopexy can be performed without implants."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна робити підтяжку, якщо планується ще одна вагітність?",
+    "ru": { "$": 76 },
+    "en": "Can a Lift Be Done If Another Pregnancy Is Planned?"
+   },
+   "answer": {
+    "uk": "Технічно це можливо, але подальша вагітність може змінити форму грудей і результат операції. За найближчих репродуктивних планів хірург може рекомендувати відкласти втручання.",
+    "ru": { "$": 77 },
+    "en": "Technically it is possible, but a subsequent pregnancy can change breast shape and the result of surgery. If pregnancy is planned soon, the surgeon may advise postponing the procedure."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна годувати грудьми після мастопексії?",
+    "ru": { "$": 78 },
+    "en": "Is Breastfeeding Possible After a Mastopexy?"
+   },
+   "answer": {
+    "uk": "Можливість грудного вигодовування може зберігатися, але гарантувати її не можна.",
+    "ru": { "$": 79 },
+    "en": "Breastfeeding may remain possible, but it cannot be guaranteed."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами?",
+    "ru": { "$": 80 },
+    "en": "Do Scars Remain?"
+   },
+   "answer": {
+    "uk": "Так. Розташування рубців залежить від обраної методики підтяжки.",
+    "ru": { "$": 81 },
+    "en": "Yes. The location of the scars depends on the lifting technique used."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": { "$": 82 },
+    "en": "How Long Does the Result Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років, однак майбутні вагітності, коливання ваги та природне старіння здатні вплинути на форму грудей.",
+    "ru": { "$": 83 },
+    "en": "The result can last for many years, but future pregnancies, weight fluctuations, and natural ageing can affect breast shape."
+   }
+  }
+ ]
+}

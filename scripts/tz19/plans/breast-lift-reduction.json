@@ -1,0 +1,429 @@
+{
+ "sortOrder": 122,
+ "related": ["breast-reduction", "breast-lift", "breast-lift-without-implants"],
+ "title": {
+  "uk": "Підтяжка та зменшення грудей",
+  "ru": "Подтяжка и уменьшение груди",
+  "en": "Breast Lift and Reduction"
+ },
+ "summary": {
+  "uk": "Підтяжка та зменшення грудей (редукційна мамопластика) — пластична операція, спрямована на зменшення об'єму молочних залоз, усунення їхнього опущення та покращення форми. Під час втручання хірург видаляє надлишок тканин і шкіри, формує новий контур грудей і піднімає сосково-ареолярний комплекс.",
+  "ru": { "$": 0 },
+  "en": "A breast lift with reduction (reduction mammoplasty) reduces breast volume, corrects ptosis, and improves breast shape. During surgery the surgeon removes excess tissue and skin, forms a new breast contour, and raises the nipple-areola complex."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/breast-lift-reduction-hero.webp",
+   "heading": {
+    "uk": "Що таке підтяжка та зменшення грудей?",
+    "ru": { "$": 2 },
+    "en": "What Is a Breast Lift With Reduction?"
+   },
+   "body": {
+    "uk": "Редукційна мамопластика поєднує зменшення розміру грудей з їхньою підтяжкою.\n\nПід час операції хірург видаляє частину залозистої та жирової тканини, надлишок шкіри та переміщує сосково-ареолярний комплекс у вище положення.\n\nГоловна відмінність від звичайної мастопексії — зменшення об'єму молочних залоз. Підтяжка без зменшення спрямована передусім на зміну форми та положення грудей.\n\nОперація може проводитися як з естетичних причин, так і для полегшення фізичного дискомфорту, пов'язаного з великими грудьми.",
+    "ru": { "$": [3, 4, 5, 6] },
+    "en": "Reduction mammoplasty combines a decrease in breast size with a lift.\n\nDuring the operation the surgeon removes part of the glandular and fatty tissue along with excess skin, and moves the nipple-areola complex to a higher position.\n\nThe key difference from a standard mastopexy is the reduction in breast volume. A lift without reduction is aimed primarily at changing the shape and position of the breasts.\n\nThe procedure may be performed for aesthetic reasons or to relieve the physical discomfort associated with large breasts."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетична корекція розглядається з урахуванням індивідуальних особливостей організму, стану здоров'я та побажань пацієнта.",
+    "ru": { "$": 1 },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's individual anatomy, health status, and personal goals."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до підтяжки та зменшення грудей",
+    "ru": { "$": 7 },
+    "en": "Indications for a Breast Lift With Reduction"
+   },
+   "indications": {
+    "$list": 9,
+    "uk": [
+     "великий об'єм і виражене опущення молочних залоз;",
+     "болі у спині, шиї та плечах, пов'язані з вагою грудей;",
+     "подразнення шкіри та попрілості під грудьми;",
+     "дискомфорт під час фізичних навантажень;",
+     "сліди тиску від бретельок бюстгальтера;",
+     "асиметрія молочних залоз;",
+     "бажання зменшити розмір грудей і покращити їхню форму."
+    ],
+    "en": [
+     "large volume and pronounced sagging of the breasts;",
+     "back, neck, and shoulder pain related to breast weight;",
+     "skin irritation and chafing under the breasts;",
+     "discomfort during physical activity;",
+     "pressure marks from bra straps;",
+     "breast asymmetry;",
+     "a wish to reduce breast size and improve breast shape."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до редукційної мамопластики",
+    "ru": "Противопоказания к редукционной маммопластике",
+    "en": "Contraindications for Reduction Mammoplasty"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Декомпенсированные хронические заболевания.",
+     "Нарушения свертываемости крови.",
+     "Другие состояния, повышающие хирургический риск.",
+     "Беременность и период грудного вскармливания.",
+     "Индивидуальные ограничения, установленные врачом."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Декомпенсовані хронічні захворювання.",
+     "Порушення згортання крові.",
+     "Інші стани, що підвищують хірургічний ризик.",
+     "Вагітність і період грудного вигодовування.",
+     "Інші індивідуальні обмеження, встановлені лікарем."
+    ],
+    "en": [
+     "Acute infections.",
+     "Decompensated chronic conditions.",
+     "Blood clotting disorders.",
+     "Other conditions that raise surgical risk.",
+     "Pregnancy and breastfeeding.",
+     "Other individual restrictions identified by the physician."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Методи зменшення та підтяжки грудей",
+    "ru": { "$": 11 },
+    "en": "Techniques for Breast Reduction and Lifting"
+   },
+   "items": {
+    "ru": [
+     "Вертикальная редукционная маммопластика. Разрез выполняется вокруг ареолы и вертикально вниз до подгрудной складки. Методика может применяться при умеренном уменьшении объёма и позволяет одновременно скорректировать форму груди.",
+     "Якорная редукционная маммопластика. Разрез проходит вокруг ареолы, вертикально вниз и вдоль подгрудной складки. Эта техника часто применяется при большой груди, выраженном опущении и значительном избытке кожи.",
+     "Индивидуальные методы коррекции. При определённых анатомических особенностях хирург может использовать другие техники моделирования тканей и сохранения кровоснабжения сосково-ареолярного комплекса."
+    ],
+    "uk": [
+     "Вертикальна редукційна мамопластика. Розріз виконується навколо ареоли та вертикально вниз до підгрудної складки. Методика може застосовуватися за помірного зменшення об'єму й дозволяє одночасно скоригувати форму грудей.",
+     "Якірна редукційна мамопластика. Розріз проходить навколо ареоли, вертикально вниз і вздовж підгрудної складки. Ця техніка часто застосовується за великих грудей, вираженого опущення та значного надлишку шкіри.",
+     "Індивідуальні методи корекції. За певних анатомічних особливостей хірург може використовувати інші техніки моделювання тканин і збереження кровопостачання сосково-ареолярного комплексу."
+    ],
+    "en": [
+     "Vertical reduction mammoplasty. The incision is made around the areola and vertically down to the inframammary fold. The technique suits moderate volume reduction and reshapes the breast at the same time.",
+     "Anchor reduction mammoplasty. The incision runs around the areola, vertically downwards, and along the inframammary fold. This technique is often used for large breasts, pronounced ptosis, and significant excess skin.",
+     "Individually tailored techniques. With certain anatomical features the surgeon may use other methods of reshaping tissue and preserving the blood supply to the nipple-areola complex."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір хірургічної техніки залежить від вихідного об'єму грудей, ступеня опущення та кількості надлишкової шкіри. Відповідний метод визначається індивідуально, а рішення про операцію ухвалюється після огляду й оцінки загального стану здоров'я.",
+    "ru": { "$": [12, 21, 10] },
+    "en": "The surgical technique is chosen according to the starting breast volume, the degree of ptosis, and the amount of excess skin. The appropriate method is determined individually, and the decision to operate is made after an examination and an assessment of general health."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги підтяжки та зменшення грудей",
+    "ru": { "$": 22 },
+    "en": "Advantages of a Breast Lift With Reduction"
+   },
+   "items": {
+    "$list": 24,
+    "uk": [
+     "Зменшити об'єм грудей до узгодженого з хірургом розміру.",
+     "Підняти молочні залози та скоригувати положення сосків.",
+     "Покращити форму та пропорції грудей.",
+     "Зменшити фізичний дискомфорт, пов'язаний із надмірним об'ємом молочних залоз.",
+     "Полегшити повсякденну активність і заняття спортом.",
+     "Скоригувати асиметрію в межах можливостей операції."
+    ],
+    "en": [
+     "Reduce breast volume to the size agreed with the surgeon.",
+     "Lift the breasts and correct nipple position.",
+     "Improve breast shape and proportions.",
+     "Reduce the physical discomfort caused by excessive breast volume.",
+     "Make everyday activity and sport easier.",
+     "Correct asymmetry within the limits of the procedure."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Ступінь зменшення болю та інших симптомів індивідуальний. Ідеальна симетрія не гарантується.",
+    "ru": { "$": 25 },
+    "en": "How much pain and other symptoms improve varies from patient to patient. Perfect symmetry cannot be guaranteed."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить підтяжка та зменшення грудей?",
+    "ru": { "$": 26 },
+    "en": "How Is a Breast Lift With Reduction Performed?"
+   },
+   "body": {
+    "uk": "Перед операцією пластичний хірург оцінює розмір і форму молочних залоз, ступінь опущення, стан шкіри та загальне здоров'я пацієнта.\n\nВидалені тканини можуть направлятися на гістологічне дослідження.\n\nТривалість втручання залежить від обсягу корекції та обраної техніки.",
+    "ru": { "$": [27, 30, 31] },
+    "en": "Before surgery the plastic surgeon assesses breast size and shape, the degree of ptosis, skin condition, and the patient's general health.\n\nThe removed tissue may be sent for histological examination.\n\nThe length of the procedure depends on the extent of the correction and the technique used."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": { "$": 28 },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 29,
+    "uk": [
+     "Консультація та обстеження. Обговорення бажаного розміру грудей, медичних показань і необхідних досліджень.",
+     "Розмітка. Визначення ліній розрізів і нового положення сосково-ареолярного комплексу.",
+     "Анестезія. Операція зазвичай виконується під загальною анестезією.",
+     "Хірургічна корекція. Видалення частини тканин і надлишку шкіри, моделювання грудей та переміщення сосково-ареолярного комплексу.",
+     "Післяопераційне спостереження. Контроль загоєння та рекомендації щодо відновлення."
+    ],
+    "en": [
+     "Consultation and examination. Discussing the desired breast size, the medical indications, and the necessary investigations.",
+     "Marking. Defining the incision lines and the new position of the nipple-areola complex.",
+     "Anaesthesia. The operation is usually performed under general anaesthesia.",
+     "Surgical correction. Removal of some tissue and excess skin, reshaping of the breast, and repositioning of the nipple-areola complex.",
+     "Postoperative monitoring. Checking healing and giving recovery instructions."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Відновлення після зменшення та підтяжки грудей",
+    "ru": { "$": 32 },
+    "en": "Recovery After Breast Reduction and Lifting"
+   },
+   "body": {
+    "uk": "Після операції можливі набряки, синці, болючість і тимчасова зміна чутливості грудей та сосків.\n\nДо спокійної роботи деякі пацієнти повертаються через 1–2 тижні, однак за значного обсягу операції відновлення може потребувати більше часу.\n\nІнтенсивні тренування зазвичай обмежуються на кілька тижнів. Остаточна форма грудей встановлюється поступово, протягом кількох місяців.",
+    "ru": { "$": [33, 36, 37] },
+    "en": "Swelling, bruising, tenderness, and temporary changes in breast and nipple sensation are possible after surgery.\n\nSome patients return to sedentary work after 1–2 weeks, although recovery may take longer when the operation is extensive.\n\nIntense training is usually restricted for several weeks. The final breast shape settles gradually over several months."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "У період відновлення рекомендується",
+    "ru": { "$": 34 },
+    "en": "During Recovery It Is Recommended To"
+   },
+   "items": {
+    "$list": 35,
+    "uk": [
+     "носити призначену підтримувальну білизну;",
+     "обмежувати фізичні навантаження;",
+     "уникати тиску на груди;",
+     "дотримуватися правил догляду за швами;",
+     "приймати призначені препарати;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "wear the prescribed support garment;",
+     "limit physical activity;",
+     "avoid pressure on the breasts;",
+     "follow the rules for suture care;",
+     "take the prescribed medication;",
+     "attend the scheduled follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після операції?",
+    "ru": { "$": 38 },
+    "en": "Do Scars Remain After the Operation?"
+   },
+   "body": {
+    "uk": "Так. Зменшення грудей передбачає хірургічні розрізи, після яких залишаються рубці.\n\nЗа вертикальної методики вони розташовуються навколо ареоли та вертикально вниз. За якірної техніки додатково залишається рубець уздовж підгрудної складки.\n\nЗ часом рубці можуть стати менш помітними, але повністю не зникають.",
+    "ru": { "$": [39, 40, 41] },
+    "en": "Yes. Breast reduction involves surgical incisions, which leave scars.\n\nWith the vertical technique they run around the areola and vertically downwards. With the anchor technique there is an additional scar along the inframammary fold.\n\nOver time the scars may become less noticeable, but they do not disappear completely."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення",
+    "ru": { "$": 44 },
+    "en": "Possible Complications"
+   },
+   "items": {
+    "$list": 45,
+    "uk": [
+     "кровотеча та гематома;",
+     "інфекція;",
+     "порушення загоєння;",
+     "помітні рубці;",
+     "асиметрія грудей;",
+     "зміна або втрата чутливості сосків;",
+     "жировий некроз;",
+     "порушення кровопостачання сосково-ареолярного комплексу;",
+     "повторне опущення тканин;",
+     "необхідність додаткової операції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "impaired healing;",
+     "noticeable scarring;",
+     "breast asymmetry;",
+     "altered or lost nipple sensation;",
+     "fat necrosis;",
+     "compromised blood supply to the nipple-areola complex;",
+     "recurrent tissue descent;",
+     "the need for further surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Операція може бути протипоказана або відкладена за гострих інфекцій, декомпенсованих хронічних захворювань, порушень згортання крові та інших станів, що підвищують хірургічний ризик.\n\nТакож існують ризики, пов'язані з анестезією та утворенням тромбів.\n\nМожливість грудного вигодовування після редукційної мамопластики може знизитися. Вона залежить від хірургічної техніки та збереженості молочних проток і нервів.",
+    "ru": { "$": [43, 46, 47] },
+    "en": "Surgery may be contraindicated or postponed in cases of acute infection, decompensated chronic illness, blood clotting disorders, and other conditions that raise surgical risk.\n\nThere are also risks associated with anaesthesia and blood clot formation.\n\nThe ability to breastfeed may be reduced after reduction mammoplasty. It depends on the surgical technique and on the milk ducts and nerves being preserved."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Підтяжка чи зменшення грудей: у чому різниця?",
+    "ru": { "$": 48 },
+    "en": "Breast Lift or Breast Reduction: What Is the Difference?"
+   },
+   "items": {
+    "ru": [
+     "Подтяжка груди — основная цель устранить опущение; уменьшение с подтяжкой — уменьшить объём и устранить опущение.",
+     "При подтяжке обычно сохраняется большая часть объёма; при уменьшении удаляется часть железистой и жировой ткани.",
+     "Подтяжка изменяет форму и положение груди; уменьшение изменяет размер, форму и положение груди.",
+     "Подтяжка подходит при птозе без необходимости значительного уменьшения; уменьшение подходит при избыточном объёме груди."
+    ],
+    "uk": [
+     "Підтяжка грудей — основна мета усунути опущення; зменшення з підтяжкою — зменшити об'єм і усунути опущення.",
+     "За підтяжки зазвичай зберігається більша частина об'єму; за зменшення видаляється частина залозистої та жирової тканини.",
+     "Підтяжка змінює форму та положення грудей; зменшення змінює розмір, форму та положення грудей.",
+     "Підтяжка підходить за птозу без потреби значного зменшення; зменшення підходить за надмірного об'єму грудей."
+    ],
+    "en": [
+     "A breast lift aims primarily to correct ptosis; reduction with a lift aims to decrease volume and correct ptosis.",
+     "A lift usually preserves most of the volume; a reduction removes part of the glandular and fatty tissue.",
+     "A lift changes the shape and position of the breasts; a reduction changes their size, shape, and position.",
+     "A lift suits ptosis where no significant reduction is needed; a reduction suits excessive breast volume."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір залежить від вихідного розміру молочних залоз, ступеня опущення та бажаного результату.",
+    "ru": { "$": 59 },
+    "en": "The choice depends on the starting breast size, the degree of ptosis, and the desired result."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна підтяжки та зменшення грудей у Дніпрі",
+    "ru": { "$": 60 },
+    "en": "The Cost of a Breast Lift With Reduction in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість зменшення грудей із підтяжкою залежить від вихідного об'єму молочних залоз, складності операції, обраної техніки, виду анестезії та обсягу післяопераційного спостереження.\n\nНа ціну також можуть впливати передопераційне обстеження та гістологічне дослідження видалених тканин.\n\nТочна вартість визначається після консультації пластичного хірурга.",
+    "ru": { "$": [61, 62, 63] },
+    "en": "The cost of a breast reduction with a lift depends on the starting breast volume, the complexity of the operation, the technique chosen, the type of anaesthesia, and the extent of postoperative monitoring.\n\nPreoperative investigations and histological examination of the removed tissue may also affect the price.\n\nThe exact cost is determined after a consultation with a plastic surgeon."
+   },
+   "calloutBody": {
+    "uk": "Якщо великий об'єм грудей викликає фізичний дискомфорт або ви хочете одночасно зменшити та підтягнути молочні залози, почніть з консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить розмір грудей, ступінь опущення, стан шкіри та допоможе обрати відповідну методику операції.\n\nУточніть доступність редукційної мамопластики, актуальну вартість та умови запису на консультацію.",
+    "ru": { "$": [78, 79, 81] },
+    "en": "If large breasts are causing physical discomfort, or you want to reduce and lift them at the same time, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess breast size, the degree of ptosis, and skin condition, and will help you choose a suitable technique.\n\nAsk about the availability of reduction mammoplasty, current pricing, and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Чи можна одночасно зменшити та підтягнути груди?",
+    "ru": { "$": 65 },
+    "en": "Can the Breasts Be Reduced and Lifted at the Same Time?"
+   },
+   "answer": {
+    "uk": "Так. Редукційна мамопластика зазвичай передбачає зменшення об'єму молочних залоз і корекцію їхньої форми та положення.",
+    "ru": { "$": 66 },
+    "en": "Yes. Reduction mammoplasty normally combines a decrease in breast volume with correction of their shape and position."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи допомагає зменшення грудей позбутися болю у спині?",
+    "ru": { "$": 67 },
+    "en": "Does Breast Reduction Help With Back Pain?"
+   },
+   "answer": {
+    "uk": "У деяких пацієнтів операція зменшує болі у спині, шиї та плечах, пов'язані з великим об'ємом грудей. Однак результат залежить від причин дискомфорту.",
+    "ru": { "$": 68 },
+    "en": "In some patients the operation reduces back, neck, and shoulder pain related to large breast volume. The outcome depends on the underlying cause of the discomfort."
+   }
+  },
+  {
+   "question": {
+    "uk": "Наскільки можна зменшити груди?",
+    "ru": { "$": 69 },
+    "en": "How Much Can the Breasts Be Reduced?"
+   },
+   "answer": {
+    "uk": "Можливий обсяг зменшення залежить від анатомії, стану тканин, кровопостачання сосково-ареолярного комплексу та хірургічної безпеки.",
+    "ru": { "$": 70 },
+    "en": "The amount of reduction possible depends on the anatomy, the condition of the tissues, the blood supply to the nipple-areola complex, and surgical safety."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами?",
+    "ru": { "$": 71 },
+    "en": "Do Scars Remain?"
+   },
+   "answer": {
+    "uk": "Так. Розташування рубців залежить від обраної техніки операції.",
+    "ru": { "$": 72 },
+    "en": "Yes. The location of the scars depends on the surgical technique used."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна годувати грудьми після зменшення?",
+    "ru": { "$": 73 },
+    "en": "Is Breastfeeding Possible After a Reduction?"
+   },
+   "answer": {
+    "uk": "Іноді можливість грудного вигодовування зберігається, але операція може її обмежити. Гарантувати збереження лактації не можна.",
+    "ru": { "$": 74 },
+    "en": "Breastfeeding is sometimes still possible, but the operation may limit it. Lactation cannot be guaranteed."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": { "$": 75 },
+    "en": "How Long Does the Result Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років, однак вагітність, коливання ваги та природні вікові зміни здатні вплинути на форму та розмір грудей.",
+    "ru": { "$": 76 },
+    "en": "The result can last for many years, but pregnancy, weight fluctuations, and natural age-related changes can affect breast shape and size."
+   }
+  }
+ ]
+}

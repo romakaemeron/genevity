@@ -1,0 +1,1197 @@
+{
+ "sortOrder": 135,
+ "related": [
+  "liposuction",
+  "body-contouring",
+  "buttock-augmentation"
+ ],
+ "title": {
+  "uk": "Ліпофілінг гомілок",
+  "ru": "Липофилинг голеней",
+  "en": "Calf Lipofilling"
+ },
+ "summary": {
+  "uk": "Ліпофілінг гомілок — метод естетичної пластичної хірургії, що дозволяє скоригувати форму та збільшити об'єм гомілок за допомогою власної жирової тканини пацієнта. Процедуру можуть застосовувати для покращення контурів ніг, зменшення візуальної асиметрії та корекції окремих особливостей м'яких тканин.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Calf lipofilling is an aesthetic plastic surgery procedure that reshapes the calves and increases their volume using the patient's own fat. It may be used to improve leg contours, reduce visible asymmetry, and correct particular soft-tissue features."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/calf-lipofilling-hero.webp",
+   "heading": {
+    "uk": "Що таке ліпофілінг гомілок?",
+    "ru": {
+     "$": 4
+    },
+    "en": "What Is Calf Lipofilling?"
+   },
+   "body": {
+    "uk": "Ліпофілінг гомілок — хірургічна процедура, під час якої власну жирову тканину пацієнта використовують для збільшення об'єму та моделювання форми нижньої частини ніг.\n\nВ естетичній хірургії метод також називають ліпомоделюванням гомілок або аутологічною пересадкою жиру.\n\nЛіпофілінг передбачає пересадку жирової тканини з однієї ділянки тіла в іншу. Для корекції гомілок жир зазвичай отримують із донорських зон за допомогою ліпосакції, обробляють і вводять у заздалегідь визначені ділянки підшкірної клітковини.\n\nОсновне завдання процедури — відновлення об'єму м'яких тканин в окремих зонах, де це необхідно для покращення контуру.\n\nЛіпофілінг можуть розглядати за недостатньо вираженого об'єму гомілок, асиметрії або окремих дефектів м'яких тканин.",
+    "ru": {
+     "$": [
+      5,
+      6,
+      2,
+      7,
+      8
+     ]
+    },
+    "en": "Calf lipofilling is a surgical procedure in which the patient's own fat is used to add volume to and reshape the lower legs.\n\nIn aesthetic surgery the method is also called calf lipo-contouring or autologous fat transfer.\n\nLipofilling involves transferring fat from one area of the body to another. For calf correction, fat is usually harvested from donor areas by liposuction, prepared, and injected into pre-planned areas of the subcutaneous tissue.\n\nThe main aim of the procedure is to restore soft-tissue volume in specific areas where this is needed to improve the contour.\n\nLipofilling may be considered when the calves lack volume, are asymmetrical, or have localised soft-tissue defects."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетична корекція розглядається в контексті індивідуальних особливостей людини, її здоров'я та повсякденного комфорту.",
+    "ru": {
+     "$": 1
+    },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is considered in the context of each person's individual characteristics, health, and everyday comfort."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Методика дозволяє змінювати контури ніг без встановлення імплантів, проте має обмеження щодо обсягу корекції та потребує ретельного дотримання хірургічних стандартів безпеки.\n\nВажливо розуміти, що процедура не змінює форму кісток, не виправляє справжнє викривлення ніг і не лікує захворювань опорно-рухового апарату.",
+    "ru": {
+     "$": [
+      3,
+      9
+     ]
+    },
+    "en": "The technique can change the contours of the legs without implants, but the amount of correction it allows is limited and it requires strict adherence to surgical safety standards.\n\nIt is important to understand that the procedure does not change bone shape, does not correct true bowing of the legs, and does not treat musculoskeletal conditions."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Кому підходить ліпофілінг гомілок?",
+    "ru": {
+     "$": 10
+    },
+    "en": "Who Is Calf Lipofilling Suitable For?"
+   },
+   "indications": {
+    "$list": 13,
+    "uk": [
+     "недостатній об'єм м'яких тканин гомілок;",
+     "бажання змінити контур нижньої частини ніг;",
+     "візуальна асиметрія гомілок;",
+     "індивідуальні особливості розподілу підшкірного жиру;",
+     "окремі вроджені особливості м'яких тканин;",
+     "локальні дефекти після травм або операцій;",
+     "бажання скоригувати форму ніг без встановлення імплантів."
+    ],
+    "en": [
+     "insufficient soft-tissue volume in the calves;",
+     "a wish to change the contour of the lower legs;",
+     "visible calf asymmetry;",
+     "individual patterns of subcutaneous fat distribution;",
+     "certain congenital soft-tissue features;",
+     "localised defects after injury or surgery;",
+     "a wish to reshape the legs without implants."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до ліпофілінгу гомілок",
+    "ru": {
+     "$": 129
+    },
+    "en": "Contraindications for Calf Lipofilling"
+   },
+   "contraindications": {
+    "$list": 132,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "деякі порушення згортання крові;",
+     "активні тромботичні стани;",
+     "декомпенсовані хронічні захворювання;",
+     "виражені порушення кровообігу нижніх кінцівок;",
+     "стани, що підвищують ризик анестезії;",
+     "відсутність достатньої кількості донорського жиру;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "certain blood clotting disorders;",
+     "active thrombotic conditions;",
+     "decompensated chronic conditions;",
+     "significant circulatory disorders of the lower limbs;",
+     "conditions that increase anaesthetic risk;",
+     "insufficient donor fat;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Для проведення ліпофілінгу необхідна достатня кількість власної жирової тканини в донорських зонах.\n\nТакож враховують стан шкіри, кровопостачання тканин, загальне здоров'я та реалістичність очікуваного результату.\n\nЗа підозри на захворювання судин, м'язів або кісток нижніх кінцівок може знадобитися додаткова діагностика.\n\nОстаточні показання визначає пластичний хірург після огляду.",
+    "ru": {
+     "$": [
+      14,
+      15,
+      133,
+      16
+     ]
+    },
+    "en": "Lipofilling requires a sufficient amount of the patient's own fat in the donor areas.\n\nSkin condition, tissue blood supply, general health, and whether the expected result is realistic are also taken into account.\n\nIf a vascular, muscular, or bone condition of the lower limbs is suspected, additional investigations may be required.\n\nThe final indications are determined by the plastic surgeon after an examination."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Які особливості форми ніг можна скоригувати?",
+    "ru": {
+     "$": 17
+    },
+    "en": "Which Leg Shape Features Can Be Corrected?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Недостатній об'єм гомілок",
+      "ru": {
+       "$": 20
+      },
+      "en": "Insufficient Calf Volume"
+     },
+     "description": {
+      "uk": "У деяких людей гомілки мають невеликий об'єм через спадкові особливості, будову м'язів або розподіл м'яких тканин.\n\nЛіпофілінг може дозволити помірно збільшити об'єм окремих ділянок і змінити візуальні пропорції ніг.",
+      "ru": {
+       "$": [
+        21,
+        22
+       ]
+      },
+      "en": "In some people the calves are slim because of hereditary factors, muscle structure, or the distribution of soft tissue.\n\nLipofilling may allow a moderate increase in volume in specific areas and change the visual proportions of the legs."
+     }
+    },
+    {
+     "title": {
+      "uk": "Асиметрія гомілок",
+      "ru": {
+       "$": 23
+      },
+      "en": "Calf Asymmetry"
+     },
+     "description": {
+      "uk": "Відмінності в об'ємі правої та лівої гомілки можуть бути вродженими або виникати після травм і захворювань.\n\nЗа певних показань пересадку жиру можуть використовувати для часткової корекції асиметрії.\n\nПовна симетрія не гарантується.",
+      "ru": {
+       "$": [
+        24,
+        25,
+        26
+       ]
+      },
+      "en": "Differences in volume between the right and left calf may be congenital or develop after injury or illness.\n\nWith certain indications, fat transfer may be used to partially correct the asymmetry.\n\nComplete symmetry is not guaranteed."
+     }
+    },
+    {
+     "title": {
+      "uk": "Хибна кривизна ніг",
+      "ru": {
+       "$": 27
+      },
+      "en": "Apparent (False) Leg Curvature"
+     },
+     "description": {
+      "uk": "Хибною кривизною зазвичай називають особливості контуру ніг, пов'язані переважно з розподілом м'яких тканин, а не з деформацією кісток.\n\nУ деяких випадках ліпофілінг може візуально зменшити вираженість таких особливостей.\n\nОднак перед корекцією необхідно виключити справжні ортопедичні порушення.",
+      "ru": {
+       "$": [
+        28,
+        29,
+        30
+       ]
+      },
+      "en": "False curvature usually refers to leg contour features caused mainly by the distribution of soft tissue rather than by bone deformity.\n\nIn some cases lipofilling can visually reduce how noticeable these features are.\n\nHowever, true orthopaedic conditions must be ruled out before any correction."
+     }
+    },
+    {
+     "title": {
+      "uk": "Локальні дефекти м'яких тканин",
+      "ru": {
+       "$": 31
+      },
+      "en": "Localised Soft-Tissue Defects"
+     },
+     "description": {
+      "uk": "Після травм або хірургічних втручань іноді формуються ділянки недостатнього об'єму.\n\nПересадку власної жирової тканини можуть розглядати як один із реконструктивних методів за відповідних показань.",
+      "ru": {
+       "$": [
+        32,
+        33
+       ]
+      },
+      "en": "After injury or surgery, areas of insufficient volume sometimes develop.\n\nWith appropriate indications, transfer of the patient's own fat may be considered as one of the reconstructive options."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Зовнішній вигляд гомілок залежить від будови кісток, об'єму м'язів, розподілу підшкірної жирової тканини та особливостей шкіри.\n\nНе всі зміни форми ніг можна усунути за допомогою ліпофілінгу.",
+    "ru": {
+     "$": [
+      18,
+      19
+     ]
+    },
+    "en": "The appearance of the calves depends on bone structure, muscle volume, the distribution of subcutaneous fat, and the characteristics of the skin.\n\nNot every change in leg shape can be corrected with lipofilling."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Переваги ліпофілінгу гомілок",
+    "ru": {
+     "$": 34
+    },
+    "en": "Benefits of Calf Lipofilling"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Використання власної жирової тканини",
+      "ru": {
+       "$": 36
+      },
+      "en": "Uses Your Own Fat"
+     },
+     "description": {
+      "uk": "Для корекції застосовують тканину самого пацієнта, тому відсутні ризики, специфічні для синтетичних імплантів, наприклад їх зміщення або пошкодження.\n\nВодночас сама пересадка жиру має власні ускладнення та обмеження.",
+      "ru": {
+       "$": [
+        37,
+        38
+       ]
+      },
+      "en": "The correction uses the patient's own tissue, so there are none of the risks specific to synthetic implants, such as displacement or damage.\n\nFat transfer itself, however, has its own complications and limitations."
+     }
+    },
+    {
+     "title": {
+      "uk": "Індивідуальне моделювання форми",
+      "ru": {
+       "$": 39
+      },
+      "en": "Individual Shaping"
+     },
+     "description": {
+      "uk": "Хірург може розподіляти невеликі об'єми жирової тканини вибраними ділянками підшкірної клітковини, враховуючи особливості контуру.",
+      "ru": {
+       "$": 40
+      },
+      "en": "The surgeon can distribute small amounts of fat across selected areas of the subcutaneous tissue, taking the existing contour into account."
+     }
+    },
+    {
+     "title": {
+      "uk": "Без імплантів",
+      "ru": {
+       "$": 41
+      },
+      "en": "No Implants"
+     },
+     "description": {
+      "uk": "Процедура не потребує встановлення постійних штучних пристроїв.",
+      "ru": {
+       "$": 42
+      },
+      "en": "The procedure does not require any permanent artificial devices."
+     }
+    },
+    {
+     "title": {
+      "uk": "Можливість корекції донорських зон",
+      "ru": {
+       "$": 43
+      },
+      "en": "Possible Contouring of Donor Areas"
+     },
+     "description": {
+      "uk": "Забір жиру проводять за допомогою ліпосакції. У деяких випадках це дозволяє одночасно зменшити локальні жирові відкладення в донорській ділянці.",
+      "ru": {
+       "$": 44
+      },
+      "en": "Fat is harvested by liposuction. In some cases this also reduces localised fat deposits in the donor area."
+     }
+    },
+    {
+     "title": {
+      "uk": "Невеликі хірургічні доступи",
+      "ru": {
+       "$": 45
+      },
+      "en": "Small Surgical Access Points"
+     },
+     "description": {
+      "uk": "Для забору та пересадки жиру зазвичай використовують невеликі проколи шкіри.\n\nПроте після них можуть залишатися рубці, а відновлення потребує дотримання медичних рекомендацій.",
+      "ru": {
+       "$": [
+        46,
+        47
+       ]
+      },
+      "en": "Small skin punctures are usually used to harvest and transfer the fat.\n\nThey may still leave scars, however, and recovery requires following medical advice."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Звідки беруть жир для ліпофілінгу гомілок?",
+    "ru": {
+     "$": 48
+    },
+    "en": "Where Is the Fat for Calf Lipofilling Taken From?"
+   },
+   "body": {
+    "uk": "Для пересадки використовують власну підшкірну жирову тканину пацієнта.\n\nВибір донорської ділянки залежить від анатомії, доступного об'єму тканини та індивідуального плану операції.\n\nЖир забирають за допомогою ліпосакції, після чого готують до пересадки.",
+    "ru": {
+     "$": [
+      49,
+      52,
+      53
+     ]
+    },
+    "en": "The patient's own subcutaneous fat is used for the transfer.\n\nThe choice of donor area depends on anatomy, the amount of tissue available, and the individual surgical plan.\n\nThe fat is harvested by liposuction and then prepared for transfer."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі донорські зони:",
+    "ru": {
+     "$": 50
+    },
+    "en": "Possible donor areas:"
+   },
+   "items": {
+    "$list": 51,
+    "uk": [
+     "живіт;",
+     "талія;",
+     "бічні поверхні тулуба;",
+     "стегна;",
+     "інші ділянки з достатньою кількістю підшкірного жиру."
+    ],
+    "en": [
+     "the abdomen;",
+     "the waist;",
+     "the flanks;",
+     "the thighs;",
+     "other areas with enough subcutaneous fat."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Не весь пересаджений жир зберігається на новому місці. Частина клітин може розсмоктуватися в процесі відновлення.\n\nТому остаточний об'єм гомілок може відрізнятися від початкового післяопераційного результату.",
+    "ru": {
+     "$": [
+      54,
+      55
+     ]
+    },
+    "en": "Not all of the transferred fat survives in its new location. Some of the cells may be reabsorbed during recovery.\n\nThe final calf volume may therefore differ from the result seen immediately after surgery."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить ліпофілінг гомілок?",
+    "ru": {
+     "$": 56
+    },
+    "en": "How Is Calf Lipofilling Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "1. Консультація пластичного хірурга",
+      "ru": {
+       "$": 58
+      },
+      "en": "1. Consultation With a Plastic Surgeon"
+     },
+     "description": {
+      "uk": "Лікар оцінює форму гомілок, стан м'яких тканин, вираженість асиметрії та особливості пропорцій ніг.\n\nПід час консультації обговорюють естетичні побажання, можливості ліпофілінгу, очікувані зміни та обмеження методу.\n\nЯкщо є ознаки кісткової деформації, м'язової атрофії або іншого захворювання, може знадобитися консультація профільного спеціаліста.",
+      "ru": {
+       "$": [
+        59,
+        60,
+        61
+       ]
+      },
+      "en": "The doctor assesses the shape of the calves, the condition of the soft tissues, the degree of asymmetry, and the proportions of the legs.\n\nThe consultation covers your aesthetic goals, what lipofilling can achieve, the expected changes, and the limitations of the method.\n\nIf there are signs of bone deformity, muscle atrophy, or another condition, a consultation with the relevant specialist may be needed."
+     }
+    },
+    {
+     "title": {
+      "uk": "2. Передопераційне обстеження",
+      "ru": {
+       "$": 62
+      },
+      "en": "2. Preoperative Assessment"
+     },
+     "description": {
+      "uk": "Перед операцією проводять обстеження, необхідне для оцінки загального стану здоров'я.\n\nЗалежно від показань можуть призначати лабораторні аналізи, інструментальні дослідження та консультацію анестезіолога.\n\nОсобливу увагу приділяють стану судин нижніх кінцівок, чинникам ризику тромбозу та захворюванням, здатним вплинути на загоєння.",
+      "ru": {
+       "$": [
+        63,
+        64,
+        65
+       ]
+      },
+      "en": "Before surgery, the investigations needed to assess your general health are carried out.\n\nDepending on indications, laboratory tests, instrumental investigations, and a consultation with an anaesthetist may be arranged.\n\nParticular attention is paid to the condition of the leg blood vessels, thrombosis risk factors, and any conditions that could affect healing."
+     }
+    },
+    {
+     "title": {
+      "uk": "3. Забір жирової тканини",
+      "ru": {
+       "$": 66
+      },
+      "en": "3. Fat Harvesting"
+     },
+     "description": {
+      "uk": "Хірург виконує ліпосакцію заздалегідь обраної донорської зони.\n\nКількість жиру, що забирають, визначають індивідуально.",
+      "ru": {
+       "$": [
+        67,
+        68
+       ]
+      },
+      "en": "The surgeon performs liposuction of the pre-selected donor area.\n\nThe amount of fat harvested is determined individually."
+     }
+    },
+    {
+     "title": {
+      "uk": "4. Підготовка жирової тканини",
+      "ru": {
+       "$": 69
+      },
+      "en": "4. Fat Preparation"
+     },
+     "description": {
+      "uk": "Отриманий матеріал обробляють, щоб підготувати його до пересадки.\n\nКонкретна технологія підготовки залежить від обраного хірургічного протоколу.",
+      "ru": {
+       "$": [
+        70,
+        71
+       ]
+      },
+      "en": "The harvested material is processed to prepare it for transfer.\n\nThe specific preparation technique depends on the surgical protocol chosen."
+     }
+    },
+    {
+     "title": {
+      "uk": "5. Пересадка жиру в ділянку гомілок",
+      "ru": {
+       "$": 72
+      },
+      "en": "5. Fat Transfer to the Calves"
+     },
+     "description": {
+      "uk": "Підготовлену жирову тканину вводять у заплановані ділянки підшкірної клітковини.\n\nБезпечність розташування пересадженого жиру має принципове значення. Сучасні рекомендації щодо ліпофілінгу гомілок віддають перевагу поверхневому підшкірному розміщенню та застерігають від внутрішньом'язового введення через ризик судинних ускладнень і небезпечного підвищення тиску в м'язових просторах.",
+      "ru": {
+       "$": [
+        73,
+        74
+       ]
+      },
+      "en": "The prepared fat is injected into the planned areas of the subcutaneous tissue.\n\nWhere the transferred fat is placed is critical for safety. Current guidance on calf lipofilling favours superficial subcutaneous placement and warns against intramuscular injection because of the risk of vascular complications and a dangerous rise in pressure within the muscle compartments."
+     }
+    },
+    {
+     "title": {
+      "uk": "6. Післяопераційне спостереження",
+      "ru": {
+       "$": 75
+      },
+      "en": "6. Postoperative Monitoring"
+     },
+     "description": {
+      "uk": "Після операції лікар оцінює стан пацієнта, кровообіг нижніх кінцівок і ранні зміни тканин.\n\nПацієнт отримує рекомендації щодо фізичної активності, догляду за зонами втручання та контрольних оглядів.",
+      "ru": {
+       "$": [
+        76,
+        77
+       ]
+      },
+      "en": "After the operation the doctor assesses the patient's condition, circulation in the lower limbs, and early tissue changes.\n\nThe patient receives advice on physical activity, care of the treated areas, and follow-up appointments."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Наскільки безпечний ліпофілінг гомілок?",
+    "ru": {
+     "$": 78
+    },
+    "en": "How Safe Is Calf Lipofilling?"
+   },
+   "body": {
+    "uk": "Гомілка має складну анатомічну будову. У цій ділянці розташовані м'язи, судини, нерви та щільні фасціальні структури.\n\nТому збільшення об'єму тканин потребує особливої обережності.\n\nЗа неправильного вибору техніки або надмірного введення жиру можливі підвищення тиску всередині обмежених анатомічних просторів, порушення кровообігу та пошкодження тканин.\n\nСерйозними ускладненнями можуть бути жирова емболія, тромбоз і компартмент-синдром — небезпечне підвищення тиску в м'язових просторах.\n\nУ міжнародних рекомендаціях щодо безпеки пересадки жиру в нижні кінцівки наголошується на необхідності обережного вибору об'єму, поверхневого розташування трансплантата та ретельної оцінки пацієнта.",
+    "ru": {
+     "$": [
+      79,
+      80,
+      81,
+      82,
+      83
+     ]
+    },
+    "en": "The lower leg has a complex anatomy. It contains muscles, blood vessels, nerves, and dense fascial structures.\n\nAdding volume to these tissues therefore calls for particular caution.\n\nWith the wrong technique or excessive fat injection, pressure may rise within the confined anatomical compartments, causing impaired circulation and tissue damage.\n\nSerious complications can include fat embolism, thrombosis, and compartment syndrome — a dangerous rise in pressure within the muscle compartments.\n\nInternational safety guidance on fat transfer to the lower limbs stresses careful choice of volume, superficial placement of the graft, and thorough patient assessment."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Операцію має проводити кваліфікований пластичний хірург із відповідним досвідом в умовах, що дозволяють забезпечити необхідну медичну допомогу.",
+    "ru": {
+     "$": 84
+    },
+    "en": "The operation should be performed by a qualified plastic surgeon with relevant experience, in a setting where the necessary medical care can be provided."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Реабілітація після ліпофілінгу гомілок",
+    "ru": {
+     "$": 85
+    },
+    "en": "Recovery After Calf Lipofilling"
+   },
+   "body": {
+    "uk": "Відновлення після процедури залежить від обсягу пересадки, стану тканин та індивідуальних особливостей організму.\n\nУ перші дні важливо уважно стежити за станом нижніх кінцівок і виконувати рекомендації хірурга.",
+    "ru": {
+     "$": [
+      86,
+      89
+     ]
+    },
+    "en": "Recovery after the procedure depends on the volume transferred, the condition of the tissues, and the individual patient.\n\nIn the first days it is important to monitor the condition of your legs closely and follow the surgeon's instructions."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Після операції можливі:",
+    "ru": {
+     "$": 87
+    },
+    "en": "After surgery you may experience:"
+   },
+   "items": {
+    "$list": 88,
+    "uk": [
+     "набряк гомілок;",
+     "синці;",
+     "болючість;",
+     "тимчасова зміна чутливості;",
+     "дискомфорт під час ходьби;",
+     "набряки та болючість у донорських зонах."
+    ],
+    "en": [
+     "swelling of the calves;",
+     "bruising;",
+     "soreness;",
+     "temporary changes in sensation;",
+     "discomfort when walking;",
+     "swelling and soreness in the donor areas."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації в період відновлення",
+    "ru": {
+     "$": 90
+    },
+    "en": "Recommendations During Recovery"
+   },
+   "items": {
+    "$list": 92,
+    "uk": [
+     "обмежувати інтенсивні фізичні навантаження;",
+     "поступово повертатися до ходьби відповідно до призначень;",
+     "уникати сильного тиску на зони пересадки жиру;",
+     "доглядати за хірургічними доступами;",
+     "носити компресійну білизну лише за призначенням лікаря;",
+     "дотримуватися рекомендацій щодо положення ніг під час відпочинку;",
+     "відвідувати контрольні огляди;",
+     "не проводити масаж та апаратні процедури без погодження з хірургом."
+    ],
+    "en": [
+     "limit strenuous physical activity;",
+     "return to walking gradually, as advised;",
+     "avoid strong pressure on the fat-grafted areas;",
+     "care for the surgical access points;",
+     "wear compression garments only if prescribed by the doctor;",
+     "follow advice on leg positioning while resting;",
+     "attend follow-up appointments;",
+     "do not have massage or device-based treatments without the surgeon's approval."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Компресія донорських зон і ділянки пересадки може відрізнятися, тому не можна самостійно обирати компресійні вироби.\n\nСильний або швидко наростаючий біль у гомілці, різке збільшення набряку, оніміння, слабкість стопи або зміна її кольору потребують негайної медичної оцінки. За задишки або болю в грудях необхідна екстрена допомога.",
+    "ru": {
+     "$": [
+      93,
+      94
+     ]
+    },
+    "en": "Compression requirements for the donor areas and the grafted area may differ, so do not choose compression garments yourself.\n\nSevere or rapidly worsening calf pain, a sudden increase in swelling, numbness, weakness of the foot, or a change in its colour require immediate medical assessment. Shortness of breath or chest pain requires emergency care."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки триває відновлення?",
+    "ru": {
+     "$": 95
+    },
+    "en": "How Long Does Recovery Take?"
+   },
+   "body": {
+    "uk": "Терміни реабілітації індивідуальні.\n\nРанні набряки та синці поступово зменшуються впродовж кількох тижнів, але стабілізація об'єму пересадженого жиру може тривати кілька місяців.\n\nПовернення до бігу, стрибків та інтенсивних тренувань нижньої частини тіла можливе лише з дозволу хірурга.",
+    "ru": {
+     "$": [
+      96,
+      97,
+      98
+     ]
+    },
+    "en": "Recovery times vary from person to person.\n\nEarly swelling and bruising gradually subside over several weeks, but the volume of the transferred fat may take several months to stabilise.\n\nRunning, jumping, and intensive lower-body training can be resumed only with the surgeon's approval."
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/calf-lipofilling-inline.webp",
+   "heading": {
+    "uk": "Коли видно результат ліпофілінгу гомілок?",
+    "ru": {
+     "$": 99
+    },
+    "en": "When Are the Results of Calf Lipofilling Visible?"
+   },
+   "body": {
+    "uk": "Зміну об'єму може бути помітно одразу після операції, проте ранній результат залежить від післяопераційного набряку.\n\nНадалі частина пересадженої жирової тканини розсмоктується.\n\nЖиттєздатна тканина, що залишилася, може зберігатися тривалий час, але її об'єм здатен змінюватися за значних коливань маси тіла.\n\nОстаточний результат оцінюють після зменшення набряку та стабілізації пересадженої тканини.\n\nУ деяких випадках для досягнення бажаного об'єму потрібна додаткова процедура.",
+    "ru": {
+     "$": [
+      100,
+      101,
+      102,
+      103,
+      104
+     ]
+    },
+    "en": "A change in volume may be visible straight after surgery, but the early result is influenced by postoperative swelling.\n\nOver time, some of the transferred fat is reabsorbed.\n\nThe remaining viable tissue can persist for a long time, but its volume may change with significant fluctuations in body weight.\n\nThe final result is assessed once the swelling has gone down and the transferred tissue has stabilised.\n\nIn some cases an additional procedure is needed to achieve the desired volume."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ліпофілінг гомілок чи імпланти: що обрати?",
+    "ru": {
+     "$": 105
+    },
+    "en": "Calf Lipofilling or Implants: Which to Choose?"
+   },
+   "body": {
+    "uk": "Для збільшення об'єму гомілок у пластичній хірургії використовують як пересадку власної жирової тканини, так і спеціальні імпланти.\n\nЛіпофілінг гомілок може підходити для помірної корекції форми за наявності достатньої кількості донорського жиру.\n\nІмпланти гомілок можуть розглядати за потреби вираженішого збільшення об'єму, проте вони потребують окремої операції та пов'язані з ризиками, характерними для імплантаційної хірургії.",
+    "ru": {
+     "$": [
+      106,
+      107,
+      108
+     ]
+    },
+    "en": "In plastic surgery, calf volume can be increased either by transferring the patient's own fat or with special implants.\n\nCalf lipofilling may suit a moderate change in shape, provided there is enough donor fat.\n\nCalf implants may be considered when a more pronounced increase in volume is needed, but they require a separate operation and carry the risks typical of implant surgery."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні відмінності:",
+    "ru": {
+     "$": 109
+    },
+    "en": "Key differences:"
+   },
+   "items": {
+    "ru": [
+     "Материал — липофилинг: собственная жировая ткань; импланты: искусственный имплант.",
+     "Источник объёма — липофилинг: пересаженный жир; импланты: объём импланта.",
+     "Ограничения — липофилинг: количество донорского жира, приживление; импланты: анатомия, размер и расположение импланта.",
+     "Повторное вмешательство — липофилинг: иногда требуется дополнительная пересадка; импланты: может потребоваться коррекция или замена импланта.",
+     "Особые риски — липофилинг: жировая эмболия, некроз жира, неравномерное приживление; импланты: смещение, повреждение импланта, капсулярные осложнения."
+    ],
+    "uk": [
+     "Матеріал — ліпофілінг: власна жирова тканина; імпланти: штучний імплант.",
+     "Джерело об'єму — ліпофілінг: пересаджений жир; імпланти: об'єм імпланта.",
+     "Обмеження — ліпофілінг: кількість донорського жиру, приживлення; імпланти: анатомія, розмір і розташування імпланта.",
+     "Повторне втручання — ліпофілінг: іноді потрібна додаткова пересадка; імпланти: може знадобитися корекція або заміна імпланта.",
+     "Особливі ризики — ліпофілінг: жирова емболія, некроз жиру, нерівномірне приживлення; імпланти: зміщення, пошкодження імпланта, капсулярні ускладнення."
+    ],
+    "en": [
+     "Material — lipofilling: the patient's own fat; implants: an artificial implant.",
+     "Source of volume — lipofilling: transferred fat; implants: the implant itself.",
+     "Limitations — lipofilling: amount of donor fat, graft survival; implants: anatomy, implant size and position.",
+     "Repeat surgery — lipofilling: an additional transfer is sometimes needed; implants: correction or replacement of the implant may be required.",
+     "Specific risks — lipofilling: fat embolism, fat necrosis, uneven graft survival; implants: displacement, implant damage, capsular complications."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір методу визначається індивідуально після обстеження та обговорення ризиків.",
+    "ru": {
+     "$": 128
+    },
+    "en": "The method is chosen individually after an assessment and a discussion of the risks."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Можливі ускладнення ліпофілінгу гомілок",
+    "ru": {
+     "$": 134
+    },
+    "en": "Possible Complications of Calf Lipofilling"
+   },
+   "body": {
+    "uk": "Перед операцією необхідно враховувати як загальні хірургічні ризики, так і особливості анатомії гомілки.",
+    "ru": {
+     "$": 135
+    },
+    "en": "Before surgery, both general surgical risks and the specific anatomy of the lower leg need to be taken into account."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення включають:",
+    "ru": {
+     "$": 136
+    },
+    "en": "Possible complications include:"
+   },
+   "items": {
+    "$list": 137,
+    "uk": [
+     "кровотечу та гематоми;",
+     "інфекцію;",
+     "тривалий набряк;",
+     "асиметрію;",
+     "нерівності контуру;",
+     "недостатнє збереження пересадженого об'єму;",
+     "жировий некроз і утворення ущільнень;",
+     "зміни чутливості;",
+     "тромбоз глибоких вен;",
+     "жирову емболію;",
+     "компартмент-синдром;",
+     "необхідність повторного втручання."
+    ],
+    "en": [
+     "bleeding and haematomas;",
+     "infection;",
+     "prolonged swelling;",
+     "asymmetry;",
+     "contour irregularities;",
+     "insufficient retention of the transferred volume;",
+     "fat necrosis and the formation of lumps;",
+     "changes in sensation;",
+     "deep vein thrombosis;",
+     "fat embolism;",
+     "compartment syndrome;",
+     "the need for repeat surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Деякі ускладнення можуть бути небезпечними для життя або функції кінцівки.\n\nТому особливе значення мають кваліфікація хірурга, правильний вибір техніки та дотримання протоколів безпеки.",
+    "ru": {
+     "$": [
+      138,
+      139
+     ]
+    },
+    "en": "Some complications can be life-threatening or endanger the function of the limb.\n\nThis is why the surgeon's qualifications, the correct choice of technique, and adherence to safety protocols are so important."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Чи можна збільшити гомілки без операції?",
+    "ru": {
+     "$": 140
+    },
+    "en": "Can the Calves Be Enlarged Without Surgery?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Фізичні вправи",
+      "ru": {
+       "$": 142
+      },
+      "en": "Exercise"
+     },
+     "description": {
+      "uk": "Силові тренування, спрямовані на розвиток литкових і камбалоподібних м'язів, можуть збільшити м'язовий об'єм і змінити контур гомілок.\n\nЕфект залежить від генетичних особливостей, тренувальної програми та стану м'язів.",
+      "ru": {
+       "$": [
+        143,
+        144
+       ]
+      },
+      "en": "Strength training that targets the gastrocnemius and soleus muscles can increase muscle volume and change the contour of the calves.\n\nThe effect depends on genetics, the training programme, and the condition of the muscles."
+     }
+    },
+    {
+     "title": {
+      "uk": "Корекція маси тіла",
+      "ru": {
+       "$": 145
+      },
+      "en": "Weight Management"
+     },
+     "description": {
+      "uk": "Зміна маси тіла може впливати на об'єм підшкірної жирової тканини, проте розподіл жиру індивідуальний.",
+      "ru": {
+       "$": 146
+      },
+      "en": "Changes in body weight can affect the volume of subcutaneous fat, but fat distribution varies from person to person."
+     }
+    },
+    {
+     "title": {
+      "uk": "Ортопедична корекція",
+      "ru": {
+       "$": 147
+      },
+      "en": "Orthopaedic Correction"
+     },
+     "description": {
+      "uk": "Якщо зміна форми ніг пов'язана з кістковою деформацією, необхідне обстеження в ортопеда.\n\nЛіпофілінг і тренування не виправляють справжнього викривлення кісток.",
+      "ru": {
+       "$": [
+        148,
+        149
+       ]
+      },
+      "en": "If the change in leg shape is caused by a bone deformity, an orthopaedic assessment is needed.\n\nNeither lipofilling nor exercise corrects true bowing of the bones."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "У деяких випадках покращити форму нижньої частини ніг можна без хірургічного втручання.\n\nБезопераційні методи не завжди здатні забезпечити такий самий результат, як хірургічне збільшення об'єму м'яких тканин.",
+    "ru": {
+     "$": [
+      141,
+      150
+     ]
+    },
+    "en": "In some cases the shape of the lower legs can be improved without surgery.\n\nNon-surgical methods cannot always achieve the same result as surgical soft-tissue augmentation."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ліпофілінг гомілок і якість життя",
+    "ru": {
+     "$": 151
+    },
+    "en": "Calf Lipofilling and Quality of Life"
+   },
+   "body": {
+    "uk": "Форма ніг залежить від спадковості, будови кісток і м'язів, розподілу м'яких тканин і загального стану організму.\n\nАнатомічні особливості не обов'язково потребують естетичної корекції.\n\nОднак деякі пацієнти розглядають ліпофілінг, якщо виражена асиметрія або нестача об'єму спричиняють стійкий естетичний дискомфорт.\n\nGENEVITY — Центр довголіття та якості життя — розглядає питання зовнішності в контексті здоров'я, індивідуального комфорту та усвідомленого вибору.\n\nПід час планування операції важливо враховувати не лише бажану форму гомілок, а й функціональний стан нижніх кінцівок, судинні ризики та можливості безпечної корекції.\n\nЛіпофілінг не є способом лікування захворювань опорно-рухового апарату і безпосередньо не впливає на тривалість життя.\n\nЙого завдання — зміна об'єму та контурів м'яких тканин за наявності обґрунтованих показань.",
+    "ru": {
+     "$": [
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158
+     ]
+    },
+    "en": "The shape of the legs depends on heredity, bone and muscle structure, the distribution of soft tissue, and overall health.\n\nAnatomical features do not necessarily need aesthetic correction.\n\nSome patients, however, consider lipofilling when marked asymmetry or a lack of volume causes persistent aesthetic discomfort.\n\nGENEVITY — the Centre for Longevity and Quality of Life — views questions of appearance in the context of health, individual comfort, and informed choice.\n\nWhen planning surgery, it is important to consider not only the desired calf shape but also the functional condition of the legs, vascular risks, and what can be corrected safely.\n\nLipofilling is not a treatment for musculoskeletal conditions and does not directly affect life expectancy.\n\nIts purpose is to change the volume and contours of soft tissue where there are sound indications."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує ліпофілінг гомілок у Дніпрі?",
+    "ru": {
+     "$": 159
+    },
+    "en": "How Much Does Calf Lipofilling Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна ліпофілінгу гомілок у Дніпрі залежить від складності втручання, об'єму пересадки жирової тканини та індивідуального плану операції.",
+    "ru": {
+     "$": 160
+    },
+    "en": "The price of calf lipofilling in Dnipro depends on the complexity of the procedure, the volume of fat transferred, and the individual surgical plan."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати:",
+    "ru": {
+     "$": 161
+    },
+    "en": "The cost may depend on:"
+   },
+   "items": {
+    "$list": 162,
+    "uk": [
+     "обсяг необхідної корекції;",
+     "кількість донорського жиру;",
+     "зона проведення ліпосакції;",
+     "необхідність двобічної або асиметричної корекції;",
+     "вид анестезії;",
+     "передопераційні обстеження;",
+     "тривалість хірургічного втручання;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "the extent of correction needed;",
+     "the amount of donor fat;",
+     "the liposuction area;",
+     "the need for bilateral or asymmetric correction;",
+     "the type of anaesthesia;",
+     "preoperative investigations;",
+     "the length of the operation;",
+     "postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації та оцінки можливості проведення процедури.\n\nЯкщо ви розглядаєте збільшення гомілок власним жиром, корекцію їхньої форми або зменшення візуальної асиметрії, першим кроком має стати консультація кваліфікованого пластичного хірурга.\n\nФахівець допоможе визначити причину особливостей контуру, оцінити можливість ліпофілінгу та обговорити очікувані результати, обмеження й ризики.\n\nУточніть можливість консультації щодо ліпофілінгу гомілок, доступні методи корекції та умови проведення операції.",
+    "ru": {
+     "$": [
+      163,
+      189,
+      190,
+      192
+     ]
+    },
+    "en": "The exact cost is determined after a consultation and an assessment of whether the procedure is possible.\n\nIf you are considering enlarging your calves with your own fat, reshaping them, or reducing visible asymmetry, the first step should be a consultation with a qualified plastic surgeon.\n\nThe specialist will help identify the cause of the contour features, assess whether lipofilling is possible, and discuss the expected results, limitations, and risks.\n\nAsk about a calf lipofilling consultation, the correction methods available, and the conditions for surgery."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке ліпофілінг гомілок?",
+    "ru": {
+     "$": 166
+    },
+    "en": "What Is Calf Lipofilling?"
+   },
+   "answer": {
+    "uk": "Ліпофілінг гомілок — хірургічна процедура збільшення та корекції об'єму м'яких тканин нижньої частини ніг за допомогою власної жирової тканини пацієнта.",
+    "ru": {
+     "$": 167
+    },
+    "en": "Calf lipofilling is a surgical procedure that increases and corrects the soft-tissue volume of the lower legs using the patient's own fat."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна виправити криві ноги ліпофілінгом?",
+    "ru": {
+     "$": 168
+    },
+    "en": "Can Lipofilling Correct Bowed Legs?"
+   },
+   "answer": {
+    "uk": "Ліпофілінг може візуально скоригувати окремі особливості контуру, пов'язані з нестачею м'яких тканин. Однак він не виправляє деформацій кісток.",
+    "ru": {
+     "$": 169
+    },
+    "en": "Lipofilling can visually correct certain contour features caused by a lack of soft tissue. However, it does not correct bone deformities."
+   }
+  },
+  {
+   "question": {
+    "uk": "Звідки беруть жир для збільшення гомілок?",
+    "ru": {
+     "$": 170
+    },
+    "en": "Where Is the Fat for Calf Augmentation Taken From?"
+   },
+   "answer": {
+    "uk": "Жирову тканину зазвичай отримують із живота, талії, стегон або інших донорських зон із достатньою кількістю підшкірного жиру.",
+    "ru": {
+     "$": 171
+    },
+    "en": "Fat is usually harvested from the abdomen, waist, thighs, or other donor areas with enough subcutaneous fat."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки жиру приживається після ліпофілінгу?",
+    "ru": {
+     "$": 172
+    },
+    "en": "How Much Fat Survives After Lipofilling?"
+   },
+   "answer": {
+    "uk": "Об'єм тканини, що збереглася, індивідуальний. Частина пересадженого жиру розсмоктується, тому заздалегідь гарантувати певний відсоток приживлення неможливо.",
+    "ru": {
+     "$": 173
+    },
+    "en": "The amount of tissue that survives varies from person to person. Some of the transferred fat is reabsorbed, so a specific survival rate cannot be guaranteed in advance."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити ліпофілінг гомілок худій людині?",
+    "ru": {
+     "$": 174
+    },
+    "en": "Can a Slim Person Have Calf Lipofilling?"
+   },
+   "answer": {
+    "uk": "Можливість процедури залежить від наявності достатньої кількості донорської жирової тканини. За її нестачі лікар може обговорити альтернативні варіанти корекції.",
+    "ru": {
+     "$": 175
+    },
+    "en": "Whether the procedure is possible depends on having enough donor fat. If there is not enough, the doctor can discuss alternative correction options."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються рубці після ліпофілінгу?",
+    "ru": {
+     "$": 176
+    },
+    "en": "Does Lipofilling Leave Scars?"
+   },
+   "answer": {
+    "uk": "Для забору та введення жиру використовують невеликі хірургічні доступи. Після них можуть залишатися малопомітні рубці.",
+    "ru": {
+     "$": 177
+    },
+    "en": "Small surgical access points are used to harvest and inject the fat. They may leave barely noticeable scars."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи болісна процедура?",
+    "ru": {
+     "$": 178
+    },
+    "en": "Is the Procedure Painful?"
+   },
+   "answer": {
+    "uk": "Під час операції застосовують анестезію. Після втручання можливі болючість, набряк і дискомфорт у ділянці гомілок і донорських зон.",
+    "ru": {
+     "$": 179
+    },
+    "en": "Anaesthesia is used during the operation. Afterwards, soreness, swelling, and discomfort in the calves and donor areas are possible."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна займатися спортом після ліпофілінгу гомілок?",
+    "ru": {
+     "$": 180
+    },
+    "en": "When Can I Exercise After Calf Lipofilling?"
+   },
+   "answer": {
+    "uk": "Повернення до тренувань визначають індивідуально. Біг, стрибки та інтенсивні навантаження на м'язи гомілки дозволені лише з дозволу хірурга.",
+    "ru": {
+     "$": 181
+    },
+    "en": "When you can return to training is decided individually. Running, jumping, and intensive loading of the calf muscles are allowed only with the surgeon's approval."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": {
+     "$": 182
+    },
+    "en": "How Long Do the Results Last?"
+   },
+   "answer": {
+    "uk": "Життєздатна жирова тканина, що збереглася, може забезпечувати тривалу зміну об'єму. Однак результат залежить від індивідуального приживлення, коливань ваги та вікових змін.",
+    "ru": {
+     "$": 183
+    },
+    "en": "Surviving viable fat can provide a long-lasting change in volume. However, the result depends on individual graft survival, weight fluctuations, and age-related changes."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна повторити ліпофілінг гомілок?",
+    "ru": {
+     "$": 184
+    },
+    "en": "Can Calf Lipofilling Be Repeated?"
+   },
+   "answer": {
+    "uk": "У деяких випадках можлива повторна пересадка жиру. Рішення ухвалюють після оцінки результату попереднього втручання та стану тканин.",
+    "ru": {
+     "$": 185
+    },
+    "en": "In some cases a repeat fat transfer is possible. The decision is made after assessing the result of the previous procedure and the condition of the tissues."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чим ліпофілінг відрізняється від круропластики?",
+    "ru": {
+     "$": 186
+    },
+    "en": "How Does Lipofilling Differ From Cruroplasty?"
+   },
+   "answer": {
+    "uk": "Термін «круропластика» часто використовують для позначення збільшення гомілок за допомогою імплантів. Ліпофілінг передбачає пересадку власної жирової тканини без встановлення імплантів.",
+    "ru": {
+     "$": 187
+    },
+    "en": "The term \"cruroplasty\" is often used for calf augmentation with implants. Lipofilling involves transferring the patient's own fat without placing implants."
+   }
+  }
+ ]
+}

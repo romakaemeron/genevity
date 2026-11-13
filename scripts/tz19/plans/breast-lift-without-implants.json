@@ -1,0 +1,424 @@
+{
+ "sortOrder": 120,
+ "related": ["breast-lift", "breast-lift-with-implants", "vertical-mastopexy"],
+ "title": {
+  "uk": "Підтяжка грудей без імплантів",
+  "ru": "Подтяжка груди без имплантов",
+  "en": "Breast Lift Without Implants"
+ },
+ "summary": {
+  "uk": "Підтяжка грудей без імплантів (мастопексія) — пластична операція, спрямована на усунення опущення молочних залоз, покращення їхньої форми та відновлення вищого положення сосків. Корекція виконується за рахунок власних тканин грудей без встановлення силіконових імплантів.",
+  "ru": { "$": 0 },
+  "en": "A breast lift without implants (mastopexy) is a procedure that addresses breast ptosis, improves breast shape, and restores a higher nipple position. The correction uses the patient's own breast tissue, without placing silicone implants."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/breast-lift-without-implants-hero.webp",
+   "heading": {
+    "uk": "Що таке підтяжка грудей без імплантів?",
+    "ru": { "$": 2 },
+    "en": "What Is a Breast Lift Without Implants?"
+   },
+   "body": {
+    "uk": "Мастопексія без імплантів — хірургічна корекція форми та положення молочних залоз зі збереженням їхнього природного об'єму настільки, наскільки це дозволяє обрана техніка.\n\nПід час операції хірург видаляє надлишок шкіри, перерозподіляє тканини грудей і переміщує сосково-ареолярний комплекс у вище положення.\n\nГоловна відмінність від збільшення грудей — відсутність імплантів. Операція призначена передусім для підтяжки та моделювання форми, а не для збільшення розміру.",
+    "ru": { "$": [3, 4, 5] },
+    "en": "A mastopexy without implants is a surgical correction of the shape and position of the breasts, preserving their natural volume as far as the chosen technique allows.\n\nDuring the operation the surgeon removes excess skin, redistributes the breast tissue, and moves the nipple-areola complex to a higher position.\n\nThe key difference from breast augmentation is the absence of implants. The procedure is intended primarily to lift and reshape, not to increase size."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетична корекція розглядається з урахуванням індивідуальних особливостей організму, стану здоров'я та побажань пацієнта.",
+    "ru": { "$": 1 },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's individual anatomy, health status, and personal goals."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до підтяжки грудей",
+    "ru": { "$": 6 },
+    "en": "Indications for a Breast Lift"
+   },
+   "indications": {
+    "$list": 8,
+    "uk": [
+     "опущення молочних залоз після вагітності та грудного вигодовування;",
+     "втрата пружності шкіри після зниження ваги;",
+     "вікові зміни форми грудей;",
+     "зміщення сосків униз;",
+     "асиметрія молочних залоз;",
+     "надлишок шкіри;",
+     "бажання покращити форму грудей без встановлення імплантів."
+    ],
+    "en": [
+     "breast ptosis after pregnancy and breastfeeding;",
+     "loss of skin elasticity after weight loss;",
+     "age-related changes in breast shape;",
+     "downward displacement of the nipples;",
+     "breast asymmetry;",
+     "excess skin;",
+     "a wish to improve breast shape without implants."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до мастопексії",
+    "ru": "Противопоказания к мастопексии",
+    "en": "Contraindications for Mastopexy"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Декомпенсированные хронические заболевания.",
+     "Нарушения свертываемости крови.",
+     "Другие состояния, повышающие хирургический риск.",
+     "Беременность и период грудного вскармливания.",
+     "Индивидуальные ограничения, установленные врачом."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Декомпенсовані хронічні захворювання.",
+     "Порушення згортання крові.",
+     "Інші стани, що підвищують хірургічний ризик.",
+     "Вагітність і період грудного вигодовування.",
+     "Інші індивідуальні обмеження, встановлені лікарем."
+    ],
+    "en": [
+     "Acute infections.",
+     "Decompensated chronic conditions.",
+     "Blood clotting disorders.",
+     "Other conditions that raise surgical risk.",
+     "Pregnancy and breastfeeding.",
+     "Other individual restrictions identified by the physician."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Методи підтяжки грудей без імплантів",
+    "ru": { "$": 10 },
+    "en": "Techniques for a Breast Lift Without Implants"
+   },
+   "items": {
+    "ru": [
+     "Периареолярная мастопексия. Разрез выполняется вокруг ареолы. Методика преимущественно подходит при небольшом опущении груди и ограниченном избытке кожи.",
+     "Вертикальная мастопексия. Разрез проходит вокруг ареолы и вертикально вниз до подгрудной складки. Метод позволяет скорректировать умеренное опущение и сформировать новый контур груди.",
+     "Якорная мастопексия. Разрез выполняется вокруг ареолы, вертикально вниз и вдоль подгрудной складки. Методика чаще применяется при выраженном опущении груди и значительном избытке кожи."
+    ],
+    "uk": [
+     "Періареолярна мастопексія. Розріз виконується навколо ареоли. Методика переважно підходить за незначного опущення грудей та обмеженого надлишку шкіри.",
+     "Вертикальна мастопексія. Розріз проходить навколо ареоли та вертикально вниз до підгрудної складки. Метод дозволяє скоригувати помірне опущення та сформувати новий контур грудей.",
+     "Якірна мастопексія. Розріз виконується навколо ареоли, вертикально вниз і вздовж підгрудної складки. Методика частіше застосовується за вираженого опущення грудей і значного надлишку шкіри."
+    ],
+    "en": [
+     "Periareolar mastopexy. The incision is made around the areola. The technique is mainly suited to mild breast ptosis with a limited amount of excess skin.",
+     "Vertical mastopexy. The incision runs around the areola and vertically down to the inframammary fold. The method corrects moderate ptosis and forms a new breast contour.",
+     "Anchor mastopexy. The incision runs around the areola, vertically downwards, and along the inframammary fold. It is more often used for pronounced ptosis and significant excess skin."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір методу залежить від ступеня опущення грудей, об'єму власних тканин та еластичності шкіри. Відповідний спосіб підтяжки визначається пластичним хірургом після огляду.",
+    "ru": { "$": [9, 18] },
+    "en": "The choice of method depends on the degree of breast ptosis, the volume of the patient's own tissue, and skin elasticity. The appropriate lifting technique is determined by the plastic surgeon after an examination."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги підтяжки грудей без імплантів",
+    "ru": { "$": 19 },
+    "en": "Advantages of a Breast Lift Without Implants"
+   },
+   "items": {
+    "$list": 21,
+    "uk": [
+     "Підняти груди та змінити положення сосків.",
+     "Покращити форму за рахунок моделювання власних тканин.",
+     "Видалити надлишок шкіри та скоригувати опущення.",
+     "Уникнути встановлення імплантів і пов'язаних із ними специфічних ризиків.",
+     "Скоригувати асиметрію грудей або ареол у межах можливостей операції."
+    ],
+    "en": [
+     "Lift the breasts and change the position of the nipples.",
+     "Improve the shape by reshaping the patient's own tissue.",
+     "Remove excess skin and correct the descent.",
+     "Avoid implants and the specific risks associated with them.",
+     "Correct asymmetry of the breasts or areolas within the limits of the procedure."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "При цьому мастопексія не дозволяє суттєво збільшити об'єм молочних залоз і не гарантує вираженого наповнення верхнього полюса грудей.",
+    "ru": { "$": 22 },
+    "en": "A mastopexy cannot, however, significantly increase breast volume, and it does not guarantee pronounced fullness in the upper pole of the breast."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить підтяжка грудей без імплантів?",
+    "ru": { "$": 23 },
+    "en": "How Is a Breast Lift Without Implants Performed?"
+   },
+   "body": {
+    "uk": "Перед операцією пластичний хірург оцінює форму та розмір грудей, ступінь опущення, стан шкіри та загальне здоров'я пацієнта.\n\nТривалість втручання залежить від обраної методики та складності корекції.",
+    "ru": { "$": [24, 27] },
+    "en": "Before surgery the plastic surgeon assesses breast shape and size, the degree of ptosis, skin condition, and the patient's general health.\n\nThe length of the procedure depends on the chosen technique and the complexity of the correction."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": { "$": 25 },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 26,
+    "uk": [
+     "Консультація та обстеження. Визначення показань, обговорення результату та необхідних досліджень.",
+     "Розмітка. Планування нового положення грудей і сосково-ареолярного комплексу.",
+     "Анестезія. Операція зазвичай виконується під загальною анестезією.",
+     "Хірургічна корекція. Видалення надлишку шкіри, моделювання тканин і переміщення сосково-ареолярного комплексу зі збереженням його кровопостачання.",
+     "Післяопераційне спостереження. Контроль стану тканин і рекомендації щодо відновлення."
+    ],
+    "en": [
+     "Consultation and examination. Establishing the indications and discussing the outcome and necessary investigations.",
+     "Marking. Planning the new position of the breasts and the nipple-areola complex.",
+     "Anaesthesia. The operation is usually performed under general anaesthesia.",
+     "Surgical correction. Removal of excess skin, reshaping of tissue, and repositioning of the nipple-areola complex with its blood supply preserved.",
+     "Postoperative monitoring. Assessment of tissue condition and recovery instructions."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/breast-lift-without-implants-inline.webp",
+   "heading": {
+    "uk": "Відновлення після мастопексії",
+    "ru": { "$": 28 },
+    "en": "Recovery After Mastopexy"
+   },
+   "body": {
+    "uk": "Після операції можливі набряки, синці, помірна болючість і тимчасова зміна чутливості грудей.\n\nДо спокійної роботи деякі пацієнти повертаються через 1–2 тижні. Інтенсивні тренування зазвичай обмежуються на кілька тижнів.\n\nОстаточна форма грудей формується поступово, протягом кількох місяців.",
+    "ru": { "$": [29, 32, 33] },
+    "en": "Swelling, bruising, moderate tenderness, and temporary changes in breast sensation are possible after surgery.\n\nSome patients return to sedentary work after 1–2 weeks. Intense training is usually restricted for several weeks.\n\nThe final breast shape develops gradually over several months."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Під час відновлення рекомендується",
+    "ru": { "$": 30 },
+    "en": "During Recovery It Is Recommended To"
+   },
+   "items": {
+    "$list": 31,
+    "uk": [
+     "носити призначену підтримувальну білизну;",
+     "обмежувати фізичні навантаження;",
+     "уникати тиску на груди;",
+     "дотримуватися рекомендацій щодо догляду за швами;",
+     "приймати призначені препарати;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "wear the prescribed support garment;",
+     "limit physical activity;",
+     "avoid pressure on the breasts;",
+     "follow the instructions for suture care;",
+     "take the prescribed medication;",
+     "attend the scheduled follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після підтяжки грудей?",
+    "ru": { "$": 34 },
+    "en": "Do Scars Remain After a Breast Lift?"
+   },
+   "body": {
+    "uk": "Так. Мастопексія передбачає хірургічні розрізи, після яких залишаються рубці.\n\nЇхнє розташування залежить від обраної техніки: навколо ареоли, вертикально вниз або додатково вздовж підгрудної складки.\n\nЗ часом рубці можуть стати менш помітними, але повністю не зникають.",
+    "ru": { "$": [35, 36, 37] },
+    "en": "Yes. A mastopexy involves surgical incisions, which leave scars.\n\nTheir location depends on the technique used: around the areola, vertically downwards, or additionally along the inframammary fold.\n\nOver time the scars may become less noticeable, but they do not disappear completely."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення",
+    "ru": { "$": 40 },
+    "en": "Possible Complications"
+   },
+   "items": {
+    "$list": 41,
+    "uk": [
+     "кровотеча та гематома;",
+     "інфекція;",
+     "порушення загоєння;",
+     "помітні рубці;",
+     "асиметрія грудей;",
+     "зміна чутливості сосків;",
+     "повторне опущення тканин;",
+     "необхідність додаткової корекції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "impaired healing;",
+     "noticeable scarring;",
+     "breast asymmetry;",
+     "changes in nipple sensation;",
+     "recurrent tissue descent;",
+     "the need for further correction."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Операцію можуть відкласти за гострих інфекцій, декомпенсованих хронічних захворювань, порушень згортання крові та інших станів, що підвищують хірургічний ризик.\n\nРідко можливе порушення кровопостачання сосково-ареолярного комплексу. Існують також ризики, пов'язані з анестезією та тромбоутворенням.\n\nМожливість грудного вигодовування після операції залежить від хірургічної техніки й не може бути гарантована.",
+    "ru": { "$": [39, 42, 43] },
+    "en": "Surgery may be postponed in cases of acute infection, decompensated chronic illness, blood clotting disorders, and other conditions that raise surgical risk.\n\nRarely, the blood supply to the nipple-areola complex may be compromised. There are also risks associated with anaesthesia and blood clot formation.\n\nWhether breastfeeding remains possible after surgery depends on the surgical technique and cannot be guaranteed."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Підтяжка грудей без імплантів чи з імплантами?",
+    "ru": { "$": 44 },
+    "en": "Breast Lift With or Without Implants?"
+   },
+   "items": {
+    "ru": [
+     "Без имплантов — коррекция формы за счёт собственных тканей; с имплантами — подтяжка с дополнительным увеличением объёма.",
+     "Без имплантов — не предполагает установку эндопротезов; с имплантами — используются грудные импланты.",
+     "Без имплантов — не предназначена для значительного увеличения размера; с имплантами — может увеличить размер и наполненность груди.",
+     "Без имплантов — исключает риски, специфичные для имплантов; с имплантами — имеет дополнительные риски, связанные с имплантами."
+    ],
+    "uk": [
+     "Без імплантів — корекція форми за рахунок власних тканин; з імплантами — підтяжка з додатковим збільшенням об'єму.",
+     "Без імплантів — не передбачає встановлення ендопротезів; з імплантами — використовуються грудні імпланти.",
+     "Без імплантів — не призначена для значного збільшення розміру; з імплантами — може збільшити розмір і наповненість грудей.",
+     "Без імплантів — виключає ризики, специфічні для імплантів; з імплантами — має додаткові ризики, пов'язані з імплантами."
+    ],
+    "en": [
+     "Without implants — reshaping using the patient's own tissue; with implants — a lift plus an increase in volume.",
+     "Without implants — no endoprostheses are placed; with implants — breast implants are used.",
+     "Without implants — not intended for a significant increase in size; with implants — size and fullness can be increased.",
+     "Without implants — the risks specific to implants do not apply; with implants — there are additional implant-related risks."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір залежить від вихідного об'єму грудей, ступеня опущення та бажаного результату.",
+    "ru": { "$": 55 },
+    "en": "The choice depends on the starting breast volume, the degree of ptosis, and the desired result."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна підтяжки грудей без імплантів у Дніпрі",
+    "ru": { "$": 56 },
+    "en": "The Cost of a Breast Lift Without Implants in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість мастопексії без імплантів залежить від ступеня опущення молочних залоз, обраної техніки, складності операції, виду анестезії та обсягу післяопераційного спостереження.\n\nТочна ціна визначається після консультації пластичного хірурга.",
+    "ru": { "$": [57, 58] },
+    "en": "The cost of a mastopexy without implants depends on the degree of breast ptosis, the technique chosen, the complexity of the operation, the type of anaesthesia, and the extent of postoperative monitoring.\n\nThe exact price is determined after a consultation with a plastic surgeon."
+   },
+   "calloutBody": {
+    "uk": "Якщо ви хочете відновити форму грудей після вагітності, зниження ваги чи вікових змін без встановлення імплантів, почніть з консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить ступінь опущення, об'єм власних тканин і стан шкіри, після чого допоможе обрати відповідну методику.\n\nУточніть доступність мастопексії без імплантів, актуальну вартість та умови запису на консультацію.",
+    "ru": { "$": [73, 74, 76] },
+    "en": "If you want to restore breast shape after pregnancy, weight loss, or age-related changes without implants, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the degree of ptosis, the volume of your own tissue, and skin condition, and will help you choose a suitable technique.\n\nAsk about the availability of a mastopexy without implants, current pricing, and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Чи можна підтягнути груди без силіконових імплантів?",
+    "ru": { "$": 60 },
+    "en": "Can the Breasts Be Lifted Without Silicone Implants?"
+   },
+   "answer": {
+    "uk": "Так. Мастопексія дозволяє змінити форму та положення грудей за рахунок власних тканин.",
+    "ru": { "$": 61 },
+    "en": "Yes. A mastopexy changes the shape and position of the breasts using the patient's own tissue."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи зменшуються груди після підтяжки?",
+    "ru": { "$": 62 },
+    "en": "Do the Breasts Get Smaller After a Lift?"
+   },
+   "answer": {
+    "uk": "Об'єм може трохи змінитися через видалення шкіри та особливості моделювання тканин. Значне зменшення грудей не є основною метою мастопексії.",
+    "ru": { "$": 63 },
+    "en": "Volume may change slightly because of the skin removal and the way the tissue is reshaped. A significant reduction in breast size is not the main purpose of a mastopexy."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна підтягнути великі груди без імплантів?",
+    "ru": { "$": 64 },
+    "en": "Can Large Breasts Be Lifted Without Implants?"
+   },
+   "answer": {
+    "uk": "Так, однак за великого об'єму та вираженого опущення може знадобитися складніша техніка або зменшення грудей.",
+    "ru": { "$": 65 },
+    "en": "Yes, although with a large volume and pronounced ptosis a more complex technique or a breast reduction may be required."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": { "$": 66 },
+    "en": "How Long Does the Result Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років. Вагітність, коливання ваги та природне старіння здатні вплинути на форму грудей.",
+    "ru": { "$": 67 },
+    "en": "The result can last for many years. Pregnancy, weight fluctuations, and natural ageing can affect breast shape."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна годувати грудьми після мастопексії?",
+    "ru": { "$": 68 },
+    "en": "Is Breastfeeding Possible After a Mastopexy?"
+   },
+   "answer": {
+    "uk": "Можливість грудного вигодовування може зберігатися, але залежить від обсягу втручання та збереженості молочних проток і нервів.",
+    "ru": { "$": 69 },
+    "en": "Breastfeeding may remain possible, but this depends on the extent of the surgery and on the milk ducts and nerves being preserved."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна займатися спортом?",
+    "ru": { "$": 70 },
+    "en": "When Can I Exercise Again?"
+   },
+   "answer": {
+    "uk": "Термін повернення до тренувань визначається хірургом. Зазвичай інтенсивні навантаження обмежують на кілька тижнів.",
+    "ru": { "$": 71 },
+    "en": "The surgeon decides when training can resume. Intense exercise is usually restricted for several weeks."
+   }
+  }
+ ]
+}

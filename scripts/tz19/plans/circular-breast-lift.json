@@ -1,0 +1,390 @@
+{
+ "sortOrder": 124,
+ "related": ["periareolar-mastopexy", "breast-lift", "vertical-mastopexy"],
+ "title": {
+  "uk": "Циркулярна підтяжка грудей",
+  "ru": "Циркулярная подтяжка груди",
+  "en": "Circular Breast Lift"
+ },
+ "summary": {
+  "uk": "Циркулярна підтяжка грудей (періареолярна мастопексія) — пластична операція з корекції невеликого опущення молочних залоз. Під час втручання хірург видаляє надлишок шкіри навколо ареоли, коригує положення сосків і покращує контур грудей.",
+  "ru": { "$": 0 },
+  "en": "A circular breast lift (periareolar mastopexy) is a procedure that corrects mild breast ptosis. During surgery the surgeon removes excess skin around the areola, adjusts nipple position, and improves the breast contour."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/circular-breast-lift-hero.webp",
+   "heading": {
+    "uk": "Що таке циркулярна підтяжка грудей?",
+    "ru": { "$": 2 },
+    "en": "What Is a Circular Breast Lift?"
+   },
+   "body": {
+    "uk": "Циркулярна мастопексія — метод підтяжки грудей, за якого розріз виконується по колу ареоли. Техніку також називають періареолярною підтяжкою або donut lift.\n\nХірург видаляє кільцеву ділянку надлишкової шкіри та за потреби моделює тканини молочної залози.\n\nГоловна особливість методики — рубець розташовується навколо ареоли, без вертикального розрізу та горизонтального рубця під грудьми.\n\nЦиркулярна підтяжка переважно підходить за незначного птозу. За вираженого опущення грудей можуть знадобитися інші хірургічні техніки.",
+    "ru": { "$": [3, 4, 5, 6] },
+    "en": "A circular mastopexy is a breast lift in which the incision follows the circumference of the areola. The technique is also known as a periareolar lift or a donut lift.\n\nThe surgeon removes a ring of excess skin and, where needed, reshapes the breast tissue.\n\nThe defining feature of the technique is that the scar sits around the areola, with no vertical incision and no horizontal scar beneath the breast.\n\nA circular lift is mainly suited to mild ptosis. Where breast descent is pronounced, other surgical techniques may be required."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетична корекція розглядається з урахуванням індивідуальних особливостей організму, стану здоров'я та побажань пацієнта.",
+    "ru": { "$": 1 },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's individual anatomy, health status, and personal goals."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до циркулярної мастопексії",
+    "ru": { "$": 7 },
+    "en": "Indications for a Circular Mastopexy"
+   },
+   "indications": {
+    "$list": 9,
+    "uk": [
+     "невелике опущення молочних залоз;",
+     "помірне зміщення сосків униз;",
+     "зміна форми грудей після вагітності;",
+     "втрата пружності шкіри після зниження ваги;",
+     "невеликий надлишок шкіри навколо ареол;",
+     "асиметрія положення сосків;",
+     "бажання скоригувати розмір або форму ареол."
+    ],
+    "en": [
+     "mild sagging of the breasts;",
+     "moderate downward displacement of the nipples;",
+     "changes in breast shape after pregnancy;",
+     "loss of skin elasticity after weight loss;",
+     "a small amount of excess skin around the areolas;",
+     "asymmetry in nipple position;",
+     "a wish to adjust the size or shape of the areolas."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до циркулярної підтяжки грудей",
+    "ru": "Противопоказания к циркулярной подтяжке груди",
+    "en": "Contraindications for a Circular Breast Lift"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Декомпенсированные хронические заболевания.",
+     "Нарушения свертываемости крови.",
+     "Другие состояния, повышающие хирургический риск.",
+     "Беременность и период грудного вскармливания.",
+     "Индивидуальные ограничения, установленные врачом."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Декомпенсовані хронічні захворювання.",
+     "Порушення згортання крові.",
+     "Інші стани, що підвищують хірургічний ризик.",
+     "Вагітність і період грудного вигодовування.",
+     "Інші індивідуальні обмеження, встановлені лікарем."
+    ],
+    "en": [
+     "Acute infections.",
+     "Decompensated chronic conditions.",
+     "Blood clotting disorders.",
+     "Other conditions that raise surgical risk.",
+     "Pregnancy and breastfeeding.",
+     "Other individual restrictions identified by the physician."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги циркулярної підтяжки грудей",
+    "ru": { "$": 11 },
+    "en": "Advantages of a Circular Breast Lift"
+   },
+   "items": {
+    "$list": 13,
+    "uk": [
+     "Підняти сосково-ареолярний комплекс за незначного опущення.",
+     "Покращити контур грудей за рахунок обмеженого видалення шкіри.",
+     "Скоригувати розмір ареол за наявності показань.",
+     "Уникнути вертикального рубця за використання стандартної періареолярної техніки.",
+     "Поєднати підтяжку зі збільшенням грудей, якщо це необхідно та допустимо за медичними показаннями."
+    ],
+    "en": [
+     "Raise the nipple-areola complex where descent is mild.",
+     "Improve the breast contour through limited skin removal.",
+     "Adjust the size of the areolas where indicated.",
+     "Avoid a vertical scar when the standard periareolar technique is used.",
+     "Combine the lift with breast augmentation where this is necessary and medically appropriate."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Методика має обмеження: вона не забезпечує значного підйому грудей і може призводити до сплощення їхньої форми або розтягнення ареол.",
+    "ru": { "$": 14 },
+    "en": "The technique has limits: it does not provide a significant lift and can lead to flattening of the breast shape or stretching of the areolas."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить циркулярна підтяжка грудей?",
+    "ru": { "$": 15 },
+    "en": "How Is a Circular Breast Lift Performed?"
+   },
+   "body": {
+    "uk": "Перед операцією пластичний хірург оцінює форму та об'єм молочних залоз, положення сосків, стан шкіри та загальне здоров'я пацієнта.\n\nВідповідна методика визначається після оцінки ступеня птозу, об'єму грудей та еластичності шкіри.\n\nТривалість операції залежить від складності корекції та додаткових втручань.",
+    "ru": { "$": [16, 10, 19] },
+    "en": "Before surgery the plastic surgeon assesses breast shape and volume, nipple position, skin condition, and the patient's general health.\n\nThe appropriate technique is chosen after evaluating the degree of ptosis, breast volume, and skin elasticity.\n\nThe length of the operation depends on the complexity of the correction and any additional procedures."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": { "$": 17 },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 18,
+    "uk": [
+     "Консультація та обстеження. Визначення показань і обговорення очікуваного результату.",
+     "Розмітка. Планування нового положення ареол і ділянки шкіри для видалення.",
+     "Анестезія. Вибір відповідного методу знеболення.",
+     "Хірургічна корекція. Видалення кільцевої ділянки шкіри, обмежена підтяжка та накладання швів.",
+     "Післяопераційне спостереження. Контроль загоєння та рекомендації щодо відновлення."
+    ],
+    "en": [
+     "Consultation and examination. Establishing the indications and discussing the expected outcome.",
+     "Marking. Planning the new position of the areolas and the area of skin to be removed.",
+     "Anaesthesia. Choosing a suitable method of pain control.",
+     "Surgical correction. Removal of a ring of skin, a limited lift, and suturing.",
+     "Postoperative monitoring. Checking healing and giving recovery instructions."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Відновлення після циркулярної мастопексії",
+    "ru": { "$": 20 },
+    "en": "Recovery After a Circular Mastopexy"
+   },
+   "body": {
+    "uk": "Після операції можливі набряки, синці, помірна болючість і тимчасова зміна чутливості грудей.\n\nДо спокійної роботи деякі пацієнти повертаються через 1–2 тижні. Терміни відновлення залежать від обсягу операції та особливостей загоєння.\n\nОстаточна форма грудей встановлюється поступово, протягом кількох місяців.",
+    "ru": { "$": [21, 24, 25] },
+    "en": "Swelling, bruising, moderate tenderness, and temporary changes in breast sensation are possible after surgery.\n\nSome patients return to sedentary work after 1–2 weeks. Recovery times depend on the extent of the operation and on individual healing.\n\nThe final breast shape settles gradually over several months."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "У період відновлення рекомендується",
+    "ru": { "$": 22 },
+    "en": "During Recovery It Is Recommended To"
+   },
+   "items": {
+    "$list": 23,
+    "uk": [
+     "носити призначену підтримувальну білизну;",
+     "обмежувати фізичні навантаження;",
+     "уникати тиску на груди;",
+     "дотримуватися рекомендацій щодо догляду за швами;",
+     "приймати призначені препарати;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "wear the prescribed support garment;",
+     "limit physical activity;",
+     "avoid pressure on the breasts;",
+     "follow the instructions for suture care;",
+     "take the prescribed medication;",
+     "attend the scheduled follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після циркулярної підтяжки?",
+    "ru": { "$": 26 },
+    "en": "Do Scars Remain After a Circular Lift?"
+   },
+   "body": {
+    "uk": "Так. Після операції залишається рубець по колу ареоли.\n\nЗавдяки розташуванню на межі пігментованої шкіри він може бути менш помітним, однак повністю не зникає.\n\nМожливі розширення рубця, розтягнення ареоли та зміна її контуру. Якість загоєння залежить від індивідуальних особливостей шкіри та хірургічної техніки.",
+    "ru": { "$": [27, 28, 29] },
+    "en": "Yes. A scar remains around the circumference of the areola.\n\nBecause it lies at the border of pigmented skin it may be less noticeable, but it does not disappear completely.\n\nWidening of the scar, stretching of the areola, and changes to its outline are possible. Healing quality depends on individual skin characteristics and on the surgical technique."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення",
+    "ru": { "$": 32 },
+    "en": "Possible Complications"
+   },
+   "items": {
+    "$list": 33,
+    "uk": [
+     "кровотеча та гематома;",
+     "інфекція;",
+     "порушення загоєння;",
+     "помітні або розширені рубці;",
+     "асиметрія грудей та ареол;",
+     "розтягнення ареол;",
+     "сплощення форми грудей;",
+     "зміна чутливості сосків;",
+     "повторне опущення тканин;",
+     "необхідність додаткової корекції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "impaired healing;",
+     "noticeable or widened scars;",
+     "asymmetry of the breasts and areolas;",
+     "stretching of the areolas;",
+     "flattening of the breast shape;",
+     "changes in nipple sensation;",
+     "recurrent tissue descent;",
+     "the need for further correction."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Операцію можуть відкласти за гострих інфекцій, декомпенсованих хронічних захворювань, порушень згортання крові та інших станів, що підвищують хірургічний ризик.\n\nРідко можливе порушення кровопостачання сосково-ареолярного комплексу. Існують також ризики, пов'язані з анестезією та тромбоутворенням.\n\nМожливість грудного вигодовування після операції залежить від хірургічної техніки й не може бути гарантована.",
+    "ru": { "$": [31, 34, 35] },
+    "en": "Surgery may be postponed in cases of acute infection, decompensated chronic illness, blood clotting disorders, and other conditions that raise surgical risk.\n\nRarely, the blood supply to the nipple-areola complex may be compromised. There are also risks associated with anaesthesia and blood clot formation.\n\nWhether breastfeeding remains possible after surgery depends on the surgical technique and cannot be guaranteed."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Циркулярна, вертикальна чи якірна підтяжка грудей?",
+    "ru": { "$": 36 },
+    "en": "Circular, Vertical, or Anchor Breast Lift?"
+   },
+   "items": {
+    "ru": [
+     "Циркулярная — разрез вокруг ареолы, преимущественно при небольшом птозе.",
+     "Вертикальная — разрез вокруг ареолы и вертикально вниз, чаще при умеренном птозе.",
+     "Якорная — дополнительный разрез вдоль подгрудной складки, чаще при выраженном опущении."
+    ],
+    "uk": [
+     "Циркулярна — розріз навколо ареоли, переважно за незначного птозу.",
+     "Вертикальна — розріз навколо ареоли та вертикально вниз, частіше за помірного птозу.",
+     "Якірна — додатковий розріз уздовж підгрудної складки, частіше за вираженого опущення."
+    ],
+    "en": [
+     "Circular — an incision around the areola, mainly for mild ptosis.",
+     "Vertical — an incision around the areola and vertically downwards, more often for moderate ptosis.",
+     "Anchor — an additional incision along the inframammary fold, more often for pronounced descent."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір методу залежить від ступеня опущення молочних залоз і кількості надлишкової шкіри. Мінімальна довжина рубців не завжди забезпечує кращий результат. Важливо обрати методику, що відповідає анатомії грудей.",
+    "ru": { "$": [37, 46] },
+    "en": "The choice of method depends on the degree of breast ptosis and the amount of excess skin. The shortest scars do not always give the best result — what matters is choosing a technique that matches the anatomy of the breast."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна циркулярної підтяжки грудей у Дніпрі",
+    "ru": { "$": 47 },
+    "en": "The Cost of a Circular Breast Lift in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість циркулярної мастопексії залежить від ступеня опущення грудей, обсягу корекції, складності операції, виду анестезії та післяопераційного спостереження.\n\nНа ціну також може впливати поєднання підтяжки зі збільшенням грудей.\n\nТочна вартість визначається після консультації пластичного хірурга.",
+    "ru": { "$": [48, 49, 50] },
+    "en": "The cost of a circular mastopexy depends on the degree of breast ptosis, the extent of the correction, the complexity of the operation, the type of anaesthesia, and postoperative monitoring.\n\nCombining the lift with breast augmentation may also affect the price.\n\nThe exact cost is determined after a consultation with a plastic surgeon."
+   },
+   "calloutBody": {
+    "uk": "Якщо ви розглядаєте підтяжку грудей із рубцем навколо ареоли, почніть з консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить ступінь опущення молочних залоз, стан шкіри та допоможе визначити, чи підходить вам циркулярна мастопексія.\n\nУточніть доступність циркулярної підтяжки грудей, актуальну вартість та умови запису на консультацію.",
+    "ru": { "$": [65, 66, 68] },
+    "en": "If you are considering a breast lift with a scar around the areola, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the degree of breast ptosis and skin condition and help determine whether a circular mastopexy is right for you.\n\nAsk about the availability of a circular breast lift, current pricing, and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Кому підходить циркулярна підтяжка грудей?",
+    "ru": { "$": 52 },
+    "en": "Who Is a Circular Breast Lift Suitable For?"
+   },
+   "answer": {
+    "uk": "Переважно пацієнтам із невеликим опущенням молочних залоз та обмеженим надлишком шкіри.",
+    "ru": { "$": 53 },
+    "en": "Mainly patients with mild breast ptosis and a limited amount of excess skin."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна підтягнути груди через ареолу без вертикального розрізу?",
+    "ru": { "$": 54 },
+    "en": "Can the Breasts Be Lifted Through the Areola Without a Vertical Incision?"
+   },
+   "answer": {
+    "uk": "Так, за відповідних анатомічних умов. За вираженого птозу може знадобитися вертикальна або якірна мастопексія.",
+    "ru": { "$": 55 },
+    "en": "Yes, where the anatomy is suitable. For pronounced ptosis a vertical or anchor mastopexy may be required."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи збільшуються груди після операції?",
+    "ru": { "$": 56 },
+    "en": "Do the Breasts Become Larger After Surgery?"
+   },
+   "answer": {
+    "uk": "Сама циркулярна підтяжка не призначена для збільшення об'єму. За потреби її можна поєднати зі встановленням імплантів.",
+    "ru": { "$": 57 },
+    "en": "A circular lift on its own is not intended to increase volume. Where needed, it can be combined with implant placement."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами?",
+    "ru": { "$": 58 },
+    "en": "Do Scars Remain?"
+   },
+   "answer": {
+    "uk": "Так. Рубець розташовується по контуру ареоли й з часом може стати менш помітним.",
+    "ru": { "$": 59 },
+    "en": "Yes. The scar follows the edge of the areola and may become less noticeable over time."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна годувати грудьми після мастопексії?",
+    "ru": { "$": 60 },
+    "en": "Is Breastfeeding Possible After a Mastopexy?"
+   },
+   "answer": {
+    "uk": "Можливість грудного вигодовування може зберігатися, але залежить від обсягу втручання та збереженості молочних проток і нервів.",
+    "ru": { "$": 61 },
+    "en": "Breastfeeding may remain possible, but this depends on the extent of the surgery and on the milk ducts and nerves being preserved."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": { "$": 62 },
+    "en": "How Long Does the Result Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років, однак вагітність, коливання ваги та природне старіння можуть впливати на форму грудей.",
+    "ru": { "$": 63 },
+    "en": "The result can last for many years, but pregnancy, weight fluctuations, and natural ageing can affect breast shape."
+   }
+  }
+ ]
+}

@@ -1,0 +1,1158 @@
+{
+ "sortOrder": 102,
+ "related": [
+  "blepharoplasty",
+  "circular-blepharoplasty",
+  "lower-blepharoplasty"
+ ],
+ "title": {
+  "uk": "Блефаропластика верхніх повік",
+  "ru": "Блефаропластика верхних век",
+  "en": "Upper Eyelid Blepharoplasty"
+ },
+ "summary": {
+  "uk": "Блефаропластика верхніх повік — пластична операція, спрямована на корекцію надлишку шкіри та окремих змін м'яких тканин верхніх повік. Процедура може допомогти усунути виражене нависання шкірних складок, скоригувати жирові випинання та зробити контур верхніх повік відкритішим.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Upper eyelid blepharoplasty is a plastic surgery procedure to correct excess skin and certain soft-tissue changes of the upper eyelids. It can help remove pronounced hooding of the skin folds, correct fat bulges and give the upper eyelids a more open contour."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/upper-blepharoplasty-hero.webp",
+   "heading": {
+    "uk": "Що таке верхня блефаропластика?",
+    "ru": {
+     "$": 5
+    },
+    "en": "What Is Upper Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Верхня блефаропластика — хірургічна корекція верхніх повік, яку виконують для усунення надлишку шкіри та зміни контуру м'яких тканин.\n\nПід час операції пластичний хірург зазвичай робить розріз у природній складці верхньої повіки. Через цей доступ видаляють заздалегідь визначену кількість шкіри, а за потреби коригують жирові пакети.\n\nПісля загоєння рубець часто розташовується у складці повіки й може бути малопомітним за відкритих очей.\n\nВерхня блефаропластика дає змогу видалити запланований надлишок шкіри, а за потреби — скоригувати жирову тканину. При цьому завдання хірурга полягає не в максимальному видаленні тканин, а у збереженні природної форми очей і нормальної функції повік.",
+    "ru": {
+     "$": [
+      6,
+      7,
+      8,
+      4
+     ]
+    },
+    "en": "Upper blepharoplasty is the surgical correction of the upper eyelids, performed to remove excess skin and change the contour of the soft tissues.\n\nDuring the operation the plastic surgeon usually makes an incision in the natural crease of the upper eyelid. Through this access a predetermined amount of skin is removed and, where needed, the fat pads are adjusted.\n\nOnce healed, the scar usually lies within the eyelid crease and may be barely visible when the eyes are open.\n\nUpper blepharoplasty allows the planned excess skin to be removed and, where needed, the fatty tissue to be corrected. The surgeon's task is not to remove as much tissue as possible but to preserve the natural shape of the eyes and normal eyelid function."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає естетичну хірургію в контексті здоров'я, природності зовнішності та індивідуального комфорту пацієнта.",
+    "ru": {
+     "$": 1
+    },
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — approaches aesthetic surgery in the context of health, a natural appearance and the patient's individual comfort."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Операція не призначена для лікування всіх причин опущення верхніх повік. Якщо повіка опускається через порушення роботи м'яза, який її піднімає, може знадобитися корекція птозу.\n\nЯкщо нависання пов'язане переважно з низьким положенням брів, лікар може розглянути підтяжку брів.\n\nТому перед блефаропластикою потрібно визначити, які саме анатомічні зміни спричиняють скарги пацієнта.",
+    "ru": {
+     "$": [
+      9,
+      10,
+      11
+     ]
+    },
+    "en": "The operation is not designed to treat every cause of upper eyelid drooping. If the eyelid droops because the muscle that lifts it is not working properly, ptosis correction may be needed.\n\nIf the hooding is mainly due to low-set brows, the surgeon may consider a brow lift.\n\nThat is why, before blepharoplasty, it is essential to determine which anatomical changes are causing the patient's concerns."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чому нависають верхні повіки?",
+    "ru": {
+     "$": 12
+    },
+    "en": "Why Do the Upper Eyelids Become Hooded?"
+   },
+   "body": {
+    "uk": "Нависання верхніх повік може мати кілька причин.\n\nЗ віком шкіра навколо очей поступово втрачає еластичність. У результаті верхні повіки можуть виглядати важчими, а складки шкіри — опускатися до війкового краю. У деяких людей подібні особливості наявні змолоду й пов'язані зі спадковістю або анатомічною будовою.\n\nЗа вираженого нависання шкіри верхніх повік зміни можуть бути не лише естетичними, а й функціональними: в окремих випадках надлишок тканин обмежує верхню частину поля зору.",
+    "ru": {
+     "$": [
+      13,
+      2,
+      3
+     ]
+    },
+    "en": "Upper eyelid hooding can have several causes.\n\nWith age, the skin around the eyes gradually loses elasticity. As a result, the upper eyelids may look heavier and the skin folds may descend towards the lash line. In some people these features are present from a young age and are linked to heredity or anatomical structure.\n\nWhen upper eyelid hooding is pronounced, the changes may be functional as well as aesthetic: in some cases the excess tissue restricts the upper part of the visual field."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні причини нависання",
+    "ru": "Основные причины нависания",
+    "en": "The Main Causes of Hooding"
+   },
+   "items": {
+    "ru": [
+     "Возрастные изменения кожи — с возрастом уменьшается эластичность кожи и изменяется состояние поддерживающих структур век. Избыточная кожа может формировать складки, которые становятся заметнее при открытых глазах.",
+     "Наследственные особенности — у некоторых людей выраженная складка верхнего века присутствует с молодого возраста. Это может быть связано с индивидуальной анатомией глазниц, количеством мягких тканей и особенностями положения бровей.",
+     "Опущение бровей — когда брови располагаются низко, кожа верхней части лица может смещаться вниз и усиливать нависание над глазами. В такой ситуации удаление кожи век не всегда позволяет решить основную проблему.",
+     "Изменение жировых пакетов — в области верхних век находятся жировые структуры, которые могут создавать локальные выпячивания. При определённых показаниях хирург может скорректировать их объём."
+    ],
+    "uk": [
+     "Вікові зміни шкіри — з віком еластичність шкіри знижується, а стан підтримувальних структур повік змінюється. Надлишкова шкіра може утворювати складки, які стають помітнішими за відкритих очей.",
+     "Спадкові особливості — у деяких людей виражена складка верхньої повіки наявна змолоду. Це може бути пов'язано з індивідуальною анатомією очних ямок, кількістю м'яких тканин і особливостями положення брів.",
+     "Опущення брів — коли брови розташовані низько, шкіра верхньої частини обличчя може зміщуватися вниз і посилювати нависання над очима. У такій ситуації видалення шкіри повік не завжди дає змогу вирішити основну проблему.",
+     "Зміна жирових пакетів — у ділянці верхніх повік розташовані жирові структури, які можуть утворювати локальні випинання. За певних показань хірург може скоригувати їхній об'єм."
+    ],
+    "en": [
+     "Age-related skin changes — with age, skin elasticity decreases and the supporting structures of the eyelids change. Excess skin can form folds that become more noticeable when the eyes are open.",
+     "Hereditary features — some people have a pronounced upper eyelid fold from a young age. This may be linked to the individual anatomy of the eye sockets, the amount of soft tissue and the position of the brows.",
+     "Brow descent — when the brows sit low, the skin of the upper face can shift downwards and increase the hooding over the eyes. In this situation removing eyelid skin does not always solve the underlying problem.",
+     "Changes in the fat pads — the upper eyelids contain fatty structures that can cause localised bulges. Where indicated, the surgeon can adjust their volume."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Птоз — опущення краю верхньої повіки, яке може бути пов'язане з порушенням роботи м'яза, що піднімає повіку, або його сухожилкових структур.\n\nЦей стан потрібно відрізняти від надлишку шкіри.\n\nЗвичайна блефаропластика не завжди усуває справжній птоз.",
+    "ru": {
+     "$": [
+      27,
+      28,
+      29
+     ]
+    },
+    "en": "Ptosis is a drooping of the upper eyelid margin, which may be caused by a malfunction of the muscle that lifts the eyelid or of its tendon structures.\n\nThis condition must be distinguished from excess skin.\n\nStandard blepharoplasty does not always correct true ptosis."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до блефаропластики верхніх повік",
+    "ru": {
+     "$": 30
+    },
+    "en": "Indications for Upper Eyelid Blepharoplasty"
+   },
+   "indications": {
+    "$list": 33,
+    "uk": [
+     "виражений надлишок шкіри верхніх повік;",
+     "нависання шкірної складки над війковим краєм;",
+     "зміна природного контуру верхньої повіки;",
+     "жирові випинання в ділянці верхніх повік;",
+     "асиметрія шкірних складок;",
+     "відчуття важкості в ділянці верхніх повік;",
+     "труднощі з нанесенням макіяжу через виражені складки;",
+     "обмеження верхнього поля зору через надлишок шкіри, підтверджене обстеженням;",
+     "бажання скоригувати вікові зміни періорбітальної ділянки."
+    ],
+    "en": [
+     "pronounced excess skin of the upper eyelids;",
+     "a skin fold hanging over the lash line;",
+     "a change in the natural contour of the upper eyelid;",
+     "fat bulges in the upper eyelids;",
+     "asymmetry of the skin folds;",
+     "a feeling of heaviness in the upper eyelids;",
+     "difficulty applying make-up because of pronounced folds;",
+     "restriction of the upper visual field by excess skin, confirmed on examination;",
+     "a wish to correct age-related changes around the eyes."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до блефаропластики верхніх повік",
+    "ru": {
+     "$": 137
+    },
+    "en": "Contraindications to Upper Eyelid Blepharoplasty"
+   },
+   "contraindications": {
+    "$list": 140,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "активні запальні процеси в ділянці очей;",
+     "декомпенсовані хронічні захворювання;",
+     "порушення згортання крові;",
+     "стани, що підвищують ризик анестезії;",
+     "виражені порушення загоєння тканин;",
+     "окремі захворювання очей;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "active inflammation around the eyes;",
+     "decompensated chronic conditions;",
+     "blood clotting disorders;",
+     "conditions that increase the risk of anaesthesia;",
+     "significantly impaired tissue healing;",
+     "certain eye diseases;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Не кожне нависання шкіри потребує хірургічного лікування.\n\nРішення ухвалюють індивідуально після оцінки анатомії, функції повік і загального стану здоров'я.",
+    "ru": {
+     "$": [
+      34,
+      35
+     ]
+    },
+    "en": "Not every case of hooded skin requires surgery.\n\nThe decision is made individually after assessing the anatomy, eyelid function and general health."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Кому підходить верхня блефаропластика?",
+    "ru": {
+     "$": 36
+    },
+    "en": "Who Is a Candidate for Upper Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Верхня блефаропластика може розглядатися для дорослих пацієнтів із вираженим надлишком шкіри або певними змінами м'яких тканин верхніх повік.\n\nВік сам по собі не визначає необхідності операції. Важливіші характер змін і їхній вплив на зовнішність чи функцію повік.",
+    "ru": {
+     "$": [
+      37,
+      40
+     ]
+    },
+    "en": "Upper blepharoplasty may be considered for adult patients with pronounced excess skin or certain soft-tissue changes of the upper eyelids.\n\nAge alone does not determine whether surgery is needed. What matters more is the nature of the changes and their effect on appearance or eyelid function."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Під час планування операції лікар оцінює",
+    "ru": {
+     "$": 38
+    },
+    "en": "When Planning the Operation, the Surgeon Assesses"
+   },
+   "items": {
+    "$list": 39,
+    "uk": [
+     "кількість надлишкової шкіри;",
+     "положення краю верхньої повіки;",
+     "висоту та симетрію брів;",
+     "розташування природної складки повіки;",
+     "стан жирових пакетів;",
+     "здатність очей повністю заплющуватися;",
+     "стан слізної плівки;",
+     "наявність сухості очей;",
+     "особливості міміки;",
+     "раніше перенесені операції;",
+     "загальний стан здоров'я."
+    ],
+    "en": [
+     "the amount of excess skin;",
+     "the position of the upper eyelid margin;",
+     "the height and symmetry of the brows;",
+     "the position of the natural eyelid crease;",
+     "the condition of the fat pads;",
+     "the ability of the eyes to close fully;",
+     "the condition of the tear film;",
+     "any dryness of the eyes;",
+     "facial expression;",
+     "previous operations;",
+     "general health."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Яких результатів можна досягти після верхньої блефаропластики?",
+    "ru": {
+     "$": 41
+    },
+    "en": "What Results Are Possible After Upper Blepharoplasty?"
+   },
+   "items": {
+    "$lines": [
+     44,
+     46,
+     48,
+     50,
+     52
+    ],
+    "uk": [
+     "Видалення запланованого надлишку шкіри дає змогу зменшити вираженість складок над війковим краєм.",
+     "Після корекції природна складка повіки може стати помітнішою.",
+     "За потреби хірург може зменшити вираженість окремих жирових пакетів.",
+     "Операція може допомогти зробити контури верхніх повік схожішими, хоча повна симетрія не гарантується.",
+     "Якщо надлишок шкіри справді перекриває верхню частину поля зору, його усунення може покращити огляд."
+    ],
+    "en": [
+     "Removing the planned excess skin reduces the prominence of the folds above the lash line.",
+     "After correction, the natural eyelid crease may become more visible.",
+     "Where needed, the surgeon can reduce the prominence of individual fat pads.",
+     "The operation can help make the contours of the upper eyelids more alike, although complete symmetry is not guaranteed.",
+     "If excess skin genuinely obstructs the upper part of the visual field, removing it may improve the field of view."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "При цьому блефаропластика не лікує короткозорості, далекозорості, катаракти чи інших захворювань очей.",
+    "ru": {
+     "$": 53
+    },
+    "en": "Blepharoplasty does not, however, treat short-sightedness, long-sightedness, cataracts or other eye diseases."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить блефаропластика верхніх повік?",
+    "ru": {
+     "$": 54
+    },
+    "en": "How Is Upper Eyelid Blepharoplasty Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Консультація пластичного хірурга",
+      "ru": "Консультация пластического хирурга",
+      "en": "Consultation with a Plastic Surgeon"
+     },
+     "description": {
+      "uk": "На консультації лікар оцінює кількість надлишкової шкіри, положення брів, стан повік і особливості симетрії.\n\nОбговорюються побажання пацієнта, можливі результати, обмеження операції та хірургічні ризики.\n\nЗа підозри на птоз, захворювання очей чи порушення слізної плівки може знадобитися консультація офтальмолога.",
+      "ru": {
+       "$": [
+        57,
+        58,
+        59
+       ]
+      },
+      "en": "At the consultation the surgeon assesses the amount of excess skin, the position of the brows, the condition of the eyelids and any asymmetry.\n\nThe patient's wishes, possible results, the limitations of the operation and the surgical risks are discussed.\n\nIf ptosis, an eye condition or a tear-film disorder is suspected, a consultation with an ophthalmologist may be needed."
+     }
+    },
+    {
+     "title": {
+      "uk": "Передопераційне обстеження",
+      "ru": "Предоперационное обследование",
+      "en": "Preoperative Assessment"
+     },
+     "description": {
+      "uk": "Перед операцією проводять необхідну оцінку стану здоров'я.\n\nЛікар уточнює інформацію про хронічні захворювання, препарати, які приймає пацієнт, алергічні реакції та раніше перенесені втручання.\n\nЗа потреби призначають додаткові дослідження.",
+      "ru": {
+       "$": [
+        61,
+        62,
+        63
+       ]
+      },
+      "en": "Before the operation the necessary health assessment is carried out.\n\nThe surgeon asks about chronic conditions, current medication, allergies and previous procedures.\n\nAdditional investigations are arranged if needed."
+     }
+    },
+    {
+     "title": {
+      "uk": "Розмітка верхніх повік",
+      "ru": "Разметка верхних век",
+      "en": "Marking the Upper Eyelids"
+     },
+     "description": {
+      "uk": "Перед операцією хірург визначає розташування майбутніх розрізів і обсяг видалення шкіри.\n\nРозмітку виконують з урахуванням природних складок, положення брів і необхідності зберегти нормальне заплющування очей.",
+      "ru": {
+       "$": [
+        65,
+        66
+       ]
+      },
+      "en": "Before the operation the surgeon determines where the incisions will be and how much skin will be removed.\n\nThe marking takes into account the natural creases, the position of the brows and the need to preserve normal eye closure."
+     }
+    },
+    {
+     "title": {
+      "uk": "Анестезія",
+      "ru": "Анестезия",
+      "en": "Anaesthesia"
+     },
+     "description": {
+      "uk": "Ізольовану верхню блефаропластику нерідко проводять під місцевою анестезією.\n\nВ окремих випадках може застосовуватися седація або інший варіант анестезіологічного забезпечення.\n\nВибір визначається індивідуально.",
+      "ru": {
+       "$": [
+        68,
+        69,
+        70
+       ]
+      },
+      "en": "Isolated upper blepharoplasty is often performed under local anaesthesia.\n\nIn some cases sedation or another form of anaesthetic care may be used.\n\nThe choice is made individually."
+     }
+    },
+    {
+     "title": {
+      "uk": "Хірургічна корекція",
+      "ru": "Хирургическая коррекция",
+      "en": "Surgical Correction"
+     },
+     "description": {
+      "uk": "Хірург виконує розріз за заздалегідь наміченою лінією, видаляє надлишок шкіри та за потреби коригує жирову тканину.\n\nПотім накладають шви.\n\nВажливо зберегти достатньо шкіри, щоб повіки могли нормально змикатися після операції.",
+      "ru": {
+       "$": [
+        72,
+        73,
+        74
+       ]
+      },
+      "en": "The surgeon makes an incision along the pre-marked line, removes the excess skin and, where needed, adjusts the fatty tissue.\n\nThe incision is then sutured.\n\nIt is important to preserve enough skin for the eyelids to close normally after the operation."
+     }
+    },
+    {
+     "title": {
+      "uk": "Післяопераційне спостереження",
+      "ru": "Послеоперационное наблюдение",
+      "en": "Postoperative Monitoring"
+     },
+     "description": {
+      "uk": "Після втручання лікар оцінює стан тканин, вираженість набряку та загальне самопочуття пацієнта.\n\nЗа неускладненої ізольованої операції повернутися додому часто можна в день процедури.",
+      "ru": {
+       "$": [
+        76,
+        77
+       ]
+      },
+      "en": "After the procedure the surgeon assesses the tissues, the degree of swelling and the patient's general wellbeing.\n\nAfter an uncomplicated isolated operation, patients can often go home the same day."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки триває операція?",
+    "ru": {
+     "$": 78
+    },
+    "en": "How Long Does the Operation Take?"
+   },
+   "body": {
+    "uk": "Тривалість верхньої блефаропластики залежить від обсягу корекції та анатомічних особливостей пацієнта.\n\nІзольована операція на обох верхніх повіках нерідко триває близько однієї-двох годин, однак фактичний час може відрізнятися.\n\nЯкщо одночасно виконують корекцію птозу, підтяжку брів чи інше втручання, тривалість збільшується.",
+    "ru": {
+     "$": [
+      79,
+      80,
+      81
+     ]
+    },
+    "en": "The length of upper blepharoplasty depends on the extent of the correction and the patient's anatomy.\n\nAn isolated operation on both upper eyelids often takes around one to two hours, although the actual time may vary.\n\nIf ptosis correction, a brow lift or another procedure is performed at the same time, the operation takes longer."
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/upper-blepharoplasty-inline.webp",
+   "heading": {
+    "uk": "Реабілітація після блефаропластики верхніх повік",
+    "ru": {
+     "$": 82
+    },
+    "en": "Recovery After Upper Eyelid Blepharoplasty"
+   },
+   "body": {
+    "uk": "Відновлення після операції зазвичай відбувається поступово.\n\nВираженість симптомів індивідуальна.",
+    "ru": {
+     "$": [
+      83,
+      86
+     ]
+    },
+    "en": "Recovery after the operation is usually gradual.\n\nThe severity of symptoms varies from person to person."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "У перші дні можливі",
+    "ru": {
+     "$": 84
+    },
+    "en": "In the First Days You May Experience"
+   },
+   "items": {
+    "$list": 85,
+    "uk": [
+     "набряклість повік;",
+     "синці;",
+     "відчуття натягу шкіри;",
+     "помірна болючість;",
+     "тимчасова чутливість у ділянці швів;",
+     "сухість або сльозотеча;",
+     "тимчасова нечіткість зору, зокрема через очні мазі."
+    ],
+    "en": [
+     "swelling of the eyelids;",
+     "bruising;",
+     "a feeling of skin tightness;",
+     "moderate tenderness;",
+     "temporary sensitivity around the sutures;",
+     "dryness or watering of the eyes;",
+     "temporarily blurred vision, including from eye ointments."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації після операції",
+    "ru": {
+     "$": 87
+    },
+    "en": "Aftercare Recommendations"
+   },
+   "items": {
+    "$list": 89,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "використовувати призначені очні препарати;",
+     "правильно доглядати за швами;",
+     "не терти очі;",
+     "уникати інтенсивних фізичних навантажень;",
+     "тимчасово відмовитися від макіяжу очей;",
+     "не носити контактні лінзи до дозволу лікаря;",
+     "захищати ділянку повік від інтенсивного сонця;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow your surgeon's instructions;",
+     "use the prescribed eye medication;",
+     "care for the sutures correctly;",
+     "do not rub your eyes;",
+     "avoid strenuous physical activity;",
+     "avoid eye make-up for the time being;",
+     "do not wear contact lenses until your surgeon allows it;",
+     "protect the eyelid area from strong sun exposure;",
+     "attend your follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Холодні компреси та інші засоби слід застосовувати відповідно до рекомендацій лікаря.",
+    "ru": {
+     "$": 90
+    },
+    "en": "Cold compresses and other measures should be used in line with your surgeon's recommendations."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли знімають шви?",
+    "ru": {
+     "$": 91
+    },
+    "en": "When Are the Stitches Removed?"
+   },
+   "body": {
+    "uk": "Якщо використовували нерозсмоктувальні шви, їх зазвичай знімають упродовж першого тижня після операції.\n\nТочні терміни залежать від техніки та перебігу загоєння.",
+    "ru": {
+     "$": [
+      92,
+      93
+     ]
+    },
+    "en": "If non-absorbable sutures were used, they are usually removed within the first week after surgery.\n\nThe exact timing depends on the technique and how healing progresses."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли можна виходити на роботу?",
+    "ru": {
+     "$": 94
+    },
+    "en": "When Can I Return to Work?"
+   },
+   "body": {
+    "uk": "За неускладненого відновлення деякі пацієнти повертаються до спокійної роботи через кілька днів або один-два тижні.\n\nЯкщо робота пов'язана з фізичними навантаженнями, пилом чи іншими подразнювальними чинниками, обмеження можуть тривати довше.",
+    "ru": {
+     "$": [
+      95,
+      96
+     ]
+    },
+    "en": "With an uncomplicated recovery, some patients return to light work after a few days or one to two weeks.\n\nIf your work involves physical exertion, dust or other irritants, restrictions may last longer."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли можна займатися спортом?",
+    "ru": {
+     "$": 97
+    },
+    "en": "When Can I Exercise?"
+   },
+   "body": {
+    "uk": "Інтенсивні тренування, підіймання важкого та вправи, що підвищують тиск, зазвичай обмежують на кілька тижнів.\n\nВідновлення навантажень потрібно погодити з хірургом.",
+    "ru": {
+     "$": [
+      98,
+      99
+     ]
+    },
+    "en": "Strenuous exercise, heavy lifting and activities that raise pressure are usually restricted for several weeks.\n\nResuming exercise should be agreed with your surgeon."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли видно результат верхньої блефаропластики?",
+    "ru": {
+     "$": 100
+    },
+    "en": "When Can the Results of Upper Blepharoplasty Be Seen?"
+   },
+   "body": {
+    "uk": "Перші зміни стають помітними в міру зменшення післяопераційного набряку.\n\nУпродовж перших тижнів контури повік можуть залишатися нерівномірними через загоєння тканин.\n\nПоступово припухлість зменшується, а рубці стають менш вираженими.\n\nОстаточний результат зазвичай оцінюють через кілька місяців.\n\nЕфект операції може зберігатися тривалий час, однак природні вікові зміни тривають.",
+    "ru": {
+     "$": [
+      101,
+      102,
+      103,
+      104,
+      105
+     ]
+    },
+    "en": "The first changes become visible as postoperative swelling subsides.\n\nDuring the first weeks the eyelid contours may remain uneven while the tissues heal.\n\nGradually the puffiness subsides and the scars become less prominent.\n\nThe final result is usually assessed after several months.\n\nThe effect of the operation can be long-lasting, but natural ageing continues."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються шрами після верхньої блефаропластики?",
+    "ru": {
+     "$": 106
+    },
+    "en": "Does Upper Blepharoplasty Leave Scars?"
+   },
+   "body": {
+    "uk": "Після операції залишається рубець по лінії хірургічного розрізу.\n\nПід час стандартної верхньої блефаропластики розріз зазвичай розташовується в природній складці повіки.\n\nЦе може зробити слід операції менш помітним після загоєння.\n\nОднак повністю виключити рубцювання неможливо.\n\nНа вигляд рубця впливають індивідуальні особливості шкіри, хірургічна техніка та дотримання післяопераційних рекомендацій.",
+    "ru": {
+     "$": [
+      107,
+      108,
+      109,
+      110,
+      111
+     ]
+    },
+    "en": "A scar remains along the line of the surgical incision.\n\nIn standard upper blepharoplasty the incision is usually placed in the natural eyelid crease.\n\nThis can make the mark of the operation less noticeable once healed.\n\nHowever, scarring cannot be ruled out completely.\n\nThe appearance of the scar depends on individual skin characteristics, the surgical technique and adherence to aftercare instructions."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи зміниться форма очей після верхньої блефаропластики?",
+    "ru": {
+     "$": 112
+    },
+    "en": "Will the Shape of My Eyes Change After Upper Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Стандартна верхня блефаропластика спрямована переважно на корекцію надлишку шкіри та м'яких тканин.\n\nЇї метою зазвичай не є зміна анатомічної форми очей.\n\nОднак після видалення нависаючих складок очі можуть візуально виглядати відкритішими.\n\nУ деяких випадках положення складки чи контур верхньої повіки змінюються помітніше, ніж очікувалося.\n\nТому перед операцією важливо обговорити з хірургом бажаний результат і можливі обмеження.",
+    "ru": {
+     "$": [
+      113,
+      114,
+      115,
+      116,
+      117
+     ]
+    },
+    "en": "Standard upper blepharoplasty mainly targets excess skin and soft tissue.\n\nIts aim is not usually to change the anatomical shape of the eyes.\n\nHowever, once the hooding folds are removed, the eyes may look more open.\n\nIn some cases the crease position or the contour of the upper eyelid changes more noticeably than expected.\n\nThat is why it is important to discuss the desired result and possible limitations with your surgeon before the operation."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Верхня блефаропластика чи підтяжка брів?",
+    "ru": {
+     "$": 118
+    },
+    "en": "Upper Blepharoplasty or a Brow Lift?"
+   },
+   "body": {
+    "uk": "Нависання шкіри над очима не завжди пов'язане лише з верхніми повіками.\n\nЯкщо брови розташовані низько, їхнє опущення може посилювати складки шкіри.\n\nУ такій ситуації хірург може рекомендувати підтяжку брів або поєднання методик.\n\nВерхня блефаропластика видаляє надлишок шкіри та коригує м'які тканини верхніх повік.\n\nПідтяжка брів спрямована на зміну положення брів і тканин лоба.\n\nВибір залежить від анатомічної причини нависання.",
+    "ru": {
+     "$": [
+      119,
+      120,
+      121,
+      122,
+      123,
+      124
+     ]
+    },
+    "en": "Hooded skin over the eyes is not always caused by the upper eyelids alone.\n\nIf the brows sit low, their descent can deepen the skin folds.\n\nIn this situation the surgeon may recommend a brow lift or a combination of techniques.\n\nUpper blepharoplasty removes excess skin and corrects the soft tissues of the upper eyelids.\n\nA brow lift changes the position of the brows and forehead tissues.\n\nThe choice depends on the anatomical cause of the hooding."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Верхня блефаропластика та корекція птозу: у чому різниця?",
+    "ru": {
+     "$": 125
+    },
+    "en": "Upper Blepharoplasty and Ptosis Correction: What Is the Difference?"
+   },
+   "body": {
+    "uk": "Ці операції можуть вирішувати різні завдання.\n\nЗа надлишку шкіри верхньої повіки основна проблема полягає в нависаючій шкірній складці.\n\nЗа справжнього птозу опускається сам край верхньої повіки через зміни м'яза або його сухожилка.\n\nЯкщо в пацієнта одночасно наявні обидва стани, може знадобитися комбінована операція.\n\nНеправильне визначення причини нависання може призвести до незадовільного результату.",
+    "ru": {
+     "$": [
+      126,
+      127,
+      128,
+      129,
+      130
+     ]
+    },
+    "en": "These operations can address different problems.\n\nWith excess upper eyelid skin, the main problem is the overhanging skin fold.\n\nWith true ptosis, the eyelid margin itself droops because of changes in the muscle or its tendon.\n\nIf a patient has both conditions, a combined operation may be needed.\n\nMisidentifying the cause of the hooding can lead to an unsatisfactory result."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи можна зробити верхню блефаропластику без операції?",
+    "ru": {
+     "$": 131
+    },
+    "en": "Can Upper Blepharoplasty Be Done Without Surgery?"
+   },
+   "body": {
+    "uk": "Справжня блефаропластика є хірургічним втручанням.\n\nКосметологічні методи можуть покращувати окремі характеристики шкіри, але не завжди дають змогу усунути виражений надлишок тканин.\n\nЗа дрібних зморшок і деяких змін якості шкіри можуть розглядатися апаратні чи ін'єкційні процедури.\n\nОднак за значного нависання шкіри верхніх повік вони зазвичай не забезпечують результату, порівнянного з хірургічним видаленням надлишку шкіри.\n\nВибір методу має ґрунтуватися на огляді та медичних показаннях.",
+    "ru": {
+     "$": [
+      132,
+      133,
+      134,
+      135,
+      136
+     ]
+    },
+    "en": "True blepharoplasty is a surgical procedure.\n\nCosmetic treatments can improve certain skin characteristics but cannot always remove pronounced excess tissue.\n\nFor fine lines and some changes in skin quality, device-based or injectable treatments may be considered.\n\nHowever, with significant upper eyelid hooding they usually do not achieve a result comparable to the surgical removal of excess skin.\n\nThe choice of method should be based on an examination and medical indications."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Перед операцією потрібно оцінити загальний стан здоров'я та стан очей.\n\nСиндром сухого ока, захворювання щитоподібної залози з ураженням очей і раніше перенесені операції потребують особливої уваги під час планування.",
+    "ru": {
+     "$": [
+      138,
+      141
+     ]
+    },
+    "en": "Before the operation, your general health and the condition of your eyes must be assessed.\n\nDry eye syndrome, thyroid disease affecting the eyes and previous operations require particular attention during planning."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ризики та ускладнення",
+    "ru": {
+     "$": 142
+    },
+    "en": "Possible Risks and Complications"
+   },
+   "items": {
+    "$list": 145,
+    "uk": [
+     "кровотеча;",
+     "гематома;",
+     "інфекція;",
+     "порушення загоєння;",
+     "асиметрія повік;",
+     "помітні рубці;",
+     "тимчасова або стійка зміна чутливості;",
+     "сухість і подразнення очей;",
+     "неповне змикання повік;",
+     "зміна природної складки повіки;",
+     "недостатня або надмірна корекція;",
+     "незадовільний естетичний результат;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding;",
+     "haematoma;",
+     "infection;",
+     "impaired healing;",
+     "eyelid asymmetry;",
+     "noticeable scars;",
+     "temporary or permanent changes in sensation;",
+     "dry and irritated eyes;",
+     "incomplete eyelid closure;",
+     "a change in the natural eyelid crease;",
+     "under- or over-correction;",
+     "an unsatisfactory aesthetic result;",
+     "the need for a further operation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Рідкісним, але серйозним ускладненням є крововилив в орбіту, який може загрожувати зору.\n\nЗа раптового погіршення зору, сильного наростаючого болю в оці або набряку, що швидко збільшується, після операції потрібна екстрена медична допомога.",
+    "ru": {
+     "$": [
+      146,
+      147
+     ]
+    },
+    "en": "A rare but serious complication is bleeding into the orbit, which can threaten vision.\n\nSudden deterioration in vision, severe increasing pain in the eye or rapidly increasing swelling after the operation require emergency medical care."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Блефаропластика верхніх повік для чоловіків",
+    "ru": {
+     "$": 148
+    },
+    "en": "Upper Eyelid Blepharoplasty for Men"
+   },
+   "body": {
+    "uk": "Верхню блефаропластику можна виконувати як жінкам, так і чоловікам.\n\nПід час планування операції в чоловіків хірург враховує особливості будови верхніх повік, положення брів і природної складки.\n\nГоловне завдання — усунути надлишкові тканини, зберігши індивідуальні риси зовнішності.\n\nМетодика не повинна автоматично передбачати однакову форму складки для всіх пацієнтів.",
+    "ru": {
+     "$": [
+      149,
+      150,
+      151,
+      152
+     ]
+    },
+    "en": "Upper blepharoplasty can be performed on both women and men.\n\nWhen planning the operation for men, the surgeon takes into account the structure of the upper eyelids, the brow position and the natural crease.\n\nThe main goal is to remove excess tissue while preserving individual features.\n\nThe technique should not automatically assume the same crease shape for every patient."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Блефаропластика верхніх повік та якість життя",
+    "ru": {
+     "$": 153
+    },
+    "en": "Upper Eyelid Blepharoplasty and Quality of Life"
+   },
+   "body": {
+    "uk": "Зміни верхніх повік можуть бути природною особливістю зовнішності або наслідком вікових процесів.\n\nВони не завжди потребують хірургічного втручання.\n\nОднак за вираженого нависання шкіри деякі пацієнти відчувають естетичний дискомфорт, а в окремих випадках — функціональні обмеження.\n\nGENEVITY — Центр довголіття та якості життя — розглядає естетичні побажання разом зі станом здоров'я та функціональними особливостями організму.\n\nПід час планування верхньої блефаропластики важливо враховувати збереження нормального змикання повік, стан поверхні ока та реалістичність очікуваного результату.",
+    "ru": {
+     "$": [
+      154,
+      155,
+      156,
+      157,
+      158
+     ]
+    },
+    "en": "Changes in the upper eyelids may be a natural feature of appearance or the result of ageing.\n\nThey do not always require surgery.\n\nHowever, with pronounced hooding some patients experience aesthetic discomfort and, in some cases, functional limitations.\n\nGENEVITY — the Centre for Longevity and Quality of Life — considers aesthetic wishes together with health and the body's functional characteristics.\n\nWhen planning upper blepharoplasty, it is important to preserve normal eyelid closure, protect the surface of the eye and keep expectations realistic."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує блефаропластика верхніх повік у Дніпрі?",
+    "ru": {
+     "$": 159
+    },
+    "en": "How Much Does Upper Eyelid Blepharoplasty Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна блефаропластики верхніх повік у Дніпрі залежить від складності корекції, обсягу втручання та індивідуального плану операції.",
+    "ru": {
+     "$": 160
+    },
+    "en": "The price of upper eyelid blepharoplasty in Dnipro depends on the complexity of the correction, the extent of the procedure and the individual surgical plan."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати",
+    "ru": {
+     "$": 161
+    },
+    "en": "Factors That May Affect the Cost"
+   },
+   "items": {
+    "$list": 162,
+    "uk": [
+     "вираженість надлишку шкіри;",
+     "необхідність корекції жирових пакетів;",
+     "наявність асиметрії;",
+     "необхідність додаткової корекції птозу;",
+     "первинна чи повторна операція;",
+     "вид анестезії;",
+     "передопераційне обстеження;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "the amount of excess skin;",
+     "the need to correct the fat pads;",
+     "the presence of asymmetry;",
+     "the need for additional ptosis correction;",
+     "whether it is a primary or revision operation;",
+     "the type of anaesthesia;",
+     "preoperative investigations;",
+     "postoperative follow-up."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації пластичного хірурга.\n\nЩоб дізнатися актуальні ціни та доступні методи корекції, зверніться до GENEVITY — Центру довголіття та якості життя в Дніпрі.\n\nЯкщо вас турбують нависаючі верхні повіки, надлишок шкіри чи зміна контуру ділянки навколо очей, першим кроком має стати консультація кваліфікованого пластичного хірурга.\n\nФахівець оцінить стан шкіри, положення брів, функцію верхніх повік і можливі причини нависання.\n\nПісля огляду лікар зможе визначити, чи підходить вам верхня блефаропластика, які методи корекції можливі та які обмеження слід враховувати.",
+    "ru": {
+     "$": [
+      163,
+      164,
+      195,
+      196,
+      197
+     ]
+    },
+    "en": "The exact cost is determined after a consultation with a plastic surgeon.\n\nFor current prices and the correction methods available, contact GENEVITY — the Centre for Longevity and Quality of Life in Dnipro.\n\nIf you are bothered by hooded upper eyelids, excess skin or changes in the contour around your eyes, the first step should be a consultation with a qualified plastic surgeon.\n\nThe specialist will assess your skin, brow position, upper eyelid function and the possible causes of the hooding.\n\nAfter the examination the surgeon will be able to tell you whether upper blepharoplasty is right for you, what correction methods are possible and what limitations need to be considered."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке блефаропластика верхніх повік?",
+    "ru": {
+     "$": 166
+    },
+    "en": "What Is Upper Eyelid Blepharoplasty?"
+   },
+   "answer": {
+    "uk": "Це хірургічна операція, спрямована на видалення надлишку шкіри та корекцію окремих м'яких тканин верхніх повік.",
+    "ru": {
+     "$": 167
+    },
+    "en": "It is a surgical operation to remove excess skin and correct certain soft tissues of the upper eyelids."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна прибрати нависаючі повіки?",
+    "ru": {
+     "$": 168
+    },
+    "en": "Can Hooded Eyelids Be Corrected?"
+   },
+   "answer": {
+    "uk": "Якщо нависання пов'язане з надлишком шкіри, верхня блефаропластика може допомогти зменшити його вираженість. Якщо причина в опущенні брів чи справжньому птозі, може знадобитися інша операція.",
+    "ru": {
+     "$": 169
+    },
+    "en": "If the hooding is caused by excess skin, upper blepharoplasty can help reduce it. If the cause is brow descent or true ptosis, a different operation may be needed."
+   }
+  },
+  {
+   "question": {
+    "uk": "З якого віку можна робити верхню блефаропластику?",
+    "ru": {
+     "$": 170
+    },
+    "en": "From What Age Can Upper Blepharoplasty Be Performed?"
+   },
+   "answer": {
+    "uk": "Єдиного вікового порогу немає. Рішення залежить від анатомічних особливостей, вираженості змін і стану здоров'я.",
+    "ru": {
+     "$": 171
+    },
+    "en": "There is no single age threshold. The decision depends on anatomical features, the degree of change and general health."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити операцію під місцевою анестезією?",
+    "ru": {
+     "$": 172
+    },
+    "en": "Can the Operation Be Done Under Local Anaesthesia?"
+   },
+   "answer": {
+    "uk": "Так, ізольовану верхню блефаропластику нерідко виконують під місцевою анестезією. Відповідний варіант визначається індивідуально.",
+    "ru": {
+     "$": 173
+    },
+    "en": "Yes, isolated upper blepharoplasty is often performed under local anaesthesia. The appropriate option is chosen individually."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки триває верхня блефаропластика?",
+    "ru": {
+     "$": 174
+    },
+    "en": "How Long Does Upper Blepharoplasty Take?"
+   },
+   "answer": {
+    "uk": "Операція на обох верхніх повіках нерідко триває близько однієї-двох годин, але фактична тривалість залежить від складності втручання.",
+    "ru": {
+     "$": 175
+    },
+    "en": "An operation on both upper eyelids often takes around one to two hours, but the actual duration depends on the complexity of the procedure."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи боляче робити верхню блефаропластику?",
+    "ru": {
+     "$": 176
+    },
+    "en": "Is Upper Blepharoplasty Painful?"
+   },
+   "answer": {
+    "uk": "Під час операції використовують анестезію. Після втручання можливі болючість, набряк і відчуття натягу тканин.",
+    "ru": {
+     "$": 177
+    },
+    "en": "Anaesthesia is used during the operation. Afterwards, tenderness, swelling and a feeling of tightness are possible."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються рубці після операції?",
+    "ru": {
+     "$": 178
+    },
+    "en": "Does the Operation Leave Scars?"
+   },
+   "answer": {
+    "uk": "Так, рубці залишаються, але за стандартної методики розріз розташовується в природній складці повіки й після загоєння може бути малопомітним.",
+    "ru": {
+     "$": 179
+    },
+    "en": "Yes, scars remain, but with the standard technique the incision lies in the natural eyelid crease and may be barely visible once healed."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли знімають шви?",
+    "ru": {
+     "$": 180
+    },
+    "en": "When Are the Stitches Removed?"
+   },
+   "answer": {
+    "uk": "Якщо використовували нерозсмоктувальні шви, їх зазвичай знімають упродовж першого тижня. Точний термін визначає хірург.",
+    "ru": {
+     "$": 181
+    },
+    "en": "If non-absorbable sutures were used, they are usually removed within the first week. Your surgeon will set the exact timing."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна фарбувати очі?",
+    "ru": {
+     "$": 182
+    },
+    "en": "When Can I Wear Eye Make-up?"
+   },
+   "answer": {
+    "uk": "Макіяж дозволяється після достатнього загоєння тканин і з дозволу лікаря.",
+    "ru": {
+     "$": 183
+    },
+    "en": "Make-up is allowed once the tissues have healed sufficiently and your surgeon has approved it."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна носити контактні лінзи після операції?",
+    "ru": {
+     "$": 184
+    },
+    "en": "Can I Wear Contact Lenses After the Operation?"
+   },
+   "answer": {
+    "uk": "У ранній післяопераційний період контактні лінзи зазвичай тимчасово не використовують. Термін відновлення носіння визначає лікар.",
+    "ru": {
+     "$": 185
+    },
+    "en": "Contact lenses are usually avoided in the early postoperative period. Your surgeon will decide when you can resume wearing them."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи покращує блефаропластика зір?",
+    "ru": {
+     "$": 186
+    },
+    "en": "Does Blepharoplasty Improve Vision?"
+   },
+   "answer": {
+    "uk": "Якщо надлишок шкіри перекривав верхнє поле зору, його усунення може покращити огляд. Однак операція не лікує захворювань очей і не покращує гостроти зору за порушень рефракції.",
+    "ru": {
+     "$": 187
+    },
+    "en": "If excess skin was obstructing the upper visual field, removing it may improve the field of view. However, the operation does not treat eye diseases or improve visual acuity in refractive errors."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": {
+     "$": 188
+    },
+    "en": "How Long Do the Results Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років, але природне старіння шкіри триває.",
+    "ru": {
+     "$": 189
+    },
+    "en": "The result can last for many years, but natural skin ageing continues."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна повторно зробити блефаропластику?",
+    "ru": {
+     "$": 190
+    },
+    "en": "Can Blepharoplasty Be Repeated?"
+   },
+   "answer": {
+    "uk": "В окремих випадках повторна операція можлива, але потребує ретельної оцінки стану шкіри, рубців і функції повік.",
+    "ru": {
+     "$": 191
+    },
+    "en": "In some cases a repeat operation is possible, but it requires careful assessment of the skin, scars and eyelid function."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чим верхня блефаропластика відрізняється від кругової?",
+    "ru": {
+     "$": 192
+    },
+    "en": "How Does Upper Blepharoplasty Differ from Circular Blepharoplasty?"
+   },
+   "answer": {
+    "uk": "Верхня блефаропластика стосується лише верхніх повік. Кругова охоплює корекцію верхніх і нижніх повік під час одного втручання.",
+    "ru": {
+     "$": 193
+    },
+    "en": "Upper blepharoplasty addresses the upper eyelids only. Circular blepharoplasty corrects both the upper and lower eyelids in a single procedure."
+   }
+  }
+ ]
+}

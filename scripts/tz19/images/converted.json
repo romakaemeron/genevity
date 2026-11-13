@@ -1,0 +1,83 @@
+{
+ "asian-blepharoplasty": {
+  "hero": "/images/surgery/tz19/asian-blepharoplasty-hero.webp",
+  "inline": "/images/surgery/tz19/asian-blepharoplasty-inline.webp"
+ },
+ "upper-blepharoplasty": {
+  "hero": "/images/surgery/tz19/upper-blepharoplasty-hero.webp",
+  "inline": "/images/surgery/tz19/upper-blepharoplasty-inline.webp"
+ },
+ "lower-blepharoplasty": {
+  "hero": "/images/surgery/tz19/lower-blepharoplasty-hero.webp",
+  "inline": "/images/surgery/tz19/lower-blepharoplasty-inline.webp"
+ },
+ "vertical-mastopexy": {
+  "hero": "/images/surgery/tz19/vertical-mastopexy-hero.webp",
+  "inline": "/images/surgery/tz19/vertical-mastopexy-inline.webp"
+ },
+ "gynecomastia": {
+  "hero": "/images/surgery/tz19/gynecomastia-hero.webp",
+  "inline": "/images/surgery/tz19/gynecomastia-inline.webp"
+ },
+ "circular-blepharoplasty": {
+  "hero": "/images/surgery/tz19/circular-blepharoplasty-hero.webp",
+  "inline": "/images/surgery/tz19/circular-blepharoplasty-inline.webp"
+ },
+ "calf-lipofilling": {
+  "hero": "/images/surgery/tz19/calf-lipofilling-hero.webp",
+  "inline": "/images/surgery/tz19/calf-lipofilling-inline.webp"
+ },
+ "periareolar-mastopexy": {
+  "hero": "/images/surgery/tz19/periareolar-mastopexy-hero.webp",
+  "inline": "/images/surgery/tz19/periareolar-mastopexy-inline.webp"
+ },
+ "thigh-lift": {
+  "hero": "/images/surgery/tz19/thigh-lift-hero.webp",
+  "inline": "/images/surgery/tz19/thigh-lift-inline.webp"
+ },
+ "monsplasty": {
+  "hero": "/images/surgery/tz19/monsplasty-hero.webp"
+ },
+ "labiaplasty": {},
+ "umbilicoplasty": {
+  "hero": "/images/surgery/tz19/umbilicoplasty-hero.webp",
+  "inline": "/images/surgery/tz19/umbilicoplasty-inline.webp"
+ },
+ "breast-lift-without-implants": {
+  "hero": "/images/surgery/tz19/breast-lift-without-implants-hero.webp",
+  "inline": "/images/surgery/tz19/breast-lift-without-implants-inline.webp"
+ },
+ "breast-lift-after-pregnancy": {
+  "hero": "/images/surgery/tz19/breast-lift-after-pregnancy-hero.webp"
+ },
+ "breast-lift-with-implants": {
+  "hero": "/images/surgery/tz19/breast-lift-with-implants-hero.webp"
+ },
+ "breast-lift-reduction": {
+  "hero": "/images/surgery/tz19/breast-lift-reduction-hero.webp"
+ },
+ "transconjunctival-blepharoplasty": {
+  "hero": "/images/surgery/tz19/transconjunctival-blepharoplasty-hero.webp"
+ },
+ "buttock-augmentation": {
+  "hero": "/images/surgery/tz19/buttock-augmentation-hero.webp"
+ },
+ "buffalo-hump-removal": {
+  "hero": "/images/surgery/tz19/buffalo-hump-removal-hero.webp"
+ },
+ "circular-breast-lift": {
+  "hero": "/images/surgery/tz19/circular-breast-lift-hero.webp"
+ },
+ "endoscopic-surgery": {
+  "hero": "/images/surgery/tz19/endoscopic-surgery-hero.webp"
+ },
+ "endoscopic-facelift": {
+  "hero": "/images/surgery/tz19/endoscopic-facelift-hero.webp"
+ },
+ "epicanthoplasty": {
+  "hero": "/images/surgery/tz19/epicanthoplasty-hero.webp"
+ },
+ "anchor-mastopexy": {
+  "hero": "/images/surgery/tz19/anchor-mastopexy-hero.webp"
+ }
+}

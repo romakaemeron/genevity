@@ -1,0 +1,480 @@
+{
+ "sortOrder": 133,
+ "related": ["liposuction", "body-contouring", "calf-lipofilling"],
+ "title": {"uk": "Збільшення сідниць", "ru": "Увеличение ягодиц", "en": "Buttock Augmentation"},
+ "summary": {
+  "uk": "Збільшення сідниць — напрям естетичної пластичної хірургії, що дозволяє змінити об'єм, форму та контури сідничної ділянки. Сучасні методи корекції допомагають покращити пропорції тіла, підкреслити природні лінії фігури та усунути окремі естетичні особливості.",
+  "ru": {"$": 0},
+  "en": "Buttock augmentation is a field of aesthetic plastic surgery that changes the volume, shape, and contours of the buttocks. Modern correction methods help improve body proportions, emphasise the natural lines of the figure, and address specific aesthetic concerns."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/buttock-augmentation-hero.webp",
+   "heading": {"uk": "Що таке збільшення сідниць?", "ru": {"$": 4}, "en": "What Is Buttock Augmentation?"},
+   "body": {
+    "uk": "Збільшення сідниць, або глютеопластика, — це хірургічна корекція, спрямована на зміну об'єму та форми сідничної ділянки.\n\nПроцедура може застосовуватися за недостатнього об'єму сідниць, вираженої асиметрії, особливостей розподілу жирової тканини або змін контурів тіла після значного зниження ваги.\n\nСучасна пластична хірургія пропонує кілька варіантів корекції, кожен із яких має власні показання, обмеження та особливості відновлення.\n\nОбираючи методику, важливо враховувати не лише бажаний розмір сідниць, а й пропорції талії, стегон, особливості будови таза, стан шкіри та кількість м'яких тканин.",
+    "ru": {"$": [5, 6, 7, 8]},
+    "en": "Buttock augmentation, or gluteoplasty, is surgical correction aimed at changing the volume and shape of the buttocks.\n\nThe procedure may be used for insufficient buttock volume, marked asymmetry, particular patterns of fat distribution, or changes in body contour after significant weight loss.\n\nModern plastic surgery offers several correction options, each with its own indications, limitations, and recovery characteristics.\n\nWhen choosing a technique, it is important to consider not only the desired buttock size but also the proportions of the waist and hips, the structure of the pelvis, the condition of the skin, and the amount of soft tissue."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає естетичну медицину як частину комплексного підходу до зовнішності, здоров'я та індивідуального благополуччя людини.",
+    "ru": {"$": 1},
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — regards aesthetic medicine as part of a comprehensive approach to a person's appearance, health, and individual well-being."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Які існують методи збільшення сідниць?", "ru": {"$": 9}, "en": "What Methods of Buttock Augmentation Are There?"},
+   "body": {
+    "uk": "Основними хірургічними способами збільшення сідниць є ліпофілінг і глютеопластика з використанням імплантів.\n\nВ окремих випадках можуть застосовуватися комбіновані методики або додаткові операції для корекції надлишку шкіри.",
+    "ru": {"$": [10, 11]},
+    "en": "The main surgical methods of buttock augmentation are lipofilling and gluteoplasty with implants.\n\nIn some cases combined techniques or additional operations to correct excess skin may be used."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Ліпофілінг сідниць", "ru": {"$": 12}, "en": "Buttock Lipofilling"},
+   "body": {
+    "uk": "Ліпофілінг сідниць — метод збільшення об'єму з використанням власної жирової тканини пацієнта.\n\nПід час процедури жир забирають з певних ділянок тіла за допомогою ліпосакції, обробляють і пересаджують у підшкірну жирову клітковину сідничної ділянки.\n\nДонорськими зонами можуть бути живіт, талія, боки або стегна.\n\nМетодика дозволяє одночасно зменшити локальні жирові відкладення в донорських ділянках і змінити форму сідниць.",
+    "ru": {"$": [13, 14, 15, 16]},
+    "en": "Buttock lipofilling is a method of adding volume using the patient's own fat.\n\nDuring the procedure, fat is harvested from selected areas of the body by liposuction, processed, and transferred into the subcutaneous fat layer of the buttocks.\n\nThe abdomen, waist, flanks, or thighs may serve as donor areas.\n\nThe technique makes it possible to reduce local fat deposits in the donor areas and reshape the buttocks at the same time."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Особливості ліпофілінгу сідниць", "ru": {"$": 17}, "en": "Key Features of Buttock Lipofilling"},
+   "items": {
+    "$list": 18,
+    "uk": [
+     "використовується власна жирова тканина пацієнта;",
+     "можлива зміна контурів талії та стегон за рахунок ліпосакції;",
+     "обсяг корекції обмежений кількістю доступної жирової тканини та можливостями її безпечної пересадки;",
+     "частина пересадженого жиру може розсмоктуватися;",
+     "остаточний результат оцінюється після стабілізації тканин."
+    ],
+    "en": [
+     "the patient's own fat is used;",
+     "the contours of the waist and hips can be changed through liposuction;",
+     "the extent of correction is limited by the amount of fat available and how much can be transferred safely;",
+     "some of the transferred fat may be reabsorbed;",
+     "the final result is assessed once the tissues have stabilised."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Ліпофілінг сідниць також відомий як Brazilian Butt Lift (BBL). Це втручання потребує особливо суворого дотримання хірургічних стандартів безпеки через ризик жирової емболії. Жир має вводитися лише в підшкірний шар, а не в сідничні м'язи.",
+    "ru": {"$": 19},
+    "en": "Buttock lipofilling is also known as the Brazilian Butt Lift (BBL). This procedure requires particularly strict adherence to surgical safety standards because of the risk of fat embolism. Fat must be injected only into the subcutaneous layer, never into the gluteal muscles."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Збільшення сідниць імплантами", "ru": {"$": 20}, "en": "Buttock Augmentation with Implants"},
+   "body": {
+    "uk": "Глютеопластика з імплантами — хірургічна операція, під час якої об'єм і проєкцію сідниць збільшують за допомогою спеціальних силіконових імплантів.\n\nМетод може розглядатися для пацієнтів з невеликою кількістю власної жирової тканини, коли ліпофілінг не дозволяє отримати бажаний об'єм.\n\nІмпланти добирають індивідуально з урахуванням анатомії, товщини м'яких тканин і естетичних цілей.",
+    "ru": {"$": [21, 22, 23]},
+    "en": "Gluteoplasty with implants is an operation in which the volume and projection of the buttocks are increased with special silicone implants.\n\nThe method may be considered for patients with little fat of their own, when lipofilling cannot achieve the desired volume.\n\nImplants are selected individually, taking into account the anatomy, soft-tissue thickness, and aesthetic goals."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Особливості збільшення сідниць імплантами", "ru": {"$": 24}, "en": "Key Features of Implant Augmentation"},
+   "items": {
+    "$list": 25,
+    "uk": [
+     "можливість збільшити об'єм за недостатньої кількості донорського жиру;",
+     "добір форми та розміру імплантів;",
+     "зміна проєкції сідничної ділянки;",
+     "необхідність післяопераційного відновлення;",
+     "імовірність повторного хірургічного втручання в майбутньому."
+    ],
+    "en": [
+     "volume can be increased even when there is not enough donor fat;",
+     "the shape and size of the implants are selected individually;",
+     "the projection of the buttocks changes;",
+     "postoperative recovery is required;",
+     "further surgery may be needed in the future."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Імпланти не вважаються виробами з гарантованим довічним терміном служби. У разі ускладнень або зміни естетичних уподобань може знадобитися їх заміна чи видалення.",
+    "ru": {"$": 26},
+    "en": "Implants are not considered lifetime devices. If complications arise or aesthetic preferences change, they may need to be replaced or removed."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Підтяжка сідниць", "ru": {"$": 27}, "en": "Buttock Lift"},
+   "body": {
+    "uk": "Підтяжка сідниць — окремий вид пластичної операції, спрямований переважно на корекцію надлишку шкіри та опущення тканин.\n\nВона може розглядатися після значного схуднення, вікових змін або за вираженої втрати пружності шкіри.\n\nНа відміну від збільшення сідниць, підтяжка сама по собі не обов'язково додає об'єм. За наявності показань її можна поєднувати з іншими методами корекції.",
+    "ru": {"$": [28, 29, 30]},
+    "en": "A buttock lift is a separate type of plastic surgery aimed mainly at correcting excess skin and sagging tissue.\n\nIt may be considered after significant weight loss, with age-related changes, or when the skin has lost much of its firmness.\n\nUnlike augmentation, a lift on its own does not necessarily add volume. Where indicated, it can be combined with other correction methods."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Переваги хірургічного збільшення сідниць", "ru": {"$": 31}, "en": "Benefits of Surgical Buttock Augmentation"},
+   "items": {
+    "$lines": [34, 36, 38, 40, 42],
+    "uk": [
+     "Зміна об'єму сідничної ділянки дозволяє скоригувати співвідношення талії, стегон і сідниць з урахуванням індивідуальної будови фігури.",
+     "Хірургічні методики можуть застосовуватися за недостатнього об'єму сідниць, пов'язаного зі спадковими або анатомічними особливостями.",
+     "За певних показань можливо зменшити помітну різницю між правою та лівою сідничними ділянками. Повна симетрія не гарантується.",
+     "Планування операції дозволяє враховувати бажану проєкцію, особливості м'яких тканин і природні пропорції тіла.",
+     "Під час ліпофілінгу можливе одночасне моделювання донорських зон за допомогою ліпосакції."
+    ],
+    "en": [
+     "Changing the volume of the buttocks makes it possible to adjust the ratio of waist, hips, and buttocks to suit the individual figure.",
+     "Surgical techniques can be used when buttock volume is insufficient for hereditary or anatomical reasons.",
+     "With certain indications, a noticeable difference between the right and left buttocks can be reduced. Perfect symmetry is not guaranteed.",
+     "Surgical planning takes into account the desired projection, the characteristics of the soft tissues, and the natural proportions of the body.",
+     "With lipofilling, the donor areas can be contoured with liposuction at the same time."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Результат залежить від обраної методики, особливостей організму, процесу загоєння та дотримання післяопераційних рекомендацій.",
+    "ru": {"$": 43},
+    "en": "The result depends on the chosen technique, individual characteristics, the healing process, and adherence to postoperative instructions."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {"uk": "Кому підходить збільшення сідниць?", "ru": {"$": 44}, "en": "Who Is Buttock Augmentation Suitable For?"},
+   "indications": {
+    "$list": 47,
+    "uk": [
+     "недостатній об'єм сідниць;",
+     "слабко виражена проєкція сідничної ділянки;",
+     "асиметрія форми;",
+     "індивідуальні особливості розподілу жирової тканини;",
+     "зміна пропорцій тіла після схуднення;",
+     "бажання скоригувати контури фігури;",
+     "необхідність відновити об'єм після певних змін м'яких тканин."
+    ],
+    "en": [
+     "insufficient buttock volume;",
+     "weak buttock projection;",
+     "asymmetry of shape;",
+     "individual patterns of fat distribution;",
+     "changes in body proportions after weight loss;",
+     "a wish to correct the contours of the figure;",
+     "a need to restore volume after certain soft-tissue changes."
+    ]
+   },
+   "contraindicationsHeading": {"uk": "Протипоказання до збільшення сідниць", "ru": "Противопоказания к увеличению ягодиц", "en": "Contraindications to Buttock Augmentation"},
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Неконтролируемые хронические заболевания.",
+     "Нарушения свёртываемости крови.",
+     "Другие состояния, повышающие риск операции."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Неконтрольовані хронічні захворювання.",
+     "Порушення згортання крові.",
+     "Інші стани, що підвищують ризик операції."
+    ],
+    "en": [
+     "Acute infections.",
+     "Uncontrolled chronic conditions.",
+     "Blood clotting disorders.",
+     "Other conditions that increase surgical risk."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Хірургічну корекцію сідничної ділянки можуть розглядати пацієнти, які хочуть змінити об'єм або форму сідниць.\n\nОстаточне рішення про можливість операції ухвалюється після консультації пластичного хірурга.\n\nЛікар оцінює загальний стан здоров'я, особливості фігури, якість шкіри, кількість підшкірної жирової тканини та реалістичність очікуваного результату.",
+    "ru": {"$": [45, 48, 49]},
+    "en": "Surgical correction of the buttocks may be considered by patients who want to change their volume or shape.\n\nThe final decision on whether surgery is possible is made after a consultation with a plastic surgeon.\n\nThe surgeon assesses general health, body shape, skin quality, the amount of subcutaneous fat, and whether the expected result is realistic."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Як обрати метод збільшення сідниць?", "ru": {"$": 50}, "en": "How to Choose a Buttock Augmentation Method"},
+   "items": {
+    "$lines": [52, 53, 54, 55, 56],
+    "uk": [
+     "Кількість власної жирової тканини. Для ліпофілінгу потрібен достатній об'єм донорського жиру. За його нестачі може розглядатися імплантаційна методика.",
+     "Бажаний об'єм. Можливості збільшення відрізняються залежно від обраної техніки та анатомічних особливостей.",
+     "Стан шкіри. За вираженого надлишку шкіри самого лише збільшення об'єму може бути недостатньо.",
+     "Особливості фігури. Лікар оцінює пропорції таза, талії та стегон, а також розподіл м'яких тканин.",
+     "Медичні ризики. Кожен метод має власні ускладнення та обмеження, які необхідно обговорити до операції."
+    ],
+    "en": [
+     "The amount of your own fat. Lipofilling requires enough donor fat. If there is not enough, an implant technique may be considered.",
+     "The desired volume. How much augmentation is possible varies with the chosen technique and the anatomy.",
+     "Skin condition. With significant excess skin, adding volume alone may not be enough.",
+     "Body shape. The surgeon assesses the proportions of the pelvis, waist, and hips, and the distribution of soft tissue.",
+     "Medical risks. Each method has its own complications and limitations, which must be discussed before surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Оптимальний спосіб корекції визначається індивідуально. Не існує однієї універсальної методики для всіх пацієнтів.",
+    "ru": {"$": 57},
+    "en": "The best correction method is determined individually. There is no single technique that suits every patient."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {"uk": "Як проходить операція зі збільшення сідниць?", "ru": {"$": 58}, "en": "How Is Buttock Augmentation Surgery Performed?"},
+   "steps": [
+    {
+     "title": {"uk": "Консультація пластичного хірурга", "ru": {"$": 60}, "en": "Plastic Surgeon Consultation"},
+     "description": {
+      "uk": "На первинній консультації лікар з'ясовує побажання пацієнта, оцінює анатомічні особливості та обговорює можливі методи збільшення сідниць.\n\nФахівець пояснює очікувані зміни, обмеження процедури, особливості реабілітації та можливі ризики.",
+      "ru": {"$": [61, 62]},
+      "en": "At the initial consultation, the surgeon discusses the patient's wishes, assesses the anatomy, and goes over the possible augmentation methods.\n\nThe specialist explains the expected changes, the limitations of the procedure, what recovery involves, and the possible risks."
+     }
+    },
+    {
+     "title": {"uk": "Передопераційне обстеження", "ru": {"$": 63}, "en": "Preoperative Assessment"},
+     "description": {
+      "uk": "Перед втручанням пацієнт проходить необхідні обстеження.\n\nЇхній обсяг залежить від обраної методики, стану здоров'я та запланованої анестезії.\n\nЗа потреби призначають консультації інших фахівців.",
+      "ru": {"$": [64, 65, 66]},
+      "en": "Before the procedure, the patient undergoes the necessary investigations.\n\nTheir scope depends on the chosen technique, the patient's health, and the planned anaesthesia.\n\nConsultations with other specialists are arranged if needed."
+     }
+    },
+    {
+     "title": {"uk": "Підготовка до операції", "ru": {"$": 67}, "en": "Preparing for Surgery"},
+     "description": {
+      "uk": "Хірург визначає зони корекції, планує обсяг втручання та обговорює з пацієнтом очікувані результати.\n\nПеред операцією важливо дотримуватися рекомендацій щодо прийому ліків, куріння, харчування та фізичної активності.",
+      "ru": {"$": [68, 69]},
+      "en": "The surgeon defines the areas to be treated, plans the extent of the procedure, and discusses the expected results with the patient.\n\nBefore surgery it is important to follow the instructions on medication, smoking, diet, and physical activity."
+     }
+    },
+    {
+     "title": {"uk": "Проведення хірургічного втручання", "ru": {"$": 70}, "en": "The Operation"},
+     "description": {
+      "uk": "Під час ліпофілінгу спочатку виконують забір жирової тканини з донорських зон, після чого підготовлений жир пересаджують у підшкірну клітковину сідничної ділянки.\n\nПід час імплантаційної глютеопластики хірург формує доступ і встановлює імпланти відповідно до обраної техніки.\n\nОперація проводиться з анестезіологічним забезпеченням. Тривалість залежить від методу та обсягу корекції.",
+      "ru": {"$": [71, 72, 73]},
+      "en": "In lipofilling, fat is first harvested from the donor areas, and the prepared fat is then transferred into the subcutaneous tissue of the buttocks.\n\nIn implant gluteoplasty, the surgeon creates an access incision and places the implants according to the chosen technique.\n\nThe operation is performed under anaesthesia. Its length depends on the method and the extent of the correction."
+     }
+    },
+    {
+     "title": {"uk": "Післяопераційне спостереження", "ru": {"$": 74}, "en": "Postoperative Monitoring"},
+     "description": {
+      "uk": "Після завершення втручання пацієнт перебуває під медичним наглядом.\n\nЛікар контролює стан тканин, оцінює раннє відновлення та надає рекомендації на період реабілітації.",
+      "ru": {"$": [75, 76]},
+      "en": "Once the procedure is complete, the patient remains under medical supervision.\n\nThe doctor monitors the tissues, assesses early recovery, and provides instructions for the recovery period."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Реабілітація після збільшення сідниць", "ru": {"$": 77}, "en": "Recovery After Buttock Augmentation"},
+   "body": {
+    "uk": "Відновлення після глютеопластики залежить від обраної методики та індивідуальних особливостей організму.\n\nПісля операції можливі набряклість, синці, болючість, тимчасова зміна чутливості та обмеження звичної фізичної активності.\n\nУ перші тижні необхідно особливо уважно дотримуватися рекомендацій хірурга.",
+    "ru": {"$": [78, 79, 80]},
+    "en": "Recovery after gluteoplasty depends on the chosen technique and the individual.\n\nAfter surgery, swelling, bruising, tenderness, temporary changes in sensation, and limits on usual physical activity are possible.\n\nIn the first weeks it is especially important to follow the surgeon's instructions carefully."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Основні рекомендації після операції", "ru": {"$": 81}, "en": "Key Recommendations After Surgery"},
+   "items": {
+    "$list": 82,
+    "uk": [
+     "обмежувати фізичні навантаження протягом призначеного періоду;",
+     "уникати тиску на прооперовані ділянки відповідно до вказівок лікаря;",
+     "використовувати компресійну білизну, якщо її призначено;",
+     "дотримуватися рекомендацій щодо положення тіла під час сну та відпочинку;",
+     "правильно доглядати за післяопераційними ранами;",
+     "відвідувати контрольні огляди;",
+     "не відновлювати інтенсивні тренування без дозволу хірурга."
+    ],
+    "en": [
+     "limit physical activity for the prescribed period;",
+     "avoid pressure on the treated areas as instructed by the doctor;",
+     "wear compression garments if prescribed;",
+     "follow the advice on body position during sleep and rest;",
+     "care for the surgical wounds properly;",
+     "attend follow-up appointments;",
+     "do not resume intense training without the surgeon's approval."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Після ліпофілінгу особливо важливо дотримуватися рекомендацій щодо обмеження тиску на зони пересадки жиру.\n\nПісля встановлення імплантів режим відновлення визначається особливостями хірургічного доступу та розташування імплантів.\n\nОстаточний результат оцінюють після зменшення набряків і стабілізації тканин, що може тривати кілька місяців.",
+    "ru": {"$": [83, 84, 85]},
+    "en": "After lipofilling it is particularly important to follow the advice on limiting pressure on the areas where fat was transferred.\n\nAfter implant placement, the recovery regimen depends on the surgical access and where the implants are positioned.\n\nThe final result is assessed once swelling has subsided and the tissues have stabilised, which can take several months."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "До можливих ускладнень належать", "ru": {"$": 89}, "en": "Possible Complications Include"},
+   "items": {
+    "$list": 90,
+    "uk": [
+     "кровотеча та гематоми;",
+     "інфекційні ускладнення;",
+     "сероми — скупчення рідини;",
+     "порушення загоєння;",
+     "асиметрія;",
+     "зміна чутливості;",
+     "рубцювання;",
+     "тромбоз і тромбоемболічні ускладнення;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding and haematomas;",
+     "infectious complications;",
+     "seromas (fluid collections);",
+     "impaired healing;",
+     "asymmetry;",
+     "changes in sensation;",
+     "scarring;",
+     "thrombosis and thromboembolic complications;",
+     "the need for a further operation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Збільшення сідниць є хірургічним втручанням і потребує попередньої медичної оцінки.\n\nПід час ліпофілінгу існує ризик жирової емболії, зокрема потенційно смертельних ускладнень. Під час імплантаційної глютеопластики можливі зміщення імпланта, його пошкодження, інфекція та інші специфічні ускладнення.\n\nПеред втручанням хірург має докладно пояснити можливі ризики та альтернативи.",
+    "ru": {"$": [87, 91, 92]},
+    "en": "Buttock augmentation is a surgical procedure and requires a prior medical assessment.\n\nLipofilling carries a risk of fat embolism, including potentially fatal complications. Implant gluteoplasty can involve implant displacement, implant damage, infection, and other specific complications.\n\nBefore surgery, the surgeon must explain the possible risks and alternatives in detail."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Чи можна збільшити сідниці без операції?", "ru": {"$": 93}, "en": "Can the Buttocks Be Enlarged Without Surgery?"},
+   "body": {
+    "uk": "Деякі зміни форми сідниць можливі без хірургічного втручання.\n\nСилові тренування, спрямовані на розвиток сідничних м'язів, можуть збільшити м'язовий об'єм і покращити контури тіла.\n\nРезультат залежить від тренувальної програми, харчування, генетичних особливостей і регулярності занять.\n\nЗміна маси тіла може впливати на об'єм сідничної ділянки, однак розподіл жиру індивідуальний і не піддається точному контролю.\n\nДеякі апаратні методи можуть застосовуватися для впливу на м'язи або якість шкіри, але не забезпечують результату, еквівалентного хірургічному збільшенню об'єму.",
+    "ru": {"$": [94, 96, 97, 99, 101]},
+    "en": "Some changes to buttock shape are possible without surgery.\n\nStrength training aimed at developing the gluteal muscles can increase muscle volume and improve body contours.\n\nThe result depends on the training programme, diet, genetics, and how regularly you train.\n\nChanges in body weight can affect buttock volume, but fat distribution is individual and cannot be precisely controlled.\n\nSome device-based treatments can be used to work on the muscles or skin quality, but they do not deliver a result equivalent to surgical volume augmentation."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Ін'єкційні філери та рідкий силікон не слід розглядати як безпечну універсальну альтернативу хірургії: регулятор FDA попереджає про серйозні ризики застосування таких матеріалів для збільшення сідниць.",
+    "ru": {"$": 102},
+    "en": "Injectable fillers and liquid silicone should not be regarded as a safe, universal alternative to surgery: the FDA warns of serious risks when such materials are used for buttock augmentation."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Збільшення сідниць і гармонія пропорцій тіла", "ru": {"$": 103}, "en": "Buttock Augmentation and Balanced Body Proportions"},
+   "body": {
+    "uk": "Головне завдання естетичної корекції — досягнення гармонійних пропорцій тіла з урахуванням індивідуальних особливостей пацієнта та вимог безпеки.\n\nСучасна естетична хірургія спрямована не лише на збільшення окремих частин тіла, а й на створення пропорційного силуету з урахуванням індивідуальної анатомії.\n\nПід час планування корекції важливо оцінювати співвідношення талії, стегон і сідничної ділянки, стан м'яких тканин і природні особливості фігури.\n\nНадмірне збільшення об'єму може створювати додаткове навантаження на тканини та підвищувати ймовірність ускладнень.\n\nТому вибір розміру та форми має враховувати медичну безпеку та реальні можливості обраної методики.\n\nПластична хірургія не є обов'язковою умовою привабливості чи високої якості життя. Рішення про операцію має бути добровільним, обґрунтованим і ухваленим після отримання повної інформації.",
+    "ru": {"$": [3, 104, 105, 106, 107, 109]},
+    "en": "The main goal of aesthetic correction is to achieve balanced body proportions, taking into account the patient's individual features and safety requirements.\n\nModern aesthetic surgery aims not simply to enlarge individual parts of the body but to create a proportionate silhouette that respects individual anatomy.\n\nWhen planning the correction, it is important to assess the relationship between waist, hips, and buttocks, the condition of the soft tissues, and the natural features of the figure.\n\nExcessive augmentation can put additional strain on the tissues and increase the likelihood of complications.\n\nThe choice of size and shape should therefore take into account medical safety and the realistic possibilities of the chosen technique.\n\nPlastic surgery is not a prerequisite for attractiveness or a high quality of life. The decision to have surgery should be voluntary, well-founded, and made after receiving complete information."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя — естетичні побажання пацієнта розглядаються в контексті загального благополуччя, здоров'я та усвідомленого ставлення до власної зовнішності.",
+    "ru": {"$": 108},
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life — a patient's aesthetic wishes are considered in the context of overall well-being, health, and a thoughtful attitude to one's own appearance."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Скільки коштує збільшення сідниць у Дніпрі?", "ru": {"$": 110}, "en": "How Much Does Buttock Augmentation Cost in Dnipro?"},
+   "body": {
+    "uk": "Ціна збільшення сідниць у Дніпрі залежить від обраного хірургічного методу, складності втручання та індивідуального плану корекції.",
+    "ru": {"$": 111},
+    "en": "The price of buttock augmentation in Dnipro depends on the chosen surgical method, the complexity of the procedure, and the individual correction plan."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "На вартість можуть впливати", "ru": {"$": 112}, "en": "Factors That May Affect the Cost"},
+   "items": {
+    "$list": 113,
+    "uk": [
+     "метод збільшення сідниць;",
+     "обсяг ліпофілінгу;",
+     "необхідність ліпосакції донорських зон;",
+     "тип і характеристики імплантів;",
+     "вид анестезії;",
+     "передопераційне обстеження;",
+     "тривалість перебування в стаціонарі;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "the augmentation method;",
+     "the volume of lipofilling;",
+     "the need for liposuction of the donor areas;",
+     "the type and characteristics of the implants;",
+     "the type of anaesthesia;",
+     "preoperative assessment;",
+     "the length of the hospital stay;",
+     "postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації, вибору методики та складання плану операції.\n\nЯкщо ви розглядаєте збільшення сідниць, ліпофілінг або корекцію форми сідничної ділянки, першим етапом має стати консультація кваліфікованого пластичного хірурга.\n\nФахівець допоможе оцінити анатомічні особливості, визначити відповідні варіанти корекції та обговорити можливі результати, обмеження й ризики.\n\nУточніть доступність консультації з глютеопластики, методики, що застосовуються, та умови проведення операції.",
+    "ru": {"$": [114, 136, 137, 139]},
+    "en": "The exact cost is determined after a consultation, the choice of technique, and a surgical plan.\n\nIf you are considering buttock augmentation, lipofilling, or reshaping the buttocks, the first step should be a consultation with a qualified plastic surgeon.\n\nThe specialist will help assess your anatomy, identify suitable correction options, and discuss the possible results, limitations, and risks.\n\nAsk about the availability of a gluteoplasty consultation, the techniques used, and the terms of the operation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {"uk": "Що краще: ліпофілінг сідниць чи імпланти?", "ru": {"$": 117}, "en": "Which Is Better: Buttock Lipofilling or Implants?"},
+   "answer": {"uk": "Обидві методики мають переваги та обмеження. Ліпофілінг використовує власну жирову тканину пацієнта, а імпланти дозволяють збільшити об'єм навіть за невеликої кількості донорського жиру. Вибір залежить від анатомії, цілей корекції та медичних показань.", "ru": {"$": 118}, "en": "Both techniques have advantages and limitations. Lipofilling uses the patient's own fat, while implants can increase volume even when there is little donor fat. The choice depends on the anatomy, the goals of the correction, and medical indications."}
+  },
+  {
+   "question": {"uk": "Як довго зберігається результат збільшення сідниць?", "ru": {"$": 119}, "en": "How Long Does the Result of Buttock Augmentation Last?"},
+   "answer": {"uk": "Після ліпофілінгу частина пересадженої жирової тканини розсмоктується, а та, що прижилася, може зберігатися тривалий час. Імпланти забезпечують тривале збільшення об'єму, але в майбутньому можуть потребувати заміни або видалення.", "ru": {"$": 120}, "en": "After lipofilling, part of the transferred fat is reabsorbed, while the fat that survives can last a long time. Implants provide long-lasting volume but may need to be replaced or removed in the future."}
+  },
+  {
+   "question": {"uk": "Чи можна збільшити сідниці худим пацієнтам?", "ru": {"$": 121}, "en": "Can Slim Patients Have Buttock Augmentation?"},
+   "answer": {"uk": "Можливість операції залежить від обраної методики. За недостатньої кількості власної жирової тканини ліпофілінг може бути обмежений. У деяких випадках розглядається збільшення за допомогою імплантів.", "ru": {"$": 122}, "en": "It depends on the chosen technique. If there is not enough body fat, lipofilling may be limited. In some cases augmentation with implants is considered."}
+  },
+  {
+   "question": {"uk": "Чи залишаються шрами після глютеопластики?", "ru": {"$": 123}, "en": "Do Scars Remain After Gluteoplasty?"},
+   "answer": {"uk": "Будь-яке хірургічне втручання з розрізами залишає рубці. Їхнє розташування, розмір і вираженість залежать від обраної техніки та особливостей загоєння.", "ru": {"$": 124}, "en": "Any surgery involving incisions leaves scars. Their location, size, and visibility depend on the chosen technique and how the individual heals."}
+  },
+  {
+   "question": {"uk": "Коли можна займатися спортом після операції?", "ru": {"$": 125}, "en": "When Can I Exercise After Surgery?"},
+   "answer": {"uk": "Термін повернення до тренувань визначає хірург індивідуально. Інтенсивні навантаження на нижню частину тіла зазвичай обмежуються на період раннього відновлення.", "ru": {"$": 126}, "en": "The surgeon decides individually when you can return to training. Intense lower-body exercise is usually restricted during early recovery."}
+  },
+  {
+   "question": {"uk": "Чи можна одночасно збільшити сідниці та зробити ліпосакцію живота?", "ru": {"$": 127}, "en": "Can Buttock Augmentation Be Combined with Abdominal Liposuction?"},
+   "answer": {"uk": "Під час ліпофілінгу забір жирової тканини з ділянки живота або талії може бути частиною операції. Можливість та обсяг комбінованого втручання визначаються після оцінки ризиків.", "ru": {"$": 128}, "en": "With lipofilling, harvesting fat from the abdomen or waist can be part of the operation. Whether a combined procedure is possible, and its extent, is decided after assessing the risks."}
+  },
+  {
+   "question": {"uk": "Чи можна збільшити сідниці філерами?", "ru": {"$": 129}, "en": "Can the Buttocks Be Enlarged with Fillers?"},
+   "answer": {"uk": "Ін'єкційні філери не є універсальним безпечним методом збільшення сідниць. FDA не схвалює застосування дермальних філерів для цієї мети та попереджає про ризик серйозних ускладнень.", "ru": {"$": 130}, "en": "Injectable fillers are not a universally safe method of buttock augmentation. The FDA has not approved dermal fillers for this purpose and warns of the risk of serious complications."}
+  },
+  {
+   "question": {"uk": "З якого віку можна робити збільшення сідниць?", "ru": {"$": 131}, "en": "From What Age Can Buttock Augmentation Be Performed?"},
+   "answer": {"uk": "Естетичні хірургічні операції зазвичай розглядаються для повнолітніх пацієнтів після оцінки фізичного розвитку, стану здоров'я та психологічної готовності.", "ru": {"$": 132}, "en": "Aesthetic surgery is usually considered for adult patients after an assessment of physical development, health, and psychological readiness."}
+  },
+  {
+   "question": {"uk": "Чи можна зробити сідниці більш округлими без значного збільшення об'єму?", "ru": {"$": 133}, "en": "Can the Buttocks Be Made Rounder Without a Significant Increase in Volume?"},
+   "answer": {"uk": "В окремих випадках метою операції стає переважно корекція форми та пропорцій, а не виражене збільшення розміру. Можливості такого підходу залежать від анатомії та обраної методики.", "ru": {"$": 134}, "en": "In some cases the aim of surgery is mainly to correct shape and proportions rather than to increase size markedly. What such an approach can achieve depends on the anatomy and the chosen technique."}
+  }
+ ]
+}

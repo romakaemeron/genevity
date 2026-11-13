@@ -1,0 +1,550 @@
+{
+ "sortOrder": 107,
+ "related": [
+  "asian-blepharoplasty",
+  "blepharoplasty",
+  "upper-blepharoplasty"
+ ],
+ "title": {
+  "uk": "Епікантопластика",
+  "ru": "Эпикантопластика",
+  "en": "Epicanthoplasty"
+ },
+ "summary": {
+  "uk": "Епікантопластика — пластична операція, спрямована на корекцію епікантусу — шкірної складки біля внутрішнього кутика ока. Процедура дає змогу змінити контур внутрішньої частини очної щілини та за певних анатомічних особливостей зробити її візуально відкритішою.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Epicanthoplasty is a cosmetic operation to correct the epicanthus — the skin fold at the inner corner of the eye. The procedure can change the contour of the inner part of the eye opening and, with certain anatomical features, make it look more open."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/epicanthoplasty-hero.webp",
+   "heading": {
+    "uk": "Що таке епікантопластика?",
+    "ru": {
+     "$": 2
+    },
+    "en": "What Is Epicanthoplasty?"
+   },
+   "body": {
+    "uk": "Епікантус — природна шкірна складка, що частково прикриває внутрішній кутик ока. Вона трапляється в людей різного походження і сама по собі не є захворюванням.\n\nЕпікантопластика дає змогу зменшити виразність цієї складки або змінити її розташування.\n\nОперацію можна виконувати окремо або поєднувати з блефаропластикою верхніх повік.\n\nОсновне завдання — скоригувати форму внутрішнього кутика ока, зберігши природні пропорції обличчя та нормальну функцію повік.",
+    "ru": {
+     "$": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "en": "The epicanthus is a natural skin fold that partly covers the inner corner of the eye. It occurs in people of many different backgrounds and is not in itself a medical condition.\n\nEpicanthoplasty can make this fold less pronounced or change its position.\n\nThe operation can be performed on its own or combined with upper eyelid blepharoplasty.\n\nThe main aim is to correct the shape of the inner corner of the eye while preserving the natural proportions of the face and normal eyelid function."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетичну корекцію розглядають з урахуванням індивідуальної будови обличчя, стану здоров’я та побажань пацієнта.",
+    "ru": {
+     "$": 1
+    },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's individual facial structure, health and wishes."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до епікантопластики",
+    "ru": {
+     "$": 7
+    },
+    "en": "Indications for Epicanthoplasty"
+   },
+   "indications": {
+    "$list": 9,
+    "uk": [
+     "виражена складка епікантусу;",
+     "бажання змінити контур внутрішнього кутика ока;",
+     "часткове прикриття слізного м’ясця шкірною складкою;",
+     "асиметрія внутрішніх кутиків очей;",
+     "планування комплексної корекції верхніх повік;",
+     "індивідуальні естетичні побажання."
+    ],
+    "en": [
+     "a pronounced epicanthal fold;",
+     "a wish to change the contour of the inner corner of the eye;",
+     "the lacrimal caruncle being partly covered by a skin fold;",
+     "asymmetry of the inner corners of the eyes;",
+     "planning a comprehensive upper eyelid correction;",
+     "individual aesthetic preferences."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання та можливі ризики",
+    "ru": {
+     "$": 39
+    },
+    "en": "Contraindications and Possible Risks"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Воспалительные заболевания глаз.",
+     "Декомпенсированные хронические заболевания.",
+     "Другие состояния, повышающие хирургический риск."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Запальні захворювання очей.",
+     "Декомпенсовані хронічні захворювання.",
+     "Інші стани, що підвищують хірургічний ризик."
+    ],
+    "en": [
+     "Acute infections.",
+     "Inflammatory eye conditions.",
+     "Decompensated chronic conditions.",
+     "Other conditions that raise surgical risk."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Наявність епікантусу сама по собі не є медичним показанням до операції.",
+    "ru": {
+     "$": 10
+    },
+    "en": "Having an epicanthus is not in itself a medical indication for surgery."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Методи епікантопластики",
+    "ru": {
+     "$": 11
+    },
+    "en": "Epicanthoplasty Techniques"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Z-пластика",
+      "ru": {
+       "$": 13
+      },
+      "en": "Z-plasty"
+     },
+     "description": {
+      "uk": "Метод передбачає зміну положення тканин за допомогою спеціальних розрізів і переміщення невеликих шкірних клаптів.\n\nВін дає змогу перерозподілити натяг шкіри та скоригувати складку.",
+      "ru": {
+       "$": [
+        14,
+        15
+       ]
+      },
+      "en": "The method changes the position of the tissues using specially designed incisions and the transfer of small skin flaps.\n\nIt redistributes skin tension and corrects the fold."
+     }
+    },
+    {
+     "title": {
+      "uk": "W-пластика",
+      "ru": {
+       "$": 16
+      },
+      "en": "W-plasty"
+     },
+     "description": {
+      "uk": "За цієї техніки використовують розрізи певної конфігурації, щоб змінити контур внутрішнього кутика ока.",
+      "ru": {
+       "$": 17
+      },
+      "en": "This technique uses incisions of a specific configuration to change the contour of the inner corner of the eye."
+     }
+    },
+    {
+     "title": {
+      "uk": "Інші методи корекції",
+      "ru": {
+       "$": 18
+      },
+      "en": "Other correction methods"
+     },
+     "description": {
+      "uk": "Залежно від анатомії хірург може застосовувати модифіковані клаптеві техніки.",
+      "ru": {
+       "$": 19
+      },
+      "en": "Depending on the anatomy, the surgeon may use modified flap techniques."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір методу залежить від виразності епікантусу, стану шкіри, бажаного результату та розташування майбутніх рубців.",
+    "ru": {
+     "$": 20
+    },
+    "en": "The choice of method depends on how pronounced the epicanthus is, the condition of the skin, the desired result and where the future scars will lie."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги епікантопластики",
+    "ru": {
+     "$": 21
+    },
+    "en": "Benefits of Epicanthoplasty"
+   },
+   "items": {
+    "$list": 23,
+    "uk": [
+     "зменшити виразність епікантальної складки;",
+     "змінити контур внутрішнього кутика ока;",
+     "скоригувати деякі види асиметрії;",
+     "зробити внутрішню частину очної щілини візуально відкритішою;",
+     "доповнити результат блефаропластики верхніх повік."
+    ],
+    "en": [
+     "make the epicanthal fold less pronounced;",
+     "change the contour of the inner corner of the eye;",
+     "correct some types of asymmetry;",
+     "make the inner part of the eye opening look more open;",
+     "complement the result of upper eyelid blepharoplasty."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Результат індивідуальний. Операція не гарантує ідеальної симетрії і не повинна розглядатися як обов’язковий спосіб змінити природні особливості зовнішності.",
+    "ru": {
+     "$": 24
+    },
+    "en": "Results vary from person to person. The operation does not guarantee perfect symmetry and should not be seen as a necessary way of changing natural features of appearance."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить епікантопластика?",
+    "ru": {
+     "$": 25
+    },
+    "en": "How Is Epicanthoplasty Performed?"
+   },
+   "body": {
+    "uk": "Перед операцією пластичний хірург оцінює анатомію повік, положення внутрішніх кутиків очей та особливості шкіри.\n\nТривалість втручання залежить від обраної техніки та необхідності додаткових процедур.",
+    "ru": {
+     "$": [
+      26,
+      29
+     ]
+    },
+    "en": "Before surgery the plastic surgeon assesses the anatomy of the eyelids, the position of the inner corners of the eyes and the characteristics of the skin.\n\nThe length of the procedure depends on the chosen technique and whether additional procedures are needed."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": {
+     "$": 27
+    },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 28,
+    "uk": [
+     "Консультація. Обговорення побажань, можливих результатів і хірургічних ризиків.",
+     "Обстеження. Оцінка стану здоров’я та очей.",
+     "Розмітка. Визначення ліній розрізів і обсягу корекції.",
+     "Анестезія. Добір відповідного методу знеболення.",
+     "Операція. Переміщення та фіксація тканин для зміни епікантальної складки.",
+     "Спостереження. Контроль загоєння та рекомендації щодо догляду."
+    ],
+    "en": [
+     "Consultation. Discussion of your wishes, possible results and surgical risks.",
+     "Examination. Assessment of general health and the eyes.",
+     "Marking. Determining the incision lines and the extent of correction.",
+     "Anaesthesia. Choosing a suitable method of pain relief.",
+     "Operation. Repositioning and securing the tissues to alter the epicanthal fold.",
+     "Monitoring. Checking healing and giving aftercare advice."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Відновлення після епікантопластики",
+    "ru": {
+     "$": 30
+    },
+    "en": "Recovery After Epicanthoplasty"
+   },
+   "body": {
+    "uk": "У перші дні після операції можливі набряки, синці, почервоніння та відчуття натягу в ділянці внутрішніх кутиків очей.\n\nПомітні набряки зазвичай зменшуються протягом 1–2 тижнів, але остаточне формування контуру та дозрівання рубців можуть тривати кілька місяців.",
+    "ru": {
+     "$": [
+      31,
+      32
+     ]
+    },
+    "en": "In the first days after surgery there may be swelling, bruising, redness and a feeling of tightness around the inner corners of the eyes.\n\nVisible swelling usually subsides within 1–2 weeks, but the final contour and the maturing of the scars may take several months."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Під час відновлення рекомендується",
+    "ru": {
+     "$": 33
+    },
+    "en": "During Recovery It Is Recommended To"
+   },
+   "items": {
+    "$list": 34,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "акуратно доглядати за швами;",
+     "не терти очі;",
+     "тимчасово відмовитися від макіяжу;",
+     "обмежити інтенсивні фізичні навантаження;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "care for the sutures gently;",
+     "avoid rubbing your eyes;",
+     "stop wearing make-up for a while;",
+     "limit strenuous physical activity;",
+     "attend follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після епікантопластики?",
+    "ru": {
+     "$": 35
+    },
+    "en": "Are There Scars After Epicanthoplasty?"
+   },
+   "body": {
+    "uk": "Так. Оскільки операція передбачає шкірні розрізи, після неї залишаються рубці.\n\nХірург обирає розташування розрізів з урахуванням анатомії, щоб за можливості зробити сліди операції менш помітними.\n\nОднак ділянка внутрішнього кутика ока може бути схильною до помітного рубцювання. Повністю виключити цей ризик неможливо.",
+    "ru": {
+     "$": [
+      36,
+      37,
+      38
+     ]
+    },
+    "en": "Yes. Because the operation involves skin incisions, it leaves scars.\n\nThe surgeon positions the incisions with the anatomy in mind so that, where possible, the marks of surgery are less noticeable.\n\nHowever, the inner corner of the eye can be prone to noticeable scarring. This risk cannot be ruled out completely."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення",
+    "ru": {
+     "$": 41
+    },
+    "en": "Possible Complications"
+   },
+   "items": {
+    "$list": 42,
+    "uk": [
+     "кровотеча та інфекція;",
+     "помітні або гіпертрофічні рубці;",
+     "асиметрія внутрішніх кутиків очей;",
+     "надмірна або недостатня корекція;",
+     "тривала набряклість;",
+     "зміна чутливості;",
+     "натяг шкіри;",
+     "подразнення очей;",
+     "незадовільний естетичний результат;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding and infection;",
+     "noticeable or hypertrophic scars;",
+     "asymmetry of the inner corners of the eyes;",
+     "over- or under-correction;",
+     "prolonged swelling;",
+     "changes in sensation;",
+     "skin tightness;",
+     "eye irritation;",
+     "an unsatisfactory aesthetic result;",
+     "the need for a further operation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Перед втручанням лікар має обговорити з пацієнтом можливі ризики та обмеження.",
+    "ru": {
+     "$": 43
+    },
+    "en": "Before the procedure, the doctor should discuss the possible risks and limitations with the patient."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Епікантопластика і блефаропластика: у чому різниця?",
+    "ru": {
+     "$": 44
+    },
+    "en": "Epicanthoplasty vs Blepharoplasty: What Is the Difference?"
+   },
+   "body": {
+    "uk": "Епікантопластика спрямована на корекцію шкірної складки біля внутрішнього кутика ока.\n\nБлефаропластику верхніх повік застосовують, щоб змінити складку верхньої повіки, видалити надлишок шкіри або скоригувати жирову тканину.\n\nЗа наявності показань обидві операції можна виконувати одночасно.\n\nРішення про поєднання методик ухвалюють індивідуально.",
+    "ru": {
+     "$": [
+      45,
+      46,
+      47,
+      48
+     ]
+    },
+    "en": "Epicanthoplasty corrects the skin fold at the inner corner of the eye.\n\nUpper eyelid blepharoplasty is used to change the upper eyelid crease, remove excess skin or correct fatty tissue.\n\nWhere indicated, both operations can be performed at the same time.\n\nThe decision to combine the techniques is made individually."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна епікантопластики в Дніпрі",
+    "ru": {
+     "$": 49
+    },
+    "en": "The Cost of Epicanthoplasty in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість епікантопластики залежить від складності анатомічної корекції, обраної хірургічної техніки, виду анестезії та необхідності додаткових процедур.\n\nНа ціну також можуть впливати передопераційне обстеження та післяопераційне спостереження.\n\nТочну вартість визначають після консультації пластичного хірурга.",
+    "ru": {
+     "$": [
+      50,
+      51,
+      52
+     ]
+    },
+    "en": "The cost of epicanthoplasty depends on the complexity of the anatomical correction, the chosen surgical technique, the type of anaesthesia and whether additional procedures are needed.\n\nPreoperative tests and postoperative monitoring may also affect the price.\n\nThe exact cost is determined after a consultation with a plastic surgeon."
+   },
+   "calloutBody": {
+    "uk": "Якщо ви розглядаєте корекцію епікантальної складки, почніть із консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить анатомічні особливості внутрішніх кутиків очей, пояснить можливості операції та допоможе визначити реалістичний результат.\n\nУточніть доступність епікантопластики, актуальну вартість і умови запису на консультацію.",
+    "ru": {
+     "$": [
+      67,
+      68,
+      70
+     ]
+    },
+    "en": "If you are considering correction of the epicanthal fold, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the anatomy of the inner corners of your eyes, explain what the operation can achieve and help you define a realistic result.\n\nAsk about the availability of epicanthoplasty, current pricing and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке епікантус?",
+    "ru": {
+     "$": 54
+    },
+    "en": "What Is an Epicanthus?"
+   },
+   "answer": {
+    "uk": "Епікантус — шкірна складка в ділянці внутрішнього кутика ока. Це природна анатомічна особливість.",
+    "ru": {
+     "$": 55
+    },
+    "en": "The epicanthus is a skin fold at the inner corner of the eye. It is a natural anatomical feature."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна прибрати епікантус хірургічно?",
+    "ru": {
+     "$": 56
+    },
+    "en": "Can the Epicanthus Be Corrected Surgically?"
+   },
+   "answer": {
+    "uk": "Так. Епікантопластика дає змогу зменшити виразність складки або змінити її розташування.",
+    "ru": {
+     "$": 57
+    },
+    "en": "Yes. Epicanthoplasty can make the fold less pronounced or change its position."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи зміниться форма очей?",
+    "ru": {
+     "$": 58
+    },
+    "en": "Will the Shape of My Eyes Change?"
+   },
+   "answer": {
+    "uk": "Операція може змінити контур внутрішнього кутика та візуальне сприйняття очної щілини. Ступінь змін залежить від анатомії та обраної методики.",
+    "ru": {
+     "$": 59
+    },
+    "en": "The operation can change the contour of the inner corner and the way the eye opening looks. The degree of change depends on the anatomy and the chosen technique."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами?",
+    "ru": {
+     "$": 60
+    },
+    "en": "Will There Be Scars?"
+   },
+   "answer": {
+    "uk": "Так. Після операції залишаються рубці, які з часом можуть стати менш помітними.",
+    "ru": {
+     "$": 61
+    },
+    "en": "Yes. The operation leaves scars, which may become less noticeable over time."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна поєднати епікантопластику з азіатською блефаропластикою?",
+    "ru": {
+     "$": 62
+    },
+    "en": "Can Epicanthoplasty Be Combined With Asian Blepharoplasty?"
+   },
+   "answer": {
+    "uk": "Так, за наявності показань можливе поєднання корекції епікантусу з формуванням складки верхньої повіки.",
+    "ru": {
+     "$": 63
+    },
+    "en": "Yes, where indicated, correction of the epicanthus can be combined with creating an upper eyelid crease."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли видно остаточний результат?",
+    "ru": {
+     "$": 64
+    },
+    "en": "When Is the Final Result Visible?"
+   },
+   "answer": {
+    "uk": "Перші зміни помітні після зменшення набряку, однак остаточне загоєння та дозрівання рубців можуть тривати кілька місяців.",
+    "ru": {
+     "$": 65
+    },
+    "en": "The first changes are visible once the swelling subsides, but final healing and scar maturation may take several months."
+   }
+  }
+ ]
+}
