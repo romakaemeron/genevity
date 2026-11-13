@@ -1,0 +1,1113 @@
+{
+ "sortOrder": 137,
+ "related": [
+  "abdominoplasty",
+  "liposuction",
+  "labiaplasty"
+ ],
+ "title": {
+  "uk": "Пластика лобка",
+  "ru": "Пластика лобка",
+  "en": "Monsplasty"
+ },
+ "summary": {
+  "uk": "Пластика лобка — хірургічна процедура, спрямована на корекцію форми, об'єму та положення м'яких тканин лобкової ділянки. Операцію, відому також як монспластика, можуть застосовувати за надлишку жирової тканини, провисання шкіри після схуднення, вікових змін або індивідуальних анатомічних особливостей.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Monsplasty is a surgical procedure to correct the shape, volume, and position of the soft tissues of the pubic area (mons pubis). It may be used for excess fatty tissue, skin laxity after weight loss, age-related changes, or individual anatomical features."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/monsplasty-hero.webp",
+   "heading": {
+    "uk": "Що таке пластика лобка?",
+    "ru": {
+     "$": 4
+    },
+    "en": "What Is Monsplasty?"
+   },
+   "body": {
+    "uk": "Пластика лобка, або монспластика, — це хірургічна корекція м'яких тканин, розташованих над лобковою кісткою.\n\nЛобкова ділянка — це природне підвищення, сформоване переважно підшкірною жировою тканиною та шкірою. Її форма та об'єм індивідуальні й можуть змінюватися впродовж життя.\n\nПісля вагітності, значного схуднення, вікових змін або коливань маси тіла в цій зоні іноді з'являються надлишок шкіри, виражене жирове відкладення чи провисання тканин.\n\nМонспластика може бути спрямована на зменшення об'єму, підтяжку шкіри та формування рівнішого контуру нижньої частини живота й лобкової ділянки.",
+    "ru": {
+     "$": [
+      5,
+      6,
+      7,
+      8
+     ]
+    },
+    "en": "Monsplasty is the surgical correction of the soft tissues lying over the pubic bone.\n\nThe pubic area is a natural mound formed mainly of subcutaneous fat and skin. Its shape and volume are individual and can change over the course of life.\n\nAfter pregnancy, major weight loss, age-related changes, or weight fluctuations, excess skin, a pronounced fat deposit, or sagging tissue sometimes develops in this area.\n\nMonsplasty may aim to reduce volume, tighten the skin, and create a smoother contour of the lower abdomen and pubic area."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає естетичну медицину як частину комплексного підходу до здоров'я, зовнішності та повсякденного комфорту людини.\n\nГоловне завдання монспластики — змінити контури лобкової ділянки з урахуванням індивідуальних пропорцій тіла та вимог медичної безпеки.",
+    "ru": {
+     "$": [
+      1,
+      3
+     ]
+    },
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — approaches aesthetic medicine as part of a comprehensive approach to a person's health, appearance, and everyday comfort.\n\nThe main aim of monsplasty is to change the contours of the pubic area in keeping with the individual proportions of the body and the requirements of medical safety."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Сучасні методи корекції лобкової ділянки можуть включати ліпосакцію, хірургічну підтяжку тканин або поєднання кількох технік. Вибір процедури залежить від стану шкіри, кількості підшкірної жирової тканини, анатомічних особливостей і побажань пацієнта.\n\nОперація не є обов'язковою за природних анатомічних особливостей. Рішення про корекцію ухвалюють індивідуально після консультації спеціаліста.",
+    "ru": {
+     "$": [
+      2,
+      9
+     ]
+    },
+    "en": "Modern correction of the pubic area may involve liposuction, a surgical tissue lift, or a combination of techniques. The choice of procedure depends on skin condition, the amount of subcutaneous fat, anatomy, and the patient's wishes.\n\nThe operation is not necessary when the area simply reflects natural anatomy. The decision to proceed is made individually after a consultation with a specialist."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Чому змінюється форма лобкової ділянки?",
+    "ru": {
+     "$": 10
+    },
+    "en": "Why Does the Shape of the Pubic Area Change?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Вікові зміни",
+      "ru": {
+       "$": 12
+      },
+      "en": "Age-Related Changes"
+     },
+     "description": {
+      "uk": "З віком шкіра поступово втрачає еластичність, що може призводити до зміни положення та контуру м'яких тканин.",
+      "ru": {
+       "$": 13
+      },
+      "en": "With age the skin gradually loses elasticity, which can change the position and contour of the soft tissues."
+     }
+    },
+    {
+     "title": {
+      "uk": "Значне зниження маси тіла",
+      "ru": {
+       "$": 14
+      },
+      "en": "Major Weight Loss"
+     },
+     "description": {
+      "uk": "Після схуднення об'єм підшкірного жиру зменшується, проте розтягнута шкіра не завжди скорочується повністю. Унаслідок цього можуть утворюватися складки та провисання.",
+      "ru": {
+       "$": 15
+      },
+      "en": "After weight loss the volume of subcutaneous fat decreases, but stretched skin does not always fully retract. Folds and sagging may result."
+     }
+    },
+    {
+     "title": {
+      "uk": "Вагітність і пологи",
+      "ru": {
+       "$": 16
+      },
+      "en": "Pregnancy and Childbirth"
+     },
+     "description": {
+      "uk": "Вагітність супроводжується змінами тканин передньої черевної стінки та нижньої частини живота. Після пологів іноді зберігаються зміни форми лобкової ділянки.",
+      "ru": {
+       "$": 17
+      },
+      "en": "Pregnancy brings changes to the tissues of the anterior abdominal wall and lower abdomen. After childbirth, changes in the shape of the pubic area sometimes persist."
+     }
+    },
+    {
+     "title": {
+      "uk": "Локальні жирові відкладення",
+      "ru": {
+       "$": 18
+      },
+      "en": "Localised Fat Deposits"
+     },
+     "description": {
+      "uk": "У деяких людей жирова тканина в ділянці лобка виражена сильніше, ніж у сусідніх зонах. Це може бути пов'язано зі спадковістю та особливостями розподілу жиру.",
+      "ru": {
+       "$": 19
+      },
+      "en": "In some people the fatty tissue of the pubic area is more pronounced than in neighbouring areas. This may be linked to heredity and individual fat distribution."
+     }
+    },
+    {
+     "title": {
+      "uk": "Наслідки хірургічних втручань",
+      "ru": {
+       "$": 20
+      },
+      "en": "Effects of Previous Surgery"
+     },
+     "description": {
+      "uk": "Після окремих операцій на нижній частині живота, зокрема кесаревого розтину, рубцеві зміни іноді впливають на контур розташованих поруч тканин.",
+      "ru": {
+       "$": 21
+      },
+      "en": "After certain lower abdominal operations, including caesarean section, scar changes sometimes affect the contour of the adjacent tissues."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Зовнішній вигляд лобкової ділянки залежить від розподілу підшкірного жиру, еластичності шкіри, особливостей сполучної тканини та будови нижньої частини живота.\n\nНе кожна зміна форми потребує операції. Важливо визначити її причину та оцінити можливі способи корекції.",
+    "ru": {
+     "$": [
+      11,
+      22
+     ]
+    },
+    "en": "The appearance of the pubic area depends on the distribution of subcutaneous fat, skin elasticity, the characteristics of the connective tissue, and the structure of the lower abdomen.\n\nNot every change in shape requires surgery. It is important to identify the cause and assess the possible ways of correcting it."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Коли можуть рекомендувати пластику лобка?",
+    "ru": {
+     "$": 23
+    },
+    "en": "When May Monsplasty Be Recommended?"
+   },
+   "indications": {
+    "$list": 26,
+    "uk": [
+     "надлишок жирової тканини в лобковій ділянці;",
+     "провисання шкіри після значного схуднення;",
+     "виражені шкірні складки;",
+     "зміна контуру нижньої частини живота;",
+     "дискомфорт під час носіння облягаючого одягу;",
+     "труднощі з гігієною через надлишок тканин;",
+     "натирання шкіри під час руху;",
+     "зміна форми тканин після вагітності;",
+     "індивідуальне бажання скоригувати вигляд лобкової ділянки."
+    ],
+    "en": [
+     "excess fatty tissue in the pubic area;",
+     "skin laxity after significant weight loss;",
+     "pronounced skin folds;",
+     "a change in the contour of the lower abdomen;",
+     "discomfort when wearing close-fitting clothing;",
+     "difficulty with hygiene because of excess tissue;",
+     "chafing of the skin during movement;",
+     "changes in tissue shape after pregnancy;",
+     "a personal wish to correct the appearance of the pubic area."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до пластики лобка",
+    "ru": {
+     "$": 115
+    },
+    "en": "Contraindications for Monsplasty"
+   },
+   "contraindications": {
+    "$list": 118,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "порушення згортання крові;",
+     "декомпенсовані хронічні захворювання;",
+     "стани, що підвищують ризик анестезії;",
+     "активні запальні процеси в зоні втручання;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "blood clotting disorders;",
+     "decompensated chronic conditions;",
+     "conditions that increase anaesthetic risk;",
+     "active inflammation in the treatment area;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Перед операцією лікар оцінює стан шкіри, кількість жирової тканини, розташування складок і загальний стан здоров'я пацієнта.\n\nНеобхідно оцінити загальний стан здоров'я та виключити чинники, що підвищують хірургічний ризик.\n\nРішення про можливість операції ухвалюють після обстеження.",
+    "ru": {
+     "$": [
+      27,
+      116,
+      119
+     ]
+    },
+    "en": "Before surgery the doctor assesses skin condition, the amount of fatty tissue, the position of skin folds, and the patient's general health.\n\nGeneral health must be evaluated and any factors that increase surgical risk ruled out.\n\nThe decision on whether surgery is possible is made after the assessment."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Які методи пластики лобка існують?",
+    "ru": {
+     "$": 28
+    },
+    "en": "What Monsplasty Techniques Are There?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Ліпосакція лобка",
+      "ru": {
+       "$": 30
+      },
+      "en": "Pubic Liposuction"
+     },
+     "description": {
+      "uk": "Ліпосакція лобкової ділянки спрямована на зменшення локального об'єму підшкірної жирової тканини.\n\nПід час процедури хірург через невеликі доступи вводить спеціальні інструменти та видаляє заплановану кількість жиру.\n\nМетодику можуть розглядати за вираженого жирового відкладення та достатньо доброї еластичності шкіри.\n\nЯкщо шкіра значно розтягнута й провисає, самої ліпосакції може бути недостатньо.",
+      "ru": {
+       "$": [
+        31,
+        32,
+        33,
+        34
+       ]
+      },
+      "en": "Liposuction of the pubic area reduces localised subcutaneous fat.\n\nDuring the procedure the surgeon inserts special instruments through small access points and removes a planned amount of fat.\n\nThe technique may be considered when there is a pronounced fat deposit and reasonably good skin elasticity.\n\nIf the skin is markedly stretched and sagging, liposuction alone may not be enough."
+     }
+    },
+    {
+     "title": {
+      "uk": "Підтяжка лобка",
+      "ru": {
+       "$": 35
+      },
+      "en": "Mons Lift"
+     },
+     "description": {
+      "uk": "Підтяжку лобкової ділянки застосовують за надлишку та опущення шкіри.\n\nПід час операції хірург видаляє частину надлишкових тканин і змінює їхнє положення, формуючи рівніший контур.\n\nРозташування розрізу залежить від обраної техніки та анатомічних особливостей пацієнта.",
+      "ru": {
+       "$": [
+        36,
+        37,
+        38
+       ]
+      },
+      "en": "A lift of the pubic area is used when the skin is excessive and has descended.\n\nDuring the operation the surgeon removes some of the excess tissue and repositions it to create a smoother contour.\n\nThe placement of the incision depends on the chosen technique and the patient's anatomy."
+     }
+    },
+    {
+     "title": {
+      "uk": "Зменшення лобка",
+      "ru": {
+       "$": 39
+      },
+      "en": "Mons Reduction"
+     },
+     "description": {
+      "uk": "Зменшення лобка може включати видалення жирової тканини, надлишку шкіри або поєднання цих методів.\n\nОсновне завдання — зменшити виступаючий об'єм і скоригувати пропорції нижньої частини живота.",
+      "ru": {
+       "$": [
+        40,
+        41
+       ]
+      },
+      "en": "Mons reduction may involve removing fatty tissue, excess skin, or a combination of the two.\n\nThe main aim is to reduce a prominent volume and correct the proportions of the lower abdomen."
+     }
+    },
+    {
+     "title": {
+      "uk": "Комбінована пластика лобка",
+      "ru": {
+       "$": 42
+      },
+      "en": "Combined Monsplasty"
+     },
+     "description": {
+      "uk": "За поєднання локальних жирових відкладень і провисання шкіри може знадобитися комбіноване втручання.\n\nУ деяких випадках корекцію лобкової ділянки проводять одночасно з абдомінопластикою — пластикою живота.\n\nМожливість поєднання операцій визначають після оцінки хірургічних ризиків.",
+      "ru": {
+       "$": [
+        43,
+        44,
+        45
+       ]
+      },
+      "en": "When localised fat deposits are combined with skin laxity, a combined procedure may be needed.\n\nIn some cases correction of the pubic area is performed at the same time as an abdominoplasty (tummy tuck).\n\nWhether the operations can be combined is decided after assessing the surgical risks."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір хірургічної методики залежить від того, які зміни необхідно скоригувати.",
+    "ru": {
+     "$": 29
+    },
+    "en": "The choice of surgical technique depends on which changes need to be corrected."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чим ліпосакція лобка відрізняється від монспластики?",
+    "ru": {
+     "$": 46
+    },
+    "en": "How Does Pubic Liposuction Differ From Monsplasty?"
+   },
+   "body": {
+    "uk": "Ліпосакція та монспластика з видаленням шкіри вирішують різні завдання.\n\nЛіпосакція лобка переважно зменшує об'єм підшкірної жирової тканини. Вона може бути доречною, якщо шкіра зберігає здатність скорочуватися після видалення жиру.\n\nПідтяжка лобка спрямована на усунення надлишку шкіри та корекцію положення м'яких тканин.\n\nЯкщо основною проблемою є провисання тканин після значного схуднення, видалення жиру без підтяжки може не забезпечити бажаного результату.\n\nЗа виражених комплексних змін лікар може рекомендувати поєднання методів.",
+    "ru": {
+     "$": [
+      47,
+      48,
+      49,
+      50,
+      51
+     ]
+    },
+    "en": "Liposuction and monsplasty with skin removal address different problems.\n\nPubic liposuction mainly reduces the volume of subcutaneous fat. It may be suitable if the skin is still able to retract after fat removal.\n\nA mons lift removes excess skin and corrects the position of the soft tissues.\n\nIf the main problem is sagging tissue after major weight loss, removing fat without a lift may not give the desired result.\n\nWhere the changes are pronounced and complex, the doctor may recommend combining the methods."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Переваги пластики лобкової ділянки",
+    "ru": {
+     "$": 52
+    },
+    "en": "Benefits of Monsplasty"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Корекція об'єму",
+      "ru": {
+       "$": 54
+      },
+      "en": "Volume Correction"
+     },
+     "description": {
+      "uk": "Хірургічні методи дозволяють зменшити локальне жирове відкладення або надлишок тканин.",
+      "ru": {
+       "$": 55
+      },
+      "en": "Surgical methods can reduce a localised fat deposit or excess tissue."
+     }
+    },
+    {
+     "title": {
+      "uk": "Покращення контурів тіла",
+      "ru": {
+       "$": 56
+      },
+      "en": "Improved Body Contours"
+     },
+     "description": {
+      "uk": "Корекція лобкової ділянки може зробити перехід від нижньої частини живота до інтимної зони плавнішим.",
+      "ru": {
+       "$": 57
+      },
+      "en": "Correcting the pubic area can create a smoother transition from the lower abdomen to the intimate area."
+     }
+    },
+    {
+     "title": {
+      "uk": "Усунення надлишку шкіри",
+      "ru": {
+       "$": 58
+      },
+      "en": "Removal of Excess Skin"
+     },
+     "description": {
+      "uk": "Підтяжка дозволяє видалити частину розтягнутої шкіри, яка не скорочується самостійно.",
+      "ru": {
+       "$": 59
+      },
+      "en": "A lift removes some of the stretched skin that will not retract on its own."
+     }
+    },
+    {
+     "title": {
+      "uk": "Менше повсякденного дискомфорту",
+      "ru": {
+       "$": 60
+      },
+      "en": "Less Everyday Discomfort"
+     },
+     "description": {
+      "uk": "За виражених складок зменшення надлишку тканин може полегшити гігієну та знизити механічне тертя.",
+      "ru": {
+       "$": 61
+      },
+      "en": "Where folds are pronounced, reducing the excess tissue can make hygiene easier and reduce friction."
+     }
+    },
+    {
+     "title": {
+      "uk": "Індивідуальне планування",
+      "ru": {
+       "$": 62
+      },
+      "en": "Individual Planning"
+     },
+     "description": {
+      "uk": "Метод операції підбирають з урахуванням анатомічних особливостей, стану тканин і очікувань пацієнта.",
+      "ru": {
+       "$": 63
+      },
+      "en": "The surgical method is chosen according to the patient's anatomy, tissue condition, and expectations."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Слід враховувати, що хірургічна корекція супроводжується періодом відновлення, можливим утворенням рубців і ризиком ускладнень.",
+    "ru": {
+     "$": 64
+    },
+    "en": "Bear in mind that surgical correction involves a recovery period, possible scarring, and a risk of complications."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика лобка після схуднення",
+    "ru": {
+     "$": 65
+    },
+    "en": "Monsplasty After Weight Loss"
+   },
+   "body": {
+    "uk": "Значне зниження маси тіла може супроводжуватися появою надлишку шкіри в ділянці живота, стегон і лобка.\n\nНавіть після стабілізації ваги тканини не завжди повертаються до попереднього стану.\n\nУ деяких випадках шкіра лобкової ділянки утворює складку, яка змінює контур нижньої частини живота та може спричиняти дискомфорт.\n\nМонспластика після схуднення дозволяє видалити частину надлишкових тканин і скоригувати їхнє положення.\n\nПеред операцією бажано досягти стабільної маси тіла та оцінити стан харчування, особливо якщо зниження ваги відбулося після баріатричної операції.",
+    "ru": {
+     "$": [
+      66,
+      67,
+      68,
+      69,
+      70
+     ]
+    },
+    "en": "Significant weight loss can leave excess skin on the abdomen, thighs, and pubic area.\n\nEven once weight has stabilised, the tissues do not always return to their previous state.\n\nIn some cases the skin of the pubic area forms a fold that alters the contour of the lower abdomen and may cause discomfort.\n\nMonsplasty after weight loss removes some of the excess tissue and corrects its position.\n\nBefore surgery it is advisable to reach a stable weight and have your nutritional status assessed, especially if the weight loss followed bariatric surgery."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Пластика лобка не є методом лікування ожиріння чи зниження маси тіла.",
+    "ru": {
+     "$": 71
+    },
+    "en": "Monsplasty is not a treatment for obesity or a method of weight loss."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика лобка після вагітності та пологів",
+    "ru": {
+     "$": 72
+    },
+    "en": "Monsplasty After Pregnancy and Childbirth"
+   },
+   "body": {
+    "uk": "Під час вагітності тканини нижньої частини живота розтягуються, а розподіл жирової тканини може змінюватися.\n\nПісля пологів частина змін поступово зменшується самостійно. Однак іноді зберігаються надлишок шкіри, локальне жирове відкладення або зміна контуру лобкової ділянки.\n\nЗа виражених змін можуть розглядати хірургічну корекцію.",
+    "ru": {
+     "$": [
+      73,
+      74,
+      75
+     ]
+    },
+    "en": "During pregnancy the tissues of the lower abdomen stretch and the distribution of fat may change.\n\nAfter childbirth some of the changes gradually lessen on their own. Sometimes, however, excess skin, a localised fat deposit, or a change in the contour of the pubic area remains.\n\nIf the changes are pronounced, surgical correction may be considered."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Перед плануванням операції необхідно завершити основне післяпологове відновлення та оцінити стан тканин.\n\nЯкщо жінка планує нову вагітність, це також важливо обговорити з хірургом, оскільки подальші зміни маси тіла та розтягнення шкіри можуть вплинути на результат.",
+    "ru": {
+     "$": [
+      76,
+      77
+     ]
+    },
+    "en": "Before surgery is planned, the main postpartum recovery should be complete and the condition of the tissues assessed.\n\nIf a woman is planning another pregnancy, this should also be discussed with the surgeon, as later changes in weight and skin stretching may affect the result."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить операція з пластики лобка?",
+    "ru": {
+     "$": 78
+    },
+    "en": "How Is Monsplasty Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "1. Консультація спеціаліста",
+      "ru": {
+       "$": 80
+      },
+      "en": "1. Specialist Consultation"
+     },
+     "description": {
+      "uk": "На консультації лікар оцінює стан шкіри, кількість жирової тканини, ступінь провисання та особливості нижньої частини живота.\n\nОбговорюють побажання пацієнта, можливі методи корекції та очікувані результати.",
+      "ru": {
+       "$": [
+        81,
+        82
+       ]
+      },
+      "en": "At the consultation the doctor assesses skin condition, the amount of fatty tissue, the degree of sagging, and the lower abdomen.\n\nThe patient's wishes, possible correction methods, and the expected results are discussed."
+     }
+    },
+    {
+     "title": {
+      "uk": "2. Передопераційне обстеження",
+      "ru": {
+       "$": 83
+      },
+      "en": "2. Preoperative Assessment"
+     },
+     "description": {
+      "uk": "Перед втручанням призначають необхідні дослідження.\n\nОбсяг обстеження залежить від стану здоров'я, обраної хірургічної техніки та виду анестезії.",
+      "ru": {
+       "$": [
+        84,
+        85
+       ]
+      },
+      "en": "The necessary investigations are arranged before the procedure.\n\nTheir extent depends on your health, the surgical technique chosen, and the type of anaesthesia."
+     }
+    },
+    {
+     "title": {
+      "uk": "3. Підготовка до операції",
+      "ru": {
+       "$": 86
+      },
+      "en": "3. Preparing for Surgery"
+     },
+     "description": {
+      "uk": "Хірург визначає ділянку корекції, розташування розрізів і передбачуваний обсяг видалення тканин.\n\nПацієнт отримує рекомендації щодо підготовки, зокрема щодо прийому ліків та обмеження куріння.",
+      "ru": {
+       "$": [
+        87,
+        88
+       ]
+      },
+      "en": "The surgeon defines the area to be corrected, the placement of the incisions, and how much tissue is expected to be removed.\n\nThe patient receives advice on preparation, including medication and avoiding smoking."
+     }
+    },
+    {
+     "title": {
+      "uk": "4. Проведення хірургічної корекції",
+      "ru": {
+       "$": 89
+      },
+      "en": "4. The Surgical Correction"
+     },
+     "description": {
+      "uk": "Операцію виконують із відповідним знеболенням.\n\nПід час ліпосакції видаляють частину підшкірної жирової тканини через невеликі хірургічні доступи.\n\nПід час підтяжки хірург видаляє надлишок шкіри та за потреби жирової тканини, після чого фіксує тканини в новому положенні.\n\nТривалість втручання залежить від обраної методики та складності операції.",
+      "ru": {
+       "$": [
+        90,
+        91,
+        92,
+        93
+       ]
+      },
+      "en": "The operation is performed with appropriate anaesthesia.\n\nWith liposuction, some of the subcutaneous fat is removed through small surgical access points.\n\nWith a lift, the surgeon removes excess skin and, where needed, fatty tissue, then secures the tissues in their new position.\n\nThe length of the procedure depends on the chosen technique and the complexity of the operation."
+     }
+    },
+    {
+     "title": {
+      "uk": "5. Післяопераційне спостереження",
+      "ru": {
+       "$": 94
+      },
+      "en": "5. Postoperative Monitoring"
+     },
+     "description": {
+      "uk": "Після операції пацієнт перебуває під медичним наглядом.\n\nЛікар контролює ранній післяопераційний період і надає рекомендації щодо відновлення.",
+      "ru": {
+       "$": [
+        95,
+        96
+       ]
+      },
+      "en": "After the operation the patient remains under medical supervision.\n\nThe doctor monitors the early postoperative period and gives recovery advice."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Реабілітація після пластики лобка",
+    "ru": {
+     "$": 97
+    },
+    "en": "Recovery After Monsplasty"
+   },
+   "body": {
+    "uk": "Тривалість відновлення залежить від обсягу хірургічного втручання.\n\nПісля операції можливі набряк, синці, болючість, відчуття натягу тканин і тимчасова зміна чутливості.\n\nУ перші дні необхідно уникати надмірного тиску та тертя в ділянці хірургічної корекції.",
+    "ru": {
+     "$": [
+      98,
+      99,
+      100
+     ]
+    },
+    "en": "How long recovery takes depends on the extent of surgery.\n\nAfter the operation, swelling, bruising, soreness, a feeling of tissue tightness, and temporary changes in sensation are possible.\n\nIn the first days, excessive pressure and friction on the treated area must be avoided."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації після операції",
+    "ru": {
+     "$": 101
+    },
+    "en": "Recommendations After Surgery"
+   },
+   "items": {
+    "$list": 102,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "підтримувати гігієну післяопераційної ділянки;",
+     "носити вільний одяг, що не тисне на тканини;",
+     "використовувати компресійний виріб, якщо його призначено;",
+     "обмежувати інтенсивні фізичні навантаження;",
+     "уникати рухів, що створюють натяг швів;",
+     "тимчасово утримуватися від сексуальної активності на рекомендований лікарем термін;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "keep the operated area clean;",
+     "wear loose clothing that does not press on the tissues;",
+     "wear a compression garment if prescribed;",
+     "limit strenuous physical activity;",
+     "avoid movements that put tension on the sutures;",
+     "abstain from sexual activity for the period recommended by your doctor;",
+     "attend follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки триває відновлення?",
+    "ru": {
+     "$": 103
+    },
+    "en": "How Long Does Recovery Take?"
+   },
+   "body": {
+    "uk": "Після обмеженого втручання повернення до легкої повсякденної активності може бути можливим упродовж одного-двох тижнів.\n\nПісля масштабнішої підтяжки відновлення триває довше.\n\nІнтенсивні фізичні навантаження зазвичай обмежують на кілька тижнів, а терміни відновлення сексуальної активності визначає хірург залежно від загоєння.\n\nНабряк може зберігатися довше за ранній період відновлення. Остаточний контур оцінюють після стабілізації тканин.",
+    "ru": {
+     "$": [
+      104,
+      105,
+      106,
+      107
+     ]
+    },
+    "en": "After a limited procedure, a return to light everyday activities may be possible within one to two weeks.\n\nAfter a more extensive lift, recovery takes longer.\n\nStrenuous physical activity is usually restricted for several weeks, and the surgeon decides when sexual activity can be resumed, depending on healing.\n\nSwelling may last beyond the early recovery period. The final contour is assessed once the tissues have settled."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після пластики лобка?",
+    "ru": {
+     "$": 108
+    },
+    "en": "Does Monsplasty Leave Scars?"
+   },
+   "body": {
+    "uk": "Після хірургічної корекції можливе утворення рубців.\n\nПісля ліпосакції залишаються невеликі сліди від хірургічних доступів.\n\nПід час підтяжки лобкової ділянки розріз може бути довшим, оскільки необхідно видалити надлишок шкіри.\n\nРозташування рубця залежить від обраної техніки й іноді може збігатися з природними складками або розташовуватися в нижній частині живота.\n\nЗ часом рубці зазвичай стають менш помітними, але повністю не зникають.\n\nЇхній вигляд залежить від індивідуальних особливостей загоєння та післяопераційного догляду.",
+    "ru": {
+     "$": [
+      109,
+      110,
+      111,
+      112,
+      113,
+      114
+     ]
+    },
+    "en": "Surgical correction may leave scars.\n\nLiposuction leaves small marks at the access points.\n\nA lift of the pubic area may require a longer incision, because excess skin has to be removed.\n\nWhere the scar lies depends on the technique chosen; it may follow natural skin creases or sit in the lower abdomen.\n\nOver time scars usually become less noticeable, but they do not disappear completely.\n\nTheir appearance depends on individual healing and aftercare."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Можливі ризики та ускладнення",
+    "ru": {
+     "$": 120
+    },
+    "en": "Possible Risks and Complications"
+   },
+   "body": {
+    "uk": "Як і будь-яке хірургічне втручання, монспластика має певні ризики.\n\nЗа масштабніших втручань також враховують ризики, пов'язані з анестезією та тромбоемболічними ускладненнями.",
+    "ru": {
+     "$": [
+      121,
+      124
+     ]
+    },
+    "en": "Like any surgical procedure, monsplasty carries certain risks.\n\nWith more extensive procedures, the risks associated with anaesthesia and thromboembolic complications are also taken into account."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення:",
+    "ru": {
+     "$": 122
+    },
+    "en": "Possible complications:"
+   },
+   "items": {
+    "$list": 123,
+    "uk": [
+     "кровотеча;",
+     "гематома;",
+     "серома — скупчення рідини;",
+     "інфекція;",
+     "розходження післяопераційних швів;",
+     "тривалий набряк;",
+     "зміна чутливості шкіри;",
+     "асиметрія;",
+     "помітне рубцювання;",
+     "незадовільний естетичний результат;",
+     "необхідність повторної корекції."
+    ],
+    "en": [
+     "bleeding;",
+     "haematoma;",
+     "seroma (a collection of fluid);",
+     "infection;",
+     "wound dehiscence;",
+     "prolonged swelling;",
+     "altered skin sensation;",
+     "asymmetry;",
+     "noticeable scarring;",
+     "an unsatisfactory aesthetic result;",
+     "the need for revision surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Перед операцією лікар має детально пояснити можливі наслідки та альтернативи.",
+    "ru": {
+     "$": 125
+    },
+    "en": "Before surgery the doctor should explain the possible consequences and alternatives in detail."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи можна зменшити лобок без операції?",
+    "ru": {
+     "$": 126
+    },
+    "en": "Can the Pubic Area Be Reduced Without Surgery?"
+   },
+   "body": {
+    "uk": "Можливості безопераційної корекції залежать від причини збільшення об'єму.\n\nЯкщо виразність лобкової ділянки пов'язана із загальним надлишком жирової тканини, зниження маси тіла може сприяти зменшенню її об'єму.\n\nОднак локальний розподіл жиру індивідуальний, тому зменшення конкретної зони не гарантоване.\n\nФізичні вправи зміцнюють м'язи та допомагають підтримувати загальну фізичну форму, але не дозволяють цілеспрямовано видалити жир лише в ділянці лобка.\n\nЗа вираженого надлишку розтягнутої шкіри безопераційні методи зазвичай не здатні забезпечити результат, порівнянний із хірургічною підтяжкою.",
+    "ru": {
+     "$": [
+      127,
+      128,
+      129,
+      130,
+      131
+     ]
+    },
+    "en": "What non-surgical correction can achieve depends on the cause of the increased volume.\n\nIf the prominence of the pubic area is due to excess body fat in general, weight loss may help reduce its volume.\n\nHowever, fat distribution is individual, so a reduction in any particular area cannot be guaranteed.\n\nExercise strengthens the muscles and helps maintain overall fitness, but it cannot target fat in the pubic area alone.\n\nWith a pronounced excess of stretched skin, non-surgical methods usually cannot achieve a result comparable to a surgical lift."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір способу корекції має ґрунтуватися на огляді та медичних показаннях.",
+    "ru": {
+     "$": 132
+    },
+    "en": "The choice of correction method should be based on an examination and medical indications."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика лобка та якість життя",
+    "ru": {
+     "$": 133
+    },
+    "en": "Monsplasty and Quality of Life"
+   },
+   "body": {
+    "uk": "Зміни форми лобкової ділянки можуть бути природною особливістю статури або виникати після вагітності, схуднення та вікових змін.\n\nСамі по собі такі зміни не є захворюванням і не потребують обов'язкової корекції.\n\nУ деяких випадках надлишок тканин спричиняє натирання, ускладнює гігієну або впливає на комфорт під час фізичної активності.\n\nGENEVITY — Центр довголіття та якості життя — розглядає естетичні побажання в контексті загального здоров'я та індивідуального благополуччя.\n\nОбговорюючи хірургічну корекцію, важливо враховувати не лише бажаний зовнішній результат, а й функціональний стан тканин, можливі ризики та очікування пацієнта.\n\nРішення про пластику лобка має бути добровільним, усвідомленим і ухваленим після отримання повної медичної інформації.",
+    "ru": {
+     "$": [
+      134,
+      135,
+      136,
+      137,
+      138,
+      139
+     ]
+    },
+    "en": "Changes in the shape of the pubic area may be a natural feature of a person's build or may follow pregnancy, weight loss, and ageing.\n\nSuch changes are not a disease in themselves and do not have to be corrected.\n\nIn some cases excess tissue causes chafing, makes hygiene harder, or affects comfort during physical activity.\n\nGENEVITY — the Centre for Longevity and Quality of Life — considers aesthetic wishes in the context of overall health and individual wellbeing.\n\nWhen discussing surgical correction, it is important to consider not only the desired appearance but also the functional condition of the tissues, the possible risks, and the patient's expectations.\n\nThe decision to have monsplasty should be voluntary, well informed, and made after receiving full medical information."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує пластика лобка в Дніпрі?",
+    "ru": {
+     "$": 140
+    },
+    "en": "How Much Does Monsplasty Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна пластики лобка в Дніпрі залежить від обраного методу корекції, обсягу втручання та індивідуальних особливостей пацієнта.",
+    "ru": {
+     "$": 141
+    },
+    "en": "The price of monsplasty in Dnipro depends on the correction method chosen, the extent of surgery, and the individual patient."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати:",
+    "ru": {
+     "$": 142
+    },
+    "en": "The cost may depend on:"
+   },
+   "items": {
+    "$list": 143,
+    "uk": [
+     "ліпосакція чи хірургічна підтяжка;",
+     "обсяг видалення жирової тканини;",
+     "вираженість надлишку шкіри;",
+     "необхідність комбінованої операції;",
+     "вид анестезії;",
+     "передопераційні обстеження;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "liposuction or a surgical lift;",
+     "the amount of fat to be removed;",
+     "the extent of excess skin;",
+     "the need for a combined operation;",
+     "the type of anaesthesia;",
+     "preoperative investigations;",
+     "postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації та складання індивідуального плану хірургічної корекції.\n\nЯкщо вас турбує надлишок жирової тканини, провисання шкіри або зміна контуру лобкової ділянки, першим кроком має стати консультація кваліфікованого спеціаліста.\n\nЛікар допоможе оцінити анатомічні особливості, визначити можливі методи корекції та обговорити очікувані результати, обмеження й ризики операції.\n\nУточніть можливість консультації щодо монспластики, доступні методи корекції та умови проведення хірургічного втручання.\n\nЗапишіться на консультацію, щоб дізнатися більше про можливості пластики лобкової ділянки.",
+    "ru": {
+     "$": [
+      144,
+      168,
+      169,
+      171,
+      173
+     ]
+    },
+    "en": "The exact cost is determined after a consultation and once an individual surgical plan has been drawn up.\n\nIf you are concerned about excess fat, skin laxity, or a change in the contour of the pubic area, the first step should be a consultation with a qualified specialist.\n\nThe doctor will help assess your anatomy, identify possible correction methods, and discuss the expected results, limitations, and risks of surgery.\n\nAsk about a monsplasty consultation, the correction methods available, and the conditions for surgery.\n\nBook a consultation to find out more about what monsplasty can do for you."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке монспластика?",
+    "ru": {
+     "$": 147
+    },
+    "en": "What Is Monsplasty?"
+   },
+   "answer": {
+    "uk": "Монспластика — хірургічна корекція лобкової ділянки, спрямована на зміну об'єму, форми чи положення м'яких тканин.",
+    "ru": {
+     "$": 148
+    },
+    "en": "Monsplasty is the surgical correction of the pubic area to change the volume, shape, or position of its soft tissues."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зменшити лобок за допомогою ліпосакції?",
+    "ru": {
+     "$": 149
+    },
+    "en": "Can the Pubic Area Be Reduced With Liposuction?"
+   },
+   "answer": {
+    "uk": "Так, ліпосакцію можуть застосовувати за локального надлишку жирової тканини. Якщо є виражене провисання шкіри, може знадобитися хірургічна підтяжка.",
+    "ru": {
+     "$": 150
+    },
+    "en": "Yes, liposuction may be used for a localised excess of fat. If the skin sags markedly, a surgical lift may be needed."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чим пластика лобка відрізняється від лабіопластики?",
+    "ru": {
+     "$": 151
+    },
+    "en": "How Does Monsplasty Differ From Labiaplasty?"
+   },
+   "answer": {
+    "uk": "Монспластика спрямована на корекцію тканин над лобковою кісткою, а лабіопластика — на зміну форми чи розміру статевих губ. Це різні операції.",
+    "ru": {
+     "$": 152
+    },
+    "en": "Monsplasty corrects the tissues over the pubic bone, whereas labiaplasty changes the shape or size of the labia. They are different operations."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити пластику лобка після пологів?",
+    "ru": {
+     "$": 153
+    },
+    "en": "Can Monsplasty Be Done After Childbirth?"
+   },
+   "answer": {
+    "uk": "За наявності показань операцію можуть розглядати після завершення післяпологового відновлення. Оптимальні терміни визначають індивідуально.",
+    "ru": {
+     "$": 154
+    },
+    "en": "Where indicated, the operation may be considered once postpartum recovery is complete. The best timing is determined individually."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами після монспластики?",
+    "ru": {
+     "$": 155
+    },
+    "en": "Does Monsplasty Leave Scars?"
+   },
+   "answer": {
+    "uk": "Після хірургічного втручання залишаються рубці. Їхня вираженість і розташування залежать від обраної техніки та особливостей загоєння.",
+    "ru": {
+     "$": 156
+    },
+    "en": "Surgery leaves scars. How visible they are and where they lie depend on the chosen technique and individual healing."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи болісна пластика лобка?",
+    "ru": {
+     "$": 157
+    },
+    "en": "Is Monsplasty Painful?"
+   },
+   "answer": {
+    "uk": "Під час операції використовують анестезію. Після втручання можливі болючість, набряк і відчуття натягу тканин.",
+    "ru": {
+     "$": 158
+    },
+    "en": "Anaesthesia is used during the operation. Afterwards, soreness, swelling, and a feeling of tissue tightness are possible."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки триває відновлення після пластики лобка?",
+    "ru": {
+     "$": 159
+    },
+    "en": "How Long Is Recovery After Monsplasty?"
+   },
+   "answer": {
+    "uk": "Тривалість реабілітації залежить від обсягу операції. До легкої активності деякі пацієнти повертаються через один-два тижні, а повніше відновлення займає кілька тижнів або місяців.",
+    "ru": {
+     "$": 160
+    },
+    "en": "The length of recovery depends on the extent of the operation. Some patients return to light activities after one to two weeks, while a fuller recovery takes several weeks or months."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна поєднати пластику лобка з абдомінопластикою?",
+    "ru": {
+     "$": 161
+    },
+    "en": "Can Monsplasty Be Combined With Abdominoplasty?"
+   },
+   "answer": {
+    "uk": "У деяких випадках корекцію лобкової ділянки виконують одночасно з пластикою живота. Можливість поєднання процедур визначають після оцінки медичних ризиків.",
+    "ru": {
+     "$": 162
+    },
+    "en": "In some cases the pubic area is corrected at the same time as a tummy tuck. Whether the procedures can be combined is decided after assessing the medical risks."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": {
+     "$": 163
+    },
+    "en": "How Long Do the Results Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися тривалий час за стабільної маси тіла. Однак вікові зміни, вагітність і значні коливання ваги здатні впливати на контури тканин.",
+    "ru": {
+     "$": 164
+    },
+    "en": "The result can last a long time if body weight remains stable. However, ageing, pregnancy, and significant weight fluctuations can affect the contours of the tissues."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи впливає монспластика на інтимну чутливість?",
+    "ru": {
+     "$": 165
+    },
+    "en": "Does Monsplasty Affect Intimate Sensation?"
+   },
+   "answer": {
+    "uk": "Після операції можливі тимчасові або стійкі зміни чутливості шкіри в зоні втручання. Гарантувати її повне збереження неможливо.",
+    "ru": {
+     "$": 166
+    },
+    "en": "After surgery, temporary or permanent changes in skin sensation in the treated area are possible. Full preservation of sensation cannot be guaranteed."
+   }
+  }
+ ]
+}

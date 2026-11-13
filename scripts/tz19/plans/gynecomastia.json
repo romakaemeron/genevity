@@ -1,0 +1,664 @@
+{
+ "sortOrder": 131,
+ "related": ["liposuction", "body-contouring", "post-weight-loss-contouring"],
+ "title": {"uk": "Гінекомастія", "ru": "Гинекомастия", "en": "Gynecomastia"},
+ "summary": {
+  "uk": "Гінекомастія — збільшення грудних залоз у чоловіків, пов'язане з розростанням залозистої тканини. Зміни можуть зачіпати один або обидва боки грудної клітки, супроводжуватися чутливістю сосків, болючістю чи помітною зміною контурів грудей.",
+  "ru": {"$": 0},
+  "en": "Gynecomastia is an enlargement of the breasts in men caused by growth of glandular tissue. It can affect one or both sides of the chest and may be accompanied by nipple sensitivity, tenderness, or a noticeable change in chest contour."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/gynecomastia-hero.webp",
+   "heading": {"uk": "Що таке гінекомастія?", "ru": {"$": 5}, "en": "What Is Gynecomastia?"},
+   "body": {
+    "uk": "Гінекомастія — доброякісне збільшення залозистої тканини грудних залоз у чоловіків.\n\nУ нормі невелика кількість залозистої тканини є і в чоловічих грудях. Під впливом гормональних змін або інших чинників її об'єм може збільшуватися.\n\nГінекомастія трапляється в різні періоди життя, зокрема в підлітків і дорослих чоловіків.\n\nУ деяких пацієнтів зміни минають самостійно, в інших зберігаються тривалий час.\n\nЗбільшення чоловічих грудей не завжди пов'язане з гінекомастією. Причиною може бути надлишок жирової тканини, гормональні зміни, прийом деяких лікарських препаратів або певні захворювання.\n\nТому перед вибором лікування необхідно встановити причину змін.",
+    "ru": {"$": [6, 7, 8, 9, 2, 3]},
+    "en": "Gynecomastia is a benign enlargement of the glandular breast tissue in men.\n\nA small amount of glandular tissue is normally present in the male breast as well. Under the influence of hormonal changes or other factors, its volume can increase.\n\nGynecomastia can occur at different stages of life, including in adolescents and adult men.\n\nIn some patients the changes resolve on their own; in others they persist for a long time.\n\nAn enlarged male chest is not always due to gynecomastia. The cause may be excess fatty tissue, hormonal changes, certain medications, or particular medical conditions.\n\nThat is why the cause of the changes must be established before choosing a treatment."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає питання чоловічого здоров'я та естетичної корекції в межах комплексного підходу до фізичного стану, зовнішності та повсякденного комфорту людини.",
+    "ru": {"$": 1},
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — approaches men's health and aesthetic correction as part of a comprehensive view of a person's physical condition, appearance, and everyday comfort."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Характерні прояви", "ru": {"$": 10}, "en": "Typical Signs"},
+   "items": {
+    "$list": 11,
+    "uk": [
+     "збільшення об'єму однієї або обох грудних залоз;",
+     "припухлість у ділянці сосків;",
+     "ущільнення під ареолою, яке можна промацати;",
+     "підвищена чутливість грудних залоз;",
+     "болючість або дискомфорт під час дотику;",
+     "зміна звичного контуру грудної клітки."
+    ],
+    "en": [
+     "enlargement of one or both breasts;",
+     "swelling around the nipples;",
+     "a palpable firm area beneath the areola;",
+     "increased breast sensitivity;",
+     "tenderness or discomfort to the touch;",
+     "a change in the usual contour of the chest."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Водночас не кожне збільшення чоловічих грудей є справжньою гінекомастією. Для вибору правильного лікування важливо відрізняти розростання залозистої тканини від накопичення підшкірного жиру.",
+    "ru": {"$": 12},
+    "en": "However, not every enlargement of the male chest is true gynecomastia. To choose the right treatment, it is important to distinguish growth of glandular tissue from an accumulation of subcutaneous fat."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Види гінекомастії в чоловіків", "ru": {"$": 13}, "en": "Types of Gynecomastia in Men"},
+   "body": {
+    "uk": "У клінічній практиці важливо розрізняти кілька станів, які можуть виглядати схоже.\n\nСправжня гінекомастія пов'язана зі збільшенням залозистої тканини.\n\nПід час огляду лікар може виявити щільне або еластичне утворення під соском та ареолою.\n\nЗа тривалої справжньої гінекомастії зміна харчування та фізичні вправи зазвичай не дозволяють повністю усунути розрослу залозисту тканину.",
+    "ru": {"$": [14, 16, 17, 18]},
+    "en": "In clinical practice it is important to distinguish between several conditions that can look similar.\n\nTrue gynecomastia involves an increase in glandular tissue.\n\nOn examination, the doctor may find a firm or rubbery mass beneath the nipple and areola.\n\nWhen true gynecomastia has been present for a long time, dietary changes and exercise usually cannot fully eliminate the enlarged glandular tissue."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Хибна гінекомастія", "ru": {"$": 19}, "en": "False Gynecomastia"},
+   "body": {
+    "uk": "Хибна гінекомастія, або ліпомастія, — збільшення об'єму чоловічих грудей переважно за рахунок жирової тканини.\n\nВона часто поєднується із загальним надлишком маси тіла, але може спостерігатися й за індивідуальних особливостей розподілу жиру.\n\nЗа ліпомастії зниження ваги іноді дозволяє зменшити об'єм грудної клітки.\n\nЯкщо локальні жирові відкладення зберігаються, в окремих випадках може розглядатися ліпосакція.",
+    "ru": {"$": [20, 21, 22, 23]},
+    "en": "False gynecomastia, or lipomastia, is an enlargement of the male chest caused mainly by fatty tissue.\n\nIt is often associated with general excess body weight, but can also occur because of an individual pattern of fat distribution.\n\nWith lipomastia, weight loss can sometimes reduce the volume of the chest.\n\nIf localised fat deposits persist, liposuction may be considered in certain cases."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Змішана гінекомастія", "ru": {"$": 24}, "en": "Mixed Gynecomastia"},
+   "body": {
+    "uk": "За змішаної форми збільшення грудей пов'язане одночасно із залозистою та жировою тканиною.\n\nУ таких ситуаціях хірургічна корекція може включати видалення залозистого компонента та ліпосакцію.",
+    "ru": {"$": [25, 26]},
+    "en": "In the mixed form, chest enlargement involves both glandular and fatty tissue.\n\nIn such cases surgical correction may include removal of the glandular component together with liposuction."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Зміни можуть зачіпати одну грудну залозу або обидві.\n\nЗа одностороннього збільшення, особливо якщо воно з'явилося нещодавно, швидко прогресує або супроводжується щільним утворенням, необхідно виключити інші захворювання.",
+    "ru": {"$": [28, 29]},
+    "en": "The changes may affect one breast or both.\n\nWith one-sided enlargement — especially if it appeared recently, is progressing quickly, or is accompanied by a firm lump — other conditions must be ruled out."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Чому виникає гінекомастія?", "ru": {"$": 30}, "en": "What Causes Gynecomastia?"},
+   "body": {
+    "uk": "Причини збільшення чоловічих грудних залоз різноманітні. Нерідко цей стан пов'язаний зі зміною співвідношення дії андрогенів та естрогенів на тканину грудей.\n\nГінекомастія може розвиватися в період статевого дозрівання, а також у дорослих чоловіків за вікових змін гормонального фону.\n\nУ підлітків збільшення грудних залоз часто буває тимчасовим і може минати самостійно.\n\nОжиріння може супроводжуватися збільшенням жирової тканини грудей і змінами гормонального обміну.\n\nУ деяких пацієнтів справжня гінекомастія та ліпомастія присутні одночасно.\n\nЗбільшення грудних залоз може бути пов'язане з прийомом окремих ліків, зокрема деяких гормональних препаратів і засобів для лікування хронічних захворювань.\n\nСамостійно скасовувати призначені ліки не можна. Можливість зміни терапії необхідно обговорювати з лікуючим лікарем.\n\nВикористання анаболічних стероїдів може порушувати гормональний баланс і сприяти розвитку гінекомастії.\n\nІноді збільшення чоловічих грудей пов'язане з гіпогонадизмом, порушеннями функції щитоподібної залози, захворюваннями печінки, нирок або пухлинами, що впливають на гормональний обмін.\n\nУ частині випадків установити конкретну причину не вдається.",
+    "ru": {"$": [31, 33, 34, 36, 37, 39, 40, 42, 44, 45]},
+    "en": "The causes of male breast enlargement vary. The condition is often linked to a shift in the balance between the effects of androgens and oestrogens on breast tissue.\n\nGynecomastia can develop during puberty, and in adult men with age-related hormonal changes.\n\nIn adolescents, breast enlargement is often temporary and may resolve on its own.\n\nObesity can be accompanied by increased fatty tissue in the chest and changes in hormone metabolism.\n\nSome patients have true gynecomastia and lipomastia at the same time.\n\nBreast enlargement may be associated with certain medications, including some hormonal drugs and treatments for chronic conditions.\n\nNever stop prescribed medication on your own. Any change to treatment should be discussed with the doctor who prescribed it.\n\nAnabolic steroid use can disrupt hormonal balance and contribute to the development of gynecomastia.\n\nMale breast enlargement is sometimes associated with hypogonadism, thyroid dysfunction, liver or kidney disease, or tumours that affect hormone metabolism.\n\nIn some cases a specific cause cannot be identified."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Головний принцип лікування — спочатку з'ясувати причину гінекомастії, а потім обирати метод корекції.",
+    "ru": {"$": 46},
+    "en": "The key principle of treatment is to identify the cause of gynecomastia first, and only then to choose a correction method."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Як зрозуміти, що в чоловіка гінекомастія?", "ru": {"$": 47}, "en": "How Can a Man Tell If He Has Gynecomastia?"},
+   "body": {
+    "uk": "Зовнішній вигляд грудної клітки не завжди дозволяє точно визначити характер змін.\n\nЗа справжньої гінекомастії під ареолою може промацуватися залозиста тканина. За ліпомастії збільшення грудей частіше пов'язане з рівномірнішим розподілом жиру.\n\nПроте самостійно достовірно відрізнити ці стани складно.\n\nЗа потреби призначають аналізи та візуалізацію грудних залоз.",
+    "ru": {"$": [48, 49, 50, 53]},
+    "en": "The appearance of the chest does not always make it possible to determine the nature of the changes accurately.\n\nWith true gynecomastia, glandular tissue may be felt beneath the areola. With lipomastia, the enlargement is more often due to a more even distribution of fat.\n\nHowever, it is difficult to reliably tell these conditions apart on your own.\n\nWhere necessary, laboratory tests and breast imaging are ordered."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Для діагностики лікар оцінює", "ru": {"$": 51}, "en": "For Diagnosis, the Doctor Assesses"},
+   "items": {
+    "$list": 52,
+    "uk": [
+     "тривалість збільшення грудних залоз;",
+     "наявність болючості;",
+     "односторонній чи двосторонній характер змін;",
+     "масу тіла та її коливання;",
+     "ліки та інші речовини, які приймає пацієнт;",
+     "особливості статевого розвитку;",
+     "симптоми можливих ендокринних захворювань;",
+     "результати огляду та додаткових досліджень."
+    ],
+    "en": [
+     "how long the breast enlargement has been present;",
+     "whether there is tenderness;",
+     "whether the changes are one-sided or on both sides;",
+     "body weight and any fluctuations in it;",
+     "medications and other substances being taken;",
+     "features of sexual development;",
+     "symptoms of possible endocrine disorders;",
+     "the results of the examination and additional investigations."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Коли необхідно звернутися до лікаря?", "ru": {"$": 54}, "en": "When Should You See a Doctor?"},
+   "body": {
+    "uk": "Будь-яке нове або незрозуміле збільшення чоловічих грудей потребує медичної оцінки.",
+    "ru": {"$": 55},
+    "en": "Any new or unexplained enlargement of the male breast warrants medical assessment."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Особливо важливо не відкладати звернення, якщо з'явилися", "ru": {"$": 56}, "en": "It Is Especially Important Not to Delay If You Notice"},
+   "items": {
+    "$list": 57,
+    "uk": [
+     "утворення в грудях, що швидко росте;",
+     "щільний вузол, розташований не безпосередньо під соском;",
+     "виділення із соска, особливо кров'янисті;",
+     "втягнення соска;",
+     "зміни шкіри, виразки або виражене ущільнення;",
+     "збільшення лімфатичних вузлів у пахвовій ділянці;",
+     "стійкий односторонній біль або припухлість."
+    ],
+    "en": [
+     "a rapidly growing lump in the breast;",
+     "a firm nodule that is not located directly beneath the nipple;",
+     "nipple discharge, especially if bloody;",
+     "nipple retraction;",
+     "skin changes, sores, or marked hardening;",
+     "enlarged lymph nodes in the armpit;",
+     "persistent one-sided pain or swelling."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Ці ознаки не обов'язково означають злоякісне захворювання, але потребують діагностики.\n\nЕстетичну операцію не можна планувати замість обстеження підозрілого утворення грудної залози.",
+    "ru": {"$": [58, 59]},
+    "en": "These signs do not necessarily mean a malignant condition, but they do require investigation.\n\nAn aesthetic operation must never be planned in place of investigating a suspicious breast lump."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {"uk": "Діагностика гінекомастії в Дніпрі", "ru": {"$": 60}, "en": "Gynecomastia Diagnosis in Dnipro"},
+   "steps": [
+    {
+     "title": {"uk": "Огляд грудних залоз", "ru": {"$": 63}, "en": "Breast Examination"},
+     "description": {
+      "uk": "Лікар оцінює об'єм, симетрію, консистенцію тканин, стан сосків і ареол.\n\nЦе допомагає попередньо відрізнити справжню гінекомастію від переважного накопичення жирової тканини.",
+      "ru": {"$": [64, 65]},
+      "en": "The doctor assesses volume, symmetry, tissue consistency, and the condition of the nipples and areolas.\n\nThis helps to make a preliminary distinction between true gynecomastia and a predominant build-up of fatty tissue."
+     }
+    },
+    {
+     "title": {"uk": "УЗД грудних залоз", "ru": {"$": 66}, "en": "Breast Ultrasound"},
+     "description": {
+      "uk": "Ультразвукове дослідження може застосовуватися для оцінки структури тканин і уточнення характеру змін.\n\nЗа підозри на злоякісний процес лікар може призначити мамографію та біопсію за показаннями.",
+      "ru": {"$": [67, 68]},
+      "en": "Ultrasound may be used to assess tissue structure and clarify the nature of the changes.\n\nIf a malignant process is suspected, the doctor may order mammography and, where indicated, a biopsy."
+     }
+    },
+    {
+     "title": {"uk": "Гормональні дослідження", "ru": {"$": 69}, "en": "Hormone Tests"},
+     "description": {
+      "uk": "Залежно від результатів огляду можуть оцінюватися тестостерон, естрадіол, ЛГ, ФСГ, ТТГ, пролактин та інші показники.\n\nСклад обстеження визначається індивідуально.",
+      "ru": {"$": [70, 71]},
+      "en": "Depending on the examination findings, testosterone, oestradiol, LH, FSH, TSH, prolactin and other markers may be measured.\n\nThe scope of testing is determined individually."
+     }
+    },
+    {
+     "title": {"uk": "Додаткова діагностика", "ru": {"$": 72}, "en": "Further Investigations"},
+     "description": {
+      "uk": "За підозри на захворювання, пов'язані з гормональними порушеннями, може знадобитися оцінка функції печінки та нирок, обстеження яєчок та інші дослідження.",
+      "ru": {"$": 73},
+      "en": "If a condition related to a hormonal disturbance is suspected, liver and kidney function tests, a testicular examination, and other investigations may be needed."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Діагностика починається з консультації лікаря, збору анамнезу та фізикального огляду.\n\nЗалежно від клінічної ситуації можуть знадобитися консультації ендокринолога, мамолога, хірурга або інших фахівців.\n\nПісля встановлення причини лікар визначає, чи потрібне лікування основного захворювання, спостереження або хірургічна корекція.",
+    "ru": {"$": [61, 62, 74]},
+    "en": "Diagnosis begins with a doctor's consultation, a medical history, and a physical examination.\n\nDepending on the clinical situation, consultations with an endocrinologist, a breast specialist, a surgeon, or other specialists may be needed.\n\nOnce the cause is established, the doctor determines whether treatment of an underlying condition, observation, or surgical correction is needed."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Чи можна вилікувати гінекомастію без операції?", "ru": {"$": 75}, "en": "Can Gynecomastia Be Treated Without Surgery?"},
+   "body": {
+    "uk": "Не кожному пацієнтові з гінекомастією потрібне хірургічне втручання.\n\nВибір лікування залежить від причини, тривалості стану, вираженості симптомів і характеру тканин.\n\nУ підлітковому віці гінекомастія нерідко зменшується самостійно. Якщо обстеження не виявляє небезпечних причин, лікар може рекомендувати спостереження.\n\nЯкщо збільшення грудних залоз пов'язане з ендокринним або іншим захворюванням, необхідно лікувати виявлену причину.\n\nЯкщо припускається зв'язок із препаратом, лікар може оцінити можливість його заміни або зміни схеми лікування.\n\nЗа ліпомастії зменшення загальної кількості жирової тканини може покращити контур грудної клітки.\n\nПроте схуднення не завжди усуває справжню гінекомастію.\n\nУ певних клінічних ситуаціях фахівець може розглянути медикаментозну терапію.",
+    "ru": {"$": [76, 77, 79, 81, 83, 85, 86, 88]},
+    "en": "Not every patient with gynecomastia needs surgery.\n\nThe choice of treatment depends on the cause, how long the condition has been present, the severity of symptoms, and the nature of the tissue.\n\nIn adolescence, gynecomastia often regresses on its own. If examination finds no serious cause, the doctor may recommend observation.\n\nIf the breast enlargement is linked to an endocrine or other condition, the identified cause needs to be treated.\n\nIf a medication is suspected, the doctor may consider replacing it or changing the treatment regimen.\n\nWith lipomastia, reducing overall body fat can improve the contour of the chest.\n\nHowever, weight loss does not always eliminate true gynecomastia.\n\nIn certain clinical situations a specialist may consider drug therapy."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Водночас гормональні препарати та антиестрогенні засоби не є універсальним методом лікування гінекомастії і не повинні застосовуватися самостійно.",
+    "ru": {"$": 89},
+    "en": "Hormonal and anti-oestrogen drugs are not, however, a universal treatment for gynecomastia and must never be self-prescribed."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Видалення гінекомастії в чоловіків", "ru": {"$": 91}, "en": "Gynecomastia Removal in Men"},
+   "body": {
+    "uk": "Якщо залозиста тканина збільшена давно і зміни зберігаються після усунення можливих причин, може розглядатися операція.\n\nХірургічне лікування гінекомастії спрямоване на зменшення об'єму грудних залоз і корекцію контуру чоловічої грудної клітки.\n\nОперація може включати видалення залозистої тканини, ліпосакцію або поєднання методів.\n\nЗа вираженого надлишку шкіри іноді потрібна додаткова підтяжка.",
+    "ru": {"$": [90, 92, 93, 94]},
+    "en": "If the glandular tissue has been enlarged for a long time and the changes persist after possible causes have been addressed, surgery may be considered.\n\nSurgical treatment of gynecomastia aims to reduce breast volume and correct the contour of the male chest.\n\nThe operation may involve removal of glandular tissue, liposuction, or a combination of the two.\n\nWhere there is significant excess skin, an additional lift is sometimes required."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Видалення залозистої тканини", "ru": {"$": 95}, "en": "Removal of Glandular Tissue"},
+   "body": {
+    "uk": "За справжньої гінекомастії хірург видаляє надлишок залозистої тканини через запланований розріз.\n\nОдин із поширених варіантів доступу розташовується по межі ареоли, однак конкретна техніка залежить від анатомії.\n\nМета операції — зменшити об'єм тканини та сформувати рівніший контур грудей, зберігши кровопостачання й чутливість сосково-ареолярного комплексу настільки, наскільки це можливо.",
+    "ru": {"$": [96, 97, 98]},
+    "en": "In true gynecomastia, the surgeon removes the excess glandular tissue through a planned incision.\n\nOne common approach places the incision along the edge of the areola, although the specific technique depends on the anatomy.\n\nThe aim of the operation is to reduce tissue volume and create a smoother chest contour while preserving the blood supply and sensation of the nipple-areola complex as far as possible."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Ліпосакція при гінекомастії", "ru": {"$": 99}, "en": "Liposuction for Gynecomastia"},
+   "body": {
+    "uk": "Ліпосакція застосовується для видалення надлишкової жирової тканини.\n\nЗа переважно жирового збільшення грудей вона може використовуватися як самостійний метод.\n\nЯкщо присутній значний залозистий компонент, самої ліпосакції часто недостатньо.",
+    "ru": {"$": [100, 101, 102]},
+    "en": "Liposuction is used to remove excess fatty tissue.\n\nWhen chest enlargement is mainly due to fat, it can be used as a stand-alone method.\n\nWhere there is a significant glandular component, liposuction alone is often not enough."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Комбінована корекція", "ru": {"$": 103}, "en": "Combined Correction"},
+   "body": {
+    "uk": "За змішаної гінекомастії хірург може поєднувати видалення залозистої тканини з ліпосакцією.\n\nТакий підхід дозволяє коригувати різні компоненти збільшення грудей.",
+    "ru": {"$": [104, 105]},
+    "en": "In mixed gynecomastia, the surgeon may combine removal of glandular tissue with liposuction.\n\nThis approach makes it possible to address the different components of the chest enlargement."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Видалення надлишку шкіри", "ru": {"$": 106}, "en": "Removal of Excess Skin"},
+   "body": {
+    "uk": "За значного збільшення грудних залоз або після вираженого схуднення шкіра може втратити еластичність.\n\nВ окремих випадках потрібне видалення її надлишку та корекція положення ареоли.\n\nТакі втручання можуть супроводжуватися довшими рубцями.",
+    "ru": {"$": [107, 108, 109]},
+    "en": "With significant breast enlargement or after major weight loss, the skin may lose its elasticity.\n\nIn some cases the excess skin must be removed and the position of the areola corrected.\n\nSuch procedures may leave longer scars."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {"uk": "Кому підходить операція при гінекомастії?", "ru": {"$": 110}, "en": "Who Is Gynecomastia Surgery Suitable For?"},
+   "indications": {
+    "$list": 112,
+    "uk": [
+     "проведено необхідну діагностику;",
+     "виключено стани, що потребують іншого лікування;",
+     "усунуто або стабілізовано можливі причини збільшення грудей;",
+     "зміни зберігаються тривалий час;",
+     "є фізичний або виражений естетичний дискомфорт;",
+     "пацієнт розуміє обмеження та ризики операції;",
+     "загальний стан здоров'я дозволяє провести втручання."
+    ],
+    "en": [
+     "the necessary diagnostic work-up has been completed;",
+     "conditions requiring other treatment have been ruled out;",
+     "possible causes of the breast enlargement have been eliminated or stabilised;",
+     "the changes have persisted for a long time;",
+     "there is physical or marked aesthetic discomfort;",
+     "the patient understands the limitations and risks of the operation;",
+     "the patient's general health allows the procedure to be performed."
+    ]
+   },
+   "contraindicationsHeading": {"uk": "Протипоказання до операції", "ru": {"$": 158}, "en": "Contraindications to Surgery"},
+   "contraindications": {
+    "$list": 161,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "декомпенсовані хронічні хвороби;",
+     "порушення згортання крові;",
+     "активні стани, що потребують першочергового лікування;",
+     "нез'ясована причина підозрілого утворення в грудях;",
+     "високий ризик ускладнень анестезії;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "decompensated chronic conditions;",
+     "blood clotting disorders;",
+     "active conditions that require treatment first;",
+     "a suspicious breast lump whose cause has not been established;",
+     "a high risk of anaesthetic complications;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Рішення про можливість операції ухвалюється після обстеження.\n\nЗа активного гормонального порушення спочатку може знадобитися відповідне лікування.\n\nУ підлітків питання операції розглядається особливо обережно, з урахуванням стадії розвитку та ймовірності самостійного зменшення грудних залоз.",
+    "ru": {"$": [162, 113, 114]},
+    "en": "The decision on whether surgery is possible is made after an examination.\n\nIf there is an active hormonal disorder, appropriate treatment may be needed first.\n\nIn adolescents, surgery is considered with particular caution, taking into account the stage of development and the likelihood that the breast enlargement will resolve on its own."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {"uk": "Як проходить операція з видалення гінекомастії?", "ru": {"$": 115}, "en": "How Is Gynecomastia Surgery Performed?"},
+   "steps": [
+    {
+     "title": {"uk": "1. Консультація та планування", "ru": {"$": 117}, "en": "1. Consultation and Planning"},
+     "description": {
+      "uk": "Пластичний хірург оцінює об'єм залозистої та жирової тканини, еластичність шкіри, симетрію грудей і розташування ареол.\n\nОбговорюються можливі методи корекції, майбутні рубці та очікуваний результат.",
+      "ru": {"$": [118, 119]},
+      "en": "The plastic surgeon assesses the volume of glandular and fatty tissue, skin elasticity, chest symmetry, and the position of the areolas.\n\nPossible correction methods, future scars, and the expected result are discussed."
+     }
+    },
+    {
+     "title": {"uk": "2. Передопераційна підготовка", "ru": {"$": 120}, "en": "2. Preoperative Preparation"},
+     "description": {
+      "uk": "Перед операцією проводиться обстеження та оцінка анестезіологічних ризиків.\n\nЗа потреби пацієнт попередньо проходить консультацію ендокринолога або інших фахівців.",
+      "ru": {"$": [121, 122]},
+      "en": "Before surgery, investigations are carried out and anaesthetic risks are assessed.\n\nIf needed, the patient first sees an endocrinologist or other specialists."
+     }
+    },
+    {
+     "title": {"uk": "3. Анестезія", "ru": {"$": 123}, "en": "3. Anaesthesia"},
+     "description": {
+      "uk": "Залежно від обсягу втручання можуть використовуватися різні варіанти анестезії.\n\nВідповідний метод визначають хірург і анестезіолог.",
+      "ru": {"$": [124, 125]},
+      "en": "Depending on the extent of the procedure, different types of anaesthesia may be used.\n\nThe appropriate method is chosen by the surgeon and the anaesthetist."
+     }
+    },
+    {
+     "title": {"uk": "4. Хірургічна корекція", "ru": {"$": 126}, "en": "4. Surgical Correction"},
+     "description": {
+      "uk": "Лікар видаляє запланований об'єм залозистої та/або жирової тканини.\n\nЗа потреби виконується корекція надлишку шкіри.",
+      "ru": {"$": [127, 128]},
+      "en": "The surgeon removes the planned volume of glandular and/or fatty tissue.\n\nExcess skin is corrected where necessary."
+     }
+    },
+    {
+     "title": {"uk": "5. Післяопераційне спостереження", "ru": {"$": 129}, "en": "5. Postoperative Monitoring"},
+     "description": {
+      "uk": "Після втручання контролюють стан тканин, кровотечу, набряк і загальне самопочуття пацієнта.\n\nУ деяких випадках встановлюються тимчасові дренажі.\n\nНеобхідність перебування в стаціонарі залежить від складності операції та стану пацієнта.",
+      "ru": {"$": [130, 131, 132]},
+      "en": "After the procedure, the condition of the tissues, any bleeding, swelling, and the patient's general well-being are monitored.\n\nIn some cases temporary drains are placed.\n\nWhether a hospital stay is needed depends on the complexity of the operation and the patient's condition."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/gynecomastia-inline.webp",
+   "heading": {"uk": "Відновлення після видалення гінекомастії", "ru": {"$": 133}, "en": "Recovery After Gynecomastia Surgery"},
+   "body": {
+    "uk": "Після хірургічної корекції можливі набряклість, синці, болючість і тимчасове зниження чутливості шкіри грудей.\n\nТривалість відновлення залежить від обсягу операції.\n\nУ перші тижні важливо обмежувати навантаження на грудні м'язи та уникати дій, що спричиняють натягнення післяопераційних тканин.",
+    "ru": {"$": [134, 135, 136]},
+    "en": "After surgical correction, swelling, bruising, tenderness, and temporarily reduced skin sensation over the chest are possible.\n\nThe length of recovery depends on the extent of the operation.\n\nIn the first weeks it is important to limit strain on the chest muscles and avoid movements that stretch the healing tissues."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Основні рекомендації після операції", "ru": {"$": 137}, "en": "Key Recommendations After Surgery"},
+   "items": {
+    "$list": 138,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "носити компресійну білизну, якщо її рекомендовано;",
+     "правильно доглядати за післяопераційними ранами;",
+     "тимчасово обмежувати піднімання важкого;",
+     "уникати інтенсивних тренувань грудних м'язів;",
+     "поступово повертатися до фізичної активності;",
+     "не приймати препарати без погодження з лікарем;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "wear compression garments if recommended;",
+     "care for the surgical wounds properly;",
+     "temporarily avoid lifting heavy objects;",
+     "avoid intense chest workouts;",
+     "return to physical activity gradually;",
+     "do not take any medication without your doctor's approval;",
+     "attend follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Скільки триває реабілітація?", "ru": {"$": 139}, "en": "How Long Does Recovery Take?"},
+   "body": {
+    "uk": "Після відносно невеликого втручання повернення до легкої роботи може бути можливим через кілька днів або один-два тижні.\n\nПісля обширнішої операції відновлення займає більше часу.\n\nІнтенсивні навантаження часто обмежуються на кілька тижнів. Повне повернення до тренувань визначає хірург.\n\nОстаточний контур грудної клітки зазвичай оцінюють через кілька місяців, коли зменшується набряк і стабілізуються тканини.",
+    "ru": {"$": [140, 141, 142, 143]},
+    "en": "After a relatively minor procedure, a return to light work may be possible within a few days or one to two weeks.\n\nAfter more extensive surgery, recovery takes longer.\n\nStrenuous activity is often restricted for several weeks. A full return to training is decided by the surgeon.\n\nThe final contour of the chest is usually assessed after several months, once swelling has subsided and the tissues have settled."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Чи залишаються рубці після видалення гінекомастії?", "ru": {"$": 144}, "en": "Do Scars Remain After Gynecomastia Surgery?"},
+   "body": {
+    "uk": "Будь-яка хірургічна операція з розрізами залишає рубці.\n\nПід час видалення залозистої тканини розріз може розташовуватися по межі ареоли, що іноді робить рубець менш помітним.\n\nПісля ліпосакції залишаються невеликі сліди від хірургічних доступів.\n\nЗа значного надлишку шкіри можуть знадобитися довші розрізи.\n\nЗ часом рубці зазвичай стають менш вираженими, але повністю не зникають.\n\nЇхній вигляд залежить від індивідуальних особливостей загоєння та післяопераційного догляду.",
+    "ru": {"$": [145, 146, 147, 148, 149, 150]},
+    "en": "Any surgery involving incisions leaves scars.\n\nWhen glandular tissue is removed, the incision can be placed along the edge of the areola, which sometimes makes the scar less noticeable.\n\nLiposuction leaves small marks at the access points.\n\nWith significant excess skin, longer incisions may be needed.\n\nOver time scars usually become less pronounced, but they do not disappear completely.\n\nTheir appearance depends on individual healing and postoperative care."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Результат операції при гінекомастії", "ru": {"$": 151}, "en": "Results of Gynecomastia Surgery"},
+   "body": {
+    "uk": "Хірургічна корекція може зменшити об'єм чоловічих грудей і зробити контур грудної клітки більш пласким.\n\nВодночас результат залежить від вихідної анатомії, об'єму видалених тканин і стану шкіри.",
+    "ru": {"$": [152, 153]},
+    "en": "Surgical correction can reduce the volume of the male chest and make the chest contour flatter.\n\nThe result, however, depends on the initial anatomy, the amount of tissue removed, and the condition of the skin."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Можливі зміни", "ru": {"$": 154}, "en": "Possible Changes"},
+   "items": {
+    "$list": 155,
+    "uk": [
+     "зменшення об'єму грудей, що виступає;",
+     "корекція контуру під ареолою;",
+     "зменшення асиметрії;",
+     "видалення надлишкової залозистої тканини;",
+     "покращення пропорцій грудної клітки."
+    ],
+    "en": [
+     "reduced chest projection;",
+     "correction of the contour beneath the areola;",
+     "reduced asymmetry;",
+     "removal of excess glandular tissue;",
+     "improved chest proportions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Повна симетрія та відсутність помітних рубців не гарантуються.\n\nРезультат може зберігатися тривалий час, однак повторне збільшення грудей можливе за збереження гормональних порушень, використання певних препаратів або суттєвої зміни маси тіла.",
+    "ru": {"$": [156, 157]},
+    "en": "Perfect symmetry and the absence of visible scars cannot be guaranteed.\n\nThe result can last a long time, but the chest may enlarge again if hormonal disturbances persist, certain medications are used, or body weight changes significantly."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Можливі ризики та ускладнення", "ru": {"$": 163}, "en": "Possible Risks and Complications"},
+   "items": {
+    "$list": 166,
+    "uk": [
+     "кровотеча та гематома;",
+     "інфекція;",
+     "скупчення рідини — серома;",
+     "порушення загоєння;",
+     "асиметрія грудної клітки;",
+     "нерівності контуру;",
+     "надмірне або недостатнє видалення тканин;",
+     "зміна чутливості сосків;",
+     "помітне рубцювання;",
+     "пошкодження або порушення кровопостачання тканин;",
+     "тромбоемболічні ускладнення;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "fluid accumulation (seroma);",
+     "impaired healing;",
+     "chest asymmetry;",
+     "contour irregularities;",
+     "excessive or insufficient tissue removal;",
+     "changes in nipple sensation;",
+     "noticeable scarring;",
+     "tissue damage or impaired blood supply;",
+     "thromboembolic complications;",
+     "the need for a further operation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Видалення гінекомастії — повноцінне хірургічне втручання.\n\nПеред втручанням лікар має пояснити індивідуальні ризики та отримати інформовану згоду пацієнта.",
+    "ru": {"$": [164, 167]},
+    "en": "Gynecomastia removal is a full surgical procedure.\n\nBefore surgery, the doctor must explain the individual risks and obtain the patient's informed consent."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Гінекомастія та заняття спортом", "ru": {"$": 168}, "en": "Gynecomastia and Exercise"},
+   "body": {
+    "uk": "Фізична активність допомагає підтримувати нормальну масу тіла та розвивати грудні м'язи.\n\nОднак тренування не дозволяють усунути розрослу залозисту тканину за справжньої гінекомастії.\n\nЯкщо збільшення грудей пов'язане переважно з жировими відкладеннями, зниження маси тіла може зменшити його об'єм.\n\nЗа змішаної форми зміни після схуднення можуть бути частковими.\n\nТому вибір між тренуваннями, спостереженням, медикаментозним лікуванням і операцією залежить від причини збільшення грудей.",
+    "ru": {"$": [169, 170, 171, 172, 173]},
+    "en": "Physical activity helps maintain a healthy body weight and develop the chest muscles.\n\nHowever, training cannot eliminate enlarged glandular tissue in true gynecomastia.\n\nIf the chest enlargement is mainly due to fat deposits, losing weight may reduce its volume.\n\nIn the mixed form, the changes after weight loss may be only partial.\n\nThe choice between exercise, observation, drug treatment, and surgery therefore depends on the cause of the enlargement."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Гінекомастія та якість життя чоловіка", "ru": {"$": 174}, "en": "Gynecomastia and Men's Quality of Life"},
+   "body": {
+    "uk": "Збільшення грудних залоз може супроводжуватися не лише фізичним дискомфортом, а й переживаннями щодо зовнішності.\n\nДеякі чоловіки відчувають незручність під час вибору одягу, занять спортом або відвідування басейну.\n\nПри цьому гінекомастія — медичний стан, а не ознака недостатньої фізичної підготовки чи особистої недбалості.\n\nОбговорюючи хірургічне лікування, важливо враховувати не лише зовнішній вигляд грудної клітки, а й причини змін, загальний стан здоров'я, очікування пацієнта та можливі ризики.",
+    "ru": {"$": [175, 176, 177, 179]},
+    "en": "Breast enlargement can bring not only physical discomfort but also concerns about appearance.\n\nSome men feel self-conscious when choosing clothes, playing sports, or going to the swimming pool.\n\nGynecomastia is a medical condition, not a sign of poor fitness or personal neglect.\n\nWhen discussing surgical treatment, it is important to consider not only the appearance of the chest but also the causes of the changes, general health, the patient's expectations, and the possible risks."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя — розглядає чоловіче здоров'я в контексті фізичного стану, психологічного благополуччя та індивідуальних потреб.",
+    "ru": {"$": 178},
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life — views men's health in the context of physical condition, psychological well-being, and individual needs."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Скільки коштує видалення гінекомастії в Дніпрі?", "ru": {"$": 180}, "en": "How Much Does Gynecomastia Removal Cost in Dnipro?"},
+   "body": {
+    "uk": "Ціна операції при гінекомастії в Дніпрі залежить від характеру збільшення грудей, обсягу втручання та обраної хірургічної техніки.",
+    "ru": {"$": 181},
+    "en": "The price of gynecomastia surgery in Dnipro depends on the type of chest enlargement, the extent of the procedure, and the surgical technique chosen."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "На вартість можуть впливати", "ru": {"$": 182}, "en": "Factors That May Affect the Cost"},
+   "items": {
+    "$list": 183,
+    "uk": [
+     "справжня, хибна чи змішана форма збільшення грудей;",
+     "одностороння чи двостороння корекція;",
+     "необхідність видалення залозистої тканини;",
+     "застосування ліпосакції;",
+     "необхідність видалення надлишку шкіри;",
+     "вид анестезії;",
+     "передопераційні обстеження;",
+     "перебування в стаціонарі та післяопераційне спостереження."
+    ],
+    "en": [
+     "whether the enlargement is true, false, or mixed;",
+     "one-sided or bilateral correction;",
+     "the need to remove glandular tissue;",
+     "the use of liposuction;",
+     "the need to remove excess skin;",
+     "the type of anaesthesia;",
+     "preoperative investigations;",
+     "hospital stay and postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після діагностики та складання індивідуального плану лікування.\n\nЯкщо ви помітили збільшення грудних залоз, зміну форми грудей або дискомфорт у ділянці сосків, першим кроком має стати медична консультація.\n\nВажливо визначити, чи пов'язане збільшення грудей із залозистою тканиною, жировими відкладеннями або іншим станом.\n\nПісля діагностики фахівець зможе пояснити можливі варіанти лікування та визначити, чи є показання до хірургічної корекції.",
+    "ru": {"$": [184, 214, 215, 216]},
+    "en": "The exact cost is determined after diagnosis and an individual treatment plan.\n\nIf you have noticed breast enlargement, a change in chest shape, or discomfort around the nipples, your first step should be a medical consultation.\n\nIt is important to establish whether the enlargement is due to glandular tissue, fat deposits, or another condition.\n\nAfter diagnosis, the specialist will be able to explain the possible treatment options and determine whether there are indications for surgical correction."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {"uk": "Що таке гінекомастія в чоловіків?", "ru": {"$": 187}, "en": "What Is Gynecomastia in Men?"},
+   "answer": {"uk": "Гінекомастія — доброякісне збільшення залозистої тканини чоловічих грудей. Вона може виникати в різному віці й мати різні причини.", "ru": {"$": 188}, "en": "Gynecomastia is a benign enlargement of glandular tissue in the male breast. It can occur at different ages and has a variety of causes."}
+  },
+  {
+   "question": {"uk": "Чим справжня гінекомастія відрізняється від хибної?", "ru": {"$": 189}, "en": "How Does True Gynecomastia Differ from False Gynecomastia?"},
+   "answer": {"uk": "Справжня гінекомастія пов'язана з розростанням залозистої тканини, а хибна — переважно з накопиченням жиру. У деяких пацієнтів присутні обидва компоненти.", "ru": {"$": 190}, "en": "True gynecomastia involves growth of glandular tissue, whereas false gynecomastia is mainly due to fat accumulation. Some patients have both components."}
+  },
+  {
+   "question": {"uk": "Чи може гінекомастія минути самостійно?", "ru": {"$": 191}, "en": "Can Gynecomastia Go Away on Its Own?"},
+   "answer": {"uk": "Так, особливо в підлітковому віці. У дорослих чоловіків імовірність самостійного зменшення залежить від причини та тривалості стану.", "ru": {"$": 192}, "en": "Yes, especially in adolescence. In adult men, the likelihood of it regressing on its own depends on the cause and how long the condition has been present."}
+  },
+  {
+   "question": {"uk": "Чи можна позбутися гінекомастії вправами?", "ru": {"$": 193}, "en": "Can Gynecomastia Be Eliminated with Exercise?"},
+   "answer": {"uk": "Тренування можуть зменшити жирову складову та покращити форму грудних м'язів, але не усувають стійкого розростання залозистої тканини.", "ru": {"$": 194}, "en": "Training can reduce the fatty component and improve the shape of the chest muscles, but it does not eliminate persistent growth of glandular tissue."}
+  },
+  {
+   "question": {"uk": "Чи потрібно здавати аналізи на гормони?", "ru": {"$": 195}, "en": "Do I Need Hormone Tests?"},
+   "answer": {"uk": "Необхідність і склад гормонального обстеження визначає лікар. Аналізи особливо важливі за підозри на ендокринну причину збільшення грудей.", "ru": {"$": 196}, "en": "Whether hormone testing is needed, and which tests, is decided by the doctor. Tests are particularly important when an endocrine cause of the breast enlargement is suspected."}
+  },
+  {
+   "question": {"uk": "Чи завжди потрібна операція?", "ru": {"$": 197}, "en": "Is Surgery Always Necessary?"},
+   "answer": {"uk": "Ні. Іноді достатньо спостереження, лікування основного захворювання або корекції чинників, що спричинили збільшення грудей.", "ru": {"$": 198}, "en": "No. Sometimes observation, treatment of the underlying condition, or correcting the factors that caused the enlargement is enough."}
+  },
+  {
+   "question": {"uk": "Чи можна видалити гінекомастію лише ліпосакцією?", "ru": {"$": 199}, "en": "Can Gynecomastia Be Removed with Liposuction Alone?"},
+   "answer": {"uk": "Якщо збільшення пов'язане переважно з жиром, ліпосакція може бути відповідним методом. За вираженого залозистого компонента часто потрібне його хірургічне видалення.", "ru": {"$": 200}, "en": "If the enlargement is mainly due to fat, liposuction may be an appropriate method. With a pronounced glandular component, surgical removal of that tissue is often required."}
+  },
+  {
+   "question": {"uk": "Чи болісна операція?", "ru": {"$": 201}, "en": "Is the Operation Painful?"},
+   "answer": {"uk": "Під час втручання застосовується анестезія. Після операції можливі болючість, набряк і відчуття натягнення тканин.", "ru": {"$": 202}, "en": "Anaesthesia is used during the procedure. Afterwards, tenderness, swelling, and a feeling of tightness in the tissues are possible."}
+  },
+  {
+   "question": {"uk": "Скільки триває відновлення?", "ru": {"$": 203}, "en": "How Long Does Recovery Take?"},
+   "answer": {"uk": "Терміни залежать від обсягу корекції. До легкої активності деякі пацієнти повертаються протягом кількох днів, а відновлення після обширнішої операції може тривати кілька тижнів.", "ru": {"$": 204}, "en": "It depends on the extent of the correction. Some patients return to light activity within a few days, while recovery after more extensive surgery can take several weeks."}
+  },
+  {
+   "question": {"uk": "Чи залишаються шрами після видалення гінекомастії?", "ru": {"$": 205}, "en": "Do Scars Remain After Gynecomastia Removal?"},
+   "answer": {"uk": "Так, рубці залишаються після будь-якого хірургічного розрізу. Їхнє розташування та вираженість залежать від техніки операції та особливостей загоєння.", "ru": {"$": 206}, "en": "Yes, any surgical incision leaves a scar. Their location and visibility depend on the surgical technique and how the individual heals."}
+  },
+  {
+   "question": {"uk": "Чи може гінекомастія з'явитися знову?", "ru": {"$": 207}, "en": "Can Gynecomastia Come Back?"},
+   "answer": {"uk": "Повторне збільшення грудей можливе, особливо якщо зберігаються гормональні порушення, триває вплив препаратів, що його провокують, або суттєво змінюється маса тіла.", "ru": {"$": 208}, "en": "The chest can enlarge again, particularly if hormonal disturbances persist, exposure to triggering medications continues, or body weight changes significantly."}
+  },
+  {
+   "question": {"uk": "Чи може збільшення чоловічих грудей бути ознакою раку?", "ru": {"$": 209}, "en": "Can Male Breast Enlargement Be a Sign of Cancer?"},
+   "answer": {"uk": "У більшості випадків гінекомастія — доброякісний стан. Проте нове щільне утворення, виділення із соска, зміни шкіри або швидке одностороннє збільшення потребують обстеження, щоб виключити інші захворювання, зокрема рак грудної залози.", "ru": {"$": 210}, "en": "In most cases gynecomastia is a benign condition. However, a new firm lump, nipple discharge, skin changes, or rapid one-sided enlargement require investigation to rule out other conditions, including breast cancer."}
+  },
+  {
+   "question": {"uk": "З якого віку можна видаляти гінекомастію?", "ru": {"$": 211}, "en": "From What Age Can Gynecomastia Be Removed?"},
+   "answer": {"uk": "Вік сам по собі не є єдиним критерієм. Для підлітків часто краще спостереження, оскільки зміни можуть регресувати. Хірургічне лікування розглядається індивідуально після оцінки розвитку та причин стану.", "ru": {"$": 212}, "en": "Age alone is not the only criterion. In adolescents, observation is often preferable, as the changes may regress. Surgical treatment is considered individually after assessing development and the causes of the condition."}
+  }
+ ]
+}

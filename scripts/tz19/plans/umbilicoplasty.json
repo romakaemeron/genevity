@@ -1,0 +1,1189 @@
+{
+ "sortOrder": 136,
+ "related": [
+  "abdominoplasty",
+  "diastasis-correction",
+  "post-weight-loss-contouring"
+ ],
+ "title": {
+  "uk": "Пластика пупка",
+  "ru": "Пластика пупка",
+  "en": "Belly Button Surgery"
+ },
+ "summary": {
+  "uk": "Пластика пупка, або умбілікопластика, — хірургічна процедура, спрямована на зміну форми, розміру чи зовнішнього контуру пупка. Операцію можуть проводити за вроджених анатомічних особливостей, після вагітності, значного схуднення, травм або раніше перенесених хірургічних втручань.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Belly button surgery, or umbilicoplasty, is a surgical procedure to change the shape, size, or outer contour of the navel. It may be performed for congenital anatomical features, or after pregnancy, major weight loss, injury, or previous surgery."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/umbilicoplasty-hero.webp",
+   "heading": {
+    "uk": "Що таке умбілікопластика?",
+    "ru": {
+     "$": 4
+    },
+    "en": "What Is Umbilicoplasty?"
+   },
+   "body": {
+    "uk": "Умбілікопластика — пластична операція з корекції зовнішнього вигляду пупка.\n\nПупок — це рубцеве утворення, що формується після народження на місці прикріплення пуповини. Його форма, глибина, розмір і розташування можуть суттєво відрізнятися.\n\nВ одних людей пупок має невелике вертикальне заглиблення, в інших — округлу форму або виступаючий контур. Такі відмінності найчастіше є природними анатомічними особливостями.\n\nЗ часом зовнішній вигляд пупка може змінюватися під впливом розтягнення шкіри, коливань маси тіла, вагітності та хірургічних втручань.\n\nЗовнішній вигляд пупка залежить від будови шкіри, підшкірної жирової тканини, особливостей рубцювання та стану передньої черевної стінки.\n\nУмбілікопластика дозволяє змінити форму чи розміри пупкового заглиблення, скоригувати окремі рубцеві зміни та покращити естетичні пропорції центральної частини живота.",
+    "ru": {
+     "$": [
+      5,
+      6,
+      7,
+      8,
+      12,
+      9
+     ]
+    },
+    "en": "Umbilicoplasty is a plastic surgery procedure to correct the appearance of the navel.\n\nThe navel is a scar that forms after birth where the umbilical cord was attached. Its shape, depth, size, and position can vary considerably.\n\nIn some people the navel is a small vertical hollow; in others it is round or protruding. Such differences are most often natural anatomical variations.\n\nOver time the appearance of the navel can change as a result of skin stretching, weight fluctuations, pregnancy, and surgery.\n\nThe appearance of the navel depends on the structure of the skin and subcutaneous fat, how the tissue scars, and the condition of the anterior abdominal wall.\n\nUmbilicoplasty can change the shape or size of the umbilical hollow, correct certain scar changes, and improve the aesthetic proportions of the central abdomen."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає естетичну корекцію як частину комплексного підходу до здоров'я, зовнішності та індивідуального благополуччя людини.\n\nОсновне завдання процедури — сформувати гармонійний контур пупка з урахуванням індивідуальної анатомії, особливостей шкіри та пропорцій передньої черевної стінки.",
+    "ru": {
+     "$": [
+      1,
+      3
+     ]
+    },
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — approaches aesthetic correction as part of a comprehensive approach to a person's health, appearance, and individual wellbeing.\n\nThe main aim of the procedure is to create a harmonious navel contour that suits the individual anatomy, skin characteristics, and proportions of the anterior abdominal wall."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Сучасні методи пластичної хірургії дозволяють коригувати виступаючий, розтягнутий, асиметричний або деформований пупок. За потреби умбілікопластику можна поєднувати з іншими операціями, спрямованими на корекцію контурів живота.\n\nВодночас пластика пупка не є обов'язковою процедурою за природних особливостей його форми.",
+    "ru": {
+     "$": [
+      2,
+      10
+     ]
+    },
+    "en": "Modern plastic surgery techniques can correct a protruding, stretched, asymmetrical, or deformed navel. Where needed, umbilicoplasty can be combined with other operations to correct the contours of the abdomen.\n\nAt the same time, belly button surgery is not a necessary procedure when the navel simply has a natural variation in shape."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Чому змінюється форма пупка?",
+    "ru": {
+     "$": 11
+    },
+    "en": "Why Does the Shape of the Navel Change?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Вагітність і пологи",
+      "ru": {
+       "$": 13
+      },
+      "en": "Pregnancy and Childbirth"
+     },
+     "description": {
+      "uk": "Під час вагітності шкіра живота розтягується, а пупок може ставати пласкішим або виступаючим.\n\nПісля пологів його форма часто поступово відновлюється, однак іноді зміни зберігаються.",
+      "ru": {
+       "$": [
+        14,
+        15
+       ]
+      },
+      "en": "During pregnancy the abdominal skin stretches and the navel may become flatter or protrude.\n\nAfter childbirth its shape often gradually recovers, but sometimes the changes persist."
+     }
+    },
+    {
+     "title": {
+      "uk": "Значне схуднення",
+      "ru": {
+       "$": 16
+      },
+      "en": "Major Weight Loss"
+     },
+     "description": {
+      "uk": "Після зниження маси тіла можлива поява надлишку шкіри та зміна її натягу. Це може впливати на форму й положення пупкового заглиблення.",
+      "ru": {
+       "$": 17
+      },
+      "en": "After weight loss, excess skin may appear and skin tension may change. This can affect the shape and position of the umbilical hollow."
+     }
+    },
+    {
+     "title": {
+      "uk": "Вікові зміни",
+      "ru": {
+       "$": 18
+      },
+      "en": "Age-Related Changes"
+     },
+     "description": {
+      "uk": "З віком шкіра поступово втрачає еластичність, що може змінювати зовнішній вигляд пупка.",
+      "ru": {
+       "$": 19
+      },
+      "en": "With age the skin gradually loses elasticity, which can change the appearance of the navel."
+     }
+    },
+    {
+     "title": {
+      "uk": "Вроджені особливості",
+      "ru": {
+       "$": 20
+      },
+      "en": "Congenital Features"
+     },
+     "description": {
+      "uk": "Форма пупка індивідуальна від народження. У деяких людей він має виражений виступаючий контур, асиметрію або нестандартну форму.",
+      "ru": {
+       "$": 21
+      },
+      "en": "The shape of the navel is individual from birth. In some people it is markedly protruding, asymmetrical, or unusually shaped."
+     }
+    },
+    {
+     "title": {
+      "uk": "Наслідки операцій",
+      "ru": {
+       "$": 22
+      },
+      "en": "Effects of Previous Surgery"
+     },
+     "description": {
+      "uk": "Після лапароскопічних втручань, абдомінопластики та інших операцій на животі можлива зміна форми пупка через рубцювання тканин.",
+      "ru": {
+       "$": 23
+      },
+      "en": "After laparoscopic procedures, abdominoplasty, and other abdominal operations, the shape of the navel may change because of tissue scarring."
+     }
+    },
+    {
+     "title": {
+      "uk": "Пупкова грижа",
+      "ru": {
+       "$": 24
+      },
+      "en": "Umbilical Hernia"
+     },
+     "description": {
+      "uk": "Іноді випинання в ділянці пупка пов'язане з пупковою грижею, а не з особливостями шкіри.\n\nУ такому разі необхідна діагностика. Косметична умбілікопластика не замінює хірургічного лікування грижі.",
+      "ru": {
+       "$": [
+        25,
+        26
+       ]
+      },
+      "en": "Sometimes a bulge at the navel is caused by an umbilical hernia rather than by the skin itself.\n\nIn that case a diagnostic assessment is needed. Cosmetic umbilicoplasty is not a substitute for surgical treatment of a hernia."
+     }
+    }
+   ]
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Коли можуть рекомендувати пластику пупка?",
+    "ru": {
+     "$": 27
+    },
+    "en": "When May Belly Button Surgery Be Recommended?"
+   },
+   "indications": {
+    "$list": 30,
+    "uk": [
+     "виражена асиметрія пупка;",
+     "розтягнута або змінена форма пупкового заглиблення;",
+     "надлишок шкіри навколо пупка;",
+     "рубцева деформація після операції;",
+     "зміна зовнішнього вигляду після вагітності;",
+     "особливості форми після значного схуднення;",
+     "бажання скоригувати виступаючий пупок;",
+     "окремі наслідки травматичних ушкоджень."
+    ],
+    "en": [
+     "marked asymmetry of the navel;",
+     "a stretched or altered umbilical hollow;",
+     "excess skin around the navel;",
+     "scar deformity after surgery;",
+     "changes in appearance after pregnancy;",
+     "changes in shape after major weight loss;",
+     "a wish to correct a protruding navel;",
+     "certain after-effects of injury."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до пластики пупка",
+    "ru": {
+     "$": 123
+    },
+    "en": "Contraindications for Belly Button Surgery"
+   },
+   "contraindications": {
+    "$list": 126,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "активне запалення в ділянці пупка;",
+     "порушення згортання крові;",
+     "декомпенсовані хронічні захворювання;",
+     "стани, що підвищують ризик анестезії;",
+     "порушення загоєння тканин;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "active inflammation in the navel area;",
+     "blood clotting disorders;",
+     "decompensated chronic conditions;",
+     "conditions that increase anaesthetic risk;",
+     "impaired tissue healing;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Перед хірургічною корекцією необхідно оцінити стан здоров'я та виключити чинники, що підвищують ризик ускладнень.\n\nЯкщо випинання пупка пов'язане з грижею, спершу необхідно визначити план лікування грижового дефекту.",
+    "ru": {
+     "$": [
+      124,
+      127
+     ]
+    },
+    "en": "Before surgical correction, your health must be assessed and any factors that increase the risk of complications ruled out.\n\nIf the navel protrudes because of a hernia, a treatment plan for the hernia defect must be established first."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Які види пластики пупка існують?",
+    "ru": "Какие виды пластики пупка существуют?",
+    "en": "What Types of Belly Button Surgery Are There?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Корекція форми пупка",
+      "ru": {
+       "$": 34
+      },
+      "en": "Navel Reshaping"
+     },
+     "description": {
+      "uk": "Операція спрямована на зміну зовнішнього контуру пупкового заглиблення.\n\nЗалежно від анатомії хірург може скоригувати надлишок шкіри, змінити форму складок або перерозподілити тканини.",
+      "ru": {
+       "$": [
+        35,
+        36
+       ]
+      },
+      "en": "The operation changes the outer contour of the umbilical hollow.\n\nDepending on the anatomy, the surgeon may correct excess skin, reshape the folds, or redistribute the tissues."
+     }
+    },
+    {
+     "title": {
+      "uk": "Зменшення пупка",
+      "ru": {
+       "$": 37
+      },
+      "en": "Navel Reduction"
+     },
+     "description": {
+      "uk": "За вираженого або розтягнутого пупкового отвору можуть розглядати хірургічне зменшення його видимих розмірів.\n\nМета процедури — сформувати компактніший контур.",
+      "ru": {
+       "$": [
+        38,
+        39
+       ]
+      },
+      "en": "When the umbilical opening is large or stretched, surgical reduction of its visible size may be considered.\n\nThe aim is to create a more compact contour."
+     }
+    },
+    {
+     "title": {
+      "uk": "Корекція виступаючого пупка",
+      "ru": {
+       "$": 40
+      },
+      "en": "Correction of a Protruding Navel"
+     },
+     "description": {
+      "uk": "Виступаючий пупок може бути природною особливістю, але іноді пов'язаний із грижею або іншими станами.\n\nЯкщо випинання зумовлене виключно м'якими тканинами, можлива естетична корекція.\n\nЗа наявності грижі необхідний окремий хірургічний план лікування.",
+      "ru": {
+       "$": [
+        41,
+        42,
+        43
+       ]
+      },
+      "en": "A protruding navel may be a natural feature, but it is sometimes linked to a hernia or other conditions.\n\nIf the protrusion is due to soft tissue alone, aesthetic correction is possible.\n\nIf a hernia is present, a separate surgical treatment plan is required."
+     }
+    },
+    {
+     "title": {
+      "uk": "Реконструкція пупка",
+      "ru": {
+       "$": 44
+      },
+      "en": "Navel Reconstruction"
+     },
+     "description": {
+      "uk": "Реконструктивну умбілікопластику можуть проводити за вираженої рубцевої деформації або після операцій, що змінили анатомію пупкової ділянки.\n\nУ деяких випадках потрібне формування нового пупкового заглиблення.",
+      "ru": {
+       "$": [
+        45,
+        46
+       ]
+      },
+      "en": "Reconstructive umbilicoplasty may be performed for marked scar deformity or after operations that have altered the anatomy of the umbilical area.\n\nIn some cases a new umbilical hollow needs to be created."
+     }
+    },
+    {
+     "title": {
+      "uk": "Повторна пластика пупка",
+      "ru": {
+       "$": 47
+      },
+      "en": "Revision Umbilicoplasty"
+     },
+     "description": {
+      "uk": "Якщо після попереднього хірургічного втручання сформувалися асиметрія, грубий рубець або незадовільна форма, можуть розглядати повторну корекцію.\n\nТакі операції потребують особливо ретельної оцінки стану тканин і кровопостачання.",
+      "ru": {
+       "$": [
+        48,
+        49
+       ]
+      },
+      "en": "If a previous operation has left asymmetry, a coarse scar, or an unsatisfactory shape, revision surgery may be considered.\n\nSuch operations require a particularly careful assessment of the tissues and their blood supply."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Метод корекції залежить від початкової форми пупка та характеру змін.",
+    "ru": {
+     "$": 33
+    },
+    "en": "The correction method depends on the original shape of the navel and the nature of the changes."
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/umbilicoplasty-inline.webp",
+   "heading": {
+    "uk": "Пластика пупка після вагітності",
+    "ru": {
+     "$": 50
+    },
+    "en": "Belly Button Surgery After Pregnancy"
+   },
+   "body": {
+    "uk": "Вагітність супроводжується значними змінами передньої черевної стінки.\n\nЗі збільшенням живота шкіра розтягується, а пупок може змінювати форму, ставати ширшим або виступаючим.\n\nПісля пологів частина змін поступово зменшується самостійно.\n\nОднак у деяких жінок зберігаються розтягнуте пупкове заглиблення, надлишок шкіри або зміна його контуру.\n\nЗа наявності стійких естетичних змін можуть розглядати умбілікопластику.",
+    "ru": {
+     "$": [
+      51,
+      52,
+      53,
+      54,
+      55
+     ]
+    },
+    "en": "Pregnancy brings significant changes to the anterior abdominal wall.\n\nAs the abdomen grows, the skin stretches and the navel may change shape, becoming wider or protruding.\n\nAfter childbirth some of these changes gradually lessen on their own.\n\nIn some women, however, a stretched umbilical hollow, excess skin, or an altered contour remains.\n\nIf the aesthetic changes persist, umbilicoplasty may be considered."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Перед операцією необхідно оцінити стан передньої черевної стінки, виключити пупкову грижу та визначити, чи немає вираженого надлишку шкіри живота, що потребує іншого підходу.\n\nЯкщо плануєте нову вагітність, це важливо обговорити з хірургом, оскільки повторне розтягнення тканин може змінити результат операції.",
+    "ru": {
+     "$": [
+      56,
+      57
+     ]
+    },
+    "en": "Before surgery, the condition of the anterior abdominal wall must be assessed, an umbilical hernia ruled out, and it must be established whether there is significant excess abdominal skin that calls for a different approach.\n\nIf you are planning another pregnancy, discuss this with the surgeon, as renewed stretching of the tissues may change the result."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика пупка після схуднення",
+    "ru": {
+     "$": 58
+    },
+    "en": "Belly Button Surgery After Weight Loss"
+   },
+   "body": {
+    "uk": "Після значного зниження ваги шкіра живота не завжди скорочується повністю.\n\nНадлишок шкіри може формувати складки навколо пупка та змінювати його зовнішній вигляд.\n\nУ деяких випадках достатньо локальної корекції пупкової ділянки.\n\nЯкщо на животі є значний надлишок шкіри, лікар може розглянути комплекснішу операцію.\n\nВибір методу залежить від ступеня змін, стабільності маси тіла та стану тканин.",
+    "ru": {
+     "$": [
+      59,
+      60,
+      61,
+      62,
+      63
+     ]
+    },
+    "en": "After significant weight loss, the abdominal skin does not always fully retract.\n\nExcess skin can form folds around the navel and change its appearance.\n\nIn some cases a local correction of the umbilical area is enough.\n\nIf there is significant excess skin on the abdomen, the doctor may consider a more comprehensive operation.\n\nThe choice of method depends on the extent of the changes, the stability of body weight, and the condition of the tissues."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Умбілікопластика не є методом схуднення і не усуває вираженого провисання шкіри всього живота.",
+    "ru": {
+     "$": 64
+    },
+    "en": "Umbilicoplasty is not a weight-loss method and does not correct pronounced sagging of the skin across the whole abdomen."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика пупка та абдомінопластика: у чому різниця?",
+    "ru": {
+     "$": 65
+    },
+    "en": "Belly Button Surgery vs Abdominoplasty: What Is the Difference?"
+   },
+   "body": {
+    "uk": "Умбілікопластика та абдомінопластика — різні хірургічні втручання.\n\nУмбілікопластика спрямована переважно на зміну форми чи розміру пупка.\n\nАбдомінопластика призначена для корекції надлишку шкіри та жирової тканини живота, а за потреби — для відновлення певних структур передньої черевної стінки.\n\nПід час повної абдомінопластики часто потрібно сформувати новий шкірний отвір для пупка та зафіксувати його у відповідному положенні.\n\nЗа локальної пластики пупка такого масштабного втручання зазвичай не потрібно.\n\nЯкщо зміни стосуються не лише пупка, а й значної частини живота, хірург оцінює доцільність комплексної корекції.",
+    "ru": {
+     "$": [
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+     ]
+    },
+    "en": "Umbilicoplasty and abdominoplasty are different surgical procedures.\n\nUmbilicoplasty mainly changes the shape or size of the navel.\n\nAbdominoplasty corrects excess skin and fat on the abdomen and, where needed, restores certain structures of the anterior abdominal wall.\n\nA full abdominoplasty often requires creating a new skin opening for the navel and securing it in the right position.\n\nSuch extensive surgery is usually not needed for a local navel correction.\n\nIf the changes affect not only the navel but a large part of the abdomen, the surgeon assesses whether a comprehensive correction is appropriate."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Переваги пластики пупка",
+    "ru": {
+     "$": 72
+    },
+    "en": "Benefits of Belly Button Surgery"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Корекція форми",
+      "ru": {
+       "$": 74
+      },
+      "en": "Reshaping"
+     },
+     "description": {
+      "uk": "Операція дозволяє змінити зовнішній контур пупка з урахуванням індивідуальної анатомії.",
+      "ru": {
+       "$": 75
+      },
+      "en": "The operation changes the outer contour of the navel in keeping with the individual anatomy."
+     }
+    },
+    {
+     "title": {
+      "uk": "Зменшення вираженої асиметрії",
+      "ru": {
+       "$": 76
+      },
+      "en": "Less Marked Asymmetry"
+     },
+     "description": {
+      "uk": "Хірургічна корекція може зробити форму збалансованішою, хоча ідеальна симетрія не гарантується.",
+      "ru": {
+       "$": 77
+      },
+      "en": "Surgical correction can make the shape more balanced, although perfect symmetry is not guaranteed."
+     }
+    },
+    {
+     "title": {
+      "uk": "Корекція рубцевих змін",
+      "ru": {
+       "$": 78
+      },
+      "en": "Correction of Scar Changes"
+     },
+     "description": {
+      "uk": "У деяких випадках можливе покращення вигляду тканин після попередніх операцій або травм.",
+      "ru": {
+       "$": 79
+      },
+      "en": "In some cases the appearance of tissue after previous surgery or injury can be improved."
+     }
+    },
+    {
+     "title": {
+      "uk": "Індивідуальний результат",
+      "ru": {
+       "$": 80
+      },
+      "en": "An Individual Result"
+     },
+     "description": {
+      "uk": "Методику підбирають з урахуванням стану шкіри, форми живота та побажань пацієнта.",
+      "ru": {
+       "$": 81
+      },
+      "en": "The technique is chosen according to skin condition, the shape of the abdomen, and the patient's wishes."
+     }
+    },
+    {
+     "title": {
+      "uk": "Можливість поєднання з іншими операціями",
+      "ru": {
+       "$": 82
+      },
+      "en": "Can Be Combined With Other Operations"
+     },
+     "description": {
+      "uk": "За наявності показань корекцію пупка можна виконувати одночасно з абдомінопластикою або реконструктивним втручанням.",
+      "ru": {
+       "$": 83
+      },
+      "en": "Where indicated, navel correction can be performed at the same time as an abdominoplasty or reconstructive surgery."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Важливо враховувати, що операція супроводжується ризиком рубцювання, порушення загоєння та інших ускладнень.",
+    "ru": {
+     "$": 84
+    },
+    "en": "It is important to bear in mind that the operation carries a risk of scarring, impaired healing, and other complications."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить операція з пластики пупка?",
+    "ru": {
+     "$": 85
+    },
+    "en": "How Is Belly Button Surgery Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "1. Консультація пластичного хірурга",
+      "ru": {
+       "$": 87
+      },
+      "en": "1. Consultation With a Plastic Surgeon"
+     },
+     "description": {
+      "uk": "Під час первинної консультації лікар оцінює форму пупка, стан навколишньої шкіри, наявність рубців та особливості передньої черевної стінки.\n\nФахівець з'ясовує побажання пацієнта та обговорює можливі способи корекції.\n\nЗа підозри на пупкову грижу можуть знадобитися додаткові обстеження та консультація загального хірурга.",
+      "ru": {
+       "$": [
+        88,
+        89,
+        90
+       ]
+      },
+      "en": "At the initial consultation the doctor assesses the shape of the navel, the surrounding skin, any scars, and the anterior abdominal wall.\n\nThe specialist clarifies the patient's wishes and discusses possible correction methods.\n\nIf an umbilical hernia is suspected, further investigations and a consultation with a general surgeon may be needed."
+     }
+    },
+    {
+     "title": {
+      "uk": "2. Передопераційне обстеження",
+      "ru": {
+       "$": 91
+      },
+      "en": "2. Preoperative Assessment"
+     },
+     "description": {
+      "uk": "Перед операцією проводять необхідну оцінку стану здоров'я.\n\nОбсяг обстеження залежить від складності втручання, медичного анамнезу та запланованої анестезії.",
+      "ru": {
+       "$": [
+        92,
+        93
+       ]
+      },
+      "en": "Before surgery, the necessary health assessment is carried out.\n\nThe extent of the investigations depends on the complexity of the procedure, your medical history, and the planned anaesthesia."
+     }
+    },
+    {
+     "title": {
+      "uk": "3. Планування корекції",
+      "ru": {
+       "$": 94
+      },
+      "en": "3. Planning the Correction"
+     },
+     "description": {
+      "uk": "Хірург визначає розташування розрізів, обсяг зміни тканин і передбачувану форму пупкового заглиблення.\n\nПацієнтові пояснюють, де можуть розташовуватися рубці та які обмеження має обрана методика.",
+      "ru": {
+       "$": [
+        95,
+        96
+       ]
+      },
+      "en": "The surgeon decides where the incisions will be placed, how much the tissue will be altered, and the intended shape of the umbilical hollow.\n\nThe patient is told where scars may lie and what limitations the chosen technique has."
+     }
+    },
+    {
+     "title": {
+      "uk": "4. Проведення операції",
+      "ru": {
+       "$": 97
+      },
+      "en": "4. The Operation"
+     },
+     "description": {
+      "uk": "Залежно від обсягу втручання можуть застосовувати місцеву анестезію, седацію або загальну анестезію.\n\nХірург виконує заплановані розрізи, коригує шкіру та м'які тканини, формує необхідний контур і накладає шви.\n\nТехніка операції залежить від початкової анатомії та цілей корекції.",
+      "ru": {
+       "$": [
+        98,
+        99,
+        100
+       ]
+      },
+      "en": "Depending on the extent of surgery, local anaesthesia, sedation, or general anaesthesia may be used.\n\nThe surgeon makes the planned incisions, corrects the skin and soft tissues, shapes the required contour, and closes the wound with sutures.\n\nThe surgical technique depends on the original anatomy and the goals of the correction."
+     }
+    },
+    {
+     "title": {
+      "uk": "5. Післяопераційне спостереження",
+      "ru": {
+       "$": 101
+      },
+      "en": "5. Postoperative Monitoring"
+     },
+     "description": {
+      "uk": "Після втручання лікар оцінює стан тканин і надає рекомендації щодо догляду за операційною ділянкою.\n\nПісля невеликих ізольованих операцій повернутися додому іноді можна в день процедури. У поєднанні з абдомінопластикою відновлення зазвичай триваліше.",
+      "ru": {
+       "$": [
+        102,
+        103
+       ]
+      },
+      "en": "After the procedure the doctor assesses the tissues and gives advice on caring for the operated area.\n\nAfter small, isolated operations it is sometimes possible to go home the same day. When combined with abdominoplasty, recovery is usually longer."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Реабілітація після пластики пупка",
+    "ru": {
+     "$": 104
+    },
+    "en": "Recovery After Belly Button Surgery"
+   },
+   "body": {
+    "uk": "Відновлення після умбілікопластики залежить від обсягу операції та індивідуальних особливостей організму.\n\nПісля втручання можливі помірна болючість, набряк, невеликі синці та відчуття натягу тканин.\n\nЗа локальної корекції відновлення зазвичай коротше, ніж після масштабної пластики живота.",
+    "ru": {
+     "$": [
+      105,
+      106,
+      107
+     ]
+    },
+    "en": "Recovery after umbilicoplasty depends on the extent of the operation and the individual patient.\n\nAfterwards, mild soreness, swelling, minor bruising, and a feeling of tissue tightness are possible.\n\nAfter a local correction, recovery is usually shorter than after extensive abdominal surgery."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації після операції",
+    "ru": {
+     "$": 108
+    },
+    "en": "Recommendations After Surgery"
+   },
+   "items": {
+    "$list": 110,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "правильно доглядати за післяопераційною раною;",
+     "підтримувати ділянку пупка в чистоті згідно з рекомендаціями;",
+     "уникати тертя та тиску на прооперовану зону;",
+     "тимчасово обмежувати інтенсивні фізичні навантаження;",
+     "не відвідувати басейн і сауну до дозволу лікаря;",
+     "не видаляти самостійно кірочки чи шовний матеріал;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "care for the surgical wound properly;",
+     "keep the navel area clean as advised;",
+     "avoid friction and pressure on the operated area;",
+     "temporarily limit strenuous physical activity;",
+     "avoid swimming pools and saunas until your doctor allows;",
+     "do not remove scabs or sutures yourself;",
+     "attend follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки триває відновлення?",
+    "ru": {
+     "$": 111
+    },
+    "en": "How Long Does Recovery Take?"
+   },
+   "body": {
+    "uk": "Після обмеженої умбілікопластики багато пацієнтів можуть поступово повертатися до легкої повсякденної активності впродовж кількох днів.\n\nОднак фізичні навантаження та вправи на м'язи живота можуть обмежувати на кілька тижнів.\n\nЯкщо пластику пупка проводять одночасно з абдомінопластикою, відновлення триває довше.\n\nОстаточний естетичний результат оцінюють після зменшення набряку та дозрівання рубцевої тканини.",
+    "ru": {
+     "$": [
+      112,
+      113,
+      114,
+      115
+     ]
+    },
+    "en": "After a limited umbilicoplasty, many patients can gradually return to light everyday activities within a few days.\n\nHowever, physical exertion and abdominal exercises may be restricted for several weeks.\n\nIf belly button surgery is performed together with an abdominoplasty, recovery takes longer.\n\nThe final aesthetic result is assessed once the swelling has subsided and the scar tissue has matured."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після умбілікопластики?",
+    "ru": {
+     "$": 116
+    },
+    "en": "Does Umbilicoplasty Leave Scars?"
+   },
+   "body": {
+    "uk": "Після будь-якої операції з розрізами можливе утворення рубців.\n\nЗа деяких методик хірург намагається розташовувати розрізи всередині пупкового заглиблення або вздовж його природного контуру.\n\nЦе може зробити рубці менш помітними, але повністю виключити їх появу неможливо.\n\nВираженість рубцювання залежить від індивідуальних особливостей шкіри, техніки операції та процесу загоєння.\n\nУ деяких пацієнтів можуть формуватися гіпертрофічні або келоїдні рубці.",
+    "ru": {
+     "$": [
+      117,
+      118,
+      119,
+      120,
+      121
+     ]
+    },
+    "en": "Any operation involving incisions can leave scars.\n\nWith some techniques the surgeon tries to place the incisions inside the umbilical hollow or along its natural contour.\n\nThis can make the scars less noticeable, but it is impossible to rule them out completely.\n\nHow visible the scarring is depends on individual skin characteristics, the surgical technique, and the healing process.\n\nSome patients may develop hypertrophic or keloid scars."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Тому розташування майбутніх розрізів і можливі зміни зовнішнього вигляду пупка важливо обговорити до операції.",
+    "ru": {
+     "$": 122
+    },
+    "en": "That is why the placement of future incisions and any possible changes in the appearance of the navel should be discussed before surgery."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Можливі ризики та ускладнення",
+    "ru": {
+     "$": 128
+    },
+    "en": "Possible Risks and Complications"
+   },
+   "body": {
+    "uk": "Умбілікопластика є хірургічним втручанням і може супроводжуватися ускладненнями.\n\nЗа масштабніших втручань також враховують ризики анестезії та тромбоемболічних ускладнень.",
+    "ru": {
+     "$": [
+      129,
+      132
+     ]
+    },
+    "en": "Umbilicoplasty is a surgical procedure and may be accompanied by complications.\n\nWith more extensive procedures, the risks of anaesthesia and thromboembolic complications are also taken into account."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "До можливих ризиків належать:",
+    "ru": {
+     "$": 130
+    },
+    "en": "Possible risks include:"
+   },
+   "items": {
+    "$list": 131,
+    "uk": [
+     "кровотеча;",
+     "гематома;",
+     "інфекція;",
+     "розходження швів;",
+     "порушення загоєння;",
+     "асиметрія;",
+     "помітне рубцювання;",
+     "зміна чутливості шкіри;",
+     "звуження або деформація пупкового заглиблення;",
+     "порушення кровопостачання тканин;",
+     "незадовільний естетичний результат;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding;",
+     "haematoma;",
+     "infection;",
+     "wound dehiscence;",
+     "impaired healing;",
+     "asymmetry;",
+     "noticeable scarring;",
+     "altered skin sensation;",
+     "narrowing or deformity of the umbilical hollow;",
+     "impaired tissue blood supply;",
+     "an unsatisfactory aesthetic result;",
+     "the need for revision surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Перед операцією лікар має пояснити можливі наслідки та альтернативні методи корекції.",
+    "ru": {
+     "$": 133
+    },
+    "en": "Before surgery the doctor should explain the possible consequences and the alternative correction methods."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи можна змінити форму пупка без операції?",
+    "ru": {
+     "$": 134
+    },
+    "en": "Can the Shape of the Navel Be Changed Without Surgery?"
+   },
+   "body": {
+    "uk": "Можливості безопераційної корекції обмежені.\n\nЯкщо зміна форми пупка пов'язана з тимчасовим розтягненням шкіри після вагітності, його вигляд може поступово змінюватися в міру відновлення тканин.\n\nЗа значних коливань маси тіла контур пупкової ділянки також може змінюватися.\n\nОднак вправи, масаж і косметологічні процедури не дозволяють надійно змінити сформовану анатомічну форму пупка.",
+    "ru": {
+     "$": [
+      135,
+      136,
+      137,
+      138
+     ]
+    },
+    "en": "The options for non-surgical correction are limited.\n\nIf the change in navel shape is due to temporary skin stretching after pregnancy, its appearance may gradually change as the tissues recover.\n\nWith significant fluctuations in body weight, the contour of the umbilical area may also change.\n\nHowever, exercise, massage, and cosmetic treatments cannot reliably change the established anatomical shape of the navel."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Якщо причиною виступаючого пупка є грижа, самостійні спроби вправлення чи косметичної корекції можуть бути небезпечними.\n\nУ таких випадках необхідна медична діагностика.",
+    "ru": {
+     "$": [
+      139,
+      140
+     ]
+    },
+    "en": "If a protruding navel is caused by a hernia, attempting to push it back in yourself or to correct it cosmetically can be dangerous.\n\nIn such cases a medical diagnosis is required."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика пупка та якість життя",
+    "ru": {
+     "$": 141
+    },
+    "en": "Belly Button Surgery and Quality of Life"
+   },
+   "body": {
+    "uk": "Пупок — невелика анатомічна ділянка, але його вигляд може впливати на сприйняття пропорцій живота.\n\nВодночас різноманітність форм і розмірів пупка є нормою. Єдиного обов'язкового естетичного стандарту не існує.\n\nДеякі люди розглядають хірургічну корекцію після вагітності, схуднення або перенесених операцій.\n\nGENEVITY — Центр довголіття та якості життя — дотримується підходу, за якого естетичні побажання розглядаються разом зі станом здоров'я та індивідуальними потребами людини.\n\nРішення про умбілікопластику має бути добровільним і усвідомленим.\n\nВажливо враховувати очікувані зміни, можливі рубці, особливості відновлення та хірургічні ризики.\n\nПластика пупка безпосередньо не впливає на тривалість життя і не є обов'язковою медичною процедурою за природних особливостей його форми.",
+    "ru": {
+     "$": [
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148
+     ]
+    },
+    "en": "The navel is a small anatomical area, but its appearance can influence how the proportions of the abdomen are perceived.\n\nAt the same time, a wide variety of navel shapes and sizes is normal. There is no single required aesthetic standard.\n\nSome people consider surgical correction after pregnancy, weight loss, or previous surgery.\n\nGENEVITY — the Centre for Longevity and Quality of Life — takes an approach in which aesthetic wishes are considered together with a person's health and individual needs.\n\nThe decision to have umbilicoplasty should be voluntary and well informed.\n\nIt is important to consider the expected changes, possible scars, what recovery involves, and the surgical risks.\n\nBelly button surgery does not directly affect life expectancy and is not a necessary medical procedure when the navel simply has a natural variation in shape."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує пластика пупка в Дніпрі?",
+    "ru": {
+     "$": 149
+    },
+    "en": "How Much Does Belly Button Surgery Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна пластики пупка в Дніпрі залежить від складності корекції, обраної хірургічної методики та індивідуальних особливостей пацієнта.",
+    "ru": {
+     "$": 150
+    },
+    "en": "The price of belly button surgery in Dnipro depends on the complexity of the correction, the surgical technique chosen, and the individual patient."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати:",
+    "ru": {
+     "$": 151
+    },
+    "en": "The cost may depend on:"
+   },
+   "items": {
+    "$list": 152,
+    "uk": [
+     "характер деформації пупка;",
+     "обсяг хірургічного втручання;",
+     "необхідність корекції рубців;",
+     "первинна чи повторна операція;",
+     "вид анестезії;",
+     "передопераційні обстеження;",
+     "поєднання з іншими хірургічними процедурами;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "the nature of the navel deformity;",
+     "the extent of surgery;",
+     "the need for scar correction;",
+     "whether it is a primary or revision operation;",
+     "the type of anaesthesia;",
+     "preoperative investigations;",
+     "combination with other surgical procedures;",
+     "postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації та складання індивідуального плану операції.\n\nЯкщо вас турбує форма, розмір або вигляд пупка після вагітності, схуднення чи перенесеної операції, першим кроком має стати консультація кваліфікованого пластичного хірурга.\n\nФахівець оцінить стан тканин, виключить можливі медичні причини змін та обговорить варіанти хірургічної корекції.\n\nУточніть можливість консультації щодо умбілікопластики, доступні методи корекції та умови проведення операції.\n\nЗапишіться на консультацію, щоб дізнатися більше про можливості пластики пупка.",
+    "ru": {
+     "$": [
+      153,
+      181,
+      182,
+      184,
+      186
+     ]
+    },
+    "en": "The exact cost is determined after a consultation and once an individual surgical plan has been drawn up.\n\nIf you are concerned about the shape, size, or appearance of your navel after pregnancy, weight loss, or previous surgery, the first step should be a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the tissues, rule out possible medical causes of the changes, and discuss surgical correction options.\n\nAsk about an umbilicoplasty consultation, the correction methods available, and the conditions for surgery.\n\nBook a consultation to find out more about what belly button surgery can do for you."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке умбілікопластика?",
+    "ru": {
+     "$": 156
+    },
+    "en": "What Is Umbilicoplasty?"
+   },
+   "answer": {
+    "uk": "Умбілікопластика — хірургічна операція, спрямована на зміну форми, розміру чи зовнішнього контуру пупка.",
+    "ru": {
+     "$": 157
+    },
+    "en": "Umbilicoplasty is a surgical operation to change the shape, size, or outer contour of the navel."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна змінити форму пупка?",
+    "ru": {
+     "$": 158
+    },
+    "en": "Can the Shape of the Navel Be Changed?"
+   },
+   "answer": {
+    "uk": "Так, за певних анатомічних особливостей хірургічна корекція дозволяє змінити форму пупкового заглиблення. Можливості операції визначають після огляду.",
+    "ru": {
+     "$": 159
+    },
+    "en": "Yes, with certain anatomical features surgical correction can change the shape of the umbilical hollow. What the operation can achieve is determined after an examination."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити пупок меншим?",
+    "ru": {
+     "$": 160
+    },
+    "en": "Can the Navel Be Made Smaller?"
+   },
+   "answer": {
+    "uk": "За наявності показань можливе хірургічне зменшення видимого розміру пупка. Метод залежить від будови тканин.",
+    "ru": {
+     "$": 161
+    },
+    "en": "Where indicated, the visible size of the navel can be reduced surgically. The method depends on the structure of the tissues."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна виправити виступаючий пупок?",
+    "ru": {
+     "$": 162
+    },
+    "en": "Can a Protruding Navel Be Corrected?"
+   },
+   "answer": {
+    "uk": "У деяких випадках — так. Однак спершу необхідно виключити пупкову грижу, яка потребує окремої медичної оцінки.",
+    "ru": {
+     "$": 163
+    },
+    "en": "In some cases, yes. However, an umbilical hernia must first be ruled out, as it requires a separate medical assessment."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити пластику пупка після пологів?",
+    "ru": {
+     "$": 164
+    },
+    "en": "Can Belly Button Surgery Be Done After Childbirth?"
+   },
+   "answer": {
+    "uk": "Так, операцію можуть розглядати після завершення основного післяпологового відновлення, якщо зміни форми зберігаються та викликають естетичний дискомфорт.",
+    "ru": {
+     "$": 165
+    },
+    "en": "Yes, the operation may be considered once the main postpartum recovery is complete, if the changes in shape persist and cause aesthetic discomfort."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами після умбілікопластики?",
+    "ru": {
+     "$": 166
+    },
+    "en": "Does Umbilicoplasty Leave Scars?"
+   },
+   "answer": {
+    "uk": "Так, після хірургічних розрізів залишаються рубці. За деяких методик вони розташовуються всередині пупкового заглиблення і можуть бути малопомітними.",
+    "ru": {
+     "$": 167
+    },
+    "en": "Yes, surgical incisions leave scars. With some techniques they lie inside the umbilical hollow and can be barely noticeable."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи болісна пластика пупка?",
+    "ru": {
+     "$": 168
+    },
+    "en": "Is Belly Button Surgery Painful?"
+   },
+   "answer": {
+    "uk": "Під час операції застосовують анестезію. Після втручання можливі болючість, набряк і відчуття натягу тканин.",
+    "ru": {
+     "$": 169
+    },
+    "en": "Anaesthesia is used during the operation. Afterwards, soreness, swelling, and a feeling of tissue tightness are possible."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки триває операція?",
+    "ru": {
+     "$": 170
+    },
+    "en": "How Long Does the Operation Take?"
+   },
+   "answer": {
+    "uk": "Тривалість залежить від складності корекції. Ізольована умбілікопластика зазвичай займає менше часу, ніж операція, поєднана з абдомінопластикою.",
+    "ru": {
+     "$": 171
+    },
+    "en": "The length depends on the complexity of the correction. An isolated umbilicoplasty usually takes less time than an operation combined with abdominoplasty."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна займатися спортом після пластики пупка?",
+    "ru": {
+     "$": 172
+    },
+    "en": "When Can I Exercise After Belly Button Surgery?"
+   },
+   "answer": {
+    "uk": "Терміни повернення до фізичних навантажень визначає хірург. Після локальної корекції обмеження можуть бути коротшими, ніж після комплексної пластики живота.",
+    "ru": {
+     "$": 173
+    },
+    "en": "The surgeon decides when you can return to physical activity. After a local correction the restrictions may be shorter than after comprehensive abdominal surgery."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна поєднати пластику пупка з абдомінопластикою?",
+    "ru": {
+     "$": 174
+    },
+    "en": "Can Belly Button Surgery Be Combined With Abdominoplasty?"
+   },
+   "answer": {
+    "uk": "Так, корекція пупка часто є частиною повної абдомінопластики. Однак необхідність такого поєднання визначають індивідуально.",
+    "ru": {
+     "$": 175
+    },
+    "en": "Yes, navel correction is often part of a full abdominoplasty. However, whether the two should be combined is decided individually."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": {
+     "$": 176
+    },
+    "en": "How Long Do the Results Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися тривалий час, але значні зміни маси тіла, вагітність і природне старіння здатні вплинути на вигляд тканин.",
+    "ru": {
+     "$": 177
+    },
+    "en": "The result can last a long time, but significant changes in body weight, pregnancy, and natural ageing can affect the appearance of the tissues."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи потрібно видаляти пупкову грижу перед умбілікопластикою?",
+    "ru": {
+     "$": 178
+    },
+    "en": "Does an Umbilical Hernia Need to Be Repaired Before Umbilicoplasty?"
+   },
+   "answer": {
+    "uk": "Якщо виявлено пупкову грижу, хірург визначає необхідність і порядок її лікування. Іноді реконструктивне втручання можна поєднати з естетичною корекцією, але це потребує окремого планування.",
+    "ru": {
+     "$": 179
+    },
+    "en": "If an umbilical hernia is found, the surgeon determines whether and in what order it needs to be treated. Reconstructive surgery can sometimes be combined with aesthetic correction, but this requires separate planning."
+   }
+  }
+ ]
+}

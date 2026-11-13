@@ -1,0 +1,478 @@
+{
+ "sortOrder": 106,
+ "related": [
+  "blepharoplasty",
+  "upper-blepharoplasty",
+  "epicanthoplasty"
+ ],
+ "title": {
+  "uk": "Блефаропластика азіатських очей",
+  "ru": "Блефаропластика азиатских глаз",
+  "en": "Asian Eye Blepharoplasty"
+ },
+ "summary": {
+  "uk": "Блефаропластика азіатських очей — пластична операція, спрямована на формування або зміну складки верхньої повіки з урахуванням індивідуальних анатомічних особливостей. Процедуру також називають азіатською блефаропластикою або операцією з формування подвійної повіки.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Asian eye blepharoplasty is a cosmetic operation to create or alter the upper eyelid crease, taking individual anatomical features into account. The procedure is also known as Asian blepharoplasty or double eyelid surgery."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/asian-blepharoplasty-hero.webp",
+   "heading": {
+    "uk": "Що таке блефаропластика азіатських очей?",
+    "ru": {
+     "$": 2
+    },
+    "en": "What Is Asian Eye Blepharoplasty?"
+   },
+   "body": {
+    "uk": "Азіатська блефаропластика — хірургічна корекція верхніх повік, яка дає змогу сформувати більш виражену складку або змінити її положення.\n\nУ деяких людей складка верхньої повіки відсутня або слабко виражена. Це природна анатомічна особливість, яка не потребує обов’язкової корекції.\n\nОперацію проводять за бажанням пацієнта, і вона може включати:",
+    "ru": {
+     "$": [
+      3,
+      4,
+      5
+     ]
+    },
+    "en": "Asian blepharoplasty is a surgical correction of the upper eyelids that creates a more defined crease or changes its position.\n\nIn some people the upper eyelid crease is absent or only faintly defined. This is a natural anatomical feature that does not require correction.\n\nThe operation is performed at the patient's request and may include:"
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетичну корекцію розглядають з урахуванням природних особливостей зовнішності, здоров’я та побажань пацієнта.",
+    "ru": {
+     "$": 1
+    },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's natural features, health and wishes."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Що може включати операція",
+    "ru": "Что может включать операция",
+    "en": "What the Operation May Include"
+   },
+   "items": {
+    "$list": 6,
+    "uk": [
+     "формування складки верхньої повіки;",
+     "корекцію асиметрії складок;",
+     "зміну висоти та форми складки;",
+     "видалення надлишку шкіри за наявності показань;",
+     "обмежену корекцію жирової тканини."
+    ],
+    "en": [
+     "creating an upper eyelid crease;",
+     "correcting crease asymmetry;",
+     "changing the height and shape of the crease;",
+     "removing excess skin where indicated;",
+     "limited correction of fatty tissue."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Головне завдання — досягти погодженого з пацієнтом результату, зберігши природні пропорції обличчя та нормальну функцію повік.",
+    "ru": {
+     "$": 7
+    },
+    "en": "The main aim is to achieve the result agreed with the patient while preserving the natural proportions of the face and normal eyelid function."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до операції",
+    "ru": {
+     "$": 8
+    },
+    "en": "Indications for Surgery"
+   },
+   "indications": {
+    "$list": 10,
+    "uk": [
+     "бажання сформувати складку верхньої повіки;",
+     "слабко виражена або відсутня складка;",
+     "асиметрія верхніх повік;",
+     "надлишок шкіри верхніх повік;",
+     "бажання змінити висоту або контур наявної складки;",
+     "індивідуальні естетичні побажання."
+    ],
+    "en": [
+     "a wish to create an upper eyelid crease;",
+     "a faint or absent crease;",
+     "asymmetry of the upper eyelids;",
+     "excess skin on the upper eyelids;",
+     "a wish to change the height or contour of an existing crease;",
+     "individual aesthetic preferences."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання та можливі ризики",
+    "ru": {
+     "$": 37
+    },
+    "en": "Contraindications and Possible Risks"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Активные воспаления глаз.",
+     "Декомпенсированные хронические заболевания.",
+     "Другие состояния, повышающие хирургический риск."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Активні запалення очей.",
+     "Декомпенсовані хронічні захворювання.",
+     "Інші стани, що підвищують хірургічний ризик."
+    ],
+    "en": [
+     "Acute infections.",
+     "Active eye inflammation.",
+     "Decompensated chronic conditions.",
+     "Other conditions that raise surgical risk."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Остаточний обсяг втручання визначають після консультації пластичного хірурга.",
+    "ru": {
+     "$": 11
+    },
+    "en": "The final extent of the procedure is determined after a consultation with a plastic surgeon."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Методи азіатської блефаропластики",
+    "ru": {
+     "$": 12
+    },
+    "en": "Methods of Asian Blepharoplasty"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Блефаропластика з розрізом",
+      "ru": {
+       "$": 14
+      },
+      "en": "Incisional blepharoplasty"
+     },
+     "description": {
+      "uk": "Хірург виконує розріз по лінії запланованої складки верхньої повіки.\n\nМетод дає змогу сформувати складку, а за потреби скоригувати надлишок шкіри або жирової тканини.\n\nПісля операції залишається рубець, який зазвичай розташовується в сформованій складці.",
+      "ru": {
+       "$": [
+        15,
+        16,
+        17
+       ]
+      },
+      "en": "The surgeon makes an incision along the line of the planned upper eyelid crease.\n\nThe method allows the crease to be created and, if necessary, excess skin or fatty tissue to be corrected.\n\nA scar remains after the operation, usually located within the newly formed crease."
+     }
+    },
+    {
+     "title": {
+      "uk": "Блефаропластика без протяжного розрізу",
+      "ru": {
+       "$": 18
+      },
+      "en": "Blepharoplasty without a long incision"
+     },
+     "description": {
+      "uk": "За деяких анатомічних особливостей складку можна сформувати за допомогою шовних методик через невеликі проколи.\n\nТака техніка підходить не всім пацієнтам, особливо за вираженого надлишку шкіри.\n\nСкладка, сформована шовним методом, з часом може послабнути або зникнути.",
+      "ru": {
+       "$": [
+        19,
+        20,
+        21
+       ]
+      },
+      "en": "With certain anatomical features, the crease can be created using suture techniques through small punctures.\n\nThis technique is not suitable for every patient, especially where there is pronounced excess skin.\n\nA crease created with the suture method may weaken or disappear over time."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір техніки залежить від будови повік, стану шкіри та бажаного результату.",
+    "ru": {
+     "$": 13
+    },
+    "en": "The choice of technique depends on the structure of the eyelids, the condition of the skin and the desired result."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги блефаропластики азіатських очей",
+    "ru": {
+     "$": 22
+    },
+    "en": "Benefits of Asian Eye Blepharoplasty"
+   },
+   "items": {
+    "$list": 24,
+    "uk": [
+     "сформувати бажану складку верхньої повіки;",
+     "скоригувати її висоту та контур;",
+     "зменшити деякі види асиметрії;",
+     "усунути надлишок шкіри за наявності показань;",
+     "зберегти індивідуальні особливості зовнішності."
+    ],
+    "en": [
+     "create the desired upper eyelid crease;",
+     "adjust its height and contour;",
+     "reduce some types of asymmetry;",
+     "remove excess skin where indicated;",
+     "preserve individual features of appearance."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Результат залежить від вихідної анатомії, обраної техніки та процесу загоєння. Ідеальна симетрія не гарантується.",
+    "ru": {
+     "$": 25
+    },
+    "en": "The result depends on the initial anatomy, the chosen technique and the healing process. Perfect symmetry is not guaranteed."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить операція?",
+    "ru": {
+     "$": 26
+    },
+    "en": "How Is the Operation Performed?"
+   },
+   "body": {
+    "uk": "Перед втручанням хірург оцінює будову верхніх повік, положення брів, стан шкіри та функцію очей.\n\nТривалість операції залежить від техніки та складності корекції.",
+    "ru": {
+     "$": [
+      27,
+      30
+     ]
+    },
+    "en": "Before the procedure the surgeon assesses the structure of the upper eyelids, the position of the eyebrows, the condition of the skin and eye function.\n\nThe length of the operation depends on the technique and the complexity of the correction."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": {
+     "$": 28
+    },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 29,
+    "uk": [
+     "Консультація та обстеження. Обговорення бажаної форми складки, можливостей операції та ризиків.",
+     "Розмітка. Визначення висоти та розташування майбутньої складки.",
+     "Анестезія. Вибір відповідного знеболення.",
+     "Хірургічна корекція. Формування складки обраним методом.",
+     "Післяопераційне спостереження. Контроль стану повік і рекомендації щодо відновлення."
+    ],
+    "en": [
+     "Consultation and examination. Discussion of the desired crease shape, what the operation can achieve and the risks.",
+     "Marking. Determining the height and position of the future crease.",
+     "Anaesthesia. Choosing suitable pain relief.",
+     "Surgical correction. Creating the crease using the chosen method.",
+     "Postoperative monitoring. Checking the condition of the eyelids and giving recovery advice."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/asian-blepharoplasty-inline.webp",
+   "heading": {
+    "uk": "Відновлення після азіатської блефаропластики",
+    "ru": {
+     "$": 31
+    },
+    "en": "Recovery After Asian Blepharoplasty"
+   },
+   "body": {
+    "uk": "У перші дні після операції можливі набряки, синці, відчуття натягу та тимчасова асиметрія складок.\n\nПомітні набряки часто зменшуються протягом 1–2 тижнів, однак остаточне формування контуру може тривати кілька місяців.\n\nТерміни відновлення залежать від обраної методики та індивідуальних особливостей.",
+    "ru": {
+     "$": [
+      32,
+      33,
+      36
+     ]
+    },
+    "en": "In the first days after surgery there may be swelling, bruising, a feeling of tightness and temporary asymmetry of the creases.\n\nVisible swelling often subsides within 1–2 weeks, but the final contour may take several months to develop.\n\nRecovery times depend on the chosen technique and individual factors."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Під час відновлення рекомендується",
+    "ru": {
+     "$": 34
+    },
+    "en": "During Recovery It Is Recommended To"
+   },
+   "items": {
+    "$list": 35,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "не терти очі;",
+     "тимчасово відмовитися від макіяжу та контактних лінз;",
+     "обмежити інтенсивні фізичні навантаження;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "avoid rubbing your eyes;",
+     "stop using make-up and contact lenses for a while;",
+     "limit strenuous physical activity;",
+     "attend follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Можливі ускладнення включають кровотечу, інфекцію, помітні рубці, асиметрію, занадто високу або низьку складку, її послаблення, сухість очей і неповне змикання повік.\n\nРідкісні тяжкі ускладнення можуть загрожувати зору. У разі раптового погіршення зору або сильного болю, що наростає, після операції необхідна екстрена медична допомога.",
+    "ru": {
+     "$": [
+      39,
+      40
+     ]
+    },
+    "en": "Possible complications include bleeding, infection, noticeable scarring, asymmetry, a crease that is too high or too low, weakening of the crease, dry eyes and incomplete eyelid closure.\n\nRare serious complications can threaten vision. Sudden deterioration in vision or severe, worsening pain after surgery requires emergency medical care."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна блефаропластики азіатських очей у Дніпрі",
+    "ru": {
+     "$": 41
+    },
+    "en": "The Cost of Asian Eye Blepharoplasty in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість азіатської блефаропластики залежить від обраної хірургічної техніки, складності формування складки, необхідності видалення надлишку шкіри, виду анестезії та обсягу післяопераційного спостереження.\n\nТочну ціну визначають після консультації та складання індивідуального плану операції.",
+    "ru": {
+     "$": [
+      42,
+      43
+     ]
+    },
+    "en": "The cost of Asian blepharoplasty depends on the chosen surgical technique, the complexity of creating the crease, the need to remove excess skin, the type of anaesthesia and the extent of postoperative monitoring.\n\nThe exact price is determined after a consultation and the drawing up of an individual surgical plan."
+   },
+   "calloutBody": {
+    "uk": "Якщо ви розглядаєте формування або зміну складки верхньої повіки, почніть із консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить анатомічні особливості, пояснить відмінності між хірургічними методиками та допоможе визначити реалістичний результат.\n\nУточніть доступність послуги, актуальну вартість і умови запису на консультацію.",
+    "ru": {
+     "$": [
+      56,
+      57,
+      59
+     ]
+    },
+    "en": "If you are considering creating or changing an upper eyelid crease, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess your anatomy, explain the differences between the surgical techniques and help you define a realistic result.\n\nAsk about the availability of the procedure, current pricing and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Чи можна сформувати подвійну повіку без розрізу?",
+    "ru": {
+     "$": 45
+    },
+    "en": "Can a Double Eyelid Be Created Without an Incision?"
+   },
+   "answer": {
+    "uk": "У деяких випадках застосовують шовну методику через невеликі проколи. Можливість її використання залежить від анатомії верхніх повік.",
+    "ru": {
+     "$": 46
+    },
+    "en": "In some cases a suture technique through small punctures is used. Whether it is an option depends on the anatomy of the upper eyelids."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються рубці?",
+    "ru": {
+     "$": 47
+    },
+    "en": "Will There Be Scars?"
+   },
+   "answer": {
+    "uk": "За методики з розрізом залишається рубець, зазвичай розташований у складці повіки. За шовної техніки сліди проколів, як правило, менш помітні.",
+    "ru": {
+     "$": 48
+    },
+    "en": "The incisional technique leaves a scar, usually located within the eyelid crease. With the suture technique, the puncture marks are generally less noticeable."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи зміниться форма очей?",
+    "ru": {
+     "$": 49
+    },
+    "en": "Will the Shape of My Eyes Change?"
+   },
+   "answer": {
+    "uk": "Операція змінює насамперед складку верхньої повіки. Візуальне сприйняття очей може змінитися, але корекція не обов’язково зачіпає їхню анатомічну форму.",
+    "ru": {
+     "$": 50
+    },
+    "en": "The operation primarily changes the upper eyelid crease. The way the eyes look may change, but the correction does not necessarily alter their anatomical shape."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки зберігається результат?",
+    "ru": {
+     "$": 51
+    },
+    "en": "How Long Do the Results Last?"
+   },
+   "answer": {
+    "uk": "Результат розрізної методики може зберігатися тривалий час. Після шовної техніки складка в деяких випадках слабшає або зникає.",
+    "ru": {
+     "$": 52
+    },
+    "en": "The result of the incisional technique can last a long time. After the suture technique, the crease sometimes weakens or disappears."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна повернутися до роботи?",
+    "ru": {
+     "$": 53
+    },
+    "en": "When Can I Return to Work?"
+   },
+   "answer": {
+    "uk": "За неускладненого відновлення деякі пацієнти повертаються до спокійної роботи через один-два тижні. Точний термін залежить від обсягу операції.",
+    "ru": {
+     "$": 54
+    },
+    "en": "With an uncomplicated recovery, some patients return to non-strenuous work after one to two weeks. The exact timing depends on the extent of the operation."
+   }
+  }
+ ]
+}

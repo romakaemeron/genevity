@@ -1,0 +1,457 @@
+{
+ "sortOrder": 132,
+ "related": ["liposuction", "body-contouring", "necklift"],
+ "title": {"uk": "Видалення шийного горба", "ru": "Удаление шейного горба", "en": "Neck Hump Removal"},
+ "summary": {
+  "uk": "Шийний горб, який також називають холкою, вдовиним або «клімактеричним» горбом, — поширена побутова назва помітного виступу в ділянці переходу шиї у верхню частину спини. Він може бути пов'язаний з локальним накопиченням жирової тканини, особливостями постави, змінами хребта або іншими станами.",
+  "ru": {"$": 0},
+  "en": "A neck hump — also called a dowager's hump, a buffalo hump, or a 'menopausal' hump — is the everyday name for a noticeable bulge where the neck meets the upper back. It may be linked to a local accumulation of fatty tissue, posture, changes in the spine, or other conditions."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/buffalo-hump-removal-hero.webp",
+   "heading": {"uk": "Що таке шийний горб і чому він з'являється?", "ru": {"$": 4}, "en": "What Is a Neck Hump and Why Does It Develop?"},
+   "body": {
+    "uk": "Шийний горб — це помітне підвищення в ділянці сьомого шийного хребця та верхньої частини грудного відділу хребта.\n\nУ медичній практиці важливо розрізняти локальне накопичення жирової тканини в задній частині шиї, порушення постави, деформації хребта та об'ємні утворення м'яких тканин.\n\nЗовні ці стани можуть бути схожими, але їхні причини та способи лікування відрізняються.\n\nТаке утворення нерідко спричиняє естетичний дискомфорт, змінює контур шиї та силует верхньої частини спини. В окремих випадках воно супроводжується обмеженням рухливості, напруженням м'язів або неприємними відчуттями.",
+    "ru": {"$": [5, 6, 7, 1]},
+    "en": "A neck hump is a noticeable prominence in the area of the seventh cervical vertebra and the upper thoracic spine.\n\nIn medical practice it is important to distinguish between a local accumulation of fatty tissue at the back of the neck, postural problems, spinal deformities, and soft-tissue masses.\n\nThese conditions can look similar from the outside, but their causes and treatments differ.\n\nSuch a bulge often causes aesthetic discomfort and changes the contour of the neck and the silhouette of the upper back. In some cases it is accompanied by restricted mobility, muscle tension, or unpleasant sensations."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає естетичні зміни в контексті загального стану здоров'я людини. Перш ніж обирати спосіб видалення шийного горба, важливо визначити причину його появи та оцінити можливі методи корекції.",
+    "ru": {"$": 2},
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — considers aesthetic changes in the context of a person's overall health. Before choosing how to remove a neck hump, it is important to determine why it has developed and to assess the possible correction methods."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Основні причини появи шийного горба", "ru": {"$": 8}, "en": "The Main Causes of a Neck Hump"},
+   "items": {
+    "$lines": [10, 12, 14, 16, 18, 20],
+    "uk": [
+     "Надмірне накопичення підшкірної жирової тканини в шийно-комірцевій зоні може формувати характерне округле підвищення. Іноді воно зберігається навіть після загального зниження маси тіла.",
+     "Збільшення кількості жирової тканини може супроводжуватися зміною контурів шиї, плечей і верхньої частини спини.",
+     "Деякі ендокринні захворювання, зокрема стани з підвищеним рівнем кортизолу, можуть супроводжуватися перерозподілом жирової тканини.",
+     "Тривале застосування деяких глюкокортикостероїдів та окремих інших препаратів може впливати на розподіл жирової тканини в організмі.",
+     "Посилений грудний кіфоз, вікові зміни хребта та порушення постави можуть створювати вигляд шийного горба навіть без вираженого локального жирового відкладення.",
+     "Іноді локальне підвищення пов'язане з ліпомою або іншим утворенням м'яких тканин, що потребує окремої діагностики."
+    ],
+    "en": [
+     "Excess subcutaneous fat in the neck and upper-back (collar) area can form a characteristic rounded prominence. Sometimes it persists even after overall weight loss.",
+     "An increase in body fat can be accompanied by changes in the contours of the neck, shoulders, and upper back.",
+     "Some endocrine disorders, including conditions with elevated cortisol levels, can be accompanied by a redistribution of fatty tissue.",
+     "Long-term use of certain glucocorticosteroids and some other medications can affect how fat is distributed in the body.",
+     "Increased thoracic kyphosis, age-related changes in the spine, and poor posture can create the appearance of a neck hump even without a significant local fat deposit.",
+     "Sometimes a local prominence is due to a lipoma or another soft-tissue mass that needs separate investigation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Встановлення причини — головний етап вибору ефективного та безпечного лікування.\n\nЯкщо виступ сформований переважно з жирової тканини, одним із варіантів лікування може бути ліпосакція шийного горба. За інших причин потрібен інший підхід.",
+    "ru": {"$": [21, 3]},
+    "en": "Identifying the cause is the key step in choosing an effective and safe treatment.\n\nIf the bulge consists mainly of fatty tissue, liposuction of the neck hump may be one treatment option. Other causes call for a different approach."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Коли варто звернутися по консультацію?", "ru": {"$": 22}, "en": "When Should You Seek a Consultation?"},
+   "items": {
+    "$list": 24,
+    "uk": [
+     "помітне збільшення об'єму тканин у ділянці основи шиї;",
+     "зміна контуру шиї та верхньої частини спини;",
+     "виражений естетичний дискомфорт;",
+     "труднощі з добором одягу через локальний виступ;",
+     "відчуття тиску або дискомфорту в шийно-комірцевій зоні;",
+     "збільшення утворення з часом;",
+     "бажання дізнатися, чи можна видалити холку хірургічним способом."
+    ],
+    "en": [
+     "a noticeable increase in tissue volume at the base of the neck;",
+     "a change in the contour of the neck and upper back;",
+     "marked aesthetic discomfort;",
+     "difficulty finding clothes that fit because of the bulge;",
+     "a feeling of pressure or discomfort in the neck and upper-back area;",
+     "the bulge growing over time;",
+     "wanting to find out whether the hump can be removed surgically."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Якщо утворення швидко росте, стає болючим, супроводжується онімінням, слабкістю або іншими незвичними симптомами, необхідна своєчасна медична оцінка.",
+    "ru": {"$": 25},
+    "en": "If the bulge is growing quickly, becomes painful, or is accompanied by numbness, weakness, or other unusual symptoms, prompt medical assessment is needed."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Як прибрати шийний горб?", "ru": {"$": 26}, "en": "How Can a Neck Hump Be Removed?"},
+   "body": {
+    "uk": "Спосіб корекції залежить від причини утворення, структури тканин, вираженості змін і загального стану здоров'я.\n\nУніверсальної процедури, яка підходить усім пацієнтам, не існує.",
+    "ru": {"$": [27, 28]},
+    "en": "The correction method depends on the cause of the bulge, the tissue structure, the severity of the changes, and the patient's general health.\n\nThere is no single procedure that suits every patient."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Ліпосакція шийного горба", "ru": {"$": 29}, "en": "Neck Hump Liposuction"},
+   "body": {
+    "uk": "Ліпосакція — один із хірургічних методів видалення локальних жирових відкладень.\n\nПід час процедури хірург через невеликі проколи вводить спеціальні інструменти та видаляє частину підшкірної жирової тканини.\n\nЛіпосакція шийно-комірцевої зони може розглядатися, якщо основною причиною виступу є локальне накопичення жиру і немає протипоказань.\n\nМета втручання — зменшити об'єм жирового відкладення та скоригувати контур переходу шиї у верхню частину спини.",
+    "ru": {"$": [30, 31, 32, 33]},
+    "en": "Liposuction is one of the surgical methods for removing local fat deposits.\n\nDuring the procedure, the surgeon inserts special instruments through small punctures and removes part of the subcutaneous fat.\n\nLiposuction of the neck and upper-back area may be considered if the bulge is mainly caused by a local accumulation of fat and there are no contraindications.\n\nThe aim is to reduce the volume of the fat deposit and correct the contour where the neck meets the upper back."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Водночас ліпосакція не усуває захворювань хребта, порушень постави чи ендокринних причин накопичення жиру.",
+    "ru": {"$": 34},
+    "en": "Liposuction does not, however, treat spinal conditions, poor posture, or endocrine causes of fat accumulation."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Хірургічне видалення жирового утворення", "ru": {"$": 35}, "en": "Surgical Excision of a Fatty Mass"},
+   "body": {
+    "uk": "В окремих випадках замість ліпосакції може знадобитися хірургічне висічення тканин.\n\nТакий варіант розглядається, наприклад, за деяких локалізованих утворень або особливостей будови жирового відкладення.\n\nВибір між ліпосакцією та хірургічним висіченням визначається після обстеження.",
+    "ru": {"$": [36, 37, 38]},
+    "en": "In some cases, surgical excision of tissue may be needed instead of liposuction.\n\nThis option is considered, for example, for certain localised masses or particular structural features of the fat deposit.\n\nThe choice between liposuction and surgical excision is made after an examination."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Корекція постави та лікування захворювань хребта", "ru": {"$": 39}, "en": "Posture Correction and Treatment of Spinal Conditions"},
+   "body": {
+    "uk": "Якщо виступ пов'язаний переважно зі змінами хребта, видалення жирової тканини не розв'яже проблему.\n\nУ таких випадках може знадобитися консультація профільного фахівця, лікувальна фізкультура, реабілітація або інше лікування залежно від діагнозу.",
+    "ru": {"$": [40, 41]},
+    "en": "If the bulge is mainly due to changes in the spine, removing fatty tissue will not solve the problem.\n\nIn such cases, a consultation with the relevant specialist, therapeutic exercise, rehabilitation, or other treatment may be needed, depending on the diagnosis."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Лікування ендокринних порушень", "ru": {"$": 42}, "en": "Treatment of Endocrine Disorders"},
+   "body": {
+    "uk": "Якщо накопичення жиру пов'язане з гормональними змінами або захворюванням, пріоритетом є діагностика та лікування основної причини.\n\nЕстетична корекція за потреби розглядається окремо, після оцінки медичних показань.",
+    "ru": {"$": [43, 44]},
+    "en": "If the fat accumulation is linked to hormonal changes or a disease, the priority is to diagnose and treat the underlying cause.\n\nAesthetic correction, if needed, is considered separately once the medical indications have been assessed."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Переваги ліпосакції шийного горба", "ru": {"$": 45}, "en": "Benefits of Neck Hump Liposuction"},
+   "items": {
+    "$lines": [48, 50, 52, 54],
+    "uk": [
+     "Процедура дозволяє видалити частину жирової тканини безпосередньо в зоні її надмірного накопичення.",
+     "Ліпосакція зазвичай виконується через невеликі проколи шкіри. Однак після них можуть залишатися малопомітні рубці.",
+     "Зменшення локального жирового об'єму може зробити перехід від шиї до верхньої частини спини плавнішим.",
+     "Об'єм видалення тканини визначається з урахуванням анатомії, товщини жирового шару, стану шкіри та очікуваного результату."
+    ],
+    "en": [
+     "The procedure removes part of the fatty tissue directly where it has built up.",
+     "Liposuction is usually performed through small skin punctures, although these may leave barely visible scars.",
+     "Reducing the local fat volume can make the transition from the neck to the upper back smoother.",
+     "The amount of tissue removed is planned according to the anatomy, the thickness of the fat layer, the condition of the skin, and the expected result."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "За правильно встановлених показань ліпосакція може допомогти скоригувати локальне жирове відкладення, яке впливає на контур шиї та верхньої частини спини.\n\nВажливо розуміти, що ліпосакція — хірургічне втручання. Вона має протипоказання та ризики, а остаточний естетичний результат індивідуальний.",
+    "ru": {"$": [46, 55]},
+    "en": "With properly established indications, liposuction can help correct a local fat deposit that affects the contour of the neck and upper back.\n\nIt is important to understand that liposuction is a surgical procedure. It has contraindications and risks, and the final aesthetic result varies from person to person."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Діагностика перед видаленням шийного горба", "ru": {"$": 56}, "en": "Diagnosis Before Neck Hump Removal"},
+   "body": {
+    "uk": "Перед вибором методу корекції необхідно визначити, які тканини формують виступ.\n\nЗа потреби призначають додаткові обстеження.",
+    "ru": {"$": [57, 60]},
+    "en": "Before choosing a correction method, it is necessary to determine which tissues form the bulge.\n\nAdditional investigations are ordered where necessary."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "На консультації фахівець оцінює", "ru": {"$": 58}, "en": "At the Consultation, the Specialist Assesses"},
+   "items": {
+    "$list": 59,
+    "uk": [
+     "розташування та розміри утворення;",
+     "щільність і рухливість тканин;",
+     "стан шкіри;",
+     "особливості постави;",
+     "наявність болю або інших симптомів;",
+     "динаміку змін;",
+     "хронічні захворювання та препарати, які приймає пацієнт."
+    ],
+    "en": [
+     "the location and size of the bulge;",
+     "the density and mobility of the tissues;",
+     "the condition of the skin;",
+     "posture;",
+     "any pain or other symptoms;",
+     "how the changes have progressed;",
+     "chronic conditions and current medications."
+    ]
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {"uk": "Додаткові обстеження", "ru": "Дополнительные обследования", "en": "Additional Investigations"},
+   "steps": [
+    {
+     "title": {"uk": "УЗД м'яких тканин", "ru": {"$": 61}, "en": "Soft-Tissue Ultrasound"},
+     "description": {
+      "uk": "Ультразвукове дослідження може допомогти оцінити структуру підшкірних тканин і відрізнити дифузне жирове накопичення від деяких локалізованих утворень.",
+      "ru": {"$": 62},
+      "en": "Ultrasound can help assess the structure of the subcutaneous tissues and distinguish a diffuse fat accumulation from certain localised masses."
+     }
+    },
+    {
+     "title": {"uk": "Консультація ендокринолога", "ru": {"$": 63}, "en": "Endocrinologist Consultation"},
+     "description": {
+      "uk": "Може знадобитися за підозри на гормональні причини перерозподілу жирової тканини.",
+      "ru": {"$": 64},
+      "en": "May be needed if hormonal causes of fat redistribution are suspected."
+     }
+    },
+    {
+     "title": {"uk": "Обстеження хребта", "ru": {"$": 65}, "en": "Spinal Examination"},
+     "description": {
+      "uk": "Якщо є ознаки кіфозу, виражених змін постави або інших порушень опорно-рухового апарату, лікар може рекомендувати консультацію відповідного фахівця та інструментальну діагностику.",
+      "ru": {"$": 66},
+      "en": "If there are signs of kyphosis, marked postural changes, or other musculoskeletal disorders, the doctor may recommend seeing the appropriate specialist and having instrumental investigations."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Комплексна оцінка допомагає уникнути необґрунтованого хірургічного втручання.",
+    "ru": {"$": 67},
+    "en": "A comprehensive assessment helps avoid unnecessary surgery."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {"uk": "Як проходить видалення шийного горба методом ліпосакції?", "ru": {"$": 68}, "en": "How Is Neck Hump Removal by Liposuction Performed?"},
+   "steps": [
+    {
+     "title": {"uk": "1. Первинна консультація", "ru": {"$": 70}, "en": "1. Initial Consultation"},
+     "description": {
+      "uk": "Лікар оцінює ділянку шиї та верхньої частини спини, збирає анамнез, з'ясовує побажання пацієнта та пояснює можливі варіанти лікування.",
+      "ru": {"$": 71},
+      "en": "The doctor examines the neck and upper back, takes a medical history, discusses the patient's wishes, and explains the possible treatment options."
+     }
+    },
+    {
+     "title": {"uk": "2. Підготовка до процедури", "ru": {"$": 72}, "en": "2. Preparing for the Procedure"},
+     "description": {
+      "uk": "Перед операцією проводять необхідні обстеження. Їхній обсяг залежить від стану здоров'я пацієнта, обраного методу та виду анестезії.",
+      "ru": {"$": 73},
+      "en": "The necessary investigations are carried out before surgery. Their scope depends on the patient's health, the chosen method, and the type of anaesthesia."
+     }
+    },
+    {
+     "title": {"uk": "3. Проведення ліпосакції", "ru": {"$": 74}, "en": "3. The Liposuction Procedure"},
+     "description": {
+      "uk": "Після знеболення хірург виконує невеликі доступи та за допомогою спеціальних інструментів видаляє запланований об'єм жирової тканини.\n\nТехніка операції добирається індивідуально.\n\nТривалість втручання залежить від розміру та щільності жирового відкладення, а також особливостей обраної методики.",
+      "ru": {"$": [75, 76, 77]},
+      "en": "After anaesthesia, the surgeon makes small access incisions and uses special instruments to remove the planned volume of fat.\n\nThe surgical technique is chosen individually.\n\nThe length of the procedure depends on the size and density of the fat deposit and on the chosen technique."
+     }
+    },
+    {
+     "title": {"uk": "4. Післяопераційне спостереження", "ru": {"$": 78}, "en": "4. Postoperative Monitoring"},
+     "description": {
+      "uk": "Після процедури лікар оцінює стан пацієнта та дає рекомендації щодо догляду за ділянкою втручання.\n\nЗа потреби призначають контрольні огляди та компресійний виріб.",
+      "ru": {"$": [79, 80]},
+      "en": "After the procedure, the doctor assesses the patient's condition and gives instructions on caring for the treated area.\n\nFollow-up appointments and a compression garment are prescribed where necessary."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Відновлення після видалення шийного горба", "ru": {"$": 81}, "en": "Recovery After Neck Hump Removal"},
+   "body": {
+    "uk": "Після ліпосакції в шийно-комірцевій зоні можливі набряклість, синці, тимчасова зміна чутливості та помірний дискомфорт.\n\nВираженість цих проявів залежить від обсягу втручання та індивідуальних особливостей організму.\n\nПерші зміни контуру можуть бути помітні після зменшення набряку. Остаточний результат оцінюють після відновлення тканин.",
+    "ru": {"$": [82, 83, 86]},
+    "en": "After liposuction of the neck and upper-back area, swelling, bruising, temporary changes in sensation, and moderate discomfort are possible.\n\nHow pronounced these are depends on the extent of the procedure and the individual.\n\nThe first changes in contour may become visible once the swelling subsides. The final result is assessed after the tissues have recovered."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "У період реабілітації рекомендується", "ru": {"$": 84}, "en": "During Recovery It Is Recommended To"},
+   "items": {
+    "$list": 85,
+    "uk": [
+     "дотримуватися призначень хірурга;",
+     "обмежувати фізичні навантаження відповідно до рекомендацій;",
+     "уникати тиску на прооперовану ділянку та її травмування;",
+     "використовувати компресійний виріб, якщо його призначено;",
+     "відвідувати контрольні огляди;",
+     "не проводити масаж і апаратні процедури без дозволу лікаря."
+    ],
+    "en": [
+     "follow the surgeon's instructions;",
+     "limit physical activity as advised;",
+     "avoid pressure on, or injury to, the treated area;",
+     "wear a compression garment if prescribed;",
+     "attend follow-up appointments;",
+     "avoid massage and device-based treatments without the doctor's approval."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "Протипоказання до видалення шийного горба", "ru": {"$": 87}, "en": "Contraindications to Neck Hump Removal"},
+   "items": {
+    "$list": 90,
+    "uk": [
+     "гострі інфекційні захворювання;",
+     "порушення згортання крові;",
+     "деякі декомпенсовані хронічні захворювання;",
+     "стани, що підвищують ризик анестезії або хірургічних ускладнень;",
+     "відсутність показань до видалення жирової тканини;",
+     "інші індивідуальні медичні обмеження."
+    ],
+    "en": [
+     "acute infectious diseases;",
+     "blood clotting disorders;",
+     "certain decompensated chronic conditions;",
+     "conditions that increase the risk of anaesthesia or surgical complications;",
+     "no indication for removing fatty tissue;",
+     "other individual medical restrictions."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Хірургічна корекція підходить не кожному пацієнтові.\n\nМожливі ризики ліпосакції включають кровотечу, інфекцію, серому, нерівності контуру, асиметрію, зміну чутливості, рубцювання та ускладнення анестезії.\n\nОстаточне рішення про проведення операції ухвалюється після обстеження.",
+    "ru": {"$": [88, 91, 92]},
+    "en": "Surgical correction is not suitable for every patient.\n\nPossible risks of liposuction include bleeding, infection, seroma, contour irregularities, asymmetry, changes in sensation, scarring, and anaesthetic complications.\n\nThe final decision on surgery is made after an examination."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Чи можна прибрати шийний горб без операції?", "ru": {"$": 93}, "en": "Can a Neck Hump Be Removed Without Surgery?"},
+   "body": {
+    "uk": "У деяких випадках зменшити виступ можна без хірургічного втручання.\n\nЯкщо він пов'язаний із загальним надлишком жирової тканини, зниження маси тіла може сприяти зменшенню об'єму в цій ділянці.\n\nЗа порушень постави корисними можуть бути індивідуально підібрані вправи та реабілітаційні заходи.\n\nЯкщо причиною є ендокринне захворювання, необхідно лікувати основний стан.",
+    "ru": {"$": [94, 95, 96, 97]},
+    "en": "In some cases the bulge can be reduced without surgery.\n\nIf it is linked to general excess body fat, weight loss may help reduce the volume in this area.\n\nFor postural problems, individually tailored exercises and rehabilitation can be helpful.\n\nIf an endocrine disorder is the cause, the underlying condition must be treated."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Однак масаж, вправи та косметологічні процедури не гарантують усунення локального жирового відкладення. Їхня ефективність залежить від причини формування виступу.\n\nТому перед вибором безопераційних методів важливо пройти діагностику.",
+    "ru": {"$": [98, 99]},
+    "en": "However, massage, exercise, and cosmetic treatments cannot guarantee the removal of a local fat deposit. Their effectiveness depends on what has caused the bulge.\n\nThat is why it is important to have a diagnosis before choosing non-surgical methods."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Видалення шийного горба та якість життя", "ru": {"$": 100}, "en": "Neck Hump Removal and Quality of Life"},
+   "body": {
+    "uk": "Виражений виступ у ділянці шиї може впливати на сприйняття власної зовнішності та повсякденний комфорт.\n\nПри цьому завдання сучасної медицини — не лише змінити зовнішній контур, а й визначити, чи не пов'язаний естетичний недолік зі станом, що потребує медичного лікування.\n\nЯкщо причиною шийного горба є локальне жирове накопичення, хірургічна корекція може розглядатися як один зі способів покращити контур тіла.\n\nЯкщо ж виступ пов'язаний зі змінами хребта або ендокринними порушеннями, пріоритетом стає відповідне лікування.\n\nТакий підхід дозволяє обирати рішення, засноване на справжніх причинах змін, а не лише на їхніх зовнішніх проявах.",
+    "ru": {"$": [101, 102, 104, 105, 106]},
+    "en": "A pronounced bulge at the neck can affect how people perceive their own appearance and their everyday comfort.\n\nThe task of modern medicine is not only to change the outward contour but also to determine whether the aesthetic concern is linked to a condition that needs medical treatment.\n\nIf the neck hump is caused by a local fat accumulation, surgical correction may be considered as one way of improving the body contour.\n\nIf, however, the bulge is related to spinal changes or endocrine disorders, appropriate treatment becomes the priority.\n\nThis approach makes it possible to choose a solution based on the real causes of the changes rather than on their outward appearance alone."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя — підхід до подібних змін має враховувати як естетичні побажання, так і стан здоров'я пацієнта.",
+    "ru": {"$": 103},
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life — the approach to such changes takes into account both the patient's aesthetic wishes and their health."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {"uk": "Скільки коштує видалення шийного горба в Дніпрі?", "ru": {"$": 107}, "en": "How Much Does Neck Hump Removal Cost in Dnipro?"},
+   "body": {
+    "uk": "Ціна видалення шийного горба в Дніпрі залежить від обраного методу корекції, обсягу втручання та індивідуальних особливостей пацієнта.",
+    "ru": {"$": 108},
+    "en": "The price of neck hump removal in Dnipro depends on the chosen correction method, the extent of the procedure, and the patient's individual characteristics."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {"uk": "На вартість можуть впливати", "ru": {"$": 109}, "en": "Factors That May Affect the Cost"},
+   "items": {
+    "$list": 110,
+    "uk": [
+     "необхідність попередньої діагностики;",
+     "розміри та структура жирового відкладення;",
+     "обрана хірургічна методика;",
+     "вид анестезії;",
+     "складність втручання;",
+     "необхідність післяопераційного спостереження."
+    ],
+    "en": [
+     "the need for preliminary diagnosis;",
+     "the size and structure of the fat deposit;",
+     "the chosen surgical technique;",
+     "the type of anaesthesia;",
+     "the complexity of the procedure;",
+     "the need for postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації та складання плану лікування.\n\nЯкщо вас турбує виступ у ділянці основи шиї, не варто обирати процедуру лише за зовнішнім виглядом утворення.\n\nПерший крок — визначити причину його появи та оцінити можливі методи корекції.\n\nУточніть можливість консультації щодо шийного горба, доступні методи діагностики та хірургічної корекції.",
+    "ru": {"$": [111, 131, 132, 134]},
+    "en": "The exact cost is determined after a consultation and a treatment plan.\n\nIf a bulge at the base of your neck concerns you, do not choose a procedure based on its appearance alone.\n\nThe first step is to find out why it has developed and to assess the possible correction methods.\n\nAsk about a consultation for a neck hump and the available diagnostic and surgical correction options."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {"uk": "Чи можна повністю видалити шийний горб?", "ru": {"$": 114}, "en": "Can a Neck Hump Be Removed Completely?"},
+   "answer": {"uk": "Якщо виступ утворений переважно локальним жировим відкладенням, хірургічна корекція може суттєво зменшити його об'єм. Однак можливість повного усунення залежить від анатомії, структури тканин і причини утворення.", "ru": {"$": 115}, "en": "If the bulge consists mainly of a local fat deposit, surgical correction can reduce its volume significantly. Whether it can be removed completely, however, depends on the anatomy, the tissue structure, and the cause."}
+  },
+  {
+   "question": {"uk": "Чи допомагає ліпосакція позбутися вдовиного горба?", "ru": {"$": 116}, "en": "Does Liposuction Help Get Rid of a Dowager's Hump?"},
+   "answer": {"uk": "Ліпосакція може бути ефективною, якщо виступ має жировий характер. Якщо причиною є викривлення хребта, метод не усуне основної проблеми.", "ru": {"$": 117}, "en": "Liposuction can be effective when the bulge is made up of fat. If it is caused by curvature of the spine, the method will not address the underlying problem."}
+  },
+  {
+   "question": {"uk": "Чи може шийний горб з'явитися знову?", "ru": {"$": 118}, "en": "Can a Neck Hump Come Back?"},
+   "answer": {"uk": "Повторне накопичення жирової тканини можливе, особливо якщо зберігаються чинники, що спричинили її перерозподіл. Видалення жиру не гарантує, що виступ ніколи не з'явиться знову.", "ru": {"$": 119}, "en": "Fat can accumulate again, especially if the factors that caused its redistribution persist. Removing the fat does not guarantee that the bulge will never return."}
+  },
+  {
+   "question": {"uk": "Чи боляче видаляти шийний горб?", "ru": {"$": 120}, "en": "Is Neck Hump Removal Painful?"},
+   "answer": {"uk": "Під час операції застосовується анестезія. Після втручання можливі болючість, набряклість і відчуття натягнення тканин. Способи контролю дискомфорту визначає лікар.", "ru": {"$": 121}, "en": "Anaesthesia is used during the operation. Afterwards, tenderness, swelling, and a feeling of tightness are possible. The doctor decides how any discomfort is managed."}
+  },
+  {
+   "question": {"uk": "Скільки триває реабілітація?", "ru": {"$": 122}, "en": "How Long Does Recovery Take?"},
+   "answer": {"uk": "Тривалість відновлення індивідуальна. Вона залежить від обсягу операції, особливостей тканин і перебігу післяопераційного періоду.", "ru": {"$": 123}, "en": "Recovery time varies from person to person. It depends on the extent of the operation, the characteristics of the tissues, and how the postoperative period goes."}
+  },
+  {
+   "question": {"uk": "Чи можна прибрати холку масажем?", "ru": {"$": 124}, "en": "Can a Neck Hump Be Removed with Massage?"},
+   "answer": {"uk": "Масаж може тимчасово зменшувати м'язове напруження, але не є доведеним способом видалення сформованого жирового відкладення чи виправлення структурних змін хребта.", "ru": {"$": 125}, "en": "Massage may temporarily relieve muscle tension, but it is not a proven way of removing an established fat deposit or correcting structural changes in the spine."}
+  },
+  {
+   "question": {"uk": "До якого лікаря звернутися, якщо з'явився шийний горб?", "ru": {"$": 126}, "en": "Which Doctor Should I See About a Neck Hump?"},
+   "answer": {"uk": "Спершу можна звернутися до лікаря, який оцінить характер утворення та визначить, чи потрібна консультація хірурга, ендокринолога або фахівця із захворювань хребта.", "ru": {"$": 127}, "en": "You can start with a doctor who will assess the nature of the bulge and decide whether you need to see a surgeon, an endocrinologist, or a spine specialist."}
+  },
+  {
+   "question": {"uk": "Чи залишаються шрами після видалення шийного горба?", "ru": {"$": 128}, "en": "Do Scars Remain After Neck Hump Removal?"},
+   "answer": {"uk": "Після хірургічного втручання можливе утворення рубців. За ліпосакції доступи зазвичай невеликі, але їхній остаточний вигляд залежить від особливостей загоєння.", "ru": {"$": 129}, "en": "Surgery can leave scars. With liposuction the access points are usually small, but their final appearance depends on how the individual heals."}
+  }
+ ]
+}

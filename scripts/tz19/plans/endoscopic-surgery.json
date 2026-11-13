@@ -1,0 +1,716 @@
+{
+ "sortOrder": 108,
+ "related": [
+  "endoscopic-facelift",
+  "facelift",
+  "face"
+ ],
+ "title": {
+  "uk": "Ендоскопічна пластична хірургія",
+  "ru": "Эндоскопическая пластическая хирургия",
+  "en": "Endoscopic Plastic Surgery"
+ },
+ "summary": {
+  "uk": "Ендоскопічна пластична хірургія — сучасний напрям естетичної медицини, що дає змогу коригувати вікові зміни обличчя за допомогою спеціальних хірургічних інструментів та ендоскопічного обладнання. Методику застосовують для підтяжки та переміщення м'яких тканин через невеликі розрізи, які в певних випадках можна розмістити в малопомітних зонах.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Endoscopic plastic surgery is a modern field of aesthetic medicine that allows age-related changes in the face to be corrected using specialised surgical instruments and endoscopic equipment. The technique is used to lift and reposition soft tissues through small incisions which, in certain cases, can be placed in inconspicuous areas."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/endoscopic-surgery-hero.webp",
+   "heading": {
+    "uk": "Що таке ендоскопічна пластична хірургія?",
+    "ru": {
+     "$": 3
+    },
+    "en": "What Is Endoscopic Plastic Surgery?"
+   },
+   "body": {
+    "uk": "Ендоскопічна пластична хірургія — це метод виконання певних естетичних операцій із використанням ендоскопа — спеціального пристрою з мініатюрною камерою, що передає збільшене зображення тканин на монітор.\n\nПід час операції пластичний хірург може візуалізувати анатомічні структури та виконувати необхідні маніпуляції через невеликі хірургічні доступи.\n\nЕндоскопічні технології особливо затребувані для корекції вікових змін верхньої та середньої третин обличчя.\n\nМетод можна застосовувати для зміни положення брів, корекції м'яких тканин лоба та окремих видів ліфтингу обличчя.\n\nНа відміну від деяких традиційних відкритих операцій, ендоскопічні втручання дають змогу зменшити довжину зовнішніх розрізів. Однак вибір хірургічної техніки завжди залежить від анатомічних особливостей пацієнта, вираженості вікових змін і очікуваного результату.\n\nСучасні ендоскопічні технології допомагають виконувати окремі види пластичних операцій із точним візуальним контролем. Мета таких втручань — гармонійна корекція вікових змін зі збереженням індивідуальних рис зовнішності.",
+    "ru": {
+     "$": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      2
+     ]
+    },
+    "en": "Endoscopic plastic surgery is a way of performing certain aesthetic operations using an endoscope, a specialised device with a miniature camera that transmits a magnified image of the tissues to a monitor.\n\nDuring the operation the plastic surgeon can visualise the anatomical structures and carry out the necessary manipulations through small surgical access points.\n\nEndoscopic techniques are particularly in demand for correcting age-related changes in the upper and middle thirds of the face.\n\nThe method can be used to change the position of the brows, correct the soft tissues of the forehead and perform certain types of facelift.\n\nUnlike some traditional open operations, endoscopic procedures allow the length of external incisions to be reduced. However, the choice of surgical technique always depends on the patient's anatomy, the degree of age-related change and the expected result.\n\nModern endoscopic technology helps perform certain types of plastic surgery with precise visual control. The aim of these procedures is a balanced correction of age-related changes that preserves individual features."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетичну медицину розглядають як частину комплексного підходу до збереження привабливості, впевненості в собі та доброго самопочуття.",
+    "ru": {
+     "$": 1
+    },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic medicine is seen as part of a comprehensive approach to maintaining attractiveness, self-confidence and wellbeing."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги ендоскопічної пластичної хірургії",
+    "ru": {
+     "$": 9
+    },
+    "en": "Advantages of Endoscopic Plastic Surgery"
+   },
+   "items": {
+    "$lines": [
+     12,
+     14,
+     16,
+     18,
+     20
+    ],
+    "uk": [
+     "Під час окремих операцій хірургічні доступи розташовуються у волосистій частині голови або інших малопомітних ділянках. Це дає змогу зменшити видимість післяопераційних рубців.",
+     "Ендоскопічна камера передає збільшене зображення операційного поля, допомагаючи хірургові орієнтуватися в анатомічних структурах і контролювати перебіг втручання.",
+     "Одне із завдань естетичної корекції — покращити положення тканин без надмірної зміни індивідуальних рис зовнішності. За правильного вибору показань ендоскопічні методи можна використовувати для досягнення такого результату.",
+     "Ендоскопічна корекція може входити в індивідуальний план естетичного лікування й у деяких випадках поєднуватися з іншими хірургічними чи нехірургічними процедурами.",
+     "Обсяг операції визначають після консультації та оцінки стану тканин. Це дає змогу обрати методику відповідно до конкретних анатомічних змін і потреб пацієнта."
+    ],
+    "en": [
+     "In some operations the surgical access points are placed within the scalp or in other inconspicuous areas. This helps make postoperative scars less visible.",
+     "The endoscopic camera transmits a magnified image of the operative field, helping the surgeon navigate the anatomical structures and control the course of the procedure.",
+     "One of the goals of aesthetic correction is to improve the position of the tissues without excessively altering individual features. With the right indications, endoscopic methods can be used to achieve this.",
+     "Endoscopic correction can form part of an individual aesthetic treatment plan and, in some cases, be combined with other surgical or non-surgical procedures.",
+     "The extent of the operation is determined after a consultation and an assessment of the tissues. This allows the technique to be matched to the specific anatomical changes and needs of the patient."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "При цьому ендоскопічна хірургія не виключає ризиків, притаманних оперативним втручанням, і не гарантує швидшого відновлення в кожному випадку.",
+    "ru": {
+     "$": 21
+    },
+    "en": "Endoscopic surgery does not, however, eliminate the risks inherent in surgery, nor does it guarantee a faster recovery in every case."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Які операції виконують ендоскопічним методом?",
+    "ru": {
+     "$": 22
+    },
+    "en": "Which Operations Are Performed Endoscopically?"
+   },
+   "body": {
+    "uk": "Ендоскопічні технології застосовують переважно для хірургічної корекції верхньої та середньої третин обличчя.",
+    "ru": {
+     "$": 23
+    },
+    "en": "Endoscopic techniques are mainly used for the surgical correction of the upper and middle thirds of the face."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ендоскопічна підтяжка лоба",
+    "ru": {
+     "$": 24
+    },
+    "en": "Endoscopic Forehead Lift"
+   },
+   "body": {
+    "uk": "Ендоскопічна підтяжка лоба — хірургічна методика, спрямована на корекцію положення м'яких тканин верхньої третини обличчя.\n\nЗ віком тканини лоба та ділянки брів можуть поступово зміщуватися, змінюючи вираз обличчя. Це іноді створює враження втоми або важкого погляду.\n\nПід час ендоскопічної підтяжки хірург через невеликі розрізи отримує доступ до необхідних анатомічних структур і виконує їхнє переміщення та фіксацію.\n\nМетодику можна розглядати за опущення брів і деяких інших змін верхньої третини обличчя.",
+    "ru": {
+     "$": [
+      25,
+      26,
+      27,
+      28
+     ]
+    },
+    "en": "An endoscopic forehead lift is a surgical technique aimed at correcting the position of the soft tissues of the upper third of the face.\n\nWith age, the tissues of the forehead and brow area can gradually shift, changing the facial expression. This sometimes creates an impression of tiredness or a heavy gaze.\n\nDuring an endoscopic lift the surgeon accesses the relevant anatomical structures through small incisions, then repositions and secures them.\n\nThe technique may be considered for brow descent and certain other changes in the upper third of the face."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ендоскопічна підтяжка брів",
+    "ru": {
+     "$": 29
+    },
+    "en": "Endoscopic Brow Lift"
+   },
+   "body": {
+    "uk": "Ендоскопічний ліфтинг брів застосовують для корекції їхнього положення та відновлення гармонійніших пропорцій верхньої частини обличчя.\n\nОперацію можуть рекомендувати за вираженого опущення брів, асиметрії їхнього положення або вікових змін, пов'язаних зі зміщенням м'яких тканин.\n\nРішення про необхідність втручання ухвалюють після оцінки стану шкіри, положення брів і особливостей будови обличчя.",
+    "ru": {
+     "$": [
+      30,
+      31,
+      32
+     ]
+    },
+    "en": "An endoscopic brow lift is used to correct the position of the brows and restore more balanced proportions to the upper face.\n\nThe operation may be recommended for marked brow descent, asymmetry in brow position or age-related changes caused by soft-tissue displacement.\n\nThe decision on whether surgery is needed is made after assessing the skin, the brow position and the structure of the face."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ендоскопічний ліфтинг середньої третини обличчя",
+    "ru": {
+     "$": 33
+    },
+    "en": "Endoscopic Midface Lift"
+   },
+   "body": {
+    "uk": "Ендоскопічна підтяжка середньої третини обличчя спрямована на корекцію положення м'яких тканин у ділянці щік і вилиць.\n\nВікові зміни можуть супроводжуватися зменшенням об'єму окремих зон, зміною контурів і зміщенням тканин.\n\nЗалежно від анатомічних особливостей пацієнта хірург може розглянути можливість ендоскопічного переміщення та фіксації м'яких тканин.",
+    "ru": {
+     "$": [
+      34,
+      35,
+      36
+     ]
+    },
+    "en": "An endoscopic midface lift aims to correct the position of the soft tissues in the cheek and cheekbone area.\n\nAge-related changes may involve volume loss in certain areas, changes in contour and displacement of the tissues.\n\nDepending on the patient's anatomy, the surgeon may consider endoscopic repositioning and fixation of the soft tissues."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ендоскопічне омолодження обличчя",
+    "ru": {
+     "$": 37
+    },
+    "en": "Endoscopic Facial Rejuvenation"
+   },
+   "body": {
+    "uk": "Ендоскопічне омолодження обличчя — загальна назва хірургічних методик, спрямованих на корекцію окремих вікових змін із використанням ендоскопічного обладнання.\n\nЗалежно від показань втручання може охоплювати верхню, середню чи кілька анатомічних зон обличчя.\n\nКонкретний обсяг корекції визначають індивідуально. Ендоскопічний метод не є універсальною заміною класичної підтяжки обличчя.",
+    "ru": {
+     "$": [
+      38,
+      39,
+      40
+     ]
+    },
+    "en": "Endoscopic facial rejuvenation is the general name for surgical techniques that correct specific age-related changes using endoscopic equipment.\n\nDepending on the indications, the procedure may involve the upper face, the midface or several anatomical areas.\n\nThe specific extent of correction is determined individually. The endoscopic method is not a universal substitute for a classic facelift."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до ендоскопічної пластичної хірургії",
+    "ru": {
+     "$": 41
+    },
+    "en": "Indications for Endoscopic Plastic Surgery"
+   },
+   "indications": {
+    "$list": 44,
+    "uk": [
+     "опущення брів;",
+     "зміна положення тканин лоба;",
+     "вікові зміни верхньої третини обличчя;",
+     "зміщення м'яких тканин середньої третини обличчя;",
+     "зміна контурів вилицевої ділянки;",
+     "асиметрія положення окремих структур обличчя;",
+     "бажання скоригувати вікові зміни хірургічним способом;",
+     "недостатня ефективність нехірургічних методів для вирішення конкретного естетичного завдання."
+    ],
+    "en": [
+     "descent of the brows;",
+     "a change in the position of the forehead tissues;",
+     "age-related changes in the upper third of the face;",
+     "displacement of the midface soft tissues;",
+     "changes in the contours of the cheekbone area;",
+     "asymmetry in the position of individual facial structures;",
+     "a wish to correct age-related changes surgically;",
+     "insufficient effectiveness of non-surgical methods for a specific aesthetic concern."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до ендоскопічної пластичної хірургії",
+    "ru": "Противопоказания к эндоскопической пластической хирургии",
+    "en": "Contraindications to Endoscopic Plastic Surgery"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекционные заболевания.",
+     "Некоторые нарушения свёртываемости крови.",
+     "Декомпенсированные хронические заболевания.",
+     "Состояния, повышающие риск осложнений."
+    ],
+    "uk": [
+     "Гострі інфекційні захворювання.",
+     "Деякі порушення згортання крові.",
+     "Декомпенсовані хронічні захворювання.",
+     "Стани, що підвищують ризик ускладнень."
+    ],
+    "en": [
+     "Acute infectious diseases.",
+     "Certain blood clotting disorders.",
+     "Decompensated chronic conditions.",
+     "Conditions that increase the risk of complications."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Ендоскопічні операції можуть підходити пацієнтам із різними віковими змінами. При цьому вік сам по собі не є головним критерієм вибору методу.\n\nПластичний хірург оцінює якість шкіри, ступінь її надлишку, положення м'яких тканин, індивідуальну анатомію та загальний стан здоров'я.",
+    "ru": {
+     "$": [
+      45,
+      46
+     ]
+    },
+    "en": "Endoscopic operations can suit patients with various age-related changes. Age in itself is not the main criterion for choosing the method.\n\nThe plastic surgeon assesses skin quality, the degree of excess skin, the position of the soft tissues, individual anatomy and general health."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Коли ендоскопічна пластика може бути неефективною?",
+    "ru": {
+     "$": 47
+    },
+    "en": "When May Endoscopic Surgery Be Ineffective?"
+   },
+   "body": {
+    "uk": "Попри можливості ендоскопічних технологій, методика підходить не всім пацієнтам.\n\nЗа значного надлишку шкіри, вираженого опущення тканин нижньої третини обличчя чи інших складних вікових змін можуть знадобитися альтернативні хірургічні методи.\n\nТакож ендоскопічне втручання не завжди здатне вирішити проблеми, пов'язані переважно з якістю шкіри, пігментацією чи дрібними поверхневими зморшками.\n\nТому перед вибором операції важливо визначити причини естетичних змін і оцінити можливі результати різних методів корекції.",
+    "ru": {
+     "$": [
+      48,
+      49,
+      50,
+      51
+     ]
+    },
+    "en": "Despite the possibilities of endoscopic technology, the technique does not suit every patient.\n\nWith significant excess skin, marked descent of the lower face or other complex age-related changes, alternative surgical methods may be required.\n\nAn endoscopic procedure also cannot always address concerns that relate mainly to skin quality, pigmentation or fine superficial lines.\n\nThat is why, before choosing an operation, it is important to identify the causes of the aesthetic changes and weigh up the possible results of different correction methods."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить ендоскопічна пластична операція?",
+    "ru": {
+     "$": 52
+    },
+    "en": "How Is Endoscopic Plastic Surgery Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Консультація пластичного хірурга",
+      "ru": {
+       "$": 54
+      },
+      "en": "Consultation with a Plastic Surgeon"
+     },
+     "description": {
+      "uk": "Перший етап — індивідуальна консультація.\n\nЛікар оцінює анатомічні особливості обличчя, вираженість вікових змін, стан шкіри та м'яких тканин.\n\nПід час консультації обговорюються побажання пацієнта, можливі варіанти корекції, очікувані результати та обмеження обраної методики.\n\nОсобливу увагу приділяють медичному анамнезу, перенесеним операціям, хронічним захворюванням і чинникам, які можуть впливати на безпеку втручання.",
+      "ru": {
+       "$": [
+        55,
+        56,
+        57,
+        58
+       ]
+      },
+      "en": "The first stage is an individual consultation.\n\nThe surgeon assesses the anatomical features of the face, the degree of age-related change and the condition of the skin and soft tissues.\n\nThe patient's wishes, possible correction options, expected results and the limitations of the chosen technique are discussed.\n\nParticular attention is paid to the medical history, previous operations, chronic conditions and factors that may affect the safety of the procedure."
+     }
+    },
+    {
+     "title": {
+      "uk": "Передопераційне обстеження",
+      "ru": {
+       "$": 59
+      },
+      "en": "Preoperative Assessment"
+     },
+     "description": {
+      "uk": "Перед операцією пацієнт проходить необхідні обстеження.\n\nЗалежно від обсягу втручання можуть призначатися лабораторні аналізи, інструментальні дослідження та консультація анестезіолога.\n\nМета підготовки — оцінити загальний стан здоров'я та виявити можливі протипоказання.",
+      "ru": {
+       "$": [
+        60,
+        61,
+        62
+       ]
+      },
+      "en": "Before the operation the patient undergoes the necessary investigations.\n\nDepending on the extent of the procedure, laboratory tests, instrumental investigations and a consultation with an anaesthetist may be arranged.\n\nThe purpose of the preparation is to assess general health and identify any contraindications."
+     }
+    },
+    {
+     "title": {
+      "uk": "Проведення ендоскопічної операції",
+      "ru": {
+       "$": 63
+      },
+      "en": "The Endoscopic Operation"
+     },
+     "description": {
+      "uk": "Хірургічне втручання виконують в умовах операційної.\n\nПісля анестезії хірург формує невеликі доступи в заздалегідь визначених зонах.\n\nЧерез них вводять ендоскопічне обладнання та необхідні інструменти.\n\nЗображення операційного поля виводиться на монітор, що дає змогу лікареві контролювати хірургічні маніпуляції.\n\nЗалежно від обраної методики виконують звільнення, переміщення та фіксацію м'яких тканин.\n\nТривалість втручання визначається складністю операції та обсягом корекції.",
+      "ru": {
+       "$": [
+        64,
+        65,
+        66,
+        67,
+        68,
+        69
+       ]
+      },
+      "en": "The procedure is performed in an operating theatre.\n\nAfter anaesthesia, the surgeon creates small access points in predetermined areas.\n\nThe endoscopic equipment and the necessary instruments are introduced through them.\n\nThe image of the operative field is displayed on a monitor, allowing the surgeon to control the surgical manipulations.\n\nDepending on the chosen technique, the soft tissues are released, repositioned and secured.\n\nThe length of the procedure depends on the complexity of the operation and the extent of correction."
+     }
+    },
+    {
+     "title": {
+      "uk": "Післяопераційне спостереження",
+      "ru": {
+       "$": 70
+      },
+      "en": "Postoperative Monitoring"
+     },
+     "description": {
+      "uk": "Після завершення операції пацієнт перебуває під медичним наглядом.\n\nЛікар контролює ранній післяопераційний період, оцінює стан тканин і надає рекомендації щодо відновлення.\n\nНеобхідність перебування в стаціонарі залежить від виду втручання, анестезії та стану пацієнта.",
+      "ru": {
+       "$": [
+        71,
+        72,
+        73
+       ]
+      },
+      "en": "After the operation the patient remains under medical observation.\n\nThe surgeon monitors the early postoperative period, assesses the tissues and gives recovery instructions.\n\nWhether a hospital stay is needed depends on the type of procedure, the anaesthesia and the patient's condition."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Реабілітація після ендоскопічної пластичної хірургії",
+    "ru": {
+     "$": 74
+    },
+    "en": "Recovery After Endoscopic Plastic Surgery"
+   },
+   "body": {
+    "uk": "Відновлення після ендоскопічної пластики — важлива частина хірургічного лікування.\n\nТривалість реабілітації залежить від обраної операції, обсягу втручання та індивідуальних особливостей організму.\n\nУ перші дні можуть спостерігатися набряклість, невеликі синці, відчуття натягу тканин, болючість або тимчасова зміна чутливості.\n\nЦі прояви нерідко супроводжують природний процес післяопераційного відновлення, однак їхня вираженість і тривалість можуть відрізнятися.",
+    "ru": {
+     "$": [
+      75,
+      76,
+      77,
+      78
+     ]
+    },
+    "en": "Recovery after endoscopic surgery is an important part of the surgical treatment.\n\nThe length of recovery depends on the chosen operation, the extent of the procedure and individual characteristics.\n\nIn the first days, swelling, minor bruising, a feeling of tightness, tenderness or temporary changes in sensation may occur.\n\nThese effects often accompany the natural course of postoperative recovery, but their severity and duration may vary."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації в період відновлення",
+    "ru": {
+     "$": 79
+    },
+    "en": "Recommendations During Recovery"
+   },
+   "items": {
+    "$list": 81,
+    "uk": [
+     "дотримуватися призначень пластичного хірурга;",
+     "вчасно відвідувати контрольні огляди;",
+     "уникати інтенсивних фізичних навантажень упродовж рекомендованого періоду;",
+     "не травмувати зони хірургічного втручання;",
+     "правильно доглядати за післяопераційними ранами;",
+     "приймати лікарські препарати лише за призначенням лікаря;",
+     "повідомляти фахівця про незвичні симптоми чи погіршення самопочуття."
+    ],
+    "en": [
+     "follow your plastic surgeon's instructions;",
+     "attend your follow-up appointments on time;",
+     "avoid strenuous physical activity for the recommended period;",
+     "avoid injuring the treated areas;",
+     "care for the postoperative wounds correctly;",
+     "take medication only as prescribed by your doctor;",
+     "tell your specialist about any unusual symptoms or if you feel unwell."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Поступове зменшення набряків дає змогу оцінювати зміни зовнішності. Остаточний результат формується в міру загоєння та стабілізації тканин.",
+    "ru": {
+     "$": 82
+    },
+    "en": "As the swelling gradually subsides, the changes in appearance can be assessed. The final result develops as the tissues heal and settle."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Можливі ризики та протипоказання",
+    "ru": {
+     "$": 83
+    },
+    "en": "Possible Risks and Contraindications"
+   },
+   "body": {
+    "uk": "Ендоскопічна пластична хірургія належить до оперативних втручань і потребує медичної оцінки перед проведенням.\n\nДо можливих післяопераційних ускладнень належать кровотеча, гематоми, інфекція, порушення чутливості, асиметрія, проблеми із загоєнням і незадовільний естетичний результат.\n\nЗалежно від ділянки операції можливі додаткові специфічні ризики, які хірург має пояснити до втручання.\n\nРішення про проведення операції ухвалюють індивідуально після обстеження та обговорення співвідношення очікуваної користі й можливих ризиків.",
+    "ru": {
+     "$": [
+      84,
+      86,
+      87,
+      88
+     ]
+    },
+    "en": "Endoscopic plastic surgery is a surgical procedure and requires a medical assessment beforehand.\n\nPossible postoperative complications include bleeding, haematomas, infection, changes in sensation, asymmetry, healing problems and an unsatisfactory aesthetic result.\n\nDepending on the area operated on, there may be additional specific risks, which the surgeon should explain before the procedure.\n\nThe decision to operate is made individually after an examination and a discussion of the balance between the expected benefits and the possible risks."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ендоскопічна пластична хірургія та концепція довголіття",
+    "ru": {
+     "$": 89
+    },
+    "en": "Endoscopic Plastic Surgery and the Longevity Concept"
+   },
+   "body": {
+    "uk": "Сучасний підхід до якості життя охоплює увагу не лише до фізичного здоров'я, а й до психологічного комфорту, зовнішності та індивідуальних потреб людини.\n\nУ GENEVITY — Центрі довголіття та якості життя — естетичну медицину розглядають у контексті загального благополуччя пацієнта.\n\nВікові зміни зовнішності є природним процесом. Водночас деякі люди прагнуть скоригувати окремі зміни, зберігши впізнавані риси обличчя та звичний образ.\n\nЕндоскопічна пластична хірургія може бути одним з інструментів естетичної корекції, коли для цього є обґрунтовані показання.\n\nВажливо розуміти, що пластична операція не сповільнює біологічного старіння і не збільшує тривалості життя. Її завдання — вирішення конкретних естетичних проблем, які пацієнт вважає важливими для себе.\n\nСаме тому вибір хірургічної методики має ґрунтуватися на індивідуальних потребах, медичній безпеці та реалістичних очікуваннях.",
+    "ru": {
+     "$": [
+      90,
+      91,
+      92,
+      93,
+      94,
+      95
+     ]
+    },
+    "en": "A modern approach to quality of life pays attention not only to physical health but also to psychological comfort, appearance and individual needs.\n\nAt GENEVITY — the Centre for Longevity and Quality of Life — aesthetic medicine is considered in the context of the patient's overall wellbeing.\n\nAge-related changes in appearance are a natural process. At the same time, some people wish to correct specific changes while keeping their recognisable features and familiar look.\n\nEndoscopic plastic surgery can be one of the tools of aesthetic correction when there are sound indications for it.\n\nIt is important to understand that plastic surgery does not slow biological ageing or increase life expectancy. Its purpose is to address specific aesthetic concerns that matter to the patient.\n\nThat is why the choice of surgical technique should be based on individual needs, medical safety and realistic expectations."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ендоскопічна пластична хірургія в GENEVITY у Дніпрі",
+    "ru": {
+     "$": 96
+    },
+    "en": "Endoscopic Plastic Surgery at GENEVITY in Dnipro"
+   },
+   "body": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі, в основі концепції якого лежить комплексний погляд на здоров'я, зовнішність і благополуччя людини.\n\nОбираючи естетичні методи, важливо враховувати не лише бажані зміни зовнішності, а й індивідуальні особливості організму, стан здоров'я та можливі обмеження.\n\nКонсультація пластичного хірурга дає змогу визначити причини вікових змін, оцінити доцільність хірургічної корекції та обговорити можливі варіанти лікування.\n\nЕндоскопічні технології можуть розглядатися як один з варіантів естетичної хірургії за наявності відповідних показань.\n\nГоловна мета індивідуального підходу — підібрати обґрунтоване рішення, яке враховує анатомію пацієнта, його очікування та медичну безпеку.",
+    "ru": {
+     "$": [
+      97,
+      98,
+      99,
+      100,
+      101
+     ]
+    },
+    "en": "GENEVITY is the Centre for Longevity and Quality of Life in Dnipro, built on a comprehensive view of health, appearance and wellbeing.\n\nWhen choosing aesthetic methods, it is important to consider not only the desired changes in appearance but also individual characteristics, health and possible limitations.\n\nA consultation with a plastic surgeon makes it possible to identify the causes of age-related changes, assess whether surgical correction is appropriate and discuss possible treatment options.\n\nEndoscopic techniques may be considered as one option in aesthetic surgery where there are appropriate indications.\n\nThe main goal of an individual approach is to find a well-founded solution that takes into account the patient's anatomy, expectations and medical safety."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує ендоскопічна пластична хірургія в Дніпрі?",
+    "ru": {
+     "$": 102
+    },
+    "en": "How Much Does Endoscopic Plastic Surgery Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна ендоскопічної пластичної операції залежить від характеру втручання, складності хірургічної корекції та індивідуального плану лікування.",
+    "ru": {
+     "$": 103
+    },
+    "en": "The price of endoscopic plastic surgery depends on the nature of the procedure, the complexity of the surgical correction and the individual treatment plan."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати",
+    "ru": {
+     "$": 104
+    },
+    "en": "Factors That May Affect the Cost"
+   },
+   "items": {
+    "$list": 105,
+    "uk": [
+     "вид ендоскопічної операції;",
+     "обсяг хірургічного втручання;",
+     "особливості анестезіологічного забезпечення;",
+     "необхідність додаткових процедур;",
+     "передопераційні обстеження;",
+     "тривалість післяопераційного спостереження."
+    ],
+    "en": [
+     "the type of endoscopic operation;",
+     "the extent of the surgery;",
+     "the anaesthetic care required;",
+     "the need for additional procedures;",
+     "preoperative investigations;",
+     "the length of postoperative follow-up."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість ендоскопічної пластичної хірургії визначається після консультації та узгодження плану операції.\n\nЩоб отримати інформацію про актуальні ціни та доступні методики, зверніться до GENEVITY — Центру довголіття та якості життя в Дніпрі.\n\nЯкщо ви розглядаєте ендоскопічну підтяжку обличчя, корекцію положення брів чи інші методи хірургічного омолодження, почніть із консультації фахівця.\n\nУ GENEVITY — Центрі довголіття та якості життя в Дніпрі — ви можете уточнити можливості естетичної корекції, обговорити індивідуальні побажання та отримати інформацію про відповідні методики.\n\nКонсультація допоможе визначити, чи є показання до хірургічного втручання, які варіанти корекції можливі та чого очікувати від відновного періоду.",
+    "ru": {
+     "$": [
+      106,
+      107,
+      126,
+      127,
+      128
+     ]
+    },
+    "en": "The exact cost of endoscopic plastic surgery is determined after a consultation and agreement on the surgical plan.\n\nFor current prices and the techniques available, contact GENEVITY — the Centre for Longevity and Quality of Life in Dnipro.\n\nIf you are considering an endoscopic facelift, brow repositioning or other methods of surgical rejuvenation, start with a consultation with a specialist.\n\nAt GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — you can find out about the possibilities of aesthetic correction, discuss your individual wishes and get information about suitable techniques.\n\nA consultation will help establish whether surgery is indicated, which correction options are possible and what to expect from the recovery period."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Чим ендоскопічна пластична хірургія відрізняється від класичної?",
+    "ru": {
+     "$": 109
+    },
+    "en": "How Does Endoscopic Plastic Surgery Differ from Conventional Surgery?"
+   },
+   "answer": {
+    "uk": "Основна відмінність — у використанні ендоскопічного обладнання для візуалізації тканин і можливості виконувати деякі операції через невеликі розрізи. Однак класичні методи можуть бути доречнішими за певних анатомічних змін.",
+    "ru": {
+     "$": 110
+    },
+    "en": "The main difference is the use of endoscopic equipment to visualise the tissues and the ability to perform some operations through small incisions. However, conventional methods may be more appropriate for certain anatomical changes."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються рубці після ендоскопічної пластики?",
+    "ru": {
+     "$": 111
+    },
+    "en": "Does Endoscopic Surgery Leave Scars?"
+   },
+   "answer": {
+    "uk": "Після будь-якого хірургічного розрізу можливе утворення рубця. Під час деяких ендоскопічних операцій доступи розташовуються в малопомітних зонах, наприклад у волосистій частині голови. Остаточний вигляд рубців залежить від індивідуального загоєння.",
+    "ru": {
+     "$": 112
+    },
+    "en": "Any surgical incision can leave a scar. In some endoscopic operations the access points are placed in inconspicuous areas, such as within the scalp. The final appearance of the scars depends on individual healing."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи болісна ендоскопічна пластична операція?",
+    "ru": {
+     "$": 113
+    },
+    "en": "Is Endoscopic Plastic Surgery Painful?"
+   },
+   "answer": {
+    "uk": "Під час втручання використовують анестезію, обрану з урахуванням виду операції та стану пацієнта. Після операції можливі дискомфорт, болючість і відчуття натягу тканин. Лікар призначає необхідні заходи для контролю післяопераційних симптомів.",
+    "ru": {
+     "$": 114
+    },
+    "en": "Anaesthesia is used during the procedure, chosen according to the type of operation and the patient's condition. Afterwards, discomfort, tenderness and a feeling of tightness are possible. The surgeon prescribes the necessary measures to manage postoperative symptoms."
+   }
+  },
+  {
+   "question": {
+    "uk": "Скільки триває відновлення після ендоскопічної підтяжки обличчя?",
+    "ru": {
+     "$": 115
+    },
+    "en": "How Long Does Recovery After an Endoscopic Facelift Take?"
+   },
+   "answer": {
+    "uk": "Терміни відновлення індивідуальні й залежать від обсягу втручання. Первинні набряки та синці поступово зменшуються, однак остаточне відновлення тканин може тривати значно довше.",
+    "ru": {
+     "$": 116
+    },
+    "en": "Recovery times vary and depend on the extent of the procedure. Initial swelling and bruising gradually subside, but full tissue recovery may take considerably longer."
+   }
+  },
+  {
+   "question": {
+    "uk": "У якому віці рекомендована ендоскопічна пластика?",
+    "ru": {
+     "$": 117
+    },
+    "en": "At What Age Is Endoscopic Surgery Recommended?"
+   },
+   "answer": {
+    "uk": "Чіткого універсального віку для ендоскопічної корекції немає. Показання визначаються станом тканин, вираженістю естетичних змін, загальним здоров'ям і очікуваннями пацієнта.",
+    "ru": {
+     "$": 118
+    },
+    "en": "There is no universal age for endoscopic correction. The indications depend on the condition of the tissues, the degree of aesthetic change, general health and the patient's expectations."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат ендоскопічної підтяжки?",
+    "ru": {
+     "$": 119
+    },
+    "en": "How Long Do the Results of an Endoscopic Lift Last?"
+   },
+   "answer": {
+    "uk": "Тривалість результату залежить від індивідуальних особливостей організму, віку, якості тканин, обраної техніки та подальших вікових змін. Хірургічне втручання не зупиняє природних процесів старіння.",
+    "ru": {
+     "$": 120
+    },
+    "en": "How long the result lasts depends on individual characteristics, age, tissue quality, the chosen technique and subsequent age-related changes. Surgery does not stop the natural ageing process."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна поєднувати ендоскопічну пластику з іншими процедурами?",
+    "ru": {
+     "$": 121
+    },
+    "en": "Can Endoscopic Surgery Be Combined with Other Procedures?"
+   },
+   "answer": {
+    "uk": "У деяких випадках ендоскопічну корекцію можна поєднувати з іншими естетичними втручаннями. Рішення ухвалюють після обстеження та оцінки безпеки комбінованого лікування.",
+    "ru": {
+     "$": 122
+    },
+    "en": "In some cases endoscopic correction can be combined with other aesthetic procedures. The decision is made after an examination and an assessment of the safety of combined treatment."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як дізнатися, чи підходить мені ендоскопічна пластична хірургія?",
+    "ru": {
+     "$": 123
+    },
+    "en": "How Do I Know Whether Endoscopic Plastic Surgery Is Right for Me?"
+   },
+   "answer": {
+    "uk": "Щоб визначити показання, потрібна консультація пластичного хірурга. Фахівець оцінює анатомічні особливості, стан тканин і можливі варіанти естетичної корекції.",
+    "ru": {
+     "$": 124
+    },
+    "en": "A consultation with a plastic surgeon is needed to determine the indications. The specialist assesses your anatomy, the condition of the tissues and the possible options for aesthetic correction."
+   }
+  }
+ ]
+}

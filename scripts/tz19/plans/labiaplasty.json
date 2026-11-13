@@ -1,0 +1,986 @@
+{
+ "sortOrder": 138,
+ "related": [
+  "monsplasty",
+  "abdominoplasty",
+  "body-contouring"
+ ],
+ "title": {
+  "uk": "Пластика статевих губ",
+  "ru": "Пластика половых губ",
+  "en": "Labiaplasty"
+ },
+ "summary": {
+  "uk": "Пластика статевих губ, або лабіопластика, — хірургічна процедура, спрямована на зміну розміру, форми чи симетрії малих і в окремих випадках великих статевих губ. Операцію можуть проводити за анатомічних особливостей, що спричиняють фізичний дискомфорт, після травм або на підставі індивідуальних естетичних побажань пацієнтки.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Labiaplasty is a surgical procedure to change the size, shape, or symmetry of the labia minora and, in some cases, the labia majora. It may be performed for anatomical features that cause physical discomfort, after injury, or in line with the patient's individual aesthetic wishes."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Що таке лабіопластика?",
+    "ru": {
+     "$": 3
+    },
+    "en": "What Is Labiaplasty?"
+   },
+   "body": {
+    "uk": "Лабіопластика — операція з корекції тканин зовнішніх жіночих статевих органів. Найчастіше під цим терміном розуміють зменшення або зміну форми малих статевих губ.\n\nМалі статеві губи виконують захисну функцію та вирізняються великою різноманітністю анатомічної будови. Вони можуть виступати за межі великих статевих губ, мати неоднакову довжину, форму чи колір. Такі особливості самі по собі не свідчать про захворювання.\n\nУ деяких випадках виражені складки тканин можуть спричиняти тертя, защемлення або дискомфорт під час фізичної активності, занять спортом і носіння певного одягу.\n\nЗа наявності відповідних показань хірургічна корекція може бути одним із варіантів вирішення проблеми.\n\nОсновне завдання лабіопластики — змінити форму тканин, максимально зберігши їхню чутливість і природну функцію. Однак операція не гарантує відсутності ускладнень чи змін чутливості.",
+    "ru": {
+     "$": [
+      4,
+      5,
+      6,
+      7,
+      8
+     ]
+    },
+    "en": "Labiaplasty is an operation to correct the tissues of the external female genitalia. The term most often refers to reducing or reshaping the labia minora.\n\nThe labia minora have a protective function and vary greatly in their anatomy. They may extend beyond the labia majora and differ in length, shape, or colour. Such features do not in themselves indicate any disease.\n\nIn some cases prominent folds of tissue can cause friction, pinching, or discomfort during physical activity, sport, or when wearing certain clothes.\n\nWhere there are appropriate indications, surgical correction may be one way of resolving the problem.\n\nThe main aim of labiaplasty is to reshape the tissues while preserving their sensation and natural function as far as possible. However, the operation cannot guarantee the absence of complications or changes in sensation."
+   },
+   "calloutBody": {
+    "uk": "GENEVITY — Центр довголіття та якості життя в Дніпрі — розглядає жіноче здоров'я та інтимне благополуччя як важливі складові якості життя. Обираючи метод корекції, особливе значення надаємо медичній обґрунтованості, делікатності, конфіденційності та повазі до індивідуальних особливостей жінки.",
+    "ru": {
+     "$": 1
+    },
+    "en": "GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — regards women's health and intimate wellbeing as important aspects of quality of life. When choosing a correction method, we place particular emphasis on medical justification, sensitivity, confidentiality, and respect for each woman's individual characteristics."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Розмір, форма та асиметрія статевих губ можуть суттєво відрізнятися й у більшості випадків є варіантом норми. Лабіопластика не є обов'язковою процедурою і потребує усвідомленого рішення після консультації кваліфікованого спеціаліста.",
+    "ru": {
+     "$": 2
+    },
+    "en": "The size, shape, and symmetry of the labia vary considerably and in most cases are a variant of normal. Labiaplasty is not a necessary procedure and requires an informed decision after a consultation with a qualified specialist."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Коли можуть рекомендувати пластику статевих губ?",
+    "ru": {
+     "$": 9
+    },
+    "en": "When May Labiaplasty Be Recommended?"
+   },
+   "indications": {
+    "$list": 12,
+    "uk": [
+     "постійне натирання або защемлення тканин під час ходьби;",
+     "дискомфорт під час занять спортом;",
+     "болісні відчуття під час носіння тісного одягу;",
+     "неприємні відчуття під час інтимної близькості, пов'язані з механічним впливом на тканини;",
+     "наслідки травм або пологових ушкоджень;",
+     "виражена асиметрія, що спричиняє функціональні незручності;",
+     "індивідуальне бажання змінити вигляд статевих губ."
+    ],
+    "en": [
+     "persistent chafing or pinching of the tissues when walking;",
+     "discomfort during sport;",
+     "pain when wearing tight clothing;",
+     "discomfort during intimacy caused by mechanical pressure on the tissues;",
+     "the after-effects of injury or birth trauma;",
+     "marked asymmetry causing functional inconvenience;",
+     "a personal wish to change the appearance of the labia."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до лабіопластики",
+    "ru": "Противопоказания к лабиопластике",
+    "en": "Contraindications for Labiaplasty"
+   },
+   "contraindications": {
+    "ru": [
+     "Активные инфекции.",
+     "Нарушения свёртываемости крови.",
+     "Некоторые декомпенсированные хронические заболевания.",
+     "Другие состояния, повышающие хирургический риск."
+    ],
+    "uk": [
+     "Активні інфекції.",
+     "Порушення згортання крові.",
+     "Деякі декомпенсовані хронічні захворювання.",
+     "Інші стани, що підвищують хірургічний ризик."
+    ],
+    "en": [
+     "Active infections.",
+     "Blood clotting disorders.",
+     "Certain decompensated chronic conditions.",
+     "Other conditions that raise surgical risk."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Показання до лабіопластики визначають індивідуально після гінекологічного огляду.\n\nВажливо враховувати, що дискомфорт в інтимній зоні може бути пов'язаний не лише з анатомією. Його причинами також бувають запальні захворювання, дерматологічні стани, сухість слизових та інші порушення.\n\nТому перед операцією необхідно виключити захворювання, що потребують іншого лікування.",
+    "ru": {
+     "$": [
+      10,
+      13,
+      14
+     ]
+    },
+    "en": "The indications for labiaplasty are determined individually after a gynaecological examination.\n\nIt is important to bear in mind that discomfort in the intimate area is not always related to anatomy. It may also be caused by inflammatory conditions, skin conditions, mucosal dryness, and other disorders.\n\nThat is why conditions requiring other treatment must be ruled out before surgery."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Які види пластики статевих губ існують?",
+    "ru": {
+     "$": 15
+    },
+    "en": "What Types of Labiaplasty Are There?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Пластика малих статевих губ",
+      "ru": {
+       "$": 17
+      },
+      "en": "Labia Minora Surgery"
+     },
+     "description": {
+      "uk": "Пластика малих статевих губ — найпоширеніший варіант лабіопластики.\n\nОперація спрямована на зменшення надлишку тканин, зміну форми або корекцію вираженої асиметрії.\n\nХірург обирає спосіб втручання з урахуванням анатомії, кровопостачання тканин і необхідності зберегти чутливість.",
+      "ru": {
+       "$": [
+        18,
+        19,
+        20
+       ]
+      },
+      "en": "Surgery on the labia minora is the most common form of labiaplasty.\n\nIt aims to reduce excess tissue, change the shape, or correct marked asymmetry.\n\nThe surgeon chooses the approach based on anatomy, tissue blood supply, and the need to preserve sensation."
+     }
+    },
+    {
+     "title": {
+      "uk": "Зменшення малих статевих губ",
+      "ru": {
+       "$": 21
+      },
+      "en": "Labia Minora Reduction"
+     },
+     "description": {
+      "uk": "Зменшення малих статевих губ можуть розглядати, якщо надлишкові складки тканин спричиняють постійний механічний дискомфорт.\n\nПід час операції видаляють заздалегідь визначений об'єм тканини. При цьому важливо уникнути надмірного висічення, яке може призвести до сухості, натягу, болючості та інших функціональних порушень.",
+      "ru": {
+       "$": [
+        22,
+        23
+       ]
+      },
+      "en": "Reduction of the labia minora may be considered when excess folds of tissue cause persistent mechanical discomfort.\n\nDuring the operation a pre-determined amount of tissue is removed. It is important to avoid over-resection, which can lead to dryness, tightness, pain, and other functional problems."
+     }
+    },
+    {
+     "title": {
+      "uk": "Корекція асиметрії статевих губ",
+      "ru": {
+       "$": 24
+      },
+      "en": "Correction of Labial Asymmetry"
+     },
+     "description": {
+      "uk": "Невелика асиметрія зовнішніх статевих органів є природною анатомічною особливістю.\n\nЯкщо відмінності виражені та спричиняють фізичний дискомфорт, хірург може розглянути можливість корекції.\n\nПовністю однакова форма з обох боків не гарантується.",
+      "ru": {
+       "$": [
+        25,
+        26,
+        27
+       ]
+      },
+      "en": "Slight asymmetry of the external genitalia is a natural anatomical feature.\n\nIf the differences are marked and cause physical discomfort, the surgeon may consider correcting them.\n\nAn identical shape on both sides is not guaranteed."
+     }
+    },
+    {
+     "title": {
+      "uk": "Пластика великих статевих губ",
+      "ru": {
+       "$": 28
+      },
+      "en": "Labia Majora Surgery"
+     },
+     "description": {
+      "uk": "Корекція великих статевих губ може включати зміну їхнього об'єму чи форми.\n\nЗалежно від показань застосовують різні хірургічні методи, проте вони мають власні обмеження та ризики.\n\nПластика великих статевих губ — це не те саме втручання, що стандартна лабіопластика малих статевих губ.",
+      "ru": {
+       "$": [
+        29,
+        30,
+        31
+       ]
+      },
+      "en": "Correction of the labia majora may involve changing their volume or shape.\n\nDifferent surgical methods are used depending on the indications, but each has its own limitations and risks.\n\nSurgery on the labia majora is not the same procedure as standard labiaplasty of the labia minora."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Метод хірургічної корекції залежить від анатомічних особливостей, стану тканин і цілей втручання.",
+    "ru": {
+     "$": 16
+    },
+    "en": "The surgical method depends on the anatomy, the condition of the tissues, and the goals of the procedure."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Методи проведення лабіопластики",
+    "ru": {
+     "$": 32
+    },
+    "en": "Labiaplasty Techniques"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Лінійна резекція",
+      "ru": {
+       "$": 34
+      },
+      "en": "Linear (Edge) Resection"
+     },
+     "description": {
+      "uk": "Під час лінійної, або крайової, резекції хірург видаляє частину вільного краю малої статевої губи.\n\nМетод дозволяє зменшити довжину тканини та змінити її контур.\n\nПри цьому можлива зміна природного краю, його чутливості та вигляду.",
+      "ru": {
+       "$": [
+        35,
+        36,
+        37
+       ]
+      },
+      "en": "In a linear, or edge, resection the surgeon removes part of the free edge of the labium minus.\n\nThe method reduces the length of the tissue and changes its contour.\n\nThe natural edge, its sensation, and its appearance may change as a result."
+     }
+    },
+    {
+     "title": {
+      "uk": "Клиноподібна резекція",
+      "ru": {
+       "$": 38
+      },
+      "en": "Wedge Resection"
+     },
+     "description": {
+      "uk": "Клиноподібна техніка передбачає видалення ділянки тканини з подальшим з'єднанням країв, що залишилися.\n\nЗа певних анатомічних умов метод дозволяє зберегти частину природного краю статевої губи.\n\nОднак ця техніка також має ризики, зокрема порушення кровопостачання, розходження швів і проблеми із загоєнням.",
+      "ru": {
+       "$": [
+        39,
+        40,
+        41
+       ]
+      },
+      "en": "The wedge technique involves removing a section of tissue and then joining the remaining edges.\n\nIn certain anatomical circumstances it allows part of the natural edge of the labium to be preserved.\n\nHowever, this technique also carries risks, including impaired blood supply, wound dehiscence, and healing problems."
+     }
+    },
+    {
+     "title": {
+      "uk": "Лазерна лабіопластика",
+      "ru": {
+       "$": 42
+      },
+      "en": "Laser Labiaplasty"
+     },
+     "description": {
+      "uk": "Під час деяких хірургічних втручань лазер можуть використовувати як інструмент для розсічення тканин.\n\nПри цьому лазерна лабіопластика залишається хірургічною процедурою, а використання лазера саме по собі не гарантує безпечнішого втручання, відсутності рубців чи швидкого відновлення.\n\nВибір інструмента та техніки має ґрунтуватися на медичних показаннях і досвіді спеціаліста.",
+      "ru": {
+       "$": [
+        43,
+        44,
+        45
+       ]
+      },
+      "en": "In some surgical procedures a laser may be used as a tool for cutting tissue.\n\nLaser labiaplasty nevertheless remains a surgical procedure, and the use of a laser does not in itself guarantee a safer operation, no scarring, or a faster recovery.\n\nThe choice of instrument and technique should be based on medical indications and the specialist's experience."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Які результати можливі після пластики статевих губ?",
+    "ru": {
+     "$": 46
+    },
+    "en": "What Results Are Possible After Labiaplasty?"
+   },
+   "body": {
+    "uk": "Результат залежить від початкової анатомії, обраної методики, обсягу корекції та особливостей загоєння.",
+    "ru": {
+     "$": 47
+    },
+    "en": "The result depends on the original anatomy, the chosen technique, the extent of the correction, and how the tissues heal."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "За правильно визначених показань операція може дозволити:",
+    "ru": {
+     "$": 48
+    },
+    "en": "With correctly established indications, the operation may:"
+   },
+   "items": {
+    "$list": 49,
+    "uk": [
+     "зменшити об'єм тканин, що виступають;",
+     "змінити форму малих статевих губ;",
+     "скоригувати виражену асиметрію;",
+     "зменшити механічне тертя за окремих анатомічних особливостей;",
+     "відновити форму тканин після деяких травматичних ушкоджень."
+    ],
+    "en": [
+     "reduce the volume of protruding tissue;",
+     "change the shape of the labia minora;",
+     "correct marked asymmetry;",
+     "reduce friction in certain anatomical situations;",
+     "restore the shape of the tissues after some injuries."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Водночас лабіопластика не гарантує покращення сексуальної чутливості, якості інтимного життя чи психологічного самопочуття.\n\nТакі очікування важливо обговорити з лікарем до операції.",
+    "ru": {
+     "$": [
+      50,
+      51
+     ]
+    },
+    "en": "At the same time, labiaplasty does not guarantee improved sexual sensation, quality of intimate life, or psychological wellbeing.\n\nIt is important to discuss such expectations with your doctor before surgery."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як підготуватися до лабіопластики?",
+    "ru": {
+     "$": 52
+    },
+    "en": "How to Prepare for Labiaplasty"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "Первинна консультація",
+      "ru": {
+       "$": 54
+      },
+      "en": "Initial Consultation"
+     },
+     "description": {
+      "uk": "Під час прийому спеціаліст з'ясовує причини звернення, збирає медичний анамнез і проводить огляд.\n\nОбговорюють анатомічні особливості, можливі способи корекції, очікувані результати та хірургічні ризики.\n\nОсобливу увагу приділяють збереженню функції тканин і реалістичним очікуванням пацієнтки.",
+      "ru": {
+       "$": [
+        55,
+        56,
+        57
+       ]
+      },
+      "en": "During the appointment the specialist establishes the reasons for your visit, takes a medical history, and carries out an examination.\n\nAnatomical features, possible correction methods, expected results, and surgical risks are discussed.\n\nParticular attention is paid to preserving tissue function and to the patient having realistic expectations."
+     }
+    },
+    {
+     "title": {
+      "uk": "Передопераційне обстеження",
+      "ru": {
+       "$": 58
+      },
+      "en": "Preoperative Assessment"
+     },
+     "description": {
+      "uk": "Перед втручанням можуть призначати лабораторні дослідження та додаткові обстеження за медичними показаннями.\n\nЗа наявності запальних чи інфекційних захворювань спершу необхідно вирішити питання їх лікування.",
+      "ru": {
+       "$": [
+        59,
+        60
+       ]
+      },
+      "en": "Before the procedure, laboratory tests and additional investigations may be arranged as medically indicated.\n\nIf there is any inflammatory or infectious condition, its treatment must be addressed first."
+     }
+    },
+    {
+     "title": {
+      "uk": "Планування операції",
+      "ru": {
+       "$": 61
+      },
+      "en": "Planning the Operation"
+     },
+     "description": {
+      "uk": "Лікар визначає обсяг корекції, обирає хірургічну техніку та обговорює особливості анестезії.\n\nДо операції пацієнтка має отримати інформацію про можливі ускладнення, післяопераційні обмеження та альтернативні способи вирішення проблеми.",
+      "ru": {
+       "$": [
+        62,
+        63
+       ]
+      },
+      "en": "The doctor determines the extent of the correction, chooses the surgical technique, and discusses the anaesthesia.\n\nBefore surgery the patient should receive information about possible complications, postoperative restrictions, and alternative ways of addressing the problem."
+     }
+    }
+   ]
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Підготовка починається з консультації гінеколога або хірурга, який має відповідну кваліфікацію та досвід проведення операцій на зовнішніх статевих органах.",
+    "ru": {
+     "$": 53
+    },
+    "en": "Preparation begins with a consultation with a gynaecologist or surgeon who has the appropriate qualifications and experience in surgery of the external genitalia."
+   }
+  },
+  {
+   "type": "steps",
+   "heading": {
+    "uk": "Як проходить операція з пластики статевих губ?",
+    "ru": {
+     "$": 64
+    },
+    "en": "How Is Labiaplasty Performed?"
+   },
+   "steps": [
+    {
+     "title": {
+      "uk": "1. Знеболення",
+      "ru": {
+       "$": 66
+      },
+      "en": "1. Anaesthesia"
+     },
+     "description": {
+      "uk": "Залежно від обсягу операції та стану пацієнтки можуть застосовувати місцеву анестезію, седацію або загальну анестезію.\n\nВідповідний варіант визначають індивідуально.",
+      "ru": {
+       "$": [
+        67,
+        68
+       ]
+      },
+      "en": "Depending on the extent of the operation and the patient's condition, local anaesthesia, sedation, or general anaesthesia may be used.\n\nThe appropriate option is chosen individually."
+     }
+    },
+    {
+     "title": {
+      "uk": "2. Хірургічна корекція",
+      "ru": {
+       "$": 69
+      },
+      "en": "2. Surgical Correction"
+     },
+     "description": {
+      "uk": "Лікар виконує заплановану зміну форми чи розміру тканин обраною технікою.\n\nПід час операції необхідно враховувати розташування судин, нервових закінчень і особливості кровопостачання.",
+      "ru": {
+       "$": [
+        70,
+        71
+       ]
+      },
+      "en": "The doctor carries out the planned change in the shape or size of the tissues using the chosen technique.\n\nDuring the operation the position of blood vessels and nerve endings and the pattern of blood supply must be taken into account."
+     }
+    },
+    {
+     "title": {
+      "uk": "3. Накладання швів",
+      "ru": {
+       "$": 72
+      },
+      "en": "3. Suturing"
+     },
+     "description": {
+      "uk": "Після корекції краї тканин з'єднують хірургічними швами. У деяких випадках використовують розсмоктувальні нитки.",
+      "ru": {
+       "$": 73
+      },
+      "en": "After the correction the tissue edges are joined with surgical sutures. In some cases absorbable sutures are used."
+     }
+    },
+    {
+     "title": {
+      "uk": "4. Післяопераційне спостереження",
+      "ru": {
+       "$": 74
+      },
+      "en": "4. Postoperative Monitoring"
+     },
+     "description": {
+      "uk": "Після втручання лікар оцінює стан пацієнтки та надає рекомендації щодо догляду й відновлення.\n\nМожливість повернутися додому в день операції залежить від анестезії, обсягу втручання та самопочуття.",
+      "ru": {
+       "$": [
+        75,
+        76
+       ]
+      },
+      "en": "After the procedure the doctor assesses the patient's condition and gives advice on care and recovery.\n\nWhether the patient can go home on the day of surgery depends on the anaesthesia, the extent of the procedure, and how she feels."
+     }
+    }
+   ]
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Відновлення після лабіопластики",
+    "ru": {
+     "$": 77
+    },
+    "en": "Recovery After Labiaplasty"
+   },
+   "body": {
+    "uk": "Після пластики статевих губ організму потрібен час для загоєння тканин.\n\nУ перші дні можливі набряк, болючість, синці, підвищена чутливість і дискомфорт під час сидіння чи ходьби.\n\nТакі прояви часто поступово зменшуються, проте їхня вираженість індивідуальна.",
+    "ru": {
+     "$": [
+      78,
+      79,
+      80
+     ]
+    },
+    "en": "After labiaplasty the body needs time for the tissues to heal.\n\nIn the first days, swelling, soreness, bruising, increased sensitivity, and discomfort when sitting or walking are possible.\n\nThese symptoms often subside gradually, but how pronounced they are varies from person to person."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Рекомендації після операції",
+    "ru": {
+     "$": 81
+    },
+    "en": "Recommendations After Surgery"
+   },
+   "items": {
+    "$list": 83,
+    "uk": [
+     "дотримуватися призначень лікаря;",
+     "підтримувати гігієну інтимної ділянки відповідно до рекомендацій;",
+     "уникати тертя та тиску на прооперовані тканини;",
+     "носити вільну, зручну білизну;",
+     "тимчасово відмовитися від інтенсивних фізичних навантажень;",
+     "утримуватися від сексуальних контактів до дозволу лікаря;",
+     "відвідувати призначені контрольні огляди;",
+     "не використовувати місцеві препарати без погодження зі спеціалістом."
+    ],
+    "en": [
+     "follow your doctor's instructions;",
+     "keep the intimate area clean as advised;",
+     "avoid friction and pressure on the operated tissues;",
+     "wear loose, comfortable underwear;",
+     "temporarily avoid strenuous physical activity;",
+     "abstain from sexual intercourse until your doctor allows;",
+     "attend the scheduled follow-up appointments;",
+     "do not use topical products without consulting the specialist."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки триває реабілітація?",
+    "ru": {
+     "$": 84
+    },
+    "en": "How Long Does Recovery Take?"
+   },
+   "body": {
+    "uk": "Первинний період відновлення часто триває один-два тижні.\n\nДля повнішого загоєння тканин може знадобитися кілька місяців.\n\nСексуальні контакти зазвичай обмежують щонайменше на чотири тижні, а інтенсивну фізичну активність — приблизно на чотири-шість тижнів або довше, якщо це рекомендує хірург.\n\nТочні терміни визначають індивідуально.",
+    "ru": {
+     "$": [
+      85,
+      86,
+      87,
+      88
+     ]
+    },
+    "en": "The initial recovery period often lasts one to two weeks.\n\nMore complete healing of the tissues may take several months.\n\nSexual intercourse is usually restricted for at least four weeks, and intensive physical activity for roughly four to six weeks, or longer if the surgeon advises.\n\nThe exact timing is determined individually."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Можливі ризики та протипоказання",
+    "ru": {
+     "$": 89
+    },
+    "en": "Possible Risks and Contraindications"
+   },
+   "body": {
+    "uk": "Лабіопластика є хірургічним втручанням і може супроводжуватися ускладненнями.\n\nПротипоказання визначають індивідуально; вони можуть включати активні інфекції, порушення згортання крові, деякі декомпенсовані хронічні захворювання та інші стани, що підвищують хірургічний ризик.",
+    "ru": {
+     "$": [
+      90,
+      93
+     ]
+    },
+    "en": "Labiaplasty is a surgical procedure and may be accompanied by complications.\n\nContraindications are determined individually and may include active infections, blood clotting disorders, certain decompensated chronic conditions, and other conditions that raise surgical risk."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ризики:",
+    "ru": {
+     "$": 91
+    },
+    "en": "Possible risks:"
+   },
+   "items": {
+    "$list": 92,
+    "uk": [
+     "кровотеча;",
+     "інфекція;",
+     "гематома;",
+     "розходження швів;",
+     "утворення рубців;",
+     "асиметрія;",
+     "надмірне видалення тканин;",
+     "зміна або зниження чутливості;",
+     "хронічний дискомфорт;",
+     "болісність під час статевого акту;",
+     "необхідність повторної операції."
+    ],
+    "en": [
+     "bleeding;",
+     "infection;",
+     "haematoma;",
+     "wound dehiscence;",
+     "scarring;",
+     "asymmetry;",
+     "excessive tissue removal;",
+     "altered or reduced sensation;",
+     "chronic discomfort;",
+     "pain during intercourse;",
+     "the need for revision surgery."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Операцію не слід проводити без повноцінного обстеження та інформованої згоди.",
+    "ru": {
+     "$": 94
+    },
+    "en": "The operation should not be performed without a full assessment and informed consent."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Пластика статевих губ після пологів",
+    "ru": {
+     "$": 95
+    },
+    "en": "Labiaplasty After Childbirth"
+   },
+   "body": {
+    "uk": "Після вагітності та пологів вигляд зовнішніх статевих органів може змінюватися.\n\nЦе пов'язано з природними фізіологічними процесами, розтягненням тканин, гормональними змінами та можливими пологовими травмами.\n\nУ більшості випадків такі зміни не потребують хірургічного втручання.\n\nЯкщо після пологів зберігаються болючість, наслідки розривів, рубцеві зміни чи механічний дискомфорт, необхідний огляд гінеколога.\n\nУ деяких випадках можуть розглядати реконструктивну або естетичну корекцію.\n\nПланувати операцію бажано після завершення основного періоду післяпологового відновлення та стабілізації стану тканин.",
+    "ru": {
+     "$": [
+      96,
+      97,
+      98,
+      99,
+      100,
+      101
+     ]
+    },
+    "en": "After pregnancy and childbirth the appearance of the external genitalia may change.\n\nThis is due to natural physiological processes, tissue stretching, hormonal changes, and possible birth injuries.\n\nIn most cases such changes do not require surgery.\n\nIf pain, the after-effects of tears, scar changes, or mechanical discomfort persist after childbirth, a gynaecological examination is needed.\n\nIn some cases reconstructive or aesthetic correction may be considered.\n\nSurgery is best planned once the main period of postpartum recovery is over and the tissues have stabilised."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи можна зробити лабіопластику без операції?",
+    "ru": {
+     "$": 102
+    },
+    "en": "Is Non-Surgical Labiaplasty Possible?"
+   },
+   "body": {
+    "uk": "Повноцінне хірургічне зменшення малих статевих губ не має доведеної рівноцінної безопераційної альтернативи.\n\nОднак за дискомфорту операція потрібна не завжди.\n\nЗалежно від причини неприємних відчуттів можуть допомогти лікування запальних захворювань, корекція догляду за інтимною зоною, зміна спортивного одягу або лікування дерматологічних станів.\n\nЯкщо скарги пов'язані із сухістю слизових або гормональними змінами, лікар може запропонувати відповідну терапію.",
+    "ru": {
+     "$": [
+      103,
+      104,
+      105,
+      106
+     ]
+    },
+    "en": "There is no proven equivalent non-surgical alternative to a full surgical reduction of the labia minora.\n\nHowever, discomfort does not always mean surgery is needed.\n\nDepending on the cause, treating inflammatory conditions, adjusting intimate hygiene, changing sportswear, or treating skin conditions may help.\n\nIf the symptoms are related to mucosal dryness or hormonal changes, the doctor may offer appropriate treatment."
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Апаратні та лазерні процедури, що рекламуються як «інтимне омолодження», не слід вважати універсально безпечною альтернативою операції: для багатьох подібних застосувань бракує достатніх доказів ефективності та безпеки.",
+    "ru": {
+     "$": 107
+    },
+    "en": "Device-based and laser treatments marketed as \"vaginal rejuvenation\" should not be regarded as a universally safe alternative to surgery: for many such uses there is insufficient evidence of effectiveness and safety."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Лабіопластика та якість життя жінки",
+    "ru": {
+     "$": 108
+    },
+    "en": "Labiaplasty and Women's Quality of Life"
+   },
+   "body": {
+    "uk": "Інтимне здоров'я — важлива частина фізичного та психологічного благополуччя жінки.\n\nВодночас зовнішній вигляд статевих органів вирізняється великою анатомічною різноманітністю. Не існує єдиного естетичного стандарту, якому має відповідати кожна жінка.\n\nРішення про лабіопластику має ухвалюватися самостійно, без тиску з боку партнера, оточення чи нав'язаних уявлень про ідеальну зовнішність.\n\nGENEVITY — Центр довголіття та якості життя — дотримується концепції уважного ставлення до здоров'я, комфорту та індивідуальних потреб людини.\n\nПід час обговорення інтимної хірургії особливо важливі делікатність, конфіденційність, медична безпека та повага до особистого вибору пацієнтки.\n\nЯкщо операцію розглядають через фізичний дискомфорт, необхідно встановити його причину. Якщо основна мотивація естетична, важливо обговорити реальні можливості хірургічної корекції та її ризики.",
+    "ru": {
+     "$": [
+      109,
+      110,
+      111,
+      112,
+      113,
+      114
+     ]
+    },
+    "en": "Intimate health is an important part of a woman's physical and psychological wellbeing.\n\nAt the same time, the appearance of the genitalia shows great anatomical diversity. There is no single aesthetic standard that every woman should match.\n\nThe decision to have labiaplasty should be the woman's own, free from pressure from a partner, other people, or imposed ideas of an ideal appearance.\n\nGENEVITY — the Centre for Longevity and Quality of Life — is committed to attentive care for each person's health, comfort, and individual needs.\n\nWhen discussing intimate surgery, sensitivity, confidentiality, medical safety, and respect for the patient's personal choice are especially important.\n\nIf surgery is being considered because of physical discomfort, its cause must be established. If the main motivation is aesthetic, it is important to discuss what surgical correction can realistically achieve and its risks."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Скільки коштує пластика статевих губ у Дніпрі?",
+    "ru": {
+     "$": 115
+    },
+    "en": "How Much Does Labiaplasty Cost in Dnipro?"
+   },
+   "body": {
+    "uk": "Ціна лабіопластики в Дніпрі залежить від характеру хірургічного втручання, обраної методики та індивідуальних особливостей пацієнтки.",
+    "ru": {
+     "$": 116
+    },
+    "en": "The price of labiaplasty in Dnipro depends on the nature of the surgery, the technique chosen, and the individual patient."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "На вартість можуть впливати:",
+    "ru": {
+     "$": 117
+    },
+    "en": "The cost may depend on:"
+   },
+   "items": {
+    "$list": 118,
+    "uk": [
+     "обсяг корекції;",
+     "одностороннє чи двобічне втручання;",
+     "обрана хірургічна техніка;",
+     "вид анестезії;",
+     "необхідність додаткових обстежень;",
+     "складність реконструкції тканин;",
+     "післяопераційне спостереження."
+    ],
+    "en": [
+     "the extent of the correction;",
+     "a one-sided or two-sided procedure;",
+     "the surgical technique chosen;",
+     "the type of anaesthesia;",
+     "the need for additional investigations;",
+     "the complexity of tissue reconstruction;",
+     "postoperative monitoring."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Точна вартість визначається після консультації та погодження плану лікування.\n\nЯкщо ви відчуваєте дискомфорт в інтимній ділянці або розглядаєте можливість змінити форму статевих губ, першим кроком має стати консультація кваліфікованого спеціаліста.\n\nЛікар допоможе визначити причини скарг, оцінити анатомічні особливості, обговорити можливі методи корекції та пояснити обмеження хірургічного втручання.\n\nУточніть можливість консультації щодо лабіопластики, доступні методи корекції та умови проведення процедури.\n\nЗапишіться на консультацію, щоб отримати індивідуальні рекомендації щодо пластики статевих губ.",
+    "ru": {
+     "$": [
+      119,
+      143,
+      144,
+      146,
+      148
+     ]
+    },
+    "en": "The exact cost is determined after a consultation and once a treatment plan has been agreed.\n\nIf you are experiencing discomfort in the intimate area or are considering changing the shape of your labia, the first step should be a consultation with a qualified specialist.\n\nThe doctor will help identify the cause of your symptoms, assess your anatomy, discuss possible correction methods, and explain the limitations of surgery.\n\nAsk about a labiaplasty consultation, the correction methods available, and the conditions for the procedure.\n\nBook a consultation to receive individual advice on labiaplasty."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Що таке пластика статевих губ?",
+    "ru": {
+     "$": 122
+    },
+    "en": "What Is Labiaplasty?"
+   },
+   "answer": {
+    "uk": "Пластика статевих губ — хірургічна корекція розміру, форми чи симетрії тканин зовнішніх жіночих статевих органів. Найчастіше процедуру проводять на малих статевих губах.",
+    "ru": {
+     "$": 123
+    },
+    "en": "Labiaplasty is the surgical correction of the size, shape, or symmetry of the tissues of the external female genitalia. It is most often performed on the labia minora."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли потрібна лабіопластика?",
+    "ru": {
+     "$": 124
+    },
+    "en": "When Is Labiaplasty Needed?"
+   },
+   "answer": {
+    "uk": "Операцію можуть розглядати за механічного дискомфорту, наслідків травм або на підставі індивідуальних естетичних побажань. Водночас анатомічні відмінності самі по собі не є захворюванням.",
+    "ru": {
+     "$": 125
+    },
+    "en": "The operation may be considered for mechanical discomfort, the after-effects of injury, or individual aesthetic wishes. Anatomical differences in themselves, however, are not a disease."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи болісна лабіопластика?",
+    "ru": {
+     "$": 126
+    },
+    "en": "Is Labiaplasty Painful?"
+   },
+   "answer": {
+    "uk": "Під час втручання використовують анестезію. Після операції можливі болючість, набряк і підвищена чутливість. Вираженість симптомів індивідуальна.",
+    "ru": {
+     "$": 127
+    },
+    "en": "Anaesthesia is used during the procedure. Afterwards, soreness, swelling, and increased sensitivity are possible. How pronounced the symptoms are varies from person to person."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються рубці після пластики статевих губ?",
+    "ru": {
+     "$": 128
+    },
+    "en": "Does Labiaplasty Leave Scars?"
+   },
+   "answer": {
+    "uk": "Після будь-якого хірургічного розрізу можливе утворення рубця. Його вираженість залежить від техніки операції та особливостей загоєння.",
+    "ru": {
+     "$": 129
+    },
+    "en": "Any surgical incision can leave a scar. How visible it is depends on the surgical technique and individual healing."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи впливає лабіопластика на чутливість?",
+    "ru": {
+     "$": 130
+    },
+    "en": "Does Labiaplasty Affect Sensation?"
+   },
+   "answer": {
+    "uk": "Операція може супроводжуватися тимчасовою або постійною зміною чутливості. Гарантувати її повне збереження неможливо.",
+    "ru": {
+     "$": 131
+    },
+    "en": "The operation may be accompanied by temporary or permanent changes in sensation. Full preservation of sensation cannot be guaranteed."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна народжувати після лабіопластики?",
+    "ru": {
+     "$": 132
+    },
+    "en": "Can I Give Birth After Labiaplasty?"
+   },
+   "answer": {
+    "uk": "Лабіопластика зазвичай не впливає на здатність завагітніти, оскільки не зачіпає репродуктивних органів. Однак майбутні пологи можуть вплинути на стан тканин і вигляд ділянки корекції.",
+    "ru": {
+     "$": 133
+    },
+    "en": "Labiaplasty does not usually affect the ability to become pregnant, as it does not involve the reproductive organs. However, future childbirth may affect the condition of the tissues and the appearance of the corrected area."
+   }
+  },
+  {
+   "question": {
+    "uk": "Коли можна повернутися до інтимного життя?",
+    "ru": {
+     "$": 134
+    },
+    "en": "When Can I Resume Sexual Activity?"
+   },
+   "answer": {
+    "uk": "Сексуальні контакти зазвичай обмежують щонайменше на чотири тижні, іноді довше. Відновлювати їх слід після оцінки загоєння та з дозволу лікаря.",
+    "ru": {
+     "$": 135
+    },
+    "en": "Sexual intercourse is usually restricted for at least four weeks, sometimes longer. It should be resumed only after healing has been assessed and with your doctor's approval."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна зробити лабіопластику після пологів?",
+    "ru": {
+     "$": 136
+    },
+    "en": "Can Labiaplasty Be Done After Childbirth?"
+   },
+   "answer": {
+    "uk": "Так, за наявності показань операцію можуть розглядати після післяпологового відновлення. Оптимальний час визначає спеціаліст.",
+    "ru": {
+     "$": 137
+    },
+    "en": "Yes, where indicated the operation may be considered after postpartum recovery. The best timing is determined by the specialist."
+   }
+  },
+  {
+   "question": {
+    "uk": "З якого віку проводять лабіопластику?",
+    "ru": {
+     "$": 138
+    },
+    "en": "From What Age Is Labiaplasty Performed?"
+   },
+   "answer": {
+    "uk": "Естетичну лабіопластику зазвичай розглядають для повнолітніх пацієнток. Для неповнолітніх хірургічна корекція допустима лише за особливих медичних показань і з дотриманням чинного законодавства.",
+    "ru": {
+     "$": 139
+    },
+    "en": "Aesthetic labiaplasty is usually considered for adult patients. In minors, surgical correction is permissible only for specific medical indications and in compliance with applicable law."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи потрібно робити пластику за асиметрії статевих губ?",
+    "ru": {
+     "$": 140
+    },
+    "en": "Does Labial Asymmetry Need Surgery?"
+   },
+   "answer": {
+    "uk": "Ні. Асиметрія є поширеним варіантом нормальної анатомії. Необхідність корекції визначають індивідуально з урахуванням скарг і побажань пацієнтки.",
+    "ru": {
+     "$": 141
+    },
+    "en": "No. Asymmetry is a common variant of normal anatomy. Whether correction is needed is decided individually, taking into account the patient's symptoms and wishes."
+   }
+  }
+ ]
+}

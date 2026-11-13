@@ -1,0 +1,492 @@
+{
+ "sortOrder": 118,
+ "related": [
+  "breast-lift",
+  "periareolar-mastopexy",
+  "breast-lift-without-implants"
+ ],
+ "title": {
+  "uk": "Вертикальна мастопексія",
+  "ru": "Вертикальная мастопексия",
+  "en": "Vertical Mastopexy"
+ },
+ "summary": {
+  "uk": "Вертикальна мастопексія — пластична операція з підтяжки грудей, яка дозволяє усунути помірне опущення молочних залоз, скоригувати їхню форму та підняти сосково-ареолярний комплекс. Методика передбачає розріз навколо ареоли та вертикально вниз до підгрудної складки.",
+  "ru": {
+   "$": 0
+  },
+  "en": "Vertical mastopexy is a breast lift procedure that addresses moderate breast ptosis, reshapes the breasts, and raises the nipple-areola complex. The technique uses an incision around the areola and a vertical incision down to the inframammary fold."
+ },
+ "sections": [
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/vertical-mastopexy-hero.webp",
+   "heading": {
+    "uk": "Що таке вертикальна мастопексія?",
+    "ru": {
+     "$": 2
+    },
+    "en": "What Is Vertical Mastopexy?"
+   },
+   "body": {
+    "uk": "Вертикальна мастопексія — різновид хірургічної підтяжки грудей, яку також називають підтяжкою з вертикальним рубцем або lollipop lift.\n\nПід час операції хірург видаляє надлишок шкіри, моделює тканини молочної залози та переміщує сосково-ареолярний комплекс у вище положення.\n\nГоловна особливість методики — дві ділянки розрізу: навколо ареоли та вертикально до підгрудної складки, без горизонтального рубця вздовж складки.\n\nВертикальна підтяжка частіше застосовується за помірного птозу. За значного надлишку шкіри може знадобитися якірна мастопексія.",
+    "ru": {
+     "$": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "en": "Vertical mastopexy is a type of surgical breast lift, also known as a vertical-scar lift or lollipop lift.\n\nDuring the procedure the surgeon removes excess skin, reshapes the breast tissue, and moves the nipple-areola complex to a higher position.\n\nThe defining feature of the technique is its two incision areas: around the areola and vertically down to the inframammary fold, without a horizontal scar along the fold.\n\nA vertical lift is more often used for moderate ptosis. Where there is significant excess skin, an anchor mastopexy may be required."
+   },
+   "calloutBody": {
+    "uk": "У GENEVITY — Центрі довголіття та якості життя в Дніпрі — естетична корекція розглядається з урахуванням індивідуальних особливостей організму, стану здоров'я та побажань пацієнта.",
+    "ru": {
+     "$": 1
+    },
+    "en": "At GENEVITY — the Centre for Longevity and Quality of Life in Dnipro — aesthetic correction is approached with regard to each patient's individual anatomy, health status, and personal goals."
+   }
+  },
+  {
+   "type": "indicationsContraindications",
+   "indicationsHeading": {
+    "uk": "Показання до вертикальної підтяжки грудей",
+    "ru": {
+     "$": 7
+    },
+    "en": "Indications for a Vertical Breast Lift"
+   },
+   "indications": {
+    "$list": 9,
+    "uk": [
+     "помірне опущення молочних залоз;",
+     "зміщення сосків униз;",
+     "зміна форми грудей після вагітності та грудного вигодовування;",
+     "втрата пружності шкіри після зниження ваги;",
+     "вікові зміни форми грудей;",
+     "асиметрія молочних залоз;",
+     "надлишок шкіри, який неможливо достатньо скоригувати періареолярною підтяжкою."
+    ],
+    "en": [
+     "moderate sagging of the breasts;",
+     "downward displacement of the nipples;",
+     "changes in breast shape after pregnancy and breastfeeding;",
+     "loss of skin elasticity after weight loss;",
+     "age-related changes in breast shape;",
+     "breast asymmetry;",
+     "excess skin that cannot be adequately corrected with a periareolar lift."
+    ]
+   },
+   "contraindicationsHeading": {
+    "uk": "Протипоказання до вертикальної мастопексії",
+    "ru": "Противопоказания к вертикальной мастопексии",
+    "en": "Contraindications for Vertical Mastopexy"
+   },
+   "contraindications": {
+    "ru": [
+     "Острые инфекции.",
+     "Декомпенсированные хронические заболевания.",
+     "Нарушения свертываемости крови.",
+     "Другие состояния, повышающие хирургический риск.",
+     "Беременность и период грудного вскармливания.",
+     "Индивидуальные ограничения, установленные врачом."
+    ],
+    "uk": [
+     "Гострі інфекції.",
+     "Декомпенсовані хронічні захворювання.",
+     "Порушення згортання крові.",
+     "Інші стани, що підвищують хірургічний ризик.",
+     "Вагітність і період грудного вигодовування.",
+     "Інші індивідуальні обмеження, встановлені лікарем."
+    ],
+    "en": [
+     "Acute infections.",
+     "Decompensated chronic conditions.",
+     "Blood clotting disorders.",
+     "Other conditions that raise surgical risk.",
+     "Pregnancy and breastfeeding.",
+     "Other individual restrictions identified by the physician."
+    ]
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Переваги вертикальної мастопексії",
+    "ru": {
+     "$": 11
+    },
+    "en": "Advantages of Vertical Mastopexy"
+   },
+   "items": {
+    "$list": 13,
+    "uk": [
+     "Підняти груди. Скоригувати положення молочних залоз і сосків.",
+     "Покращити форму. Перерозподілити власні тканини для формування нового контуру.",
+     "Видалити надлишок шкіри. Виконати виразнішу підтяжку, ніж за періареолярної техніки.",
+     "Уникнути горизонтального рубця. У стандартній вертикальній методиці розріз не проходить уздовж підгрудної складки.",
+     "Скоригувати ареоли. За потреби змінити їхній розмір і положення."
+    ],
+    "en": [
+     "Lift the breasts. Correct the position of the breasts and nipples.",
+     "Improve the shape. Redistribute the patient's own tissue to form a new contour.",
+     "Remove excess skin. Achieve a more pronounced lift than a periareolar technique allows.",
+     "Avoid a horizontal scar. In the standard vertical technique the incision does not run along the inframammary fold.",
+     "Adjust the areolas. Change their size and position where needed."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Мастопексія сама по собі не забезпечує значного збільшення об'єму грудей.",
+    "ru": {
+     "$": 14
+    },
+    "en": "A mastopexy on its own does not provide a significant increase in breast volume."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Як проходить вертикальна мастопексія?",
+    "ru": {
+     "$": 15
+    },
+    "en": "How Is Vertical Mastopexy Performed?"
+   },
+   "body": {
+    "uk": "Перед операцією пластичний хірург оцінює розмір і форму грудей, положення сосків, стан шкіри та вираженість птозу.\n\nВибір методики залежить від ступеня птозу, об'єму молочних залоз і якості шкіри.\n\nТривалість операції залежить від складності корекції та додаткових втручань.",
+    "ru": {
+     "$": [
+      16,
+      10,
+      19
+     ]
+    },
+    "en": "Before surgery the plastic surgeon assesses breast size and shape, nipple position, skin condition, and the degree of ptosis.\n\nThe choice of technique depends on the degree of ptosis, breast volume, and skin quality.\n\nThe length of the operation depends on the complexity of the correction and any additional procedures."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Основні етапи",
+    "ru": {
+     "$": 17
+    },
+    "en": "The Main Stages"
+   },
+   "items": {
+    "$list": 18,
+    "uk": [
+     "Консультація та обстеження. Обговорення бажаного результату, оцінка здоров'я та проведення необхідних досліджень молочних залоз.",
+     "Розмітка. Визначення нового положення сосково-ареолярного комплексу та ліній розрізів.",
+     "Анестезія. Операція зазвичай проводиться під загальною анестезією.",
+     "Хірургічна корекція. Видалення надлишку шкіри, моделювання тканин грудей і переміщення сосково-ареолярного комплексу зі збереженням його кровопостачання.",
+     "Післяопераційне спостереження. Контроль стану тканин і рекомендації щодо відновлення."
+    ],
+    "en": [
+     "Consultation and examination. Discussion of the desired outcome, health assessment, and the necessary breast investigations.",
+     "Marking. Planning the new position of the nipple-areola complex and the incision lines.",
+     "Anaesthesia. The operation is usually performed under general anaesthesia.",
+     "Surgical correction. Removal of excess skin, reshaping of the breast tissue, and repositioning of the nipple-areola complex with its blood supply preserved.",
+     "Postoperative monitoring. Assessment of tissue condition and recovery instructions."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "image": "/images/surgery/tz19/vertical-mastopexy-inline.webp",
+   "heading": {
+    "uk": "Відновлення після вертикальної мастопексії",
+    "ru": {
+     "$": 20
+    },
+    "en": "Recovery After Vertical Mastopexy"
+   },
+   "body": {
+    "uk": "Після операції можливі набряки, синці, помірна болючість і тимчасова зміна чутливості грудей.\n\nДо спокійної роботи деякі пацієнти повертаються через 1–2 тижні. Інтенсивні тренування зазвичай обмежуються на кілька тижнів.\n\nОстаточна форма грудей формується поступово, у міру зменшення набряків і загоєння тканин.",
+    "ru": {
+     "$": [
+      21,
+      24,
+      25
+     ]
+    },
+    "en": "Swelling, bruising, moderate tenderness, and temporary changes in breast sensation are possible after surgery.\n\nSome patients return to sedentary work after 1–2 weeks. Intense training is usually restricted for several weeks.\n\nThe final breast shape develops gradually as swelling subsides and the tissues heal."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "У перші тижні рекомендується",
+    "ru": {
+     "$": 22
+    },
+    "en": "In the First Weeks It Is Recommended To"
+   },
+   "items": {
+    "$list": 23,
+    "uk": [
+     "носити підтримувальну післяопераційну білизну;",
+     "обмежувати фізичні навантаження;",
+     "уникати тиску на груди;",
+     "дотримуватися правил догляду за швами;",
+     "приймати призначені препарати;",
+     "відвідувати контрольні огляди."
+    ],
+    "en": [
+     "wear the prescribed postoperative support bra;",
+     "limit physical activity;",
+     "avoid pressure on the breasts;",
+     "follow the instructions for suture care;",
+     "take the prescribed medication;",
+     "attend the scheduled follow-up appointments."
+    ]
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Чи залишаються рубці після вертикальної підтяжки?",
+    "ru": {
+     "$": 26
+    },
+    "en": "Do Scars Remain After a Vertical Lift?"
+   },
+   "body": {
+    "uk": "Так. Після вертикальної мастопексії залишаються рубці навколо ареоли та від її нижнього краю до підгрудної складки.\n\nЗ часом вони можуть стати менш помітними, однак повністю не зникають.\n\nНа якість рубцювання впливають індивідуальні особливості шкіри, техніка операції та дотримання післяопераційних рекомендацій.",
+    "ru": {
+     "$": [
+      27,
+      28,
+      29
+     ]
+    },
+    "en": "Yes. After a vertical mastopexy, scars remain around the areola and from its lower edge to the inframammary fold.\n\nOver time they may become less noticeable, but they do not disappear completely.\n\nScar quality is influenced by individual skin characteristics, the surgical technique, and adherence to postoperative instructions."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Можливі ускладнення",
+    "ru": {
+     "$": 32
+    },
+    "en": "Possible Complications"
+   },
+   "items": {
+    "$list": 33,
+    "uk": [
+     "кровотеча та гематома;",
+     "інфекція;",
+     "порушення загоєння;",
+     "помітні рубці;",
+     "асиметрія грудей або ареол;",
+     "зміна чутливості сосків;",
+     "нерівності контуру;",
+     "повторне опущення тканин;",
+     "необхідність додаткової операції."
+    ],
+    "en": [
+     "bleeding and haematoma;",
+     "infection;",
+     "impaired healing;",
+     "noticeable scarring;",
+     "asymmetry of the breasts or areolas;",
+     "changes in nipple sensation;",
+     "contour irregularities;",
+     "recurrent tissue descent;",
+     "the need for a further operation."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "warning",
+   "body": {
+    "uk": "Рідко можливе часткове або повне порушення життєздатності тканин сосково-ареолярного комплексу. Також існують ризики, пов'язані з анестезією та утворенням тромбів.\n\nМожливість грудного вигодовування після операції залежить від хірургічної техніки та індивідуальних особливостей. Гарантувати її збереження не можна.",
+    "ru": {
+     "$": [
+      34,
+      35
+     ]
+    },
+    "en": "Rarely, the tissues of the nipple-areola complex may partially or completely lose viability. There are also risks associated with anaesthesia and blood clot formation.\n\nWhether breastfeeding remains possible after surgery depends on the surgical technique and individual factors. It cannot be guaranteed."
+   }
+  },
+  {
+   "type": "bullets",
+   "heading": {
+    "uk": "Вертикальна, періареолярна чи якірна мастопексія?",
+    "ru": {
+     "$": 36
+    },
+    "en": "Vertical, Periareolar, or Anchor Mastopexy?"
+   },
+   "items": {
+    "ru": [
+     "Периареолярная мастопексия — разрез вокруг ареолы, преимущественно при небольшом птозе.",
+     "Вертикальная мастопексия — разрез вокруг ареолы и вертикально вниз, часто при умеренном птозе.",
+     "Якорная мастопексия — дополнительный горизонтальный разрез под грудью, чаще при выраженном птозе."
+    ],
+    "uk": [
+     "Періареолярна мастопексія — розріз навколо ареоли, переважно за незначного птозу.",
+     "Вертикальна мастопексія — розріз навколо ареоли та вертикально вниз, частіше за помірного птозу.",
+     "Якірна мастопексія — додатковий горизонтальний розріз під грудьми, частіше за вираженого птозу."
+    ],
+    "en": [
+     "Periareolar mastopexy — an incision around the areola, mainly for mild ptosis.",
+     "Vertical mastopexy — an incision around the areola and vertically downwards, often for moderate ptosis.",
+     "Anchor mastopexy — an additional horizontal incision under the breast, more often for pronounced ptosis."
+    ]
+   }
+  },
+  {
+   "type": "callout",
+   "tone": "info",
+   "body": {
+    "uk": "Вибір методу залежить від ступеня опущення грудей та об'єму надлишкової шкіри. Підхожа методика визначається після огляду. Мінімальна довжина рубців не завжди означає кращий естетичний результат.",
+    "ru": {
+     "$": [
+      37,
+      46
+     ]
+    },
+    "en": "The choice of method depends on the degree of breast ptosis and the amount of excess skin. The appropriate technique is determined after an examination. The shortest scars do not always mean the best aesthetic result."
+   }
+  },
+  {
+   "type": "richText",
+   "heading": {
+    "uk": "Ціна вертикальної мастопексії в Дніпрі",
+    "ru": {
+     "$": 47
+    },
+    "en": "The Cost of Vertical Mastopexy in Dnipro"
+   },
+   "body": {
+    "uk": "Вартість вертикальної підтяжки грудей залежить від ступеня опущення молочних залоз, обсягу корекції, складності моделювання тканин і виду анестезії.\n\nНа ціну також можуть впливати передопераційне обстеження, післяопераційне спостереження та поєднання мастопексії з іншими операціями.\n\nТочна вартість визначається після консультації пластичного хірурга.",
+    "ru": {
+     "$": [
+      48,
+      49,
+      50
+     ]
+    },
+    "en": "The cost of a vertical breast lift depends on the degree of breast ptosis, the extent of the correction, the complexity of tissue reshaping, and the type of anaesthesia.\n\nPreoperative investigations, postoperative monitoring, and combining the mastopexy with other procedures may also affect the price.\n\nThe exact cost is determined after a consultation with a plastic surgeon."
+   },
+   "calloutBody": {
+    "uk": "Якщо ви розглядаєте підтяжку грудей без імплантів або хочете скоригувати їхню форму після вагітності, зниження ваги чи вікових змін, почніть з консультації кваліфікованого пластичного хірурга.\n\nФахівець оцінить ступінь птозу, об'єм молочних залоз і стан шкіри, після чого допоможе обрати відповідний метод корекції.\n\nУточніть доступність вертикальної мастопексії, актуальну вартість та умови запису на консультацію.",
+    "ru": {
+     "$": [
+      65,
+      66,
+      68
+     ]
+    },
+    "en": "If you are considering a breast lift without implants, or want to correct breast shape after pregnancy, weight loss, or age-related changes, start with a consultation with a qualified plastic surgeon.\n\nThe specialist will assess the degree of ptosis, breast volume, and skin condition, and will help you choose a suitable correction method.\n\nAsk about the availability of vertical mastopexy, current pricing, and how to book a consultation."
+   }
+  }
+ ],
+ "faq": [
+  {
+   "question": {
+    "uk": "Кому підходить вертикальна мастопексія?",
+    "ru": {
+     "$": 52
+    },
+    "en": "Who Is Vertical Mastopexy Suitable For?"
+   },
+   "answer": {
+    "uk": "Найчастіше пацієнтам із помірним опущенням грудей і надлишком шкіри, що потребує виразнішої корекції, ніж періареолярна підтяжка.",
+    "ru": {
+     "$": 53
+    },
+    "en": "Most often it suits patients with moderate breast ptosis and excess skin that requires a more pronounced correction than a periareolar lift can provide."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна підтягнути груди без імплантів?",
+    "ru": {
+     "$": 54
+    },
+    "en": "Can the Breasts Be Lifted Without Implants?"
+   },
+   "answer": {
+    "uk": "Так. Вертикальна мастопексія дозволяє змінити форму та положення грудей за рахунок власних тканин.",
+    "ru": {
+     "$": 55
+    },
+    "en": "Yes. Vertical mastopexy changes the shape and position of the breasts using the patient's own tissue."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи збільшуються груди після операції?",
+    "ru": {
+     "$": 56
+    },
+    "en": "Do the Breasts Become Larger After Surgery?"
+   },
+   "answer": {
+    "uk": "Сама підтяжка не призначена для збільшення об'єму. За потреби може розглядатися поєднання зі встановленням імплантів.",
+    "ru": {
+     "$": 57
+    },
+    "en": "A lift on its own is not intended to increase volume. Where needed, it may be combined with the placement of implants."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи залишаються шрами?",
+    "ru": {
+     "$": 58
+    },
+    "en": "Do Scars Remain?"
+   },
+   "answer": {
+    "uk": "Так. Рубці розташовуються навколо ареоли та вертикально до підгрудної складки.",
+    "ru": {
+     "$": 59
+    },
+    "en": "Yes. The scars are located around the areola and vertically down to the inframammary fold."
+   }
+  },
+  {
+   "question": {
+    "uk": "Чи можна годувати грудьми після вертикальної мастопексії?",
+    "ru": {
+     "$": 60
+    },
+    "en": "Is Breastfeeding Possible After Vertical Mastopexy?"
+   },
+   "answer": {
+    "uk": "Можливість грудного вигодовування може зберігатися, однак залежить від обсягу втручання та стану молочних проток і нервів.",
+    "ru": {
+     "$": 61
+    },
+    "en": "Breastfeeding may remain possible, but this depends on the extent of the surgery and the condition of the milk ducts and nerves."
+   }
+  },
+  {
+   "question": {
+    "uk": "Як довго зберігається результат?",
+    "ru": {
+     "$": 62
+    },
+    "en": "How Long Does the Result Last?"
+   },
+   "answer": {
+    "uk": "Результат може зберігатися багато років, але вагітність, коливання ваги та природні вікові зміни здатні вплинути на форму грудей.",
+    "ru": {
+     "$": 63
+    },
+    "en": "The result can last for many years, but pregnancy, weight fluctuations, and natural age-related changes can affect breast shape."
+   }
+  }
+ ]
+}
