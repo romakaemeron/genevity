@@ -88,7 +88,7 @@ export default function MegaMenuPanel({ item, onNavigate }: Props) {
   const active = mega.sections.find((s) => s.key === activeKey) ?? mega.sections[0];
 
   return (
-    <div className="megamenu-panel relative z-[998] bg-champagne border-t border-black-10 shadow-[0_12px_36px_-16px_rgba(42,37,32,0.18)]">
+    <div className="megamenu-panel relative z-[998] max-h-[calc(100dvh-var(--header-h))] overflow-y-auto overscroll-contain bg-champagne border-t border-black-10 shadow-[0_12px_36px_-16px_rgba(42,37,32,0.18)]">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-[var(--container-padding)] pt-6 pb-10 lg:pt-7 lg:pb-12">
         {/* All services hub link */}
         <div className="megamenu-item mb-6" style={{ animationDelay: "0.06s" }}>
