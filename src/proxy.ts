@@ -254,5 +254,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|_vercel|studio|.*\\..*).*)", "/admin/:path*", "/api/admin/:path*"],
+  matcher: ["/((?!api|_next|_vercel|studio|metrics|.*\\..*).*)", "/admin/:path*", "/api/admin/:path*"],
 };

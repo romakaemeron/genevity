@@ -54,7 +54,6 @@ export default function RootHtml({
       {/* eslint-disable-next-line @next/next/no-head-element -- App Router root
           layouts render <head> directly; next/head is Pages Router only. */}
       <head>
-        {chrome && <link rel="preconnect" href="https://www.googletagmanager.com" />}
         {chrome && <link rel="preconnect" href="https://widgets.binotel.com" />}
         {/* Binotel call tracking runs here, in <head>, rather than through
             next/script. Every other strategy — afterInteractive, and even
@@ -79,9 +78,12 @@ export default function RootHtml({
                 genevity.vercel.app alias share this container, so without the
                 hostname check our own test traffic lands in the production
                 property. The dataLayer init has to run before gtm.js, so the
-                loader is inlined here rather than split across two Scripts. */}
+                loader is inlined here rather than split across two Scripts.
+                gtm.js loads first-party through the Google tag gateway relay
+                (src/app/metrics) — `/metrics/gtm.js`, not `/metrics/`, so
+                Next's trailing-slash redirect doesn't add a hop. */}
             <Script id="gtm-init" strategy="afterInteractive">
-              {`(function(){var h=location.hostname;if(h!=='${GTM_HOST}'&&h!=='www.${GTM_HOST}')return;window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtm.js?id=${GTM_ID}';document.head.appendChild(s)})()`}
+              {`(function(){var h=location.hostname;if(h!=='${GTM_HOST}'&&h!=='www.${GTM_HOST}')return;window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var s=document.createElement('script');s.async=true;s.src='/metrics/gtm.js?id=${GTM_ID}';document.head.appendChild(s)})()`}
             </Script>
 
             {/* Meta Pixel, behind the same live-domain gate as GTM — a preview
