@@ -20,16 +20,21 @@ import type { NextRequest } from "next/server";
 const UPSTREAM = "https://gtm-pggk275d.fps.goog";
 const MEASUREMENT_PATH = "/metrics";
 
-// Hop-by-hop and connection-specific headers must not be relayed.
-const DROP_REQUEST_HEADERS = new Set([
-  "host",
-  "connection",
-  "keep-alive",
-  "transfer-encoding",
-  "upgrade",
-  "content-length",
-  "accept-encoding",
-]);
+// Only what the gateway needs goes upstream. Everything else — Authorization,
+// the admin session cookie, preview-bypass cookies — must never reach Google.
+const FORWARD_REQUEST_HEADERS = [
+  "user-agent",
+  "accept",
+  "accept-language",
+  "referer",
+  "origin",
+  "content-type",
+  "sec-ch-ua",
+  "sec-ch-ua-mobile",
+  "sec-ch-ua-platform",
+];
+// Google's own first-party cookies (GA4, Ads, gateway FP* cookies).
+const GOOGLE_COOKIE = /^(_ga|_gid|_gcl|_gac|FP[A-Z]+$)/;
 // fetch() decodes the body, so the upstream encoding/length no longer apply.
 const DROP_RESPONSE_HEADERS = new Set([
   "connection",
@@ -46,11 +51,16 @@ async function relay(request: NextRequest, path: string[] | undefined) {
   const target = `${UPSTREAM}${MEASUREMENT_PATH}/${rest}${request.nextUrl.search}`;
 
   const headers = new Headers();
-  request.headers.forEach((value, key) => {
-    if (!DROP_REQUEST_HEADERS.has(key) && !key.startsWith("x-vercel-")) {
-      headers.set(key, value);
-    }
-  });
+  for (const name of FORWARD_REQUEST_HEADERS) {
+    const value = request.headers.get(name);
+    if (value) headers.set(name, value);
+  }
+  const googleCookies = request.cookies
+    .getAll()
+    .filter((c) => GOOGLE_COOKIE.test(c.name))
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+  if (googleCookies) headers.set("cookie", googleCookies);
 
   const country = request.headers.get("x-vercel-ip-country");
   const region = request.headers.get("x-vercel-ip-country-region");
